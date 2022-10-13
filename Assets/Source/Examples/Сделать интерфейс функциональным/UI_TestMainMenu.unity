@@ -318,7 +318,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2686545591920230851, guid: e730baa650372eb4b9b352937b38f879, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: UI_TestGameplay
+      value: UI_TestGame
       objectReference: {fileID: 0}
     - target: {fileID: 2686545592398370007, guid: e730baa650372eb4b9b352937b38f879, type: 3}
       propertyPath: m_IsActive
