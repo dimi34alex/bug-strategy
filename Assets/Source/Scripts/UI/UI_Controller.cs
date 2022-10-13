@@ -7,14 +7,27 @@ public class UI_Controller : MonoBehaviour
 {
     [SerializeField] List<GameObject> buildings;//массив префабов зданий
     GameObject UI_Activ;//текущее активное окно. необходимо для работы _SetWindow()
+    UI_Gameplay UI_GameplayWindows;//скрипт который установлен на префабе окна геймплея(UI_Gameplay), нужен просто для удобства и оптимизации, чтобы не вызывать GetComponent<>(): 
+                                    //благодаря этому в функции _SetWindow() вместо этого:
+                                    //UIScreenRepository.GetScreen<UI_Gameplay>().gameObject.GetComponent<UI_Gameplay>()._SetGameplayWindow(windowName); 
+                                    //используется это:
+                                    //UI_GameplayWindows._SetGameplayWindow(windowName);
     GameObject UI_PrevActiv;//предыдущее активное окно. необходимо для корректной работы "Back" в _SetWindow()
     GameObject Buffer;//буфер. необходимо для корректной работы "Back" в _SetWindow()
 
-    void Awake()
+    void Start()
     {
+        UI_GameplayWindows = UIScreenRepository.GetScreen<UI_Gameplay>().gameObject.GetComponent<UI_Gameplay>();
+
         //определяем, какое окно у нас активно при запуске.
         if (UIScreenRepository.GetScreen<UI_Gameplay>().isActiveAndEnabled)
             UI_Activ = UIScreenRepository.GetScreen<UI_Gameplay>().gameObject;
+        else
+        if (UIScreenRepository.GetScreen<UI_Buildings>().isActiveAndEnabled)
+            UI_Activ = UIScreenRepository.GetScreen<UI_Buildings>().gameObject;
+        else
+        if (UIScreenRepository.GetScreen<UI_Tactics>().isActiveAndEnabled)
+            UI_Activ = UIScreenRepository.GetScreen<UI_Tactics>().gameObject;
         else
         if (UIScreenRepository.GetScreen<UI_GameplayMenu>().isActiveAndEnabled)
             UI_Activ = UIScreenRepository.GetScreen<UI_GameplayMenu>().gameObject;
@@ -40,6 +53,19 @@ public class UI_Controller : MonoBehaviour
         Instantiate(buildings[number]);
     }
 
+    public void _ChoiceTactic()//выбор тактики. Функция пуста т.к. тактик у нас нет и хз как они будут работать
+    { Debug.Log("Error: tactics is empty"); }
+
+    public void _ChoiceGroup()//выбор группы. Функция пуста т.к. групп у нас нет и хз как они будут работать
+    { Debug.Log("Error: groups is empty"); }
+
+    public void _BiuldLVL_Up()//повышение уровня здания. Функция пуста т.к. зданий у нас нет и хз как они будут работать
+    { Debug.Log("Error: Build LVL Up is empty"); }
+    public void _BiuldDestroy()//снос здания. Функция пуста т.к. зданий у нас нет и хз как они будут работать
+    { Debug.Log("Error: Build destroy is empty"); }
+    public void _BiuldReplace()//перемещение здания. Функция пуста т.к. зданий у нас нет и хз как они будут работать
+    { Debug.Log("Error: Build replace is empty"); }
+
     public void _SetWindow(string windowName)//смена активного окна UI. принимает название окна, которое надо сделать активным
     {
         Buffer = UI_Activ;
@@ -49,6 +75,18 @@ public class UI_Controller : MonoBehaviour
         {
             case "UI_Gameplay":
                 UI_Activ = UIScreenRepository.GetScreen<UI_Gameplay>().gameObject; break;
+
+            case "UI_GameplayMain":
+                UI_GameplayWindows._SetGameplayWindow(windowName); break;
+            case "UI_Buildings":
+                UI_GameplayWindows._SetGameplayWindow(windowName); break;
+            case "UI_Tactics":
+                UI_GameplayWindows._SetGameplayWindow(windowName); break;
+            case "UI_TownHallMenu":
+                UI_GameplayWindows._SetGameplayWindow(windowName); break;
+            case "UI_BarracksMenu":
+                UI_GameplayWindows._SetGameplayWindow(windowName); break;
+
             case "UI_GameplayMenu":
                 UI_Activ = UIScreenRepository.GetScreen<UI_GameplayMenu>().gameObject; break;
             case "UI_Settings":
@@ -61,10 +99,11 @@ public class UI_Controller : MonoBehaviour
                 UI_Activ = UIScreenRepository.GetScreen<UI_MainMenu>().gameObject; break;
             case "UI_Saves":
                 UI_Activ = UIScreenRepository.GetScreen<UI_Saves>().gameObject; break;
+
             case "Back":
                 UI_Activ = UI_PrevActiv; break;
             default:
-                Debug.Log("Error: invalid string parametr in   _SetWindow(string str)"); break;
+                Debug.Log("Error: invalid string parametr in   _SetWindow(string windowName)"); break;
         }
 
         UI_PrevActiv = Buffer;
@@ -73,7 +112,14 @@ public class UI_Controller : MonoBehaviour
 
     public void _LoadScene(string sceneName)//загрузка сцены. принимает название сцены
     {
-        SceneManager.LoadScene(sceneName);
+        if (sceneName == "empty")
+        {
+            Debug.Log("Error: scene name is not set");
+        }
+        else
+        {
+            SceneManager.LoadScene(sceneName);
+        }
     }
 
     public void _Quite()//выход из игры

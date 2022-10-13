@@ -8,9 +8,9 @@ EditorBuildSettings:
   - enabled: 1
     path: "Assets/Source/Examples/\u0421\u0434\u0435\u043B\u0430\u0442\u044C \u0438\u043D\u0442\u0435\u0440\u0444\u0435\u0439\u0441
       \u0444\u0443\u043D\u043A\u0446\u0438\u043E\u043D\u0430\u043B\u044C\u043D\u044B\u043C/UI_TestMainMenu.unity"
-    guid: 3af029d40bf1a064fa9dbff35abb8dc0
+    guid: 25ea0eb235ccd844f805e903301c55b0
   - enabled: 1
     path: "Assets/Source/Examples/\u0421\u0434\u0435\u043B\u0430\u0442\u044C \u0438\u043D\u0442\u0435\u0440\u0444\u0435\u0439\u0441
       \u0444\u0443\u043D\u043A\u0446\u0438\u043E\u043D\u0430\u043B\u044C\u043D\u044B\u043C/UI_TestGame.unity"
-    guid: 3e9566dd195bf004f9ac71c7f474dc27
+    guid: fd74d086f4e1c8d4aa2ede696c353948
   m_configObjects: {}

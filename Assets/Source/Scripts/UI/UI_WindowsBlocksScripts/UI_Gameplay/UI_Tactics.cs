@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UI_Gameplay : UIScreen 
+public class UI_Tactics : UIScreen
 {
-
 }
