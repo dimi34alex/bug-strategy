@@ -3,10 +3,9 @@
 [Serializable]
 public class GlobalData
 {
-    public SomeGlobalData SomeGlobalData;
-
+    public UnitRepository UnitRepository;
     public GlobalData()
     {
-        SomeGlobalData = new SomeGlobalData();
+        UnitRepository = new UnitRepository();
     }
 }

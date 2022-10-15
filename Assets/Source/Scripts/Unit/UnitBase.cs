@@ -5,6 +5,9 @@ using UnityEngine;
 public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable
 {
     protected ResourceStorage _healthStorage = new ResourceStorage(100, 100);
+    protected EntityStateMachine _stateMachine;
+
+    public EntityStateMachine StateMachine => _stateMachine;
 
     public bool IsDied => _healthStorage.CurrentValue < 1f;
 

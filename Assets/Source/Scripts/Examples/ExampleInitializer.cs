@@ -9,8 +9,6 @@ public class ExampleInitializer : CycleInitializerBase
     {
         _someComponent = FindObjectOfType<SomeComponent>(true);
         _someUIScreen = UIScreenRepository.GetScreen<SomeUIScreen>();
-
-        FrameworkCommander.GlobalData.SomeGlobalData.SomeInfo = "example info";
     }
 
     protected override void OnUpdate()

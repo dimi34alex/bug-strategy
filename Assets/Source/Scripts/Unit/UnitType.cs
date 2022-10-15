@@ -1,5 +1,5 @@
-﻿
-public enum UnitType
+﻿public enum UnitType
 {
     AttackUnit,
+    MovingUnit,
 }
