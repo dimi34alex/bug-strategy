@@ -1,6 +1,6 @@
 ﻿
 public enum ConstructionID
 {
-    Defence_Wall = 10,
-    Mortar = 20,
+    Test_Construction = 0,
+    Building_Progress_Construction = 1,
 }

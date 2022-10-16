@@ -63,9 +63,9 @@ public class ConfigsRepository : ScriptableObject
 
         IEnumerable<ConfigsRepository> configsRepositories = configurations
             .Where(config => config is ConfigsRepository)
-            .Select(config => (ConfigsRepository)(config));
+            .Select(config => (ConfigsRepository)(config)); 
 
-        IEnumerable<ScriptableObject> configs = configurations.Where(config => config is ISingleConfig);
+        IEnumerable<ScriptableObject> configs = configurations.Where(config => config.CastPossible<ISingleConfig>());
 
         foreach (ConfigsRepository configsRepository in configsRepositories) 
         {

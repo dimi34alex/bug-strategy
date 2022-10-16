@@ -1,6 +1,6 @@
 ﻿
 public enum ConstructionType
 {
-    Defence_Wall = 10,
-    Attack_Construction = 20,
+    Test_Construction = 0,
+    Building_Progress_Construction = 1,
 }
