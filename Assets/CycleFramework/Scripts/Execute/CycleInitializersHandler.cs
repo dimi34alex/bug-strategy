@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-[DefaultExecutionOrder(-100)]
+[DefaultExecutionOrder(-2000)]
 public class CycleInitializersHandler : MonoBehaviour
 {
     [SerializeField] private CycleState _cycleState;
