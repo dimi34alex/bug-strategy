@@ -4,7 +4,7 @@ using System.Reflection;
 using UnityEngine;
 
 [ExecuteAlways]
-[DefaultExecutionOrder(500)]
+[DefaultExecutionOrder(-500)]
 public class CycleFrameworkBootloader : MonoBehaviour
 {
     [SerializeField] private CycleState _startState;
@@ -14,33 +14,16 @@ public class CycleFrameworkBootloader : MonoBehaviour
     private CycleEventsRepository _cycleEventsRepository;
     private CycleEventsProcessor _cycleEventsProcessor;
 
-    private void OnEnable() => TryInitHierarñhy();
-    private void OnTransformChildrenChanged() => TryInitHierarñhy();
-
-    private void Start()
+    private void Awake()
     {
         if (Application.isPlaying)
             InitFramework();
     }
 
-    private void TryInitHierarñhy()
-    {
-        name = $"{GetType()}";
-
-        if (_initializersParent is null)
-        {
-            _initializersParent = GetComponentInChildren<CycleInitializersParent>(true);
-
-            if (_initializersParent is null)
-            {
-                _initializersParent = new GameObject("Initializers").AddComponent<CycleInitializersParent>();
-                _initializersParent.transform.parent = transform;
-            }
-        }
-    }
-
     private void InitFramework()
     {
+        _initializersParent = GetComponentInChildren<CycleInitializersParent>(true);
+
         _cycleStateMachine = new CycleStateMachine(_startState);
         Dictionary<CycleMethodType, MethodInfo> methods = new Dictionary<CycleMethodType, MethodInfo>();
 

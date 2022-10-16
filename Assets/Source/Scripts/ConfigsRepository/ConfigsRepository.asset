@@ -12,9 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b45ee2d27b849bc499892acd8dfdb52a, type: 3}
   m_Name: ConfigsRepository
   m_EditorClassIdentifier: 
-  _configs:
-  - {fileID: 11400000, guid: e32525dd256837a41a672adb62b3a5e4, type: 2}
-  - {fileID: 11400000, guid: fb8724ab3807faf448ccc045d232b1ca, type: 2}
-  - {fileID: 11400000, guid: e9eb6c7fa60f6df419fa6e12fa51eee3, type: 2}
-  - {fileID: 11400000, guid: 75f2da5fe574c1d4ab6ccdf0f7266b4b, type: 2}
-  - {fileID: 11400000, guid: 120848ce3115ffd4b8014a1e9e9f9c59, type: 2}
+  _configs: []
