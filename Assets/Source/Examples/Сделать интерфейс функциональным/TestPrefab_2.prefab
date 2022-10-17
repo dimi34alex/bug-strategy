@@ -91,7 +91,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7392897583019493613}
   - component: {fileID: 681490622248211793}
-  - component: {fileID: 5341134457956793970}
+  - component: {fileID: 7287679207690821751}
   m_Layer: 2
   m_Name: TestPrefab_2
   m_TagString: Untagged
@@ -128,7 +128,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &5341134457956793970
+--- !u!114 &7287679207690821751
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -137,7 +137,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2849229108644354263}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0526d9253a424ea4da9b49539d8a6a76, type: 3}
+  m_Script: {fileID: 11500000, guid: f2a536d977a27354bac56ab7bb3799ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   layerMask:

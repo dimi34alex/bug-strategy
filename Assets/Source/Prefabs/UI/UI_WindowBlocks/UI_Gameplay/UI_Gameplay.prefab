@@ -126,7 +126,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3410385137124366069, guid: c75a8b52232f3bd42ad1afe9e2bc39ee, type: 3}
       propertyPath: m_Name
-      value: UI_BuildMenu
+      value: UI_TownHallMenu
       objectReference: {fileID: 0}
     - target: {fileID: 3410385137124366069, guid: c75a8b52232f3bd42ad1afe9e2bc39ee, type: 3}
       propertyPath: m_IsActive
