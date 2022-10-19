@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class UI_Controller : MonoBehaviour
 {
-    [SerializeField] List<GameObject> buildings;//массив префабов зданий
+    [SerializeField] Test_Builder_TownHall builder; 
     GameObject UI_Activ;//текущее активное окно. необходимо для работы _SetWindow()
     UI_Gameplay UI_GameplayWindows;//скрипт который установлен на префабе окна геймплея(UI_Gameplay), нужен просто для удобства и оптимизации, чтобы не вызывать GetComponent<>(): 
                                    //благодаря этому в функции _SetWindow() вместо этого:
@@ -51,7 +51,7 @@ public class UI_Controller : MonoBehaviour
 
     public void _SpawnBuilding(int number)//спавн здания. принимает индекс ячейки в List<GameObject> buildings
     {
-        Instantiate(buildings[number]);
+        builder._SpawnBuilding(number);
     }
 
     public void _ChoiceTactic()//выбор тактики. Функция пуста т.к. тактик у нас нет и хз как они будут работать
@@ -124,22 +124,22 @@ public class UI_Controller : MonoBehaviour
 
     #region  BuildingsBase
 
-    public void _SetBuilding(GameObject newBuilding)
+    public void _SetBuilding(GameObject newBuilding)//строительство здания
     {
         building = newBuilding;
     }
-    public void _BuildingDestroy()//снос здания. Функция пуста т.к. зданий у нас нет и хз как они будут работать
+    public void _BuildingDestroy()//снос здания
     {
-        building?.GetComponent<BuildingBase>()._DestroyBuilding();
+        building?.GetComponent<TownHall>()._DestroyBuilding();
         _SetWindow("UI_GameplayMain");
     }
-    public void _BuildingLVL_Up()//повышение уровня здания. Функция пуста т.к. зданий у нас нет и хз как они будут работать
+    public void _BuildingLVL_Up()//повышение уровня здания
     {
-        building?.GetComponent<BuildingBase>()._LVL_UpBuilding();
+        building?.GetComponent<TownHall>()._LVL_UpBuilding();
     }
-    public void _BuildingReplace()//перемещение здания. Функция пуста т.к. зданий у нас нет и хз как они будут работать
+    public void _BuildingReplace()//перемещение здания
     {
-        building?.GetComponent<BuildingBase>()._ReplaceBuilding();
+        building?.GetComponent<TownHall>()._ReplaceBuilding();
     }
 
     #endregion
