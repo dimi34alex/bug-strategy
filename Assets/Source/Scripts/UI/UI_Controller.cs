@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class UI_Controller : MonoBehaviour
 {
-    [SerializeField] Test_Builder_TownHall builder; 
+    [SerializeField] Test_Builder_TownHall builder;//необходимо для создания зданий. Т.к. у нас нет обще игрового скрипта, 
+                                                   //который мог бы отвечать за спавн и перемещение зданий, то пока что будет эта заглушка.
     GameObject UI_Activ;//текущее активное окно. необходимо для работы _SetWindow()
     UI_Gameplay UI_GameplayWindows;//скрипт который установлен на префабе окна геймплея(UI_Gameplay), нужен просто для удобства и оптимизации, чтобы не вызывать GetComponent<>(): 
                                    //благодаря этому в функции _SetWindow() вместо этого:
@@ -14,7 +15,7 @@ public class UI_Controller : MonoBehaviour
                                    //UI_GameplayWindows._SetGameplayWindow(windowName);
     GameObject UI_PrevActiv;//предыдущее активное окно. необходимо для корректной работы "Back" в _SetWindow()
     GameObject buffer;//буфер. необходимо для корректной работы "Back" в _SetWindow()
-    GameObject building;
+    GameObject building;//текущее выделенное здание
 
     void Start()
     {
@@ -71,15 +72,15 @@ public class UI_Controller : MonoBehaviour
                 UI_Activ = UIScreenRepository.GetScreen<UI_Gameplay>().gameObject; break;
 
             case "UI_GameplayMain":
-                UI_GameplayWindows._SetGameplayWindow(windowName); break;
+                UI_GameplayWindows._SetGameplayWindow(windowName, null); break;
             case "UI_Buildings":
-                UI_GameplayWindows._SetGameplayWindow(windowName); break;
+                UI_GameplayWindows._SetGameplayWindow(windowName, null); break;
             case "UI_Tactics":
-                UI_GameplayWindows._SetGameplayWindow(windowName); break;
+                UI_GameplayWindows._SetGameplayWindow(windowName, null); break;
             case "UI_TownHallMenu":
-                UI_GameplayWindows._SetGameplayWindow(windowName); break;
+                UI_GameplayWindows._SetGameplayWindow(windowName, building); break;
             case "UI_BarracksMenu":
-                UI_GameplayWindows._SetGameplayWindow(windowName); break;
+                UI_GameplayWindows._SetGameplayWindow(windowName, building); break;
 
             case "UI_GameplayMenu":
                 UI_Activ = UIScreenRepository.GetScreen<UI_GameplayMenu>().gameObject; break;
@@ -97,7 +98,7 @@ public class UI_Controller : MonoBehaviour
             case "Back":
                 UI_Activ = UI_PrevActiv; break;
             default:
-                Debug.Log("Error: invalid string parametr in   _SetWindow(string windowName)"); break;
+                Debug.Log("Error: invalid string parametr in _SetWindow(string windowName)"); break;
         }
 
         UI_PrevActiv = buffer;
@@ -121,42 +122,10 @@ public class UI_Controller : MonoBehaviour
         Application.Quit();
     }
 
-
-    #region  BuildingsBase
-
-    public void _SetBuilding(GameObject newBuilding)//строительство здания
+    public void _SetBuilding(GameObject newBuilding, string windowName)//установка текущего выделеного здания здания
     {
         building = newBuilding;
+        _SetWindow(windowName);
     }
-    public void _BuildingDestroy()//снос здания
-    {
-        building?.GetComponent<TownHall>()._DestroyBuilding();
-        _SetWindow("UI_GameplayMain");
-    }
-    public void _BuildingLVL_Up()//повышение уровня здания
-    {
-        building?.GetComponent<TownHall>()._LVL_UpBuilding();
-    }
-    public void _BuildingReplace()//перемещение здания
-    {
-        building?.GetComponent<TownHall>()._ReplaceBuilding();
-    }
-
-    #endregion
-
-
-    #region  TownHall
-
-    public void _SpawnWorkerBee()
-    {
-        building.GetComponent<TownHall>()._SpawnWorkerBee();
-    }
-    public void _WorkerBeeAlarmer()
-    {
-        building.GetComponent<TownHall>()._WorkerBeeAlarmer();
-    }
-    
-    #endregion
-
 
 }

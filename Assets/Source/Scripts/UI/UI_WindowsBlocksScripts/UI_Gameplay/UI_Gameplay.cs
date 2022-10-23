@@ -18,7 +18,7 @@ public class UI_Gameplay : UIScreen
     }
 
     GameObject UI_Activ;//текущее активное окно. необходимо для работы _SetWindow()
-    public void _SetGameplayWindow(string gemeplayWindowName)
+    public void _SetGameplayWindow(string gemeplayWindowName, GameObject building)
     {
         switch (gemeplayWindowName)
         {
@@ -51,6 +51,7 @@ public class UI_Gameplay : UIScreen
                     _UI_Buildings.SetActive(false);
                     _UI_Tactics.SetActive(false);
                     _UI_TownHallMenu.SetActive(true);
+                    _UI_TownHallMenu.GetComponent<UI_TownHallMenu>()._CallMenu(building);
                     _UI_BarracksMenu.SetActive(false);
                     break;
                 }
