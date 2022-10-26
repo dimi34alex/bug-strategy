@@ -4,6 +4,7 @@
 public class GlobalData
 {
     public UnitRepository UnitRepository;
+    public ResourceRepository ResourceRepository;
     public ConstructionsRepository ConstructionsRepository;
     public GlobalData()
     {
