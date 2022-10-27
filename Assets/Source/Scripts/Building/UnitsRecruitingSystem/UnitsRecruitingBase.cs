@@ -20,11 +20,11 @@ public abstract class UnitsRecruitingBase<T, K, S> where T : UnitStackBase, new(
             Stacks[n] = new T();
     }
 
-    public void _SetNewBeesDatas(List<K> newDatas)
+    public void SetNewBeesDatas(List<K> newDatas)
     {
         beesRecruitingDatas = newDatas;
     }
-    public void _AddStacks(int newSize)
+    public void AddStacks(int newSize)
     {
         for (int n = Stacks.Count; n < newSize; n++)
         {

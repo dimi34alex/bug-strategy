@@ -147,7 +147,7 @@ public class TownHall : ConstructionBase
             yield return new WaitForSeconds(pauseTimeOfOutBeesFromTownHall);
         }
     }
-    public void _SpawnWorkerBee(BeesRecruitingID beeID)
+    public void _RecruitingWorkerBee(BeesRecruitingID beeID)
     {
         recruiting.RecruitBees(beeID);
     }
@@ -179,8 +179,8 @@ public class TownHall : ConstructionBase
             plants.SetCapacity(currentLevel.MaxPlants);
             wax.SetCapacity(currentLevel.MaxWax);
 
-            recruiting._AddStacks(currentLevel.RecruitingSize);
-            recruiting._SetNewBeesDatas(currentLevel.BeesRecruitingData);
+            recruiting.AddStacks(currentLevel.RecruitingSize);
+            recruiting.SetNewBeesDatas(currentLevel.BeesRecruitingData);
 
             Debug.Log("Building LVL = " + currentLevelNum);
         }

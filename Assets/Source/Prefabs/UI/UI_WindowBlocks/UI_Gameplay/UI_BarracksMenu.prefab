@@ -1474,7 +1474,7 @@ GameObject:
   - component: {fileID: 7554408361146587757}
   - component: {fileID: 3404303079397529977}
   m_Layer: 5
-  m_Name: MakeWax
+  m_Name: RecruitingWax
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1584,7 +1584,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2844688747640624473}
         m_TargetAssemblyTypeName: UI_BarracksMenu, Assembly-CSharp
-        m_MethodName: MakeWax
+        m_MethodName: _RecruitingWax
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1643,7 +1643,7 @@ GameObject:
   - component: {fileID: 4826671554170698301}
   - component: {fileID: 4754428530061134644}
   m_Layer: 5
-  m_Name: SpawnBumblebee
+  m_Name: RecruitingBumblebee
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1753,7 +1753,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2844688747640624473}
         m_TargetAssemblyTypeName: UI_BarracksMenu, Assembly-CSharp
-        m_MethodName: MakeBumblebee
+        m_MethodName: _RecruitingBumblebee
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

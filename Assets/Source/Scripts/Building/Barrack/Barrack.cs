@@ -37,17 +37,17 @@ public class Barrack : ConstructionBase
     }
 
     #region RecruitingMethods
-    protected void OnUpdate()
+    private void OnUpdate()
     {
         recruiting.Tick(Time.deltaTime);
     }
 
-    public void RecruitBees(BeesRecruitingID beeID)
+    public void _RecruitBees(BeesRecruitingID beeID)
     {
         recruiting.RecruitBees(beeID);
     }
 
-    public BeeRecruitingInformation GetBeeRecruitingInformation(int n)
+    public BeeRecruitingInformation _GetBeeRecruitingInformation(int n)
     {
         return recruiting.GetBeeRecruitingInformation(n);
     }
@@ -68,8 +68,8 @@ public class Barrack : ConstructionBase
             return;
         }
         currentLevel = levels[currentLevelNum++];
-        recruiting._AddStacks(currentLevel.RecruitingSize);
-        recruiting._SetNewBeesDatas(currentLevel.BeesRecruitingData);
+        recruiting.AddStacks(currentLevel.RecruitingSize);
+        recruiting.SetNewBeesDatas(currentLevel.BeesRecruitingData);
         Debug.Log("Building LVL = " + currentLevelNum);
     }
 

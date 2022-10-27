@@ -43,9 +43,9 @@ public class UI_TownHallMenu : UIScreen
             Alarm.text = "Bee Alarm On";
     }
 
-    public void _SpawnWorkerBee()
+    public void _RecruitingWorkerBee()
     {
-        townHall.GetComponent<TownHall>()._SpawnWorkerBee(BeesRecruitingID.WorkerBee);
+        townHall.GetComponent<TownHall>()._RecruitingWorkerBee(BeesRecruitingID.WorkerBee);
     }
     public void _WorkerBeeAlarmer()
     {

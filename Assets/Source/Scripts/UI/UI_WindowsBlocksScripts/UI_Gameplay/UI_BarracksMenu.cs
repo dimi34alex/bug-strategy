@@ -13,7 +13,7 @@ public class UI_BarracksMenu : UIScreen
     private void Update()
     {
 
-        beeRecruitingInformation = barrack.GetBeeRecruitingInformation(currentStack);
+        beeRecruitingInformation = barrack._GetBeeRecruitingInformation(currentStack);
 
         if (beeRecruitingInformation.Empty)
         {
@@ -30,13 +30,13 @@ public class UI_BarracksMenu : UIScreen
             currentStack = 0;
     }
 
-    public void MakeWax()
+    public void _RecruitingWax()
     {
-        barrack.RecruitBees(BeesRecruitingID.Wasp);
+        barrack._RecruitBees(BeesRecruitingID.Wasp);
     }
-    public void MakeBumblebee()
+    public void _RecruitingBumblebee()
     {
-        barrack.RecruitBees(BeesRecruitingID.Bumblebee);
+        barrack._RecruitBees(BeesRecruitingID.Bumblebee);
     }
 
     public void _CallMenu(GameObject _barrack)
