@@ -9,7 +9,7 @@ public class TownHall : ConstructionBase
 
     #region Main
     protected UI_Controller UI;//контроллер интерфеса
-    public float MaxHealPoints => curentLevel.MaxHealPoints;
+    public float MaxHealPoints => currentLevel.MaxHealPoints;
     public float HealPoints => healPoints;
     protected float healPoints = 0;
     #endregion
@@ -36,12 +36,13 @@ public class TownHall : ConstructionBase
 
     #region level-ups
     [SerializeField] List<TownHallLevel> levels;//массив уровней здания
-    TownHallLevel curentLevel;//текущий уровень
+    TownHallLevel currentLevel;//текущий уровень
+    int currentLevelNum = 1;
     //цена в кол-ве ресурсов для повышения до следующего лвл-а ратуши, согласно текущему лвл-у
-    public float TreesPrice => curentLevel.TreesPrice;
-    public float FlowersPrice => curentLevel.FlowersPrice;
-    public float PlantsPrice => curentLevel.PlantsPrice;
-    public float WaxPrice => curentLevel.WaxPrice;
+    public float TreesPrice => currentLevel.TreesPrice;
+    public float FlowersPrice => currentLevel.FlowersPrice;
+    public float PlantsPrice => currentLevel.PlantsPrice;
+    public float WaxPrice => currentLevel.WaxPrice;
     #endregion
 
     #region Workers Bees
@@ -53,10 +54,10 @@ public class TownHall : ConstructionBase
     [SerializeField] GameObject beePrefab;//префаб рабочей пчелы
     [SerializeField] Transform workerBeesSpawnPosition;//координаты флага, на котором спавняться рабочие пчелы
 
-    public int MaxWorkerBeesNumber => curentLevel.MaxWorkerBeesNumber;
+    public int MaxWorkerBeesNumber => currentLevel.MaxWorkerBeesNumber;
     public int WorkerBeesNumber => workerBeesNumber;
     int workerBeesNumber = 0;
-    public int MaxWorkerBeesQueue => curentLevel.MaxWorkerBeesQueue;
+    public int MaxWorkerBeesQueue => currentLevel.MaxWorkerBeesQueue;
     public int WorkerBeesQueue => workerBeesQueue;
     int workerBeesQueue = 0;
     #endregion
@@ -67,12 +68,12 @@ public class TownHall : ConstructionBase
         gameObject.name = "TownHall";
         UI = GameObject.Find("UI").GetComponent<UI_Controller>();
 
-        curentLevel = levels[0];
+        currentLevel = levels[0];
 
-        trees = new ResourceStorage(0F, curentLevel.MaxTrees);
-        flowers = new ResourceStorage(0F, curentLevel.MaxFlowers);
-        plants = new ResourceStorage(0F, curentLevel.MaxPlants);
-        wax = new ResourceStorage(0F, curentLevel.MaxWax);
+        trees = new ResourceStorage(0F, currentLevel.MaxTrees);
+        flowers = new ResourceStorage(0F, currentLevel.MaxFlowers);
+        plants = new ResourceStorage(0F, currentLevel.MaxPlants);
+        wax = new ResourceStorage(0F, currentLevel.MaxWax);
     }
 
 
@@ -145,7 +146,7 @@ public class TownHall : ConstructionBase
     }
     public void _SpawnWorkerBee()
     {
-        if (workerBeesNumber < curentLevel.MaxWorkerBeesNumber && workerBeesQueue < curentLevel.MaxWorkerBeesQueue)
+        if (workerBeesNumber < currentLevel.MaxWorkerBeesNumber && workerBeesQueue < currentLevel.MaxWorkerBeesQueue)
         {
             workerBeesQueue++;
             StartCoroutine("SpawnWorkerBeeCoroutine");
@@ -155,7 +156,7 @@ public class TownHall : ConstructionBase
     }
     IEnumerator SpawnWorkerBeeCoroutine()
     {
-        for (int n = 0; n < curentLevel.TimeWorkerBeeBuild; n++)
+        for (int n = 0; n < currentLevel.TimeWorkerBeeBuild; n++)
             yield return new WaitForSeconds(1f);
 
         workerBeesQueue--;
@@ -173,22 +174,22 @@ public class TownHall : ConstructionBase
     }
     public void _NextBuildingLevel()//повышение уровня здания, вызывется через UI/UX
     {
-        if (trees.CurrentValue >= curentLevel.TreesPrice && flowers.CurrentValue >= curentLevel.FlowersPrice &&
-            plants.CurrentValue >= curentLevel.PlantsPrice && wax.CurrentValue >= curentLevel.WaxPrice)
+        if (trees.CurrentValue >= currentLevel.TreesPrice && flowers.CurrentValue >= currentLevel.FlowersPrice &&
+            plants.CurrentValue >= currentLevel.PlantsPrice && wax.CurrentValue >= currentLevel.WaxPrice)
         {
-            if (curentLevel.Lvl == levels.Count)
+            if (currentLevelNum == levels.Count)
             {
                 Debug.Log("max Town Hall level");
                 return;
             }
-            curentLevel = levels[curentLevel.Lvl];
+            currentLevel = levels[currentLevelNum++];
 
-            trees.SetCapacity(curentLevel.MaxTrees);
-            flowers.SetCapacity(curentLevel.MaxFlowers);
-            plants.SetCapacity(curentLevel.MaxPlants);
-            wax.SetCapacity(curentLevel.MaxWax);
+            trees.SetCapacity(currentLevel.MaxTrees);
+            flowers.SetCapacity(currentLevel.MaxFlowers);
+            plants.SetCapacity(currentLevel.MaxPlants);
+            wax.SetCapacity(currentLevel.MaxWax);
 
-            Debug.Log("Building LVL = " + curentLevel.Lvl);
+            Debug.Log("Building LVL = " + currentLevelNum);
         }
         else
             Debug.Log("Need more resources");

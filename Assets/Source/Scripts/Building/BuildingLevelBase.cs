@@ -10,8 +10,6 @@ public class BuildingLevelBase
     [SerializeField][Range(0F, 100000F)] protected float maxHealPoints = 0;
     public float MaxHealPoints => maxHealPoints;
     
-    public int Lvl => lvl;//текущий уровень здания
-    [SerializeField][Range(0, 10)] int lvl = 0;
     //цена в кол-ве ресурсов для повышения до следующего лвл-а ратуши
     [Header("Prices to next level")]
     [SerializeField][Range(0F, 10000F)] float treesPrice = 0;
