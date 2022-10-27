@@ -12,6 +12,7 @@ public class Test_Builder_TownHall : CycleInitializerBase
     [SerializeField] LayerMask layerMask;
     [SerializeField] List<GameObject> buildings;//массив префабов зданий
     GameObject currentBuilding;
+    int currentBuildingNumber;
     UI_Controller UI;
     bool spawnBuilding = false;
 
@@ -41,7 +42,10 @@ public class Test_Builder_TownHall : CycleInitializerBase
         {
             if (hit.transform.gameObject.tag == "Building")//если да, то вызываем через здание UX/UI меню этого здания
             {
-                hit.transform.gameObject.GetComponent<TownHall>()._CallBuildingMenu("UI_TownHallMenu");
+                if (hit.transform.gameObject.GetComponent<TownHall?>())
+                    hit.transform.gameObject.GetComponent<TownHall>()._CallBuildingMenu("UI_TownHallMenu");
+                else if (hit.transform.gameObject.GetComponent<Barrack?>())
+                    hit.transform.gameObject.GetComponent<Barrack>()._CallBuildingMenu("UI_BarracksMenu");
             }
             else if (hit.transform.gameObject.tag != "UI" && !MousOverUI())
             {
@@ -55,30 +59,33 @@ public class Test_Builder_TownHall : CycleInitializerBase
         return EventSystem.current.IsPointerOverGameObject();
     }
 
-    void _MoveBuilding(GameObject _currentObj)//перемещение здания по карте
+    void _MoveBuilding(GameObject _currentBuilding)//перемещение здания по карте
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit, 100F, layerMask) && !MousOverUI())//если рэйкаст сталкиваеться с чем нибудь, задаем зданию позицию точки столкновения рэйкаста
         {
-            _currentObj.transform.position = FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(ray.GetPoint(hit.distance));
+            _currentBuilding.transform.position = FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(ray.GetPoint(hit.distance));
 
             if (Input.GetButtonDown("Fire1"))//подтверждение строительства здания
             {
-                _SpawnBuilding_Progress_Construction();
-                Destroy(_currentObj);
+                if (currentBuildingNumber == 0)
+                    _SpawnTownHall();
+                if (currentBuildingNumber == 1)
+                    _SpawnBarrack();
+                Destroy(_currentBuilding);
                 spawnBuilding = false;
             }
             else if (Input.GetButtonDown("Fire2"))//отмена начала строительства
             {
-                Destroy(_currentObj);
+                Destroy(_currentBuilding);
                 spawnBuilding = false;
             }
         }
     }
 
-    private void _SpawnBuilding_Progress_Construction()
+    private void _SpawnTownHall()
     {
         RaycastHit[] raycastHits = Physics.RaycastAll(Camera.main.ScreenPointToRay(Input.mousePosition));
         int index = raycastHits.IndexOf(hit => !hit.collider.isTrigger);
@@ -96,13 +103,11 @@ public class Test_Builder_TownHall : CycleInitializerBase
             progressConstruction.transform.position = position;
             FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position.ToInt(), progressConstruction);
 
-            progressConstruction.OnTimerEnd += c => CreateDefaultConstruction(c, position.ToInt());
+            progressConstruction.OnTimerEnd += c => CreateTownHall(c, position.ToInt());
             progressConstruction.StartBuilding(4, ConstructionID.Town_Hall);
         }
     }
-
-
-    private void CreateDefaultConstruction(BuildingProgressConstruction buildingProgressConstruction, Vector3Int position)
+    private void CreateTownHall(BuildingProgressConstruction buildingProgressConstruction, Vector3Int position)
     {
         TownHall townHall = _constructionFactory.Create<TownHall>(buildingProgressConstruction.BuildingConstructionID);
 
@@ -114,8 +119,43 @@ public class Test_Builder_TownHall : CycleInitializerBase
         townHall.transform.position = position;
     }
 
+    private void _SpawnBarrack()
+    {
+        RaycastHit[] raycastHits = Physics.RaycastAll(Camera.main.ScreenPointToRay(Input.mousePosition));
+        int index = raycastHits.IndexOf(hit => !hit.collider.isTrigger);
+
+        if (index > -1)
+        {
+            Vector3 position = FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(raycastHits[index].point);
+
+            if (FrameworkCommander.GlobalData.ConstructionsRepository.ConstructionExist(position.ToInt(), false))
+            {
+                Debug.Log("Invalid place");
+                return;
+            }
+            BuildingProgressConstruction progressConstruction = _constructionFactory.Create<BuildingProgressConstruction>(ConstructionID.Building_Progress_Construction);
+            progressConstruction.transform.position = position;
+            FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position.ToInt(), progressConstruction);
+
+            progressConstruction.OnTimerEnd += c => CreateBarrack(c, position.ToInt());
+            progressConstruction.StartBuilding(4, ConstructionID.Barrack);
+        }
+    }
+    private void CreateBarrack(BuildingProgressConstruction buildingProgressConstruction, Vector3Int position)
+    {
+        Barrack barrack = _constructionFactory.Create<Barrack>(buildingProgressConstruction.BuildingConstructionID);
+
+        FrameworkCommander.GlobalData.ConstructionsRepository.GetConstruction(position, true);
+
+        Destroy(buildingProgressConstruction.gameObject);
+
+        FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position, barrack);
+        barrack.transform.position = position;
+    }
+
     public void _SpawnBuilding(int number)
     {
+        currentBuildingNumber = number;
         spawnBuilding = true;
         currentBuilding = Instantiate(buildings[number]);
     }

@@ -265,14 +265,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1341712904820604436, guid: 8f6fd508a6f070c41be39c081d913935, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 5868268006567620579}
-    - target: {fileID: 1341712904820604436, guid: 8f6fd508a6f070c41be39c081d913935, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: _BuildingReplace
-      objectReference: {fileID: 0}
     - target: {fileID: 1428875575150339649, guid: 8f6fd508a6f070c41be39c081d913935, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
@@ -509,18 +501,6 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 7216969455313138668, guid: 8f6fd508a6f070c41be39c081d913935, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7216969455313138668, guid: 8f6fd508a6f070c41be39c081d913935, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 5868268006567620579}
-    - target: {fileID: 7216969455313138668, guid: 8f6fd508a6f070c41be39c081d913935, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: _BuildingLVL_Up
-      objectReference: {fileID: 0}
     - target: {fileID: 7457279085334246618, guid: 8f6fd508a6f070c41be39c081d913935, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
@@ -557,10 +537,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: _SpawnBuilding
       objectReference: {fileID: 0}
-    - target: {fileID: 8960796379981507673, guid: 8f6fd508a6f070c41be39c081d913935, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 3594694869550154806}
     - target: {fileID: 8984499649326719030, guid: 8f6fd508a6f070c41be39c081d913935, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

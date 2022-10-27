@@ -61,6 +61,7 @@ public class UI_Gameplay : UIScreen
                     _UI_Tactics.SetActive(false);
                     _UI_TownHallMenu.SetActive(false);
                     _UI_BarracksMenu.SetActive(true);
+                    _UI_BarracksMenu.GetComponent<UI_BarracksMenu>()._CallMenu(building);
                     break;
                 }
             default:
