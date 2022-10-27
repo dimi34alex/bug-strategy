@@ -1,0 +1,165 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4279467153753337981
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 338383595957482997}
+  - component: {fileID: 8947442914526887214}
+  - component: {fileID: 7302409546887255228}
+  m_Layer: 0
+  m_Name: Barrak
+  m_TagString: Building
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &338383595957482997
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4279467153753337981}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 3565452779204813232}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8947442914526887214
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4279467153753337981}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.7, y: 0.1, z: 2.25}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7302409546887255228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4279467153753337981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c21734425f317cc4ebf27dd146c598c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levels:
+  - maxHealPoints: 10558
+    lvl: 1
+    treesPrice: 0
+    flowersPrice: 0
+    plantsPrice: 0
+    waxPrice: 0
+    recruitingSize: 2
+    beesRecruitingData:
+    - recruitinTime: 1
+      stackSize: 2
+      spawnPauseTime: 1
+      unitPrefab: {fileID: 5039214122889290809, guid: e1a6d86d1c3d6e24084c0efe07b687f7, type: 3}
+      currentID: 1
+    - recruitinTime: 5
+      stackSize: 1
+      spawnPauseTime: 1
+      unitPrefab: {fileID: 4364783689652272584, guid: 4b87cc0f9fb2f5f40937836b05228857, type: 3}
+      currentID: 2
+  - maxHealPoints: 10558
+    lvl: 2
+    treesPrice: 0
+    flowersPrice: 0
+    plantsPrice: 0
+    waxPrice: 0
+    recruitingSize: 6
+    beesRecruitingData:
+    - recruitinTime: 1
+      stackSize: 5
+      spawnPauseTime: 0.2
+      unitPrefab: {fileID: 5039214122889290809, guid: e1a6d86d1c3d6e24084c0efe07b687f7, type: 3}
+      currentID: 1
+    - recruitinTime: 5
+      stackSize: 1
+      spawnPauseTime: 1
+      unitPrefab: {fileID: 4364783689652272584, guid: 4b87cc0f9fb2f5f40937836b05228857, type: 3}
+      currentID: 2
+  beesSpawnPosition: {fileID: 5025993920294837256}
+--- !u!1001 &1990626248775936853
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 338383595957482997}
+    m_Modifications:
+    - target: {fileID: 3088106429806349029, guid: 7896ee1edb85d484fb0d9e495f9fe5dd, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088106429806349029, guid: 7896ee1edb85d484fb0d9e495f9fe5dd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088106429806349029, guid: 7896ee1edb85d484fb0d9e495f9fe5dd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088106429806349029, guid: 7896ee1edb85d484fb0d9e495f9fe5dd, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088106429806349029, guid: 7896ee1edb85d484fb0d9e495f9fe5dd, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088106429806349029, guid: 7896ee1edb85d484fb0d9e495f9fe5dd, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088106429806349029, guid: 7896ee1edb85d484fb0d9e495f9fe5dd, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088106429806349029, guid: 7896ee1edb85d484fb0d9e495f9fe5dd, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088106429806349029, guid: 7896ee1edb85d484fb0d9e495f9fe5dd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088106429806349029, guid: 7896ee1edb85d484fb0d9e495f9fe5dd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088106429806349029, guid: 7896ee1edb85d484fb0d9e495f9fe5dd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6979952744372741378, guid: 7896ee1edb85d484fb0d9e495f9fe5dd, type: 3}
+      propertyPath: m_Name
+      value: BarrakBuilder
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7896ee1edb85d484fb0d9e495f9fe5dd, type: 3}
+--- !u!4 &3565452779204813232 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3088106429806349029, guid: 7896ee1edb85d484fb0d9e495f9fe5dd, type: 3}
+  m_PrefabInstance: {fileID: 1990626248775936853}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5025993920294837256 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6782362565804160861, guid: 7896ee1edb85d484fb0d9e495f9fe5dd, type: 3}
+  m_PrefabInstance: {fileID: 1990626248775936853}
+  m_PrefabAsset: {fileID: 0}
