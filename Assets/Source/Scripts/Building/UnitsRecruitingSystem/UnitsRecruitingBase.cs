@@ -34,8 +34,8 @@ public abstract class UnitsRecruitingBase<T, K, S> where T : UnitStackBase, new(
 
     public void Tick(float time)
     {
-        if (!Stacks[currentStack].Empty) { }
-        Stacks[currentStack].StackTick(time);
+        if (!Stacks[currentStack].Empty)
+            Stacks[currentStack].StackTick(time);
 
         currentStack++;
 
