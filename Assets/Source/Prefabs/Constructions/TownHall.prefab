@@ -60,7 +60,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levels:
   - maxHealPoints: 10000
-    lvl: 1
     treesPrice: 0
     flowersPrice: 0
     plantsPrice: 0
@@ -69,11 +68,14 @@ MonoBehaviour:
     maxFlowers: 2000
     maxPlants: 2000
     maxWax: 2000
-    maxWorkerBeesNumber: 5
-    maxWorkerBeesQueue: 5
-    timeWorkerBeeBuild: 10
+    recruitingSize: 1
+    beesRecruitingData:
+      recruitinTime: 2
+      stackSize: 1
+      spawnPauseTime: 1
+      unitPrefab: {fileID: 3549433375624800588, guid: 3a4407f137678c14fb55fe57fde82205, type: 3}
+      currentID: 0
   - maxHealPoints: 20000
-    lvl: 2
     treesPrice: 2000
     flowersPrice: 2000
     plantsPrice: 2000
@@ -82,11 +84,14 @@ MonoBehaviour:
     maxFlowers: 2500
     maxPlants: 2500
     maxWax: 2500
-    maxWorkerBeesNumber: 7
-    maxWorkerBeesQueue: 5
-    timeWorkerBeeBuild: 5
+    recruitingSize: 2
+    beesRecruitingData:
+      recruitinTime: 1
+      stackSize: 2
+      spawnPauseTime: 0.2
+      unitPrefab: {fileID: 3549433375624800588, guid: 3a4407f137678c14fb55fe57fde82205, type: 3}
+      currentID: 0
   - maxHealPoints: 30000
-    lvl: 3
     treesPrice: 2500
     flowersPrice: 2500
     plantsPrice: 2500
@@ -95,9 +100,14 @@ MonoBehaviour:
     maxFlowers: 3500
     maxPlants: 3500
     maxWax: 3500
-    maxWorkerBeesNumber: 10
-    maxWorkerBeesQueue: 0
-    timeWorkerBeeBuild: 25
+    recruitingSize: 0
+    beesRecruitingData:
+      recruitinTime: 0
+      stackSize: 0
+      spawnPauseTime: 0
+      unitPrefab: {fileID: 0}
+      currentID: 0
+  pauseTimeOfOutBeesFromTownHall: 1
   beePrefab: {fileID: 3549433375624800588, guid: 3a4407f137678c14fb55fe57fde82205, type: 3}
   workerBeesSpawnPosition: {fileID: 5545980254773833652}
 --- !u!1001 &4906834878104175887

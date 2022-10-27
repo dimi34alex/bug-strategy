@@ -8,7 +8,7 @@ public class TownHall : ConstructionBase
     public override ConstructionID ConstructionID => ConstructionID.Town_Hall;
 
     #region Main
-    protected UI_Controller UI;//контроллер интерфеса
+    protected UI_Controller UI;
     public float MaxHealPoints => currentLevel.MaxHealPoints;
     public float HealPoints => healPoints;
     protected float healPoints = 0;
@@ -51,15 +51,11 @@ public class TownHall : ConstructionBase
     public static UnityEvent WorkerBeeAlarmOn = new UnityEvent();//оповещение рабочих пчел о тревоге
     static Stack<GameObject> WorkerBeesInTownHall = new Stack<GameObject>();//массив пчел, которые спрятались в ратуши
 
-    [SerializeField] GameObject beePrefab;//префаб рабочей пчелы
+    [SerializeField] [Range(0,5)] float pauseTimeOfOutBeesFromTownHall = 1;//пауза между выходами пчел из здания после выключения тревоги
+    [SerializeField] GameObject beePrefab;
     [SerializeField] Transform workerBeesSpawnPosition;//координаты флага, на котором спавняться рабочие пчелы
-
-    public int MaxWorkerBeesNumber => currentLevel.MaxWorkerBeesNumber;
-    public int WorkerBeesNumber => workerBeesNumber;
-    int workerBeesNumber = 0;
-    public int MaxWorkerBeesQueue => currentLevel.MaxWorkerBeesQueue;
-    public int WorkerBeesQueue => workerBeesQueue;
-    int workerBeesQueue = 0;
+    BeesRecruiting recruiting;
+    public int RecruitingSize => currentLevel.RecruitingSize;
     #endregion
 
     protected override void OnAwake()
@@ -74,8 +70,11 @@ public class TownHall : ConstructionBase
         flowers = new ResourceStorage(0F, currentLevel.MaxFlowers);
         plants = new ResourceStorage(0F, currentLevel.MaxPlants);
         wax = new ResourceStorage(0F, currentLevel.MaxWax);
-    }
 
+        recruiting = new BeesRecruiting(currentLevel.RecruitingSize, workerBeesSpawnPosition, currentLevel.BeesRecruitingData);
+
+        _updateEvent += OnUpdate;
+    }
 
     #region Resource methods
     public void _AddTrees(float addTrees)
@@ -121,6 +120,10 @@ public class TownHall : ConstructionBase
     #endregion
 
     #region  Woreker Bees Methods
+    void OnUpdate()
+    {
+        recruiting.Tick(Time.deltaTime);
+    }
     public static void _HideMe(GameObject workerBee)
     {
         WorkerBeesInTownHall.Push(workerBee);
@@ -132,38 +135,25 @@ public class TownHall : ConstructionBase
         if (alarmOn)
             WorkerBeeAlarmOn?.Invoke();
         else
-            StartCoroutine("OutFromTownHall");
+            StartCoroutine("OutBeesFromTownHall");
     }
-    IEnumerator OutFromTownHall()
+    IEnumerator OutBeesFromTownHall()
     {
         GameObject bee;
         while (WorkerBeesInTownHall.Count > 0 && !alarmOn)
         {
             bee = WorkerBeesInTownHall.Pop();
             bee.SetActive(true);
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(pauseTimeOfOutBeesFromTownHall);
         }
     }
-    public void _SpawnWorkerBee()
+    public void _SpawnWorkerBee(BeesRecruitingID beeID)
     {
-        if (workerBeesNumber < currentLevel.MaxWorkerBeesNumber && workerBeesQueue < currentLevel.MaxWorkerBeesQueue)
-        {
-            workerBeesQueue++;
-            StartCoroutine("SpawnWorkerBeeCoroutine");
-        }
-        else
-            Debug.Log("Error: you have max number of workers bees");
+        recruiting.RecruitBees(beeID);
     }
-    IEnumerator SpawnWorkerBeeCoroutine()
+    public BeeRecruitingInformation _GetBeeRecruitingInformation(int n)
     {
-        for (int n = 0; n < currentLevel.TimeWorkerBeeBuild; n++)
-            yield return new WaitForSeconds(1f);
-
-        workerBeesQueue--;
-        workerBeesNumber++;
-
-        GameObject newBee = Instantiate(beePrefab, workerBeesSpawnPosition.position, workerBeesSpawnPosition.rotation);
-        if (alarmOn) _HideMe(newBee);
+        return recruiting.GetBeeRecruitingInformation(n);
     }
     #endregion
 
@@ -188,6 +178,9 @@ public class TownHall : ConstructionBase
             flowers.SetCapacity(currentLevel.MaxFlowers);
             plants.SetCapacity(currentLevel.MaxPlants);
             wax.SetCapacity(currentLevel.MaxWax);
+
+            recruiting._AddStacks(currentLevel.RecruitingSize);
+            recruiting._SetNewBeesDatas(currentLevel.BeesRecruitingData);
 
             Debug.Log("Building LVL = " + currentLevelNum);
         }

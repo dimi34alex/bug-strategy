@@ -20,11 +20,9 @@ public class TownHallLevel : BuildingLevelBase
 
     #region Worker Bees
     [Header("Worker bees")]
-    [SerializeField][Range(0, 50)] protected int maxWorkerBeesNumber = 0;
-    public int MaxWorkerBeesNumber => maxWorkerBeesNumber;
-    public int MaxWorkerBeesQueue => maxWorkerBeesQueue;
-    [SerializeField][Range(0, 20)] protected int maxWorkerBeesQueue = 0;
-    public float TimeWorkerBeeBuild => timeWorkerBeeBuild;
-    [SerializeField][Range(0F, 120F)] protected float timeWorkerBeeBuild = 0;
+    [SerializeField][Range(1, 2)] protected int recruitingSize = 0;
+    public int RecruitingSize => recruitingSize;
+    public List<BeesRecruitingData> BeesRecruitingData { get { return new List<BeesRecruitingData> { beesRecruitingData }; } }
+    [SerializeField] private BeesRecruitingData beesRecruitingData;
     #endregion
 }

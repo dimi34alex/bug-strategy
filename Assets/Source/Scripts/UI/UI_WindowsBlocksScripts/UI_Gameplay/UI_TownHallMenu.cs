@@ -6,10 +6,12 @@ using TMPro;
 public class UI_TownHallMenu : UIScreen
 {
     [SerializeField] private TextMeshProUGUI Alarm;
-    [SerializeField] private TextMeshProUGUI BeesNumber;
-    [SerializeField] private TextMeshProUGUI BeesQueue;
-    [SerializeField] private TextMeshProUGUI SpawnTimer;
+
+    [SerializeField] private List<TextMeshProUGUI> StackID;
+    [SerializeField] private List<TextMeshProUGUI> StackTime;
     TownHall townHall;
+    int currentStack = 0;
+    BeeRecruitingInformation beeRecruitingInformation;
 
     public void _CallMenu(GameObject _townHall)
     {
@@ -18,22 +20,32 @@ public class UI_TownHallMenu : UIScreen
 
     void Update()
     {
-        BeesNumber.text = townHall.WorkerBeesNumber.ToString() + "/" + townHall.MaxWorkerBeesNumber.ToString();
-        BeesQueue.text = townHall.WorkerBeesQueue.ToString() + "/" + townHall.MaxWorkerBeesQueue.ToString();
+        beeRecruitingInformation = townHall._GetBeeRecruitingInformation(currentStack);
 
-        if (townHall.AlarmOn)
+        if (beeRecruitingInformation.Empty)
         {
-            Alarm.text = "Bee Alarm Off";
+            StackID[currentStack].text = "empty";
+            StackTime[currentStack].text = "";
         }
         else
         {
-            Alarm.text = "Bee Alarm On";
+            StackID[currentStack].text = beeRecruitingInformation.CurrentID.ToString();
+            StackTime[currentStack].text = (Mathf.Clamp((Mathf.Round(beeRecruitingInformation.CurrentTime * 100F) / 100F), 0F, Mathf.Infinity).ToString() + "/" + (Mathf.Round(beeRecruitingInformation.RecruitinTime * 100F) / 100F).ToString());
         }
+
+        currentStack++;
+        if (currentStack >= townHall.RecruitingSize || currentStack >= StackID.Count || currentStack >= StackTime.Count)
+            currentStack = 0;
+
+        if (townHall.AlarmOn)
+            Alarm.text = "Bee Alarm Off";
+        else
+            Alarm.text = "Bee Alarm On";
     }
 
     public void _SpawnWorkerBee()
     {
-        townHall.GetComponent<TownHall>()._SpawnWorkerBee();
+        townHall.GetComponent<TownHall>()._SpawnWorkerBee(BeesRecruitingID.WorkerBee);
     }
     public void _WorkerBeeAlarmer()
     {
