@@ -21,3 +21,5 @@ MonoBehaviour:
     ConstructionsID: 02000000
   - ConstructionType: 3
     ConstructionsID: 03000000
+  - ConstructionType: 5
+    ConstructionsID: 05000000

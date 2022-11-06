@@ -14,7 +14,7 @@ public class BeesWaxProduceConstruction : ResourceConversionConstructionBase
 
     protected override void OnAwake()
     {
-        _resourceConversionCore = new ResourceConversionCore(_resourceConversionProccessInfo);
+        _resourceConversionCore = new ResourceConversionCore(_resourceConversionProccessInfo);  
         _updateEvent += OnUpdate;
     }
 
