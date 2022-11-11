@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class Test_ArmyBee_Barrack : MonoBehaviour
 {
-    // Start is called before the first frame update
+
+    private UnitPool pool;
+
     void Start()
     {
-
+        GameObject controller = GameObject.FindGameObjectWithTag("GameController");
+        pool = controller.GetComponent<UnitPool>();
+        pool.UnitCreation(gameObject);
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
-        transform.position = new Vector3(transform.position.x - 0.1F, transform.position.y, transform.position.z);
+       
     }
 }

@@ -16,6 +16,7 @@ public class UI_Controller : MonoBehaviour
     GameObject UI_PrevActiv;//предыдущее активное окно. необходимо для корректной работы "Back" в _SetWindow()
     GameObject buffer;//буфер. необходимо для корректной работы "Back" в _SetWindow()
     GameObject building;//текущее выделенное здание
+    UnitPool pool;
 
     void Start()
     {
@@ -58,8 +59,10 @@ public class UI_Controller : MonoBehaviour
     public void _ChoiceTactic()//выбор тактики. Функция пуста т.к. тактик у нас нет и хз как они будут работать
     { Debug.Log("Error: tactics is empty"); }
 
-    public void _ChoiceGroup()//выбор группы. Функция пуста т.к. групп у нас нет и хз как они будут работать
-    { Debug.Log("Error: groups is empty"); }
+    public void _ChoiceGroup()
+    {
+                 
+    }
 
     public void _SetWindow(string windowName)//смена активного окна UI. принимает название окна, которое надо сделать активным
     {

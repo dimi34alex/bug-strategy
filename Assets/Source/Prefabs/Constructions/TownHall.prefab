@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1274404536982251029}
   - component: {fileID: 8562302447384268308}
   - component: {fileID: 6644387960813269008}
+  - component: {fileID: 4844941556788702066}
   m_Layer: 2
   m_Name: TownHall
   m_TagString: Building
@@ -44,7 +45,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5, y: 0.1, z: 4.1}
+  m_Size: {x: 6.5, y: 1, z: 4.5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6644387960813269008
 MonoBehaviour:
@@ -110,6 +111,22 @@ MonoBehaviour:
   pauseTimeOfOutBeesFromTownHall: 1
   beePrefab: {fileID: 3549433375624800588, guid: 3a4407f137678c14fb55fe57fde82205, type: 3}
   workerBeesSpawnPosition: {fileID: 5545980254773833652}
+--- !u!208 &4844941556788702066
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8287707048911136234}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 2.75, y: 0.5, z: 1.75}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1001 &4906834878104175887
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -16,6 +16,6 @@ public class Test_Bee_TownHall : MonoBehaviour
 
     void FixedUpdate()
     {
-        transform.position = new Vector3(transform.position.x - 0.1F, transform.position.y, transform.position.z);
+
     }
 }
