@@ -15,6 +15,9 @@ public class MovingUnit : UnitBase
 
     public bool isSelected;
 
+    [SerializeField] private SomeTestAbility_1 _ability1;
+    [SerializeField] private SomeTestAbility_2 _ability2;
+    
     void Start()
     {
         GameObject controller = GameObject.FindGameObjectWithTag("GameController");
@@ -24,6 +27,9 @@ public class MovingUnit : UnitBase
 
     private void Awake()
     {
+        _abilites.Add(_ability1);
+        _abilites.Add(_ability2);
+        
         _stateMachine = new EntityStateMachine(new[] { new UnitMoveState() }, EntityStateID.Move);
     }
 
@@ -48,6 +54,12 @@ public class MovingUnit : UnitBase
                 GiveOrder(hit.point);
             }
         }
+
+        foreach (var abilite in _abilites)
+        {
+            abilite.OnUpdate(Time.deltaTime);
+        }
+        
     }
 
     public void GiveOrder(Vector3 position)
@@ -59,5 +71,14 @@ public class MovingUnit : UnitBase
                 SetDestination(position);
             }
         }
+    }
+
+    public void UseFirstAbility()
+    {
+        _abilites[0].OnUse();
+    }   
+    public void UseSecondAbility()
+    {
+        _abilites[1].OnUse();
     }
 }
