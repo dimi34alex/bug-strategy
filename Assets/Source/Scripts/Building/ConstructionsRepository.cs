@@ -52,7 +52,19 @@ public class ConstructionsRepository : IConstructionGrid
 
     public Vector3 RoundPositionToGrid(Vector3 position)
     {
-        return position.Round(_constructionConfig.GridTileSize);
+        float xPosition = position.x.Round(_constructionConfig.HexagonsOffcets.x / 2);
+
+        int horizontalLineIndex =
+            Convert.ToInt32(xPosition / (_constructionConfig.HexagonsOffcets.x / 2f));
+
+        float zPosition = position.z.Round(_constructionConfig.HexagonsOffcets.y);
+
+        int verticalLineIndex = Convert.ToInt32(zPosition / _constructionConfig.HexagonsOffcets.y);
+
+        if (horizontalLineIndex % 2 == 0 && verticalLineIndex % 2 != 0 || horizontalLineIndex % 2 != 0 && verticalLineIndex % 2 == 0)
+            zPosition += _constructionConfig.HexagonsOffcets.y;
+
+        return new Vector3(xPosition, 0f, zPosition);
     }
 
     public void BlockCell(Vector3Int position)
