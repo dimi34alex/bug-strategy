@@ -5,31 +5,31 @@ using UnityEngine;
 public class ConstructionsRepository : IConstructionGrid
 {
     private readonly BuildingGridConfig _constructionConfig;
-    private readonly Dictionary<Vector3Int, ConstructionCellData> _constructions;
-    private readonly HashSet<Vector3Int> _blockedCells;
+    private readonly Dictionary<GridKey3, ConstructionCellData> _constructions;
+    private readonly HashSet<GridKey3> _blockedCells;
 
-    public IReadOnlyCollection<Vector3Int> Positions => _constructions.Keys;
+    public IReadOnlyCollection<GridKey3> Positions => _constructions.Keys;
 
     public ConstructionsRepository()
     {
         _constructionConfig = ConfigsRepository.FindConfig<BuildingGridConfig>() ??
             throw new NullReferenceException();
 
-        _constructions = new Dictionary<Vector3Int, ConstructionCellData>();
-        _blockedCells = new HashSet<Vector3Int>();
+        _constructions = new Dictionary<GridKey3, ConstructionCellData>();
+        _blockedCells = new HashSet<GridKey3>();
     }
 
-    public bool ConstructionExist(Vector3Int position, bool blockIgnore = true)
+    public bool ConstructionExist(Vector3 position, bool blockIgnore = true)
     {
         return _constructions.ContainsKey(position) || !blockIgnore && _blockedCells.Contains(position);
     }
     
-    public bool ConstructionExist<TType>(Vector3Int position, bool blockIgnore = true) where TType : IConstruction
+    public bool ConstructionExist<TType>(Vector3 position, bool blockIgnore = true) where TType : IConstruction
     {
         return ConstructionExist(position, blockIgnore) && GetConstruction(position) is TType;
     }
 
-    public void AddConstruction(Vector3Int position, ConstructionBase construction)
+    public void AddConstruction(Vector3 position, ConstructionBase construction)
     {
         if (_constructions.ContainsKey(position))
             throw new Exception($"Position {position} already exist in grid");
@@ -37,7 +37,7 @@ public class ConstructionsRepository : IConstructionGrid
         _constructions.Add(position, new ConstructionCellData(construction));
     }
 
-    public ConstructionBase GetConstruction(Vector3Int position, bool withExtract = false)
+    public ConstructionBase GetConstruction(Vector3 position, bool withExtract = false)
     {
         if (!_constructions.ContainsKey(position))
             throw new Exception($"Position {position} not found");
@@ -67,17 +67,17 @@ public class ConstructionsRepository : IConstructionGrid
         return new Vector3(xPosition, 0f, zPosition);
     }
 
-    public void BlockCell(Vector3Int position)
+    public void BlockCell(Vector3 position)
     {
         _blockedCells.Add(position);
     }
 
-    public void UnblockCell(Vector3Int position)
+    public void UnblockCell(Vector3 position)
     {
         _blockedCells.Remove(position);
     }
 
-    public bool CellIsBlocked(Vector3Int position)
+    public bool CellIsBlocked(Vector3 position)
     {
         return _blockedCells.Contains(position);
     }

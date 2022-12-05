@@ -135,13 +135,13 @@ public class Test_Builder_TownHall : CycleInitializerBase
             }
             BuildingProgressConstruction progressConstruction = _constructionFactory.Create<BuildingProgressConstruction>(ConstructionID.Building_Progress_Construction);
             progressConstruction.transform.position = position;
-            FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position.ToInt(), progressConstruction);
+            FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position, progressConstruction);
 
-            progressConstruction.OnTimerEnd += c => CreateBarrack(c, position.ToInt());
+            progressConstruction.OnTimerEnd += c => CreateBarrack(c, position);
             progressConstruction.StartBuilding(4, ConstructionID.Barrack);
         }
     }
-    private void CreateBarrack(BuildingProgressConstruction buildingProgressConstruction, Vector3Int position)
+    private void CreateBarrack(BuildingProgressConstruction buildingProgressConstruction, Vector3 position)
     {
         Barrack barrack = _constructionFactory.Create<Barrack>(buildingProgressConstruction.BuildingConstructionID);
 
