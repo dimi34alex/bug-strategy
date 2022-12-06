@@ -42,9 +42,9 @@ public class Barrack : ConstructionBase
         recruiting.Tick(Time.deltaTime);
     }
 
-    public void _RecruitBees(BeesRecruitingID beeID)
+    public string _RecruitBees(BeesRecruitingID beeID)
     {
-        recruiting.RecruitBees(beeID);
+        return recruiting.RecruitBees(beeID);
     }
 
     public BeeRecruitingInformation _GetBeeRecruitingInformation(int n)

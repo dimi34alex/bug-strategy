@@ -15,34 +15,18 @@ public class TownHall : ConstructionBase
     #endregion
 
     #region Resources
-    //максимальное кол-во ресурсов хранимое в ратуши согласно текщему лвл-у
-    public float MaxTrees => trees.Capacity;
-    public float MaxFlowers => flowers.Capacity;
-    public float MaxPlants => plants.Capacity;
-    public float MaxWax => wax.Capacity;
-
-    //текущее кол-во ресурсов хранимое в ратуши
-    public float CurrentTrees => trees.CurrentValue;
-    public float CurrentFlowers => flowers.CurrentValue;
-    public float CurrentPlants => plants.CurrentValue;
-    public float CurrentWax => wax.CurrentValue;
-
-    //хранилища ресурсов
-    ResourceStorage trees;
-    ResourceStorage flowers;
-    ResourceStorage plants;
-    ResourceStorage wax;
+    public float MaxPollen => currentLevel.PollenCapacity;
+    public float MaxWax => currentLevel.BeesWaxCapacity;
     #endregion
 
     #region level-ups
     [SerializeField] List<TownHallLevel> levels;//массив уровней здания
     TownHallLevel currentLevel;//текущий уровень
     int currentLevelNum = 1;
+    
     //цена в кол-ве ресурсов для повышения до следующего лвл-а ратуши, согласно текущему лвл-у
-    public float TreesPrice => currentLevel.TreesPrice;
-    public float FlowersPrice => currentLevel.FlowersPrice;
-    public float PlantsPrice => currentLevel.PlantsPrice;
-    public float WaxPrice => currentLevel.WaxPrice;
+    public float PollenPrice => currentLevel.PollenLevelUpPrice;
+    public float WaxPrice => currentLevel.BeesWaxLevelUpPrice;
     #endregion
 
     #region Workers Bees
@@ -51,8 +35,7 @@ public class TownHall : ConstructionBase
     public static UnityEvent WorkerBeeAlarmOn = new UnityEvent();//оповещение рабочих пчел о тревоге
     static Stack<GameObject> WorkerBeesInTownHall = new Stack<GameObject>();//массив пчел, которые спрятались в ратуши
 
-    [SerializeField] [Range(0,5)] float pauseTimeOfOutBeesFromTownHall = 1;//пауза между выходами пчел из здания после выключения тревоги
-    [SerializeField] GameObject beePrefab;
+    [SerializeField] [Range(0,5)] float pauseTimeOfOutBeesFromTownHallAfterAlarm = 1;//пауза между выходами пчел из здания после выключения тревоги
     [SerializeField] Transform workerBeesSpawnPosition;//координаты флага, на котором спавняться рабочие пчелы
     BeesRecruiting recruiting;
     public int RecruitingSize => currentLevel.RecruitingSize;
@@ -65,57 +48,19 @@ public class TownHall : ConstructionBase
         UI = GameObject.Find("UI").GetComponent<UI_Controller>();
 
         currentLevel = levels[0];
-
-        trees = new ResourceStorage(0F, currentLevel.MaxTrees);
-        flowers = new ResourceStorage(0F, currentLevel.MaxFlowers);
-        plants = new ResourceStorage(0F, currentLevel.MaxPlants);
-        wax = new ResourceStorage(0F, currentLevel.MaxWax);
-
+        
+        ResourceGlobalStorage.ChangeCapacity(ResourceID.Pollen,currentLevel.PollenCapacity);
+        ResourceGlobalStorage.ChangeCapacity(ResourceID.Bees_Wax,currentLevel.BeesWaxCapacity);
+        
         recruiting = new BeesRecruiting(currentLevel.RecruitingSize, workerBeesSpawnPosition, currentLevel.BeesRecruitingData);
 
         _updateEvent += OnUpdate;
     }
 
     #region Resource methods
-    public void _AddTrees(float addTrees)
+    public void _AddResurce(ResourceID resourceID,float value)
     {
-        if (trees.CurrentValue + addTrees >= trees.Capacity)
-        {
-            trees.ChangeValue(addTrees);
-            Debug.Log("too much trees");
-        }
-        else
-            trees.ChangeValue(addTrees);
-    }
-    public void _AddFlowers(float addFlowers)
-    {
-        if (flowers.CurrentValue + addFlowers >= flowers.Capacity)
-        {
-            flowers.ChangeValue(addFlowers);
-            Debug.Log("too much flowers");
-        }
-        else
-            flowers.ChangeValue(addFlowers);
-    }
-    public void _AddPlants(float addPlants)
-    {
-        if (plants.CurrentValue + addPlants >= plants.Capacity)
-        {
-            plants.ChangeValue(addPlants);
-            Debug.Log("too much plants");
-        }
-        else
-            plants.ChangeValue(addPlants);
-    }
-    public void _AddWax(float addWax)
-    {
-        if (wax.CurrentValue + addWax >= wax.Capacity)
-        {
-            wax.ChangeValue(addWax);
-            Debug.Log("too much wax");
-        }
-        else
-            wax.ChangeValue(addWax);
+        ResourceGlobalStorage.ChangeValue(resourceID, value);
     }
     #endregion
 
@@ -144,12 +89,12 @@ public class TownHall : ConstructionBase
         {
             bee = WorkerBeesInTownHall.Pop();
             bee.SetActive(true);
-            yield return new WaitForSeconds(pauseTimeOfOutBeesFromTownHall);
+            yield return new WaitForSeconds(pauseTimeOfOutBeesFromTownHallAfterAlarm);
         }
     }
-    public void _RecruitingWorkerBee(BeesRecruitingID beeID)
+    public string _RecruitingWorkerBee(BeesRecruitingID beeID)
     {
-        recruiting.RecruitBees(beeID);
+        return recruiting.RecruitBees(beeID);
     }
     public BeeRecruitingInformation _GetBeeRecruitingInformation(int n)
     {
@@ -164,20 +109,24 @@ public class TownHall : ConstructionBase
     }
     public void _NextBuildingLevel()//повышение уровня здания, вызывется через UI/UX
     {
-        if (trees.CurrentValue >= currentLevel.TreesPrice && flowers.CurrentValue >= currentLevel.FlowersPrice &&
-            plants.CurrentValue >= currentLevel.PlantsPrice && wax.CurrentValue >= currentLevel.WaxPrice)
-        {
-            if (currentLevelNum == levels.Count)
-            {
-                Debug.Log("max Town Hall level");
-                return;
-            }
-            currentLevel = levels[currentLevelNum++];
+        Debug.LogError("lvlupTownHall");
 
-            trees.SetCapacity(currentLevel.MaxTrees);
-            flowers.SetCapacity(currentLevel.MaxFlowers);
-            plants.SetCapacity(currentLevel.MaxPlants);
-            wax.SetCapacity(currentLevel.MaxWax);
+        if (currentLevelNum == levels.Count)
+        {
+            Debug.Log("max Town Hall level");
+            return;
+        }
+        
+        if (ResourceGlobalStorage.GetResource(ResourceID.Pollen).CurrentValue >= currentLevel.PollenLevelUpPrice
+            && ResourceGlobalStorage.GetResource(ResourceID.Bees_Wax).CurrentValue >= currentLevel.BeesWaxLevelUpPrice)
+        {
+            float pollenPrevCapacity = currentLevel.PollenCapacity;
+            float beesWaxPrevCapacity = currentLevel.BeesWaxCapacity;
+            
+            currentLevel = levels[currentLevelNum++];
+            
+            ResourceGlobalStorage.ChangeCapacity(ResourceID.Pollen, currentLevel.PollenCapacity - pollenPrevCapacity);
+            ResourceGlobalStorage.ChangeCapacity(ResourceID.Bees_Wax, currentLevel.BeesWaxCapacity - beesWaxPrevCapacity);
 
             recruiting.AddStacks(currentLevel.RecruitingSize);
             recruiting.SetNewBeesDatas(currentLevel.BeesRecruitingData);

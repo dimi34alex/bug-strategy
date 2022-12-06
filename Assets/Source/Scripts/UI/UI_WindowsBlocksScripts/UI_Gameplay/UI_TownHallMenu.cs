@@ -5,6 +5,7 @@ using TMPro;
 
 public class UI_TownHallMenu : UIScreen
 {
+    [SerializeField] private UI_ERROR uiError;
     [SerializeField] private TextMeshProUGUI Alarm;
 
     [SerializeField] private List<TextMeshProUGUI> StackID;
@@ -45,7 +46,7 @@ public class UI_TownHallMenu : UIScreen
 
     public void _RecruitingWorkerBee()
     {
-        townHall.GetComponent<TownHall>()._RecruitingWorkerBee(BeesRecruitingID.WorkerBee);
+        uiError._ErrorCall(townHall.GetComponent<TownHall>()._RecruitingWorkerBee(BeesRecruitingID.WorkerBee));
     }
     public void _WorkerBeeAlarmer()
     {
@@ -54,6 +55,7 @@ public class UI_TownHallMenu : UIScreen
 
     public void _BuildingLVL_Up()
     {
+        Debug.LogError("lvlupMenu");
         townHall.GetComponent<TownHall>()._NextBuildingLevel();
     }
 }

@@ -48,10 +48,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levels:
   - maxHealPoints: 10558
-    treesPrice: 0
-    flowersPrice: 0
-    plantsPrice: 0
-    waxPrice: 0
+    pollenLevelUpPrice: 0
+    bees_waxLevelUpPrice: 0
     recruitingSize: 2
     beesRecruitingData:
     - recruitinTime: 1
@@ -59,16 +57,16 @@ MonoBehaviour:
       spawnPauseTime: 1
       unitPrefab: {fileID: 5039214122889290809, guid: e1a6d86d1c3d6e24084c0efe07b687f7, type: 3}
       currentID: 1
+      pollenPrice: 0
     - recruitinTime: 5
       stackSize: 1
       spawnPauseTime: 1
       unitPrefab: {fileID: 4364783689652272584, guid: 4b87cc0f9fb2f5f40937836b05228857, type: 3}
       currentID: 2
+      pollenPrice: 100
   - maxHealPoints: 10558
-    treesPrice: 0
-    flowersPrice: 0
-    plantsPrice: 0
-    waxPrice: 0
+    pollenLevelUpPrice: 0
+    bees_waxLevelUpPrice: 0
     recruitingSize: 6
     beesRecruitingData:
     - recruitinTime: 1
@@ -76,11 +74,13 @@ MonoBehaviour:
       spawnPauseTime: 0.2
       unitPrefab: {fileID: 5039214122889290809, guid: e1a6d86d1c3d6e24084c0efe07b687f7, type: 3}
       currentID: 1
+      pollenPrice: 0
     - recruitinTime: 5
       stackSize: 1
       spawnPauseTime: 1
       unitPrefab: {fileID: 4364783689652272584, guid: 4b87cc0f9fb2f5f40937836b05228857, type: 3}
       currentID: 2
+      pollenPrice: 0
   beesSpawnPosition: {fileID: 5025993920294837256}
 --- !u!65 &6453320288001796886
 BoxCollider:

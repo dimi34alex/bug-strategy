@@ -12,12 +12,8 @@ public class BuildingLevelBase
     
     //цена в кол-ве ресурсов для повышения до следующего лвл-а ратуши
     [Header("Prices to next level")]
-    [SerializeField][Range(0F, 10000F)] float treesPrice = 0;
-    public float TreesPrice => treesPrice;
-    public float FlowersPrice => flowersPrice;
-    [SerializeField][Range(0F, 10000F)] float flowersPrice = 0;
-    public float PlantsPrice => plantsPrice;
-    [SerializeField][Range(0F, 10000F)] float plantsPrice = 0;
-    public float WaxPrice => waxPrice;
-    [SerializeField][Range(0F, 10000F)] float waxPrice = 0;//воск
+    [SerializeField][Range(0F, 10000F)] float pollenLevelUpPrice = 0;//воск
+    public float PollenLevelUpPrice => pollenLevelUpPrice;
+    public float BeesWaxLevelUpPrice => bees_waxLevelUpPrice;
+    [SerializeField][Range(0F, 10000F)] float bees_waxLevelUpPrice = 0;//воск
 }

@@ -8,14 +8,10 @@ public class TownHallLevel : BuildingLevelBase
 {
     #region Resource storages
     [Header("Resource storages")]
-    [SerializeField][Range(0F, 10000F)] protected float maxTrees = 0;
-    public float MaxTrees => maxTrees;
-    public float MaxFlowers => maxFlowers;
-    [SerializeField][Range(0F, 10000F)] protected float maxFlowers = 0;
-    public float MaxPlants => maxPlants;
-    [SerializeField][Range(0F, 10000F)] protected float maxPlants = 0;
-    public float MaxWax => maxWax;
-    [SerializeField][Range(0F, 10000F)] protected float maxWax = 0;
+    [SerializeField][Range(0F, 10000F)] protected float pollenCapacity = 0;
+    public float PollenCapacity => pollenCapacity;
+    public float BeesWaxCapacity => bees_waxCapacity;
+    [SerializeField][Range(0F, 10000F)] protected float bees_waxCapacity = 0;
     #endregion
 
     #region Worker Bees
