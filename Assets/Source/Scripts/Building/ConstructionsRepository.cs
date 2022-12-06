@@ -57,7 +57,7 @@ public class ConstructionsRepository : IConstructionGrid
         int horizontalLineIndex =
             Convert.ToInt32(xPosition / (_constructionConfig.HexagonsOffcets.x / 2f));
 
-        float zPosition = position.z.Round(_constructionConfig.HexagonsOffcets.y);
+        float zPosition = (position.z - _constructionConfig.HexagonsOffcets.y / 2f).Round(_constructionConfig.HexagonsOffcets.y);
 
         int verticalLineIndex = Convert.ToInt32(zPosition / _constructionConfig.HexagonsOffcets.y);
 

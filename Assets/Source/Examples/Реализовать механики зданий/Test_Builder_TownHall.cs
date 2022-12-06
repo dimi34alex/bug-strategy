@@ -94,20 +94,20 @@ public class Test_Builder_TownHall : CycleInitializerBase
         {
             Vector3 position = FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(raycastHits[index].point);
 
-            if (FrameworkCommander.GlobalData.ConstructionsRepository.ConstructionExist(position.ToInt(), false))
+            if (FrameworkCommander.GlobalData.ConstructionsRepository.ConstructionExist(position, false))
             {
                 Debug.Log("Invalid place");
                 return;
             }
             BuildingProgressConstruction progressConstruction = _constructionFactory.Create<BuildingProgressConstruction>(ConstructionID.Building_Progress_Construction);
             progressConstruction.transform.position = position;
-            FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position.ToInt(), progressConstruction);
+            FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position, progressConstruction);
 
-            progressConstruction.OnTimerEnd += c => CreateTownHall(c, position.ToInt());
+            progressConstruction.OnTimerEnd += c => CreateTownHall(c, position);
             progressConstruction.StartBuilding(4, ConstructionID.Town_Hall);
         }
     }
-    private void CreateTownHall(BuildingProgressConstruction buildingProgressConstruction, Vector3Int position)
+    private void CreateTownHall(BuildingProgressConstruction buildingProgressConstruction, Vector3 position)
     {
         TownHall townHall = _constructionFactory.Create<TownHall>(buildingProgressConstruction.BuildingConstructionID);
 
@@ -128,7 +128,7 @@ public class Test_Builder_TownHall : CycleInitializerBase
         {
             Vector3 position = FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(raycastHits[index].point);
 
-            if (FrameworkCommander.GlobalData.ConstructionsRepository.ConstructionExist(position.ToInt(), false))
+            if (FrameworkCommander.GlobalData.ConstructionsRepository.ConstructionExist(position, false))
             {
                 Debug.Log("Invalid place");
                 return;
