@@ -43,9 +43,9 @@ public class Test_Builder_TownHall : CycleInitializerBase
             if (hit.transform.gameObject.tag == "Building")//если да, то вызываем через здание UX/UI меню этого здания
             {
                 if (hit.transform.gameObject.GetComponent<TownHall?>())
-                    hit.transform.gameObject.GetComponent<TownHall>()._CallBuildingMenu("UI_TownHallMenu");
+                    hit.transform.gameObject.GetComponent<TownHall>().CallBuildingMenu("UI_TownHallMenu");
                 else if (hit.transform.gameObject.GetComponent<Barrack?>())
-                    hit.transform.gameObject.GetComponent<Barrack>()._CallBuildingMenu("UI_BarracksMenu");
+                    hit.transform.gameObject.GetComponent<Barrack>().CallBuildingMenu("UI_BarracksMenu");
             }
             else if (hit.transform.gameObject.tag != "UI" && !MousOverUI())
             {

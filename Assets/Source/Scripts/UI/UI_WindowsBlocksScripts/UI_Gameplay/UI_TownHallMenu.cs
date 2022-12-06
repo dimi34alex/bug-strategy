@@ -46,16 +46,16 @@ public class UI_TownHallMenu : UIScreen
 
     public void _RecruitingWorkerBee()
     {
-        uiError._ErrorCall(townHall.GetComponent<TownHall>()._RecruitingWorkerBee(BeesRecruitingID.WorkerBee));
+        uiError._ErrorCall(townHall.GetComponent<TownHall>().RecruitingWorkerBee(BeesRecruitingID.WorkerBee));
     }
     public void _WorkerBeeAlarmer()
     {
-        townHall.GetComponent<TownHall>()._WorkerBeeAlarmer();
+        townHall.GetComponent<TownHall>().WorkerBeeAlarmer();
     }
 
     public void _BuildingLVL_Up()
     {
         Debug.LogError("lvlupMenu");
-        townHall.GetComponent<TownHall>()._NextBuildingLevel();
+        townHall.GetComponent<TownHall>().NextBuildingLevel();
     }
 }

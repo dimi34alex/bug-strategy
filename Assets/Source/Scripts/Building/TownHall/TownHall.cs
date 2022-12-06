@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class TownHall : ConstructionBase
+public class TownHall : ConstructionBase, IDamagable
 {
     public override ConstructionID ConstructionID => ConstructionID.Town_Hall;
 
     #region Main
     protected UI_Controller UI;
-    public float MaxHealPoints => currentLevel.MaxHealPoints;
-    public float HealPoints => healPoints;
-    protected float healPoints = 0;
+    public float MaxHealPoints => healPoints.Capacity;
+    public float CurrentHealPoints => healPoints.CurrentValue;
+    private ResourceStorage healPoints;
     #endregion
 
     #region Resources
@@ -19,12 +19,11 @@ public class TownHall : ConstructionBase
     public float MaxWax => currentLevel.BeesWaxCapacity;
     #endregion
 
-    #region level-ups
-    [SerializeField] List<TownHallLevel> levels;//массив уровней здания
-    TownHallLevel currentLevel;//текущий уровень
+    #region Level-ups
+    [SerializeField] List<TownHallLevel> levels;
+    TownHallLevel currentLevel;
     int currentLevelNum = 1;
     
-    //цена в кол-ве ресурсов для повышения до следующего лвл-а ратуши, согласно текущему лвл-у
     public float PollenPrice => currentLevel.PollenLevelUpPrice;
     public float WaxPrice => currentLevel.BeesWaxLevelUpPrice;
     #endregion
@@ -49,6 +48,8 @@ public class TownHall : ConstructionBase
 
         currentLevel = levels[0];
         
+        healPoints = new ResourceStorage(currentLevel.MaxHealPoints,currentLevel.MaxHealPoints);
+        
         ResourceGlobalStorage.ChangeCapacity(ResourceID.Pollen,currentLevel.PollenCapacity);
         ResourceGlobalStorage.ChangeCapacity(ResourceID.Bees_Wax,currentLevel.BeesWaxCapacity);
         
@@ -58,7 +59,7 @@ public class TownHall : ConstructionBase
     }
 
     #region Resource methods
-    public void _AddResurce(ResourceID resourceID,float value)
+    public void AddResurce(ResourceID resourceID,float value)
     {
         ResourceGlobalStorage.ChangeValue(resourceID, value);
     }
@@ -69,12 +70,12 @@ public class TownHall : ConstructionBase
     {
         recruiting.Tick(Time.deltaTime);
     }
-    public static void _HideMe(GameObject workerBee)
+    public static void HideMe(GameObject workerBee)
     {
         WorkerBeesInTownHall.Push(workerBee);
         workerBee.SetActive(false);
     }
-    public void _WorkerBeeAlarmer()
+    public void WorkerBeeAlarmer()
     {
         alarmOn = !alarmOn;
         if (alarmOn)
@@ -92,7 +93,7 @@ public class TownHall : ConstructionBase
             yield return new WaitForSeconds(pauseTimeOfOutBeesFromTownHallAfterAlarm);
         }
     }
-    public string _RecruitingWorkerBee(BeesRecruitingID beeID)
+    public string RecruitingWorkerBee(BeesRecruitingID beeID)
     {
         return recruiting.RecruitBees(beeID);
     }
@@ -103,14 +104,12 @@ public class TownHall : ConstructionBase
     #endregion
 
     #region BuildingsMainMethods
-    public void _CallBuildingMenu(string windowName)//вызов меню здания
+    public void CallBuildingMenu(string windowName)//вызов меню здания
     {
         UI._SetBuilding(gameObject, windowName);
     }
-    public void _NextBuildingLevel()//повышение уровня здания, вызывется через UI/UX
+    public void NextBuildingLevel()//повышение уровня здания, вызывется через UI/UX
     {
-        Debug.LogError("lvlupTownHall");
-
         if (currentLevelNum == levels.Count)
         {
             Debug.Log("max Town Hall level");
@@ -120,6 +119,9 @@ public class TownHall : ConstructionBase
         if (ResourceGlobalStorage.GetResource(ResourceID.Pollen).CurrentValue >= currentLevel.PollenLevelUpPrice
             && ResourceGlobalStorage.GetResource(ResourceID.Bees_Wax).CurrentValue >= currentLevel.BeesWaxLevelUpPrice)
         {
+            ResourceGlobalStorage.ChangeValue(ResourceID.Pollen, -currentLevel.PollenLevelUpPrice);
+            ResourceGlobalStorage.ChangeValue(ResourceID.Bees_Wax, -currentLevel.BeesWaxLevelUpPrice);
+            
             float pollenPrevCapacity = currentLevel.PollenCapacity;
             float beesWaxPrevCapacity = currentLevel.BeesWaxCapacity;
             
@@ -131,25 +133,32 @@ public class TownHall : ConstructionBase
             recruiting.AddStacks(currentLevel.RecruitingSize);
             recruiting.SetNewBeesDatas(currentLevel.BeesRecruitingData);
 
+            if (healPoints.CurrentValue == healPoints.Capacity)
+            {
+                healPoints.SetCapacity(currentLevel.MaxHealPoints);
+                healPoints.SetValue(currentLevel.MaxHealPoints);
+            }
+            else
+                healPoints.SetCapacity(currentLevel.MaxHealPoints);
+            
             Debug.Log("Building LVL = " + currentLevelNum);
         }
         else
             Debug.Log("Need more resources");
     }
-    public void _GetDamage(float damage)//получение урона
+    
+    public void TakeDamage(IDamageApplicator damageApplicator)
     {
-        healPoints -= damage;
-        if (healPoints <= 0)
+        healPoints.ChangeValue(-damageApplicator.Damage);
+        if (CurrentHealPoints <= 0)
         {
             Destroy(gameObject);
             UI._SetWindow("UI_Lose");
         }
     }
-    public void _Repair(float addHP)
+    public void Repair(float addHP)
     {
-        healPoints += addHP;
-        if (healPoints > MaxHealPoints)
-            healPoints = MaxHealPoints;
+        healPoints.ChangeValue(addHP);
     }
     #endregion
 }

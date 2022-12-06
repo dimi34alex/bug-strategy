@@ -11,7 +11,7 @@ public class Test_Bee_TownHall : MonoBehaviour
 
     void GoHome(){
         Debug.Log("Go home");
-        TownHall._HideMe(gameObject);
+        TownHall.HideMe(gameObject);
     }
 
     void FixedUpdate()
