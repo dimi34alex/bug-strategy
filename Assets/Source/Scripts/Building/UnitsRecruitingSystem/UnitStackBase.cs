@@ -3,7 +3,7 @@ using UnityEngine;
 public abstract class UnitStackBase
 {
     public bool Empty { get; protected set; }
-    public Transform SpawnPosition { get; protected set; }
+    public Transform SpawnTransform { get; protected set; }
     public GameObject UnitPrefab { get; protected set; }
     public float RecruitinTime { get; protected set; }
     public int StackSize { get; protected set; }
@@ -16,10 +16,10 @@ public abstract class UnitStackBase
     {
         Empty = true;
     }
-    public UnitStackBase(UnitRecruitingDataBase newData, Transform spawnPosition)
+    public UnitStackBase(UnitRecruitingDataBase newData, Transform spawnTransform)
     {
         Empty = false;
-        SpawnPosition = spawnPosition;
+        SpawnTransform = spawnTransform;
         UnitPrefab = newData.UnitPrefab;
         RecruitinTime = newData.RecruitinTime;
         StackSize = newData.StackSize;
@@ -39,7 +39,11 @@ public abstract class UnitStackBase
                 if (SpawnPauseTimer >= SpawnPauseTime)
                 {
                     if (UnitPrefab != null)
-                        Object.Instantiate(UnitPrefab, SpawnPosition.position, SpawnPosition.rotation);
+                    {
+                        Vector3 spawnPos = SpawnTransform.position;
+                        float randomPosition = Random.Range(-0.01f,0.01f);
+                        Object.Instantiate(UnitPrefab, new Vector3(spawnPos.x + randomPosition, spawnPos.y, spawnPos.z + randomPosition) , SpawnTransform.rotation);
+                    }
                     else
                         Debug.LogError("Error: prefab is null");
 
