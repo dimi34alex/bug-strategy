@@ -63,8 +63,10 @@ MonoBehaviour:
   - maxHealPoints: 10000
     pollenLevelUpPrice: 0
     bees_waxLevelUpPrice: 0
+    housingLevelUpPrice: 0
     pollenCapacity: 2000
     bees_waxCapacity: 2000
+    housingCapacity: 20
     recruitingSize: 1
     beesRecruitingData:
       recruitinTime: 2
@@ -73,11 +75,14 @@ MonoBehaviour:
       unitPrefab: {fileID: 3549433375624800588, guid: 3a4407f137678c14fb55fe57fde82205, type: 3}
       currentID: 0
       pollenPrice: 0
+      housingPrice: 2
   - maxHealPoints: 20000
     pollenLevelUpPrice: 0
     bees_waxLevelUpPrice: 0
+    housingLevelUpPrice: 0
     pollenCapacity: 2500
     bees_waxCapacity: 2500
+    housingCapacity: 25
     recruitingSize: 2
     beesRecruitingData:
       recruitinTime: 1
@@ -86,11 +91,14 @@ MonoBehaviour:
       unitPrefab: {fileID: 3549433375624800588, guid: 3a4407f137678c14fb55fe57fde82205, type: 3}
       currentID: 0
       pollenPrice: 0
+      housingPrice: 1
   - maxHealPoints: 20000
     pollenLevelUpPrice: 0
     bees_waxLevelUpPrice: 0
+    housingLevelUpPrice: 0
     pollenCapacity: 4000
     bees_waxCapacity: 4000
+    housingCapacity: 40
     recruitingSize: 2
     beesRecruitingData:
       recruitinTime: 1
@@ -99,6 +107,7 @@ MonoBehaviour:
       unitPrefab: {fileID: 3549433375624800588, guid: 3a4407f137678c14fb55fe57fde82205, type: 3}
       currentID: 0
       pollenPrice: 0
+      housingPrice: 1
   pauseTimeOfOutBeesFromTownHallAfterAlarm: 1
   workerBeesSpawnPosition: {fileID: 5545980254773833652}
 --- !u!208 &4844941556788702066

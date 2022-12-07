@@ -12,6 +12,8 @@ public class TownHallLevel : BuildingLevelBase
     public float PollenCapacity => pollenCapacity;
     public float BeesWaxCapacity => bees_waxCapacity;
     [SerializeField][Range(0F, 10000F)] protected float bees_waxCapacity = 0;
+    public float HousingCapacity => housingCapacity;
+    [SerializeField][Range(0F, 100F)] protected float housingCapacity = 0;
     #endregion
 
     #region Worker Bees

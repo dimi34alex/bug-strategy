@@ -55,7 +55,6 @@ public class UI_TownHallMenu : UIScreen
 
     public void _BuildingLVL_Up()
     {
-        Debug.LogError("lvlupMenu");
         townHall.GetComponent<TownHall>().NextBuildingLevel();
     }
 }

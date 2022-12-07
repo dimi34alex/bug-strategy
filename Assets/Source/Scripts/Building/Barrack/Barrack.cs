@@ -19,6 +19,7 @@ public class Barrack : ConstructionBase, IDamagable
     
     public float PollenPrice => currentLevel.PollenLevelUpPrice;
     public float WaxPrice => currentLevel.BeesWaxLevelUpPrice;
+    public float HousingPrice => currentLevel.HousingLevelUpPrice;
     #endregion
 
     #region Recruiting
@@ -74,7 +75,8 @@ public class Barrack : ConstructionBase, IDamagable
         }
         
         if (ResourceGlobalStorage.GetResource(ResourceID.Pollen).CurrentValue >= currentLevel.PollenLevelUpPrice
-            && ResourceGlobalStorage.GetResource(ResourceID.Bees_Wax).CurrentValue >= currentLevel.BeesWaxLevelUpPrice)
+            && ResourceGlobalStorage.GetResource(ResourceID.Bees_Wax).CurrentValue >= currentLevel.BeesWaxLevelUpPrice
+            && ResourceGlobalStorage.GetResource(ResourceID.Housing).CurrentValue >= currentLevel.HousingLevelUpPrice)
         {
             ResourceGlobalStorage.ChangeValue(ResourceID.Pollen, -currentLevel.PollenLevelUpPrice);
             ResourceGlobalStorage.ChangeValue(ResourceID.Bees_Wax, -currentLevel.BeesWaxLevelUpPrice);

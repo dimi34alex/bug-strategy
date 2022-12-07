@@ -17,8 +17,11 @@ public class BeesRecruiting : UnitsRecruitingBase<BeesStack, BeesRecruitingData,
         
         BeesRecruitingData findedData = beesRecruitingDatas.Find(fi => fi.CurrentID == beeID);
 
-        if (findedData.PollenPrice <= ResourceGlobalStorage.GetResource(ResourceID.Pollen).CurrentValue)
+        if (findedData.PollenPrice <= ResourceGlobalStorage.GetResource(ResourceID.Pollen).CurrentValue
+            && findedData.HousingPrice <= ResourceGlobalStorage.GetResource(ResourceID.Housing).CurrentValue)
         {
+            ResourceGlobalStorage.ChangeValue(ResourceID.Pollen, -findedData.PollenPrice);
+            ResourceGlobalStorage.ChangeValue(ResourceID.Housing, -findedData.HousingPrice);
             Stacks[findedStack] = new BeesStack(findedData, spawnPosition);
             return null;
         }

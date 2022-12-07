@@ -17,6 +17,7 @@ public class TownHall : ConstructionBase, IDamagable
     #region Resources
     public float MaxPollen => currentLevel.PollenCapacity;
     public float MaxWax => currentLevel.BeesWaxCapacity;
+    public float MaxHousing => currentLevel.BeesWaxCapacity;
     #endregion
 
     #region Level-ups
@@ -26,6 +27,7 @@ public class TownHall : ConstructionBase, IDamagable
     
     public float PollenPrice => currentLevel.PollenLevelUpPrice;
     public float WaxPrice => currentLevel.BeesWaxLevelUpPrice;
+    public float HousingPrice => currentLevel.HousingLevelUpPrice;
     #endregion
 
     #region Workers Bees
@@ -52,6 +54,9 @@ public class TownHall : ConstructionBase, IDamagable
         
         ResourceGlobalStorage.ChangeCapacity(ResourceID.Pollen,currentLevel.PollenCapacity);
         ResourceGlobalStorage.ChangeCapacity(ResourceID.Bees_Wax,currentLevel.BeesWaxCapacity);
+        ResourceGlobalStorage.ChangeCapacity(ResourceID.Housing,currentLevel.HousingCapacity);
+        
+        ResourceGlobalStorage.ChangeValue(ResourceID.Housing,currentLevel.HousingCapacity);
         
         recruiting = new BeesRecruiting(currentLevel.RecruitingSize, workerBeesSpawnPosition, currentLevel.BeesRecruitingData);
 
@@ -117,18 +122,24 @@ public class TownHall : ConstructionBase, IDamagable
         }
         
         if (ResourceGlobalStorage.GetResource(ResourceID.Pollen).CurrentValue >= currentLevel.PollenLevelUpPrice
-            && ResourceGlobalStorage.GetResource(ResourceID.Bees_Wax).CurrentValue >= currentLevel.BeesWaxLevelUpPrice)
+            && ResourceGlobalStorage.GetResource(ResourceID.Bees_Wax).CurrentValue >= currentLevel.BeesWaxLevelUpPrice
+            && ResourceGlobalStorage.GetResource(ResourceID.Housing).CurrentValue >= currentLevel.HousingLevelUpPrice)
         {
             ResourceGlobalStorage.ChangeValue(ResourceID.Pollen, -currentLevel.PollenLevelUpPrice);
             ResourceGlobalStorage.ChangeValue(ResourceID.Bees_Wax, -currentLevel.BeesWaxLevelUpPrice);
+            ResourceGlobalStorage.ChangeValue(ResourceID.Housing, -currentLevel.HousingLevelUpPrice);
             
             float pollenPrevCapacity = currentLevel.PollenCapacity;
             float beesWaxPrevCapacity = currentLevel.BeesWaxCapacity;
+            float housingPrevCapacity = currentLevel.HousingCapacity;
             
             currentLevel = levels[currentLevelNum++];
             
             ResourceGlobalStorage.ChangeCapacity(ResourceID.Pollen, currentLevel.PollenCapacity - pollenPrevCapacity);
             ResourceGlobalStorage.ChangeCapacity(ResourceID.Bees_Wax, currentLevel.BeesWaxCapacity - beesWaxPrevCapacity);
+            ResourceGlobalStorage.ChangeCapacity(ResourceID.Housing, currentLevel.HousingCapacity - housingPrevCapacity);
+            
+            ResourceGlobalStorage.ChangeValue(ResourceID.Housing,currentLevel.HousingCapacity - housingPrevCapacity);
 
             recruiting.AddStacks(currentLevel.RecruitingSize);
             recruiting.SetNewBeesDatas(currentLevel.BeesRecruitingData);

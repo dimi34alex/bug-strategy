@@ -8,4 +8,6 @@ public class BeesRecruitingData : UnitRecruitingDataBase
     [SerializeField] private BeesRecruitingID currentID;
     public float PollenPrice => pollenPrice;
     [SerializeField] private float pollenPrice;
+    public float HousingPrice => housingPrice;
+    [SerializeField] private float housingPrice;
 }
