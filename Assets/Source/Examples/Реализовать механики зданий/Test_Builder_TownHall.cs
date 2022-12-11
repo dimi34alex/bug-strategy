@@ -15,6 +15,8 @@ public class Test_Builder_TownHall : CycleInitializerBase
     int currentBuildingNumber;
     UI_Controller UI;
     bool spawnBuilding = false;
+    private float _numberTownHall = 0;
+
 
     protected override void OnInit()
     {
@@ -35,36 +37,38 @@ public class Test_Builder_TownHall : CycleInitializerBase
 
     private void _Main()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, 100F, layerMask) && Input.GetButtonDown("Fire1"))//если рэйкаст сталкиваеться с чем нибудь, проверяем это здание или нет
+        if (Input.GetButtonDown("Fire1"))//если рэйкаст сталкиваеться с чем нибудь, проверяем это здание или нет
         {
-            if (hit.transform.gameObject.tag == "Building")//если да, то вызываем через здание UX/UI меню этого здания
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, 100F, layerMask))
             {
-                if (hit.transform.gameObject.GetComponent<TownHall?>())
-                    hit.transform.gameObject.GetComponent<TownHall>().CallBuildingMenu("UI_TownHallMenu");
-                else if (hit.transform.gameObject.GetComponent<Barrack?>())
-                    hit.transform.gameObject.GetComponent<Barrack>().CallBuildingMenu("UI_BarracksMenu");
-            }
-            else if (hit.transform.gameObject.tag != "UI" && !MousOverUI())
-            {
-                UI._SetWindow("UI_GameplayMain");
+                if (hit.transform.gameObject.tag == "Building")//если да, то вызываем через здание UX/UI меню этого здания
+                {
+                    if (hit.transform.gameObject.GetComponent<TownHall?>())
+                        hit.transform.gameObject.GetComponent<TownHall>().CallBuildingMenu("UI_TownHallMenu");
+                    else if (hit.transform.gameObject.GetComponent<Barrack?>())
+                        hit.transform.gameObject.GetComponent<Barrack>().CallBuildingMenu("UI_BarracksMenu");
+                }
+                else if (hit.transform.gameObject.tag != "UI" && !MousOverUI())
+                {
+                    UI._SetWindow("UI_GameplayMain");
+                }
             }
         }
     }
 
-    bool MousOverUI()//проверка что курсор игрока не наведен на UI/UX
+    private bool MousOverUI()//проверка что курсор игрока не наведен на UI/UX
     {
         return EventSystem.current.IsPointerOverGameObject();
     }
 
-    void _MoveBuilding(GameObject _currentBuilding)//перемещение здания по карте
+    private void _MoveBuilding(GameObject _currentBuilding)//перемещение здания по карте
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, 100F, layerMask) && !MousOverUI())//если рэйкаст сталкиваеться с чем нибудь, задаем зданию позицию точки столкновения рэйкаста
+        if (!MousOverUI() && Physics.Raycast(ray, out hit, 100F, layerMask))//если рэйкаст сталкиваеться с чем нибудь, задаем зданию позицию точки столкновения рэйкаста
         {
             _currentBuilding.transform.position = FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(ray.GetPoint(hit.distance));
 
@@ -87,24 +91,28 @@ public class Test_Builder_TownHall : CycleInitializerBase
 
     private void _SpawnTownHall()
     {
-        RaycastHit[] raycastHits = Physics.RaycastAll(Camera.main.ScreenPointToRay(Input.mousePosition));
-        int index = raycastHits.IndexOf(hit => !hit.collider.isTrigger);
-
-        if (index > -1)
+        if (_numberTownHall < 1)
         {
-            Vector3 position = FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(raycastHits[index].point);
+            _numberTownHall++;
+            RaycastHit[] raycastHits = Physics.RaycastAll(Camera.main.ScreenPointToRay(Input.mousePosition));
+            int index = raycastHits.IndexOf(hit => !hit.collider.isTrigger);
 
-            if (FrameworkCommander.GlobalData.ConstructionsRepository.ConstructionExist(position, false))
+            if (index > -1)
             {
-                Debug.Log("Invalid place");
-                return;
-            }
-            BuildingProgressConstruction progressConstruction = _constructionFactory.Create<BuildingProgressConstruction>(ConstructionID.Building_Progress_Construction);
-            progressConstruction.transform.position = position;
-            FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position, progressConstruction);
+                Vector3 position = FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(raycastHits[index].point);
 
-            progressConstruction.OnTimerEnd += c => CreateTownHall(c, position);
-            progressConstruction.StartBuilding(4, ConstructionID.Town_Hall);
+                if (FrameworkCommander.GlobalData.ConstructionsRepository.ConstructionExist(position, false))
+                {
+                    Debug.Log("Invalid place");
+                    return;
+                }
+                BuildingProgressConstruction progressConstruction = _constructionFactory.Create<BuildingProgressConstruction>(ConstructionID.Building_Progress_Construction);
+                progressConstruction.transform.position = position;
+                FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position, progressConstruction);
+
+                progressConstruction.OnTimerEnd += c => CreateTownHall(c, position);
+                progressConstruction.StartBuilding(4, ConstructionID.Town_Hall);
+            }
         }
     }
     private void CreateTownHall(BuildingProgressConstruction buildingProgressConstruction, Vector3 position)
