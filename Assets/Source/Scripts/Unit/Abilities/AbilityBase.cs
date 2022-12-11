@@ -10,8 +10,8 @@ public class AbilityBase
     public float ReloadTime => reloadTimer.Capacity;
     public float CurrentTime => reloadTimer.CurrentValue;
     
-    public GameObject AbilityIcon => abilityIcon;
-    [SerializeField] protected GameObject abilityIcon;
+    public Sprite AbilityIcon => abilityIcon;
+    [SerializeField] protected Sprite abilityIcon;
     public bool Useble => CurrentTime >= ReloadTime;
     
     public virtual void OnInitialization()

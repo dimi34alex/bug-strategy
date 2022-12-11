@@ -7,33 +7,30 @@ using UnityEngine.UI;
 public class UnitsUX : MonoBehaviour
 {
     [SerializeField] private UnitBase _unit;
-    [SerializeField] private Transform firstIconPos;
+    [SerializeField] private GameObject abilityBlock;
+    [SerializeField] private Transform firstIconTransform;
     [SerializeField] private float distanceBetweenIcons;
 
     [SerializeField] private Slider healthPointsSlider;
     private List<AbilityBase> _abilities;
-    private List<Image> _abilitiesIconsFill = new List<Image>();
     
     void Start()
     {
+        Vector3 firstIconPosition = firstIconTransform.position;
+        
         healthPointsSlider.maxValue = _unit.MaxHealPoints;
         healthPointsSlider.value = _unit.CurrentHealPoints;
         
         _abilities = _unit.Abilites;
         for (int n = 0; n < _unit.Abilites.Count; n++)
         {
-            GameObject newIconFill = Instantiate(_abilities[n].AbilityIcon, new Vector3(firstIconPos.position.x + distanceBetweenIcons * n, firstIconPos.position.y, firstIconPos.position.z), firstIconPos.rotation, firstIconPos );
-            _abilitiesIconsFill.Add(newIconFill.GetComponentInChildren<Image>());
+            GameObject newIconFill = Instantiate(abilityBlock, new Vector3(firstIconPosition.x + distanceBetweenIcons * n, firstIconPosition.y, firstIconPosition.z), firstIconTransform.rotation, firstIconTransform );
+            newIconFill.GetComponent<AbilityBlock>().SetIcon(_abilities[n].AbilityIcon, _abilities[n]);
         }
     }
 
     void Update()
     {
         healthPointsSlider.value = _unit.CurrentHealPoints;
-        
-        for (int n = 0; n < _abilitiesIconsFill.Count; n++)
-        {
-            _abilitiesIconsFill[n].fillAmount = 1 - _abilities[n].CurrentTime/_abilities[n].ReloadTime;
-        }
     }
 }

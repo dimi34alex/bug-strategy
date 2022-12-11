@@ -237,7 +237,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _unit: {fileID: 0}
-  firstIconPos: {fileID: 2258360297154725476}
+  abilityBlock: {fileID: 2193674006679080235, guid: 40a6c10aece5db049a6a1d4577a66b5f, type: 3}
+  firstIconTransform: {fileID: 2258360297154725476}
   distanceBetweenIcons: 0.4
   healthPointsSlider: {fileID: 28477347024106224}
 --- !u!1 &5972218055413344958
