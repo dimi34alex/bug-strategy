@@ -246,7 +246,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 5039214122889290809}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 1.25
+  m_Radius: 0.7
   m_Speed: 10
   m_Acceleration: 8
   avoidancePriority: 50
@@ -270,7 +270,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.25
+  m_Radius: 0.7
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &6269788092349163503
 PrefabInstance:
