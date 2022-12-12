@@ -133,6 +133,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1274404536982251029}
     m_Modifications:
+    - target: {fileID: 557267860374812768, guid: ffb8c292185cd514094b2e78bf50524d, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1804355251172813621, guid: ffb8c292185cd514094b2e78bf50524d, type: 3}
       propertyPath: m_Name
       value: TownHallBuild
@@ -180,6 +184,18 @@ PrefabInstance:
     - target: {fileID: 2678729469616822426, guid: ffb8c292185cd514094b2e78bf50524d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2786485992896029944, guid: ffb8c292185cd514094b2e78bf50524d, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4351874455037664214, guid: ffb8c292185cd514094b2e78bf50524d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5918854304423215760, guid: ffb8c292185cd514094b2e78bf50524d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffb8c292185cd514094b2e78bf50524d, type: 3}

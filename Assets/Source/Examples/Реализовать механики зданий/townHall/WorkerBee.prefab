@@ -201,7 +201,7 @@ GameObject:
   - component: {fileID: 5625981766639921856}
   - component: {fileID: 6224702175188043516}
   m_Layer: 0
-  m_Name: pngwing.com
+  m_Name: Skin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -216,7 +216,7 @@ Transform:
   m_GameObject: {fileID: 5723541658055598804}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0.1, z: 0}
-  m_LocalScale: {x: -0.25, y: 0.25, z: 1}
+  m_LocalScale: {x: -0.07, y: 0.07, z: 1}
   m_Children: []
   m_Father: {fileID: 5930125467496831600}
   m_RootOrder: 0
@@ -261,7 +261,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: 06cd87f43f603904d990f0e59f614930, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f14d11ea15e463c4eba98c6a5df5bcc7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
