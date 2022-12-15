@@ -64,12 +64,36 @@ public class MovingUnit : UnitBase
 
     public void GiveOrder(Vector3 position)
     {
-        foreach (GameObject unit in pool.units)
+        switch (hit.collider.gameObject.tag)
         {
-            if (isSelected == true)
-            {
-                SetDestination(position);
-            }
+            case "PollenSource":
+                foreach (GameObject unit in pool.units)
+                {
+                    if (isSelected == true && unit.gameObject.tag == "Worker")
+                    {
+                        SetDestination(position);
+                        unit.GetComponent<WorkerDuty>().isFindingRes = true;
+
+                    }
+                }
+                break;
+
+            default:
+                foreach (GameObject unit in pool.units)
+                {
+                    if (isSelected == true)
+                    {
+                        SetDestination(position);
+                        if (unit.gameObject.tag == "Worker" && unit.GetComponent<MovingUnit>().isSelected == true)
+                        {
+                            unit.GetComponent<WorkerDuty>().isFindingRes = false;
+                            unit.GetComponent<WorkerDuty>().isGathering = false;
+                            unit.GetComponent<WorkerDuty>().isBuilding = false;
+                            unit.GetComponent<WorkerDuty>().isFindingBuild = false;
+                        }
+                    }
+                }
+                break;
         }
     }
 

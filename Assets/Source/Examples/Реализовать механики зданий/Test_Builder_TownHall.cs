@@ -16,11 +16,13 @@ public class Test_Builder_TownHall : CycleInitializerBase
     UI_Controller UI;
     bool spawnBuilding = false;
     private float _numberTownHall = 0;
-
-
+    private UnitPool pool;
+    private GameObject currentWorker;
     protected override void OnInit()
     {
         UI = GameObject.Find("UI").GetComponent<UI_Controller>();
+        GameObject controller = GameObject.FindGameObjectWithTag("GameController");
+        pool = controller.GetComponent<UnitPool>();
     }
 
     protected override void OnUpdate()
@@ -74,12 +76,22 @@ public class Test_Builder_TownHall : CycleInitializerBase
 
             if (Input.GetButtonDown("Fire1"))//подтверждение строительства здания
             {
-                if (currentBuildingNumber == 0)
-                    _SpawnTownHall();
-                if (currentBuildingNumber == 1)
-                    _SpawnBarrack();
-                Destroy(_currentBuilding);
-                spawnBuilding = false;
+                foreach (GameObject unit in pool.units)
+                {
+                    if (unit.GetComponent<MovingUnit>().isSelected == true && unit.gameObject.tag == "Worker")
+                    {
+                        unit.GetComponent<MovingUnit>().SetDestination(hit.point);
+                        unit.GetComponent<WorkerDuty>().isFindingBuild = true;
+
+                        if (currentBuildingNumber == 0)
+                            _SpawnTownHall(unit);
+                        if (currentBuildingNumber == 1)
+                            _SpawnBarrack(unit);
+                        Destroy(_currentBuilding);
+                        spawnBuilding = false;
+                        break;
+                    }
+                }
             }
             else if (Input.GetButtonDown("Fire2"))//отмена начала строительства
             {
@@ -89,7 +101,7 @@ public class Test_Builder_TownHall : CycleInitializerBase
         }
     }
 
-    private void _SpawnTownHall()
+    private void _SpawnTownHall(GameObject unit)
     {
         if (_numberTownHall < 1)
         {
@@ -111,7 +123,8 @@ public class Test_Builder_TownHall : CycleInitializerBase
                 FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position, progressConstruction);
 
                 progressConstruction.OnTimerEnd += c => CreateTownHall(c, position);
-                progressConstruction.StartBuilding(4, ConstructionID.Town_Hall);
+               
+                progressConstruction.StartBuilding(4, ConstructionID.Town_Hall, unit);
             }
         }
     }
@@ -127,7 +140,7 @@ public class Test_Builder_TownHall : CycleInitializerBase
         townHall.transform.position = position;
     }
 
-    private void _SpawnBarrack()
+    private void _SpawnBarrack(GameObject unit)
     {
         RaycastHit[] raycastHits = Physics.RaycastAll(Camera.main.ScreenPointToRay(Input.mousePosition));
         int index = raycastHits.IndexOf(hit => !hit.collider.isTrigger);
@@ -146,7 +159,8 @@ public class Test_Builder_TownHall : CycleInitializerBase
             FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position, progressConstruction);
 
             progressConstruction.OnTimerEnd += c => CreateBarrack(c, position);
-            progressConstruction.StartBuilding(4, ConstructionID.Barrack);
+
+            progressConstruction.StartBuilding(4, ConstructionID.Barrack, unit);
         }
     }
     private void CreateBarrack(BuildingProgressConstruction buildingProgressConstruction, Vector3 position)

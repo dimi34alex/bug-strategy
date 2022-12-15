@@ -77,11 +77,12 @@ public class UnitSelection : MonoBehaviour
 		{
 			hit.collider.gameObject.GetComponent<MovingUnit>().isSelected = true;
 			anySelected = true;
-
-			if (hit.collider.gameObject.name == "WorkerBee")
-			{
-				workerSelected = true;
-			}
+		}
+		else if (hit.collider.gameObject.tag == "Worker")
+		{
+			hit.collider.gameObject.GetComponent<MovingUnit>().isSelected = true;
+			anySelected = true;
+			workerSelected = true;
 		}
 
 		UI_Call();
@@ -114,7 +115,7 @@ public class UnitSelection : MonoBehaviour
                     unit.GetComponent<MovingUnit>().isSelected = true;
 					anySelected = true;
 
-					if (unit.gameObject.name == "WorkerBee")
+					if (unit.gameObject.tag == "Worker")
 					{
 						workerSelected = true;
 					}

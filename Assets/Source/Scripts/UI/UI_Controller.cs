@@ -17,6 +17,7 @@ public class UI_Controller : MonoBehaviour
     GameObject buffer;//буфер. необходимо для корректной работы "Back" в _SetWindow()
     GameObject building;//текущее выделенное здание
     UnitPool pool;
+    GameObject currentWorker;
 
     void Start()
     {
@@ -54,6 +55,8 @@ public class UI_Controller : MonoBehaviour
     public void _SpawnBuilding(int number)//спавн здания. принимает индекс ячейки в List<GameObject> buildings
     {
         builder._SpawnBuilding(number);
+
+
     }
 
     public void _ChoiceTactic()//выбор тактики. Функция пуста т.к. тактик у нас нет и хз как они будут работать

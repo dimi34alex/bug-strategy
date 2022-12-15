@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Building
   - Unit
+  - Worker
+  - PollenSource
+  - Base
+  - BuildMark
   layers:
   - Default
   - TransparentFX

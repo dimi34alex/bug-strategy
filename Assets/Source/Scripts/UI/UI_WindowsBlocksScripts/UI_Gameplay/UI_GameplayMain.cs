@@ -11,6 +11,8 @@ struct SomeResurcePrint
     public TextMeshProUGUI name;
     public Image Icon;
     public TextMeshProUGUI value;
+    public int CurrentValue;
+    public int Capacity;
 }
 
 public class UI_GameplayMain : UIScreen
@@ -29,6 +31,9 @@ public class UI_GameplayMain : UIScreen
         
         housing.Icon.sprite = ResourceGlobalStorage.GetResource(ResourceID.Housing).Icon;
         housing.name.text = ResourceGlobalStorage.GetResource(ResourceID.Housing).ID.ToString();
+
+        pollen.Capacity = 1000;
+        pollen.CurrentValue = 0;
     }
 
     private void Update()
@@ -37,5 +42,10 @@ public class UI_GameplayMain : UIScreen
         wax.value.text = ResourceGlobalStorage.GetResource(ResourceID.Bees_Wax).CurrentValue.ToString() + "/" + ResourceGlobalStorage.GetResource(ResourceID.Bees_Wax).Capacity.ToString();
         housing.value.text = ResourceGlobalStorage.GetResource(ResourceID.Housing).CurrentValue.ToString() + "/" + ResourceGlobalStorage.GetResource(ResourceID.Housing).Capacity.ToString();
         
+    }
+
+    public void GatheringPollen(int count)
+    {
+        ResourceGlobalStorage.ChangeValue(ResourceID.Pollen, count);
     }
 }

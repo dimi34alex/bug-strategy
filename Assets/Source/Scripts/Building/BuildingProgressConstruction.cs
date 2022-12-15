@@ -14,17 +14,26 @@ public class BuildingProgressConstruction : ConstructionBase
 
     public event Action<BuildingProgressConstruction> OnTimerEnd;
 
-    public void StartBuilding(int duration, ConstructionID constructionID)
+    private GameObject currentWorker;
+    public UnitPool pool;
+    public bool WorkerArrived;
+
+    void Start()
+    {
+        GameObject controller = GameObject.FindGameObjectWithTag("GameController");
+        pool = controller.GetComponent<UnitPool>();
+    }
+
+    public void StartBuilding(int duration, ConstructionID constructionID, GameObject unit)
     {
         if (BuildingProgressState != BuildingProgressState.Waiting)
             return;
-
         BuildingProgressState = BuildingProgressState.Started;
         BuildingConstructionID = constructionID;
-        StartCoroutine(StartBuildingCoroutine(duration));
+        StartCoroutine(StartBuildingCoroutine(duration, unit));
     }
 
-    private IEnumerator StartBuildingCoroutine(int duration)
+    private IEnumerator StartBuildingCoroutine(int duration, GameObject currentWorker)
     {
         int timer = duration;
 
@@ -32,13 +41,18 @@ public class BuildingProgressConstruction : ConstructionBase
         {
             _timerText.text = $"{timer.SecsToMins()}";
             yield return new WaitForSeconds(1f);
-            timer--;
+            if (currentWorker.GetComponent<WorkerDuty>().isBuilding && WorkerArrived)
+            {
+                timer--;
+            }
         }
 
         _timerText.text = $"{timer.SecsToMins()}";
 
         yield return new WaitForSeconds(1f);
-        BuildingProgressState = BuildingProgressState.Completed;
+		BuildingProgressState = BuildingProgressState.Completed;
+        currentWorker.GetComponent<WorkerDuty>().isBuilding = false;
+
 
         OnTimerEnd?.Invoke(this);
     }

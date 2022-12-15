@@ -42,10 +42,10 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8287707048911136234}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 6.5, y: 1, z: 4.5}
+  m_Size: {x: 5.85, y: 1, z: 2.82}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6644387960813269008
 MonoBehaviour:
@@ -120,7 +120,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 2.75, y: 0.5, z: 1.75}
+  m_Extents: {x: 2.61, y: 0.5, z: 1.145}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1

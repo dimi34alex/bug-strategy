@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class UnitPool : MonoBehaviour
 {
@@ -127,9 +128,12 @@ public class UnitPool : MonoBehaviour
 
     public void DeselectAll()
     {
-        foreach (GameObject unit in units)
+        if (!EventSystem.current.IsPointerOverGameObject())
         {
-            unit.GetComponent<MovingUnit>().isSelected = false;
+            foreach (GameObject unit in units)
+            {
+                unit.GetComponent<MovingUnit>().isSelected = false;
+            }
         }
     }
 }

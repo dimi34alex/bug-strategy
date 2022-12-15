@@ -27,7 +27,7 @@ public class ConstructionTester : CycleInitializerBase
                 FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position.ToInt(), progressConstruction);
 
                 progressConstruction.OnTimerEnd += c => CreateDefaultConstruction(c, position.ToInt());
-                progressConstruction.StartBuilding(4, ConstructionID.Test_Construction);
+                //progressConstruction.StartBuilding(4, ConstructionID.Test_Construction);
             }
         }
     }

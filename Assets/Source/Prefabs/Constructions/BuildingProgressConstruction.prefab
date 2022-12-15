@@ -845,9 +845,11 @@ GameObject:
   m_Component:
   - component: {fileID: 589072602228609362}
   - component: {fileID: 589072602228609363}
+  - component: {fileID: 578274785806036525}
+  - component: {fileID: 114108318496945832}
   m_Layer: 0
   m_Name: BuildingProgressConstruction
-  m_TagString: Untagged
+  m_TagString: BuildMark
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -900,6 +902,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _timerText: {fileID: 589072602223343525}
+  pool: {fileID: 0}
+--- !u!135 &578274785806036525
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 589072602228609372}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2.2
+  m_Center: {x: 0, y: 1.06, z: 0}
+--- !u!208 &114108318496945832
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 589072602228609372}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.505, y: 1.1, z: 1.51}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &589072602328018445
 GameObject:
   m_ObjectHideFlags: 0
