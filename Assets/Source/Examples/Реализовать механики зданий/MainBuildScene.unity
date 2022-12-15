@@ -7570,9 +7570,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1844035346}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f82ce13dd4144948af732a4022597e7, type: 3}
+  m_Script: {fileID: 11500000, guid: 6156c46cd048c1749b713d3a2cd297f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 50
+  useCameraMovement: 1
+  field: {fileID: 291144843}
 --- !u!1 &1846903526
 GameObject:
   m_ObjectHideFlags: 0
@@ -8472,7 +8475,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2082523637}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 10000
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
@@ -8573,6 +8576,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1715765994516679295, guid: 3a4407f137678c14fb55fe57fde82205, type: 3}
+      propertyPath: isFindingBuild
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3549433375624800588, guid: 3a4407f137678c14fb55fe57fde82205, type: 3}
       propertyPath: m_Name
       value: WorkerBee
@@ -8623,6 +8630,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5930125467496831600, guid: 3a4407f137678c14fb55fe57fde82205, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6515036035572920544, guid: 3a4407f137678c14fb55fe57fde82205, type: 3}
+      propertyPath: m_StoppingDistance
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9046693239749849579, guid: 3a4407f137678c14fb55fe57fde82205, type: 3}
