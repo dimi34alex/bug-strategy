@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2678729469616822426}
   m_Layer: 2
-  m_Name: TownHallBuild
+  m_Name: TownHallMovableModel
   m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
