@@ -1390,6 +1390,10 @@ PrefabInstance:
       propertyPath: m_fontColor.r
       value: 0.7372549
       objectReference: {fileID: 0}
+    - target: {fileID: 1025493168259657531, guid: 8f6fd508a6f070c41be39c081d913935, type: 3}
+      propertyPath: m_Name
+      value: Barrack
+      objectReference: {fileID: 0}
     - target: {fileID: 1219789802406459881, guid: 8f6fd508a6f070c41be39c081d913935, type: 3}
       propertyPath: m_fontSize
       value: 7
@@ -1965,12 +1969,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 35e58091c478a424fa4ab230da8e8cf3, type: 3}
     - target: {fileID: 3382134216055755009, guid: 8f6fd508a6f070c41be39c081d913935, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3382134216055755009, guid: 8f6fd508a6f070c41be39c081d913935, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 5868268006567620579}
     - target: {fileID: 3382134216055755009, guid: 8f6fd508a6f070c41be39c081d913935, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: _SpawnBuilding
+      value: _SpawnTownHall
       objectReference: {fileID: 0}
     - target: {fileID: 3413692712664118232, guid: 8f6fd508a6f070c41be39c081d913935, type: 3}
       propertyPath: m_Sprite
@@ -2257,12 +2265,16 @@ PrefabInstance:
       value: 0.49998474
       objectReference: {fileID: 0}
     - target: {fileID: 4457299846124966686, guid: 8f6fd508a6f070c41be39c081d913935, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4457299846124966686, guid: 8f6fd508a6f070c41be39c081d913935, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 5868268006567620579}
     - target: {fileID: 4457299846124966686, guid: 8f6fd508a6f070c41be39c081d913935, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: _SpawnBuilding
+      value: _SpawnBarrack
       objectReference: {fileID: 0}
     - target: {fileID: 4479885504017975347, guid: 8f6fd508a6f070c41be39c081d913935, type: 3}
       propertyPath: m_Sprite
@@ -2413,12 +2425,20 @@ PrefabInstance:
       value: 4278230716
       objectReference: {fileID: 0}
     - target: {fileID: 5309884719909908440, guid: 8f6fd508a6f070c41be39c081d913935, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5309884719909908440, guid: 8f6fd508a6f070c41be39c081d913935, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 5868268006567620579}
     - target: {fileID: 5309884719909908440, guid: 8f6fd508a6f070c41be39c081d913935, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: _SpawnBuilding
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5439522624828726203, guid: 8f6fd508a6f070c41be39c081d913935, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5439522624828726203, guid: 8f6fd508a6f070c41be39c081d913935, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -2426,7 +2446,7 @@ PrefabInstance:
       objectReference: {fileID: 5868268006567620579}
     - target: {fileID: 5439522624828726203, guid: 8f6fd508a6f070c41be39c081d913935, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: _SpawnBuilding
+      value: _SpawnWaxFactory
       objectReference: {fileID: 0}
     - target: {fileID: 5502234564363260534, guid: 8f6fd508a6f070c41be39c081d913935, type: 3}
       propertyPath: m_IsActive
@@ -2623,6 +2643,10 @@ PrefabInstance:
     - target: {fileID: 6441334058567374757, guid: 8f6fd508a6f070c41be39c081d913935, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6657936521168117598, guid: 8f6fd508a6f070c41be39c081d913935, type: 3}
+      propertyPath: m_Name
+      value: WaxFactory
       objectReference: {fileID: 0}
     - target: {fileID: 6710797408707903722, guid: 8f6fd508a6f070c41be39c081d913935, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -3095,6 +3119,10 @@ PrefabInstance:
     - target: {fileID: 8524299726456315961, guid: 8f6fd508a6f070c41be39c081d913935, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8537622278964447067, guid: 8f6fd508a6f070c41be39c081d913935, type: 3}
+      propertyPath: m_Name
+      value: TownHall
       objectReference: {fileID: 0}
     - target: {fileID: 8543882698711444957, guid: 8f6fd508a6f070c41be39c081d913935, type: 3}
       propertyPath: m_IsActive

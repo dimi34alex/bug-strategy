@@ -6,13 +6,24 @@ using UnityEngine.UIElements;
 using Zenject;
 using UnityEngine.EventSystems;
 
+
+[Serializable]
+struct BuildingDictionaryData
+{
+    public ConstructionID constructionID;
+    [Tooltip("Movable prefab(/Prefabs/Constructions/MovableModel), NOT MAIN PREFAB")]
+    public GameObject constructionModel;
+}
 public class Test_Builder_TownHall : CycleInitializerBase
 {
     [Inject] private readonly IConstructionFactory _constructionFactory;
     [SerializeField] LayerMask layerMask;
-    [SerializeField] List<GameObject> buildings;//массив префабов зданий
+    
+    [SerializeField] private List<BuildingDictionaryData> buildingsDictionaryData;
+    [SerializeField] Dictionary<ConstructionID, GameObject> buildings = new Dictionary<ConstructionID, GameObject>();
     GameObject currentBuilding;
-    int currentBuildingNumber;
+    ConstructionID currentConstructionID;
+    
     UI_Controller UI;
     bool spawnBuilding = false;
     private float _numberTownHall = 0;
@@ -23,6 +34,9 @@ public class Test_Builder_TownHall : CycleInitializerBase
         UI = GameObject.Find("UI").GetComponent<UI_Controller>();
         GameObject controller = GameObject.FindGameObjectWithTag("GameController");
         pool = controller.GetComponent<UnitPool>();
+
+        for (int n = 0; n < buildingsDictionaryData.Count; n++)
+            buildings.Add(buildingsDictionaryData[n].constructionID, buildingsDictionaryData[n].constructionModel);
     }
 
     protected override void OnUpdate()
@@ -83,15 +97,18 @@ public class Test_Builder_TownHall : CycleInitializerBase
             {
                 foreach (GameObject unit in pool.units)
                 {
-                    if (unit.GetComponent<MovingUnit>().isSelected == true && unit.gameObject.tag == "Worker")
+                    if (unit.GetComponent<MovingUnit>().isSelected == true && unit.gameObject.CompareTag("Worker"))
                     {
                         unit.GetComponent<MovingUnit>().SetDestination(hit.point);
                         unit.GetComponent<WorkerDuty>().isFindingBuild = true;
 
-                        if (currentBuildingNumber == 0)
+                        if (currentConstructionID == ConstructionID.Town_Hall)
                             _SpawnTownHall(unit);
-                        if (currentBuildingNumber == 1)
+                        if (currentConstructionID == ConstructionID.Barrack)
                             _SpawnBarrack(unit);
+                        if (currentConstructionID == ConstructionID.Bees_Wax_Produce_Construction)
+                            _SpawnBeesWaxProduceConstruction(unit);
+                        
                         Destroy(_currentBuilding);
                         spawnBuilding = false;
                         break;
@@ -144,6 +161,7 @@ public class Test_Builder_TownHall : CycleInitializerBase
         FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position, townHall);
         townHall.transform.position = position;
     }
+    
 
     private void _SpawnBarrack(GameObject unit)
     {
@@ -179,11 +197,48 @@ public class Test_Builder_TownHall : CycleInitializerBase
         FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position, barrack);
         barrack.transform.position = position;
     }
-
-    public void _SpawnBuilding(int number)
+    
+    
+    private void _SpawnBeesWaxProduceConstruction(GameObject unit)
     {
-        currentBuildingNumber = number;
+        RaycastHit[] raycastHits = Physics.RaycastAll(Camera.main.ScreenPointToRay(Input.mousePosition));
+        int index = raycastHits.IndexOf(hit => !hit.collider.isTrigger);
+
+        if (index > -1)
+        {
+            Vector3 position = FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(raycastHits[index].point);
+
+            if (FrameworkCommander.GlobalData.ConstructionsRepository.ConstructionExist(position, false))
+            {
+                Debug.Log("Invalid place");
+                return;
+            }
+            BuildingProgressConstruction progressConstruction = _constructionFactory.Create<BuildingProgressConstruction>(ConstructionID.Building_Progress_Construction);
+            progressConstruction.transform.position = position;
+            FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position, progressConstruction);
+
+            progressConstruction.OnTimerEnd += c => CreateBeesWaxProduceConstruction(c, position);
+
+            progressConstruction.StartBuilding(4, ConstructionID.Bees_Wax_Produce_Construction, unit);
+        }
+    }
+    private void CreateBeesWaxProduceConstruction(BuildingProgressConstruction buildingProgressConstruction, Vector3 position)
+    {
+        BeesWaxProduceConstruction beesWaxProduceConstruction = _constructionFactory.Create<BeesWaxProduceConstruction>(buildingProgressConstruction.BuildingConstructionID);
+
+        FrameworkCommander.GlobalData.ConstructionsRepository.GetConstruction(position, true);
+
+        Destroy(buildingProgressConstruction.gameObject);
+
+        FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position, beesWaxProduceConstruction);
+        beesWaxProduceConstruction.transform.position = position;
+    }
+    
+    
+    public void _SpawnBuilding(ConstructionID constructionID)
+    {
+        currentConstructionID = constructionID;
         spawnBuilding = true;
-        currentBuilding = Instantiate(buildings[number]);
+        currentBuilding = Instantiate(buildings[constructionID]);
     }
 }

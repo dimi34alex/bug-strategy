@@ -51,12 +51,20 @@ public class UI_Controller : MonoBehaviour
         if (UIScreenRepository.GetScreen<UI_Saves>().isActiveAndEnabled)
             UI_Activ = UIScreenRepository.GetScreen<UI_Saves>().gameObject;
     }
-
-    public void _SpawnBuilding(int number)//спавн здания. принимает индекс ячейки в List<GameObject> buildings
+    
+    public void _SpawnTownHall()//спавн здания. принимает индекс ячейки в List<GameObject> buildings
     {
-        builder._SpawnBuilding(number);
-
-
+        builder._SpawnBuilding(ConstructionID.Town_Hall);
+    }
+    
+    public void _SpawnBarrack()//спавн здания. принимает индекс ячейки в List<GameObject> buildings
+    {
+        builder._SpawnBuilding(ConstructionID.Barrack);
+    }
+    
+    public void _SpawnWaxFactory()//спавн здания. принимает индекс ячейки в List<GameObject> buildings
+    {
+        builder._SpawnBuilding(ConstructionID.Bees_Wax_Produce_Construction);
     }
 
     public void _ChoiceTactic()//выбор тактики. Функция пуста т.к. тактик у нас нет и хз как они будут работать
