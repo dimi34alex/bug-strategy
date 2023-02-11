@@ -54,7 +54,7 @@ public class Test_Builder_TownHall : CycleInitializerBase
                     }
                     else
                     {
-                        throw new Exception("Error: gameobject with tag Building dont have script ConstructionBase");
+                        throw new Exception("Error: gameObject with tag Building dont have script ConstructionBase");
                     }
                 }
                 else if (!MousOverUI())
