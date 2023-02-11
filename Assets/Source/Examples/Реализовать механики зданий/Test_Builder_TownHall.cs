@@ -39,20 +39,25 @@ public class Test_Builder_TownHall : CycleInitializerBase
 
     private void _Main()
     {
-        if (Input.GetButtonDown("Fire1"))//если рэйкаст сталкиваеться с чем нибудь, проверяем это здание или нет
+        if (Input.GetButtonDown("Fire1"))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, 100F, layerMask))
             {
-                if (hit.transform.gameObject.tag == "Building")//если да, то вызываем через здание UX/UI меню этого здания
+                if (hit.transform.gameObject.CompareTag("Building"))
                 {
-                    if (hit.transform.gameObject.GetComponent<TownHall?>())
-                        hit.transform.gameObject.GetComponent<TownHall>().CallBuildingMenu("UI_TownHallMenu");
-                    else if (hit.transform.gameObject.GetComponent<Barrack?>())
-                        hit.transform.gameObject.GetComponent<Barrack>().CallBuildingMenu("UI_BarracksMenu");
+                    if (hit.transform.gameObject.GetComponent<ConstructionBase?>())
+                    {
+                        ConstructionID constructionID = hit.transform.gameObject.GetComponent<ConstructionBase>().ConstructionID;
+                        UI._SetBuilding(hit.transform.gameObject, constructionID);
+                    }
+                    else
+                    {
+                        throw new Exception("Error: gameobject with tag Building dont have script ConstructionBase");
+                    }
                 }
-                else if (hit.transform.gameObject.tag != "UI" && !MousOverUI())
+                else if (!MousOverUI())
                 {
                     UI._SetWindow("UI_GameplayMain");
                 }

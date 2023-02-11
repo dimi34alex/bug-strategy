@@ -60,11 +60,6 @@ public class Barrack : ConstructionBase, IDamagable
     #endregion
 
     #region BuildingsMainMethods
-    public void CallBuildingMenu(string windowName)//вызов меню здания
-    {
-        UI._SetBuilding(gameObject, windowName);
-    }
-
     public void NextBuildingLevel()//повышение уровня здания, вызывется через UI/UX
     {
 

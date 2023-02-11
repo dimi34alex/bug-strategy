@@ -128,10 +128,34 @@ public class UI_Controller : MonoBehaviour
         Application.Quit();
     }
 
-    public void _SetBuilding(GameObject newBuilding, string windowName)//установка текущего выделеного здания здания
+    public void _SetBuilding(GameObject newBuilding, ConstructionID constructionID)//установка текущего выделеного здания здания
     {
+        string windowName;
+        switch (constructionID)
+        {
+            case (ConstructionID.Town_Hall):
+            {
+                windowName = "UI_TownHallMenu";
+                break;
+            }
+            case (ConstructionID.Barrack):
+            {
+                windowName = "UI_BarracksMenu";
+                break;
+            }
+            case (ConstructionID.Bees_Wax_Produce_Construction):
+            {
+                windowName = "";
+                break;
+            }
+            default:
+            {
+                windowName = "UI_GameplayMain";
+                break;
+            }
+        }
+        
         building = newBuilding;
         _SetWindow(windowName);
     }
-
 }
