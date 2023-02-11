@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Barrack : ConstructionBase, IDamagable
 {
-    public override ConstructionID ConstructionID => ConstructionID.Town_Hall;
+    public override ConstructionID ConstructionID => ConstructionID.Barrack;
 
     #region Main
     private UI_Controller UI;
