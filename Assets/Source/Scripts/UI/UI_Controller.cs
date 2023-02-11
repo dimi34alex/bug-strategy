@@ -51,29 +51,29 @@ public class UI_Controller : MonoBehaviour
         if (UIScreenRepository.GetScreen<UI_Saves>().isActiveAndEnabled)
             UI_Activ = UIScreenRepository.GetScreen<UI_Saves>().gameObject;
     }
-    
-    public void _SpawnTownHall()//спавн здания. принимает индекс ячейки в List<GameObject> buildings
+
+    #region Spawn of buildings
+    public void _SpawnTownHall()
     {
         builder._SpawnBuilding(ConstructionID.Town_Hall);
     }
     
-    public void _SpawnBarrack()//спавн здания. принимает индекс ячейки в List<GameObject> buildings
+    public void _SpawnBarrack()
     {
         builder._SpawnBuilding(ConstructionID.Barrack);
     }
     
-    public void _SpawnWaxFactory()//спавн здания. принимает индекс ячейки в List<GameObject> buildings
+    public void _SpawnWaxFactory()
     {
         builder._SpawnBuilding(ConstructionID.Bees_Wax_Produce_Construction);
     }
+    #endregion
 
-    public void _ChoiceTactic()//выбор тактики. Функция пуста т.к. тактик у нас нет и хз как они будут работать
+    public void _ChoiceTactic()
     { Debug.Log("Error: tactics is empty"); }
 
     public void _ChoiceGroup()
-    {
-                 
-    }
+    { Debug.Log("Error: groups is empty"); }
 
     public void _SetWindow(string windowName)//смена активного окна UI. принимает название окна, которое надо сделать активным
     {
@@ -131,11 +131,6 @@ public class UI_Controller : MonoBehaviour
         }
     }
 
-    public void _Quite()//выход из игры
-    {
-        Application.Quit();
-    }
-
     public void _SetBuilding(GameObject newBuilding, ConstructionID constructionID)//установка текущего выделеного здания здания
     {
         string windowName;
@@ -165,5 +160,10 @@ public class UI_Controller : MonoBehaviour
         
         building = newBuilding;
         _SetWindow(windowName);
+    }
+    
+    public void _Quite()
+    {
+        Application.Quit();
     }
 }
