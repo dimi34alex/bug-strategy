@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5330466338465754199}
   - component: {fileID: 5330466338465754192}
+  - component: {fileID: 3857824772847671301}
   m_Layer: 0
   m_Name: BeesWaxProduceConstruction
   m_TagString: Untagged
@@ -52,6 +53,22 @@ MonoBehaviour:
     _spendableResourceID: 0
     _spendRatio: 0.5
     _spendableResourceCapacity: 100
+--- !u!208 &3857824772847671301
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5330466338465754193}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 2.61, y: 0.5, z: 1.145}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &5330466338770375138
 GameObject:
   m_ObjectHideFlags: 0
