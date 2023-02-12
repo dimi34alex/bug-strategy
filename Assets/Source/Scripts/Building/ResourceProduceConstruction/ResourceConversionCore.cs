@@ -5,6 +5,7 @@ public class ResourceConversionCore : ResourceProduceCoreBase
     private ResourceConversionProccessInfo _resourceConversionProccessInfo;
     private ResourceStorage _spendableResouce;
     private float _fractionalProducedResources;
+    private float _fractionalSpendableResources;
 
     protected override ResourceProduceProccessInfoBase _produceProccessInfo => _resourceConversionProccessInfo;
 
@@ -17,6 +18,7 @@ public class ResourceConversionCore : ResourceProduceCoreBase
     public ResourceConversionCore(ResourceConversionProccessInfo conversionProccessInfo) : base(conversionProccessInfo)
     {
         _resourceConversionProccessInfo = conversionProccessInfo;
+        _spendableResouce = new ResourceStorage(0, conversionProccessInfo.SpendableResourceCapacity);
     }
 
     protected override int CalculateProducedResourceCount(float time)
@@ -26,13 +28,16 @@ public class ResourceConversionCore : ResourceProduceCoreBase
 
         float targetProduce = time * _resourceConversionProccessInfo.ProducePerSecond;
         float realProduce = Mathf.Min(targetProduce, MaxPotentialProduceResource);
-        float spend = realProduce / _resourceConversionProccessInfo.SpendRatio;
+        float realSpend = realProduce / _resourceConversionProccessInfo.SpendRatio;
+
+        _fractionalSpendableResources += realSpend;
+        int wholeSpendablePart = (int)_fractionalSpendableResources;
+        _fractionalSpendableResources -= wholeSpendablePart;
+        _spendableResouce.ChangeValue(-wholeSpendablePart);
 
         _fractionalProducedResources += realProduce;
-        _spendableResouce.ChangeValue(-spend);
-
         int wholePart = (int)_fractionalProducedResources;
-
+        _fractionalProducedResources -= wholePart;
         return wholePart;
     }
 
