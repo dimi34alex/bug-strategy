@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5330466338465754199}
   - component: {fileID: 5330466338465754192}
+  - component: {fileID: -3724024334100814529}
   - component: {fileID: 3857824772847671301}
   m_Layer: 0
   m_Name: BeesWaxProduceConstruction
@@ -48,11 +49,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _resourceConversionProccessInfo:
     _targetResourceID: 5
-    _producePerSecond: 15
+    _producePerSecond: 5
     _producedResourceCapacity: 500
     _spendableResourceID: 0
     _spendRatio: 0.5
     _spendableResourceCapacity: 100
+--- !u!65 &-3724024334100814529
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5330466338465754193}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.5, y: 1, z: 3}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!208 &3857824772847671301
 NavMeshObstacle:
   m_ObjectHideFlags: 0

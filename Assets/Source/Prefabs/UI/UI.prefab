@@ -1510,6 +1510,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1433337568386153632, guid: 8f6fd508a6f070c41be39c081d913935, type: 3}
+      propertyPath: uiError
+      value: 
+      objectReference: {fileID: 4916995894225567250}
     - target: {fileID: 1720341419966138510, guid: 8f6fd508a6f070c41be39c081d913935, type: 3}
       propertyPath: m_Type
       value: 0
@@ -1892,6 +1896,10 @@ PrefabInstance:
       propertyPath: m_enableWordWrapping
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3135456712649610434, guid: 8f6fd508a6f070c41be39c081d913935, type: 3}
+      propertyPath: uiError
+      value: 
+      objectReference: {fileID: 4916995894225567250}
     - target: {fileID: 3137990346939776916, guid: 8f6fd508a6f070c41be39c081d913935, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
@@ -3212,6 +3220,10 @@ PrefabInstance:
       propertyPath: m_enableWordWrapping
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8769267563765237508, guid: 8f6fd508a6f070c41be39c081d913935, type: 3}
+      propertyPath: uiError
+      value: 
+      objectReference: {fileID: 4916995894225567250}
     - target: {fileID: 8782608848818248224, guid: 8f6fd508a6f070c41be39c081d913935, type: 3}
       propertyPath: m_Type
       value: 0

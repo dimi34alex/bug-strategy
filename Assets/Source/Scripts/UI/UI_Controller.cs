@@ -95,6 +95,8 @@ public class UI_Controller : MonoBehaviour
                 UI_GameplayWindows._SetGameplayWindow(windowName, building); break;
             case "UI_BarracksMenu":
                 UI_GameplayWindows._SetGameplayWindow(windowName, building); break;
+            case "UI_BeesWaxProduceConstructionMenu":
+                UI_GameplayWindows._SetGameplayWindow(windowName, building); break;
 
             case "UI_GameplayMenu":
                 UI_Activ = UIScreenRepository.GetScreen<UI_GameplayMenu>().gameObject; break;
@@ -148,7 +150,7 @@ public class UI_Controller : MonoBehaviour
             }
             case (ConstructionID.Bees_Wax_Produce_Construction):
             {
-                windowName = "";
+                windowName = "UI_BeesWaxProduceConstructionMenu";
                 break;
             }
             default:

@@ -8,6 +8,7 @@ public class UI_Gameplay : UIScreen
     GameObject _UI_Tactics;
     GameObject _UI_TownHallMenu;
     GameObject _UI_BarracksMenu;
+    GameObject _UI_BeesWaxProduceConstructionMenu;
 
     void Start()
     {
@@ -15,6 +16,7 @@ public class UI_Gameplay : UIScreen
         _UI_Tactics = UIScreenRepository.GetScreen<UI_Tactics>().gameObject;
         _UI_TownHallMenu = UIScreenRepository.GetScreen<UI_TownHallMenu>().gameObject;
         _UI_BarracksMenu = UIScreenRepository.GetScreen<UI_BarracksMenu>().gameObject;
+        _UI_BeesWaxProduceConstructionMenu = UIScreenRepository.GetScreen<UI_BeesWaxProduceConstructionMenu>().gameObject;
     }
 
     GameObject UI_Activ;//текущее активное окно. необходимо для работы _SetWindow()
@@ -28,6 +30,7 @@ public class UI_Gameplay : UIScreen
                     _UI_Tactics.SetActive(false);
                     _UI_TownHallMenu.SetActive(false);
                     _UI_BarracksMenu.SetActive(false);
+                    _UI_BeesWaxProduceConstructionMenu.SetActive(false);
                     break;
                 }
             case "UI_Buildings":
@@ -36,6 +39,7 @@ public class UI_Gameplay : UIScreen
                     _UI_Tactics.SetActive(false);
                     _UI_TownHallMenu.SetActive(false);
                     _UI_BarracksMenu.SetActive(false);
+                    _UI_BeesWaxProduceConstructionMenu.SetActive(false);
                     break;
                 }
             case "UI_Tactics":
@@ -44,6 +48,7 @@ public class UI_Gameplay : UIScreen
                     _UI_Tactics.SetActive(true);
                     _UI_TownHallMenu.SetActive(false);
                     _UI_BarracksMenu.SetActive(false);
+                    _UI_BeesWaxProduceConstructionMenu.SetActive(false);
                     break;
                 }
             case "UI_TownHallMenu":
@@ -53,6 +58,7 @@ public class UI_Gameplay : UIScreen
                     _UI_TownHallMenu.SetActive(true);
                     _UI_TownHallMenu.GetComponent<UI_TownHallMenu>()._CallMenu(building);
                     _UI_BarracksMenu.SetActive(false);
+                    _UI_BeesWaxProduceConstructionMenu.SetActive(false);
                     break;
                 }
             case "UI_BarracksMenu":
@@ -62,6 +68,17 @@ public class UI_Gameplay : UIScreen
                     _UI_TownHallMenu.SetActive(false);
                     _UI_BarracksMenu.SetActive(true);
                     _UI_BarracksMenu.GetComponent<UI_BarracksMenu>()._CallMenu(building);
+                    _UI_BeesWaxProduceConstructionMenu.SetActive(false);
+                    break;
+                }
+                case "UI_BeesWaxProduceConstructionMenu":
+                {
+                    _UI_Buildings.SetActive(false);
+                    _UI_Tactics.SetActive(false);
+                    _UI_TownHallMenu.SetActive(false);
+                    _UI_BarracksMenu.SetActive(false);
+                    _UI_BeesWaxProduceConstructionMenu.SetActive(true);
+                    _UI_BeesWaxProduceConstructionMenu.GetComponent<UI_BeesWaxProduceConstructionMenu>()._CallMenu(building);
                     break;
                 }
             default:
