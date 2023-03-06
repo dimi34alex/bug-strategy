@@ -10,12 +10,11 @@ public class BuildingLevelBase
     [SerializeField][Range(0F, 100000F)] protected float maxHealPoints = 0;
     public float MaxHealPoints => maxHealPoints;
     
-    //цена в кол-ве ресурсов для повышения до следующего лвл-а ратуши
     [Header("Prices to next level")]
-    [SerializeField][Range(0F, 10000F)] float pollenLevelUpPrice = 0;//воск
+    [SerializeField][Range(0F, 10000F)] float pollenLevelUpPrice = 0;
     public float PollenLevelUpPrice => pollenLevelUpPrice;
     public float BeesWaxLevelUpPrice => bees_waxLevelUpPrice;
-    [SerializeField][Range(0F, 10000F)] float bees_waxLevelUpPrice = 0;//воск
+    [SerializeField][Range(0F, 10000F)] float bees_waxLevelUpPrice = 0;
     public float HousingLevelUpPrice => housingLevelUpPrice;
-    [SerializeField][Range(0F, 10000F)] float housingLevelUpPrice = 0;//воск
+    [SerializeField][Range(0F, 10000F)] float housingLevelUpPrice = 0;
 }
