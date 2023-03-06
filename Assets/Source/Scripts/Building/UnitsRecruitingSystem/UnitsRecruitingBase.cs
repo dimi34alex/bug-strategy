@@ -1,26 +1,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class UnitsRecruitingBase<T, K, S> where T : UnitStackBase, new()
-                                        where K : UnitRecruitingDataBase, new()
-                                        where S : UnitRecruitingInformationBase, new()
+public abstract class UnitsRecruitingBase<TUnitStack, TUnitRecruitingData, TUnitRecruitingInformation> where TUnitStack : UnitStackBase, new()
+                                        where TUnitRecruitingData : UnitRecruitingDataBase, new()
+                                        where TUnitRecruitingInformation : UnitRecruitingInformationBase, new()
 {
     protected Transform spawnPosition;
-    protected List<T> Stacks;
-    protected List<K> beesRecruitingDatas;
+    protected List<TUnitStack> Stacks;
+    protected List<TUnitRecruitingData> beesRecruitingDatas;
     protected int currentStack = 0;
 
-    public UnitsRecruitingBase(int size, Transform spawnPos, List<K> newDatas)
+    public UnitsRecruitingBase(int size, Transform spawnPos, List<TUnitRecruitingData> newDatas)
     {
-        Stacks = new List<T>(new T[size]);
+        Stacks = new List<TUnitStack>(new TUnitStack[size]);
         beesRecruitingDatas = newDatas;
         spawnPosition = spawnPos;
 
         for (int n = 0; n < size; n++)
-            Stacks[n] = new T();
+            Stacks[n] = new TUnitStack();
     }
 
-    public void SetNewBeesDatas(List<K> newDatas)
+    public void SetNewBeesDatas(List<TUnitRecruitingData> newDatas)
     {
         beesRecruitingDatas = newDatas;
     }
@@ -28,13 +28,13 @@ public abstract class UnitsRecruitingBase<T, K, S> where T : UnitStackBase, new(
     {
         for (int n = Stacks.Count; n < newSize; n++)
         {
-            Stacks.Add(new T());
+            Stacks.Add(new TUnitStack());
         }
     }
 
     public void Tick(float time)
     {
-        foreach (T mass in Stacks)
+        foreach (TUnitStack mass in Stacks)
             if (!mass.Empty)
                 mass.StackTick(time);
 
@@ -44,5 +44,5 @@ public abstract class UnitsRecruitingBase<T, K, S> where T : UnitStackBase, new(
             currentStack = 0;
     }
 
-    abstract public S GetBeeRecruitingInformation(int n);
+    abstract public TUnitRecruitingInformation GetBeeRecruitingInformation(int n);
 }

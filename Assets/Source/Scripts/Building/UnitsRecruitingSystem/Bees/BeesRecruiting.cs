@@ -7,22 +7,22 @@ public class BeesRecruiting : UnitsRecruitingBase<BeesStack, BeesRecruitingData,
 
     public string RecruitBees(BeesRecruitingID beeID)
     {
-        int findedStack = Stacks.IndexOf(freeStack => freeStack.Empty == true);
+        int foundStack = Stacks.IndexOf(freeStack => freeStack.Empty == true);
 
-        if (findedStack == -1)
+        if (foundStack == -1)
         {
             Debug.Log("Error: All Stack are busy");
             return "All Stack are busy";
         }
         
-        BeesRecruitingData findedData = beesRecruitingDatas.Find(fi => fi.CurrentID == beeID);
+        BeesRecruitingData foundData = beesRecruitingDatas.Find(fi => fi.CurrentID == beeID);
 
-        if (findedData.PollenPrice <= ResourceGlobalStorage.GetResource(ResourceID.Pollen).CurrentValue
-            && findedData.HousingPrice <= ResourceGlobalStorage.GetResource(ResourceID.Housing).CurrentValue)
+        if (foundData.PollenPrice <= ResourceGlobalStorage.GetResource(ResourceID.Pollen).CurrentValue
+            && foundData.HousingPrice <= ResourceGlobalStorage.GetResource(ResourceID.Housing).CurrentValue)
         {
-            ResourceGlobalStorage.ChangeValue(ResourceID.Pollen, -findedData.PollenPrice);
-            ResourceGlobalStorage.ChangeValue(ResourceID.Housing, -findedData.HousingPrice);
-            Stacks[findedStack] = new BeesStack(findedData, spawnPosition);
+            ResourceGlobalStorage.ChangeValue(ResourceID.Pollen, -foundData.PollenPrice);
+            ResourceGlobalStorage.ChangeValue(ResourceID.Housing, -foundData.HousingPrice);
+            Stacks[foundStack] = new BeesStack(foundData, spawnPosition);
             return null;
         }
         else
@@ -31,11 +31,11 @@ public class BeesRecruiting : UnitsRecruitingBase<BeesStack, BeesRecruitingData,
 
     public override BeeRecruitingInformation GetBeeRecruitingInformation(int n)
     {
-        if (n < Stacks.Count)
+        if (n < Stacks.Count && n >= 0)
             return new BeeRecruitingInformation(Stacks[n]);
         else
-            Debug.Log("Error: are you trying to get a non-existent BeeRecruitingInformation");
+            Debug.Log("Error: you are trying to get a non-existent BeeRecruitingInformation");
 
-        return new BeeRecruitingInformation(Stacks[0]);
+        return new BeeRecruitingInformation(new BeesStack());
     }
 }
