@@ -5,19 +5,19 @@ using UnityEngine.SceneManagement;
 
 public class UI_Controller : MonoBehaviour
 {
-    static Test_Builder_TownHall builder;//необходимо для создания зданий. Т.к. у нас нет обще игрового скрипта, 
+    private static Test_Builder_TownHall builder;//необходимо для создания зданий. Т.к. у нас нет обще игрового скрипта, 
                                                    //который мог бы отвечать за спавн и перемещение зданий, то пока что будет эта заглушка.
-    static GameObject UI_Activ;//текущее активное окно. необходимо для работы _SetWindow()
-    static UI_Gameplay UI_GameplayWindows;//скрипт который установлен на префабе окна геймплея(UI_Gameplay), нужен просто для удобства и оптимизации, чтобы не вызывать GetComponent<>(): 
+    private static GameObject UI_Activ;//текущее активное окно. необходимо для работы _SetWindow()
+    private static UI_Gameplay UI_GameplayWindows;//скрипт который установлен на префабе окна геймплея(UI_Gameplay), нужен просто для удобства и оптимизации, чтобы не вызывать GetComponent<>(): 
                                    //благодаря этому в функции _SetWindow() вместо этого:
                                    //UIScreenRepository.GetScreen<UI_Gameplay>().gameObject.GetComponent<UI_Gameplay>()._SetGameplayWindow(windowName); 
                                    //используется это:
                                    //UI_GameplayWindows._SetGameplayWindow(windowName);
-    static GameObject UI_PrevActiv;//предыдущее активное окно. необходимо для корректной работы "Back" в _SetWindow()
-    static GameObject buffer;//буфер. необходимо для корректной работы "Back" в _SetWindow()
-    static GameObject building;//текущее выделенное здание
-    static UnitPool pool;
-    static GameObject currentWorker;
+    private static GameObject UI_PrevActiv;//предыдущее активное окно. необходимо для корректной работы "Back" в _SetWindow()
+    private static GameObject buffer;//буфер. необходимо для корректной работы "Back" в _SetWindow()
+    private static GameObject building;//текущее выделенное здание
+    private static UnitPool pool;
+    private static GameObject currentWorker;
 
     void Start()
     {

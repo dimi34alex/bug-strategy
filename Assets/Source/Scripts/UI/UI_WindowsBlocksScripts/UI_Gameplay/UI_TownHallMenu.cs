@@ -6,55 +6,60 @@ using TMPro;
 public class UI_TownHallMenu : UIScreen
 {
     [SerializeField] private UI_ERROR uiError;
-    [SerializeField] private TextMeshProUGUI Alarm;
+    [SerializeField] private TextMeshProUGUI alarm;
 
-    [SerializeField] private List<TextMeshProUGUI> StackID;
-    [SerializeField] private List<TextMeshProUGUI> StackTime;
-    TownHall townHall;
-    int currentStack = 0;
-    BeeRecruitingInformation beeRecruitingInformation;
-
-    public void _CallMenu(GameObject _townHall)
-    {
-        townHall = _townHall.GetComponent<TownHall>();
-    }
-
+    [SerializeField] private List<TextMeshProUGUI> stackID;
+    [SerializeField] private List<TextMeshProUGUI> stackTime;
+    TownHall _townHall;
+    
     void Update()
     {
-        beeRecruitingInformation = townHall._GetBeeRecruitingInformation(currentStack);
+        Displaying();
+    }
 
-        if (beeRecruitingInformation.Empty)
+    private void Displaying()
+    {
+        List<BeeRecruitingInformation> beeRecruitingInformation = _townHall.GetRecruitingInformation();
+
+        for (int n = 0; n < beeRecruitingInformation.Count && n < stackID.Count && n < stackTime.Count; n++)
         {
-            StackID[currentStack].text = "empty";
-            StackTime[currentStack].text = "";
+            if (beeRecruitingInformation[n].Empty)
+            {
+                stackID[n].text = "empty";
+                stackTime[n].text = "";
+            }
+            else
+            {
+                stackID[n].text = beeRecruitingInformation[n].CurrentID.ToString();
+                float currentTime = Mathf.Clamp((Mathf.Round(beeRecruitingInformation[n].CurrentTime * 100F) / 100F), 0F, Mathf.Infinity);
+                float fullTime = Mathf.Round(beeRecruitingInformation[n].RecruitinTime * 100F) / 100F;
+                stackTime[n].text = (currentTime + "/" + fullTime);
+            }
         }
+        
+        if (_townHall.AlarmOn)
+            alarm.text = "Bee Alarm Off";
         else
-        {
-            StackID[currentStack].text = beeRecruitingInformation.CurrentID.ToString();
-            StackTime[currentStack].text = (Mathf.Clamp((Mathf.Round(beeRecruitingInformation.CurrentTime * 100F) / 100F), 0F, Mathf.Infinity).ToString() + "/" + (Mathf.Round(beeRecruitingInformation.RecruitinTime * 100F) / 100F).ToString());
-        }
-
-        currentStack++;
-        if (currentStack >= townHall.RecruitingSize || currentStack >= StackID.Count || currentStack >= StackTime.Count)
-            currentStack = 0;
-
-        if (townHall.AlarmOn)
-            Alarm.text = "Bee Alarm Off";
-        else
-            Alarm.text = "Bee Alarm On";
+            alarm.text = "Bee Alarm On";
+    }
+    
+    public void _CallMenu(GameObject townHall)
+    {
+        this._townHall = townHall.GetComponent<TownHall>();
+    }
+    
+    public void _BuildingLVL_Up()
+    {
+        _townHall.NextBuildingLevel();
     }
 
     public void _RecruitingWorkerBee()
     {
-        uiError._ErrorCall(townHall.GetComponent<TownHall>().RecruitingWorkerBee(BeesRecruitingID.WorkerBee));
+        uiError._ErrorCall(_townHall.RecruitingWorkerBee(BeesRecruitingID.WorkerBee));
     }
+    
     public void _WorkerBeeAlarmer()
     {
-        townHall.GetComponent<TownHall>().WorkerBeeAlarmer();
-    }
-
-    public void _BuildingLVL_Up()
-    {
-        townHall.GetComponent<TownHall>().NextBuildingLevel();
+        _townHall.WorkerBeeAlarmer();
     }
 }

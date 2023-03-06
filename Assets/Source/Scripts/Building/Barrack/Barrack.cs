@@ -33,9 +33,9 @@ public class Barrack : EvolvConstruction<BarrackLevel>
     {
         return recruiting.RecruitBees(beeID);
     }
-
-    public BeeRecruitingInformation GetBeeRecruitingInformation(int n)
+    
+    public List<BeeRecruitingInformation> GetRecruitingInformation()
     {
-        return recruiting.GetBeeRecruitingInformation(n);
+        return recruiting.GetRecruitingInformation();
     }
 }

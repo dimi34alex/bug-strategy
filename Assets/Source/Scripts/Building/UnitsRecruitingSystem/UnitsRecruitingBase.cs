@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class UnitsRecruitingBase<TUnitStack, TUnitRecruitingData, TUnitRecruitingInformation> where TUnitStack : UnitStackBase, new()
-                                        where TUnitRecruitingData : UnitRecruitingDataBase, new()
-                                        where TUnitRecruitingInformation : UnitRecruitingInformationBase, new()
+public abstract class UnitsRecruitingBase<TUnitStack, TUnitRecruitingData, TUnitRecruitingInformation> 
+    where TUnitStack : UnitStackBase, new()
+    where TUnitRecruitingData : UnitRecruitingDataBase, new()
+    where TUnitRecruitingInformation : UnitRecruitingInformationBase, new()
 {
     protected Transform spawnPosition;
     protected List<TUnitStack> Stacks;
@@ -44,5 +45,5 @@ public abstract class UnitsRecruitingBase<TUnitStack, TUnitRecruitingData, TUnit
             currentStack = 0;
     }
 
-    abstract public TUnitRecruitingInformation GetBeeRecruitingInformation(int n);
+    public abstract List<TUnitRecruitingInformation> GetRecruitingInformation();
 }

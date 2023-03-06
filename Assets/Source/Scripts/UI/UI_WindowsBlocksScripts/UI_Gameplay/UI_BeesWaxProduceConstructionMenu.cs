@@ -19,10 +19,10 @@ public class UI_BeesWaxProduceConstructionMenu : UIScreen
     
     private void Update()
     {
-        FillsTick();
+        Displaying();
     }
 
-    private void FillsTick()
+    private void Displaying()
     {
         IReadOnlyResourceStorage spendableResource = _beesWaxProduceConstruction.TakeSpendableResourceInformation();
         spendableResourceFill.fillAmount = spendableResource.CurrentValue / spendableResource.Capacity;
@@ -31,27 +31,25 @@ public class UI_BeesWaxProduceConstructionMenu : UIScreen
         IReadOnlyResourceStorage produceResource = _beesWaxProduceConstruction.TakeProduceResourceInformation();
         produceResourceFill.fillAmount = produceResource.CurrentValue / produceResource.Capacity;
         produceResourceText.text = produceResource.CurrentValue + "/" + produceResource.Capacity;
-
+    }
+    
+    public void _CallMenu(GameObject beesWaxProduceConstruction)
+    {
+        _beesWaxProduceConstruction = beesWaxProduceConstruction.GetComponent<BeesWaxProduceConstruction>();
+    }
+    
+    public void _BuildingLVL_Up()
+    {
+        _beesWaxProduceConstruction.NextBuildingLevel();
     }
     
     public void _AddSpendableResource(int addPollen)
     {
         _beesWaxProduceConstruction.AddSpendableResource(addPollen);
-        //uiError._ErrorCall(beesWaxProduceConstruction.RecruitBees(BeesRecruitingID.Wasp));
     }
+    
     public void _ExtractProduceResource()
     {
         _beesWaxProduceConstruction.ExtractProduceResource();
-        //uiError._ErrorCall(beesWaxProduceConstruction.RecruitBees(BeesRecruitingID.Bumblebee));
-    }
-
-    public void _CallMenu(GameObject beesWaxProduceConstruction)
-    {
-        this._beesWaxProduceConstruction = beesWaxProduceConstruction.GetComponent<BeesWaxProduceConstruction>();
-    }
-
-    public void _BuildingLVL_Up()
-    {
-        _beesWaxProduceConstruction.NextBuildingLevel();
     }
 }

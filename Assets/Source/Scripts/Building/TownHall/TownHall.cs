@@ -19,7 +19,7 @@ public class TownHall : EvolvConstruction<TownHallLevel>
 
     [SerializeField] [Range(0,5)] float pauseTimeOfOutBeesFromTownHallAfterAlarm = 1;//пауза между выходами пчел из здания после выключения тревоги
     [SerializeField] Transform workerBeesSpawnPosition;//координаты флага, на котором спавняться рабочие пчелы
-    BeesRecruiting recruiting;
+    private BeesRecruiting _recruiting;
     public int RecruitingSize => CurrentLevel.RecruitingSize;
 
     protected override void OnAwake()
@@ -27,9 +27,9 @@ public class TownHall : EvolvConstruction<TownHallLevel>
         base.OnAwake();
         gameObject.name = "TownHall";
         
-        recruiting = new BeesRecruiting(CurrentLevel.RecruitingSize, workerBeesSpawnPosition, CurrentLevel.BeesRecruitingData);
+        _recruiting = new BeesRecruiting(CurrentLevel.RecruitingSize, workerBeesSpawnPosition, CurrentLevel.BeesRecruitingData);
         
-        levelSystem = new TownHallLevelSystem(levelSystem, HealPoints, recruiting);
+        levelSystem = new TownHallLevelSystem(levelSystem, HealPoints, _recruiting);
 
         ResourceGlobalStorage.ChangeCapacity(ResourceID.Pollen,CurrentLevel.PollenCapacity);
         ResourceGlobalStorage.ChangeCapacity(ResourceID.Bees_Wax,CurrentLevel.BeesWaxCapacity);
@@ -48,21 +48,24 @@ public class TownHall : EvolvConstruction<TownHallLevel>
 
     void OnUpdate()
     {
-        recruiting.Tick(Time.deltaTime);
+        _recruiting.Tick(Time.deltaTime);
     }
+    
     public static void HideMe(GameObject workerBee)
     {
         WorkerBeesInTownHall.Push(workerBee);
         workerBee.SetActive(false);
     }
+    
     public void WorkerBeeAlarmer()
     {
         alarmOn = !alarmOn;
         if (alarmOn)
             WorkerBeeAlarmOn?.Invoke();
         else
-            StartCoroutine("OutBeesFromTownHall");
+            StartCoroutine(OutBeesFromTownHall());
     }
+    
     IEnumerator OutBeesFromTownHall()
     {
         GameObject bee;
@@ -73,13 +76,15 @@ public class TownHall : EvolvConstruction<TownHallLevel>
             yield return new WaitForSeconds(pauseTimeOfOutBeesFromTownHallAfterAlarm);
         }
     }
+    
     public string RecruitingWorkerBee(BeesRecruitingID beeID)
     {
-        return recruiting.RecruitBees(beeID);
+        return _recruiting.RecruitBees(beeID);
     }
-    public BeeRecruitingInformation _GetBeeRecruitingInformation(int n)
+    
+    public List<BeeRecruitingInformation> GetRecruitingInformation()
     {
-        return recruiting.GetBeeRecruitingInformation(n);
+        return _recruiting.GetRecruitingInformation();
     }
 
     private void OnDestroy()

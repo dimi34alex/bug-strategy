@@ -20,9 +20,9 @@ public class UI_Gameplay : UIScreen
     }
 
     GameObject UI_Activ;//текущее активное окно. необходимо для работы _SetWindow()
-    public void _SetGameplayWindow(string gemeplayWindowName, GameObject building)
+    public void _SetGameplayWindow(string gameplayWindowName, GameObject building)
     {
-        switch (gemeplayWindowName)
+        switch (gameplayWindowName)
         {
             case "UI_GameplayMain":
                 {

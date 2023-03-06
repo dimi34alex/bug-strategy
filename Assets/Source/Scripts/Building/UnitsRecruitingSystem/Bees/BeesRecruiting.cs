@@ -28,14 +28,16 @@ public class BeesRecruiting : UnitsRecruitingBase<BeesStack, BeesRecruitingData,
         else
             return "Need more resource";
     }
-
-    public override BeeRecruitingInformation GetBeeRecruitingInformation(int n)
+    
+    public override List<BeeRecruitingInformation> GetRecruitingInformation()
     {
-        if (n < Stacks.Count && n >= 0)
-            return new BeeRecruitingInformation(Stacks[n]);
-        else
-            Debug.Log("Error: you are trying to get a non-existent BeeRecruitingInformation");
+        List<BeeRecruitingInformation> fullInformation = new List<BeeRecruitingInformation>();
 
-        return new BeeRecruitingInformation(new BeesStack());
+        foreach (var stack in Stacks)
+        {
+            fullInformation.Add(new BeeRecruitingInformation(stack));
+        }
+        
+        return fullInformation;
     }
 }

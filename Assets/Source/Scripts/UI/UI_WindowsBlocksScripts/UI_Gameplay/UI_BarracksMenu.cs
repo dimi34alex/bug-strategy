@@ -6,48 +6,51 @@ public class UI_BarracksMenu : UIScreen
 {
     [SerializeField] private UI_ERROR uiError;
 
-    [SerializeField] private List<TextMeshProUGUI> StackID;
-    [SerializeField] private List<TextMeshProUGUI> StackTime;
+    [SerializeField] private List<TextMeshProUGUI> stackID;
+    [SerializeField] private List<TextMeshProUGUI> stackTime;
     Barrack barrack;
-    int currentStack = 0;
-    BeeRecruitingInformation beeRecruitingInformation;
 
     private void Update()
     {
+        Displaying();
+    }
 
-        beeRecruitingInformation = barrack.GetBeeRecruitingInformation(currentStack);
-
-        if (beeRecruitingInformation.Empty)
+    private void Displaying()
+    {
+        List<BeeRecruitingInformation> beeRecruitingInformation = barrack.GetRecruitingInformation();
+        for (int n = 0; n < beeRecruitingInformation.Count && n < stackID.Count && n < stackTime.Count; n++)
         {
-            StackID[currentStack].text = "empty";
-            StackTime[currentStack].text = "";
+            if (beeRecruitingInformation[n].Empty)
+            {
+                stackID[n].text = "empty";
+                stackTime[n].text = "";
+            }
+            else{
+                stackID[n].text = beeRecruitingInformation[n].CurrentID.ToString();
+                float currentTime = Mathf.Clamp((Mathf.Round(beeRecruitingInformation[n].CurrentTime * 100F) / 100F), 0F, Mathf.Infinity);
+                float fullTime = Mathf.Round(beeRecruitingInformation[n].RecruitinTime * 100F) / 100F;
+                stackTime[n].text = (currentTime + "/" + fullTime);
+            }
         }
-        else{
-            StackID[currentStack].text = beeRecruitingInformation.CurrentID.ToString();
-            StackTime[currentStack].text = (Mathf.Clamp((Mathf.Round(beeRecruitingInformation.CurrentTime * 100F) / 100F), 0F, Mathf.Infinity).ToString() + "/" + (Mathf.Round(beeRecruitingInformation.RecruitinTime * 100F) / 100F).ToString());
-        }
-
-        currentStack++;
-        if (currentStack >= barrack.RecruitingSize || currentStack >= StackID.Count || currentStack >= StackTime.Count)
-            currentStack = 0;
+    }
+    
+    public void _CallMenu(GameObject _barrack)
+    {
+        barrack = _barrack.GetComponent<Barrack>();
+    }
+    
+    public void _BuildingLVL_Up()
+    {
+        barrack.NextBuildingLevel();
     }
 
     public void _RecruitingWax()
     {
         uiError._ErrorCall(barrack.RecruitBees(BeesRecruitingID.Wasp));
     }
+    
     public void _RecruitingBumblebee()
     {
         uiError._ErrorCall(barrack.RecruitBees(BeesRecruitingID.Bumblebee));
-    }
-
-    public void _CallMenu(GameObject _barrack)
-    {
-        barrack = _barrack.GetComponent<Barrack>();
-    }
-
-    public void _BuildingLVL_Up()
-    {
-        barrack.NextBuildingLevel();
     }
 }
