@@ -184,7 +184,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 3549433375624800588}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.7
+  m_Radius: 1
   m_Speed: 8
   m_Acceleration: 8
   avoidancePriority: 50
@@ -193,7 +193,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 1
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -208,7 +208,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.7
+  m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &3856705473339230021
 Rigidbody:
@@ -252,7 +252,7 @@ Transform:
   m_GameObject: {fileID: 5723541658055598804}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: -0.15, y: 0.15, z: 1}
+  m_LocalScale: {x: 0.075, y: 0.075, z: 1}
   m_Children: []
   m_Father: {fileID: 5930125467496831600}
   m_RootOrder: 0
@@ -297,7 +297,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 100
-  m_Sprite: {fileID: 21300000, guid: 2207cb50f9f6f3346ba6175614e01644, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f14d11ea15e463c4eba98c6a5df5bcc7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -333,7 +333,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7471633721207437469}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.65, y: 0, z: -0.5800001}
+  m_LocalPosition: {x: -0.75, y: 0, z: -0.75}
   m_LocalScale: {x: 0.050000004, y: 0.05000001, z: 1}
   m_Children: []
   m_Father: {fileID: 5930125467496831600}
