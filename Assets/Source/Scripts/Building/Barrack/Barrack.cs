@@ -5,8 +5,6 @@ public class Barrack : EvolvConstruction<BarrackLevel>
 {
     public override ConstructionID ConstructionID => ConstructionID.Barrack;
 
-    private UI_Controller UI;
-
     public float PollenPrice => CurrentLevel.PollenLevelUpPrice;
     public float WaxPrice => CurrentLevel.BeesWaxLevelUpPrice;
     public float HousingPrice => CurrentLevel.HousingLevelUpPrice;
@@ -18,7 +16,6 @@ public class Barrack : EvolvConstruction<BarrackLevel>
     protected override void OnAwake()
     {
         base.OnAwake();
-        UI = GameObject.Find("UI").GetComponent<UI_Controller>();
 
         recruiting = new BeesRecruiting(CurrentLevel.RecruitingSize, beesSpawnPosition, CurrentLevel.BeesRecruitingData);
 

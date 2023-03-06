@@ -19,12 +19,10 @@ public class UnitSelection : MonoBehaviour
 	private bool workerSelected;
 	private bool anySelected;
 	private UnitPool pool;
-	private UI_Controller UI;
 
     void Start()
     {
         pool = GetComponent<UnitPool>();
-		UI = GameObject.Find("UI").GetComponent<UI_Controller>();
 	}
 
 	void Update()
@@ -140,11 +138,11 @@ public class UnitSelection : MonoBehaviour
 	{
 		if (workerSelected)
 		{
-			UI._SetWindow("UI_Buildings");
+			UI_Controller._SetWindow("UI_Buildings");
 		}
 		else if (anySelected)
 		{
-			UI._SetWindow("UI_Tactics");
+			UI_Controller._SetWindow("UI_Tactics");
 		}
 	}
 }

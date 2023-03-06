@@ -24,14 +24,12 @@ public class Test_Builder_TownHall : CycleInitializerBase
     GameObject currentBuilding;
     ConstructionID currentConstructionID;
     
-    UI_Controller UI;
     bool spawnBuilding = false;
     private float _numberTownHall = 0;
     private UnitPool pool;
     private GameObject currentWorker;
     protected override void OnInit()
     {
-        UI = GameObject.Find("UI").GetComponent<UI_Controller>();
         GameObject controller = GameObject.FindGameObjectWithTag("GameController");
         pool = controller.GetComponent<UnitPool>();
 
@@ -64,7 +62,7 @@ public class Test_Builder_TownHall : CycleInitializerBase
                     if (hit.transform.gameObject.GetComponent<ConstructionBase?>())
                     {
                         ConstructionID constructionID = hit.transform.gameObject.GetComponent<ConstructionBase>().ConstructionID;
-                        UI._SetBuilding(hit.transform.gameObject, constructionID);
+                        UI_Controller._SetBuilding(hit.transform.gameObject, constructionID);
                     }
                     else
                     {
@@ -73,7 +71,7 @@ public class Test_Builder_TownHall : CycleInitializerBase
                 }
                 else if (!MousOverUI())
                 {
-                    UI._SetWindow("UI_GameplayMain");
+                    UI_Controller._SetWindow("UI_GameplayMain");
                 }
             }
         }

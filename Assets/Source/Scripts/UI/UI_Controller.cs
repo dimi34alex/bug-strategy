@@ -5,22 +5,26 @@ using UnityEngine.SceneManagement;
 
 public class UI_Controller : MonoBehaviour
 {
-    [SerializeField] Test_Builder_TownHall builder;//необходимо для создания зданий. Т.к. у нас нет обще игрового скрипта, 
+    static Test_Builder_TownHall builder;//необходимо для создания зданий. Т.к. у нас нет обще игрового скрипта, 
                                                    //который мог бы отвечать за спавн и перемещение зданий, то пока что будет эта заглушка.
-    GameObject UI_Activ;//текущее активное окно. необходимо для работы _SetWindow()
-    UI_Gameplay UI_GameplayWindows;//скрипт который установлен на префабе окна геймплея(UI_Gameplay), нужен просто для удобства и оптимизации, чтобы не вызывать GetComponent<>(): 
+    static GameObject UI_Activ;//текущее активное окно. необходимо для работы _SetWindow()
+    static UI_Gameplay UI_GameplayWindows;//скрипт который установлен на префабе окна геймплея(UI_Gameplay), нужен просто для удобства и оптимизации, чтобы не вызывать GetComponent<>(): 
                                    //благодаря этому в функции _SetWindow() вместо этого:
                                    //UIScreenRepository.GetScreen<UI_Gameplay>().gameObject.GetComponent<UI_Gameplay>()._SetGameplayWindow(windowName); 
                                    //используется это:
                                    //UI_GameplayWindows._SetGameplayWindow(windowName);
-    GameObject UI_PrevActiv;//предыдущее активное окно. необходимо для корректной работы "Back" в _SetWindow()
-    GameObject buffer;//буфер. необходимо для корректной работы "Back" в _SetWindow()
-    GameObject building;//текущее выделенное здание
-    UnitPool pool;
-    GameObject currentWorker;
+    static GameObject UI_PrevActiv;//предыдущее активное окно. необходимо для корректной работы "Back" в _SetWindow()
+    static GameObject buffer;//буфер. необходимо для корректной работы "Back" в _SetWindow()
+    static GameObject building;//текущее выделенное здание
+    static UnitPool pool;
+    static GameObject currentWorker;
 
     void Start()
     {
+        builder = GameObject.Find("Builder").GetComponent<Test_Builder_TownHall>();
+        if(builder == null)
+            Debug.LogError("Builder is null");
+        
         UI_GameplayWindows = UIScreenRepository.GetScreen<UI_Gameplay>().gameObject.GetComponent<UI_Gameplay>();
 
         //определяем, какое окно у нас активно при запуске.
@@ -53,29 +57,29 @@ public class UI_Controller : MonoBehaviour
     }
 
     #region Spawn of buildings
-    public void _SpawnTownHall()
+    public static void _SpawnTownHall()
     {
         builder._SpawnBuilding(ConstructionID.Town_Hall);
     }
     
-    public void _SpawnBarrack()
+    public static void _SpawnBarrack()
     {
         builder._SpawnBuilding(ConstructionID.Barrack);
     }
     
-    public void _SpawnWaxFactory()
+    public static void _SpawnWaxFactory()
     {
         builder._SpawnBuilding(ConstructionID.Bees_Wax_Produce_Construction);
     }
     #endregion
 
-    public void _ChoiceTactic()
+    public static void _ChoiceTactic()
     { Debug.Log("Error: tactics is empty"); }
 
-    public void _ChoiceGroup()
+    public static void _ChoiceGroup()
     { Debug.Log("Error: groups is empty"); }
 
-    public void _SetWindow(string windowName)//смена активного окна UI. принимает название окна, которое надо сделать активным
+    public static void _SetWindow(string windowName)//смена активного окна UI. принимает название окна, которое надо сделать активным
     {
         buffer = UI_Activ;
         UI_Activ.SetActive(false);
@@ -121,7 +125,7 @@ public class UI_Controller : MonoBehaviour
         UI_Activ.SetActive(true);
     }
 
-    public void _LoadScene(string sceneName)//загрузка сцены. принимает название сцены
+    public static void _LoadScene(string sceneName)//загрузка сцены. принимает название сцены
     {
         if (sceneName == "empty")
         {
@@ -133,7 +137,7 @@ public class UI_Controller : MonoBehaviour
         }
     }
 
-    public void _SetBuilding(GameObject newBuilding, ConstructionID constructionID)//установка текущего выделеного здания здания
+    public static void _SetBuilding(GameObject newBuilding, ConstructionID constructionID)//установка текущего выделеного здания здания
     {
         string windowName;
         switch (constructionID)
@@ -163,8 +167,10 @@ public class UI_Controller : MonoBehaviour
         building = newBuilding;
         _SetWindow(windowName);
     }
+        UI_Error._ErrorCall(error);
+    }
     
-    public void _Quite()
+    public static void _Quite()
     {
         Application.Quit();
     }

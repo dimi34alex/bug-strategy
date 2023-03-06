@@ -7,9 +7,7 @@ using UnityEngine.Events;
 public class TownHall : EvolvConstruction<TownHallLevel>
 {
     public override ConstructionID ConstructionID => ConstructionID.Town_Hall;
-
-    protected UI_Controller UI;
-
+    
     public float PollenPrice => CurrentLevel.PollenLevelUpPrice;
     public float WaxPrice => CurrentLevel.BeesWaxLevelUpPrice;
     public float HousingPrice => CurrentLevel.HousingLevelUpPrice;
@@ -28,7 +26,6 @@ public class TownHall : EvolvConstruction<TownHallLevel>
     {
         base.OnAwake();
         gameObject.name = "TownHall";
-        UI = GameObject.Find("UI").GetComponent<UI_Controller>();
         
         recruiting = new BeesRecruiting(CurrentLevel.RecruitingSize, workerBeesSpawnPosition, CurrentLevel.BeesRecruitingData);
         
