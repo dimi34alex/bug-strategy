@@ -49,5 +49,11 @@ public class ResourceConversionCore : ResourceProduceCoreBase
     protected override void SetResourceProduceProccessInfoCallback(ResourceProduceProccessInfoBase produceProccessInfo)
     {
         _resourceConversionProccessInfo = produceProccessInfo.Cast<ResourceConversionProccessInfo>();
+        SetSpendableResouceProccessInfo(_resourceConversionProccessInfo);
+    }
+
+    protected void SetSpendableResouceProccessInfo(ResourceConversionProccessInfo resourceConversionProccessInfo)
+    {
+        _spendableResouce.SetCapacity(resourceConversionProccessInfo.SpendableResourceCapacity);
     }
 }

@@ -1,36 +1,19 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class TownHall : ConstructionBase, IDamagable
+public class TownHall : EvolvConstruction<TownHallLevel>
 {
     public override ConstructionID ConstructionID => ConstructionID.Town_Hall;
 
-    #region Main
     protected UI_Controller UI;
-    public float MaxHealPoints => healPoints.Capacity;
-    public float CurrentHealPoints => healPoints.CurrentValue;
-    private ResourceStorage healPoints;
-    #endregion
 
-    #region Resources
-    public float MaxPollen => currentLevel.PollenCapacity;
-    public float MaxWax => currentLevel.BeesWaxCapacity;
-    public float MaxHousing => currentLevel.BeesWaxCapacity;
-    #endregion
+    public float PollenPrice => CurrentLevel.PollenLevelUpPrice;
+    public float WaxPrice => CurrentLevel.BeesWaxLevelUpPrice;
+    public float HousingPrice => CurrentLevel.HousingLevelUpPrice;
 
-    #region Level-ups
-    [SerializeField] List<TownHallLevel> levels;
-    TownHallLevel currentLevel;
-    int currentLevelNum = 1;
-    
-    public float PollenPrice => currentLevel.PollenLevelUpPrice;
-    public float WaxPrice => currentLevel.BeesWaxLevelUpPrice;
-    public float HousingPrice => currentLevel.HousingLevelUpPrice;
-    #endregion
-
-    #region Workers Bees
     public bool AlarmOn => alarmOn;
     bool alarmOn = false;//тревога включена?
     public static UnityEvent WorkerBeeAlarmOn = new UnityEvent();//оповещение рабочих пчел о тревоге
@@ -39,38 +22,33 @@ public class TownHall : ConstructionBase, IDamagable
     [SerializeField] [Range(0,5)] float pauseTimeOfOutBeesFromTownHallAfterAlarm = 1;//пауза между выходами пчел из здания после выключения тревоги
     [SerializeField] Transform workerBeesSpawnPosition;//координаты флага, на котором спавняться рабочие пчелы
     BeesRecruiting recruiting;
-    public int RecruitingSize => currentLevel.RecruitingSize;
-    #endregion
+    public int RecruitingSize => CurrentLevel.RecruitingSize;
 
     protected override void OnAwake()
     {
         base.OnAwake();
         gameObject.name = "TownHall";
         UI = GameObject.Find("UI").GetComponent<UI_Controller>();
+        
+        recruiting = new BeesRecruiting(CurrentLevel.RecruitingSize, workerBeesSpawnPosition, CurrentLevel.BeesRecruitingData);
+        
+        levelSystem = new TownHallLevelSystem(levelSystem, HealPoints, recruiting);
 
-        currentLevel = levels[0];
+        ResourceGlobalStorage.ChangeCapacity(ResourceID.Pollen,CurrentLevel.PollenCapacity);
+        ResourceGlobalStorage.ChangeCapacity(ResourceID.Bees_Wax,CurrentLevel.BeesWaxCapacity);
+        ResourceGlobalStorage.ChangeCapacity(ResourceID.Housing,CurrentLevel.HousingCapacity);
         
-        healPoints = new ResourceStorage(currentLevel.MaxHealPoints,currentLevel.MaxHealPoints);
+        ResourceGlobalStorage.ChangeValue(ResourceID.Housing,CurrentLevel.HousingCapacity);
         
-        ResourceGlobalStorage.ChangeCapacity(ResourceID.Pollen,currentLevel.PollenCapacity);
-        ResourceGlobalStorage.ChangeCapacity(ResourceID.Bees_Wax,currentLevel.BeesWaxCapacity);
-        ResourceGlobalStorage.ChangeCapacity(ResourceID.Housing,currentLevel.HousingCapacity);
-        
-        ResourceGlobalStorage.ChangeValue(ResourceID.Housing,currentLevel.HousingCapacity);
-        
-        recruiting = new BeesRecruiting(currentLevel.RecruitingSize, workerBeesSpawnPosition, currentLevel.BeesRecruitingData);
-
         _updateEvent += OnUpdate;
+        _onDestroy += OnDestroy;
     }
 
-    #region Resource methods
-    public void AddResurce(ResourceID resourceID,float value)
+    public void AddResource(ResourceID resourceID,float value)
     {
         ResourceGlobalStorage.ChangeValue(resourceID, value);
     }
-    #endregion
 
-    #region  Woreker Bees Methods
     void OnUpdate()
     {
         recruiting.Tick(Time.deltaTime);
@@ -106,66 +84,10 @@ public class TownHall : ConstructionBase, IDamagable
     {
         return recruiting.GetBeeRecruitingInformation(n);
     }
-    #endregion
 
-    #region BuildingsMainMethods
-    public void NextBuildingLevel()//повышение уровня здания, вызывется через UI/UX
+    private void OnDestroy()
     {
-        if (currentLevelNum == levels.Count)
-        {
-            Debug.Log("max Town Hall level");
-            return;
-        }
-        
-        if (ResourceGlobalStorage.GetResource(ResourceID.Pollen).CurrentValue >= currentLevel.PollenLevelUpPrice
-            && ResourceGlobalStorage.GetResource(ResourceID.Bees_Wax).CurrentValue >= currentLevel.BeesWaxLevelUpPrice
-            && ResourceGlobalStorage.GetResource(ResourceID.Housing).CurrentValue >= currentLevel.HousingLevelUpPrice)
-        {
-            ResourceGlobalStorage.ChangeValue(ResourceID.Pollen, -currentLevel.PollenLevelUpPrice);
-            ResourceGlobalStorage.ChangeValue(ResourceID.Bees_Wax, -currentLevel.BeesWaxLevelUpPrice);
-            ResourceGlobalStorage.ChangeValue(ResourceID.Housing, -currentLevel.HousingLevelUpPrice);
-            
-            float pollenPrevCapacity = currentLevel.PollenCapacity;
-            float beesWaxPrevCapacity = currentLevel.BeesWaxCapacity;
-            float housingPrevCapacity = currentLevel.HousingCapacity;
-            
-            currentLevel = levels[currentLevelNum++];
-            
-            ResourceGlobalStorage.ChangeCapacity(ResourceID.Pollen, currentLevel.PollenCapacity - pollenPrevCapacity);
-            ResourceGlobalStorage.ChangeCapacity(ResourceID.Bees_Wax, currentLevel.BeesWaxCapacity - beesWaxPrevCapacity);
-            ResourceGlobalStorage.ChangeCapacity(ResourceID.Housing, currentLevel.HousingCapacity - housingPrevCapacity);
-            
-            ResourceGlobalStorage.ChangeValue(ResourceID.Housing,currentLevel.HousingCapacity - housingPrevCapacity);
-
-            recruiting.AddStacks(currentLevel.RecruitingSize);
-            recruiting.SetNewBeesDatas(currentLevel.BeesRecruitingData);
-
-            if (healPoints.CurrentValue == healPoints.Capacity)
-            {
-                healPoints.SetCapacity(currentLevel.MaxHealPoints);
-                healPoints.SetValue(currentLevel.MaxHealPoints);
-            }
-            else
-                healPoints.SetCapacity(currentLevel.MaxHealPoints);
-            
-            Debug.Log("Building LVL = " + currentLevelNum);
-        }
-        else
-            Debug.Log("Need more resources");
+        UI_Controller._SetWindow("UI_Lose");
+        _onDestroy -= OnDestroy;
     }
-    
-    public void TakeDamage(IDamageApplicator damageApplicator)
-    {
-        healPoints.ChangeValue(-damageApplicator.Damage);
-        if (CurrentHealPoints <= 0)
-        {
-            Destroy(gameObject);
-            UI._SetWindow("UI_Lose");
-        }
-    }
-    public void Repair(float addHP)
-    {
-        healPoints.ChangeValue(addHP);
-    }
-    #endregion
 }

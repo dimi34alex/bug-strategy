@@ -52,6 +52,6 @@ public class UI_BeesWaxProduceConstructionMenu : UIScreen
 
     public void _BuildingLVL_Up()
     {
-        //beesWaxProduceConstruction.NextBuildingLevel();
+        _beesWaxProduceConstruction.NextBuildingLevel();
     }
 }

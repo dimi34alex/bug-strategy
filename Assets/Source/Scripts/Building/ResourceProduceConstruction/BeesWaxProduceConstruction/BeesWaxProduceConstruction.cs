@@ -1,9 +1,7 @@
 using UnityEngine;
 
-public class BeesWaxProduceConstruction : ResourceConversionConstructionBase
+public class BeesWaxProduceConstruction : ResourceConversionConstructionBase<BeesWaxProduceLevel>
 {
-    [SerializeField] private ResourceConversionProccessInfo _resourceConversionProccessInfo;
-
     private ResourceConversionCore _resourceConversionCore;
     private ResourceProduceConstructionState _produceConstructionState;
 
@@ -14,7 +12,12 @@ public class BeesWaxProduceConstruction : ResourceConversionConstructionBase
 
     protected override void OnAwake()
     {
-        _resourceConversionCore = new ResourceConversionCore(_resourceConversionProccessInfo);  
+        base.OnAwake();
+        
+        _resourceConversionCore = new ResourceConversionCore(CurrentLevel.ResourceConversionProccessInfo);
+        
+        levelSystem = new BeesWaxProduceLevelSystem(levelSystem, HealPoints, _resourceConversionCore);
+
         _updateEvent += OnUpdate;
     }
 

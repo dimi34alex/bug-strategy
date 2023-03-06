@@ -54,6 +54,30 @@ MonoBehaviour:
     _spendableResourceID: 0
     _spendRatio: 0.5
     _spendableResourceCapacity: 100
+  levelSystem:
+    levels:
+    - maxHealPoints: 1500
+      pollenLevelUpPrice: 0
+      bees_waxLevelUpPrice: 0
+      housingLevelUpPrice: 0
+      resourceConversionProccessInfo:
+        _targetResourceID: 5
+        _producePerSecond: 5
+        _producedResourceCapacity: 500
+        _spendableResourceID: 0
+        _spendRatio: 0.5
+        _spendableResourceCapacity: 100
+    - maxHealPoints: 2500
+      pollenLevelUpPrice: 0
+      bees_waxLevelUpPrice: 0
+      housingLevelUpPrice: 0
+      resourceConversionProccessInfo:
+        _targetResourceID: 5
+        _producePerSecond: 5
+        _producedResourceCapacity: 600
+        _spendableResourceID: 0
+        _spendRatio: 0.5
+        _spendableResourceCapacity: 200
 --- !u!65 &-3724024334100814529
 BoxCollider:
   m_ObjectHideFlags: 0
