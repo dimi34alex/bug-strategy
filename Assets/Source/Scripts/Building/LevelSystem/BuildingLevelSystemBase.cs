@@ -23,7 +23,7 @@ public class BuildingLevelSystemBase <TBuildingLevel> where TBuildingLevel : Bui
     {
         if (CurrentLevelNum == levels.Count)
         {
-            throw new Exception("max Barrack level");
+            throw new Exception("max building level");
         }
 
         if (!PriceCheck())
