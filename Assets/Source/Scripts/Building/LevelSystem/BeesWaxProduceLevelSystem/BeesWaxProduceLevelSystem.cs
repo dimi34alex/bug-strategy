@@ -22,7 +22,7 @@ public class BeesWaxProduceLevelSystem : BuildingLevelSystemBase<BeesWaxProduceL
         }
         catch (Exception e)
         {
-            
+            UI_Controller._ErrorCall(e.Message);
             return;
         }
         

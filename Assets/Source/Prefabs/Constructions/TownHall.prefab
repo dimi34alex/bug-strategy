@@ -63,7 +63,7 @@ MonoBehaviour:
     levels:
     - maxHealPoints: 1500
       pollenLevelUpPrice: 0
-      bees_waxLevelUpPrice: 0
+      bees_waxLevelUpPrice: 10
       housingLevelUpPrice: 0
       pollenCapacity: 1500
       bees_waxCapacity: 1500

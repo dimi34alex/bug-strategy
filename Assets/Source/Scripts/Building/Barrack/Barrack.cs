@@ -29,9 +29,9 @@ public class Barrack : EvolvConstruction<BarrackLevel>
         recruiting.Tick(Time.deltaTime);
     }
 
-    public string RecruitBees(BeesRecruitingID beeID)
+    public void RecruitBees(BeesRecruitingID beeID)
     {
-        return recruiting.RecruitBees(beeID);
+        recruiting.RecruitBees(beeID);
     }
     
     public List<BeeRecruitingInformation> GetRecruitingInformation()

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,28 +6,34 @@ public class BeesRecruiting : UnitsRecruitingBase<BeesStack, BeesRecruitingData,
 {
     public BeesRecruiting(int size, Transform spawnPos, List<BeesRecruitingData> newDatas) : base(size, spawnPos, newDatas) { }
 
-    public string RecruitBees(BeesRecruitingID beeID)
+    public void RecruitBees(BeesRecruitingID beeID)
     {
-        int foundStack = Stacks.IndexOf(freeStack => freeStack.Empty == true);
-
-        if (foundStack == -1)
+        try
         {
-            Debug.Log("Error: All Stack are busy");
-            return "All Stack are busy";
-        }
-        
-        BeesRecruitingData foundData = beesRecruitingDatas.Find(fi => fi.CurrentID == beeID);
+            int foundStack = Stacks.IndexOf(freeStack => freeStack.Empty == true);
 
-        if (foundData.PollenPrice <= ResourceGlobalStorage.GetResource(ResourceID.Pollen).CurrentValue
-            && foundData.HousingPrice <= ResourceGlobalStorage.GetResource(ResourceID.Housing).CurrentValue)
-        {
-            ResourceGlobalStorage.ChangeValue(ResourceID.Pollen, -foundData.PollenPrice);
-            ResourceGlobalStorage.ChangeValue(ResourceID.Housing, -foundData.HousingPrice);
-            Stacks[foundStack] = new BeesStack(foundData, spawnPosition);
-            return null;
+            if (foundStack == -1)
+                throw new Exception("All Stack are busy");
+
+            BeesRecruitingData foundData = beesRecruitingDatas.Find(fi => fi.CurrentID == beeID);
+
+            if (foundData.PollenPrice <= ResourceGlobalStorage.GetResource(ResourceID.Pollen).CurrentValue
+                && foundData.HousingPrice <= ResourceGlobalStorage.GetResource(ResourceID.Housing).CurrentValue)
+            {
+                ResourceGlobalStorage.ChangeValue(ResourceID.Pollen, -foundData.PollenPrice);
+                ResourceGlobalStorage.ChangeValue(ResourceID.Housing, -foundData.HousingPrice);
+                Stacks[foundStack] = new BeesStack(foundData, spawnPosition);
+            }
+            else
+            {
+                throw new Exception("Need more resource");
+            }
         }
-        else
-            return "Need more resource";
+        catch (Exception e)
+        {
+            UI_Controller._ErrorCall(e.Message);
+        }
+
     }
     
     public override List<BeeRecruitingInformation> GetRecruitingInformation()

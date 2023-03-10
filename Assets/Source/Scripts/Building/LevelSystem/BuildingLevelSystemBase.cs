@@ -23,13 +23,11 @@ public class BuildingLevelSystemBase <TBuildingLevel> where TBuildingLevel : Bui
     {
         if (CurrentLevelNum == levels.Count)
         {
-            Debug.Log("max Barrack level");
             throw new Exception("max Barrack level");
         }
 
         if (!PriceCheck())
         {
-            Debug.Log("Need more resources");
             throw new Exception("Need more resources");
         }
     }

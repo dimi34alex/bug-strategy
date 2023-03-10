@@ -19,6 +19,8 @@ public class UI_Controller : MonoBehaviour
     private static UnitPool pool;
     private static GameObject currentWorker;
 
+    private static UI_ERROR _uiError;
+
     void Start()
     {
         builder = GameObject.Find("Builder").GetComponent<Test_Builder_TownHall>();
@@ -54,6 +56,8 @@ public class UI_Controller : MonoBehaviour
         else
         if (UIScreenRepository.GetScreen<UI_Saves>().isActiveAndEnabled)
             UI_Activ = UIScreenRepository.GetScreen<UI_Saves>().gameObject;
+        
+        _uiError =  UIScreenRepository.GetScreen<UI_ERROR>();
     }
 
     #region Spawn of buildings
@@ -167,7 +171,10 @@ public class UI_Controller : MonoBehaviour
         building = newBuilding;
         _SetWindow(windowName);
     }
-        UI_Error._ErrorCall(error);
+
+    public static void _ErrorCall(string error)
+    {
+        _uiError._ErrorCall(error);
     }
     
     public static void _Quite()

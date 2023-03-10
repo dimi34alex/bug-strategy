@@ -5,7 +5,6 @@ using TMPro;
 
 public class UI_TownHallMenu : UIScreen
 {
-    [SerializeField] private UI_ERROR uiError;
     [SerializeField] private TextMeshProUGUI alarm;
 
     [SerializeField] private List<TextMeshProUGUI> stackID;
@@ -55,7 +54,7 @@ public class UI_TownHallMenu : UIScreen
 
     public void _RecruitingWorkerBee()
     {
-        uiError._ErrorCall(_townHall.RecruitingWorkerBee(BeesRecruitingID.WorkerBee));
+        _townHall.RecruitingWorkerBee(BeesRecruitingID.WorkerBee);
     }
     
     public void _WorkerBeeAlarmer()

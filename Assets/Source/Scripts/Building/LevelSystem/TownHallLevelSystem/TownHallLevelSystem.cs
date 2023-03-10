@@ -22,7 +22,7 @@ public class TownHallLevelSystem : BuildingLevelSystemBase <TownHallLevel>
         }
         catch (Exception e)
         {
-            
+            UI_Controller._ErrorCall(e.Message);
             return;
         }
 

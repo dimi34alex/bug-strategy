@@ -77,9 +77,9 @@ public class TownHall : EvolvConstruction<TownHallLevel>
         }
     }
     
-    public string RecruitingWorkerBee(BeesRecruitingID beeID)
+    public void RecruitingWorkerBee(BeesRecruitingID beeID)
     {
-        return _recruiting.RecruitBees(beeID);
+        _recruiting.RecruitBees(beeID);
     }
     
     public List<BeeRecruitingInformation> GetRecruitingInformation()

@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class UI_BarracksMenu : UIScreen
 {
-    [SerializeField] private UI_ERROR uiError;
-
     [SerializeField] private List<TextMeshProUGUI> stackID;
     [SerializeField] private List<TextMeshProUGUI> stackTime;
     Barrack barrack;
@@ -46,11 +44,11 @@ public class UI_BarracksMenu : UIScreen
 
     public void _RecruitingWax()
     {
-        uiError._ErrorCall(barrack.RecruitBees(BeesRecruitingID.Wasp));
+        barrack.RecruitBees(BeesRecruitingID.Wasp);
     }
     
     public void _RecruitingBumblebee()
     {
-        uiError._ErrorCall(barrack.RecruitBees(BeesRecruitingID.Bumblebee));
+        barrack.RecruitBees(BeesRecruitingID.Bumblebee);
     }
 }
