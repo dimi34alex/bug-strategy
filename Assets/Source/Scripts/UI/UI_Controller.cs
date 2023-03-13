@@ -71,6 +71,11 @@ public class UI_Controller : MonoBehaviour
         builder._SpawnBuilding(ConstructionID.Barrack);
     }
     
+    public static void _SpawnBeeHouse()
+    {
+        builder._SpawnBuilding(ConstructionID.BeeHouse);
+    }
+    
     public static void _SpawnWaxFactory()
     {
         builder._SpawnBuilding(ConstructionID.Bees_Wax_Produce_Construction);
@@ -102,6 +107,8 @@ public class UI_Controller : MonoBehaviour
             case "UI_TownHallMenu":
                 UI_GameplayWindows._SetGameplayWindow(windowName, building); break;
             case "UI_BarracksMenu":
+                UI_GameplayWindows._SetGameplayWindow(windowName, building); break;
+            case "UI_BeeHouseMenu":
                 UI_GameplayWindows._SetGameplayWindow(windowName, building); break;
             case "UI_BeesWaxProduceConstructionMenu":
                 UI_GameplayWindows._SetGameplayWindow(windowName, building); break;
@@ -154,6 +161,11 @@ public class UI_Controller : MonoBehaviour
             case (ConstructionID.Barrack):
             {
                 windowName = "UI_BarracksMenu";
+                break;
+            }
+            case (ConstructionID.BeeHouse):
+            {
+                windowName = "UI_BeeHouseMenu";
                 break;
             }
             case (ConstructionID.Bees_Wax_Produce_Construction):

@@ -104,9 +104,11 @@ public class Test_Builder_TownHall : CycleInitializerBase
                             _SpawnTownHall(unit);
                         if (currentConstructionID == ConstructionID.Barrack)
                             _SpawnBarrack(unit);
+                        if (currentConstructionID == ConstructionID.BeeHouse)
+                            _SpawnBeeHouse(unit);
                         if (currentConstructionID == ConstructionID.Bees_Wax_Produce_Construction)
                             _SpawnBeesWaxProduceConstruction(unit);
-                        
+
                         Destroy(_currentBuilding);
                         spawnBuilding = false;
                         break;
@@ -120,7 +122,7 @@ public class Test_Builder_TownHall : CycleInitializerBase
             }
         }
     }
-
+    
     private void _SpawnTownHall(GameObject unit)
     {
         if (_numberTownHall < 1)
@@ -194,6 +196,42 @@ public class Test_Builder_TownHall : CycleInitializerBase
 
         FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position, barrack);
         barrack.transform.position = position;
+    }
+    
+    
+    private void _SpawnBeeHouse(GameObject unit)
+    {
+        RaycastHit[] raycastHits = Physics.RaycastAll(Camera.main.ScreenPointToRay(Input.mousePosition));
+        int index = raycastHits.IndexOf(hit => !hit.collider.isTrigger);
+
+        if (index > -1)
+        {
+            Vector3 position = FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(raycastHits[index].point);
+
+            if (FrameworkCommander.GlobalData.ConstructionsRepository.ConstructionExist(position, false))
+            {
+                Debug.Log("Invalid place");
+                return;
+            }
+            BuildingProgressConstruction progressConstruction = _constructionFactory.Create<BuildingProgressConstruction>(ConstructionID.Building_Progress_Construction);
+            progressConstruction.transform.position = position;
+            FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position, progressConstruction);
+
+            progressConstruction.OnTimerEnd += c => CreateBeeHouse(c, position);
+
+            progressConstruction.StartBuilding(4, ConstructionID.BeeHouse, unit);
+        }
+    }
+    private void CreateBeeHouse(BuildingProgressConstruction buildingProgressConstruction, Vector3 position)
+    {
+        BeeHouse beeHouse = _constructionFactory.Create<BeeHouse>(buildingProgressConstruction.BuildingConstructionID);
+
+        FrameworkCommander.GlobalData.ConstructionsRepository.GetConstruction(position, true);
+
+        Destroy(buildingProgressConstruction.gameObject);
+
+        FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position, beeHouse);
+        beeHouse.transform.position = position;
     }
     
     
