@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class CameraMove : MonoBehaviour
 {
+    [Header("Camera movement")]
+    [SerializeField] private bool useCameraMovement;
+    [SerializeField] private float speed;
+    [SerializeField] private GameObject field;
     private int screenWidth;
     private int screenHeight;
     private float fieldWidth;
     private float fieldHeight;
-    public float speed;
-    public bool useCameraMovement;
-    public GameObject field;
-
+    
+    [Header("Camera scroll")]
     [SerializeField] private bool useScroll;
     [SerializeField] private float scrollPower;
     [SerializeField] private float cameraSizeOffset;
@@ -20,7 +22,6 @@ public class CameraMove : MonoBehaviour
     
     void Start()
     {
-        speed = 50;
         screenWidth = Screen.width;
         screenHeight = Screen.height;
         fieldHeight = field.transform.localScale.z*5;
@@ -30,12 +31,19 @@ public class CameraMove : MonoBehaviour
         _camera = GetComponent<Camera>();
         _startCameraSize = _camera.orthographicSize;
     }
-
-
+    
     void Update()
     {
-        Vector3 camPos  = transform.position;
+        CameraMovement();
+        CameraScrolling();
+    }
 
+    private void CameraMovement()
+    {
+        if(!useCameraMovement)
+            return;
+            
+        Vector3 camPos  = transform.position;
 
         if(Input.mousePosition.x <= 5 && camPos.x > -fieldWidth) // Лево
         {
@@ -89,10 +97,8 @@ public class CameraMove : MonoBehaviour
         }
 
         transform.position = camPos;
-
-        CameraScrolling();
     }
-
+    
     private void CameraScrolling()
     {
         if (!useScroll)
