@@ -8,6 +8,7 @@ public class CameraMove : MonoBehaviour
     [SerializeField] private bool useCameraMovement;
     [SerializeField] private float speed;
     [SerializeField] private GameObject field;
+    private float Speed => speed * _speedScale;
     private int screenWidth;
     private int screenHeight;
     private float fieldWidth;
@@ -17,6 +18,7 @@ public class CameraMove : MonoBehaviour
     [SerializeField] private bool useScroll;
     [SerializeField] private float scrollPower;
     [SerializeField] private float cameraSizeOffset;
+    private float _speedScale;
     private Camera _camera;
     private float _startCameraSize;
     
@@ -49,19 +51,19 @@ public class CameraMove : MonoBehaviour
         {
             if( Input.mousePosition.x <= 10 && Input.mousePosition.y >= screenHeight - 10  && camPos.z < fieldHeight) // Лево Вверх
             {
-                camPos.x -= Time.deltaTime * speed;  
-                camPos.z += Time.deltaTime * speed;  
+                camPos.x -= Time.deltaTime * Speed;  
+                camPos.z += Time.deltaTime * Speed;  
             }
 
             else if ( Input.mousePosition.x <= 10 && Input.mousePosition.y <= 10 && camPos.z > -fieldHeight) // Лево Вниз
             {
-                camPos.x -= Time.deltaTime * speed; 
-                camPos.z -= Time.deltaTime * speed;
+                camPos.x -= Time.deltaTime * Speed; 
+                camPos.z -= Time.deltaTime * Speed;
             }
 
             else
             {
-                camPos.x -= Time.deltaTime * Mathf.Sqrt(speed*speed + speed*speed);
+                camPos.x -= Time.deltaTime * Mathf.Sqrt(Speed*Speed + Speed*Speed);
             }
         }
 
@@ -70,30 +72,30 @@ public class CameraMove : MonoBehaviour
         {
             if( Input.mousePosition.x >= screenWidth - 10 && Input.mousePosition.y >= screenHeight - 10 && camPos.z < fieldHeight) // Право Вверх
             {
-                camPos.x += Time.deltaTime * speed;  
-                camPos.z += Time.deltaTime * speed;  
+                camPos.x += Time.deltaTime * Speed;  
+                camPos.z += Time.deltaTime * Speed;  
             }
 
             else if ( Input.mousePosition.x >= screenWidth - 10 && Input.mousePosition.y <= 10 && camPos.z > -fieldHeight) // Право Вниз
             {
-                camPos.x += Time.deltaTime * speed; 
-                camPos.z -= Time.deltaTime * speed;
+                camPos.x += Time.deltaTime * Speed; 
+                camPos.z -= Time.deltaTime * Speed;
             }
 
             else
             {
-                camPos.x += Time.deltaTime * Mathf.Sqrt(speed*speed + speed*speed); 
+                camPos.x += Time.deltaTime * Mathf.Sqrt(Speed*Speed + Speed*Speed); 
             }          
         }
 
         else if( Input.mousePosition.y <= 5 && camPos.z > -fieldHeight) // Вниз
         {
-            camPos.z -= Time.deltaTime * Mathf.Sqrt(speed*speed + speed*speed);            
+            camPos.z -= Time.deltaTime * Mathf.Sqrt(Speed*Speed + Speed*Speed);            
         }
 
         else if( Input.mousePosition.y >= screenHeight - 5 && camPos.z < fieldHeight) // Вверх
         {
-            camPos.z += Time.deltaTime * Mathf.Sqrt(speed*speed + speed*speed);            
+            camPos.z += Time.deltaTime * Mathf.Sqrt(Speed*Speed + Speed*Speed);            
         }
 
         transform.position = camPos;
@@ -112,5 +114,6 @@ public class CameraMove : MonoBehaviour
         newCameraSize -= scrollDirection * 10 * scrollPower * Time.deltaTime;
         newCameraSize = Mathf.Clamp(newCameraSize, _startCameraSize - cameraSizeOffset, _startCameraSize + cameraSizeOffset);
         _camera.orthographicSize = newCameraSize;
+        _speedScale = newCameraSize / _startCameraSize;
     }
 }
