@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CameraMove : MonoBehaviour
 {
-
     private int screenWidth;
     private int screenHeight;
     private float fieldWidth;
@@ -13,6 +12,12 @@ public class CameraMove : MonoBehaviour
     public bool useCameraMovement;
     public GameObject field;
 
+    [SerializeField] private bool useScroll;
+    [SerializeField] private float scrollPower;
+    [SerializeField] private float cameraSizeOffset;
+    private Camera _camera;
+    private float _startCameraSize;
+    
     void Start()
     {
         speed = 50;
@@ -21,6 +26,9 @@ public class CameraMove : MonoBehaviour
         fieldHeight = field.transform.localScale.z*5;
         fieldWidth = field.transform.localScale.x*5;
         // размеры поля для ограничения движения камеры
+        
+        _camera = GetComponent<Camera>();
+        _startCameraSize = _camera.orthographicSize;
     }
 
 
@@ -81,6 +89,22 @@ public class CameraMove : MonoBehaviour
         }
 
         transform.position = camPos;
+
+        CameraScrolling();
+    }
+
+    private void CameraScrolling()
+    {
+        if (!useScroll)
+            return;
+        
+        float scrollDirection = Input.mouseScrollDelta.y;
+        if(scrollDirection == 0)
+            return;
+        
+        float newCameraSize = _camera.orthographicSize;
+        newCameraSize -= scrollDirection * 10 * scrollPower * Time.deltaTime;
+        newCameraSize = Mathf.Clamp(newCameraSize, _startCameraSize - cameraSizeOffset, _startCameraSize + cameraSizeOffset);
+        _camera.orthographicSize = newCameraSize;
     }
 }
-

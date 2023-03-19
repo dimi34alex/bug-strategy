@@ -27199,6 +27199,9 @@ MonoBehaviour:
   speed: 20
   useCameraMovement: 1
   field: {fileID: 291144843}
+  useScroll: 1
+  scrollPower: 7.5
+  cameraSizeOffset: 5
 --- !u!1 &1846903526
 GameObject:
   m_ObjectHideFlags: 0
