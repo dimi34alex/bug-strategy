@@ -56,7 +56,8 @@ public class UI_Controller : MonoBehaviour
         else
         if (UIScreenRepository.GetScreen<UI_Saves>().isActiveAndEnabled)
             UI_Activ = UIScreenRepository.GetScreen<UI_Saves>().gameObject;
-        
+
+        UI_PrevActiv = UI_Activ;
         _uiError =  UIScreenRepository.GetScreen<UI_ERROR>();
     }
 
