@@ -32,6 +32,7 @@ public class CameraMove : MonoBehaviour
         
         _camera = GetComponent<Camera>();
         _startCameraSize = _camera.orthographicSize;
+        _speedScale = 1;
     }
     
     void Update()
