@@ -26,13 +26,6 @@ public class TownHall : EvolvConstruction<TownHallLevel>
         _recruiting = new BeesRecruiting(CurrentLevel.RecruitingSize, workerBeesSpawnPosition, CurrentLevel.BeesRecruitingData);
         
         levelSystem = new TownHallLevelSystem(levelSystem, HealPoints, _recruiting);
-
-        ResourceGlobalStorage.ChangeCapacity(ResourceID.Pollen,CurrentLevel.PollenCapacity);
-        ResourceGlobalStorage.ChangeCapacity(ResourceID.Bees_Wax,CurrentLevel.BeesWaxCapacity);
-        ResourceGlobalStorage.ChangeCapacity(ResourceID.Housing,CurrentLevel.HousingCapacity);
-        ResourceGlobalStorage.ChangeCapacity(ResourceID.Honey,CurrentLevel.HoneyCapacity);
-        
-        ResourceGlobalStorage.ChangeValue(ResourceID.Housing,CurrentLevel.HousingCapacity);
         
         _updateEvent += OnUpdate;
         _onDestroy += OnDestroy;

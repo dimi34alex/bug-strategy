@@ -17,4 +17,6 @@ public class BuildingLevelBase
     [SerializeField][Range(0F, 10000F)] float bees_waxLevelUpPrice = 0;
     public float HousingLevelUpPrice => housingLevelUpPrice;
     [SerializeField][Range(0F, 10000F)] float housingLevelUpPrice = 0;
+    public float HoneyLevelUpPrice => honeyLevelUpPrice;
+    [SerializeField][Range(0F, 10000F)] float honeyLevelUpPrice = 0;
 }

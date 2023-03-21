@@ -12,6 +12,13 @@ public class TownHallLevelSystem : BuildingLevelSystemBase <TownHallLevel>
         BeesRecruiting beesRecruiting) : base(buildingLevelSystemBase, healPoints)
     {
         _beesRecruiting = beesRecruiting;
+        
+        ResourceGlobalStorage.ChangeCapacity(ResourceID.Pollen, buildingLevelSystemBase.CurrentLevel.PollenCapacity);
+        ResourceGlobalStorage.ChangeCapacity(ResourceID.Bees_Wax, buildingLevelSystemBase.CurrentLevel.BeesWaxCapacity);
+        ResourceGlobalStorage.ChangeCapacity(ResourceID.Housing, buildingLevelSystemBase.CurrentLevel.HousingCapacity);
+        ResourceGlobalStorage.ChangeCapacity(ResourceID.Honey, buildingLevelSystemBase.CurrentLevel.HoneyCapacity);
+        
+        ResourceGlobalStorage.ChangeValue(ResourceID.Housing, buildingLevelSystemBase.CurrentLevel.HousingCapacity);
     }
 
     public override void NextLevel()

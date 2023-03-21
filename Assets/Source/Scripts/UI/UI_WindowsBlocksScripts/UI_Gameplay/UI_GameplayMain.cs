@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 [Serializable]
-struct SomeResurcePrint
+struct SomeResourcePrint
 {
     public TextMeshProUGUI name;
     public Image Icon;
@@ -17,9 +17,10 @@ struct SomeResurcePrint
 
 public class UI_GameplayMain : UIScreen
 {
-    [SerializeField] private SomeResurcePrint pollen;
-    [SerializeField] private SomeResurcePrint wax;
-    [SerializeField] private SomeResurcePrint housing;
+    [SerializeField] private SomeResourcePrint pollen;
+    [SerializeField] private SomeResourcePrint wax;
+    [SerializeField] private SomeResourcePrint housing;
+    [SerializeField] private SomeResourcePrint honey;
 
     private void Start()
     {
