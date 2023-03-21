@@ -30,11 +30,13 @@ public class TownHallLevelSystem : BuildingLevelSystemBase <TownHallLevel>
         float prevPollenCapacity = CurrentLevel.PollenCapacity;
         float prevBeesWaxCapacity = CurrentLevel.BeesWaxCapacity;
         float prevHousingCapacity = CurrentLevel.HousingCapacity;
+        float prevHoneyCapacity = CurrentLevel.HoneyCapacity;
         currentLevelNum++;
             
         ResourceGlobalStorage.ChangeCapacity(ResourceID.Pollen, CurrentLevel.PollenCapacity - prevPollenCapacity);
         ResourceGlobalStorage.ChangeCapacity(ResourceID.Bees_Wax, CurrentLevel.BeesWaxCapacity - prevBeesWaxCapacity);
         ResourceGlobalStorage.ChangeCapacity(ResourceID.Housing, CurrentLevel.HousingCapacity - prevHousingCapacity);
+        ResourceGlobalStorage.ChangeCapacity(ResourceID.Honey, CurrentLevel.HoneyCapacity - prevHoneyCapacity);
             
         ResourceGlobalStorage.ChangeValue(ResourceID.Housing,CurrentLevel.HousingCapacity - prevHousingCapacity);
             

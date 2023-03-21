@@ -5,10 +5,6 @@ public class Barrack : EvolvConstruction<BarrackLevel>
 {
     public override ConstructionID ConstructionID => ConstructionID.Barrack;
 
-    public float PollenPrice => CurrentLevel.PollenLevelUpPrice;
-    public float WaxPrice => CurrentLevel.BeesWaxLevelUpPrice;
-    public float HousingPrice => CurrentLevel.HousingLevelUpPrice;
-
     BeesRecruiting recruiting;
     [SerializeField] private Transform beesSpawnPosition;
     public int RecruitingSize => CurrentLevel.RecruitingSize;

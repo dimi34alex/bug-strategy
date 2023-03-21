@@ -13,6 +13,7 @@ public class ResourceGlobalStorage : MonoBehaviour
         _resourceRepository.CreateResource(ResourceID.Pollen,0,0);
         _resourceRepository.CreateResource(ResourceID.Bees_Wax,0,0);
         _resourceRepository.CreateResource(ResourceID.Housing,0,0);
+        _resourceRepository.CreateResource(ResourceID.Honey,0,0);
     }
 
     public static void ChangeCapacity(ResourceID resourceID, float capacity)

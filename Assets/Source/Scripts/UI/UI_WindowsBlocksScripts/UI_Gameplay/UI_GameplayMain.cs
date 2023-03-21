@@ -32,6 +32,9 @@ public class UI_GameplayMain : UIScreen
         housing.Icon.sprite = ResourceGlobalStorage.GetResource(ResourceID.Housing).Icon;
         housing.name.text = ResourceGlobalStorage.GetResource(ResourceID.Housing).ID.ToString();
 
+        honey.Icon.sprite = ResourceGlobalStorage.GetResource(ResourceID.Honey).Icon;
+        honey.name.text = ResourceGlobalStorage.GetResource(ResourceID.Honey).ID.ToString();
+        
         pollen.Capacity = 1000;
         pollen.CurrentValue = 0;
     }
@@ -41,7 +44,7 @@ public class UI_GameplayMain : UIScreen
         pollen.value.text = ResourceGlobalStorage.GetResource(ResourceID.Pollen).CurrentValue.ToString() + "/" + ResourceGlobalStorage.GetResource(ResourceID.Pollen).Capacity.ToString();
         wax.value.text = ResourceGlobalStorage.GetResource(ResourceID.Bees_Wax).CurrentValue.ToString() + "/" + ResourceGlobalStorage.GetResource(ResourceID.Bees_Wax).Capacity.ToString();
         housing.value.text = ResourceGlobalStorage.GetResource(ResourceID.Housing).CurrentValue.ToString() + "/" + ResourceGlobalStorage.GetResource(ResourceID.Housing).Capacity.ToString();
-        
+        honey.value.text = ResourceGlobalStorage.GetResource(ResourceID.Honey).CurrentValue.ToString() + "/" + ResourceGlobalStorage.GetResource(ResourceID.Honey).Capacity.ToString();
     }
 
     public void GatheringPollen(int count)

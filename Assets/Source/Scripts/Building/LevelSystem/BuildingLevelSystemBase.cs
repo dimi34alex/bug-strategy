@@ -36,7 +36,8 @@ public class BuildingLevelSystemBase <TBuildingLevel> where TBuildingLevel : Bui
     {
         if (ResourceGlobalStorage.GetResource(ResourceID.Pollen).CurrentValue >= CurrentLevel.PollenLevelUpPrice
             && ResourceGlobalStorage.GetResource(ResourceID.Bees_Wax).CurrentValue >= CurrentLevel.BeesWaxLevelUpPrice
-            && ResourceGlobalStorage.GetResource(ResourceID.Housing).CurrentValue >= CurrentLevel.HousingLevelUpPrice)
+            && ResourceGlobalStorage.GetResource(ResourceID.Housing).CurrentValue >= CurrentLevel.HousingLevelUpPrice
+            && ResourceGlobalStorage.GetResource(ResourceID.Honey).CurrentValue >= CurrentLevel.HoneyLevelUpPrice)
         {
             return true;
         }
@@ -51,5 +52,6 @@ public class BuildingLevelSystemBase <TBuildingLevel> where TBuildingLevel : Bui
         ResourceGlobalStorage.ChangeValue(ResourceID.Pollen, -CurrentLevel.PollenLevelUpPrice);
         ResourceGlobalStorage.ChangeValue(ResourceID.Bees_Wax, -CurrentLevel.BeesWaxLevelUpPrice);
         ResourceGlobalStorage.ChangeValue(ResourceID.Housing, -CurrentLevel.HousingLevelUpPrice);
+        ResourceGlobalStorage.ChangeValue(ResourceID.Honey, -CurrentLevel.HoneyLevelUpPrice);
     }
 }

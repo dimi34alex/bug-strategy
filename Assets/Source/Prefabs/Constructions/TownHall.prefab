@@ -65,9 +65,11 @@ MonoBehaviour:
       pollenLevelUpPrice: 0
       bees_waxLevelUpPrice: 10
       housingLevelUpPrice: 0
+      honeyLevelUpPrice: 0
       pollenCapacity: 1500
       bees_waxCapacity: 1500
       housingCapacity: 20
+      honeyCapacity: 1500
       recruitingSize: 1
       beesRecruitingData:
         recruitinTime: 2
@@ -81,9 +83,11 @@ MonoBehaviour:
       pollenLevelUpPrice: 0
       bees_waxLevelUpPrice: 0
       housingLevelUpPrice: 0
+      honeyLevelUpPrice: 0
       pollenCapacity: 2500
       bees_waxCapacity: 2500
       housingCapacity: 40
+      honeyCapacity: 2500
       recruitingSize: 2
       beesRecruitingData:
         recruitinTime: 2

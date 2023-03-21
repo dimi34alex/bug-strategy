@@ -8,10 +8,6 @@ public class TownHall : EvolvConstruction<TownHallLevel>
 {
     public override ConstructionID ConstructionID => ConstructionID.Town_Hall;
     
-    public float PollenPrice => CurrentLevel.PollenLevelUpPrice;
-    public float WaxPrice => CurrentLevel.BeesWaxLevelUpPrice;
-    public float HousingPrice => CurrentLevel.HousingLevelUpPrice;
-
     public bool AlarmOn => alarmOn;
     bool alarmOn = false;//тревога включена?
     public static UnityEvent WorkerBeeAlarmOn = new UnityEvent();//оповещение рабочих пчел о тревоге
@@ -34,6 +30,7 @@ public class TownHall : EvolvConstruction<TownHallLevel>
         ResourceGlobalStorage.ChangeCapacity(ResourceID.Pollen,CurrentLevel.PollenCapacity);
         ResourceGlobalStorage.ChangeCapacity(ResourceID.Bees_Wax,CurrentLevel.BeesWaxCapacity);
         ResourceGlobalStorage.ChangeCapacity(ResourceID.Housing,CurrentLevel.HousingCapacity);
+        ResourceGlobalStorage.ChangeCapacity(ResourceID.Honey,CurrentLevel.HoneyCapacity);
         
         ResourceGlobalStorage.ChangeValue(ResourceID.Housing,CurrentLevel.HousingCapacity);
         
