@@ -5,6 +5,7 @@ public class BeesStack : UnitStackBase
     public BeesRecruitingID CurrentID { get; protected set; }
     public float PollenPrice { get; protected set; }
     public float HousingPrice { get; protected set; }
+    public float HoneyPrice { get; protected set; }
     public BeesStack() : base() { }
 
     public BeesStack(BeesRecruitingData newData, Transform spawnTransform) : base(newData, spawnTransform)
@@ -12,5 +13,6 @@ public class BeesStack : UnitStackBase
         CurrentID = newData.CurrentID;
         PollenPrice = newData.PollenPrice;
         HousingPrice = newData.HousingPrice;
+        HoneyPrice = newData.HoneyPrice;
     }
 }
