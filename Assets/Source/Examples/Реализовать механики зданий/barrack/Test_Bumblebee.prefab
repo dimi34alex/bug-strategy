@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 7948249565759957770}
   - component: {fileID: 6180183485359579963}
   - component: {fileID: 6000515310800819899}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Test_Bumblebee
   m_TagString: Unit
   m_Icon: {fileID: 0}

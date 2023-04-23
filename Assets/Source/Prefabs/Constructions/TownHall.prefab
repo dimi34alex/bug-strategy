@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6644387960813269008}
   - component: {fileID: 5674662040266732978}
   - component: {fileID: 4844941556788702066}
-  m_Layer: 2
+  m_Layer: 12
   m_Name: TownHall
   m_TagString: Building
   m_Icon: {fileID: 0}

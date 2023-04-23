@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7302409546887255228}
   - component: {fileID: 6453320288001796886}
   - component: {fileID: 3254335188705482603}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Barrak
   m_TagString: Building
   m_Icon: {fileID: 0}

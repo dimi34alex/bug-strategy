@@ -98,8 +98,8 @@ GameObject:
   - component: {fileID: 6515036035572920544}
   - component: {fileID: 6932655398027812773}
   - component: {fileID: 3856705473339230021}
-  m_Layer: 0
   - component: {fileID: 6590605202502454717}
+  m_Layer: 11
   m_Name: WorkerBee
   m_TagString: Worker
   m_Icon: {fileID: 0}

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: -4589124477280040743}
   - component: {fileID: 1498097168595941684}
   - component: {fileID: 4327159425006945973}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: BeeHouse
   m_TagString: Building
   m_Icon: {fileID: 0}

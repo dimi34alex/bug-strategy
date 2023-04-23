@@ -749,7 +749,7 @@ GameObject:
   - component: {fileID: 589072602228609363}
   - component: {fileID: 578274785806036525}
   - component: {fileID: 114108318496945832}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: BuildingProgressConstruction
   m_TagString: BuildMark
   m_Icon: {fileID: 0}

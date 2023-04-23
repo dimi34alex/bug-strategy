@@ -178,7 +178,7 @@ GameObject:
   - component: {fileID: 6047302736304574508}
   - component: {fileID: 102683147634113920}
   - component: {fileID: 6241739448716373282}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Test_Wasp
   m_TagString: Unit
   m_Icon: {fileID: 0}

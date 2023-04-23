@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5330466338465754192}
   - component: {fileID: -3724024334100814529}
   - component: {fileID: 3857824772847671301}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: BeesWaxProduceConstruction
   m_TagString: Building
   m_Icon: {fileID: 0}
