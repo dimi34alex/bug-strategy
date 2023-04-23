@@ -94,7 +94,7 @@ MonoBehaviour:
         pollenPrice: 0
         housingPrice: 4
         honeyPrice: 0
-  beesSpawnPosition: {fileID: 0}
+  beesSpawnPosition: {fileID: 4064212705378577584}
 --- !u!65 &6453320288001796886
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -184,5 +184,10 @@ PrefabInstance:
 --- !u!4 &5522003933794717960 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3088106429806349029, guid: 7896ee1edb85d484fb0d9e495f9fe5dd, type: 3}
+  m_PrefabInstance: {fileID: 7383987204580826093}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4064212705378577584 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6782362565804160861, guid: 7896ee1edb85d484fb0d9e495f9fe5dd, type: 3}
   m_PrefabInstance: {fileID: 7383987204580826093}
   m_PrefabAsset: {fileID: 0}

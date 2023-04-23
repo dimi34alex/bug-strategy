@@ -1,9 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System;
 
-public class MovingUnit : UnitBase
+public class MovingUnit : UnitBase, IMiniMapShows
 {
+    public MiniMapID MiniMapId => MiniMapID.PlayerUnit;
+    public event Action<Transform> RemoveMiniMapIcon;
+
     private Ray ray;
     private RaycastHit hit;
     private UnitPool pool;
