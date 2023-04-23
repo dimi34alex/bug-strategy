@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 6932655398027812773}
   - component: {fileID: 3856705473339230021}
   m_Layer: 0
+  - component: {fileID: 6590605202502454717}
   m_Name: WorkerBee
   m_TagString: Worker
   m_Icon: {fileID: 0}
@@ -146,6 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e41bc2482d20b894e8cd8a8344affa7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _unitVisibleZone: {fileID: 0}
   _navMeshAgent: {fileID: 6515036035572920544}
   isSelected: 0
   _ability1:
@@ -226,6 +228,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!135 &6590605202502454717
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3549433375624800588}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5723541658055598804
 GameObject:
   m_ObjectHideFlags: 0

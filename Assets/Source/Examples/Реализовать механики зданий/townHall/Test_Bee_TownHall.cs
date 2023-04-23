@@ -6,7 +6,7 @@ public class Test_Bee_TownHall : MonoBehaviour
 {
     void Start()
     {
-        TownHall.WorkerBeeAlarmOn.AddListener(GoHome);
+        TownHall.WorkerBeeAlarmOn += GoHome;
     }
 
     void GoHome(){

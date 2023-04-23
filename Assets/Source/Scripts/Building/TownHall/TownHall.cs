@@ -10,7 +10,7 @@ public class TownHall : EvolvConstruction<TownHallLevel>
     
     public bool AlarmOn => alarmOn;
     bool alarmOn = false;//тревога включена?
-    public static UnityEvent WorkerBeeAlarmOn = new UnityEvent();//оповещение рабочих пчел о тревоге
+    public static event UnityAction WorkerBeeAlarmOn;//оповещение рабочих пчел о тревоге
     static Stack<GameObject> WorkerBeesInTownHall = new Stack<GameObject>();//массив пчел, которые спрятались в ратуши
 
     [SerializeField] [Range(0,5)] float pauseTimeOfOutBeesFromTownHallAfterAlarm = 1;//пауза между выходами пчел из здания после выключения тревоги

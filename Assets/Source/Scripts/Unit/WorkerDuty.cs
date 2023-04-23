@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -53,7 +52,7 @@ public class WorkerDuty : MonoBehaviour
                         gotResource = false;
                         ResourceSkin.transform.gameObject.SetActive(false);
                         isFindingRes = true;
-                        UI_Counter.GatheringPollen(10);
+                        ResourceGlobalStorage.ChangeValue(ResourceID.Pollen, 10);
 
                         this.GetComponent<MovingUnit>().SetDestination(destination);
                     }

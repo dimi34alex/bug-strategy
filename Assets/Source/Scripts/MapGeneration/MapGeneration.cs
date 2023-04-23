@@ -36,7 +36,7 @@ public class MapGeneration : MonoBehaviour
         {
             int tileNum = (int)Random.Range(0, tilesPrefabs.Count);
 
-            Instantiate(tilesPrefabs[tileNum], FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(_currentTilePosition), Quaternion.Euler(0, 0, 0));
+            Instantiate(tilesPrefabs[tileNum], FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(_currentTilePosition), Quaternion.Euler(0, 0, 0), this.transform);
 
             _currentTilePosition.x += _constructionConfig.HexagonsOffcets.x/2;
 

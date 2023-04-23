@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1274404536982251029}
-  - component: {fileID: 8562302447384268308}
   - component: {fileID: 6644387960813269008}
+  - component: {fileID: 5674662040266732978}
   - component: {fileID: 4844941556788702066}
   m_Layer: 2
   m_Name: TownHall
@@ -34,19 +34,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &8562302447384268308
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8287707048911136234}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 5.85, y: 1, z: 3}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6644387960813269008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79,6 +66,7 @@ MonoBehaviour:
         currentID: 0
         pollenPrice: 0
         housingPrice: 2
+        honeyPrice: 0
     - maxHealPoints: 2500
       pollenLevelUpPrice: 0
       bees_waxLevelUpPrice: 0
@@ -97,8 +85,22 @@ MonoBehaviour:
         currentID: 0
         pollenPrice: 0
         housingPrice: 2
+        honeyPrice: 0
   pauseTimeOfOutBeesFromTownHallAfterAlarm: 1
   workerBeesSpawnPosition: {fileID: 5545980254773833652}
+--- !u!65 &5674662040266732978
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8287707048911136234}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.5, y: 1, z: 2.5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!208 &4844941556788702066
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -129,6 +131,14 @@ PrefabInstance:
     - target: {fileID: 1804355251172813621, guid: ffb8c292185cd514094b2e78bf50524d, type: 3}
       propertyPath: m_Name
       value: TownHallBuild
+      objectReference: {fileID: 0}
+    - target: {fileID: 1804355251172813621, guid: ffb8c292185cd514094b2e78bf50524d, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2056343129632516586, guid: ffb8c292185cd514094b2e78bf50524d, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2678729469616822426, guid: ffb8c292185cd514094b2e78bf50524d, type: 3}
       propertyPath: m_RootOrder
@@ -179,8 +189,16 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4351874455037664214, guid: ffb8c292185cd514094b2e78bf50524d, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4351874455037664214, guid: ffb8c292185cd514094b2e78bf50524d, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5918854304423215760, guid: ffb8c292185cd514094b2e78bf50524d, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5918854304423215760, guid: ffb8c292185cd514094b2e78bf50524d, type: 3}
       propertyPath: m_IsActive

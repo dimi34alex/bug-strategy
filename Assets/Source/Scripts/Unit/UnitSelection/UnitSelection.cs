@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class UnitSelection : MonoBehaviour
 {
+	[SerializeField] private LayerMask unitAndGroundLayers;
+
     public Texture texture;
 
     private Ray ray;
@@ -23,7 +25,7 @@ public class UnitSelection : MonoBehaviour
     void Start()
     {
         pool = GetComponent<UnitPool>();
-	}
+    }
 
 	void Update()
 	{
@@ -34,7 +36,7 @@ public class UnitSelection : MonoBehaviour
 
 			ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-			if (Physics.Raycast(ray, out hit))
+			if (Physics.Raycast(ray, out hit, 50f, unitAndGroundLayers, QueryTriggerInteraction.Ignore))
 			{
 				selectedStartPoint = hit.point;
 			}
@@ -90,7 +92,7 @@ public class UnitSelection : MonoBehaviour
 	{
 		ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-		if (Physics.Raycast(ray, out hit))
+		if (Physics.Raycast(ray, out hit, 50f, unitAndGroundLayers, QueryTriggerInteraction.Ignore))
 		{
 			selectedEndPoint = hit.point;
 		}

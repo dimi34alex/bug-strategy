@@ -53,11 +53,13 @@ MonoBehaviour:
       pollenLevelUpPrice: 0
       bees_waxLevelUpPrice: 0
       housingLevelUpPrice: 0
+      honeyLevelUpPrice: 0
       housingCapacity: 5
     - maxHealPoints: 2500
       pollenLevelUpPrice: 0
       bees_waxLevelUpPrice: 0
       housingLevelUpPrice: 0
+      honeyLevelUpPrice: 0
       housingCapacity: 10
 --- !u!65 &1498097168595941684
 BoxCollider:
@@ -70,7 +72,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5.5, y: 1, z: 3}
+  m_Size: {x: 5.5, y: 1, z: 2.5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!208 &4327159425006945973
 NavMeshObstacle:

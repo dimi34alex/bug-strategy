@@ -47,19 +47,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efa3e63424f5cb14e8b78fc27d89959a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _resourceConversionProccessInfo:
-    _targetResourceID: 5
-    _producePerSecond: 5
-    _producedResourceCapacity: 500
-    _spendableResourceID: 0
-    _spendRatio: 0.5
-    _spendableResourceCapacity: 100
   levelSystem:
     levels:
     - maxHealPoints: 1500
       pollenLevelUpPrice: 0
       bees_waxLevelUpPrice: 0
       housingLevelUpPrice: 0
+      honeyLevelUpPrice: 0
       resourceConversionProccessInfo:
         _targetResourceID: 5
         _producePerSecond: 5
@@ -71,6 +65,7 @@ MonoBehaviour:
       pollenLevelUpPrice: 0
       bees_waxLevelUpPrice: 0
       housingLevelUpPrice: 0
+      honeyLevelUpPrice: 0
       resourceConversionProccessInfo:
         _targetResourceID: 5
         _producePerSecond: 5
@@ -89,7 +84,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5.5, y: 1, z: 3}
+  m_Size: {x: 5.5, y: 1, z: 2.5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!208 &3857824772847671301
 NavMeshObstacle:
