@@ -37,7 +37,7 @@ public class CameraMove : MonoBehaviour
     
     void Update()
     {
-        CameraMovement();
+        //CameraMovement();
         CameraScrolling();
     }
 
