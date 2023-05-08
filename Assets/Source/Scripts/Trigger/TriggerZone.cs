@@ -65,11 +65,12 @@ public abstract class TriggerZone : MonoBehaviour
         if (!_containsComponents.Remove(component))
             return;
 
-        if (!ZoneActive)
-            return;
-
         component.OnDestroyEvent -= DestroyOrDisableComponent;
         component.OnDisableEvent -= DestroyOrDisableComponent;
+        
+        if (!ZoneActive)
+            return;
+        
         OnExit(component);
         ExitEvent?.Invoke(component);
 
