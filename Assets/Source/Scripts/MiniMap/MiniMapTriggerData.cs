@@ -22,6 +22,11 @@ public class MiniMapTriggerData : TriggerZone
 
     public static MiniMapTriggerData Instance;
 
+    private Func<IMiniMapShows, bool> _filter = t => true;
+    protected override Func<ITriggerable, bool> EnteredComponentIsSuitable => t => t is IUnitTarget && _filter(t.Cast<IMiniMapShows>());
+    protected override bool _refreshEnteredComponentsAfterExit => false;
+
+    
     void Awake()
     {
         if (Instance != null)
@@ -71,10 +76,7 @@ public class MiniMapTriggerData : TriggerZone
     protected override void OnEnter(ITriggerable component)
     {
         IMiniMapShows miniMapShows = component.Cast<IMiniMapShows>();
-        
-        if (MiniMapIcons.ContainsKey(miniMapShows))
-            return;
-        
+
         MiniMapID id = miniMapShows.MiniMapId;
         
         MiniMapIconBase icon = _miniMapIcons.ExtractElement(id);
@@ -83,13 +85,13 @@ public class MiniMapTriggerData : TriggerZone
         Vector3 iconPosition = miniMapShows.Transform.position;
         iconPosition.y = 0;
         icon.transform.localPosition = iconPosition;
-        MiniMapIcons.Add(miniMapShows, icon);
+        MiniMapIcons.Add(miniMapShows, icon);  
     }
 
     protected override void OnExit(ITriggerable component)
     {
         IMiniMapShows miniMapShows = component.Cast<IMiniMapShows>();
-
+        
         if(MiniMapIcons.ContainsKey(miniMapShows))
             IconRemove(miniMapShows);
     }

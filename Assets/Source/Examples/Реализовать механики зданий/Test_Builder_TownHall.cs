@@ -93,6 +93,16 @@ public class Test_Builder_TownHall : CycleInitializerBase
 
             if (Input.GetButtonDown("Fire1"))//подтверждение строительства здания
             {
+                if (hit.collider.name == "TileBase")
+                {
+                    if (!hit.collider.GetComponent<Tile>().Visible)
+                    {
+                        Destroy(_currentBuilding);
+                        spawnBuilding = false;
+                        return;
+                    }
+                }
+                
                 foreach (GameObject unit in pool.units)
                 {
                     if (unit.GetComponent<MovingUnit>().isSelected == true && unit.gameObject.CompareTag("Worker"))

@@ -2183,6 +2183,14 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7855950136845511121, guid: 4aac2934c3320964b970a94589b1eb72, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7855950136845511121, guid: 4aac2934c3320964b970a94589b1eb72, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.000000029802319
+      objectReference: {fileID: 0}
     - target: {fileID: 8026708281373795315, guid: 4aac2934c3320964b970a94589b1eb72, type: 3}
       propertyPath: m_Name
       value: Flowers

@@ -14,7 +14,7 @@ public abstract class TriggerZone : MonoBehaviour
     protected virtual void OnExit(ITriggerable component) { }
 
     public bool ZoneActive { get; private set; } = true;
-    protected virtual bool _refreshEnterdComponentsAfterExit => true;
+    protected virtual bool _refreshEnteredComponentsAfterExit => true;
     protected virtual int _maxContainsCount => int.MaxValue;
 
     public event Action<ITriggerable> EnterEvent;
@@ -74,7 +74,7 @@ public abstract class TriggerZone : MonoBehaviour
         OnExit(component);
         ExitEvent?.Invoke(component);
 
-        if (_refreshEnterdComponentsAfterExit && _containsComponents.Count > 0)
+        if (_refreshEnteredComponentsAfterExit && _containsComponents.Count > 0)
         {
             OnEnter(_containsComponents.First());
             EnterEvent?.Invoke(_containsComponents.First());
