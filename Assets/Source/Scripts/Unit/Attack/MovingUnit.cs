@@ -3,10 +3,9 @@ using UnityEngine;
 using UnityEngine.AI;
 using System;
 
-public class MovingUnit : UnitBase, IMiniMapShows
+public class MovingUnit : UnitBase
 {
-    public MiniMapID MiniMapId => MiniMapID.PlayerUnit;
-    public event Action<Transform> RemoveMiniMapIcon;
+    public override MiniMapID MiniMapId => MiniMapID.PlayerUnit;
 
     private Ray ray;
     private RaycastHit hit;

@@ -7,5 +7,5 @@ using UnityEngine.Events;
 public interface IMiniMapShows
 {
     public MiniMapID MiniMapId { get; }
-    public event Action<Transform> RemoveMiniMapIcon;
+    public Transform Transform { get; }
 }

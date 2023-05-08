@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable, IUnitTarget
+public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable, IUnitTarget, IMiniMapShows
 {
     [SerializeField] private UnitVisibleZone _unitVisibleZone;
+    public abstract MiniMapID MiniMapId { get; }
 
     protected ResourceStorage _healthStorage = new ResourceStorage(100, 100);
     public float MaxHealPoints => _healthStorage.Capacity;
@@ -28,6 +29,8 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
 
     public event Action<UnitBase> OnUnitPathChange;
     public event Action<UnitBase> OnUnitDied;
+    public event Action<MonoBehaviour> OnDestroyEvent;
+    public event Action<MonoBehaviour> OnDisableEvent;
 
     public void TakeDamage(IDamageApplicator damageApplicator)
     {
@@ -48,4 +51,9 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
     }
 
     protected virtual void OnDamaged() { }
+
+    private void OnDisable()
+    {
+        OnDisableEvent?.Invoke(this);
+    }
 }

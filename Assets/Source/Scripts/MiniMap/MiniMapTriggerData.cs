@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class MiniMapTriggerData : MonoBehaviour
+public class MiniMapTriggerData : TriggerZone
 {
     [Serializable]
     private struct CameraMiniMapDictionaryData
@@ -10,13 +11,14 @@ public class MiniMapTriggerData : MonoBehaviour
         public MiniMapID iconId;
         public GameObject iconPrefab;
     }
-    [SerializeField] private List<CameraMiniMapDictionaryData> dictionaryData;
+    
+    [SerializeField] private List<CameraMiniMapDictionaryData> iconsPrefabsData;
     private Dictionary<MiniMapID, GameObject> _iconsPrefabs;
     
     private Pool<MiniMapIconBase, MiniMapID> _miniMapIcons;
     private GameObject _miniMapIconZone;
 
-    public Dictionary<Transform, MiniMapIconBase> MiniMapIcons { get; private set;}
+    public Dictionary<IMiniMapShows, MiniMapIconBase> MiniMapIcons { get; private set;}
 
     public static MiniMapTriggerData Instance;
 
@@ -24,20 +26,20 @@ public class MiniMapTriggerData : MonoBehaviour
     {
         if (Instance != null)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
             return;
         }
 
         Instance = this;
         
         _iconsPrefabs = new Dictionary<MiniMapID, GameObject>();
-        foreach (var iconPrefab in dictionaryData)
+        foreach (var iconPrefab in iconsPrefabsData)
         {
             _iconsPrefabs.Add(iconPrefab.iconId, iconPrefab.iconPrefab);
         }
         
         _miniMapIcons = new Pool<MiniMapIconBase, MiniMapID>(AddIcon);
-        MiniMapIcons = new Dictionary<Transform, MiniMapIconBase>();
+        MiniMapIcons = new Dictionary<IMiniMapShows, MiniMapIconBase>();
     }
     
     private void Start()
@@ -66,45 +68,39 @@ public class MiniMapTriggerData : MonoBehaviour
         return icon.GetComponent<MiniMapIconBase?>();
     }
 
-    private void OnTriggerEnter(Collider other)
+    protected override void OnEnter(ITriggerable component)
     {
-        IMiniMapShows miniMapShows = other.GetComponent<IMiniMapShows?>();
-
-        if (miniMapShows == null)
-            throw new Exception("IMiniMapObject is null");
-
-        if (MiniMapIcons.ContainsKey(other.transform))
+        IMiniMapShows miniMapShows = component.Cast<IMiniMapShows>();
+        
+        if (MiniMapIcons.ContainsKey(miniMapShows))
             return;
-
-        miniMapShows.RemoveMiniMapIcon += IconRemove;
         
         MiniMapID id = miniMapShows.MiniMapId;
         
         MiniMapIconBase icon = _miniMapIcons.ExtractElement(id);
         icon.gameObject.SetActive(true);
         
-        Vector3 iconPosition = other.transform.position;
+        Vector3 iconPosition = miniMapShows.Transform.position;
         iconPosition.y = 0;
         icon.transform.localPosition = iconPosition;
-        MiniMapIcons.Add(other.transform, icon);
-    }
-    
-    private void OnTriggerExit(Collider other)
-    {
-        if(MiniMapIcons.ContainsKey(other.transform))
-            IconRemove(other.transform);
+        MiniMapIcons.Add(miniMapShows, icon);
     }
 
-    private void IconRemove(Transform transformForRemove)
+    protected override void OnExit(ITriggerable component)
     {
-        MiniMapIconBase icon;
-        MiniMapIcons.TryGetValue(transformForRemove, out icon);
+        IMiniMapShows miniMapShows = component.Cast<IMiniMapShows>();
+
+        if(MiniMapIcons.ContainsKey(miniMapShows))
+            IconRemove(miniMapShows);
+    }
+
+    private void IconRemove(IMiniMapShows transformForRemove)
+    {
+        MiniMapIcons.TryGetValue(transformForRemove, out MiniMapIconBase icon);
 
         if(icon == null) return;
         
         icon.Return();
-        transformForRemove.GetComponent<IMiniMapShows>().RemoveMiniMapIcon -= IconRemove;
-        
         icon.gameObject.SetActive(false);
         MiniMapIcons.Remove(transformForRemove);
     }

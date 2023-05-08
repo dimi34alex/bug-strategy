@@ -2,12 +2,13 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
-public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagable, IRepairable, IMiniMapShows
+public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagable, IRepairable, IMiniMapShows, ITriggerable, IUnitTarget
 {
     public abstract ConstructionID ConstructionID { get; }
-
+    public UnitTargetType TargetType => UnitTargetType.Construction;
     public MiniMapID MiniMapId => MiniMapID.PlayerBuilding;
-    public event Action<Transform> RemoveMiniMapIcon;
+    
+    public Transform Transform => transform;
 
     protected ResourceStorage HealPoints;
     public float MaxHealPoints => HealPoints.Capacity;
@@ -15,6 +16,9 @@ public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagabl
     
     protected event Action _updateEvent;
     protected event Action _onDestroy;
+    public event Action<MonoBehaviour> OnDestroyEvent;
+    public event Action<MonoBehaviour> OnDisableEvent;
+
 
     protected void Awake()
     {
@@ -31,11 +35,7 @@ public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagabl
     {
         HealPoints.ChangeValue(-damageApplicator.Damage);
         if (CurrentHealPoints <= 0)
-        {
-            _onDestroy?.Invoke();
-            RemoveMiniMapIcon?.Invoke(transform);
             Destroy(gameObject);
-        }
     }
 
     public virtual void TakeRepair(IRepairApplicator repairApplicator)
@@ -45,6 +45,12 @@ public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagabl
 
     private void OnDestroy()
     {
-        RemoveMiniMapIcon?.Invoke(transform);
+        _onDestroy?.Invoke();
+        OnDestroyEvent?.Invoke(this);
+    }
+
+    private void OnDisable()
+    {
+        OnDisableEvent?.Invoke(this);
     }
 }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3393050730796404337}
   - component: {fileID: 3393050730796404338}
   - component: {fileID: 3393050730796404336}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: MiniMapTriggerData
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91b4d9851ec2dfe47a14bfc5bea5ac40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dictionaryData:
+  iconsPrefabsData:
   - iconId: 0
     iconPrefab: {fileID: 6660610984337217752, guid: 4d535c047019624488ea47e1092ccde9, type: 3}
   - iconId: 1

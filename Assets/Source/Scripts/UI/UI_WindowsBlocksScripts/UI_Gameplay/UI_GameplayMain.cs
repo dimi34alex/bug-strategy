@@ -56,11 +56,11 @@ public class UI_GameplayMain : UIScreen
 
     private void UpdateMiniMap()
     {
-        Dictionary<Transform, MiniMapIconBase> miniMapIcons = _miniMapTriggerData.MiniMapIcons;
+        Dictionary<IMiniMapShows, MiniMapIconBase> miniMapIcons = _miniMapTriggerData.MiniMapIcons;
         
         foreach (var icon in miniMapIcons)
         {
-            Vector3 iconPosition = icon.Key.transform.position;
+            Vector3 iconPosition = icon.Key.Transform.position;
             iconPosition.y = 0;
             
             Vector3 cameraPos = _cameraTransform.position;
