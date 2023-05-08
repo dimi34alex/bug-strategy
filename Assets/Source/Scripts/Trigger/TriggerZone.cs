@@ -35,6 +35,8 @@ public abstract class TriggerZone : MonoBehaviour
             if (_containsComponents.Count >= _maxContainsCount)
                 return;
 
+            component.OnDestroyEvent += DestroyOrDisableComponent;
+            component.OnDisableEvent += DestroyOrDisableComponent;
             _containsComponents.Add(component);
 
             if (!ZoneActive)
@@ -49,20 +51,32 @@ public abstract class TriggerZone : MonoBehaviour
     {
         if (other.TryGetComponent(out ITriggerable component))
         {
-            if (!_containsComponents.Remove(component))
-                return;
+            RemoveComponent(component);
+        }
+    }
 
-            if (!ZoneActive)
-                return;
+    private void DestroyOrDisableComponent(MonoBehaviour component)
+    {
+        RemoveComponent(component.Cast<ITriggerable>());
+    }
 
-            OnExit(component);
-            ExitEvent?.Invoke(component);
+    private void RemoveComponent(ITriggerable component)
+    {
+        if (!_containsComponents.Remove(component))
+            return;
 
-            if (_refreshEnterdComponentsAfterExit && _containsComponents.Count > 0)
-            {
-                OnEnter(_containsComponents.First());
-                EnterEvent?.Invoke(_containsComponents.First());
-            }
+        if (!ZoneActive)
+            return;
+
+        component.OnDestroyEvent -= DestroyOrDisableComponent;
+        component.OnDisableEvent -= DestroyOrDisableComponent;
+        OnExit(component);
+        ExitEvent?.Invoke(component);
+
+        if (_refreshEnterdComponentsAfterExit && _containsComponents.Count > 0)
+        {
+            OnEnter(_containsComponents.First());
+            EnterEvent?.Invoke(_containsComponents.First());
         }
     }
 
