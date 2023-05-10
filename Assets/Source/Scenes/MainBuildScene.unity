@@ -625,7 +625,7 @@ GameObject:
   - component: {fileID: 291144846}
   - component: {fileID: 291144845}
   - component: {fileID: 291144844}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Field
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1278,7 +1278,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 14387
   buildingsDictionaryData:
   - constructionID: 2
     constructionModel: {fileID: 1804355251172813621, guid: ffb8c292185cd514094b2e78bf50524d, type: 3}

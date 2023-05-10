@@ -55,7 +55,7 @@ public class Test_Builder_TownHall : CycleInitializerBase
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, 100F, layerMask, QueryTriggerInteraction.Ignore))
+            if (Physics.Raycast(ray, out hit, 100F, layerMask))
             {
                 if (hit.transform.gameObject.CompareTag("Building"))
                 {
@@ -87,7 +87,7 @@ public class Test_Builder_TownHall : CycleInitializerBase
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if (!MousOverUI() && Physics.Raycast(ray, out hit, 100F, layerMask, QueryTriggerInteraction.Ignore))//если рэйкаст сталкиваеться с чем нибудь, задаем зданию позицию точки столкновения рэйкаста
+        if (!MousOverUI() && Physics.Raycast(ray, out hit, 100F, layerMask))//если рэйкаст сталкиваеться с чем нибудь, задаем зданию позицию точки столкновения рэйкаста
         {
             _currentBuilding.transform.position = FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(ray.GetPoint(hit.distance));
 
