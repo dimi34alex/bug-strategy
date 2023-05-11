@@ -11,13 +11,19 @@ public class UnitPool : MonoBehaviour
     public List<GameObject> group3;
     public List<GameObject> group4;
     public List<GameObject> group5;
-    public Ray ray;
-    public RaycastHit hit;
 
-    void Start()
+    public static UnitPool Instance { get; private set; }
+    
+    void Awake()
     {
+        if (Instance != null){
+            Destroy(this);
+            return;
+        }
 
+        Instance = this;
     }
+    
     void Update()
     {
         if (Input.GetButton("left shift"))
@@ -107,7 +113,8 @@ public class UnitPool : MonoBehaviour
 
     public void SelectGroup(List<GameObject> group)
     {
-        DeselectAll();
+        UnitSelection.Instance.DeselectAll();
+        
         foreach (GameObject groupUnit in group)
         {
             groupUnit.GetComponent<MovingUnit>().isSelected = true;
@@ -124,16 +131,5 @@ public class UnitPool : MonoBehaviour
     void ClearGroup(List<GameObject> group)
     {
         group.Clear();
-    }
-
-    public void DeselectAll()
-    {
-        if (!EventSystem.current.IsPointerOverGameObject())
-        {
-            foreach (GameObject unit in units)
-            {
-                unit.GetComponent<MovingUnit>().isSelected = false;
-            }
-        }
     }
 }

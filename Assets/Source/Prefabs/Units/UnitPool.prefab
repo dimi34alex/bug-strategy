@@ -64,5 +64,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitAndGroundLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 14387
+  selectedUnits: []
   texture: {fileID: 2800000, guid: c8a9df530bc835040a371b34f11b17e9, type: 3}

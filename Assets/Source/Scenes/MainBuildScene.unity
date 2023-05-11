@@ -3363,6 +3363,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UnitPool
       objectReference: {fileID: 0}
+    - target: {fileID: 2547530101701635691, guid: f781fa305214c504991994be020715c8, type: 3}
+      propertyPath: OldVariant
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2547530101701635693, guid: f781fa305214c504991994be020715c8, type: 3}
       propertyPath: m_RootOrder
       value: 9

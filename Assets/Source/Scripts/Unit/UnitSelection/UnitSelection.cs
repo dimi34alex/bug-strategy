@@ -1,10 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class UnitSelection : MonoBehaviour
 {
+	public static UnitSelection Instance { get; private set; }
+
 	[SerializeField] private LayerMask unitAndGroundLayers;
+	[SerializeField] private List<MovingUnit> selectedUnits = new List<MovingUnit>();
 
     public Texture texture;
 
@@ -22,7 +27,19 @@ public class UnitSelection : MonoBehaviour
 	private bool anySelected;
 	private UnitPool pool;
 
-    void Start()
+
+	private void Awake()
+	{
+		if (Instance != null)
+		{
+			Destroy(this);
+			return;
+		}
+
+		Instance = this;
+	}
+
+	void Start()
     {
         pool = GetComponent<UnitPool>();
     }
@@ -50,7 +67,7 @@ public class UnitSelection : MonoBehaviour
 		if (Input.GetMouseButtonUp(0))
 		{
 			isSelecting = false;
-			pool.DeselectAll();
+			DeselectAll();
 
 			workerSelected = false;
 			anySelected = false;
@@ -67,20 +84,41 @@ public class UnitSelection : MonoBehaviour
 
 			pool.SelectionCheck();
 		}
-	}
+		
+		if (Input.GetMouseButton(1))
+		{
+			Ray newRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
+			RaycastHit newHit;
+			
+			if (Physics.Raycast(newRay, out newHit, 50f, unitAndGroundLayers, QueryTriggerInteraction.Ignore))
+			{
+				foreach (var unit in selectedUnits)
+				{
+					unit.GiveOrder(newHit);
+				}
+			}
+		}
+	}
+	
 	private void SelectOne()
 	{
 		if (hit.collider == null)
 			return;
-		if (hit.collider.gameObject.tag == "Unit")
+		if (hit.collider.gameObject.CompareTag("Unit"))
 		{
-			hit.collider.gameObject.GetComponent<MovingUnit>().isSelected = true;
+			MovingUnit movingUnit = hit.collider.gameObject.GetComponent<MovingUnit>();
+			movingUnit.isSelected = true;
+			selectedUnits.Add(movingUnit);
+			
 			anySelected = true;
 		}
-		else if (hit.collider.gameObject.tag == "Worker")
+		else if (hit.collider.gameObject.CompareTag("Worker"))
 		{
-			hit.collider.gameObject.GetComponent<MovingUnit>().isSelected = true;
+			MovingUnit movingUnit = hit.collider.gameObject.GetComponent<MovingUnit>();
+			movingUnit.isSelected = true;
+			selectedUnits.Add(movingUnit);
+			
 			anySelected = true;
 			workerSelected = true;
 		}
@@ -110,15 +148,17 @@ public class UnitSelection : MonoBehaviour
             if ((x > selectedStartPoint.x && x < selectedEndPoint.x) || (x < selectedStartPoint.x && x > selectedEndPoint.x))
             {
                 if ((z > selectedStartPoint.z && z < selectedEndPoint.z) || (z < selectedStartPoint.z && z > selectedEndPoint.z))
-
                 {
-                    unit.GetComponent<MovingUnit>().isSelected = true;
-					anySelected = true;
+	                MovingUnit movingUnit = unit.GetComponent<MovingUnit>();
+	                movingUnit.isSelected = true;
+	                selectedUnits.Add(movingUnit);
+                    
+	                anySelected = true;
 
-					if (unit.gameObject.tag == "Worker")
-					{
-						workerSelected = true;
-					}
+	                if (unit.gameObject.CompareTag("Worker"))
+	                {
+		                workerSelected = true;
+	                }
                 }
             }
 
@@ -145,6 +185,17 @@ public class UnitSelection : MonoBehaviour
 		else if (anySelected)
 		{
 			UI_Controller._SetWindow("UI_Tactics");
+		}
+	}
+	
+	public void DeselectAll()
+	{
+		if (!EventSystem.current.IsPointerOverGameObject())
+		{
+			foreach (MovingUnit unit in selectedUnits)
+			{
+				unit.isSelected = false;
+			}
 		}
 	}
 }
