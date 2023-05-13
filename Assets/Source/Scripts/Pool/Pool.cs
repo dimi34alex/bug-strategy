@@ -40,8 +40,6 @@ public class Pool<TElement> where TElement : IPoolable<TElement>
                 _extractedElements.RemoveFirst();
                 _extractedElements.AddLast(element);
 
-                element.ElementReturnEvent += ReturnElement;
-                element.ElementDestroyEvent += ElementDestroy;
                 return element;
             }
         }
