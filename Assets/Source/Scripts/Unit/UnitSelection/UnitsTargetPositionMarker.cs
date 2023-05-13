@@ -27,6 +27,7 @@ public class UnitsTargetPositionMarker : MonoBehaviour, IPoolable<UnitsTargetPos
     public void OnElementReturn()
     {
         gameObject.SetActive(false);
+        ResetData();
     }
     
     IEnumerator Tick()
