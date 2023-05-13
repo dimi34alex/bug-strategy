@@ -9,8 +9,12 @@ public class UnitSelection : MonoBehaviour
 	public static UnitSelection Instance { get; private set; }
 
 	[SerializeField] private LayerMask unitAndGroundLayers;
-	[SerializeField] private List<MovingUnit> selectedUnits = new List<MovingUnit>();
+	[SerializeField] private GameObject targetPositionMarkerPrefab;
 
+	[SerializeField] private float ringStep;
+	[SerializeField] private int unitsCounRingStep;
+	
+	public List<Vector3> positions;
     public Texture texture;
 
     private Ray ray;
@@ -27,6 +31,8 @@ public class UnitSelection : MonoBehaviour
 	private bool anySelected;
 	private UnitPool pool;
 
+	private List<MovingUnit> _selectedUnits = new List<MovingUnit>();
+	private Pool<UnitsTargetPositionMarker> _markersPool;
 
 	private void Awake()
 	{
@@ -37,6 +43,8 @@ public class UnitSelection : MonoBehaviour
 		}
 
 		Instance = this;
+		
+		_markersPool = new Pool<UnitsTargetPositionMarker>(AddTargetPositionMarker, 3, false);
 	}
 
 	void Start()
@@ -85,7 +93,7 @@ public class UnitSelection : MonoBehaviour
 			pool.SelectionCheck();
 		}
 		
-		if (Input.GetMouseButton(1))
+		if (Input.GetMouseButtonDown(1) && _selectedUnits.Count > 0 && !isSelecting)
 		{
 			Ray newRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -93,13 +101,54 @@ public class UnitSelection : MonoBehaviour
 			
 			if (Physics.Raycast(newRay, out newHit, 50f, unitAndGroundLayers, QueryTriggerInteraction.Ignore))
 			{
-				foreach (var unit in selectedUnits)
+				string tag = newHit.collider.tag;
+				Vector3 targetPosition = newHit.point;
+
+				positions = TakeRingsPositions(targetPosition, ringStep, unitsCounRingStep, _selectedUnits.Count);
+
+				int n = 0;
+				foreach (var unit in _selectedUnits)
 				{
-					unit.GiveOrder(newHit);
+					unit.GiveOrder(tag, positions[n++]);
 				}
+
+				_markersPool.ExtractElement().SetPosition(targetPosition);
 			}
 		}
 	}
+	
+	private List<Vector3> TakeRingsPositions(Vector3 center, float ringStep, int unitsCountRingStep, int fukkUnitsCount)
+	{
+		float currentDistance = ringStep;
+		int currentCount = unitsCountRingStep;
+		
+		List<Vector3> positions = new List<Vector3>();
+		positions.Add(center);
+		for (int i = positions.Count; i < fukkUnitsCount; i = positions.Count)
+		{
+			positions.AddRange(TakeRingPositions(center, currentDistance, currentCount));
+			currentDistance += ringStep;
+			currentCount += unitsCountRingStep;
+		}
+
+		return positions;
+	}
+    
+	private List<Vector3> TakeRingPositions(Vector3 center, float distanceFromCenter, int unitsCount)
+	{
+		List<Vector3> positions = new List<Vector3>();
+		for (int i = 0; i < unitsCount; i++)
+		{
+			float angle = i * (360 / unitsCount);
+			Vector3 direction = Quaternion.Euler(0, angle, 0) * new Vector3(1, 0,0);
+			positions.Add(center + distanceFromCenter * direction);
+		}
+
+		return positions;
+	}
+	
+	
+	
 	
 	private void SelectOne()
 	{
@@ -109,7 +158,7 @@ public class UnitSelection : MonoBehaviour
 		{
 			MovingUnit movingUnit = hit.collider.gameObject.GetComponent<MovingUnit>();
 			movingUnit.isSelected = true;
-			selectedUnits.Add(movingUnit);
+			_selectedUnits.Add(movingUnit);
 			
 			anySelected = true;
 		}
@@ -117,7 +166,7 @@ public class UnitSelection : MonoBehaviour
 		{
 			MovingUnit movingUnit = hit.collider.gameObject.GetComponent<MovingUnit>();
 			movingUnit.isSelected = true;
-			selectedUnits.Add(movingUnit);
+			_selectedUnits.Add(movingUnit);
 			
 			anySelected = true;
 			workerSelected = true;
@@ -151,8 +200,7 @@ public class UnitSelection : MonoBehaviour
                 {
 	                MovingUnit movingUnit = unit.GetComponent<MovingUnit>();
 	                movingUnit.isSelected = true;
-	                selectedUnits.Add(movingUnit);
-                    
+	                _selectedUnits.Add(movingUnit);
 	                anySelected = true;
 
 	                if (unit.gameObject.CompareTag("Worker"))
@@ -161,8 +209,6 @@ public class UnitSelection : MonoBehaviour
 	                }
                 }
             }
-
-
         }
 
 		UI_Call();
@@ -192,10 +238,18 @@ public class UnitSelection : MonoBehaviour
 	{
 		if (!EventSystem.current.IsPointerOverGameObject())
 		{
-			foreach (MovingUnit unit in selectedUnits)
+			foreach (MovingUnit unit in _selectedUnits)
 			{
 				unit.isSelected = false;
 			}
+			_selectedUnits.Clear();
 		}
+	}
+
+	private UnitsTargetPositionMarker AddTargetPositionMarker()
+	{
+		GameObject targetPositionMarker = Instantiate(targetPositionMarkerPrefab, transform);
+		
+		return targetPositionMarker.GetComponent<UnitsTargetPositionMarker?>();
 	}
 }

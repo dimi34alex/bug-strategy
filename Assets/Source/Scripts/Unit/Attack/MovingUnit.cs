@@ -53,11 +53,11 @@ public class MovingUnit : UnitBase
         }
     }
 
-    public void GiveOrder(RaycastHit hit)
+    public void GiveOrder(string tag, Vector3 position)
     {
         if(!isSelected) return;
         
-        switch (hit.collider.gameObject.tag)
+        switch (tag)
         {
             case "PollenSource":
                 if(gameObject.CompareTag("Worker"))
@@ -75,7 +75,7 @@ public class MovingUnit : UnitBase
                 break;
         }
         
-        SetDestination(hit.point);
+        SetDestination(position);
     }
 
     public void UseFirstAbility()
