@@ -70,6 +70,7 @@ GameObject:
   - component: {fileID: 5674662040266732978}
   - component: {fileID: 4844941556788702066}
   - component: {fileID: -4043685499917361145}
+  - component: {fileID: 7632925966633513907}
   m_Layer: 12
   m_Name: TownHall
   m_TagString: Building
@@ -192,6 +193,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &7632925966633513907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8287707048911136234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4be58a052bbe72d4abe49722c409dce3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4906834878104175887
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -263,6 +276,10 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2786485992896029944, guid: ffb8c292185cd514094b2e78bf50524d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f8942df3ef59c894c9b49b9034f00253, type: 2}
     - target: {fileID: 4351874455037664214, guid: ffb8c292185cd514094b2e78bf50524d, type: 3}
       propertyPath: m_Layer
       value: 0
