@@ -70,6 +70,7 @@ GameObject:
   - component: {fileID: 6453320288001796886}
   - component: {fileID: 3254335188705482603}
   - component: {fileID: 5267785810233385652}
+  - component: {fileID: 7128697905721752213}
   m_Layer: 12
   m_Name: Barrak
   m_TagString: Building
@@ -199,6 +200,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &7128697905721752213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4279467153753337981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4be58a052bbe72d4abe49722c409dce3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7383987204580826093
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -206,6 +219,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 338383595957482997}
     m_Modifications:
+    - target: {fileID: 373628470529834432, guid: 7896ee1edb85d484fb0d9e495f9fe5dd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 671606385513690801, guid: 7896ee1edb85d484fb0d9e495f9fe5dd, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f8942df3ef59c894c9b49b9034f00253, type: 2}
+    - target: {fileID: 1247727801967448746, guid: 7896ee1edb85d484fb0d9e495f9fe5dd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3088106429806349029, guid: 7896ee1edb85d484fb0d9e495f9fe5dd, type: 3}
       propertyPath: m_RootOrder
       value: 0

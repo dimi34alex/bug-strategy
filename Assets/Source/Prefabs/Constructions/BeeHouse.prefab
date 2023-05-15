@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1498097168595941684}
   - component: {fileID: 4327159425006945973}
   - component: {fileID: -8292884905053886468}
+  - component: {fileID: -1600127686621531829}
   m_Layer: 12
   m_Name: BeeHouse
   m_TagString: Building
@@ -108,6 +109,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &-1600127686621531829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7316666807572606343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4be58a052bbe72d4abe49722c409dce3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8527166363187424532
 GameObject:
   m_ObjectHideFlags: 0
