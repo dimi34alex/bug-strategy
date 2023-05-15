@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca01f0398536ab44ab5b31f79fa2a88e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cycleDuration: 4
+  _cycleDuration: 160
   _volume: {fileID: 4813197479309385044}
   _dayCurve:
     serializedVersion: 2
