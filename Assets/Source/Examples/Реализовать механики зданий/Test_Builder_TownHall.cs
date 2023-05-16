@@ -111,11 +111,11 @@ public class Test_Builder_TownHall : CycleInitializerBase
                     }
                 }
                 
-                foreach (GameObject unit in pool.units)
+                foreach (MovingUnit unit in pool.movingUnits)
                 {
-                    if (unit.GetComponent<MovingUnit>().isSelected == true && unit.gameObject.CompareTag("Worker"))
+                    if (unit.isSelected == true && unit.gameObject.CompareTag("Worker"))
                     {
-                        unit.GetComponent<MovingUnit>().SetDestination(hit.point);
+                        unit.SetDestination(hit.point);
                         unit.GetComponent<WorkerDuty>().isFindingBuild = true;
 
                         Spawn(unit, currentConstructionID);
@@ -134,7 +134,7 @@ public class Test_Builder_TownHall : CycleInitializerBase
         }
     }
 
-    private void Spawn(GameObject unit, ConstructionID id)
+    private void Spawn(MovingUnit unit, ConstructionID id)
     {
         if (id!= ConstructionID.Town_Hall || (id == ConstructionID.Town_Hall && _numberTownHall < 1))
         {
