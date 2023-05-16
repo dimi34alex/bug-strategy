@@ -64,22 +64,22 @@ public class UI_Controller : MonoBehaviour
     #region Spawn of buildings
     public static void _SpawnTownHall()
     {
-        builder._SpawnBuilding(ConstructionID.Town_Hall);
+        builder.SpawnMovableBuilding(ConstructionID.Town_Hall);
     }
     
     public static void _SpawnBarrack()
     {
-        builder._SpawnBuilding(ConstructionID.Barrack);
+        builder.SpawnMovableBuilding(ConstructionID.Barrack);
     }
     
     public static void _SpawnBeeHouse()
     {
-        builder._SpawnBuilding(ConstructionID.BeeHouse);
+        builder.SpawnMovableBuilding(ConstructionID.BeeHouse);
     }
     
     public static void _SpawnWaxFactory()
     {
-        builder._SpawnBuilding(ConstructionID.Bees_Wax_Produce_Construction);
+        builder.SpawnMovableBuilding(ConstructionID.Bees_Wax_Produce_Construction);
     }
     #endregion
 

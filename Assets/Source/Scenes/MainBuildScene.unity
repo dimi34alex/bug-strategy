@@ -1288,6 +1288,11 @@ MonoBehaviour:
     constructionModel: {fileID: 384104254047004952, guid: 03d961c1ad94baf41922734dfa8897c0, type: 3}
   - constructionID: 4
     constructionModel: {fileID: 7990777937018456503, guid: 97d3c4038830dfa408773672f985d000, type: 3}
+  _buildings:
+  - {fileID: 7302409546887255228, guid: be75a87963886d540a0b1611fc6ff84b, type: 3}
+  - {fileID: -4589124477280040743, guid: eb03e7e86e87e7e4186e4e1098d54590, type: 3}
+  - {fileID: 5330466338465754192, guid: 06a58daf119980740baeaa46a4c63294, type: 3}
+  - {fileID: 6644387960813269008, guid: 66ec7c9a63c2d2d4c8219132066564f8, type: 3}
 --- !u!1 &847315266
 GameObject:
   m_ObjectHideFlags: 0
