@@ -10,14 +10,19 @@ public abstract class EvolvConstruction<TBuildingLevel> : ConstructionBase
     public int CurrentLevelNum => levelSystem.CurrentLevelNum;
     [SerializeField] private SerializableDictionary<ResourceID, int> _costValues;
     private Cost _cost;
-    public  Cost Cost => _cost;
+    public override Cost Cost => _cost;
 
     protected override void OnAwake()
     {
-        _cost = new Cost(_costValues);
+        CalculateCost();
         base.OnAwake();
         
         HealPoints = new ResourceStorage(CurrentLevel.MaxHealPoints,CurrentLevel.MaxHealPoints);
+    }
+
+    public override void CalculateCost()
+    {
+        _cost = new Cost(_costValues);
     }
 
     public void NextBuildingLevel()

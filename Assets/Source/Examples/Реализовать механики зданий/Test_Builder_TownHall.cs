@@ -36,7 +36,13 @@ public class Test_Builder_TownHall : CycleInitializerBase
     protected override void OnInit()
     {
         _movableBuildingsWithID = new Dictionary<ConstructionID, GameObject>();
+
+        foreach (var element in _buildings)
+            element.CalculateCost();
+
         _buildingsWithID = _buildings.ToDictionary(x => x.ConstructionID, x => x);
+
+
 
         GameObject controller = GameObject.FindGameObjectWithTag("GameController");
         pool = controller.GetComponent<UnitPool>();
@@ -113,11 +119,12 @@ public class Test_Builder_TownHall : CycleInitializerBase
                 
                 foreach (MovingUnit unit in pool.movingUnits)
                 {
-                    if (unit.isSelected == true && unit.gameObject.CompareTag("Worker"))
+                    if (unit.isSelected == true && unit.gameObject.CompareTag("Worker") && CanBuyConstruction(currentConstructionID))
                     {
+                        BuyConstruction(currentConstructionID);
                         unit.SetDestination(hit.point);
                         unit.GetComponent<WorkerDuty>().isFindingBuild = true;
-
+                   
                         Spawn(unit, currentConstructionID);
 
                         Destroy(_currentBuilding);
@@ -135,6 +142,23 @@ public class Test_Builder_TownHall : CycleInitializerBase
     }
 
 
+    private bool CanBuyConstruction(ConstructionID id )
+    {
+        bool flagCanBuy = true;
+        Debug.Log(_buildingsWithID[id].Cost);
+
+        foreach (var element in _buildingsWithID[id].Cost.ResourceCost)
+             if (element.Value > ResourceGlobalStorage.GetResource(element.Key).Capacity)
+                 flagCanBuy = false;
+
+        return flagCanBuy;
+    }
+
+    private void BuyConstruction(ConstructionID id)
+    {
+        foreach (var element in _buildingsWithID[id].Cost.ResourceCost)
+            ResourceGlobalStorage.GetResource(element.Key).SetCapacity(ResourceGlobalStorage.GetResource(element.Key).Capacity - element.Value);
+    }
 
 
     private void Spawn(MovingUnit unit, ConstructionID id)

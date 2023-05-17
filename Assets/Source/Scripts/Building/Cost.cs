@@ -4,6 +4,8 @@ public class Cost
 {
     private Dictionary<ResourceID, int> _resourceCost;
 
+    public Dictionary<ResourceID, int> ResourceCost => _resourceCost;
+
     public Cost(KeyValuePair<ResourceID, int>[] keyValuePairs)
     {
         _resourceCost = new Dictionary<ResourceID, int>();
