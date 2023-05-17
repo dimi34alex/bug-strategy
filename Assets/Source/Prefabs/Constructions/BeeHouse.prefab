@@ -64,6 +64,10 @@ MonoBehaviour:
       housingLevelUpPrice: 0
       honeyLevelUpPrice: 0
       housingCapacity: 10
+  _costValues:
+    _cells:
+    - Key: 0
+      Value: 2
 --- !u!65 &1498097168595941684
 BoxCollider:
   m_ObjectHideFlags: 0
