@@ -34,6 +34,8 @@ public class UnitSelection : MonoBehaviour
 	private List<MovingUnit> _selectedUnits = new List<MovingUnit>();
 	private Pool<UnitsTargetPositionMarker> _markersPool;
 
+	public UnitPool Pool => pool;
+
 	private void Awake()
 	{
 		if (Instance != null)

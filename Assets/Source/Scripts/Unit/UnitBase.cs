@@ -6,6 +6,7 @@ using UnityEngine;
 public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable, IUnitTarget, IMiniMapShows
 {
     [SerializeField] private UnitVisibleZone _unitVisibleZone;
+
     public abstract MiniMapID MiniMapId { get; }
 
     protected ResourceStorage _healthStorage = new ResourceStorage(100, 100);
@@ -14,6 +15,7 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
     protected List<AbilityBase> _abilites = new List<AbilityBase>();
     public List<AbilityBase> Abilites => _abilites;
 
+ 
     protected EntityStateMachine _stateMachine;
 
     public EntityStateMachine StateMachine => _stateMachine;
@@ -55,5 +57,22 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
     private void OnDisable()
     {
         OnDisableEvent?.Invoke(this);
+    }
+}
+
+
+public class StateBehaviorUnit
+{
+    private StateBehaviorUnitID _stateBehaviorUnitID;
+    public StateBehaviorUnitID StateBehaviorUnitID => _stateBehaviorUnitID;
+
+    public StateBehaviorUnit()
+    {
+        _stateBehaviorUnitID = StateBehaviorUnitID.Attack;
+    }
+
+    public void SetID(StateBehaviorUnitID id)
+    {
+        _stateBehaviorUnitID = id;
     }
 }

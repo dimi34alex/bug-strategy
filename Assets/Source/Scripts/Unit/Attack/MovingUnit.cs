@@ -5,6 +5,9 @@ using System;
 
 public class MovingUnit : UnitBase
 {
+    private StateBehaviorUnit _stateBehaviorUnit;
+    public StateBehaviorUnit StateBehaviorUnit => _stateBehaviorUnit;
+
     public override MiniMapID MiniMapId => MiniMapID.PlayerUnit;
     
     [SerializeField] private NavMeshAgent _navMeshAgent;
@@ -29,6 +32,8 @@ public class MovingUnit : UnitBase
 
     private void Awake()
     {
+        _stateBehaviorUnit = new StateBehaviorUnit();
+
         _abilites.Add(_ability1);
         _abilites.Add(_ability2);
         
@@ -43,6 +48,11 @@ public class MovingUnit : UnitBase
     public void Warp(Vector3 position)
     {
         _navMeshAgent.Warp(position);
+    }
+
+    public void SetStateBehaviorUnit(StateBehaviorUnitID id)
+    {
+        _stateBehaviorUnit.SetID(id);
     }
 
     void Update()
