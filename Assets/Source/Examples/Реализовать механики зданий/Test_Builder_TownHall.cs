@@ -145,10 +145,9 @@ public class Test_Builder_TownHall : CycleInitializerBase
     private bool CanBuyConstruction(ConstructionID id )
     {
         bool flagCanBuy = true;
-        Debug.Log(_buildingsWithID[id].Cost);
 
         foreach (var element in _buildingsWithID[id].Cost.ResourceCost)
-             if (element.Value > ResourceGlobalStorage.GetResource(element.Key).Capacity)
+             if (element.Value > ResourceGlobalStorage.GetResource(element.Key).CurrentValue)
                  flagCanBuy = false;
 
         return flagCanBuy;
@@ -157,7 +156,7 @@ public class Test_Builder_TownHall : CycleInitializerBase
     private void BuyConstruction(ConstructionID id)
     {
         foreach (var element in _buildingsWithID[id].Cost.ResourceCost)
-            ResourceGlobalStorage.GetResource(element.Key).SetCapacity(ResourceGlobalStorage.GetResource(element.Key).Capacity - element.Value);
+            ResourceGlobalStorage.GetResource(element.Key).SetValue(ResourceGlobalStorage.GetResource(element.Key).CurrentValue - element.Value);
     }
 
 

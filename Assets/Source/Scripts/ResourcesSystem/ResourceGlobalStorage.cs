@@ -10,10 +10,10 @@ public class ResourceGlobalStorage : MonoBehaviour
     void Awake()
     {
         _resourceRepository = new ResourceRepository(resourceConfigs);
-        _resourceRepository.CreateResource(ResourceID.Pollen,0,0);
-        _resourceRepository.CreateResource(ResourceID.Bees_Wax,0,0);
-        _resourceRepository.CreateResource(ResourceID.Housing,0,0);
-        _resourceRepository.CreateResource(ResourceID.Honey,0,0);
+        _resourceRepository.CreateResource(ResourceID.Pollen,10, 10);
+        _resourceRepository.CreateResource(ResourceID.Bees_Wax,10, 10);
+        _resourceRepository.CreateResource(ResourceID.Housing,10, 10);
+        _resourceRepository.CreateResource(ResourceID.Honey,10, 10);
     }
 
     public static void ChangeCapacity(ResourceID resourceID, float capacity)
