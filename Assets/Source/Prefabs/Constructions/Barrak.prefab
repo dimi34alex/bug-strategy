@@ -352,6 +352,10 @@ MonoBehaviour:
         pollenPrice: 0
         housingPrice: 4
         honeyPrice: 0
+  _costValues:
+    _cells:
+    - Key: 0
+      Value: 1
   beesSpawnPosition: {fileID: 4064212705378577584}
   team: {fileID: -5061943957889073421}
 --- !u!65 &6453320288001796886

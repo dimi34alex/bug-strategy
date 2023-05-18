@@ -34,6 +34,8 @@ public class UnitSelection : MonoBehaviour
 	private List<MovingUnit> _selectedUnits = new List<MovingUnit>();
 	private Pool<UnitsTargetPositionMarker> _markersPool;
 
+	public UnitPool Pool => pool;
+
 	private void Awake()
 	{
 		if (Instance != null)
@@ -189,7 +191,7 @@ public class UnitSelection : MonoBehaviour
 
     private void SelectHighlighted()
     {
-        foreach (GameObject unit in pool.units)
+        foreach (MovingUnit unit in pool.movingUnits)
         {
             float x = unit.transform.position.x;
             float z = unit.transform.position.z;
@@ -198,7 +200,7 @@ public class UnitSelection : MonoBehaviour
             {
                 if ((z > selectedStartPoint.z && z < selectedEndPoint.z) || (z < selectedStartPoint.z && z > selectedEndPoint.z))
                 {
-	                MovingUnit movingUnit = unit.GetComponent<MovingUnit>();
+	                MovingUnit movingUnit = unit;
 	                movingUnit.isSelected = true;
 	                _selectedUnits.Add(movingUnit);
 	                anySelected = true;

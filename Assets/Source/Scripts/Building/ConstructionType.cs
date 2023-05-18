@@ -7,4 +7,5 @@ public enum ConstructionType
     Barrack = 3,
     BeeHouse = 4,
     Bees_Wax_Produce_Construction = 5,
+    Sticky_Tile_Construction = 10,
 }
