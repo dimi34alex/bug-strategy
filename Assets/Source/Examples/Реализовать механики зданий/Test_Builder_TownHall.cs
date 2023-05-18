@@ -204,6 +204,11 @@ public class Test_Builder_TownHall : CycleInitializerBase
 
     public void SpawnMovableBuilding(ConstructionID constructionID)
     {
+        if (currentBuilding != null)
+        {
+            Destroy(currentBuilding.gameObject);
+        }
+
         currentConstructionID = constructionID;
         spawnBuilding = true;
         currentBuilding = Instantiate(_movableBuildingsWithID[constructionID]);
