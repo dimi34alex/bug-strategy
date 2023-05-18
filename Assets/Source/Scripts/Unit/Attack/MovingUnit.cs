@@ -32,7 +32,7 @@ public class MovingUnit : UnitBase
 
     void Start()
     {
-        UnitPool.Instance.UnitCreation(gameObject);
+        UnitPool.Instance.UnitCreation(this);
 
         if (gameObject.CompareTag("Worker"))
         {

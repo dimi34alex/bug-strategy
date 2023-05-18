@@ -193,11 +193,11 @@ public class Test_Builder_TownHall : CycleInitializerBase
         }
     }
 
-    private void CreateConstruction(BuildingProgressConstruction buildingProgressConstruction, Vector3 position)
+    private void CreateConstruction(BuildingProgressConstruction buildingProgressConstruction, Vector3 position, AffiliationEnum team)
     {
         ConstructionBase construction = _constructionFactory.Create<ConstructionBase>(buildingProgressConstruction.BuildingConstructionID);
 
-        townHall.gameObject.GetComponent<Affiliation>().affiliation = team;
+        construction.gameObject.GetComponent<Affiliation>().affiliation = team;
 
         FrameworkCommander.GlobalData.ConstructionsRepository.GetConstruction(position, true);
 
