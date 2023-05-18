@@ -81,6 +81,12 @@ public class UI_Controller : MonoBehaviour
     {
         builder.SpawnMovableBuilding(ConstructionID.Bees_Wax_Produce_Construction);
     }
+
+    public static void _SpawnStickyTile()
+    {
+        builder.SpawnMovableBuilding(ConstructionID.Sticky_Tile_Construction);
+    }
+
     #endregion
 
     public static void _ChoiceTactic()

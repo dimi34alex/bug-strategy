@@ -12,6 +12,8 @@ public class MovingUnit : UnitBase
     
     [SerializeField] private NavMeshAgent _navMeshAgent;
 
+    private float _startMaxSpeed;
+
     public override UnitType UnitType => UnitType.MovingUnit;
     public Vector3 Velocity => _navMeshAgent.velocity;
 
@@ -38,6 +40,7 @@ public class MovingUnit : UnitBase
         _abilites.Add(_ability2);
         
         _stateMachine = new EntityStateMachine(new[] { new UnitMoveState() }, EntityStateID.Move);
+        _startMaxSpeed = _navMeshAgent.speed;
     }
 
     public void SetDestination(Vector3 position)
@@ -48,6 +51,19 @@ public class MovingUnit : UnitBase
     public void Warp(Vector3 position)
     {
         _navMeshAgent.Warp(position);
+    }
+
+    private int _containsStickyTilesCount;
+
+    public void ChangeContainsStickyTiles(int delta)
+    {
+        _containsStickyTilesCount += delta;
+        Debug.Log(_containsStickyTilesCount);
+
+        if (_containsStickyTilesCount is 0)
+            _navMeshAgent.speed = _startMaxSpeed;
+        else
+            _navMeshAgent.speed *= 1.75f;
     }
 
     public void SetStateBehaviorUnit(StateBehaviorUnitID id)
