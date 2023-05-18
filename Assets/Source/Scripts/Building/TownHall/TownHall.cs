@@ -18,6 +18,8 @@ public class TownHall : EvolvConstruction<TownHallLevel>
     private BeesRecruiting _recruiting;
     public int RecruitingSize => CurrentLevel.RecruitingSize;
 
+    public Affiliation team;
+
     protected override void OnAwake()
     {
         base.OnAwake();
@@ -38,7 +40,7 @@ public class TownHall : EvolvConstruction<TownHallLevel>
 
     void OnUpdate()
     {
-        _recruiting.Tick(Time.deltaTime);
+        _recruiting.Tick(Time.deltaTime, team.affiliation);
     }
     
     public static void HideMe(GameObject workerBee)
@@ -69,6 +71,7 @@ public class TownHall : EvolvConstruction<TownHallLevel>
     
     public void RecruitingWorkerBee(BeesRecruitingID beeID)
     {
+        
         _recruiting.RecruitBees(beeID);
     }
     

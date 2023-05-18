@@ -12,8 +12,20 @@ public class MapGeneration : MonoBehaviour
     private BuildingGridConfig _constructionConfig;
 
     [SerializeField] private List<GameObject> tilesPrefabs;
-    private Vector3 _currentTilePosition;
+
+    [SerializeField] private List<GameObject> flowerPrefabs;
     
+    [SerializeField] private GameObject bushPrefab;
+    [SerializeField] private GameObject grassPrefab;
+    [SerializeField] private GameObject cloverPrefab;
+
+    private Vector3 _currentTilePosition;
+
+    public int flowerGenChance;
+    public int bushGenChance;
+    public int grassGenChance;
+    public int cloverGenChance;
+
     void Start()
     {
         _constructionConfig = ConfigsRepository.FindConfig<BuildingGridConfig>() ??
@@ -37,6 +49,31 @@ public class MapGeneration : MonoBehaviour
             int tileNum = (int)Random.Range(0, tilesPrefabs.Count);
 
             Instantiate(tilesPrefabs[tileNum], FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(_currentTilePosition), Quaternion.Euler(0, 0, 0), this.transform);
+
+            int tryToSpawnFlower = (int)Random.Range(0, 100);
+            int tryToSpawnBush = (int)Random.Range(0, 100);
+            int tryToSpawnGrass = (int)Random.Range(0, 100);
+            int tryToSpawnClover = (int)Random.Range(0, 100);
+
+            if (tryToSpawnFlower < flowerGenChance)
+            {
+                int flowerNum = (int)Random.Range(0, flowerPrefabs.Count);
+
+                Instantiate(flowerPrefabs[flowerNum], FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(_currentTilePosition), Quaternion.Euler(0, 0, 0), this.transform);
+            }
+            else if (tryToSpawnBush < bushGenChance)
+            {
+                Instantiate(bushPrefab, FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(_currentTilePosition), Quaternion.Euler(0, 0, 0), this.transform);
+            }
+            else if (tryToSpawnGrass < grassGenChance)
+            {
+                Instantiate(grassPrefab, FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(_currentTilePosition), Quaternion.Euler(0, 0, 0), this.transform);
+            }
+            else if (tryToSpawnClover < cloverGenChance)
+            {
+                Instantiate(cloverPrefab, FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(_currentTilePosition), Quaternion.Euler(0, 0, 0), this.transform);
+            }
+
 
             _currentTilePosition.x += _constructionConfig.HexagonsOffcets.x/2;
 

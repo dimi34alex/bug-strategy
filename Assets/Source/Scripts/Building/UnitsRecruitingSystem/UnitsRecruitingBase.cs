@@ -33,11 +33,11 @@ public abstract class UnitsRecruitingBase<TUnitStack, TUnitRecruitingData, TUnit
         }
     }
 
-    public void Tick(float time)
+    public void Tick(float time, AffiliationEnum team)
     {
         foreach (TUnitStack mass in Stacks)
             if (!mass.Empty)
-                mass.StackTick(time);
+                mass.StackTick(time, team);
 
         currentStack++;
 

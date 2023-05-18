@@ -4,10 +4,11 @@ using UnityEngine;
 public class Barrack : EvolvConstruction<BarrackLevel>
 {
     public override ConstructionID ConstructionID => ConstructionID.Barrack;
-
     BeesRecruiting recruiting;
     [SerializeField] private Transform beesSpawnPosition;
     public int RecruitingSize => CurrentLevel.RecruitingSize;
+
+    public Affiliation team;
 
     protected override void OnAwake()
     {
@@ -22,11 +23,12 @@ public class Barrack : EvolvConstruction<BarrackLevel>
 
     private void OnUpdate()
     {
-        recruiting.Tick(Time.deltaTime);
+        recruiting.Tick(Time.deltaTime, team.affiliation);
     }
 
     public void RecruitBees(BeesRecruitingID beeID)
     {
+        
         recruiting.RecruitBees(beeID);
     }
     

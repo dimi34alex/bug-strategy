@@ -101,7 +101,7 @@ public class UnitSelection : MonoBehaviour
 			
 			if (Physics.Raycast(newRay, out newHit, 50f, unitAndGroundLayers, QueryTriggerInteraction.Ignore))
 			{
-				string tag = newHit.collider.tag;
+				GameObject hitGO = newHit.collider.gameObject;
 				Vector3 targetPosition = newHit.point;
 
 				positions = TakeRingsPositions(targetPosition, ringStep, unitsCounRingStep, _selectedUnits.Count);
@@ -109,7 +109,7 @@ public class UnitSelection : MonoBehaviour
 				int n = 0;
 				foreach (var unit in _selectedUnits)
 				{
-					unit.GiveOrder(tag, positions[n++]);
+					unit.GiveOrder(hitGO, positions[n++]);
 				}
 
 				_markersPool.ExtractElement().SetPosition(targetPosition);

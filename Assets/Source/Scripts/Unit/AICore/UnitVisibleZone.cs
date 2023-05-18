@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class UnitVisibleZone : TriggerZone
 {
-    private List<IUnitTarget> _targets = new List<IUnitTarget>();
+    [SerializeField] private List<IUnitTarget> _targets;
     private Func<IUnitTarget, bool> _filter = t => true;
 
     public new IReadOnlyList<IUnitTarget> ContainsComponents => _targets;

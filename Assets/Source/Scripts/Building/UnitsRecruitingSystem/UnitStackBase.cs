@@ -28,7 +28,7 @@ public abstract class UnitStackBase
         SpawnPauseTimer = newData.SpawnPauseTime;
         SpawnedBees = 0;
     }
-    public void StackTick(float time)
+    public void StackTick(float time, AffiliationEnum team)
     {
         if (!Empty)
         {
@@ -40,9 +40,14 @@ public abstract class UnitStackBase
                 {
                     if (UnitPrefab != null)
                     {
+                        GameObject unit;
                         Vector3 spawnPos = SpawnTransform.position;
                         float randomPosition = Random.Range(-0.01f,0.01f);
-                        Object.Instantiate(UnitPrefab, new Vector3(spawnPos.x + randomPosition, spawnPos.y, spawnPos.z + randomPosition) , SpawnTransform.rotation);
+                        unit = Object.Instantiate(UnitPrefab, new Vector3(spawnPos.x + randomPosition, spawnPos.y, spawnPos.z + randomPosition) , SpawnTransform.rotation);
+
+                        unit.gameObject.GetComponent<Affiliation>().affiliation = team;
+
+                        Debug.Log("Stack tick");
                     }
                     else
                         Debug.LogError("Error: prefab is null");

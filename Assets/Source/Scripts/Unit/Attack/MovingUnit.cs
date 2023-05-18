@@ -6,7 +6,7 @@ using System;
 public class MovingUnit : UnitBase
 {
     public override MiniMapID MiniMapId => MiniMapID.PlayerUnit;
-    
+
     [SerializeField] private NavMeshAgent _navMeshAgent;
 
     public override UnitType UnitType => UnitType.MovingUnit;
@@ -21,17 +21,25 @@ public class MovingUnit : UnitBase
 
     [SerializeField] private SomeTestAbility_1 _ability1;
     [SerializeField] private SomeTestAbility_2 _ability2;
-    
+
+    private GameObject WorkerDutyComp;
+
+
     void Start()
     {
         UnitPool.Instance.UnitCreation(gameObject);
+
+        if (gameObject.CompareTag("Worker"))
+        {
+            WorkerDutyComp = gameObject.transform.GetChild(4).gameObject;
+        }
     }
 
     private void Awake()
     {
         _abilites.Add(_ability1);
         _abilites.Add(_ability2);
-        
+
         _stateMachine = new EntityStateMachine(new[] { new UnitMoveState() }, EntityStateID.Move);
     }
 
@@ -53,24 +61,28 @@ public class MovingUnit : UnitBase
         }
     }
 
-    public void GiveOrder(string tag, Vector3 position)
+    public void GiveOrder(GameObject target, Vector3 position)
     {
-        if(!isSelected) return;
-        
-        switch (tag)
+        if (!isSelected) return;
+        string target_tag = target.tag;
+
+        switch (target_tag)
         {
             case "PollenSource":
-                if(gameObject.CompareTag("Worker"))
-                    GetComponent<WorkerDuty>().isFindingRes = true;
+                if (gameObject.CompareTag("Worker"))
+                {
+                    WorkerDutyComp.GetComponent<WorkerDuty>().isFindingRes = true;
+                    WorkerDutyComp.GetComponent<WorkerDuty>().WorkingOnGO = target;
+                }
                 break;
 
             default:
                 if (gameObject.CompareTag("Worker"))
                 {
-                    GetComponent<WorkerDuty>().isFindingRes = false;
-                    GetComponent<WorkerDuty>().isGathering = false;
-                    GetComponent<WorkerDuty>().isBuilding = false;
-                    GetComponent<WorkerDuty>().isFindingBuild = false;
+                    WorkerDutyComp.GetComponent<WorkerDuty>().isFindingRes = false;
+                    WorkerDutyComp.GetComponent<WorkerDuty>().isGathering = false;
+                    WorkerDutyComp.GetComponent<WorkerDuty>().isBuilding = false;
+                    WorkerDutyComp.GetComponent<WorkerDuty>().isFindingBuild = false;
                 }
                 break;
         }

@@ -6,15 +6,19 @@ public class WorkerDuty : MonoBehaviour
 {
     public bool isGathering, isFindingRes, gotResource, isFindingBuild, isBuilding;
     private UI_GameplayMain UI_Counter;
-    private Vector3 destination;
+    public Vector3 destination;
+    public int loadCapacity;
     private Transform ResourceSkin;
+    public GameObject WorkingOnGO;
+
+    public float GatherTimer;
 
     void Start()
     {
         isGathering = false;
         UI_Counter = GameObject.Find("UI_GameplayMain").GetComponent<UI_GameplayMain>();
         
-        ResourceSkin = gameObject.transform.GetChild(2);
+        ResourceSkin = gameObject.transform.parent.GetChild(2);
     }
 
     void Update()
@@ -24,16 +28,13 @@ public class WorkerDuty : MonoBehaviour
 
     void OnTriggerEnter(Collider collider)
     {
+
         switch (collider.gameObject.tag)
         {
+
             case "PollenSource":
                 {
-                    if (isFindingRes)
-                    {
-                        isGathering = true;
-                        Vector3 workplace = collider.gameObject.transform.position;
-                        StartCoroutine(GatheringCourutine(workplace));
-                    }
+
                 }
                 break;
 
@@ -52,46 +53,61 @@ public class WorkerDuty : MonoBehaviour
                         gotResource = false;
                         ResourceSkin.transform.gameObject.SetActive(false);
                         isFindingRes = true;
-                        ResourceGlobalStorage.ChangeValue(ResourceID.Pollen, 10);
+                        ResourceGlobalStorage.ChangeValue(ResourceID.Pollen, loadCapacity);
 
-                        this.GetComponent<MovingUnit>().SetDestination(destination);
+                        this.gameObject.transform.parent.GetComponent<MovingUnit>().SetDestination(destination);
                     }
                 }
                 break;
         }
+
     }
 
     void OnTriggerExit(Collider collider)
     {
+
+        if (collider.gameObject == WorkingOnGO)
+        {
+            GatherTimer = 0;
+        }
+
+
         if (collider.gameObject.tag == "BuildMark")
         {
             collider.gameObject.GetComponent<BuildingProgressConstruction>().WorkerArrived = false;
         }
     }
 
-    IEnumerator GatheringCourutine(Vector3 workplace)
+    void OnTriggerStay(Collider collider)
     {
-        int timer = 3;
-
-        while (timer > 0)
+        if (collider.gameObject == WorkingOnGO && !collider.transform.parent.GetComponent<PollenStorage>().isPollinated)
         {
-            yield return new WaitForSeconds(1f);
-            timer--;
+            if (isFindingRes && !isGathering)
+            {
+                isGathering = true;
+            }
+
+            if (isGathering)
+            {
+                GatherTimer += Time.deltaTime;
+            }
+
+            if (GatherTimer > 3 && isGathering)
+            {
+                gotResource = true;
+                ResourceSkin.transform.gameObject.SetActive(true);
+                isFindingRes = false;
+                isGathering = false;
+
+                collider.transform.parent.GetComponent<PollenStorage>().ExtractPollen(loadCapacity);
+
+                
+                GameObject Base = GameObject.Find("TownHall");
+                destination = Base.transform.position;
+                this.gameObject.transform.parent.GetComponent<MovingUnit>().SetDestination(destination);
+                destination = WorkingOnGO.transform.position;
+            }
         }
-
-        yield return new WaitForSeconds(1f);
-
-        if (isGathering)
-        {
-            gotResource = true;
-            ResourceSkin.transform.gameObject.SetActive(true);
-            isFindingRes = false;
-            isGathering = false;
-            GameObject Base = GameObject.Find("TownHall");
-            destination = Base.transform.position;
-            this.GetComponent<MovingUnit>().SetDestination(destination);
-            destination = workplace;
-        }
-
     }
+
 }

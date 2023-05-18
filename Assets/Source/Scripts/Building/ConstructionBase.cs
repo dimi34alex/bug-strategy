@@ -1,6 +1,8 @@
 using System;
 using UnityEngine;
 using UnityEngine.Events;
+using System.Runtime.CompilerServices;
+using System.Collections.Generic;
 
 public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagable, IRepairable, IMiniMapShows, ITriggerable, IUnitTarget
 {
@@ -19,6 +21,8 @@ public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagabl
     public event Action<MonoBehaviour> OnDestroyEvent;
     public event Action<MonoBehaviour> OnDisableEvent;
 
+    protected List<AbilityBase> _abilites = new List<AbilityBase>();
+    public List<AbilityBase> Abilites => _abilites;
 
     protected void Awake()
     {

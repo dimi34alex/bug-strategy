@@ -35,7 +35,11 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
     public void TakeDamage(IDamageApplicator damageApplicator)
     {
         if (IsDied)
+        {
+            Debug.Log("Юнит " + this.gameObject.name + " погибает ");
+            Destroy(this.gameObject);
             return;
+        }
 
         _healthStorage.ChangeValue(-damageApplicator.Damage);
         OnDamaged();

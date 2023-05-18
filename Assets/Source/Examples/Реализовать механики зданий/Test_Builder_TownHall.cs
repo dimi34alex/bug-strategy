@@ -108,7 +108,7 @@ public class Test_Builder_TownHall : CycleInitializerBase
                     if (unit.GetComponent<MovingUnit>().isSelected == true && unit.gameObject.CompareTag("Worker"))
                     {
                         unit.GetComponent<MovingUnit>().SetDestination(hit.point);
-                        unit.GetComponent<WorkerDuty>().isFindingBuild = true;
+                        unit.gameObject.transform.GetChild(4).GetComponent<WorkerDuty>().isFindingBuild = true;
 
                         if (currentConstructionID == ConstructionID.Town_Hall)
                             _SpawnTownHall(unit);
@@ -154,15 +154,19 @@ public class Test_Builder_TownHall : CycleInitializerBase
                 progressConstruction.transform.position = position;
                 FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position, progressConstruction);
 
-                progressConstruction.OnTimerEnd += c => CreateTownHall(c, position);
+                Affiliation unitsTeam = unit.gameObject.GetComponent<Affiliation>();
+
+                progressConstruction.OnTimerEnd += c => CreateTownHall(c, position, unitsTeam.affiliation);
                
                 progressConstruction.StartBuilding(4, ConstructionID.Town_Hall, unit);
             }
         }
     }
-    private void CreateTownHall(BuildingProgressConstruction buildingProgressConstruction, Vector3 position)
+    private void CreateTownHall(BuildingProgressConstruction buildingProgressConstruction, Vector3 position, AffiliationEnum team)
     {
         TownHall townHall = _constructionFactory.Create<TownHall>(buildingProgressConstruction.BuildingConstructionID);
+
+        townHall.gameObject.GetComponent<Affiliation>().affiliation = team;
 
         FrameworkCommander.GlobalData.ConstructionsRepository.GetConstruction(position, true);
 
@@ -191,14 +195,18 @@ public class Test_Builder_TownHall : CycleInitializerBase
             progressConstruction.transform.position = position;
             FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position, progressConstruction);
 
-            progressConstruction.OnTimerEnd += c => CreateBarrack(c, position);
+            Affiliation unitsTeam = unit.gameObject.GetComponent<Affiliation>();
+
+            progressConstruction.OnTimerEnd += c => CreateBarrack(c, position, unitsTeam.affiliation);
 
             progressConstruction.StartBuilding(4, ConstructionID.Barrack, unit);
         }
     }
-    private void CreateBarrack(BuildingProgressConstruction buildingProgressConstruction, Vector3 position)
+    private void CreateBarrack(BuildingProgressConstruction buildingProgressConstruction, Vector3 position, AffiliationEnum team)
     {
         Barrack barrack = _constructionFactory.Create<Barrack>(buildingProgressConstruction.BuildingConstructionID);
+
+        barrack.gameObject.GetComponent<Affiliation>().affiliation = team;
 
         FrameworkCommander.GlobalData.ConstructionsRepository.GetConstruction(position, true);
 
@@ -227,14 +235,18 @@ public class Test_Builder_TownHall : CycleInitializerBase
             progressConstruction.transform.position = position;
             FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position, progressConstruction);
 
-            progressConstruction.OnTimerEnd += c => CreateBeeHouse(c, position);
+            Affiliation unitsTeam = unit.gameObject.GetComponent<Affiliation>();
+
+            progressConstruction.OnTimerEnd += c => CreateBeeHouse(c, position, unitsTeam.affiliation);
 
             progressConstruction.StartBuilding(4, ConstructionID.BeeHouse, unit);
         }
     }
-    private void CreateBeeHouse(BuildingProgressConstruction buildingProgressConstruction, Vector3 position)
+    private void CreateBeeHouse(BuildingProgressConstruction buildingProgressConstruction, Vector3 position, AffiliationEnum team)
     {
         BeeHouse beeHouse = _constructionFactory.Create<BeeHouse>(buildingProgressConstruction.BuildingConstructionID);
+
+        beeHouse.gameObject.GetComponent<Affiliation>().affiliation = team;
 
         FrameworkCommander.GlobalData.ConstructionsRepository.GetConstruction(position, true);
 
@@ -263,14 +275,18 @@ public class Test_Builder_TownHall : CycleInitializerBase
             progressConstruction.transform.position = position;
             FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position, progressConstruction);
 
-            progressConstruction.OnTimerEnd += c => CreateBeesWaxProduceConstruction(c, position);
+            Affiliation unitsTeam = unit.gameObject.GetComponent<Affiliation>();
+
+            progressConstruction.OnTimerEnd += c => CreateBeesWaxProduceConstruction(c, position, unitsTeam.affiliation);
 
             progressConstruction.StartBuilding(4, ConstructionID.Bees_Wax_Produce_Construction, unit);
         }
     }
-    private void CreateBeesWaxProduceConstruction(BuildingProgressConstruction buildingProgressConstruction, Vector3 position)
+    private void CreateBeesWaxProduceConstruction(BuildingProgressConstruction buildingProgressConstruction, Vector3 position, AffiliationEnum team)
     {
         BeesWaxProduceConstruction beesWaxProduceConstruction = _constructionFactory.Create<BeesWaxProduceConstruction>(buildingProgressConstruction.BuildingConstructionID);
+
+        beesWaxProduceConstruction.gameObject.GetComponent<Affiliation>().affiliation = team;
 
         FrameworkCommander.GlobalData.ConstructionsRepository.GetConstruction(position, true);
 
