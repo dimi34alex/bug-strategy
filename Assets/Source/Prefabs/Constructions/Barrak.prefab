@@ -352,10 +352,6 @@ MonoBehaviour:
         pollenPrice: 0
         housingPrice: 4
         honeyPrice: 0
-  _costValues:
-    _cells:
-    - Key: 0
-      Value: 1
   beesSpawnPosition: {fileID: 4064212705378577584}
   team: {fileID: -5061943957889073421}
 --- !u!65 &6453320288001796886
@@ -776,7 +772,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3224b2af1990ca04e8b9fcec5d7db2f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Construct: {fileID: 0}
+  Construct: {fileID: 7302409546887255228}
   abilityBlock: {fileID: 2193674006679080235, guid: 40a6c10aece5db049a6a1d4577a66b5f, type: 3}
   firstIconTransform: {fileID: 7286505855982967622}
   distanceBetweenIcons: 0.4

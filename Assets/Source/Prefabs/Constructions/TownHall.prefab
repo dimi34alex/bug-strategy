@@ -762,10 +762,6 @@ MonoBehaviour:
         pollenPrice: 0
         housingPrice: 2
         honeyPrice: 0
-  _costValues:
-    _cells:
-    - Key: 0
-      Value: 3
   pauseTimeOfOutBeesFromTownHallAfterAlarm: 1
   workerBeesSpawnPosition: {fileID: 5545980254773833652}
   team: {fileID: 8869352536287413803}

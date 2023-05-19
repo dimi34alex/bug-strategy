@@ -26,10 +26,10 @@ public class CameraMover2 : MonoBehaviour
     {
         _targetPosition.y = transform.position.y;
 
-        if (Input.GetMouseButtonDown(2))
+        if (Input.GetMouseButtonDown(1))
             _startPosition = transform.position + _camera.ScreenToWorldPoint(Input.mousePosition).XZ();
 
-        if (Input.GetMouseButton(2))
+        if (Input.GetMouseButton(1))
             _targetPosition = _startPosition - _camera.ScreenToWorldPoint(Input.mousePosition).XZ();
 
         Vector3 position = Vector3.Lerp(transform.position, _targetPosition, Time.deltaTime * _moveSpeed);

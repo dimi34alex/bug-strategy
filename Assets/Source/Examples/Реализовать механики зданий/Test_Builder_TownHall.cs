@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Zenject;
 using UnityEngine.EventSystems;
-using System.Linq;
+
 
 [Serializable]
 struct BuildingDictionaryData
@@ -20,12 +20,7 @@ public class Test_Builder_TownHall : CycleInitializerBase
     [SerializeField] LayerMask layerMask;
     
     [SerializeField] private List<BuildingDictionaryData> buildingsDictionaryData;
-    [SerializeField] private Dictionary<ConstructionID, GameObject> _movableBuildingsWithID;
-    [SerializeField] private ConstructionBase[] _buildings;
-    private Dictionary<ConstructionID, ConstructionBase> _buildingsWithID;
-
-    public Dictionary<ConstructionID, ConstructionBase> BuildingsWithID => _buildingsWithID;
-
+    [SerializeField] Dictionary<ConstructionID, GameObject> buildings = new Dictionary<ConstructionID, GameObject>();
     GameObject currentBuilding;
     ConstructionID currentConstructionID;
     
@@ -35,20 +30,11 @@ public class Test_Builder_TownHall : CycleInitializerBase
     private GameObject currentWorker;
     protected override void OnInit()
     {
-        _movableBuildingsWithID = new Dictionary<ConstructionID, GameObject>();
-
-        foreach (var element in _buildings)
-            element.CalculateCost();
-
-        _buildingsWithID = _buildings.ToDictionary(x => x.ConstructionID, x => x);
-
-
-
         GameObject controller = GameObject.FindGameObjectWithTag("GameController");
         pool = controller.GetComponent<UnitPool>();
 
         for (int n = 0; n < buildingsDictionaryData.Count; n++)
-            _movableBuildingsWithID.Add(buildingsDictionaryData[n].constructionID, buildingsDictionaryData[n].constructionModel);
+            buildings.Add(buildingsDictionaryData[n].constructionID, buildingsDictionaryData[n].constructionModel);
     }
 
     protected override void OnUpdate()
@@ -117,16 +103,21 @@ public class Test_Builder_TownHall : CycleInitializerBase
                     }
                 }
                 
-                foreach (MovingUnit unit in pool.movingUnits)
+                foreach (GameObject unit in pool.units)
                 {
-                    if (unit.isSelected == true && unit.gameObject.CompareTag("Worker") && CanBuyConstruction(currentConstructionID))
+                    if (unit.GetComponent<MovingUnit>().isSelected == true && unit.gameObject.CompareTag("Worker"))
                     {
-                        BuyConstruction(currentConstructionID);
-
-                        unit.SetDestination(hit.point);
+                        unit.GetComponent<MovingUnit>().SetDestination(hit.point);
                         unit.gameObject.transform.GetChild(4).GetComponent<WorkerDuty>().isFindingBuild = true;
-                   
-                        Spawn(unit, currentConstructionID);
+
+                        if (currentConstructionID == ConstructionID.Town_Hall)
+                            _SpawnTownHall(unit);
+                        if (currentConstructionID == ConstructionID.Barrack)
+                            _SpawnBarrack(unit);
+                        if (currentConstructionID == ConstructionID.BeeHouse)
+                            _SpawnBeeHouse(unit);
+                        if (currentConstructionID == ConstructionID.Bees_Wax_Produce_Construction)
+                            _SpawnBeesWaxProduceConstruction(unit);
 
                         Destroy(_currentBuilding);
                         spawnBuilding = false;
@@ -141,33 +132,12 @@ public class Test_Builder_TownHall : CycleInitializerBase
             }
         }
     }
-
-
-    private bool CanBuyConstruction(ConstructionID id )
+    
+    private void _SpawnTownHall(GameObject unit)
     {
-        bool flagCanBuy = true;
-
-        foreach (var element in _buildingsWithID[id].Cost.ResourceCost)
-             if (element.Value > ResourceGlobalStorage.GetResource(element.Key).CurrentValue)
-                 flagCanBuy = false;
-
-        return flagCanBuy;
-    }
-
-    private void BuyConstruction(ConstructionID id)
-    {
-        foreach (var element in _buildingsWithID[id].Cost.ResourceCost)
-            ResourceGlobalStorage.GetResource(element.Key).SetValue(ResourceGlobalStorage.GetResource(element.Key).CurrentValue - element.Value);
-    }
-
-
-    private void Spawn(MovingUnit unit, ConstructionID id)
-    {
-        if (id!= ConstructionID.Town_Hall || (id == ConstructionID.Town_Hall && _numberTownHall < 1))
+        if (_numberTownHall < 1)
         {
-            if (id == ConstructionID.Town_Hall)
-                _numberTownHall++;
-
+            _numberTownHall++;
             RaycastHit[] raycastHits = Physics.RaycastAll(Camera.main.ScreenPointToRay(Input.mousePosition));
             int index = raycastHits.IndexOf(hit => !hit.collider.isTrigger);
 
@@ -186,36 +156,152 @@ public class Test_Builder_TownHall : CycleInitializerBase
 
                 Affiliation unitsTeam = unit.gameObject.GetComponent<Affiliation>();
 
-                progressConstruction.OnTimerEnd += c => CreateConstruction(c, position, unitsTeam.affiliation);
-
-                progressConstruction.StartBuilding(4, id, unit);
+                progressConstruction.OnTimerEnd += c => CreateTownHall(c, position, unitsTeam.affiliation);
+               
+                progressConstruction.StartBuilding(4, ConstructionID.Town_Hall, unit);
             }
         }
     }
 
-    private void CreateConstruction(BuildingProgressConstruction buildingProgressConstruction, Vector3 position, AffiliationEnum team)
+    private void CreateTownHall(BuildingProgressConstruction buildingProgressConstruction, Vector3 position, AffiliationEnum team)
     {
-        ConstructionBase construction = _constructionFactory.Create<ConstructionBase>(buildingProgressConstruction.BuildingConstructionID);
+        TownHall townHall = _constructionFactory.Create<TownHall>(buildingProgressConstruction.BuildingConstructionID);
 
-        construction.gameObject.GetComponent<Affiliation>().affiliation = team;
+        townHall.gameObject.GetComponent<Affiliation>().affiliation = team;
 
         FrameworkCommander.GlobalData.ConstructionsRepository.GetConstruction(position, true);
 
         Destroy(buildingProgressConstruction.gameObject);
 
-        FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position, construction);
-        construction.transform.position = position;
+        FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position, townHall);
+        townHall.transform.position = position;
     }
+    
 
-    public void SpawnMovableBuilding(ConstructionID constructionID)
+    private void _SpawnBarrack(GameObject unit)
     {
-        if (currentBuilding != null)
-        {
-            Destroy(currentBuilding.gameObject);
-        }
+        RaycastHit[] raycastHits = Physics.RaycastAll(Camera.main.ScreenPointToRay(Input.mousePosition));
+        int index = raycastHits.IndexOf(hit => !hit.collider.isTrigger);
 
+        if (index > -1)
+        {
+            Vector3 position = FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(raycastHits[index].point);
+
+            if (FrameworkCommander.GlobalData.ConstructionsRepository.ConstructionExist(position, false))
+            {
+                Debug.Log("Invalid place");
+                return;
+            }
+            BuildingProgressConstruction progressConstruction = _constructionFactory.Create<BuildingProgressConstruction>(ConstructionID.Building_Progress_Construction);
+            progressConstruction.transform.position = position;
+            FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position, progressConstruction);
+
+            Affiliation unitsTeam = unit.gameObject.GetComponent<Affiliation>();
+
+            progressConstruction.OnTimerEnd += c => CreateBarrack(c, position, unitsTeam.affiliation);
+
+            progressConstruction.StartBuilding(4, ConstructionID.Barrack, unit);
+        }
+    }
+    private void CreateBarrack(BuildingProgressConstruction buildingProgressConstruction, Vector3 position, AffiliationEnum team)
+    {
+        Barrack barrack = _constructionFactory.Create<Barrack>(buildingProgressConstruction.BuildingConstructionID);
+
+        barrack.gameObject.GetComponent<Affiliation>().affiliation = team;
+
+        FrameworkCommander.GlobalData.ConstructionsRepository.GetConstruction(position, true);
+
+        Destroy(buildingProgressConstruction.gameObject);
+
+        FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position, barrack);
+        barrack.transform.position = position;
+    }
+    
+    
+    private void _SpawnBeeHouse(GameObject unit)
+    {
+        RaycastHit[] raycastHits = Physics.RaycastAll(Camera.main.ScreenPointToRay(Input.mousePosition));
+        int index = raycastHits.IndexOf(hit => !hit.collider.isTrigger);
+
+        if (index > -1)
+        {
+            Vector3 position = FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(raycastHits[index].point);
+
+            if (FrameworkCommander.GlobalData.ConstructionsRepository.ConstructionExist(position, false))
+            {
+                Debug.Log("Invalid place");
+                return;
+            }
+            BuildingProgressConstruction progressConstruction = _constructionFactory.Create<BuildingProgressConstruction>(ConstructionID.Building_Progress_Construction);
+            progressConstruction.transform.position = position;
+            FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position, progressConstruction);
+
+            Affiliation unitsTeam = unit.gameObject.GetComponent<Affiliation>();
+
+            progressConstruction.OnTimerEnd += c => CreateBeeHouse(c, position, unitsTeam.affiliation);
+
+            progressConstruction.StartBuilding(4, ConstructionID.BeeHouse, unit);
+        }
+    }
+    private void CreateBeeHouse(BuildingProgressConstruction buildingProgressConstruction, Vector3 position, AffiliationEnum team)
+    {
+        BeeHouse beeHouse = _constructionFactory.Create<BeeHouse>(buildingProgressConstruction.BuildingConstructionID);
+
+        beeHouse.gameObject.GetComponent<Affiliation>().affiliation = team;
+
+        FrameworkCommander.GlobalData.ConstructionsRepository.GetConstruction(position, true);
+
+        Destroy(buildingProgressConstruction.gameObject);
+
+        FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position, beeHouse);
+        beeHouse.transform.position = position;
+    }
+    
+    
+    private void _SpawnBeesWaxProduceConstruction(GameObject unit)
+    {
+        RaycastHit[] raycastHits = Physics.RaycastAll(Camera.main.ScreenPointToRay(Input.mousePosition));
+        int index = raycastHits.IndexOf(hit => !hit.collider.isTrigger);
+
+        if (index > -1)
+        {
+            Vector3 position = FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(raycastHits[index].point);
+
+            if (FrameworkCommander.GlobalData.ConstructionsRepository.ConstructionExist(position, false))
+            {
+                Debug.Log("Invalid place");
+                return;
+            }
+            BuildingProgressConstruction progressConstruction = _constructionFactory.Create<BuildingProgressConstruction>(ConstructionID.Building_Progress_Construction);
+            progressConstruction.transform.position = position;
+            FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position, progressConstruction);
+
+            Affiliation unitsTeam = unit.gameObject.GetComponent<Affiliation>();
+
+            progressConstruction.OnTimerEnd += c => CreateBeesWaxProduceConstruction(c, position, unitsTeam.affiliation);
+
+            progressConstruction.StartBuilding(4, ConstructionID.Bees_Wax_Produce_Construction, unit);
+        }
+    }
+    private void CreateBeesWaxProduceConstruction(BuildingProgressConstruction buildingProgressConstruction, Vector3 position, AffiliationEnum team)
+    {
+        BeesWaxProduceConstruction beesWaxProduceConstruction = _constructionFactory.Create<BeesWaxProduceConstruction>(buildingProgressConstruction.BuildingConstructionID);
+
+        beesWaxProduceConstruction.gameObject.GetComponent<Affiliation>().affiliation = team;
+
+        FrameworkCommander.GlobalData.ConstructionsRepository.GetConstruction(position, true);
+
+        Destroy(buildingProgressConstruction.gameObject);
+
+        FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position, beesWaxProduceConstruction);
+        beesWaxProduceConstruction.transform.position = position;
+    }
+    
+    
+    public void _SpawnBuilding(ConstructionID constructionID)
+    {
         currentConstructionID = constructionID;
         spawnBuilding = true;
-        currentBuilding = Instantiate(_movableBuildingsWithID[constructionID]);
+        currentBuilding = Instantiate(buildings[constructionID]);
     }
 }

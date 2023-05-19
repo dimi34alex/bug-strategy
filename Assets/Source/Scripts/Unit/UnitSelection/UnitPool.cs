@@ -5,12 +5,12 @@ using UnityEngine.EventSystems;
 
 public class UnitPool : MonoBehaviour
 {
-    public List<MovingUnit> movingUnits;
-    public List<MovingUnit> group1;
-    public List<MovingUnit> group2;
-    public List<MovingUnit> group3;
-    public List<MovingUnit> group4;
-    public List<MovingUnit> group5;
+    public List<GameObject> units;
+    public List<GameObject> group1;
+    public List<GameObject> group2;
+    public List<GameObject> group3;
+    public List<GameObject> group4;
+    public List<GameObject> group5;
 
     public static UnitPool Instance { get; private set; }
     
@@ -74,14 +74,14 @@ public class UnitPool : MonoBehaviour
         }
 
     }
-    public void UnitCreation(MovingUnit unit)
+    public void UnitCreation(GameObject unit)
     {
-        movingUnits.Add(unit);
+        units.Add(unit);
     }
 
     public void SelectionCheck()
     {
-        foreach (MovingUnit unit in movingUnits)
+        foreach (GameObject unit in units)
         {
             Transform selection;
             selection = unit.gameObject.transform.GetChild(1);
@@ -98,11 +98,11 @@ public class UnitPool : MonoBehaviour
         }
     }
 
-    void CreateGroup(List<MovingUnit> group)
+    void CreateGroup(List<GameObject> group)
     {
         ClearGroup(group);
 
-        foreach (MovingUnit unit in movingUnits)
+        foreach (GameObject unit in units)
         {
             if (unit.GetComponent<MovingUnit>().isSelected == true)
             {
@@ -111,11 +111,11 @@ public class UnitPool : MonoBehaviour
         }
     }
 
-    public void SelectGroup(List<MovingUnit> group)
+    public void SelectGroup(List<GameObject> group)
     {
         UnitSelection.Instance.DeselectAll();
         
-        foreach (MovingUnit groupUnit in group)
+        foreach (GameObject groupUnit in group)
         {
             groupUnit.GetComponent<MovingUnit>().isSelected = true;
         }
@@ -128,7 +128,7 @@ public class UnitPool : MonoBehaviour
         SelectGroup(group1);
     }
 
-    void ClearGroup(List<MovingUnit> group)
+    void ClearGroup(List<GameObject> group)
     {
         group.Clear();
     }

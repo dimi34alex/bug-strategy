@@ -2,9 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Barrack : EvolvConstruction<BarrackLevel>
-{ 
+{
     public override ConstructionID ConstructionID => ConstructionID.Barrack;
-  
     BeesRecruiting recruiting;
     [SerializeField] private Transform beesSpawnPosition;
     public int RecruitingSize => CurrentLevel.RecruitingSize;
