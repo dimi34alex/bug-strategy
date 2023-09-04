@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 public class VisibleWarFogZone : MonoBehaviour, ITriggerable
 {
-    public event Action<MonoBehaviour> OnDestroyEvent;
-    public event Action<MonoBehaviour> OnDisableEvent;
+    public event Action<ITriggerable> OnDestroyITriggerableEvent;
+    public event Action<ITriggerable> OnDisableITriggerableEvent;
 
     private void OnDestroy()
     {
-        OnDestroyEvent?.Invoke(this);
+        OnDestroyITriggerableEvent?.Invoke(this);
     }
     
     private void OnDisable()
     {
-        OnDisableEvent?.Invoke(this);
+        OnDisableITriggerableEvent?.Invoke(this);
     }
 }

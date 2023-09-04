@@ -14,11 +14,13 @@ struct BuildingDictionaryData
     [Tooltip("Movable prefab(/Prefabs/Constructions/MovableModel), NOT MAIN PREFAB")]
     public GameObject constructionModel;
 }
-public class Test_Builder_TownHall : CycleInitializerBase
+public class UserBuilder : CycleInitializerBase
 {
     [Inject] private readonly IConstructionFactory _constructionFactory;
     [SerializeField] LayerMask layerMask;
     
+    [SerializeField] private bool useCheckMouseOverUI;
+
     [SerializeField] private List<BuildingDictionaryData> buildingsDictionaryData;
     [SerializeField] private Dictionary<ConstructionID, GameObject> _movableBuildingsWithID;
     [SerializeField] private ConstructionBase[] _buildings;
@@ -83,7 +85,7 @@ public class Test_Builder_TownHall : CycleInitializerBase
                         throw new Exception("Error: gameObject with tag Building dont have script ConstructionBase");
                     }
                 }
-                else if (!MousOverUI())
+                else if (!MouseOverUI())
                 {
                     UI_Controller._SetWindow("UI_GameplayMain");
                 }
@@ -91,7 +93,7 @@ public class Test_Builder_TownHall : CycleInitializerBase
         }
     }
 
-    private bool MousOverUI()//проверка что курсор игрока не наведен на UI/UX
+    private bool MouseOverUI()//проверка что курсор игрока не наведен на UI/UX
     {
         return EventSystem.current.IsPointerOverGameObject();
     }
@@ -101,7 +103,7 @@ public class Test_Builder_TownHall : CycleInitializerBase
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if (!MousOverUI() && Physics.Raycast(ray, out hit, 100F, layerMask, QueryTriggerInteraction.Ignore))//если рэйкаст сталкиваеться с чем нибудь, задаем зданию позицию точки столкновения рэйкаста
+        if ((!MouseOverUI() || !useCheckMouseOverUI) && Physics.Raycast(ray, out hit, 100F, layerMask, QueryTriggerInteraction.Ignore))//если рэйкаст сталкиваеться с чем нибудь, задаем зданию позицию точки столкновения рэйкаста
         {
             _currentBuilding.transform.position = FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(ray.GetPoint(hit.distance));
 

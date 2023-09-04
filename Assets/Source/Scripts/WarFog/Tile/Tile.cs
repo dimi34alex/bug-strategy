@@ -6,7 +6,7 @@ using ModestTree;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class Tile : TriggerZone, ITriggerable
+public class Tile : TriggerZone
 {
     [SerializeField] private GameObject warFog;
     [SerializeField] private GameObject startFog;
@@ -14,17 +14,12 @@ public class Tile : TriggerZone, ITriggerable
     
     private Func<VisibleWarFogZone, bool> _filter = t => true;
     
-    public new event Action<VisibleWarFogZone> EnterEvent;
-    public new event Action<VisibleWarFogZone> ExitEvent;
-    
     protected override Func<ITriggerable, bool> EnteredComponentIsSuitable => t => t is VisibleWarFogZone && _filter(t.Cast<VisibleWarFogZone>());
     protected override bool _refreshEnteredComponentsAfterExit => false;
-
+    protected override bool _invokeExitDuringOnDestroy => false;
+    protected override bool _invokeExitDuringOnDisable => false;
+    
     public bool Contains(VisibleWarFogZone target) => ContainsComponents.Contains(target);
-    
-    public event Action<MonoBehaviour> OnDestroyEvent;
-    public event Action<MonoBehaviour> OnDisableEvent;
-    
     private bool _showStartWarFog = true;
     private Coroutine _invisibleTimer;
 
@@ -56,8 +51,6 @@ public class Tile : TriggerZone, ITriggerable
             if(_invisibleTimer != null)
                 StopCoroutine(_invisibleTimer);
         }
-        
-        EnterEvent?.Invoke(watcher);
     }
 
     protected override void OnExit(ITriggerable component)
@@ -66,23 +59,11 @@ public class Tile : TriggerZone, ITriggerable
 
         if (!ContainsComponents.Any())
         {
-            _invisibleTimer = StartCoroutine(MakeInvisibleCoroutine());
+            _invisibleTimer = StartCoroutine(MakeTileInvisibleCoroutine());
         }
-        
-        ExitEvent?.Invoke(watcher);
-    }
-
-    private void OnDestroy()
-    {
-        OnDestroyEvent?.Invoke(this);
     }
     
-    private void OnDisable()
-    {
-        OnDisableEvent?.Invoke(this);
-    }
-    
-    IEnumerator MakeInvisibleCoroutine()
+    IEnumerator MakeTileInvisibleCoroutine()
     {
         yield return new WaitForSeconds(5f);
         warFog.SetActive(true);

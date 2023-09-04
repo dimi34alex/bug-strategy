@@ -3,6 +3,6 @@ using UnityEngine;
 
 public interface ITriggerable
 {
-    public event Action<MonoBehaviour> OnDestroyEvent;
-    public event Action<MonoBehaviour> OnDisableEvent;
+    public event Action<ITriggerable> OnDestroyITriggerableEvent;
+    public event Action<ITriggerable> OnDisableITriggerableEvent;
 }

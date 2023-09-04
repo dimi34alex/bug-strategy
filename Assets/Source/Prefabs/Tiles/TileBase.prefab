@@ -257,7 +257,6 @@ GameObject:
   - component: {fileID: 8901687385545631537}
   - component: {fileID: 5346225108308533306}
   - component: {fileID: 6576267505424171195}
-  - component: {fileID: 5210158168224683846}
   m_Layer: 0
   m_Name: TileBase
   m_TagString: Untagged
@@ -297,20 +296,6 @@ MonoBehaviour:
   warFog: {fileID: 1953842570400583478}
   startFog: {fileID: 6829952183626586606}
 --- !u!64 &6576267505424171195
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9004721185725440106}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -1594867306767178969, guid: c5e6b05e7e86647498a80e531c5c840c, type: 3}
---- !u!64 &5210158168224683846
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

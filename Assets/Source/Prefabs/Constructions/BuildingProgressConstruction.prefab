@@ -747,6 +747,7 @@ GameObject:
   m_Component:
   - component: {fileID: 589072602228609362}
   - component: {fileID: 589072602228609363}
+  - component: {fileID: -3365569759732820649}
   - component: {fileID: 578274785806036525}
   - component: {fileID: 114108318496945832}
   - component: {fileID: 4883610959669414469}
@@ -789,6 +790,19 @@ MonoBehaviour:
   _timerText: {fileID: 589072602223343525}
   pool: {fileID: 0}
   WorkerArrived: 0
+--- !u!114 &-3365569759732820649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 589072602228609372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a7daf761853cd54692b5de2c0f77bfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  affiliation: 1
 --- !u!135 &578274785806036525
 SphereCollider:
   m_ObjectHideFlags: 0

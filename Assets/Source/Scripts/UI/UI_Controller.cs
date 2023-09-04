@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class UI_Controller : MonoBehaviour
 {
-    private static Test_Builder_TownHall builder;//необходимо для создания зданий. Т.к. у нас нет обще игрового скрипта, 
+    private static UserBuilder builder;//необходимо для создания зданий. Т.к. у нас нет обще игрового скрипта, 
                                                    //который мог бы отвечать за спавн и перемещение зданий, то пока что будет эта заглушка.
     private static GameObject UI_Activ;//текущее активное окно. необходимо для работы _SetWindow()
     private static UI_Gameplay UI_GameplayWindows;//скрипт который установлен на префабе окна геймплея(UI_Gameplay), нужен просто для удобства и оптимизации, чтобы не вызывать GetComponent<>(): 
@@ -23,7 +23,7 @@ public class UI_Controller : MonoBehaviour
 
     void Start()
     {
-        builder = GameObject.Find("Builder").GetComponent<Test_Builder_TownHall>();
+        builder = GameObject.Find("Builder").GetComponent<UserBuilder>();
         if(builder == null)
             Debug.LogError("Builder is null");
         

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UnitVisibleZone : TriggerZone
 {
-    [SerializeField] private List<IUnitTarget> _targets;
+    [SerializeField] private List<IUnitTarget> _targets = new List<IUnitTarget>();
     private Func<IUnitTarget, bool> _filter = t => true;
 
     public new IReadOnlyList<IUnitTarget> ContainsComponents => _targets;

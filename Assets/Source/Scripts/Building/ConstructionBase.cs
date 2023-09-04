@@ -16,8 +16,8 @@ public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagabl
     
     protected event Action _updateEvent;
     protected event Action _onDestroy;
-    public event Action<MonoBehaviour> OnDestroyEvent;
-    public event Action<MonoBehaviour> OnDisableEvent;
+    public event Action<ITriggerable> OnDestroyITriggerableEvent;
+    public event Action<ITriggerable> OnDisableITriggerableEvent;
 
     protected List<AbilityBase> _abilites = new List<AbilityBase>();
     public List<AbilityBase> Abilites => _abilites;
@@ -50,11 +50,11 @@ public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagabl
     private void OnDestroy()
     {
         _onDestroy?.Invoke();
-        OnDestroyEvent?.Invoke(this);
+        OnDestroyITriggerableEvent?.Invoke(this);
     }
 
     private void OnDisable()
     {
-        OnDisableEvent?.Invoke(this);
+        OnDisableITriggerableEvent?.Invoke(this);
     }
 }

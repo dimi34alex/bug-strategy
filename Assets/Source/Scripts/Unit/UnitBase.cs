@@ -31,14 +31,14 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
 
     public event Action<UnitBase> OnUnitPathChange;
     public event Action<UnitBase> OnUnitDied;
-    public event Action<MonoBehaviour> OnDestroyEvent;
-    public event Action<MonoBehaviour> OnDisableEvent;
+    public event Action<ITriggerable> OnDestroyITriggerableEvent;
+    public event Action<ITriggerable> OnDisableITriggerableEvent;
 
     public void TakeDamage(IDamageApplicator damageApplicator)
     {
         if (IsDied)
         {
-            Debug.Log("Юнит " + this.gameObject.name + " погибает ");
+            Debug.Log("пїЅпїЅпїЅпїЅ " + this.gameObject.name + " пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ ");
             Destroy(this.gameObject);
             return;
         }
@@ -60,7 +60,7 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
 
     private void OnDisable()
     {
-        OnDisableEvent?.Invoke(this);
+        OnDisableITriggerableEvent?.Invoke(this);
     }
 }
 

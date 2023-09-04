@@ -110,10 +110,6 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 8791995741079462310, guid: 6fc0acfb88a27d54bb4fb281e912e253, type: 3}
-      propertyPath: m_TagString
-      value: PollenSource
-      objectReference: {fileID: 0}
     - target: {fileID: 8901687385545631537, guid: 6fc0acfb88a27d54bb4fb281e912e253, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -161,10 +157,6 @@ PrefabInstance:
     - target: {fileID: 9004721185725440106, guid: 6fc0acfb88a27d54bb4fb281e912e253, type: 3}
       propertyPath: m_Name
       value: TileBase
-      objectReference: {fileID: 0}
-    - target: {fileID: 9004721185725440106, guid: 6fc0acfb88a27d54bb4fb281e912e253, type: 3}
-      propertyPath: m_TagString
-      value: PollenSource
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6fc0acfb88a27d54bb4fb281e912e253, type: 3}

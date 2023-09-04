@@ -15,6 +15,8 @@ public abstract class TriggerZone : MonoBehaviour
 
     public bool ZoneActive { get; private set; } = true;
     protected virtual bool _refreshEnteredComponentsAfterExit => true;
+    protected virtual bool _invokeExitDuringOnDestroy => true;
+    protected virtual bool _invokeExitDuringOnDisable => true;
     protected virtual int _maxContainsCount => int.MaxValue;
 
     public event Action<ITriggerable> EnterEvent;
@@ -35,8 +37,8 @@ public abstract class TriggerZone : MonoBehaviour
             if (_containsComponents.Count >= _maxContainsCount)
                 return;
 
-            component.OnDestroyEvent += DestroyOrDisableComponent;
-            component.OnDisableEvent += DestroyOrDisableComponent;
+            component.OnDestroyITriggerableEvent += DestroyOrDisableComponent;
+            component.OnDisableITriggerableEvent += DestroyOrDisableComponent;
             _containsComponents.Add(component);
 
             if (!ZoneActive)
@@ -55,9 +57,9 @@ public abstract class TriggerZone : MonoBehaviour
         }
     }
 
-    private void DestroyOrDisableComponent(MonoBehaviour component)
+    private void DestroyOrDisableComponent(ITriggerable component)
     {
-        RemoveComponent(component.Cast<ITriggerable>());
+        RemoveComponent(component);
     }
 
     private void RemoveComponent(ITriggerable component)
@@ -65,8 +67,8 @@ public abstract class TriggerZone : MonoBehaviour
         if (!_containsComponents.Remove(component))
             return;
 
-        component.OnDestroyEvent -= DestroyOrDisableComponent;
-        component.OnDisableEvent -= DestroyOrDisableComponent;
+        component.OnDestroyITriggerableEvent -= DestroyOrDisableComponent;
+        component.OnDisableITriggerableEvent -= DestroyOrDisableComponent;
         
         if (!ZoneActive)
             return;
@@ -81,14 +83,39 @@ public abstract class TriggerZone : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        for (int i = _containsComponents.Count - 1; i >= 0; i--)
+        {
+            ITriggerable component = _containsComponents[i];
+            _containsComponents.RemoveAt(i);
+            
+            component.OnDestroyITriggerableEvent -= DestroyOrDisableComponent;
+            component.OnDisableITriggerableEvent -= DestroyOrDisableComponent;
+
+            if (_invokeExitDuringOnDestroy)
+            {
+                OnExit(component);
+                ExitEvent?.Invoke(component);
+            }
+        }
+    }
+    
     private void OnDisable()
     {
         for (int i = _containsComponents.Count - 1; i >= 0; i--)
         {
             ITriggerable component = _containsComponents[i];
             _containsComponents.RemoveAt(i);
-            OnExit(component);
-            ExitEvent?.Invoke(component);
+            
+            component.OnDestroyITriggerableEvent -= DestroyOrDisableComponent;
+            component.OnDisableITriggerableEvent -= DestroyOrDisableComponent;
+
+            if (_invokeExitDuringOnDisable)
+            {
+                OnExit(component);
+                ExitEvent?.Invoke(component);
+            }
         }
     }
 
