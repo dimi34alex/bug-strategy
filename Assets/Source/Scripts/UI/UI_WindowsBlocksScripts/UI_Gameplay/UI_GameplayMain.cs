@@ -48,9 +48,13 @@ public class UI_GameplayMain : UIScreen
         honey.name.text = ResourceGlobalStorage.GetResource(ResourceID.Honey).ID.ToString();
     }
 
+    private void Awake()
+    {
+        ResourceGlobalStorage.ResourceChanged += UpdateResourceInformation;
+    }
+
     private void Update()
     {
-        UpdateResourceInformation();
         UpdateMiniMap();
     }
 

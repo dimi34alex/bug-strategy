@@ -1,16 +1,13 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
-using System.Runtime.CompilerServices;
-using System.Collections.Generic;
 
 public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagable, IRepairable, IMiniMapShows, ITriggerable, IUnitTarget
 {
     public abstract ConstructionID ConstructionID { get; }
     public UnitTargetType TargetType => UnitTargetType.Construction;
     public MiniMapID MiniMapId => MiniMapID.PlayerBuilding;
-    
+    public virtual Cost Cost { get; }
     public Transform Transform => transform;
 
     protected ResourceStorage HealPoints;
@@ -35,7 +32,9 @@ public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagabl
 
     protected virtual void OnAwake() { }
     protected virtual void OnStart() { }
-    
+
+    public virtual void CalculateCost() { }
+
     public virtual void TakeDamage(IDamageApplicator damageApplicator)
     {
         HealPoints.ChangeValue(-damageApplicator.Damage);
