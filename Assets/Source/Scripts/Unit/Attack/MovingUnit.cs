@@ -16,14 +16,7 @@ public class MovingUnit : UnitBase
 
     public override UnitType UnitType => UnitType.MovingUnit;
     public Vector3 Velocity => _navMeshAgent.velocity;
-
-    public bool select;
-    public bool isSelected
-    {
-        get => select;
-        set { select = value; }
-    }
-
+    
     [SerializeField] private SomeTestAbility_1 _ability1;
     [SerializeField] private SomeTestAbility_2 _ability2;
 
@@ -89,7 +82,7 @@ public class MovingUnit : UnitBase
 
     public void GiveOrder(GameObject target, Vector3 position)
     {
-        if (!isSelected) return;
+        if (!IsSelected) return;
         string target_tag = target.tag;
 
         switch (target_tag)
@@ -100,6 +93,7 @@ public class MovingUnit : UnitBase
                     WorkerDutyComp.GetComponent<WorkerDuty>().isFindingRes = true;
                     WorkerDutyComp.GetComponent<WorkerDuty>().WorkingOnGO = target;
                 }
+
                 break;
 
             default:
@@ -110,16 +104,18 @@ public class MovingUnit : UnitBase
                     WorkerDutyComp.GetComponent<WorkerDuty>().isBuilding = false;
                     WorkerDutyComp.GetComponent<WorkerDuty>().isFindingBuild = false;
                 }
+
                 break;
         }
-        
+
         SetDestination(position);
     }
 
     public void UseFirstAbility()
     {
         _abilites[0].OnUse();
-    }   
+    }
+
     public void UseSecondAbility()
     {
         _abilites[1].OnUse();

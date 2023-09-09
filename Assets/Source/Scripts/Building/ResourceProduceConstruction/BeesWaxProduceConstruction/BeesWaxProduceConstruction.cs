@@ -16,7 +16,7 @@ public class BeesWaxProduceConstruction : ResourceConversionConstructionBase<Bee
         
         _resourceConversionCore = new ResourceConversionCore(CurrentLevel.ResourceConversionProccessInfo);
         
-        levelSystem = new BeesWaxProduceLevelSystem(levelSystem, HealPoints, _resourceConversionCore);
+        levelSystem = new BeesWaxProduceLevelSystem(levelSystem, _healthStorage, _resourceConversionCore);
 
         _updateEvent += OnUpdate;
     }

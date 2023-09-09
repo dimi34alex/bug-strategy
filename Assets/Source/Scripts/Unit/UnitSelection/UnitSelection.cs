@@ -86,13 +86,10 @@ public class UnitSelection : MonoBehaviour
 			{
 				SelectOne();
 			}
-
 			else
 			{
 				SelectMany();
 			}
-
-			pool.SelectionCheck();
 		}
 		
 		if (Input.GetMouseButtonDown(1) && _selectedUnits.Count > 0 && !isSelecting)
@@ -159,7 +156,7 @@ public class UnitSelection : MonoBehaviour
 		if (hit.collider.gameObject.CompareTag("Unit"))
 		{
 			MovingUnit movingUnit = hit.collider.gameObject.GetComponent<MovingUnit>();
-			movingUnit.isSelected = true;
+			movingUnit.Select();
 			_selectedUnits.Add(movingUnit);
 			
 			anySelected = true;
@@ -167,7 +164,7 @@ public class UnitSelection : MonoBehaviour
 		else if (hit.collider.gameObject.CompareTag("Worker"))
 		{
 			MovingUnit movingUnit = hit.collider.gameObject.GetComponent<MovingUnit>();
-			movingUnit.isSelected = true;
+			movingUnit.Select();
 			_selectedUnits.Add(movingUnit);
 			
 			anySelected = true;
@@ -201,7 +198,7 @@ public class UnitSelection : MonoBehaviour
                 if ((z > selectedStartPoint.z && z < selectedEndPoint.z) || (z < selectedStartPoint.z && z > selectedEndPoint.z))
                 {
 	                MovingUnit movingUnit = unit;
-	                movingUnit.isSelected = true;
+	                movingUnit.Select();
 	                _selectedUnits.Add(movingUnit);
 	                anySelected = true;
 
@@ -242,7 +239,7 @@ public class UnitSelection : MonoBehaviour
 		{
 			foreach (MovingUnit unit in _selectedUnits)
 			{
-				unit.isSelected = false;
+				unit.Deselect();
 			}
 			_selectedUnits.Clear();
 		}

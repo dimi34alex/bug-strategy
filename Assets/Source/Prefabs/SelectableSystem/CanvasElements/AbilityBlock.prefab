@@ -8,7 +8,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 65834631169110520}
+  - component: {fileID: 3914734115752515867}
   - component: {fileID: 8412414717076633824}
   m_Layer: 0
   m_Name: AbilityBlock
@@ -17,8 +17,8 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &65834631169110520
-Transform:
+--- !u!224 &3914734115752515867
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -32,6 +32,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8412414717076633824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44,8 +49,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f05d1e1ead562d54facd33c20b3984d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Fill: {fileID: 1973064023995897466}
-  Icon: {fileID: 1280759863756989485}
+  fill: {fileID: 1973064023995897466}
+  icon: {fileID: 1280759863756989485}
 --- !u!1 &3825531253152123547
 GameObject:
   m_ObjectHideFlags: 0
@@ -76,7 +81,7 @@ RectTransform:
   m_LocalScale: {x: 0.02, y: 0.02, z: 0.02}
   m_Children:
   - {fileID: 7044241265029775641}
-  m_Father: {fileID: 65834631169110520}
+  m_Father: {fileID: 3914734115752515867}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}

@@ -1,21 +1,19 @@
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable, IUnitTarget, IMiniMapShows
+public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable, IUnitTarget, IMiniMapShows,
+    SelectableSystem.ISelectable
 {
     [SerializeField] private UnitVisibleZone _unitVisibleZone;
 
     public abstract MiniMapID MiniMapId { get; }
 
-    protected ResourceStorage _healthStorage = new ResourceStorage(100, 100);
-    public float MaxHealPoints => _healthStorage.Capacity;
-    public float CurrentHealPoints => _healthStorage.CurrentValue;
+    protected ResourceStorage _healthStorage { get; set; } = new ResourceStorage(100, 100);
+    public IReadOnlyResourceStorage HealthStorage => _healthStorage;
     protected List<AbilityBase> _abilites = new List<AbilityBase>();
-    public List<AbilityBase> Abilites => _abilites;
+    public IReadOnlyList<AbilityBase> Abilities => _abilites;
 
- 
     protected EntityStateMachine _stateMachine;
 
     public EntityStateMachine StateMachine => _stateMachine;
@@ -28,12 +26,15 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
 
     public Transform Transform => transform;
     public UnitTargetType TargetType => UnitTargetType.Other_Unit;
+    public bool IsSelected { get; private set; }
 
     public event Action<UnitBase> OnUnitPathChange;
     public event Action<UnitBase> OnUnitDied;
     public event Action<ITriggerable> OnDestroyITriggerableEvent;
     public event Action<ITriggerable> OnDisableITriggerableEvent;
-
+    public event Action OnSelect;
+    public event Action OnDeselect;
+    
     public void TakeDamage(IDamageApplicator damageApplicator)
     {
         if (IsDied)
@@ -58,6 +59,22 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
 
     protected virtual void OnDamaged() { }
 
+    public void Select()
+    {
+        if(IsSelected) return;
+        
+        IsSelected = true;
+        OnSelect?.Invoke();
+    }
+
+    public void Deselect()
+    {
+        if(!IsSelected) return;
+        
+        IsSelected = false;
+        OnDeselect?.Invoke();
+    }
+    
     private void OnDisable()
     {
         OnDisableITriggerableEvent?.Invoke(this);

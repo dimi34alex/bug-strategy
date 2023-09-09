@@ -2,7 +2,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagable, IRepairable, IMiniMapShows, ITriggerable, IUnitTarget
+public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagable, IRepairable, IMiniMapShows,
+    ITriggerable, IUnitTarget, SelectableSystem.ISelectable
 {
     public abstract ConstructionID ConstructionID { get; }
     public UnitTargetType TargetType => UnitTargetType.Construction;
@@ -10,17 +11,17 @@ public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagabl
     public virtual Cost Cost { get; }
     public Transform Transform => transform;
 
-    protected ResourceStorage HealPoints;
-    public float MaxHealPoints => HealPoints.Capacity;
-    public float CurrentHealPoints => HealPoints.CurrentValue;
+    protected ResourceStorage _healthStorage;
+    public IReadOnlyResourceStorage HealthStorage => _healthStorage;
     
     protected event Action _updateEvent;
     protected event Action _onDestroy;
     public event Action<ITriggerable> OnDestroyITriggerableEvent;
     public event Action<ITriggerable> OnDisableITriggerableEvent;
-
-    protected List<AbilityBase> _abilites = new List<AbilityBase>();
-    public List<AbilityBase> Abilites => _abilites;
+    
+    public bool IsSelected { get; private set; }
+    public event Action OnSelect;
+    public event Action OnDeselect;
 
     protected void Awake()
     {
@@ -37,16 +38,32 @@ public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagabl
 
     public virtual void TakeDamage(IDamageApplicator damageApplicator)
     {
-        HealPoints.ChangeValue(-damageApplicator.Damage);
-        if (CurrentHealPoints <= 0)
+        _healthStorage.ChangeValue(-damageApplicator.Damage);
+        if (_healthStorage.CurrentValue <= 0)
             Destroy(gameObject);
     }
 
     public virtual void TakeRepair(IRepairApplicator repairApplicator)
     {
-        HealPoints.ChangeValue(repairApplicator.Rapair);
+        _healthStorage.ChangeValue(repairApplicator.Rapair);
     }
 
+    public void Select()
+    {
+        if(IsSelected) return;
+
+        IsSelected = true;
+        OnSelect?.Invoke();
+    }
+
+    public void Deselect()
+    {
+        if(!IsSelected) return;
+
+        IsSelected = false;
+        OnDeselect?.Invoke();
+    }
+    
     private void OnDestroy()
     {
         _onDestroy?.Invoke();

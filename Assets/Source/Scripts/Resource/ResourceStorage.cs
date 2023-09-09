@@ -7,6 +7,7 @@ public interface IReadOnlyResourceStorage
     public int CurrentValueInt { get; }
     public float Capacity { get; }
 
+    public event Action OnChange;
     public event Action OnResourceChange;
     public event Action<float> OnResourceAdd;
     public event Action<float> OnResourceRemove;

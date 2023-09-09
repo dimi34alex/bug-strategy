@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Test_UnitUX : MonoBehaviour, IDamageApplicator
+public class Test_UnitUI : MonoBehaviour, IDamageApplicator
 {
     public float Damage => damage;
     [SerializeField] private float damage = 10;

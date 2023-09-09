@@ -27,7 +27,7 @@ public class TownHall : EvolvConstruction<TownHallLevel>
         
         _recruiting = new BeesRecruiting(CurrentLevel.RecruitingSize, workerBeesSpawnPosition, CurrentLevel.BeesRecruitingData);
         
-        levelSystem = new TownHallLevelSystem(levelSystem, HealPoints, _recruiting);
+        levelSystem = new TownHallLevelSystem(levelSystem, _healthStorage, _recruiting);
         
         _updateEvent += OnUpdate;
         _onDestroy += OnDestroy;

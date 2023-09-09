@@ -17,7 +17,7 @@ public abstract class EvolvConstruction<TBuildingLevel> : ConstructionBase
         CalculateCost();
         base.OnAwake();
         
-        HealPoints = new ResourceStorage(CurrentLevel.MaxHealPoints,CurrentLevel.MaxHealPoints);
+        _healthStorage = new ResourceStorage(CurrentLevel.MaxHealPoints,CurrentLevel.MaxHealPoints);
     }
 
     public override void CalculateCost()

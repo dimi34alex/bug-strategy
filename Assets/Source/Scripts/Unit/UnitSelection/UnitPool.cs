@@ -78,33 +78,14 @@ public class UnitPool : MonoBehaviour
     {
         movingUnits.Add(unit);
     }
-
-    public void SelectionCheck()
-    {
-        foreach (MovingUnit unit in movingUnits)
-        {
-            Transform selection;
-            selection = unit.gameObject.transform.GetChild(1);
-
-            if (selection.transform.gameObject.activeSelf && !unit.GetComponent<MovingUnit>().isSelected)
-            {
-                selection.transform.gameObject.SetActive(false);
-            }
-
-            if (!selection.transform.gameObject.activeSelf && unit.GetComponent<MovingUnit>().isSelected)
-            {
-                selection.transform.gameObject.SetActive(true);
-            }
-        }
-    }
-
+    
     void CreateGroup(List<MovingUnit> group)
     {
         ClearGroup(group);
 
         foreach (MovingUnit unit in movingUnits)
         {
-            if (unit.GetComponent<MovingUnit>().isSelected == true)
+            if (unit.GetComponent<MovingUnit>().IsSelected)
             {
                 group.Add(unit);
             }
@@ -117,10 +98,8 @@ public class UnitPool : MonoBehaviour
         
         foreach (MovingUnit groupUnit in group)
         {
-            groupUnit.GetComponent<MovingUnit>().isSelected = true;
+            groupUnit.GetComponent<MovingUnit>().Select();
         }
-
-        SelectionCheck();
     }
 
     public void SelectGroupButton()

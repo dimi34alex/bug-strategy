@@ -10,7 +10,7 @@ public class BeeHouse : EvolvConstruction<BeeHouseLevel>
     {
         base.OnAwake();
 
-        levelSystem = new BeeHouseLevelSystem(levelSystem, HealPoints);
+        levelSystem = new BeeHouseLevelSystem(levelSystem, _healthStorage);
         
         ResourceGlobalStorage.ChangeCapacity(ResourceID.Housing,CurrentLevel.HousingCapacity);
         

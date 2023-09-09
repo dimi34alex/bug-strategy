@@ -75,9 +75,10 @@ public class UserBuilder : CycleInitializerBase
             {
                 if (hit.transform.gameObject.CompareTag("Building"))
                 {
-                    if (hit.transform.gameObject.GetComponent<ConstructionBase?>())
+                    if (hit.transform.gameObject.TryGetComponent(out ConstructionBase constructionBase))
                     {
-                        ConstructionID constructionID = hit.transform.gameObject.GetComponent<ConstructionBase>().ConstructionID;
+                        constructionBase.Select();
+                        ConstructionID constructionID = constructionBase.ConstructionID;
                         UI_Controller._SetBuilding(hit.transform.gameObject, constructionID);
                     }
                     else
@@ -121,7 +122,7 @@ public class UserBuilder : CycleInitializerBase
                 
                 foreach (MovingUnit unit in pool.movingUnits)
                 {
-                    if (unit.isSelected == true && unit.gameObject.CompareTag("Worker") && CanBuyConstruction(currentConstructionID))
+                    if (unit.IsSelected && unit.gameObject.CompareTag("Worker") && CanBuyConstruction(currentConstructionID))
                     {
                         BuyConstruction(currentConstructionID);
 

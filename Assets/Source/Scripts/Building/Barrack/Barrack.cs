@@ -17,7 +17,7 @@ public class Barrack : EvolvConstruction<BarrackLevel>
 
         recruiting = new BeesRecruiting(CurrentLevel.RecruitingSize, beesSpawnPosition, CurrentLevel.BeesRecruitingData);
 
-        levelSystem = new BarrackLevelSystem(levelSystem, HealPoints, recruiting);
+        levelSystem = new BarrackLevelSystem(levelSystem, _healthStorage, recruiting);
         
         _updateEvent += OnUpdate;
     }
