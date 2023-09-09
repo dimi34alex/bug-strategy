@@ -1405,6 +1405,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4195203640044359491, guid: e1a6d86d1c3d6e24084c0efe07b687f7, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4195203640044359491, guid: e1a6d86d1c3d6e24084c0efe07b687f7, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5039214122889290809, guid: e1a6d86d1c3d6e24084c0efe07b687f7, type: 3}
       propertyPath: m_Name
       value: Test_Wasp
@@ -2537,7 +2545,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1449827567
 MonoBehaviour:
@@ -2704,6 +2712,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 977063496843794964, guid: e1a6d86d1c3d6e24084c0efe07b687f7, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4195203640044359491, guid: e1a6d86d1c3d6e24084c0efe07b687f7, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4195203640044359491, guid: e1a6d86d1c3d6e24084c0efe07b687f7, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
@@ -2877,11 +2893,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6156c46cd048c1749b713d3a2cd297f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useCameraMovement: 1
-  speed: 50
-  field: {fileID: 291144843}
   useScroll: 1
-  scrollPower: 7.5
+  scrollPower: 1
   cameraSizeOffset: 5
 --- !u!114 &1844035351
 MonoBehaviour:

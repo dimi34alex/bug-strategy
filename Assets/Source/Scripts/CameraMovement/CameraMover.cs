@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class CameraMover2 : MonoBehaviour
+public class CameraMover : MonoBehaviour
 {
     [SerializeField] private float _moveSpeed;
     [SerializeField] private Camera _camera;
