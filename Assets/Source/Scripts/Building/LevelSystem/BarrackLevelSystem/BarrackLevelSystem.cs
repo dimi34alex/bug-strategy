@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnitsRecruitingSystem;
 
 [Serializable]
 public class BarrackLevelSystem : BuildingLevelSystemBase<BarrackLevel>
@@ -30,7 +31,7 @@ public class BarrackLevelSystem : BuildingLevelSystemBase<BarrackLevel>
         currentLevelNum++;
             
         _beesRecruiting.AddStacks(CurrentLevel.RecruitingSize);
-        _beesRecruiting.SetNewBeesDatas(CurrentLevel.BeesRecruitingData);
+        _beesRecruiting.SetNewDatas(CurrentLevel.BeesRecruitingData);
 
         if (HealPoints.CurrentValue >= HealPoints.Capacity)
         {

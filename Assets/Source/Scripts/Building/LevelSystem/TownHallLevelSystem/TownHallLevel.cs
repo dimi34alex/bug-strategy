@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnitsRecruitingSystem;
 
 [Serializable]
 public class TownHallLevel : BuildingLevelBase
@@ -22,7 +23,7 @@ public class TownHallLevel : BuildingLevelBase
     [Header("Worker bees")]
     [SerializeField][Range(1, 2)] protected int recruitingSize = 0;
     public int RecruitingSize => recruitingSize;
-    public List<BeesRecruitingData> BeesRecruitingData { get { return new List<BeesRecruitingData> { beesRecruitingData }; } }
-    [SerializeField] private BeesRecruitingData beesRecruitingData;
+    public List<UnitRecruitingData<BeesRecruitingID>> BeesRecruitingData { get { return new List<UnitRecruitingData<BeesRecruitingID>> { beesRecruitingData }; } }
+    [SerializeField] private UnitRecruitingData<BeesRecruitingID> beesRecruitingData;
     #endregion
 }

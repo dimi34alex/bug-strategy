@@ -1,52 +1,13 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BeesRecruiting : UnitsRecruitingBase<BeesStack, BeesRecruitingData, BeeRecruitingInformation>
+namespace UnitsRecruitingSystem
 {
-    public BeesRecruiting(int size, Transform spawnPos, List<BeesRecruitingData> newDatas) : base(size, spawnPos, newDatas) { }
-
-    public void RecruitBees(BeesRecruitingID beeID)
+    public class BeesRecruiting : UnitsRecruitingBase<BeesRecruitingID>
     {
-        try
+        public BeesRecruiting(int size, Transform spawnTransform, AffiliationEnum affiliation,
+            List<UnitRecruitingData<BeesRecruitingID>> newDatas) : base(size, spawnTransform, affiliation, newDatas)
         {
-            int foundStack = Stacks.IndexOf(freeStack => freeStack.Empty == true);
-
-            if (foundStack == -1)
-                throw new Exception("All Stack are busy");
-
-            BeesRecruitingData foundData = beesRecruitingDatas.Find(fi => fi.CurrentID == beeID);
-
-            if (foundData.PollenPrice <= ResourceGlobalStorage.GetResource(ResourceID.Pollen).CurrentValue
-                && foundData.HousingPrice <= ResourceGlobalStorage.GetResource(ResourceID.Housing).CurrentValue
-                && foundData.HoneyPrice <= ResourceGlobalStorage.GetResource(ResourceID.Honey).CurrentValue)
-            {
-                ResourceGlobalStorage.ChangeValue(ResourceID.Pollen, -foundData.PollenPrice);
-                ResourceGlobalStorage.ChangeValue(ResourceID.Housing, -foundData.HousingPrice);
-                ResourceGlobalStorage.ChangeValue(ResourceID.Honey, -foundData.HoneyPrice);
-                Stacks[foundStack] = new BeesStack(foundData, spawnPosition);
-            }
-            else
-            {
-                throw new Exception("Need more resource");
-            }
         }
-        catch (Exception e)
-        {
-            UI_Controller._ErrorCall(e.Message);
-        }
-
-    }
-    
-    public override List<BeeRecruitingInformation> GetRecruitingInformation()
-    {
-        List<BeeRecruitingInformation> fullInformation = new List<BeeRecruitingInformation>();
-
-        foreach (var stack in Stacks)
-        {
-            fullInformation.Add(new BeeRecruitingInformation(stack));
-        }
-        
-        return fullInformation;
     }
 }

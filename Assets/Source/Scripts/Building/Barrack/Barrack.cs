@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnitsRecruitingSystem;
 
 public class Barrack : EvolvConstruction<BarrackLevel>
 { 
     public override ConstructionID ConstructionID => ConstructionID.Barrack;
   
-    BeesRecruiting recruiting;
     [SerializeField] private Transform beesSpawnPosition;
+    BeesRecruiting recruiting;
     public int RecruitingSize => CurrentLevel.RecruitingSize;
 
     public Affiliation team;
@@ -15,7 +16,7 @@ public class Barrack : EvolvConstruction<BarrackLevel>
     {
         base.OnAwake();
 
-        recruiting = new BeesRecruiting(CurrentLevel.RecruitingSize, beesSpawnPosition, CurrentLevel.BeesRecruitingData);
+        recruiting = new BeesRecruiting(CurrentLevel.RecruitingSize, beesSpawnPosition, AffiliationEnum.Team1, CurrentLevel.BeesRecruitingData);
 
         levelSystem = new BarrackLevelSystem(levelSystem, _healthStorage, recruiting);
         
@@ -24,16 +25,16 @@ public class Barrack : EvolvConstruction<BarrackLevel>
 
     private void OnUpdate()
     {
-        recruiting.Tick(Time.deltaTime, team.affiliation);
+        recruiting.Tick(Time.deltaTime);
     }
 
     public void RecruitBees(BeesRecruitingID beeID)
     {
-        
-        recruiting.RecruitBees(beeID);
+        recruiting.RecruitUnit(beeID, out string errorLog);
+        if(errorLog.Length > 0) UI_Controller._ErrorCall(errorLog);
     }
     
-    public List<BeeRecruitingInformation> GetRecruitingInformation()
+    public List<IReadOnlyUnitRecruitingStack<BeesRecruitingID>> GetRecruitingInformation()
     {
         return recruiting.GetRecruitingInformation();
     }

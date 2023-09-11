@@ -15,7 +15,7 @@ public class UI_BarracksMenu : UIScreen
 
     private void Displaying()
     {
-        List<BeeRecruitingInformation> beeRecruitingInformation = barrack.GetRecruitingInformation();
+        var beeRecruitingInformation = barrack.GetRecruitingInformation();
         for (int n = 0; n < beeRecruitingInformation.Count && n < stackID.Count && n < stackTime.Count; n++)
         {
             if (beeRecruitingInformation[n].Empty)
@@ -26,7 +26,7 @@ public class UI_BarracksMenu : UIScreen
             else{
                 stackID[n].text = beeRecruitingInformation[n].CurrentID.ToString();
                 float currentTime = Mathf.Clamp((Mathf.Round(beeRecruitingInformation[n].CurrentTime * 100F) / 100F), 0F, Mathf.Infinity);
-                float fullTime = Mathf.Round(beeRecruitingInformation[n].RecruitinTime * 100F) / 100F;
+                float fullTime = Mathf.Round(beeRecruitingInformation[n].RecruitingTime * 100F) / 100F;
                 stackTime[n].text = (currentTime + "/" + fullTime);
             }
         }

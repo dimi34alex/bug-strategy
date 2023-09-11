@@ -1,49 +1,88 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class UnitsRecruitingBase<TUnitStack, TUnitRecruitingData, TUnitRecruitingInformation> 
-    where TUnitStack : UnitStackBase, new()
-    where TUnitRecruitingData : UnitRecruitingDataBase, new()
-    where TUnitRecruitingInformation : UnitRecruitingInformationBase, new()
+namespace UnitsRecruitingSystem
 {
-    protected Transform spawnPosition;
-    protected List<TUnitStack> Stacks;
-    protected List<TUnitRecruitingData> beesRecruitingDatas;
-    protected int currentStack = 0;
-
-    public UnitsRecruitingBase(int size, Transform spawnPos, List<TUnitRecruitingData> newDatas)
+    public abstract class UnitsRecruitingBase<TEnum> 
+        where TEnum : Enum
     {
-        Stacks = new List<TUnitStack>(new TUnitStack[size]);
-        beesRecruitingDatas = newDatas;
-        spawnPosition = spawnPos;
+        private readonly AffiliationEnum _affiliation;
+        private readonly Transform _spawnTransform;
+        private readonly List<UnitRecruitingStack<TEnum>> _stacks;
+        private List<UnitRecruitingData<TEnum>> _recruitingDatas;
 
-        for (int n = 0; n < size; n++)
-            Stacks[n] = new TUnitStack();
-    }
-
-    public void SetNewBeesDatas(List<TUnitRecruitingData> newDatas)
-    {
-        beesRecruitingDatas = newDatas;
-    }
-    public void AddStacks(int newSize)
-    {
-        for (int n = Stacks.Count; n < newSize; n++)
+        protected UnitsRecruitingBase(int size, Transform spawnTransform, AffiliationEnum affiliation, List<UnitRecruitingData<TEnum>> newDatas)
         {
-            Stacks.Add(new TUnitStack());
+            _spawnTransform = spawnTransform;
+            _affiliation = affiliation;
+            _stacks = new List<UnitRecruitingStack<TEnum>>();
+            _recruitingDatas = newDatas;
+
+            for (int n = 0; n < size; n++)
+                _stacks.Add(new UnitRecruitingStack<TEnum>(_affiliation, spawnTransform));
         }
-    }
+    
+        public void RecruitUnit(TEnum id, out string errorLog)
+        {
+            errorLog = "";
 
-    public void Tick(float time, AffiliationEnum team)
-    {
-        foreach (TUnitStack mass in Stacks)
-            if (!mass.Empty)
-                mass.StackTick(time, team);
+            int foundStack = _stacks.IndexOf(freeStack => freeStack.Empty);
+            if (foundStack == -1)
+            {
+                errorLog = "All stacks are busy";
+                Debug.LogWarning(errorLog);
+                return;
+            }
 
-        currentStack++;
+            var foundData = _recruitingDatas.Find(found => found.CurrentID.Equals(id));
+        
+            foreach (var cost in foundData.Costs)
+            {
+                if (cost.Value > ResourceGlobalStorage.GetResource(cost.Key).CurrentValue)
+                {
+                    errorLog = "Need more resources";
+                    Debug.LogWarning(errorLog);
+                    return;
+                } 
+            }
+        
+            foreach (var cost in foundData.Costs)
+                ResourceGlobalStorage.ChangeValue(cost.Key, -cost.Value);
+        
+            _stacks[foundStack].SetNewData(foundData);
+        }
+    
+        public void SetNewDatas(List<UnitRecruitingData<TEnum>> newDatas)
+        {
+            _recruitingDatas = newDatas;
+        }
+    
+        public void AddStacks(int newSize)
+        {
+            for (int n = _stacks.Count; n < newSize; n++)
+                _stacks.Add(new UnitRecruitingStack<TEnum>(_affiliation, _spawnTransform));
+        }
 
-        if (currentStack >= Stacks.Count)
-            currentStack = 0;
-    }
+        public void Tick(float time)
+        {
+            foreach (var stack in _stacks)
+                if (!stack.Empty)
+                    stack.StackTick(time);
+        }
 
-    public abstract List<TUnitRecruitingInformation> GetRecruitingInformation();
+        public List<IReadOnlyUnitRecruitingStack<TEnum>> GetRecruitingInformation()
+        {
+            var fullInformation = new List<IReadOnlyUnitRecruitingStack<TEnum>>();
+            foreach (var stack in _stacks)
+                fullInformation.Add(stack);
+        
+            return fullInformation;
+        }
+
+        public void CancelRecruiting(int stackIndex)
+        {
+            _stacks[stackIndex].CancelRecruiting();
+        }
+    } 
 }

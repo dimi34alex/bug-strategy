@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnitsRecruitingSystem;
 
 [Serializable]
 public class TownHallLevelSystem : BuildingLevelSystemBase <TownHallLevel>
@@ -48,7 +49,7 @@ public class TownHallLevelSystem : BuildingLevelSystemBase <TownHallLevel>
         ResourceGlobalStorage.ChangeValue(ResourceID.Housing,CurrentLevel.HousingCapacity - prevHousingCapacity);
             
         _beesRecruiting.AddStacks(CurrentLevel.RecruitingSize);
-        _beesRecruiting.SetNewBeesDatas(CurrentLevel.BeesRecruitingData);
+        _beesRecruiting.SetNewDatas(CurrentLevel.BeesRecruitingData);
 
         if (HealPoints.CurrentValue >= HealPoints.Capacity)
         {

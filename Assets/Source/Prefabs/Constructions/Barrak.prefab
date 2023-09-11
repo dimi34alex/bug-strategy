@@ -130,22 +130,32 @@ MonoBehaviour:
       honeyLevelUpPrice: 0
       recruitingSize: 2
       beesRecruitingData:
-      - recruitinTime: 2
+      - currentId: 1
+        recruitingTime: 2
         stackSize: 1
-        spawnPauseTime: 0
+        spawnPauseTime: 1
         unitPrefab: {fileID: 5039214122889290809, guid: e1a6d86d1c3d6e24084c0efe07b687f7, type: 3}
-        currentID: 1
-        pollenPrice: 0
-        housingPrice: 2
-        honeyPrice: 0
-      - recruitinTime: 5
+        costs:
+          _cells:
+          - Key: 0
+            Value: 0
+          - Key: 1
+            Value: 2
+          - Key: 2
+            Value: 0
+      - currentId: 2
+        recruitingTime: 5
         stackSize: 1
-        spawnPauseTime: 0
+        spawnPauseTime: 2
         unitPrefab: {fileID: 4364783689652272584, guid: 4b87cc0f9fb2f5f40937836b05228857, type: 3}
-        currentID: 2
-        pollenPrice: 0
-        housingPrice: 4
-        honeyPrice: 0
+        costs:
+          _cells:
+          - Key: 0
+            Value: 0
+          - Key: 1
+            Value: 4
+          - Key: 2
+            Value: 0
     - maxHealPoints: 2500
       pollenLevelUpPrice: 0
       bees_waxLevelUpPrice: 0
@@ -153,22 +163,32 @@ MonoBehaviour:
       honeyLevelUpPrice: 0
       recruitingSize: 6
       beesRecruitingData:
-      - recruitinTime: 2
+      - currentId: 1
+        recruitingTime: 2
         stackSize: 2
         spawnPauseTime: 1
         unitPrefab: {fileID: 5039214122889290809, guid: e1a6d86d1c3d6e24084c0efe07b687f7, type: 3}
-        currentID: 1
-        pollenPrice: 0
-        housingPrice: 2
-        honeyPrice: 0
-      - recruitinTime: 5
+        costs:
+          _cells:
+          - Key: 0
+            Value: 0
+          - Key: 1
+            Value: 4
+          - Key: 2
+            Value: 0
+      - currentId: 2
+        recruitingTime: 5
         stackSize: 2
         spawnPauseTime: 1
         unitPrefab: {fileID: 4364783689652272584, guid: 4b87cc0f9fb2f5f40937836b05228857, type: 3}
-        currentID: 2
-        pollenPrice: 0
-        housingPrice: 4
-        honeyPrice: 0
+        costs:
+          _cells:
+          - Key: 0
+            Value: 0
+          - Key: 1
+            Value: 5
+          - Key: 2
+            Value: 0
   _costValues:
     _cells:
     - Key: 0

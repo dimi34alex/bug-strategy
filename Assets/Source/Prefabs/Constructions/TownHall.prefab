@@ -134,14 +134,19 @@ MonoBehaviour:
       honeyCapacity: 1500
       recruitingSize: 1
       beesRecruitingData:
-        recruitinTime: 2
+        currentId: 0
+        recruitingTime: 1
         stackSize: 1
         spawnPauseTime: 0
         unitPrefab: {fileID: 3549433375624800588, guid: 3a4407f137678c14fb55fe57fde82205, type: 3}
-        currentID: 0
-        pollenPrice: 0
-        housingPrice: 2
-        honeyPrice: 0
+        costs:
+          _cells:
+          - Key: 0
+            Value: 0
+          - Key: 1
+            Value: 2
+          - Key: 2
+            Value: 0
     - maxHealPoints: 2500
       pollenLevelUpPrice: 0
       bees_waxLevelUpPrice: 0
@@ -153,14 +158,19 @@ MonoBehaviour:
       honeyCapacity: 2500
       recruitingSize: 2
       beesRecruitingData:
-        recruitinTime: 2
+        currentId: 0
+        recruitingTime: 2
         stackSize: 2
-        spawnPauseTime: 0.5
+        spawnPauseTime: 1
         unitPrefab: {fileID: 3549433375624800588, guid: 3a4407f137678c14fb55fe57fde82205, type: 3}
-        currentID: 0
-        pollenPrice: 0
-        housingPrice: 2
-        honeyPrice: 0
+        costs:
+          _cells:
+          - Key: 0
+            Value: 0
+          - Key: 1
+            Value: 4
+          - Key: 2
+            Value: 0
   _costValues:
     _cells:
     - Key: 0

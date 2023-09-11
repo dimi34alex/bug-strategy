@@ -18,7 +18,7 @@ public class UI_TownHallMenu : UIScreen
 
     private void Displaying()
     {
-        List<BeeRecruitingInformation> beeRecruitingInformation = _townHall.GetRecruitingInformation();
+        var beeRecruitingInformation = _townHall.GetRecruitingInformation();
 
         for (int n = 0; n < beeRecruitingInformation.Count && n < stackID.Count && n < stackTime.Count; n++)
         {
@@ -31,7 +31,7 @@ public class UI_TownHallMenu : UIScreen
             {
                 stackID[n].text = beeRecruitingInformation[n].CurrentID.ToString();
                 float currentTime = Mathf.Clamp((Mathf.Round(beeRecruitingInformation[n].CurrentTime * 100F) / 100F), 0F, Mathf.Infinity);
-                float fullTime = Mathf.Round(beeRecruitingInformation[n].RecruitinTime * 100F) / 100F;
+                float fullTime = Mathf.Round(beeRecruitingInformation[n].RecruitingTime * 100F) / 100F;
                 stackTime[n].text = (currentTime + "/" + fullTime);
             }
         }
