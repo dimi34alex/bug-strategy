@@ -22,8 +22,7 @@ public class MiniMapTriggerData : TriggerZone
 
     public static MiniMapTriggerData Instance;
 
-    private Func<IMiniMapShows, bool> _filter = t => true;
-    protected override Func<ITriggerable, bool> EnteredComponentIsSuitable => t => t is IUnitTarget && _filter(t.Cast<IMiniMapShows>());
+    protected override Func<ITriggerable, bool> EnteredComponentIsSuitable => t => t is IMiniMapShows;
     protected override bool _refreshEnteredComponentsAfterExit => false;
 
     

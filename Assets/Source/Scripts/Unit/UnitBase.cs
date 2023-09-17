@@ -30,7 +30,6 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
 
     public event Action<UnitBase> OnUnitPathChange;
     public event Action<UnitBase> OnUnitDied;
-    public event Action<ITriggerable> OnDestroyITriggerableEvent;
     public event Action<ITriggerable> OnDisableITriggerableEvent;
     public event Action OnSelect;
     public event Action OnDeselect;

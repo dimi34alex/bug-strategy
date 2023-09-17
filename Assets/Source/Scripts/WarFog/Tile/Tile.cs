@@ -1,41 +1,22 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using ModestTree;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-public class Tile : TriggerZone
+public class Tile : MonoBehaviour, ITriggerable
 {
     [SerializeField] private GameObject warFog;
     [SerializeField] private GameObject startFog;
-    public bool Visible { get; private set; }
-    
-    private Func<VisibleWarFogZone, bool> _filter = t => true;
-    
-    protected override Func<ITriggerable, bool> EnteredComponentIsSuitable => t => t is VisibleWarFogZone && _filter(t.Cast<VisibleWarFogZone>());
-    protected override bool _refreshEnteredComponentsAfterExit => false;
-    protected override bool _invokeExitDuringOnDestroy => false;
-    protected override bool _invokeExitDuringOnDisable => false;
-    
-    public bool Contains(VisibleWarFogZone target) => ContainsComponents.Contains(target);
+
     private bool _showStartWarFog = true;
     private Coroutine _invisibleTimer;
+    private int _watchersCount;
 
-    private void Awake()
-    {
-        Visible = false;
-    }
-
-    public void SetFilter(Func<VisibleWarFogZone, bool> filter)
-    {
-        _filter = filter;
-    }
+    public bool Visible { get; private set; }
+    public event Action<ITriggerable> OnDisableITriggerableEvent;
     
-    protected override void OnEnter(ITriggerable component)
+    public void AddWatcher()
     {
-        VisibleWarFogZone watcher = component.Cast<VisibleWarFogZone>();
+        _watchersCount++;
         
         if (_showStartWarFog)
         {
@@ -43,7 +24,7 @@ public class Tile : TriggerZone
             Destroy(startFog);
         }
         
-        if (ContainsComponents.Count == 1)
+        if (_watchersCount == 1)
         {
             warFog.SetActive(false);
             Visible = true;
@@ -53,11 +34,15 @@ public class Tile : TriggerZone
         }
     }
 
-    protected override void OnExit(ITriggerable component)
+    public void RemoveWatcher()
     {
-        VisibleWarFogZone watcher = component.Cast<VisibleWarFogZone>();
+        _watchersCount--;
 
-        if (!ContainsComponents.Any())
+#if UNITY_EDITOR
+        if(_watchersCount < 0) Debug.LogError("_watchersCount is " + _watchersCount);
+#endif
+        
+        if (_watchersCount == 0 && gameObject.activeInHierarchy)
         {
             _invisibleTimer = StartCoroutine(MakeTileInvisibleCoroutine());
         }
@@ -68,5 +53,10 @@ public class Tile : TriggerZone
         yield return new WaitForSeconds(5f);
         warFog.SetActive(true);
         Visible = false;
+    }
+    
+    private void OnDisable()
+    {
+        OnDisableITriggerableEvent?.Invoke(this);
     }
 }

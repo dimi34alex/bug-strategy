@@ -16,7 +16,6 @@ public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagabl
     
     protected event Action _updateEvent;
     protected event Action _onDestroy;
-    public event Action<ITriggerable> OnDestroyITriggerableEvent;
     public event Action<ITriggerable> OnDisableITriggerableEvent;
     
     public bool IsSelected { get; private set; }
@@ -67,7 +66,6 @@ public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagabl
     private void OnDestroy()
     {
         _onDestroy?.Invoke();
-        OnDestroyITriggerableEvent?.Invoke(this);
     }
 
     private void OnDisable()

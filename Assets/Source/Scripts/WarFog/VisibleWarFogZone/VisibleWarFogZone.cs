@@ -1,18 +1,18 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-public class VisibleWarFogZone : MonoBehaviour, ITriggerable
+public class VisibleWarFogZone : TriggerZone
 {
-    public event Action<ITriggerable> OnDestroyITriggerableEvent;
-    public event Action<ITriggerable> OnDisableITriggerableEvent;
-
-    private void OnDestroy()
-    {
-        OnDestroyITriggerableEvent?.Invoke(this);
-    }
+    protected override Func<ITriggerable, bool> EnteredComponentIsSuitable => t => t is Tile;
+    protected override bool _refreshEnteredComponentsAfterExit => false;
     
-    private void OnDisable()
+    protected override void OnEnter(ITriggerable component)
     {
-        OnDisableITriggerableEvent?.Invoke(this);
+        component.Cast<Tile>().AddWatcher();
+    }
+
+    protected override void OnExit(ITriggerable component)
+    {
+        component.Cast<Tile>().RemoveWatcher();
     }
 }
