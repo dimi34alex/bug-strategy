@@ -5,9 +5,7 @@ namespace UnitsRecruitingSystem
 {
     public class BeesRecruiting : UnitsRecruitingBase<BeesRecruitingID>
     {
-        public BeesRecruiting(int size, Transform spawnTransform, AffiliationEnum affiliation,
-            List<UnitRecruitingData<BeesRecruitingID>> newDatas) : base(size, spawnTransform, affiliation, newDatas)
-        {
-        }
+        public BeesRecruiting(int size, Transform spawnTransform, List<UnitRecruitingData<BeesRecruitingID>> newDatas) :
+            base(size, spawnTransform, newDatas) { }
     }
 }

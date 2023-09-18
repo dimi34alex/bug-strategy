@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable, IUnitTarget, IMiniMapShows,
-    SelectableSystem.ISelectable
+    SelectableSystem.ISelectable, IAffiliation
 {
     [SerializeField] private UnitVisibleZone _unitVisibleZone;
+    [SerializeField] private AffiliationEnum affiliationEnum;
 
     public abstract MiniMapID MiniMapId { get; }
 
@@ -33,6 +34,8 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
     public event Action<ITriggerable> OnDisableITriggerableEvent;
     public event Action OnSelect;
     public event Action OnDeselect;
+
+    public AffiliationEnum Affiliation => affiliationEnum;
     
     public void TakeDamage(IDamageApplicator damageApplicator)
     {

@@ -17,7 +17,6 @@ namespace UnitsRecruitingSystem
         public float CurrentTime { get; }
         public float SpawnPauseTimer { get; }
         public int SpawnedUnits { get; }
-        public AffiliationEnum Affiliation { get; }
     }
 
     public class UnitRecruitingStack<TEnum> : IReadOnlyUnitRecruitingStack<TEnum>
@@ -33,13 +32,11 @@ namespace UnitsRecruitingSystem
         public float CurrentTime { get; private set; }
         public float SpawnPauseTimer { get; private set; }
         public int SpawnedUnits { get; private set; }
-        public AffiliationEnum Affiliation { get; private set; }
         private Dictionary<ResourceID, int> _costs;
 
-        public UnitRecruitingStack(AffiliationEnum affiliation, Transform spawnTransform)
+        public UnitRecruitingStack(Transform spawnTransform)
         {
             Empty = true;
-            Affiliation = affiliation;
             SpawnTransform = spawnTransform;
         }
 
@@ -81,12 +78,10 @@ namespace UnitsRecruitingSystem
                         Vector3 spawnPos = SpawnTransform.position;
                         float randomPosition = UnityEngine.Random.Range(-0.01f, 0.01f);
 
-                        GameObject unit = UnityEngine.Object.Instantiate(UnitPrefab,
+                        UnityEngine.Object.Instantiate(UnitPrefab,
                             new Vector3(spawnPos.x + randomPosition, spawnPos.y, spawnPos.z + randomPosition),
                             SpawnTransform.rotation);
-
-                        unit.gameObject.GetComponent<Affiliation>().affiliation = Affiliation;
-
+                        
                         SpawnedUnits++;
                         SpawnPauseTimer = 0;
 

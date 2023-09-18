@@ -7,20 +7,18 @@ namespace UnitsRecruitingSystem
     public abstract class UnitsRecruitingBase<TEnum> 
         where TEnum : Enum
     {
-        private readonly AffiliationEnum _affiliation;
         private readonly Transform _spawnTransform;
         private readonly List<UnitRecruitingStack<TEnum>> _stacks;
         private List<UnitRecruitingData<TEnum>> _recruitingDatas;
 
-        protected UnitsRecruitingBase(int size, Transform spawnTransform, AffiliationEnum affiliation, List<UnitRecruitingData<TEnum>> newDatas)
+        protected UnitsRecruitingBase(int size, Transform spawnTransform, List<UnitRecruitingData<TEnum>> newDatas)
         {
             _spawnTransform = spawnTransform;
-            _affiliation = affiliation;
             _stacks = new List<UnitRecruitingStack<TEnum>>();
             _recruitingDatas = newDatas;
 
             for (int n = 0; n < size; n++)
-                _stacks.Add(new UnitRecruitingStack<TEnum>(_affiliation, spawnTransform));
+                _stacks.Add(new UnitRecruitingStack<TEnum>(spawnTransform));
         }
     
         public void RecruitUnit(TEnum id, out string errorLog)
@@ -61,7 +59,7 @@ namespace UnitsRecruitingSystem
         public void AddStacks(int newSize)
         {
             for (int n = _stacks.Count; n < newSize; n++)
-                _stacks.Add(new UnitRecruitingStack<TEnum>(_affiliation, _spawnTransform));
+                _stacks.Add(new UnitRecruitingStack<TEnum>(_spawnTransform));
         }
 
         public void Tick(float time)

@@ -9,14 +9,14 @@ public class BattleBehaviour : MonoBehaviour, IDamageApplicator
 
     public float damageAmount;
 
-    public Affiliation unitsTeam;
+    public AffiliationEnum unitsTeam;
     public GameObject projectilePrefab;
 
     public float Damage { get; set; }
 
     void Start()
     {
-        unitsTeam = this.gameObject.transform.parent.GetComponent<Affiliation>();
+        unitsTeam = gameObject.transform.parent.GetComponent<IAffiliation>().Affiliation;
 
         Damage = damageAmount;
     }
@@ -31,7 +31,7 @@ public class BattleBehaviour : MonoBehaviour, IDamageApplicator
         if (collider.gameObject.tag == "Unit" || collider.gameObject.tag == "Worker")
         {
 
-            if (!(collider.gameObject.GetComponent<Affiliation>().affiliation == unitsTeam.affiliation))
+            if (!(collider.gameObject.GetComponent<IAffiliation>().Affiliation == unitsTeam))
             {
                 delayTimer += Time.deltaTime;
                 if (attackDelay < delayTimer)
@@ -43,7 +43,7 @@ public class BattleBehaviour : MonoBehaviour, IDamageApplicator
         }
         else if (collider.gameObject.tag == "Building")
         {
-            if (!(collider.gameObject.GetComponent<Affiliation>().affiliation == unitsTeam.affiliation))
+            if (!(collider.gameObject.GetComponent<IAffiliation>().Affiliation == unitsTeam))
             {
                 delayTimer += Time.deltaTime;
                 if (attackDelay < delayTimer)
@@ -58,7 +58,7 @@ public class BattleBehaviour : MonoBehaviour, IDamageApplicator
 
     public void AttackUnit(UnitBase target)
     {
-        Debug.Log("Юнит " + this.gameObject.transform.parent.name + " атакует " + target.gameObject.name + " на " + Damage + " ОЗ");
+        Debug.Log("пїЅпїЅпїЅпїЅ " + this.gameObject.transform.parent.name + " пїЅпїЅпїЅпїЅпїЅпїЅпїЅ " + target.gameObject.name + " пїЅпїЅ " + Damage + " пїЅпїЅ");
      
         GameObject projectile;
 
@@ -70,7 +70,7 @@ public class BattleBehaviour : MonoBehaviour, IDamageApplicator
 
     public void AttackBuilding(ConstructionBase target)
     {
-        Debug.Log("Юнит " + this.gameObject.transform.parent.name + " атакует " + target.gameObject.name + " на " + Damage + " ОЗ");
+        Debug.Log("пїЅпїЅпїЅпїЅ " + this.gameObject.transform.parent.name + " пїЅпїЅпїЅпїЅпїЅпїЅпїЅ " + target.gameObject.name + " пїЅпїЅ " + Damage + " пїЅпїЅ");
 
         GameObject projectile;
 

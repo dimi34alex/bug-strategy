@@ -66,7 +66,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 338383595957482997}
-  - component: {fileID: -5061943957889073421}
   - component: {fileID: 7302409546887255228}
   - component: {fileID: 6453320288001796886}
   - component: {fileID: 3254335188705482603}
@@ -96,19 +95,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-5061943957889073421
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4279467153753337981}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a7daf761853cd54692b5de2c0f77bfa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  affiliation: 0
 --- !u!114 &7302409546887255228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,6 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c21734425f317cc4ebf27dd146c598c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  affiliationEnum: 1
   levelSystem:
     levels:
     - maxHealPoints: 1500
@@ -194,7 +181,6 @@ MonoBehaviour:
     - Key: 0
       Value: 1
   beesSpawnPosition: {fileID: 4064212705378577584}
-  team: {fileID: -5061943957889073421}
 --- !u!65 &6453320288001796886
 BoxCollider:
   m_ObjectHideFlags: 0

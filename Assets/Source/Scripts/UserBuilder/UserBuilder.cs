@@ -186,22 +186,18 @@ public class UserBuilder : CycleInitializerBase
                 BuildingProgressConstruction progressConstruction = _constructionFactory.Create<BuildingProgressConstruction>(ConstructionID.Building_Progress_Construction);
                 progressConstruction.transform.position = position;
                 FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position, progressConstruction);
-
-                Affiliation unitsTeam = unit.gameObject.GetComponent<Affiliation>();
-
-                progressConstruction.OnTimerEnd += c => CreateConstruction(c, position, unitsTeam.affiliation);
+                
+                progressConstruction.OnTimerEnd += c => CreateConstruction(c, position);
 
                 progressConstruction.StartBuilding(4, id, unit);
             }
         }
     }
 
-    private void CreateConstruction(BuildingProgressConstruction buildingProgressConstruction, Vector3 position, AffiliationEnum team)
+    private void CreateConstruction(BuildingProgressConstruction buildingProgressConstruction, Vector3 position)
     {
         ConstructionBase construction = _constructionFactory.Create<ConstructionBase>(buildingProgressConstruction.BuildingConstructionID);
-
-        construction.gameObject.GetComponent<Affiliation>().affiliation = team;
-
+        
         FrameworkCommander.GlobalData.ConstructionsRepository.GetConstruction(position, true);
 
         Destroy(buildingProgressConstruction.gameObject);

@@ -18,14 +18,13 @@ public class TownHall : EvolvConstruction<TownHallLevel>
     [SerializeField] Transform workerBeesSpawnPosition;//координаты флага, на котором спавняться рабочие пчелы
 
     private BeesRecruiting _recruiting;
-    public Affiliation team;
 
     protected override void OnAwake()
     {
         base.OnAwake();
         gameObject.name = "TownHall";
         
-        _recruiting = new BeesRecruiting(CurrentLevel.RecruitingSize, workerBeesSpawnPosition, AffiliationEnum.Team1, CurrentLevel.BeesRecruitingData);
+        _recruiting = new BeesRecruiting(CurrentLevel.RecruitingSize, workerBeesSpawnPosition, CurrentLevel.BeesRecruitingData);
         
         levelSystem = new TownHallLevelSystem(levelSystem, _healthStorage, _recruiting);
         

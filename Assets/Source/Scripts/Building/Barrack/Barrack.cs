@@ -9,14 +9,12 @@ public class Barrack : EvolvConstruction<BarrackLevel>
     [SerializeField] private Transform beesSpawnPosition;
     BeesRecruiting recruiting;
     public int RecruitingSize => CurrentLevel.RecruitingSize;
-
-    public Affiliation team;
-
+    
     protected override void OnAwake()
     {
         base.OnAwake();
 
-        recruiting = new BeesRecruiting(CurrentLevel.RecruitingSize, beesSpawnPosition, AffiliationEnum.Team1, CurrentLevel.BeesRecruitingData);
+        recruiting = new BeesRecruiting(CurrentLevel.RecruitingSize, beesSpawnPosition, CurrentLevel.BeesRecruitingData);
 
         levelSystem = new BarrackLevelSystem(levelSystem, _healthStorage, recruiting);
         

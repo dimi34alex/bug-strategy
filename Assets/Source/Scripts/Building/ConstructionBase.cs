@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagable, IRepairable, IMiniMapShows,
-    ITriggerable, IUnitTarget, SelectableSystem.ISelectable
+    ITriggerable, IUnitTarget, SelectableSystem.ISelectable, IAffiliation
 {
+    [SerializeField] private AffiliationEnum affiliationEnum;
+
     public abstract ConstructionID ConstructionID { get; }
     public UnitTargetType TargetType => UnitTargetType.Construction;
     public MiniMapID MiniMapId => MiniMapID.PlayerBuilding;
@@ -21,6 +23,8 @@ public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagabl
     public bool IsSelected { get; private set; }
     public event Action OnSelect;
     public event Action OnDeselect;
+
+    public AffiliationEnum Affiliation => affiliationEnum;
 
     protected void Awake()
     {

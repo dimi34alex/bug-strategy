@@ -181,7 +181,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 268472792609559189}
-  - component: {fileID: 6469631310210263351}
   - component: {fileID: -7590927579495278507}
   - component: {fileID: 6047302736304574508}
   - component: {fileID: 102683147634113920}
@@ -211,19 +210,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6469631310210263351
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5039214122889290809}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a7daf761853cd54692b5de2c0f77bfa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  affiliation: 0
 --- !u!114 &-7590927579495278507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,6 +223,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _unitVisibleZone: {fileID: 1717361452876767373}
+  affiliationEnum: 1
   _navMeshAgent: {fileID: 6047302736304574508}
   _ability1:
     reloadTimer:
@@ -346,7 +333,7 @@ MonoBehaviour:
   attackDelay: 3
   delayTimer: 0
   damageAmount: 10
-  unitsTeam: {fileID: 0}
+  unitsTeam: 0
   projectilePrefab: {fileID: 8160923896575819887, guid: 17a839cc8245f484bb4c05f7b784a3f4, type: 3}
 --- !u!135 &1078724035219638968
 SphereCollider:

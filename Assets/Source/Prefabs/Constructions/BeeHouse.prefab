@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2225733219021671339}
-  - component: {fileID: 1295591078648789678}
   - component: {fileID: -4589124477280040743}
   - component: {fileID: 1498097168595941684}
   - component: {fileID: 4327159425006945973}
@@ -40,19 +39,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1295591078648789678
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7316666807572606343}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a7daf761853cd54692b5de2c0f77bfa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  affiliation: 0
 --- !u!114 &-4589124477280040743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,6 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b636776e13008a64c9543443c4f8e512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  affiliationEnum: 1
   levelSystem:
     levels:
     - maxHealPoints: 1500
