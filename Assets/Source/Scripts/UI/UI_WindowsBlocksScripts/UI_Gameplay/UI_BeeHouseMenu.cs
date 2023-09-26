@@ -6,9 +6,9 @@ public class UI_BeeHouseMenu : UIScreen
 {
     BeeHouse _beeHouse;
     
-    public void _CallMenu(GameObject beeHouse)
+    public void _CallMenu(ConstructionBase beeHouse)
     {
-        _beeHouse = beeHouse.GetComponent<BeeHouse>();
+        _beeHouse = beeHouse.Cast<BeeHouse>();
     }
     
     public void _BuildingLVL_Up()

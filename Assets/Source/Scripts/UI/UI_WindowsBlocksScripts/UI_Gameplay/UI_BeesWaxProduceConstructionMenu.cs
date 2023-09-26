@@ -33,9 +33,9 @@ public class UI_BeesWaxProduceConstructionMenu : UIScreen
         produceResourceText.text = produceResource.CurrentValue + "/" + produceResource.Capacity;
     }
     
-    public void _CallMenu(GameObject beesWaxProduceConstruction)
+    public void _CallMenu(ConstructionBase beesWaxProduceConstruction)
     {
-        _beesWaxProduceConstruction = beesWaxProduceConstruction.GetComponent<BeesWaxProduceConstruction>();
+        _beesWaxProduceConstruction = beesWaxProduceConstruction.Cast<BeesWaxProduceConstruction>();
     }
     
     public void _BuildingLVL_Up()

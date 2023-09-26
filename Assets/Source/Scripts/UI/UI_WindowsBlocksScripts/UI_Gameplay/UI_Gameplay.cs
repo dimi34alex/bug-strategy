@@ -22,7 +22,7 @@ public class UI_Gameplay : UIScreen
     }
 
     GameObject UI_Activ;//текущее активное окно. необходимо для работы _SetWindow()
-    public void _SetGameplayWindow(string gameplayWindowName, GameObject building)
+    public void _SetGameplayWindow(string gameplayWindowName, ConstructionBase construction)
     {
         switch (gameplayWindowName)
         {
@@ -61,7 +61,7 @@ public class UI_Gameplay : UIScreen
                     _UI_Buildings.SetActive(false);
                     _UI_Tactics.SetActive(false);
                     _UI_TownHallMenu.SetActive(true);
-                    _UI_TownHallMenu.GetComponent<UI_TownHallMenu>()._CallMenu(building);
+                    _UI_TownHallMenu.GetComponent<UI_TownHallMenu>()._CallMenu(construction);
                     _UI_BarracksMenu.SetActive(false);
                     _UI_BeeHouseMenu.SetActive(false);
                     _UI_BeesWaxProduceConstructionMenu.SetActive(false);
@@ -73,7 +73,7 @@ public class UI_Gameplay : UIScreen
                     _UI_Tactics.SetActive(false);
                     _UI_TownHallMenu.SetActive(false);
                     _UI_BarracksMenu.SetActive(true);
-                    _UI_BarracksMenu.GetComponent<UI_BarracksMenu>()._CallMenu(building);
+                    _UI_BarracksMenu.GetComponent<UI_BarracksMenu>()._CallMenu(construction);
                     _UI_BeeHouseMenu.SetActive(false);
                     _UI_BeesWaxProduceConstructionMenu.SetActive(false);
                     break;
@@ -85,7 +85,7 @@ public class UI_Gameplay : UIScreen
                     _UI_TownHallMenu.SetActive(false);
                     _UI_BarracksMenu.SetActive(false);
                     _UI_BeeHouseMenu.SetActive(true);
-                    _UI_BeeHouseMenu.GetComponent<UI_BeeHouseMenu>()._CallMenu(building);
+                    _UI_BeeHouseMenu.GetComponent<UI_BeeHouseMenu>()._CallMenu(construction);
                     _UI_BeesWaxProduceConstructionMenu.SetActive(false);
                     break;
                 }
@@ -97,11 +97,11 @@ public class UI_Gameplay : UIScreen
                     _UI_BarracksMenu.SetActive(false);
                     _UI_BeeHouseMenu.SetActive(false);
                     _UI_BeesWaxProduceConstructionMenu.SetActive(true);
-                    _UI_BeesWaxProduceConstructionMenu.GetComponent<UI_BeesWaxProduceConstructionMenu>()._CallMenu(building);
+                    _UI_BeesWaxProduceConstructionMenu.GetComponent<UI_BeesWaxProduceConstructionMenu>()._CallMenu(construction);
                     break;
                 }
             default:
-                Debug.Log("Error: invalid string parametr in   _SetGameplayWindow(string gemeplayWindowName)"); break;
+                Debug.Log("Error: invalid string parameter in _SetGameplayWindow(string gemeplayWindowName)"); break;
         }
     }
 }

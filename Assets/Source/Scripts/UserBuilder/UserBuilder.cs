@@ -70,26 +70,16 @@ public class UserBuilder : CycleInitializerBase
         if (Input.GetButtonDown("Fire1"))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, 100F, layerMask, QueryTriggerInteraction.Ignore))
+            
+            if(FrameworkCommander.GlobalData.ConstructionSelector.TrySelect(ray))
             {
-                if (hit.transform.gameObject.CompareTag("Building"))
-                {
-                    if (hit.transform.gameObject.TryGetComponent(out ConstructionBase constructionBase))
-                    {
-                        constructionBase.Select();
-                        ConstructionID constructionID = constructionBase.ConstructionID;
-                        UI_Controller._SetBuilding(hit.transform.gameObject, constructionID);
-                    }
-                    else
-                    {
-                        throw new Exception("Error: gameObject with tag Building dont have script ConstructionBase");
-                    }
-                }
-                else if (!MouseOverUI())
-                {
-                    UI_Controller._SetWindow("UI_GameplayMain");
-                }
+                ConstructionBase selectedConstruction = FrameworkCommander.GlobalData.ConstructionSelector.SelectedConstruction;
+                selectedConstruction.Select();
+                UI_Controller._SetBuilding(selectedConstruction);
+            }
+            else if (!MouseOverUI())
+            {
+                UI_Controller._SetWindow("UI_GameplayMain");
             }
         }
     }
@@ -104,7 +94,7 @@ public class UserBuilder : CycleInitializerBase
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if ((!MouseOverUI() || !useCheckMouseOverUI) && Physics.Raycast(ray, out hit, 100F, layerMask, QueryTriggerInteraction.Ignore))//если рэйкаст сталкиваеться с чем нибудь, задаем зданию позицию точки столкновения рэйкаста
+        if ((!MouseOverUI() || !useCheckMouseOverUI) && Physics.Raycast(ray, out hit, 100F, CustomLayerID.Construction_Ground.Cast<int>(), QueryTriggerInteraction.Ignore)) //если рэйкаст сталкиваеться с чем нибудь, задаем зданию позицию точки столкновения рэйкаста
         {
             _currentBuilding.transform.position = FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(ray.GetPoint(hit.distance));
 

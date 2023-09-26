@@ -42,9 +42,9 @@ public class UI_TownHallMenu : UIScreen
             alarm.text = "Bee Alarm On";
     }
     
-    public void _CallMenu(GameObject townHall)
+    public void _CallMenu(ConstructionBase townHall)
     {
-        this._townHall = townHall.GetComponent<TownHall>();
+        this._townHall = townHall.Cast<TownHall>();
     }
     
     public void _BuildingLVL_Up()

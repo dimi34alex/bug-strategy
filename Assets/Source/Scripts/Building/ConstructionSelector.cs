@@ -17,9 +17,9 @@ public class ConstructionSelector
 
     public bool TrySelect(Ray ray)
     {
-        if (Physics.Raycast(ray, out RaycastHit hitInfo, CustomLayerID.Construction_Ground.Cast<int>()))
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, 50f, CustomLayerID.Construction_Ground.Cast<int>()))
         {
-            Vector3Int position = _constructionGrid.RoundPositionToGrid(hitInfo.point).ToInt();
+            Vector3 position = _constructionGrid.RoundPositionToGrid(hitInfo.point);
 
             if (_constructionGrid.ConstructionExist(position))
             {

@@ -32,9 +32,9 @@ public class UI_BarracksMenu : UIScreen
         }
     }
     
-    public void _CallMenu(GameObject _barrack)
+    public void _CallMenu(ConstructionBase _barrack)
     {
-        barrack = _barrack.GetComponent<Barrack>();
+        barrack = _barrack.Cast<Barrack>();
     }
     
     public void _BuildingLVL_Up()

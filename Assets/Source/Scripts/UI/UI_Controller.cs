@@ -5,18 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class UI_Controller : MonoBehaviour
 {
-    private static UserBuilder builder;//необходимо для создания зданий. Т.к. у нас нет обще игрового скрипта, 
-                                                   //который мог бы отвечать за спавн и перемещение зданий, то пока что будет эта заглушка.
-    private static GameObject UI_Activ;//текущее активное окно. необходимо для работы _SetWindow()
+    private static UserBuilder builder;
+    private static GameObject UI_ActivScreen;
     private static UI_Gameplay UI_GameplayWindows;//скрипт который установлен на префабе окна геймплея(UI_Gameplay), нужен просто для удобства и оптимизации, чтобы не вызывать GetComponent<>(): 
                                    //благодаря этому в функции _SetWindow() вместо этого:
                                    //UIScreenRepository.GetScreen<UI_Gameplay>().gameObject.GetComponent<UI_Gameplay>()._SetGameplayWindow(windowName); 
                                    //используется это:
                                    //UI_GameplayWindows._SetGameplayWindow(windowName);
-    private static GameObject UI_PrevActiv;//предыдущее активное окно. необходимо для корректной работы "Back" в _SetWindow()
-    private static GameObject buffer;//буфер. необходимо для корректной работы "Back" в _SetWindow()
-    private static GameObject building;//текущее выделенное здание
-    private static UnitPool pool;
+    private static GameObject UI_PrevActivScreen;
+    private static ConstructionBase selectedConstruction;
+    private static UnitPool unitPool;
     private static GameObject currentWorker;
 
     private static UI_ERROR _uiError;
@@ -31,33 +29,33 @@ public class UI_Controller : MonoBehaviour
 
         //определяем, какое окно у нас активно при запуске.
         if (UIScreenRepository.GetScreen<UI_Gameplay>().isActiveAndEnabled)
-            UI_Activ = UIScreenRepository.GetScreen<UI_Gameplay>().gameObject;
+            UI_ActivScreen = UIScreenRepository.GetScreen<UI_Gameplay>().gameObject;
         else
         if (UIScreenRepository.GetScreen<UI_Buildings>().isActiveAndEnabled)
-            UI_Activ = UIScreenRepository.GetScreen<UI_Buildings>().gameObject;
+            UI_ActivScreen = UIScreenRepository.GetScreen<UI_Buildings>().gameObject;
         else
         if (UIScreenRepository.GetScreen<UI_Tactics>().isActiveAndEnabled)
-            UI_Activ = UIScreenRepository.GetScreen<UI_Tactics>().gameObject;
+            UI_ActivScreen = UIScreenRepository.GetScreen<UI_Tactics>().gameObject;
         else
         if (UIScreenRepository.GetScreen<UI_GameplayMenu>().isActiveAndEnabled)
-            UI_Activ = UIScreenRepository.GetScreen<UI_GameplayMenu>().gameObject;
+            UI_ActivScreen = UIScreenRepository.GetScreen<UI_GameplayMenu>().gameObject;
         else
         if (UIScreenRepository.GetScreen<UI_Settings>().isActiveAndEnabled)
-            UI_Activ = UIScreenRepository.GetScreen<UI_Settings>().gameObject;
+            UI_ActivScreen = UIScreenRepository.GetScreen<UI_Settings>().gameObject;
         else
         if (UIScreenRepository.GetScreen<UI_Win>().isActiveAndEnabled)
-            UI_Activ = UIScreenRepository.GetScreen<UI_Win>().gameObject;
+            UI_ActivScreen = UIScreenRepository.GetScreen<UI_Win>().gameObject;
         else
         if (UIScreenRepository.GetScreen<UI_Lose>().isActiveAndEnabled)
-            UI_Activ = UIScreenRepository.GetScreen<UI_Lose>().gameObject;
+            UI_ActivScreen = UIScreenRepository.GetScreen<UI_Lose>().gameObject;
         else
         if (UIScreenRepository.GetScreen<UI_MainMenu>().isActiveAndEnabled)
-            UI_Activ = UIScreenRepository.GetScreen<UI_MainMenu>().gameObject;
+            UI_ActivScreen = UIScreenRepository.GetScreen<UI_MainMenu>().gameObject;
         else
         if (UIScreenRepository.GetScreen<UI_Saves>().isActiveAndEnabled)
-            UI_Activ = UIScreenRepository.GetScreen<UI_Saves>().gameObject;
+            UI_ActivScreen = UIScreenRepository.GetScreen<UI_Saves>().gameObject;
 
-        UI_PrevActiv = UI_Activ;
+        UI_PrevActivScreen = UI_ActivScreen;
         _uiError =  UIScreenRepository.GetScreen<UI_ERROR>();
     }
 
@@ -97,13 +95,13 @@ public class UI_Controller : MonoBehaviour
 
     public static void _SetWindow(string windowName)//смена активного окна UI. принимает название окна, которое надо сделать активным
     {
-        buffer = UI_Activ;
-        UI_Activ.SetActive(false);
+        GameObject screenBuffer = UI_ActivScreen;
+        UI_ActivScreen.SetActive(false);
 
         switch (windowName)
         {
             case "UI_Gameplay":
-                UI_Activ = UIScreenRepository.GetScreen<UI_Gameplay>().gameObject; break;
+                UI_ActivScreen = UIScreenRepository.GetScreen<UI_Gameplay>().gameObject; break;
 
             case "UI_GameplayMain":
                 UI_GameplayWindows._SetGameplayWindow(windowName, null); break;
@@ -112,35 +110,35 @@ public class UI_Controller : MonoBehaviour
             case "UI_Tactics":
                 UI_GameplayWindows._SetGameplayWindow(windowName, null); break;
             case "UI_TownHallMenu":
-                UI_GameplayWindows._SetGameplayWindow(windowName, building); break;
+                UI_GameplayWindows._SetGameplayWindow(windowName, selectedConstruction); break;
             case "UI_BarracksMenu":
-                UI_GameplayWindows._SetGameplayWindow(windowName, building); break;
+                UI_GameplayWindows._SetGameplayWindow(windowName, selectedConstruction); break;
             case "UI_BeeHouseMenu":
-                UI_GameplayWindows._SetGameplayWindow(windowName, building); break;
+                UI_GameplayWindows._SetGameplayWindow(windowName, selectedConstruction); break;
             case "UI_BeesWaxProduceConstructionMenu":
-                UI_GameplayWindows._SetGameplayWindow(windowName, building); break;
+                UI_GameplayWindows._SetGameplayWindow(windowName, selectedConstruction); break;
 
             case "UI_GameplayMenu":
-                UI_Activ = UIScreenRepository.GetScreen<UI_GameplayMenu>().gameObject; break;
+                UI_ActivScreen = UIScreenRepository.GetScreen<UI_GameplayMenu>().gameObject; break;
             case "UI_Settings":
-                UI_Activ = UIScreenRepository.GetScreen<UI_Settings>().gameObject; break;
+                UI_ActivScreen = UIScreenRepository.GetScreen<UI_Settings>().gameObject; break;
             case "UI_Win":
-                UI_Activ = UIScreenRepository.GetScreen<UI_Win>().gameObject; break;
+                UI_ActivScreen = UIScreenRepository.GetScreen<UI_Win>().gameObject; break;
             case "UI_Lose":
-                UI_Activ = UIScreenRepository.GetScreen<UI_Lose>().gameObject; break;
+                UI_ActivScreen = UIScreenRepository.GetScreen<UI_Lose>().gameObject; break;
             case "UI_MainMenu":
-                UI_Activ = UIScreenRepository.GetScreen<UI_MainMenu>().gameObject; break;
+                UI_ActivScreen = UIScreenRepository.GetScreen<UI_MainMenu>().gameObject; break;
             case "UI_Saves":
-                UI_Activ = UIScreenRepository.GetScreen<UI_Saves>().gameObject; break;
+                UI_ActivScreen = UIScreenRepository.GetScreen<UI_Saves>().gameObject; break;
 
             case "Back":
-                UI_Activ = UI_PrevActiv; break;
+                UI_ActivScreen = UI_PrevActivScreen; break;
             default:
                 Debug.Log("Error: invalid string parametr in _SetWindow(string windowName)"); break;
         }
 
-        UI_PrevActiv = buffer;
-        UI_Activ.SetActive(true);
+        UI_PrevActivScreen = screenBuffer;
+        UI_ActivScreen.SetActive(true);
     }
 
     public static void _LoadScene(string sceneName)//загрузка сцены. принимает название сцены
@@ -155,10 +153,10 @@ public class UI_Controller : MonoBehaviour
         }
     }
 
-    public static void _SetBuilding(GameObject newBuilding, ConstructionID constructionID)//установка текущего выделеного здания здания
+    public static void _SetBuilding(ConstructionBase newConstruction)//установка текущего выделеного здания здания
     {
         string windowName;
-        switch (constructionID)
+        switch (newConstruction.ConstructionID)
         {
             case (ConstructionID.Town_Hall):
             {
@@ -187,7 +185,7 @@ public class UI_Controller : MonoBehaviour
             }
         }
         
-        building = newBuilding;
+        selectedConstruction = newConstruction;
         _SetWindow(windowName);
     }
 
