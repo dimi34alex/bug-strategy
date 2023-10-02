@@ -38,16 +38,10 @@ public class ConfigsRepository : ScriptableObject
             if (type == _scriptableObjectType)
                 continue;
 
-            while (true)
-            {
-                if (!_configsDictionary.ContainsKey(type))
-                    _configsDictionary.Add(type, (ISingleConfig)config);
-
-                if (type.BaseType != _scriptableObjectType)
-                    type = type.BaseType;
-                else
-                    break;
-            }
+            if (!_configsDictionary.ContainsKey(type))
+                _configsDictionary.Add(type, (ISingleConfig)config);
+            else
+                Debug.LogWarning($"Duplicate [{type}][{config}]");
         }
     }
 
