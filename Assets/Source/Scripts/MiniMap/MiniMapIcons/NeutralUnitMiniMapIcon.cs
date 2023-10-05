@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class NeutralUnitMiniMapIcon : MiniMapIconBase
+﻿namespace MiniMapSystem
 {
-    public override MiniMapID Identifier => MiniMapID.NeutralUnit;
+    public class NeutralUnitMiniMapIcon : MiniMapIconBase
+    {
+        public override MiniMapIconID Identifier => MiniMapIconID.NeutralUnit;
+    }
 }

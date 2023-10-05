@@ -1,13 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
+using MiniMapSystem;
 
-public class ResourceSourceBase : MonoBehaviour, IMiniMapShows, ITriggerable, IUnitTarget
+public class ResourceSourceBase : MonoBehaviour, IMiniMapObject, ITriggerable, IUnitTarget
 {
+    public AffiliationEnum Affiliation => AffiliationEnum.None;
+    public MiniMapObjectType MiniMapObjectType => MiniMapObjectType.ResourceSource;
+    
     public event Action<ITriggerable> OnDisableITriggerableEvent;
     public UnitTargetType TargetType => UnitTargetType.ResourceSource;
-    public MiniMapID MiniMapId => MiniMapID.ResourceSource;
+
     public Transform Transform => transform;
     
     private void OnDisable()

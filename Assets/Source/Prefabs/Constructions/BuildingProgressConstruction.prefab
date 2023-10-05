@@ -786,7 +786,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e8b99f044a8d9428a8f3148581c379, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  affiliationEnum: 1
+  affiliationEnum: 10
   _timerText: {fileID: 589072602223343525}
   pool: {fileID: 0}
   WorkerArrived: 0

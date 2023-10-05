@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 using Random = UnityEngine.Random;
 
 public class MapGeneration : MonoBehaviour
@@ -9,7 +10,6 @@ public class MapGeneration : MonoBehaviour
     [SerializeField] private Vector3 centralPosition;
     [SerializeField] private float height;
     [SerializeField] private float width;
-    private BuildingGridConfig _constructionConfig;
 
     [SerializeField] private List<GameObject> tilesPrefabs;
 
@@ -18,6 +18,8 @@ public class MapGeneration : MonoBehaviour
     [SerializeField] private GameObject bushPrefab;
     [SerializeField] private GameObject grassPrefab;
     [SerializeField] private GameObject cloverPrefab;
+
+    [Inject] private BuildingGridConfig _constructionConfig;
 
     private Vector3 _currentTilePosition;
 
@@ -28,9 +30,6 @@ public class MapGeneration : MonoBehaviour
 
     void Start()
     {
-        _constructionConfig = ConfigsRepository.FindConfig<BuildingGridConfig>() ??
-                              throw new NullReferenceException();
-        
         _currentTilePosition = centralPosition;
         _currentTilePosition.x -= width/2;
         _currentTilePosition.z += height/2;

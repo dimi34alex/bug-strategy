@@ -350,6 +350,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 4294967295
+  useCheckMouseOverUI: 0
   buildingsDictionaryData:
   - constructionID: 2
     constructionModel: {fileID: 1804355251172813621, guid: ffb8c292185cd514094b2e78bf50524d, type: 3}
@@ -357,6 +358,7 @@ MonoBehaviour:
     constructionModel: {fileID: 6979952744372741378, guid: 7896ee1edb85d484fb0d9e495f9fe5dd, type: 3}
   - constructionID: 5
     constructionModel: {fileID: 384104254047004952, guid: 03d961c1ad94baf41922734dfa8897c0, type: 3}
+  _buildings: []
 --- !u!1001 &1626011548
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -449,6 +451,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 245cc41f86a97d44ca9d72c71a3a6374, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitAndGroundLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  targetPositionMarkerPrefab: {fileID: 7016719962065652304, guid: 8f7ee1907c9131446ba0b156c5705bc9, type: 3}
+  ringStep: 0
+  unitsCounRingStep: 0
+  positions: []
   texture: {fileID: 2800000, guid: c8a9df530bc835040a371b34f11b17e9, type: 3}
 --- !u!114 &1635363232
 MonoBehaviour:
@@ -462,7 +471,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3c65214290b0ab458cffd9d96355006, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  units: []
+  movingUnits: []
   group1: []
   group2: []
   group3: []

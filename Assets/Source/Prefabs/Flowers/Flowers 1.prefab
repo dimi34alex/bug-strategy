@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 18148549233656377}
   - component: {fileID: 3664934779829565207}
+  - component: {fileID: 6585905525919560504}
   m_Layer: 0
   m_Name: PollenCounter
   m_TagString: Untagged
@@ -49,6 +50,19 @@ MonoBehaviour:
   isPollinated: 0
   Model: {fileID: 1384668718197465365}
   pollinatedModel: {fileID: 7161246113156744325}
+--- !u!65 &6585905525919560504
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682220080709290541}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 7, z: 0}
 --- !u!1 &3178956870990512173
 GameObject:
   m_ObjectHideFlags: 0

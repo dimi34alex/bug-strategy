@@ -7,9 +7,7 @@ public class MovingUnit : UnitBase
 {
     private StateBehaviorUnit _stateBehaviorUnit;
     public StateBehaviorUnit StateBehaviorUnit => _stateBehaviorUnit;
-
-    public override MiniMapID MiniMapId => MiniMapID.PlayerUnit;
-
+    
     [SerializeField] private NavMeshAgent _navMeshAgent;
 
     private float _startMaxSpeed;

@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efa3e63424f5cb14e8b78fc27d89959a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  affiliationEnum: 1
+  affiliationEnum: 10
   levelSystem:
     levels:
     - maxHealPoints: 1500

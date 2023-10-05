@@ -1,14 +1,15 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using MiniMapSystem;
 
-public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable, IUnitTarget, IMiniMapShows,
+public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable, IUnitTarget, IMiniMapObject,
     SelectableSystem.ISelectable, IAffiliation
 {
     [SerializeField] private UnitVisibleZone _unitVisibleZone;
     [SerializeField] private AffiliationEnum affiliationEnum;
 
-    public abstract MiniMapID MiniMapId { get; }
+    public MiniMapObjectType MiniMapObjectType => MiniMapObjectType.Unit;
 
     protected ResourceStorage _healthStorage { get; set; } = new ResourceStorage(100, 100);
     public IReadOnlyResourceStorage HealthStorage => _healthStorage;

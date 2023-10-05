@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PollenStorage : MonoBehaviour
+public class PollenStorage : ResourceSourceBase
 {
     protected ResourceStorage Pollen = new ResourceStorage(100, 100);
     public float MaxPollen => Pollen.Capacity;
@@ -15,7 +15,7 @@ public class PollenStorage : MonoBehaviour
     public virtual void ExtractPollen(int extracted)
     {
         Pollen.ChangeValue(-extracted);
-        Debug.Log("Осталось пыльцы - " + CurrentPollen);
+        Debug.Log("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ - " + CurrentPollen);
 
         if (CurrentPollen <= 0)
         {

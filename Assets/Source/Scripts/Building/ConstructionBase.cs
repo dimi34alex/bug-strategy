@@ -1,15 +1,16 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using MiniMapSystem;
 
-public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagable, IRepairable, IMiniMapShows,
+public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagable, IRepairable, IMiniMapObject,
     ITriggerable, IUnitTarget, SelectableSystem.ISelectable, IAffiliation
 {
     [SerializeField] private AffiliationEnum affiliationEnum;
 
     public abstract ConstructionID ConstructionID { get; }
     public UnitTargetType TargetType => UnitTargetType.Construction;
-    public MiniMapID MiniMapId => MiniMapID.PlayerBuilding;
+    public MiniMapObjectType MiniMapObjectType => MiniMapObjectType.Construction;
     public virtual Cost Cost { get; }
     public Transform Transform => transform;
 

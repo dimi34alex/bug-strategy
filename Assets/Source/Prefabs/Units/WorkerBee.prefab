@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _unitVisibleZone: {fileID: 1650435371600735881}
-  affiliationEnum: 1
+  affiliationEnum: 10
   _navMeshAgent: {fileID: 6515036035572920544}
   _ability1:
     reloadTimer:

@@ -1,4 +1,8 @@
 public enum AffiliationEnum
 {
-	None, Team1, Team2
-};
+	None = 0,
+	Bees = 10,
+	Ants = 20,
+	Butterflies = 30,
+	Neutral = 40
+}
