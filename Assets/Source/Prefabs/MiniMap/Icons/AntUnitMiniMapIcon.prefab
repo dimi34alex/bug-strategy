@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1242677541286107519}
   - component: {fileID: 7697792668438840453}
   - component: {fileID: 5961236772363687755}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,7 +59,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -85,7 +85,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7606499285038624505}
   - component: {fileID: 2276906469223030787}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: AntUnitMiniMapIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}

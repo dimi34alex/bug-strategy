@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5581493703938403381}
   - component: {fileID: 4546451279101849725}
   - component: {fileID: 7420001542402804129}
-  m_Layer: 12
+  m_Layer: 2
   m_Name: VisibleWarFogZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}

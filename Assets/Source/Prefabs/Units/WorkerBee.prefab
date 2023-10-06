@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7956712992348223770}
   - component: {fileID: 702739659437839307}
   - component: {fileID: 7335186601404253075}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WorkerDuty
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30,7 +30,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5930125467496831600}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &702739659437839307
 SphereCollider:
@@ -99,10 +99,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5625981766639921856}
-  - {fileID: 1873140802775736867}
   - {fileID: 2339902145387600343}
   - {fileID: 8498130350524028732}
   - {fileID: 7956712992348223770}
+  - {fileID: 1873140802775736867}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -325,7 +325,7 @@ Transform:
   m_LocalScale: {x: 0.050000004, y: 0.05000001, z: 1}
   m_Children: []
   m_Father: {fileID: 5930125467496831600}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!212 &8811701056836607592
 SpriteRenderer:
@@ -390,7 +390,7 @@ GameObject:
   - component: {fileID: 1650435371600735881}
   - component: {fileID: 8036019850281766145}
   - component: {fileID: 213024295677493894}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: UnitVisibleZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -409,7 +409,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5930125467496831600}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1650435371600735881
 MonoBehaviour:
@@ -457,7 +457,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4539361436095835699, guid: 2d70e5685dae19548a058ab1382c8671, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4539361436095835699, guid: 2d70e5685dae19548a058ab1382c8671, type: 3}
       propertyPath: m_LocalPosition.x
@@ -465,7 +465,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4539361436095835699, guid: 2d70e5685dae19548a058ab1382c8671, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4539361436095835699, guid: 2d70e5685dae19548a058ab1382c8671, type: 3}
       propertyPath: m_LocalPosition.z

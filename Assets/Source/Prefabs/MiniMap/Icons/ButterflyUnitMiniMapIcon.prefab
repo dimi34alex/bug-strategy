@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8928768599095293540}
   - component: {fileID: 7960252791821719440}
   - component: {fileID: 1971985045983948650}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,7 +59,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -85,7 +85,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4937888249995025213}
   - component: {fileID: 7485768178694941192}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ButterflyUnitMiniMapIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}

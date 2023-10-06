@@ -18,7 +18,7 @@ public class MovingUnit : UnitBase
     [SerializeField] private SomeTestAbility_1 _ability1;
     [SerializeField] private SomeTestAbility_2 _ability2;
 
-    private GameObject WorkerDutyComp;
+    private WorkerDuty _workerDuty;
 
 
     void Start()
@@ -27,7 +27,7 @@ public class MovingUnit : UnitBase
 
         if (gameObject.CompareTag("Worker"))
         {
-            WorkerDutyComp = gameObject.transform.GetChild(4).gameObject;
+            _workerDuty = GetComponentInChildren<WorkerDuty>();
         }
     }
 
@@ -88,8 +88,8 @@ public class MovingUnit : UnitBase
             case "PollenSource":
                 if (gameObject.CompareTag("Worker"))
                 {
-                    WorkerDutyComp.GetComponent<WorkerDuty>().isFindingRes = true;
-                    WorkerDutyComp.GetComponent<WorkerDuty>().WorkingOnGO = target;
+                    _workerDuty.isFindingRes = true;
+                    _workerDuty.WorkingOnGO = target;
                 }
 
                 break;
@@ -97,10 +97,10 @@ public class MovingUnit : UnitBase
             default:
                 if (gameObject.CompareTag("Worker"))
                 {
-                    WorkerDutyComp.GetComponent<WorkerDuty>().isFindingRes = false;
-                    WorkerDutyComp.GetComponent<WorkerDuty>().isGathering = false;
-                    WorkerDutyComp.GetComponent<WorkerDuty>().isBuilding = false;
-                    WorkerDutyComp.GetComponent<WorkerDuty>().isFindingBuild = false;
+                    _workerDuty.isFindingRes = false;
+                    _workerDuty.isGathering = false;
+                    _workerDuty.isBuilding = false;
+                    _workerDuty.isFindingBuild = false;
                 }
 
                 break;

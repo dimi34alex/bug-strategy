@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7086598473764466884}
   - component: {fileID: 1168095220112419980}
   - component: {fileID: 5320142211014759760}
-  m_Layer: 12
+  m_Layer: 7
   m_Name: VisibleWarFogZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -293,6 +293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78b87968bd69f70488cf1d63c1f55616, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  affiliationEnum: 0
 --- !u!54 &-3915973153052986073
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4539361436095835699}
   - component: {fileID: 7877576704086922750}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: UnitUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9469dba7f48e96a44a7fefbbe38be534, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectableObject: {fileID: 0}
+  selectable: {fileID: 0}
   canvas: {fileID: 6845218963395895088}
   healthBar: {fileID: 6238535690163230552}
   selectionField: {fileID: 6254829889234068512}

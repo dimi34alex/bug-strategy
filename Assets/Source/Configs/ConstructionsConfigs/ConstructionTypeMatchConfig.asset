@@ -18,12 +18,12 @@ MonoBehaviour:
   - ConstructionType: 1
     ConstructionsID: 01000000
   - ConstructionType: 2
-    ConstructionsID: 02000000
-  - ConstructionType: 3
-    ConstructionsID: 03000000
-  - ConstructionType: 4
-    ConstructionsID: 04000000
-  - ConstructionType: 5
     ConstructionsID: 05000000
-  - ConstructionType: 10
+  - ConstructionType: 3
     ConstructionsID: 0a000000
+  - ConstructionType: 4
+    ConstructionsID: 0f000000
+  - ConstructionType: 5
+    ConstructionsID: 14000000
+  - ConstructionType: 10
+    ConstructionsID: 19000000

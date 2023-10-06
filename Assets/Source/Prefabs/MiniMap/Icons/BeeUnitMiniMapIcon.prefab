@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3158862176029853942}
   - component: {fileID: 2321113345478058267}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BeeUnitMiniMapIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,7 +61,7 @@ GameObject:
   - component: {fileID: 8621892684852691425}
   - component: {fileID: 4248368626722331935}
   - component: {fileID: 1852994695798133253}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +109,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:

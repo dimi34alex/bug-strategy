@@ -113,7 +113,7 @@ GameObject:
   - component: {fileID: 4180977145701944420}
   - component: {fileID: 3651086426210877734}
   - component: {fileID: 3610194550485185179}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BattleUnit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -290,7 +290,7 @@ GameObject:
   - component: {fileID: 5949649818072816824}
   - component: {fileID: 6676504786905905511}
   - component: {fileID: 4415644789587581382}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: UnitVisibleZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}

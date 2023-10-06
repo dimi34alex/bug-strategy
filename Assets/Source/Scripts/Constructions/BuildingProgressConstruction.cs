@@ -41,7 +41,7 @@ public class BuildingProgressConstruction : ConstructionBase
         {
             _timerText.text = $"{timer.SecsToMins()}";
             yield return new WaitForSeconds(1f);
-            if (currentWorker.gameObject.transform.GetChild(4).GetComponent<WorkerDuty>().isBuilding && WorkerArrived)
+            if (currentWorker.gameObject.transform.GetComponentInChildren<WorkerDuty>().isBuilding && WorkerArrived)
             {
                 timer--;
             }
@@ -51,7 +51,7 @@ public class BuildingProgressConstruction : ConstructionBase
 
         yield return new WaitForSeconds(1f);
 		BuildingProgressState = BuildingProgressState.Completed;
-        currentWorker.gameObject.transform.GetChild(4).GetComponent<WorkerDuty>().isBuilding = false;
+        currentWorker.gameObject.transform.GetComponentInChildren<WorkerDuty>().isBuilding = false;
 
 
         OnTimerEnd?.Invoke(this);

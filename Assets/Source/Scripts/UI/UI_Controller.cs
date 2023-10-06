@@ -62,27 +62,27 @@ public class UI_Controller : MonoBehaviour
     #region Spawn of buildings
     public static void _SpawnTownHall()
     {
-        builder.SpawnMovableBuilding(ConstructionID.Town_Hall);
+        builder.SpawnConstructionMovableModel(ConstructionID.Town_Hall);
     }
     
     public static void _SpawnBarrack()
     {
-        builder.SpawnMovableBuilding(ConstructionID.Barrack);
+        builder.SpawnConstructionMovableModel(ConstructionID.Barrack);
     }
     
     public static void _SpawnBeeHouse()
     {
-        builder.SpawnMovableBuilding(ConstructionID.BeeHouse);
+        builder.SpawnConstructionMovableModel(ConstructionID.BeeHouse);
     }
     
     public static void _SpawnWaxFactory()
     {
-        builder.SpawnMovableBuilding(ConstructionID.Bees_Wax_Produce_Construction);
+        builder.SpawnConstructionMovableModel(ConstructionID.Bees_Wax_Produce_Construction);
     }
 
     public static void _SpawnStickyTile()
     {
-        builder.SpawnMovableBuilding(ConstructionID.Sticky_Tile_Construction);
+        builder.SpawnConstructionMovableModel(ConstructionID.Sticky_Tile_Construction);
     }
 
     #endregion

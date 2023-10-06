@@ -11,6 +11,11 @@ public class StickyTile : ConstructionBase
     private Cost _cost;
     public override Cost Cost => _cost;
 
+    protected override void OnAwake()
+    {
+        _healthStorage = new ResourceStorage(100, 100);
+    }
+
     protected override void OnStart()
     {
         _triggerBehaviour.EnterEvent += OnUnitEnter;

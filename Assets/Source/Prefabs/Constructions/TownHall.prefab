@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 753298931353431248}
   - component: {fileID: 8653964415574421656}
   - component: {fileID: 2447732268909087044}
-  m_Layer: 12
+  m_Layer: 7
   m_Name: VisibleWarFogZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30,7 +30,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1274404536982251029}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8653964415574421656
 MonoBehaviour:
@@ -89,9 +89,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 744820234656374079}
   - {fileID: 7004317949016415637}
   - {fileID: 753298931353431248}
+  - {fileID: 744820234656374079}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -234,19 +234,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1804355251172813621, guid: ffb8c292185cd514094b2e78bf50524d, type: 3}
       propertyPath: m_Name
-      value: TownHallBuild
-      objectReference: {fileID: 0}
-    - target: {fileID: 1804355251172813621, guid: ffb8c292185cd514094b2e78bf50524d, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2056343129632516586, guid: ffb8c292185cd514094b2e78bf50524d, type: 3}
-      propertyPath: m_Layer
-      value: 0
+      value: TownHallMovableModel
       objectReference: {fileID: 0}
     - target: {fileID: 2678729469616822426, guid: ffb8c292185cd514094b2e78bf50524d, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2678729469616822426, guid: ffb8c292185cd514094b2e78bf50524d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -297,16 +289,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: f8942df3ef59c894c9b49b9034f00253, type: 2}
     - target: {fileID: 4351874455037664214, guid: ffb8c292185cd514094b2e78bf50524d, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4351874455037664214, guid: ffb8c292185cd514094b2e78bf50524d, type: 3}
       propertyPath: m_IsActive
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5918854304423215760, guid: ffb8c292185cd514094b2e78bf50524d, type: 3}
-      propertyPath: m_Layer
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5918854304423215760, guid: ffb8c292185cd514094b2e78bf50524d, type: 3}
       propertyPath: m_IsActive
@@ -367,6 +351,10 @@ PrefabInstance:
       propertyPath: selectableGameObject
       value: 
       objectReference: {fileID: 6644387960813269008}
+    - target: {fileID: 7252788908018469887, guid: 206be7d484850b04f89116fec19c5c6e, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7252788908018469887, guid: 206be7d484850b04f89116fec19c5c6e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

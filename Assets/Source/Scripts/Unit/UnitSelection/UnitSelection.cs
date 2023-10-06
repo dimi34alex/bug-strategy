@@ -188,7 +188,7 @@ public class UnitSelection : MonoBehaviour
 
     private void SelectHighlighted()
     {
-        foreach (MovingUnit unit in pool.movingUnits)
+	    foreach (MovingUnit unit in pool.movingUnits)
         {
             float x = unit.transform.position.x;
             float z = unit.transform.position.z;

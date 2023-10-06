@@ -1,71 +1,48 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 using Zenject;
 using UnityEngine.EventSystems;
 using System.Linq;
 
-[Serializable]
-struct BuildingDictionaryData
-{
-    public ConstructionID constructionID;
-    [Tooltip("Movable prefab(/Prefabs/Constructions/MovableModel), NOT MAIN PREFAB")]
-    public GameObject constructionModel;
-}
 public class UserBuilder : CycleInitializerBase
 {
     [Inject] private readonly IConstructionFactory _constructionFactory;
-    [SerializeField] LayerMask layerMask;
     
-    [SerializeField] private bool useCheckMouseOverUI;
+    [SerializeField] private SerializableDictionary<ConstructionID, GameObject> constructionMovableModels;
+    [SerializeField] private ConstructionBase[] constructions;
+    private Dictionary<ConstructionID, ConstructionBase> _constructionWithID;
 
-    [SerializeField] private List<BuildingDictionaryData> buildingsDictionaryData;
-    [SerializeField] private Dictionary<ConstructionID, GameObject> _movableBuildingsWithID;
-    [SerializeField] private ConstructionBase[] _buildings;
-    private Dictionary<ConstructionID, ConstructionBase> _buildingsWithID;
-
-    public Dictionary<ConstructionID, ConstructionBase> BuildingsWithID => _buildingsWithID;
-
-    GameObject currentBuilding;
-    ConstructionID currentConstructionID;
+    GameObject _currentConstructionMovableModel;
+    ConstructionID _currentConstructionID;
     
-    bool spawnBuilding = false;
+    bool _spawnConstruction = false;
     private float _numberTownHall = 0;
-    private UnitPool pool;
-    private GameObject currentWorker;
+    private UnitPool _pool;
+    
     protected override void OnInit()
     {
-        _movableBuildingsWithID = new Dictionary<ConstructionID, GameObject>();
+        foreach (var construct in constructions)
+            construct.CalculateCost();
 
-        foreach (var element in _buildings)
-            element.CalculateCost();
-
-        _buildingsWithID = _buildings.ToDictionary(x => x.ConstructionID, x => x);
-
-
-
+        _constructionWithID = constructions.ToDictionary(x => x.ConstructionID, x => x);
+        
         GameObject controller = GameObject.FindGameObjectWithTag("GameController");
-        pool = controller.GetComponent<UnitPool>();
-
-        for (int n = 0; n < buildingsDictionaryData.Count; n++)
-            _movableBuildingsWithID.Add(buildingsDictionaryData[n].constructionID, buildingsDictionaryData[n].constructionModel);
+        _pool = controller.GetComponent<UnitPool>();
     }
 
     protected override void OnUpdate()
     {
-        if (spawnBuilding)
+        if (_spawnConstruction)
         {
-            _MoveBuilding(currentBuilding);
+            MoveConstructionMovableModel();
         }
         else
         {
-            _Main();
+            Main();
         }
     }
 
-    private void _Main()
+    private void Main()
     {
         if (Input.GetButtonDown("Fire1"))
         {
@@ -77,26 +54,26 @@ public class UserBuilder : CycleInitializerBase
                 selectedConstruction.Select();
                 UI_Controller._SetBuilding(selectedConstruction);
             }
-            else if (!MouseOverUI())
+            else if (!MouseCursorOverUI())
             {
                 UI_Controller._SetWindow("UI_GameplayMain");
             }
         }
     }
 
-    private bool MouseOverUI()//проверка что курсор игрока не наведен на UI/UX
+    private bool MouseCursorOverUI()
     {
         return EventSystem.current.IsPointerOverGameObject();
     }
 
-    private void _MoveBuilding(GameObject _currentBuilding)//перемещение здания по карте
+    private void MoveConstructionMovableModel()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if ((!MouseOverUI() || !useCheckMouseOverUI) && Physics.Raycast(ray, out hit, 100F, CustomLayerID.Construction_Ground.Cast<int>(), QueryTriggerInteraction.Ignore)) //если рэйкаст сталкиваеться с чем нибудь, задаем зданию позицию точки столкновения рэйкаста
+        if (!MouseCursorOverUI() && Physics.Raycast(ray, out hit, 100F, CustomLayerID.Construction_Ground.Cast<int>(), QueryTriggerInteraction.Ignore)) //если рэйкаст сталкиваеться с чем нибудь, задаем зданию позицию точки столкновения рэйкаста
         {
-            _currentBuilding.transform.position = FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(ray.GetPoint(hit.distance));
+            _currentConstructionMovableModel.transform.position = FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(ray.GetPoint(hit.distance));
 
             if (Input.GetButtonDown("Fire1"))//подтверждение строительства здания
             {
@@ -104,43 +81,42 @@ public class UserBuilder : CycleInitializerBase
                 {
                     if (!hit.collider.GetComponent<Tile>().Visible)
                     {
-                        Destroy(_currentBuilding);
-                        spawnBuilding = false;
+                        Destroy(_currentConstructionMovableModel);
+                        _spawnConstruction = false;
                         return;
                     }
                 }
                 
-                foreach (MovingUnit unit in pool.movingUnits)
+                foreach (MovingUnit unit in _pool.movingUnits)
                 {
-                    if (unit.IsSelected && unit.gameObject.CompareTag("Worker") && CanBuyConstruction(currentConstructionID))
+                    if (unit.IsSelected && unit.gameObject.CompareTag("Worker") && CanBuyConstruction(_currentConstructionID))
                     {
-                        BuyConstruction(currentConstructionID);
+                        BuyConstruction(_currentConstructionID);
 
                         unit.SetDestination(hit.point);
-                        unit.gameObject.transform.GetChild(4).GetComponent<WorkerDuty>().isFindingBuild = true;
-                   
-                        Spawn(unit, currentConstructionID);
+                        unit.gameObject.transform.GetComponentInChildren<WorkerDuty>().isFindingBuild = true;
 
-                        Destroy(_currentBuilding);
-                        spawnBuilding = false;
+                        SpawnConstruction(unit, _currentConstructionID);
+
+                        Destroy(_currentConstructionMovableModel);
+                        _spawnConstruction = false;
                         break;
                     }
                 }
             }
             else if (Input.GetButtonDown("Fire2"))//отмена начала строительства
             {
-                Destroy(_currentBuilding);
-                spawnBuilding = false;
+                Destroy(_currentConstructionMovableModel);
+                _spawnConstruction = false;
             }
         }
     }
-
-
+    
     private bool CanBuyConstruction(ConstructionID id )
     {
         bool flagCanBuy = true;
 
-        foreach (var element in _buildingsWithID[id].Cost.ResourceCost)
+        foreach (var element in _constructionWithID[id].Cost.ResourceCost)
              if (element.Value > ResourceGlobalStorage.GetResource(element.Key).CurrentValue)
                  flagCanBuy = false;
 
@@ -149,14 +125,14 @@ public class UserBuilder : CycleInitializerBase
 
     private void BuyConstruction(ConstructionID id)
     {
-        foreach (var element in _buildingsWithID[id].Cost.ResourceCost)
+        foreach (var element in _constructionWithID[id].Cost.ResourceCost)
             ResourceGlobalStorage.GetResource(element.Key).SetValue(ResourceGlobalStorage.GetResource(element.Key).CurrentValue - element.Value);
     }
 
 
-    private void Spawn(MovingUnit unit, ConstructionID id)
+    private void SpawnConstruction(MovingUnit unit, ConstructionID id)
     {
-        if (id!= ConstructionID.Town_Hall || (id == ConstructionID.Town_Hall && _numberTownHall < 1))
+        if (id != ConstructionID.Town_Hall || _numberTownHall < 1)
         {
             if (id == ConstructionID.Town_Hall)
                 _numberTownHall++;
@@ -196,15 +172,15 @@ public class UserBuilder : CycleInitializerBase
         construction.transform.position = position;
     }
 
-    public void SpawnMovableBuilding(ConstructionID constructionID)
+    public void SpawnConstructionMovableModel(ConstructionID constructionID)
     {
-        if (currentBuilding != null)
+        if (_currentConstructionMovableModel != null)
         {
-            Destroy(currentBuilding.gameObject);
+            Destroy(_currentConstructionMovableModel.gameObject);
         }
 
-        currentConstructionID = constructionID;
-        spawnBuilding = true;
-        currentBuilding = Instantiate(_movableBuildingsWithID[constructionID]);
+        _currentConstructionID = constructionID;
+        _spawnConstruction = true;
+        _currentConstructionMovableModel = Instantiate(constructionMovableModels[constructionID]);
     }
 }
