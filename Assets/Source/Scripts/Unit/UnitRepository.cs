@@ -25,10 +25,10 @@ public class UnitRepository : IUnitRepository
 
     public void AddUnit(UnitBase unit)
     {
-        if (!_units.ContainsKey(unit.UnitType))
+     /*   if (!_units.ContainsKey(unit.UnitType))
             _units.Add(unit.UnitType, new List<UnitBase>(5));
 
-        _units[unit.UnitType].Add(unit);
+        _units[unit.UnitType].Add(unit);*/
     }
 
     public TUnit TryGetUnit<TUnit>(UnitType unitType, Predicate<TUnit> predicate = null, bool remove = false) where TUnit : UnitBase

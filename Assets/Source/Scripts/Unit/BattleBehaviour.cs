@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BattleBehaviour : MonoBehaviour, IDamageApplicator
@@ -14,19 +12,19 @@ public class BattleBehaviour : MonoBehaviour, IDamageApplicator
 
     public float Damage { get; set; }
 
-    void Start()
+    private void Start()
     {
         unitsTeam = gameObject.transform.parent.GetComponent<IAffiliation>().Affiliation;
 
         Damage = damageAmount;
     }
 
-    void Update()
+    private void Update()
     {
         
     }
 
-    void OnTriggerStay(Collider collider)
+    private void OnTriggerStay(Collider collider)
     {
         if (collider.gameObject.tag == "Unit" || collider.gameObject.tag == "Worker")
         {

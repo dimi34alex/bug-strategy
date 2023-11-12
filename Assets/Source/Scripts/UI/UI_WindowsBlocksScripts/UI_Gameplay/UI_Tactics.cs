@@ -14,23 +14,24 @@ public class UI_Tactics : UIScreen
 
     private void OnTactic1Clicked()
     {
-        foreach (var unit in _unitSelection.Pool.movingUnits)
-            unit.SetStateBehaviorUnit(StateBehaviorUnitID.Attack);
+        ///
+       /* foreach (var unit in _unitSelection.Pool.movingUnits)
+            unit.SetStateBehaviorUnit(StateBehaviorUnitID.Attack);*/
 
         Debug.Log("Set attack state");
     }
 
     private void OnTactic2Clicked()
     {
-        foreach (var unit in _unitSelection.Pool.movingUnits)
-            unit.SetStateBehaviorUnit(StateBehaviorUnitID.Deffense);
+/*        foreach (var unit in _unitSelection.Pool.movingUnits)
+            unit.SetStateBehaviorUnit(StateBehaviorUnitID.Deffense);*/
         Debug.Log("Set deffense state");
     }
 
     private void OnTactic3Clicked()
     {
-        foreach (var unit in _unitSelection.Pool.movingUnits)
-            unit.SetStateBehaviorUnit(StateBehaviorUnitID.Neutral);
+/*        foreach (var unit in _unitSelection.Pool.movingUnits)
+            unit.SetStateBehaviorUnit(StateBehaviorUnitID.Neutral);*/
         Debug.Log("Set neutral state");
     }
 

@@ -76,10 +76,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5930125467496831600}
   - component: {fileID: 7674672560492931282}
-  - component: {fileID: 3245685314154640009}
   - component: {fileID: 6515036035572920544}
   - component: {fileID: 3856705473339230021}
   - component: {fileID: 4223872409673262877}
+  - component: {fileID: 1391565382963805061}
   m_Layer: 11
   m_Name: WorkerBee
   m_TagString: Worker
@@ -118,31 +118,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8918a08bc7222df4286503812f9204c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3245685314154640009
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3549433375624800588}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e41bc2482d20b894e8cd8a8344affa7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _unitVisibleZone: {fileID: 1650435371600735881}
-  affiliationEnum: 10
-  _navMeshAgent: {fileID: 6515036035572920544}
-  _ability1:
-    reloadTimer:
-      _currentValue: 0
-      _capacity: 1
-    abilityIcon: {fileID: 21300000, guid: 2fd7fc339913f5a49a5fcd333cd94e97, type: 3}
-  _ability2:
-    reloadTimer:
-      _currentValue: 0
-      _capacity: 1
-    abilityIcon: {fileID: 21300000, guid: 2fd7fc339913f5a49a5fcd333cd94e97, type: 3}
 --- !u!195 &6515036035572920544
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -194,6 +169,30 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1391565382963805061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3549433375624800588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a550958645bbc1345b284af26ce37086, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _unitVisibleZone: {fileID: 1650435371600735881}
+  _navMeshAgent: {fileID: 6515036035572920544}
+  _ability1:
+    reloadTimer:
+      _currentValue: 0
+      _capacity: 0
+    abilityIcon: {fileID: 0}
+  _ability2:
+    reloadTimer:
+      _currentValue: 0
+      _capacity: 0
+    abilityIcon: {fileID: 0}
 --- !u!1 &5723541658055598804
 GameObject:
   m_ObjectHideFlags: 0
@@ -526,23 +525,23 @@ PrefabInstance:
     - target: {fileID: 7877576704086922750, guid: 2d70e5685dae19548a058ab1382c8671, type: 3}
       propertyPath: unit
       value: 
-      objectReference: {fileID: 3245685314154640009}
+      objectReference: {fileID: 0}
     - target: {fileID: 7877576704086922750, guid: 2d70e5685dae19548a058ab1382c8671, type: 3}
       propertyPath: _unit
       value: 
-      objectReference: {fileID: 3245685314154640009}
+      objectReference: {fileID: 0}
     - target: {fileID: 7877576704086922750, guid: 2d70e5685dae19548a058ab1382c8671, type: 3}
       propertyPath: selectable
       value: 
-      objectReference: {fileID: 3245685314154640009}
+      objectReference: {fileID: 0}
     - target: {fileID: 7877576704086922750, guid: 2d70e5685dae19548a058ab1382c8671, type: 3}
       propertyPath: selectableObject
       value: 
-      objectReference: {fileID: 3245685314154640009}
+      objectReference: {fileID: 0}
     - target: {fileID: 7877576704086922750, guid: 2d70e5685dae19548a058ab1382c8671, type: 3}
       propertyPath: selectableGameObject
       value: 
-      objectReference: {fileID: 3245685314154640009}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d70e5685dae19548a058ab1382c8671, type: 3}
 --- !u!4 &1873140802775736867 stripped

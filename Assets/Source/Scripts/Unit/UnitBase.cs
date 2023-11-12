@@ -7,28 +7,22 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
     SelectableSystem.ISelectable, IAffiliation
 {
     [SerializeField] private UnitVisibleZone _unitVisibleZone;
-    [SerializeField] private AffiliationEnum affiliationEnum;
-
-    public MiniMapObjectType MiniMapObjectType => MiniMapObjectType.Unit;
 
     protected ResourceStorage _healthStorage { get; set; } = new ResourceStorage(100, 100);
-    public IReadOnlyResourceStorage HealthStorage => _healthStorage;
-    protected List<AbilityBase> _abilites = new List<AbilityBase>();
-    public IReadOnlyList<AbilityBase> Abilities => _abilites;
-
     protected EntityStateMachine _stateMachine;
+    protected List<AbilityBase> _abilites = new List<AbilityBase>();
 
+    public IReadOnlyResourceStorage HealthStorage => _healthStorage;
+    public IReadOnlyList<AbilityBase> Abilities => _abilites;
     public EntityStateMachine StateMachine => _stateMachine;
-
     public bool IsDied => _healthStorage.CurrentValue < 1f;
     public UnitPathData CurrentPathData { get; private set; }
     public UnitVisibleZone VisibleZone => _unitVisibleZone;
 
-    public abstract UnitType UnitType { get; }
-
     public Transform Transform => transform;
     public UnitTargetType TargetType => UnitTargetType.Other_Unit;
     public bool IsSelected { get; private set; }
+    public MiniMapObjectType MiniMapObjectType => MiniMapObjectType.Unit;
 
     public event Action<UnitBase> OnUnitPathChange;
     public event Action<UnitBase> OnUnitDied;
@@ -36,14 +30,14 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
     public event Action OnSelect;
     public event Action OnDeselect;
 
-    public AffiliationEnum Affiliation => affiliationEnum;
+    public abstract AffiliationEnum Affiliation { get; }
     
     public void TakeDamage(IDamageApplicator damageApplicator)
     {
         if (IsDied)
         {
             Debug.Log("���� " + this.gameObject.name + " �������� ");
-            Destroy(this.gameObject);
+            Destroy(gameObject);
             return;
         }
 
@@ -52,12 +46,6 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
 
         if (IsDied)
             OnUnitDied?.Invoke(this);
-    }
-
-    public void SetPathData(UnitPathData pathData)
-    {
-        CurrentPathData = pathData;
-        OnUnitPathChange?.Invoke(this);
     }
 
     protected virtual void OnDamaged() { }
@@ -81,22 +69,5 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
     private void OnDisable()
     {
         OnDisableITriggerableEvent?.Invoke(this);
-    }
-}
-
-
-public class StateBehaviorUnit
-{
-    private StateBehaviorUnitID _stateBehaviorUnitID;
-    public StateBehaviorUnitID StateBehaviorUnitID => _stateBehaviorUnitID;
-
-    public StateBehaviorUnit()
-    {
-        _stateBehaviorUnitID = StateBehaviorUnitID.Attack;
-    }
-
-    public void SetID(StateBehaviorUnitID id)
-    {
-        _stateBehaviorUnitID = id;
     }
 }

@@ -28,11 +28,11 @@ public class Test_UnitUI : MonoBehaviour, IDamageApplicator
     
     public void _UseFirstAbility()
     {
-        TestAlonBee.UseFirstAbility();
+        TestAlonBee.UseAbility(1);
     }   
     public void _UseSecondAbility()
     {
-        TestAlonBee.UseSecondAbility();
+        TestAlonBee.UseAbility(2);
     }
     
 }
