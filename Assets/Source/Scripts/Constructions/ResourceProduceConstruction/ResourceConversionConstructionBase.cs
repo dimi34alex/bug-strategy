@@ -1,6 +1,7 @@
-﻿
+﻿using ConstructionLevelSystem;
+
 public abstract class ResourceConversionConstructionBase<TBuildingLevel> : ResourceProduceConstructionBase<TBuildingLevel>
-    where TBuildingLevel : BuildingLevelBase
+    where TBuildingLevel : ConstructionLevelBase
 {
     public abstract ResourceConversionCore ResourceConversionCore { get; }
     public override ResourceProduceCoreBase ResourceProduceCoreBase => ResourceConversionCore;

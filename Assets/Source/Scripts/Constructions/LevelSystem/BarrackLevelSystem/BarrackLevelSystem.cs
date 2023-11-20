@@ -1,48 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using System;
 using UnitsRecruitingSystem;
+using UnityEngine;
 
-[Serializable]
-public class BarrackLevelSystem : BuildingLevelSystemBase<BarrackLevel>
+namespace ConstructionLevelSystem
 {
-    private BeesRecruiting _beesRecruiting;
-    
-    public BarrackLevelSystem(BuildingLevelSystemBase<BarrackLevel> buildingLevelSystemBase, ResourceStorage healPoints,
-        BeesRecruiting beesRecruiting) : base(buildingLevelSystemBase, healPoints)
+    [Serializable]
+    public class BarrackLevelSystem : ConstructionLevelSystemBase<BarrackLevel>
     {
-        _beesRecruiting = beesRecruiting;
-    }
-    
-    public override void NextLevel()
-    {
-        try
-        {
-            base.NextLevel();
-        }
-        catch (Exception e)
-        {
-            UI_Controller._ErrorCall(e.Message);
-            return;
-        }
-        
-        SpendResources();
-        currentLevelNum++;
-            
-        _beesRecruiting.AddStacks(CurrentLevel.RecruitingSize);
-        _beesRecruiting.SetNewDatas(CurrentLevel.BeesRecruitingData);
+        private UnitsRecruiter<BeesRecruitingID> _recruiter;
 
-        if (HealPoints.CurrentValue >= HealPoints.Capacity)
+        public BarrackLevelSystem(ConstructionLevelSystemBase<BarrackLevel> constructionLevelSystemBase,
+            Transform spawnPosition, ref ResourceStorage healthStorage,
+            ref UnitsRecruiter<BeesRecruitingID> recruiter) : base(constructionLevelSystemBase, ref healthStorage)
         {
-            HealPoints.SetCapacity(CurrentLevel.MaxHealPoints);
-            HealPoints.SetValue(CurrentLevel.MaxHealPoints);
-        }
-        else
-        {
-            HealPoints.SetCapacity(CurrentLevel.MaxHealPoints);
+            _recruiter = recruiter = new UnitsRecruiter<BeesRecruitingID>(
+                constructionLevelSystemBase.CurrentLevel.RecruitingSize,
+                spawnPosition,
+                constructionLevelSystemBase.CurrentLevel.BeesRecruitingData);
         }
 
-        Debug.Log("Building LVL = " + CurrentLevelNum);
+        protected override void LevelUpLogic()
+        {
+            base.LevelUpLogic();
+
+            _recruiter.AddStacks(CurrentLevel.RecruitingSize);
+            _recruiter.SetNewDatas(CurrentLevel.BeesRecruitingData);
+        }
     }
 }

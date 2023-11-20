@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnitsRecruitingSystem;
 
-[Serializable]
-public class BarrackLevel : BuildingLevelBase
+namespace ConstructionLevelSystem
 {
-    [SerializeField][Range(1, 6)] int recruitingSize = 1;
-    [SerializeField] private List<UnitRecruitingData<BeesRecruitingID>> beesRecruitingData;
+    [Serializable]
+    public class BarrackLevel : ConstructionLevelBase
+    {
+        [SerializeField] [Range(1, 6)] private int recruitingSize = 1;
+        [SerializeField] private List<UnitRecruitingData<BeesRecruitingID>> beesRecruitingData;
 
-    public int RecruitingSize => recruitingSize;
-    public List<UnitRecruitingData<BeesRecruitingID>> BeesRecruitingData { get { return beesRecruitingData; } }
+        public int RecruitingSize => recruitingSize;
+        public IReadOnlyList<UnitRecruitingData<BeesRecruitingID>> BeesRecruitingData => beesRecruitingData;
+    }
 }

@@ -1,3 +1,4 @@
+using ConstructionLevelSystem;
 using UnityEngine;
 
 public class BeesWaxProduceConstruction : ResourceConversionConstructionBase<BeesWaxProduceLevel>
@@ -13,10 +14,8 @@ public class BeesWaxProduceConstruction : ResourceConversionConstructionBase<Bee
     protected override void OnAwake()
     {
         base.OnAwake();
-        
-        _resourceConversionCore = new ResourceConversionCore(CurrentLevel.ResourceConversionProccessInfo);
-        
-        levelSystem = new BeesWaxProduceLevelSystem(levelSystem, _healthStorage, _resourceConversionCore);
+
+        levelSystem = new BeesWaxProduceLevelSystem(levelSystem, ref _healthStorage, ref _resourceConversionCore);
 
         _updateEvent += OnUpdate;
     }

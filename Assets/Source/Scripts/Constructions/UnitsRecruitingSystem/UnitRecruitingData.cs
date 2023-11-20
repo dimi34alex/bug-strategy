@@ -20,5 +20,16 @@ namespace UnitsRecruitingSystem
         public float SpawnPauseTime => spawnPauseTime;
         public GameObject UnitPrefab => unitPrefab;
         public IReadOnlyDictionary<ResourceID, int> Costs => costs;
+
+        public UnitRecruitingData(TEnum id, float recruitingTime, int stackSize, float spawnPauseTime, 
+            GameObject unitPrefab, SerializableDictionary<ResourceID, int> costs)
+        {
+            currentId = id;
+            this.recruitingTime = recruitingTime;
+            this.stackSize = stackSize;
+            this.spawnPauseTime = spawnPauseTime;
+            this.unitPrefab = unitPrefab;
+            this.costs = costs;
+        }
     }
 }

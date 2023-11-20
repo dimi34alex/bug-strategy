@@ -1,46 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using System;
 
-[Serializable]
-public class BeesWaxProduceLevelSystem : BuildingLevelSystemBase<BeesWaxProduceLevel>
+namespace ConstructionLevelSystem
 {
-    private ResourceConversionCore _resourceConversionCore;
-    
-    public BeesWaxProduceLevelSystem(BuildingLevelSystemBase<BeesWaxProduceLevel> buildingLevelSystemBase, ResourceStorage healPoints,
-        ResourceConversionCore resourceConversionCore) : base(buildingLevelSystemBase, healPoints)
+    [Serializable]
+    public class BeesWaxProduceLevelSystem : ConstructionLevelSystemBase<BeesWaxProduceLevel>
     {
-        _resourceConversionCore = resourceConversionCore;
-    }
-    
-    public override void NextLevel()
-    {
-        try
-        {
-            base.NextLevel();
-        }
-        catch (Exception e)
-        {
-            UI_Controller._ErrorCall(e.Message);
-            return;
-        }
-        
-        SpendResources();
-        currentLevelNum++;
+        private ResourceConversionCore _resourceConversionCore;
 
-        _resourceConversionCore.SetResourceProduceProccessInfo(CurrentLevel.ResourceConversionProccessInfo);
-            
-        if (HealPoints.CurrentValue >= HealPoints.Capacity)
+        public BeesWaxProduceLevelSystem(ConstructionLevelSystemBase<BeesWaxProduceLevel> constructionLevelSystemBase,
+            ref ResourceStorage healthStorage, ref ResourceConversionCore resourceConversionCore)
+            : base(constructionLevelSystemBase, ref healthStorage)
         {
-            HealPoints.SetCapacity(CurrentLevel.MaxHealPoints);
-            HealPoints.SetValue(CurrentLevel.MaxHealPoints);
-        }
-        else
-        {
-            HealPoints.SetCapacity(CurrentLevel.MaxHealPoints);
+            _resourceConversionCore = resourceConversionCore =
+                new ResourceConversionCore(constructionLevelSystemBase.CurrentLevel.ResourceConversionProccessInfo);
         }
 
-        Debug.Log("Building LVL = " + CurrentLevelNum);
+        protected override void LevelUpLogic()
+        {
+            base.LevelUpLogic();
+
+            _resourceConversionCore.SetResourceProduceProccessInfo(CurrentLevel.ResourceConversionProccessInfo);
+        }
     }
 }

@@ -1,66 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using System;
 using UnitsRecruitingSystem;
+using UnityEngine;
 
-[Serializable]
-public class TownHallLevelSystem : BuildingLevelSystemBase <TownHallLevel>
+namespace ConstructionLevelSystem
 {
-    private BeesRecruiting _beesRecruiting;
-    
-    public TownHallLevelSystem(BuildingLevelSystemBase<TownHallLevel> buildingLevelSystemBase, ResourceStorage healPoints,
-        BeesRecruiting beesRecruiting) : base(buildingLevelSystemBase, healPoints)
+    [Serializable]
+    public class TownHallLevelSystem : ConstructionLevelSystemBase<TownHallLevel>
     {
-        _beesRecruiting = beesRecruiting;
-        
-        ResourceGlobalStorage.ChangeCapacity(ResourceID.Pollen, buildingLevelSystemBase.CurrentLevel.PollenCapacity);
-        ResourceGlobalStorage.ChangeCapacity(ResourceID.Bees_Wax, buildingLevelSystemBase.CurrentLevel.BeesWaxCapacity);
-        ResourceGlobalStorage.ChangeCapacity(ResourceID.Housing, buildingLevelSystemBase.CurrentLevel.HousingCapacity);
-        ResourceGlobalStorage.ChangeCapacity(ResourceID.Honey, buildingLevelSystemBase.CurrentLevel.HoneyCapacity);
-        
-        ResourceGlobalStorage.ChangeValue(ResourceID.Housing, buildingLevelSystemBase.CurrentLevel.HousingCapacity);
-    }
+        private UnitsRecruiter<BeesRecruitingID> _recruiter;
 
-    public override void NextLevel()
-    {
-        try
+        public TownHallLevelSystem(ConstructionLevelSystemBase<TownHallLevel> constructionLevelSystemBase,
+            Transform spawnPosition, ref ResourceStorage healthStorage,
+            ref UnitsRecruiter<BeesRecruitingID> recruiter) : base(constructionLevelSystemBase, ref healthStorage)
         {
-            base.NextLevel();
-        }
-        catch (Exception e)
-        {
-            UI_Controller._ErrorCall(e.Message);
-            return;
+            _recruiter = recruiter = new UnitsRecruiter<BeesRecruitingID>(
+                constructionLevelSystemBase.CurrentLevel.RecruitingSize,
+                spawnPosition,
+                constructionLevelSystemBase.CurrentLevel.BeesRecruitingData);
         }
 
-        SpendResources();
-        float prevPollenCapacity = CurrentLevel.PollenCapacity;
-        float prevBeesWaxCapacity = CurrentLevel.BeesWaxCapacity;
-        float prevHousingCapacity = CurrentLevel.HousingCapacity;
-        float prevHoneyCapacity = CurrentLevel.HoneyCapacity;
-        currentLevelNum++;
-            
-        ResourceGlobalStorage.ChangeCapacity(ResourceID.Pollen, CurrentLevel.PollenCapacity - prevPollenCapacity);
-        ResourceGlobalStorage.ChangeCapacity(ResourceID.Bees_Wax, CurrentLevel.BeesWaxCapacity - prevBeesWaxCapacity);
-        ResourceGlobalStorage.ChangeCapacity(ResourceID.Housing, CurrentLevel.HousingCapacity - prevHousingCapacity);
-        ResourceGlobalStorage.ChangeCapacity(ResourceID.Honey, CurrentLevel.HoneyCapacity - prevHoneyCapacity);
-            
-        ResourceGlobalStorage.ChangeValue(ResourceID.Housing,CurrentLevel.HousingCapacity - prevHousingCapacity);
-            
-        _beesRecruiting.AddStacks(CurrentLevel.RecruitingSize);
-        _beesRecruiting.SetNewDatas(CurrentLevel.BeesRecruitingData);
+        protected override void LevelUpLogic()
+        {
+            base.LevelUpLogic();
 
-        if (HealPoints.CurrentValue >= HealPoints.Capacity)
-        {
-            HealPoints.SetCapacity(CurrentLevel.MaxHealPoints);
-            HealPoints.SetValue(CurrentLevel.MaxHealPoints);
+            _recruiter.AddStacks(CurrentLevel.RecruitingSize);
+            _recruiter.SetNewDatas(CurrentLevel.BeesRecruitingData);
         }
-        else
-        {
-            HealPoints.SetCapacity(CurrentLevel.MaxHealPoints);
-        }
-            
-        Debug.Log("Building LVL = " + CurrentLevelNum);
     }
 }

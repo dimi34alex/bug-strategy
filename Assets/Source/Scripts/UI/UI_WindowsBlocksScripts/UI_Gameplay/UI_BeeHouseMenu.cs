@@ -13,6 +13,6 @@ public class UI_BeeHouseMenu : UIScreen
     
     public void _BuildingLVL_Up()
     {
-        _beeHouse.NextBuildingLevel();
+        _beeHouse.LevelUp();
     }
 }

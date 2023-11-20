@@ -1,23 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
+using ConstructionLevelSystem;
 using UnityEngine;
 
-public abstract class EvolvConstruction<TBuildingLevel> : ConstructionBase
-    where TBuildingLevel : BuildingLevelBase
+public abstract class EvolvConstruction<TConstructionLevel> : ConstructionBase
+    where TConstructionLevel : ConstructionLevelBase
 {
-    [SerializeField] protected BuildingLevelSystemBase<TBuildingLevel> levelSystem;
-    protected TBuildingLevel CurrentLevel => levelSystem.CurrentLevel;
-    public int CurrentLevelNum => levelSystem.CurrentLevelNum;
+    [SerializeField] protected ConstructionLevelSystemBase<TConstructionLevel> levelSystem;
     [SerializeField] private SerializableDictionary<ResourceID, int> _costValues;
-    private Cost _cost;
+
+    protected TConstructionLevel CurrentLevel => levelSystem.CurrentLevel;
     public override Cost Cost => _cost;
+
+    private Cost _cost;
 
     protected override void OnAwake()
     {
         CalculateCost();
         base.OnAwake();
-        
-        _healthStorage = new ResourceStorage(CurrentLevel.MaxHealPoints,CurrentLevel.MaxHealPoints);
     }
 
     public override void CalculateCost()
@@ -25,8 +23,22 @@ public abstract class EvolvConstruction<TBuildingLevel> : ConstructionBase
         _cost = new Cost(_costValues);
     }
 
-    public void NextBuildingLevel()
+    public void LevelUp()
     {
-        levelSystem.NextLevel();
+        if (levelSystem.LevelCapCheck())
+        {
+            UI_Controller._ErrorCall("Max building level");
+            return;
+        }
+        
+        if (!levelSystem.PriceCheck())
+        {
+            UI_Controller._ErrorCall("Need more resources");
+            return;
+        }
+        
+        levelSystem.TryLevelUp();
+        
+        Debug.Log("Construction LVL = " + levelSystem.CurrentLevelNum);
     }
 }
