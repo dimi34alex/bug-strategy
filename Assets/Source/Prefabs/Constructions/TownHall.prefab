@@ -111,53 +111,55 @@ MonoBehaviour:
   levelSystem:
     levels:
     - maxHealPoints: 1500
-      pollenLevelUpPrice: 0
-      bees_waxLevelUpPrice: 10
-      housingLevelUpPrice: 0
-      honeyLevelUpPrice: 0
-      pollenCapacity: 1500
-      bees_waxCapacity: 1500
-      housingCapacity: 20
-      honeyCapacity: 1500
+      levelUpCost:
+        _cells:
+        - Key: 1
+          Value: 10
+      resourceCapacity:
+        _cells:
+        - Key: 0
+          Value: 1500
+        - Key: 1
+          Value: 20
+        - Key: 2
+          Value: 1500
+        - Key: 5
+          Value: 1500
       recruitingSize: 1
       beesRecruitingData:
-        currentId: 0
+      - currentId: 0
         recruitingTime: 1
         stackSize: 1
         spawnPauseTime: 0
         unitPrefab: {fileID: 3549433375624800588, guid: 3a4407f137678c14fb55fe57fde82205, type: 3}
         costs:
           _cells:
-          - Key: 0
-            Value: 0
           - Key: 1
             Value: 2
-          - Key: 2
-            Value: 0
     - maxHealPoints: 2500
-      pollenLevelUpPrice: 0
-      bees_waxLevelUpPrice: 0
-      housingLevelUpPrice: 0
-      honeyLevelUpPrice: 0
-      pollenCapacity: 2500
-      bees_waxCapacity: 2500
-      housingCapacity: 40
-      honeyCapacity: 2500
+      levelUpCost:
+        _cells: []
+      resourceCapacity:
+        _cells:
+        - Key: 0
+          Value: 2500
+        - Key: 1
+          Value: 40
+        - Key: 2
+          Value: 2500
+        - Key: 5
+          Value: 2500
       recruitingSize: 2
       beesRecruitingData:
-        currentId: 0
-        recruitingTime: 2
+      - currentId: 0
+        recruitingTime: 1
         stackSize: 2
         spawnPauseTime: 1
         unitPrefab: {fileID: 3549433375624800588, guid: 3a4407f137678c14fb55fe57fde82205, type: 3}
         costs:
           _cells:
-          - Key: 0
-            Value: 0
           - Key: 1
             Value: 4
-          - Key: 2
-            Value: 0
   _costValues:
     _cells:
     - Key: 0

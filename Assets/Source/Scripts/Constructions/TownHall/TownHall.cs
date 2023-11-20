@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using ConstructionLevelSystem;
 using UnityEngine;
 using UnityEngine.Events;
 using UnitsRecruitingSystem;
@@ -23,10 +24,8 @@ public class TownHall : EvolvConstruction<TownHallLevel>
     {
         base.OnAwake();
         gameObject.name = "TownHall";
-        
-        _recruiter = new UnitsRecruiter<BeesRecruitingID>(CurrentLevel.RecruitingSize, workerBeesSpawnPosition, CurrentLevel.BeesRecruitingData);
-        
-        levelSystem = new TownHallLevelSystem(levelSystem, _healthStorage, _recruiter);
+
+        levelSystem = new TownHallLevelSystem(levelSystem, workerBeesSpawnPosition, ref _healthStorage, ref _recruiter);
         
         _updateEvent += OnUpdate;
         _onDestroy += OnDestroy;

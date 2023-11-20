@@ -1,6 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using ConstructionLevelSystem;
 
 public class BeeHouse : EvolvConstruction<BeeHouseLevel>
 {
@@ -10,17 +8,6 @@ public class BeeHouse : EvolvConstruction<BeeHouseLevel>
     {
         base.OnAwake();
 
-        levelSystem = new BeeHouseLevelSystem(levelSystem, _healthStorage);
-        
-        ResourceGlobalStorage.ChangeCapacity(ResourceID.Housing,CurrentLevel.HousingCapacity);
-        
-        ResourceGlobalStorage.ChangeValue(ResourceID.Housing,CurrentLevel.HousingCapacity);
-        
-        _updateEvent += OnUpdate;
-    }
-
-    void OnUpdate()
-    {
-        
+        levelSystem = new BeeHouseLevelSystem(levelSystem, ref _healthStorage);
     }
 }

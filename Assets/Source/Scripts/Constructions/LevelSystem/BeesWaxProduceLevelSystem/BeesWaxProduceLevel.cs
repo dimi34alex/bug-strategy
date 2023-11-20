@@ -1,11 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-[Serializable]
-public class BeesWaxProduceLevel : BuildingLevelBase
+namespace ConstructionLevelSystem
 {
-    [SerializeField] private ResourceConversionProccessInfo resourceConversionProccessInfo;
-    public ResourceConversionProccessInfo ResourceConversionProccessInfo => resourceConversionProccessInfo;
+    [Serializable]
+    public class BeesWaxProduceLevel : ConstructionLevelBase
+    {
+        [SerializeField] private ResourceConversionProccessInfo resourceConversionProccessInfo;
+
+        public ResourceConversionProccessInfo ResourceConversionProccessInfo => resourceConversionProccessInfo;
+    }
 }

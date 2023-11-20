@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using ConstructionLevelSystem;
 using UnityEngine;
 using UnitsRecruitingSystem;
 
@@ -15,9 +15,7 @@ public class Barrack : EvolvConstruction<BarrackLevel>
     {
         base.OnAwake();
 
-        _recruiter = new UnitsRecruiter<BeesRecruitingID>(CurrentLevel.RecruitingSize, beesSpawnPosition, CurrentLevel.BeesRecruitingData);
-
-        levelSystem = new BarrackLevelSystem(levelSystem, _healthStorage, _recruiter);
+        levelSystem = new BarrackLevelSystem(levelSystem, beesSpawnPosition, ref _healthStorage, ref _recruiter);
         
         _updateEvent += OnUpdate;
     }

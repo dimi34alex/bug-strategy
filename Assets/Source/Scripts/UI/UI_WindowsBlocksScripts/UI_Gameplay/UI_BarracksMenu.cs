@@ -43,7 +43,7 @@ public class UI_BarracksMenu : UIScreen
     
     public void _BuildingLVL_Up()
     {
-        _barrack.NextBuildingLevel();
+        _barrack.LevelUp();
     }
 
     public void _RecruitingWax()

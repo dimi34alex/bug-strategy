@@ -17,19 +17,19 @@ namespace UnitsRecruitingSystem
         public event Action OnTick;
         public event Action OnCancelRecruit;
 
-        public UnitsRecruiter(int size, Transform spawnTransform, List<UnitRecruitingData<TEnum>> newDatas)
+        public UnitsRecruiter(int size, Transform spawnTransform, IReadOnlyList<UnitRecruitingData<TEnum>> newDatas)
         {
             _spawnTransform = spawnTransform;
             _stacks = new List<UnitRecruitingStack<TEnum>>();
-            _recruitingDatas = newDatas;
+            _recruitingDatas = new List<UnitRecruitingData<TEnum>>(newDatas);
 
             for (int n = 0; n < size; n++)
                 _stacks.Add(new UnitRecruitingStack<TEnum>(spawnTransform));
         }
 
-        public void SetNewDatas(List<UnitRecruitingData<TEnum>> newDatas)
+        public void SetNewDatas(IReadOnlyList<UnitRecruitingData<TEnum>> newDatas)
         {
-            _recruitingDatas = newDatas;
+            _recruitingDatas = new List<UnitRecruitingData<TEnum>>(newDatas);
         }
         
         /// <returns> Returns first empty stack index. If it cant find free stack return -1 </returns>

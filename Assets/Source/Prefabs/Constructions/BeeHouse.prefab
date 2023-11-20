@@ -54,17 +54,19 @@ MonoBehaviour:
   levelSystem:
     levels:
     - maxHealPoints: 1500
-      pollenLevelUpPrice: 0
-      bees_waxLevelUpPrice: 0
-      housingLevelUpPrice: 0
-      honeyLevelUpPrice: 0
-      housingCapacity: 5
+      <LevelUpCost>k__BackingField:
+        _cells: []
+      resourceCapacity:
+        _cells:
+        - Key: 1
+          Value: 5
     - maxHealPoints: 2500
-      pollenLevelUpPrice: 0
-      bees_waxLevelUpPrice: 0
-      housingLevelUpPrice: 0
-      honeyLevelUpPrice: 0
-      housingCapacity: 10
+      <LevelUpCost>k__BackingField:
+        _cells: []
+      resourceCapacity:
+        _cells:
+        - Key: 0
+          Value: 10
   _costValues:
     _cells:
     - Key: 0

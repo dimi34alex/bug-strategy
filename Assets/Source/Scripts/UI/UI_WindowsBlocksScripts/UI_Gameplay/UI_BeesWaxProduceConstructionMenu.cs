@@ -24,7 +24,7 @@ public class UI_BeesWaxProduceConstructionMenu : UIScreen
     
     public void _BuildingLVL_Up()
     {
-        _beesWaxProduceConstruction.NextBuildingLevel();
+        _beesWaxProduceConstruction.LevelUp();
     }
     
     public void _AddSpendableResource(int addPollen)

@@ -46,7 +46,7 @@ public class UI_TownHallMenu : UIScreen
     
     public void _BuildingLVL_Up()
     {
-        _townHall.NextBuildingLevel();
+        _townHall.LevelUp();
     }
 
     public void _RecruitingWorkerBee()
