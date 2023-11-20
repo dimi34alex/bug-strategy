@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,7 +17,8 @@ public class TownHall : EvolvConstruction<TownHallLevel>
     [SerializeField] Transform workerBeesSpawnPosition;//координаты флага, на котором спавняться рабочие пчелы
 
     private BeesRecruiting _recruiting;
-
+    public IReadOnlyUnitsRecruiting<BeesRecruitingID> Recruiting => _recruiting;
+    
     protected override void OnAwake()
     {
         base.OnAwake();

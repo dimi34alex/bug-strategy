@@ -1,7 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnitsRecruitingSystem;
 
 public class UI_TownHallMenu : UIScreen
 {
@@ -9,17 +9,24 @@ public class UI_TownHallMenu : UIScreen
 
     [SerializeField] private List<TextMeshProUGUI> stackID;
     [SerializeField] private List<TextMeshProUGUI> stackTime;
-    TownHall _townHall;
+    private TownHall _townHall;
+    private IReadOnlyUnitsRecruiting<BeesRecruitingID> _recruiting;
     
-    void Update()
+    public void _CallMenu(ConstructionBase townHall)
     {
-        Displaying();
+        _townHall = townHall.Cast<TownHall>();
+        ChangeAlarmDisplay();
+        
+        if(!(_recruiting is null)) 
+            _recruiting.OnChange -= UpdateRecruitInfo;
+        _recruiting = _townHall.Recruiting;
+        _recruiting.OnChange += UpdateRecruitInfo;
+        UpdateRecruitInfo();
     }
-
-    private void Displaying()
+    
+    private void UpdateRecruitInfo()
     {
-        var beeRecruitingInformation = _townHall.GetRecruitingInformation();
-
+        var beeRecruitingInformation = _recruiting.GetRecruitingInformation();
         for (int n = 0; n < beeRecruitingInformation.Count && n < stackID.Count && n < stackTime.Count; n++)
         {
             if (beeRecruitingInformation[n].Empty)
@@ -35,16 +42,6 @@ public class UI_TownHallMenu : UIScreen
                 stackTime[n].text = (currentTime + "/" + fullTime);
             }
         }
-        
-        if (_townHall.AlarmOn)
-            alarm.text = "Bee Alarm Off";
-        else
-            alarm.text = "Bee Alarm On";
-    }
-    
-    public void _CallMenu(ConstructionBase townHall)
-    {
-        this._townHall = townHall.Cast<TownHall>();
     }
     
     public void _BuildingLVL_Up()
@@ -60,5 +57,19 @@ public class UI_TownHallMenu : UIScreen
     public void _WorkerBeeAlarmer()
     {
         _townHall.WorkerBeeAlarmer();
+        ChangeAlarmDisplay();
+    }
+
+    private void ChangeAlarmDisplay()
+    {
+        if (_townHall.AlarmOn)
+            alarm.text = "Bee Alarm Off";
+        else
+            alarm.text = "Bee Alarm On";
+    }
+
+    private void OnDisable()
+    {
+        _recruiting.OnChange -= UpdateRecruitInfo;
     }
 }

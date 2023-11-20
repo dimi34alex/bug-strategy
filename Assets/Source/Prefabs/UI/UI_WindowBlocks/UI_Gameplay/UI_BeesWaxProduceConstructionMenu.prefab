@@ -911,11 +911,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 917773130b0a0364c83af0b4dccf76b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiError: {fileID: 0}
-  spendableResourceFill: {fileID: 5576949505783187243}
-  spendableResourceText: {fileID: 3386032146019154711}
-  produceResourceFill: {fileID: 6181271228667734215}
-  produceResourceText: {fileID: 5099132910418099598}
+  spendableResource:
+    <ImageFill>k__BackingField: {fileID: 5576949505783187243}
+    <Text>k__BackingField: {fileID: 3386032146019154711}
+  produceResource:
+    <ImageFill>k__BackingField: {fileID: 6181271228667734215}
+    <Text>k__BackingField: {fileID: 5099132910418099598}
 --- !u!1 &3026148973839412532
 GameObject:
   m_ObjectHideFlags: 0
