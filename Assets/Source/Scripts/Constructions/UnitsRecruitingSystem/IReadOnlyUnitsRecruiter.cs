@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace UnitsRecruitingSystem
 {
-    public interface IReadOnlyUnitsRecruiting<TEnum>
+    public interface IReadOnlyUnitsRecruiter<TEnum>
         where TEnum : Enum
     {
         public event Action OnChange;

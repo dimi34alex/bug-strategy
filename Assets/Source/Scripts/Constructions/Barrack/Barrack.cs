@@ -8,28 +8,41 @@ public class Barrack : EvolvConstruction<BarrackLevel>
   
     [SerializeField] private Transform beesSpawnPosition;
 
-    private BeesRecruiting _recruiting;
-    public IReadOnlyUnitsRecruiting<BeesRecruitingID> Recruiting => _recruiting;
+    private UnitsRecruiter<BeesRecruitingID> _recruiter;
+    public IReadOnlyUnitsRecruiter<BeesRecruitingID> Recruiter => _recruiter;
     
     protected override void OnAwake()
     {
         base.OnAwake();
 
-        _recruiting = new BeesRecruiting(CurrentLevel.RecruitingSize, beesSpawnPosition, CurrentLevel.BeesRecruitingData);
+        _recruiter = new UnitsRecruiter<BeesRecruitingID>(CurrentLevel.RecruitingSize, beesSpawnPosition, CurrentLevel.BeesRecruitingData);
 
-        levelSystem = new BarrackLevelSystem(levelSystem, _healthStorage, _recruiting);
+        levelSystem = new BarrackLevelSystem(levelSystem, _healthStorage, _recruiter);
         
         _updateEvent += OnUpdate;
     }
 
     private void OnUpdate()
     {
-        _recruiting.Tick(Time.deltaTime);
+        _recruiter.Tick(Time.deltaTime);
     }
 
     public void RecruitBees(BeesRecruitingID beeID)
     {
-        _recruiting.RecruitUnit(beeID, out string errorLog);
-        if(errorLog.Length > 0) UI_Controller._ErrorCall(errorLog);
+        int freeStackIndex = _recruiter.FindFreeStack();
+
+        if (freeStackIndex == -1)
+        {
+            UI_Controller._ErrorCall("All stacks are busy");
+            return;
+        }
+
+        if (!_recruiter.CheckCosts(beeID))
+        {
+            UI_Controller._ErrorCall("Need more resources");
+            return;
+        }
+
+        _recruiter.RecruitUnit(beeID, freeStackIndex);
     }
 }

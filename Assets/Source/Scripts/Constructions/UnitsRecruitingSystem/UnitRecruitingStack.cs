@@ -1,25 +1,9 @@
 using System;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 namespace UnitsRecruitingSystem
 {
-    public interface IReadOnlyUnitRecruitingStack<TEnum>
-        where TEnum : Enum
-    {
-        public bool Empty { get; }
-        public TEnum CurrentID { get; }
-        public Transform SpawnTransform { get; }
-        public GameObject UnitPrefab { get; }
-        public float RecruitingTime { get; }
-        public int StackSize { get; }
-        public float SpawnPauseTime { get; }
-        public float CurrentTime { get; }
-        public float SpawnPauseTimer { get; }
-        public int SpawnedUnits { get; }
-    }
-
     public class UnitRecruitingStack<TEnum> : IReadOnlyUnitRecruitingStack<TEnum>
         where TEnum : Enum
     {
@@ -46,14 +30,15 @@ namespace UnitsRecruitingSystem
             SpawnTransform = spawnTransform;
         }
 
+        /// <summary>
+        /// Set new data if data is correct.
+        /// </summary>
+        /// <param name="newData"> new data </param>
+        /// <exception cref="Exception"> Error: stack is not empty </exception>
+        /// <exception cref="Exception"> Error: newData.prefab is null </exception>
         public void SetNewData(UnitRecruitingData<TEnum> newData)
         {
-            if (!Empty)
-            {
-                Debug.LogError("Stack is not empty");
-                return;
-            }
-
+            if (!Empty) throw new Exception("Error: stack is not empty");
             if (newData.UnitPrefab is null) throw new Exception("Error: prefab is null");
 
             Empty = false;
@@ -95,14 +80,32 @@ namespace UnitsRecruitingSystem
                 Empty = true;
         }
 
-        public void CancelRecruiting()
+        /// <returns> If Cancel is possible return true, else return false </returns>
+        public bool CancelRecruiting()
         {
-            if (SpawnedUnits > 0) return;
+            if (SpawnedUnits > 0) return false;
 
             foreach (var cost in Costs)
                 ResourceGlobalStorage.ChangeValue(cost.Key, cost.Value);
 
             Empty = true;
+
+            return true;
         }
+    }
+    
+    public interface IReadOnlyUnitRecruitingStack<TEnum>
+        where TEnum : Enum
+    {
+        public bool Empty { get; }
+        public TEnum CurrentID { get; }
+        public Transform SpawnTransform { get; }
+        public GameObject UnitPrefab { get; }
+        public float RecruitingTime { get; }
+        public int StackSize { get; }
+        public float SpawnPauseTime { get; }
+        public float CurrentTime { get; }
+        public float SpawnPauseTimer { get; }
+        public int SpawnedUnits { get; }
     }
 }

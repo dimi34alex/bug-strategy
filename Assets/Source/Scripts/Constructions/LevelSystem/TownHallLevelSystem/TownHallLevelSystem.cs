@@ -7,12 +7,12 @@ using UnitsRecruitingSystem;
 [Serializable]
 public class TownHallLevelSystem : BuildingLevelSystemBase <TownHallLevel>
 {
-    private BeesRecruiting _beesRecruiting;
+    private UnitsRecruiter<BeesRecruitingID> _recruiter;
     
     public TownHallLevelSystem(BuildingLevelSystemBase<TownHallLevel> buildingLevelSystemBase, ResourceStorage healPoints,
-        BeesRecruiting beesRecruiting) : base(buildingLevelSystemBase, healPoints)
+        UnitsRecruiter<BeesRecruitingID> recruiter) : base(buildingLevelSystemBase, healPoints)
     {
-        _beesRecruiting = beesRecruiting;
+        _recruiter = recruiter;
         
         ResourceGlobalStorage.ChangeCapacity(ResourceID.Pollen, buildingLevelSystemBase.CurrentLevel.PollenCapacity);
         ResourceGlobalStorage.ChangeCapacity(ResourceID.Bees_Wax, buildingLevelSystemBase.CurrentLevel.BeesWaxCapacity);
@@ -48,8 +48,8 @@ public class TownHallLevelSystem : BuildingLevelSystemBase <TownHallLevel>
             
         ResourceGlobalStorage.ChangeValue(ResourceID.Housing,CurrentLevel.HousingCapacity - prevHousingCapacity);
             
-        _beesRecruiting.AddStacks(CurrentLevel.RecruitingSize);
-        _beesRecruiting.SetNewDatas(CurrentLevel.BeesRecruitingData);
+        _recruiter.AddStacks(CurrentLevel.RecruitingSize);
+        _recruiter.SetNewDatas(CurrentLevel.BeesRecruitingData);
 
         if (HealPoints.CurrentValue >= HealPoints.Capacity)
         {

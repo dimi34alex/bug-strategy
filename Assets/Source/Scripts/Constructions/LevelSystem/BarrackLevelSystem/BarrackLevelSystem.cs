@@ -7,12 +7,12 @@ using UnitsRecruitingSystem;
 [Serializable]
 public class BarrackLevelSystem : BuildingLevelSystemBase<BarrackLevel>
 {
-    private BeesRecruiting _beesRecruiting;
+    private UnitsRecruiter<BeesRecruitingID> _recruiter;
     
     public BarrackLevelSystem(BuildingLevelSystemBase<BarrackLevel> buildingLevelSystemBase, ResourceStorage healPoints,
-        BeesRecruiting beesRecruiting) : base(buildingLevelSystemBase, healPoints)
+        UnitsRecruiter<BeesRecruitingID> recruiter) : base(buildingLevelSystemBase, healPoints)
     {
-        _beesRecruiting = beesRecruiting;
+        _recruiter = recruiter;
     }
     
     public override void NextLevel()
@@ -30,8 +30,8 @@ public class BarrackLevelSystem : BuildingLevelSystemBase<BarrackLevel>
         SpendResources();
         currentLevelNum++;
             
-        _beesRecruiting.AddStacks(CurrentLevel.RecruitingSize);
-        _beesRecruiting.SetNewDatas(CurrentLevel.BeesRecruitingData);
+        _recruiter.AddStacks(CurrentLevel.RecruitingSize);
+        _recruiter.SetNewDatas(CurrentLevel.BeesRecruitingData);
 
         if (HealPoints.CurrentValue >= HealPoints.Capacity)
         {
