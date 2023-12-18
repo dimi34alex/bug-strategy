@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using System.Collections.Generic;
 
 public class UI_GameplayMain : UIScreen
 {
@@ -18,31 +19,35 @@ public class UI_GameplayMain : UIScreen
     [SerializeField] private SomeResourcePrint housing;
     [SerializeField] private SomeResourcePrint honey;
 
-    private void Start()
-    {
-        pollen.Icon.sprite = ResourceGlobalStorage.GetResource(ResourceID.Pollen).Icon;
-        pollen.name.text = ResourceGlobalStorage.GetResource(ResourceID.Pollen).ID.ToString();
-        
-        wax.Icon.sprite = ResourceGlobalStorage.GetResource(ResourceID.Bees_Wax).Icon;
-        wax.name.text = ResourceGlobalStorage.GetResource(ResourceID.Bees_Wax).ID.ToString();
-        
-        housing.Icon.sprite = ResourceGlobalStorage.GetResource(ResourceID.Housing).Icon;
-        housing.name.text = ResourceGlobalStorage.GetResource(ResourceID.Housing).ID.ToString();
-
-        honey.Icon.sprite = ResourceGlobalStorage.GetResource(ResourceID.Honey).Icon;
-        honey.name.text = ResourceGlobalStorage.GetResource(ResourceID.Honey).ID.ToString();
-    }
+    private Dictionary<ResourceID, SomeResourcePrint> _printResoucesWithType;
 
     private void Awake()
     {
+        _printResoucesWithType = new Dictionary<ResourceID, SomeResourcePrint>();
+
+        _printResoucesWithType.Add(ResourceID.Pollen, pollen);
+        _printResoucesWithType.Add(ResourceID.Bees_Wax, wax);
+        _printResoucesWithType.Add(ResourceID.Housing, housing);
+        _printResoucesWithType.Add(ResourceID.Honey, honey);
+
+        foreach (var printResouce in _printResoucesWithType)
+        {
+            ResourceBase resource = ResourceGlobalStorage.GetResource(printResouce.Key);
+            printResouce.Value.Icon.sprite = resource.Icon;
+            printResouce.Value.name.text = resource.ID.ToString();
+        }
+
         ResourceGlobalStorage.ResourceChanged += UpdateResourceInformation;
     }
     
     private void UpdateResourceInformation()
     {
-        pollen.value.text = ResourceGlobalStorage.GetResource(ResourceID.Pollen).CurrentValue.ToString() + "/" + ResourceGlobalStorage.GetResource(ResourceID.Pollen).Capacity.ToString();
-        wax.value.text = ResourceGlobalStorage.GetResource(ResourceID.Bees_Wax).CurrentValue.ToString() + "/" + ResourceGlobalStorage.GetResource(ResourceID.Bees_Wax).Capacity.ToString();
-        housing.value.text = ResourceGlobalStorage.GetResource(ResourceID.Housing).CurrentValue.ToString() + "/" + ResourceGlobalStorage.GetResource(ResourceID.Housing).Capacity.ToString();
-        honey.value.text = ResourceGlobalStorage.GetResource(ResourceID.Honey).CurrentValue.ToString() + "/" + ResourceGlobalStorage.GetResource(ResourceID.Honey).Capacity.ToString();
+        if (_printResoucesWithType!= null) 
+        foreach (var printResouce in _printResoucesWithType)
+        {
+            ResourceBase resource = ResourceGlobalStorage.GetResource(printResouce.Key);
+            printResouce.Value.value.text = resource.CurrentValue.ToString() + "/" +
+                resource.Capacity.ToString();
+        }
     }
 }

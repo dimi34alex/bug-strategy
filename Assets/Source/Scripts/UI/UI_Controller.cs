@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,19 +5,14 @@ public class UI_Controller : MonoBehaviour
 {
     private static UserBuilder builder;
     private static GameObject UI_ActivScreen;
-    private static UI_Gameplay UI_GameplayWindows;//скрипт который установлен на префабе окна геймплея(UI_Gameplay), нужен просто для удобства и оптимизации, чтобы не вызывать GetComponent<>(): 
-                                   //благодаря этому в функции _SetWindow() вместо этого:
-                                   //UIScreenRepository.GetScreen<UI_Gameplay>().gameObject.GetComponent<UI_Gameplay>()._SetGameplayWindow(windowName); 
-                                   //используется это:
-                                   //UI_GameplayWindows._SetGameplayWindow(windowName);
+    private static UI_Gameplay UI_GameplayWindows;
+              
     private static GameObject UI_PrevActivScreen;
     private static ConstructionBase selectedConstruction;
-    private static UnitPool unitPool;
-    private static GameObject currentWorker;
 
     private static UI_ERROR _uiError;
 
-    void Start()
+    private void Start()
     {
         builder = GameObject.Find("Builder").GetComponent<UserBuilder>();
         if(builder == null)
@@ -93,7 +86,7 @@ public class UI_Controller : MonoBehaviour
     public static void _ChoiceGroup()
     { Debug.Log("Error: groups is empty"); }
 
-    public static void _SetWindow(string windowName)//смена активного окна UI. принимает название окна, которое надо сделать активным
+    public static void _SetWindow(string windowName)
     {
         GameObject screenBuffer = UI_ActivScreen;
         UI_ActivScreen.SetActive(false);
@@ -102,21 +95,20 @@ public class UI_Controller : MonoBehaviour
         {
             case "UI_Gameplay":
                 UI_ActivScreen = UIScreenRepository.GetScreen<UI_Gameplay>().gameObject; break;
-
             case "UI_GameplayMain":
-                UI_GameplayWindows._SetGameplayWindow(windowName, null); break;
+                UI_GameplayWindows.SetGameplayWindow(windowName, null); break;
             case "UI_Buildings":
-                UI_GameplayWindows._SetGameplayWindow(windowName, null); break;
+                UI_GameplayWindows.SetGameplayWindow(windowName, null); break;
             case "UI_Tactics":
-                UI_GameplayWindows._SetGameplayWindow(windowName, null); break;
+                UI_GameplayWindows.SetGameplayWindow(windowName, null); break;
             case "UI_TownHallMenu":
-                UI_GameplayWindows._SetGameplayWindow(windowName, selectedConstruction); break;
+                UI_GameplayWindows.SetGameplayWindow(windowName, selectedConstruction); break;
             case "UI_BarracksMenu":
-                UI_GameplayWindows._SetGameplayWindow(windowName, selectedConstruction); break;
+                UI_GameplayWindows.SetGameplayWindow(windowName, selectedConstruction); break;
             case "UI_BeeHouseMenu":
-                UI_GameplayWindows._SetGameplayWindow(windowName, selectedConstruction); break;
+                UI_GameplayWindows.SetGameplayWindow(windowName, selectedConstruction); break;
             case "UI_BeesWaxProduceConstructionMenu":
-                UI_GameplayWindows._SetGameplayWindow(windowName, selectedConstruction); break;
+                UI_GameplayWindows.SetGameplayWindow(windowName, selectedConstruction); break;
 
             case "UI_GameplayMenu":
                 UI_ActivScreen = UIScreenRepository.GetScreen<UI_GameplayMenu>().gameObject; break;
@@ -141,7 +133,7 @@ public class UI_Controller : MonoBehaviour
         UI_ActivScreen.SetActive(true);
     }
 
-    public static void _LoadScene(string sceneName)//загрузка сцены. принимает название сцены
+    public static void LoadScene(string sceneName)//загрузка сцены. принимает название сцены
     {
         if (sceneName == "empty")
         {
@@ -153,7 +145,7 @@ public class UI_Controller : MonoBehaviour
         }
     }
 
-    public static void _SetBuilding(ConstructionBase newConstruction)//установка текущего выделеного здания здания
+    public static void SetBuilding(ConstructionBase newConstruction)//установка текущего выделеного здания здания
     {
         string windowName;
         switch (newConstruction.ConstructionID)

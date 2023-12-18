@@ -52,7 +52,7 @@ public class UserBuilder : CycleInitializerBase
             {
                 ConstructionBase selectedConstruction = FrameworkCommander.GlobalData.ConstructionSelector.SelectedConstruction;
                 selectedConstruction.Select();
-                UI_Controller._SetBuilding(selectedConstruction);
+                UI_Controller.SetBuilding(selectedConstruction);
             }
             else if (!MouseCursorOverUI())
             {

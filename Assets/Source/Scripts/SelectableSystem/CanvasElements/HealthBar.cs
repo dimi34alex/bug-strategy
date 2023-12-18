@@ -4,7 +4,13 @@ using UnityEngine.UI;
 
 namespace SelectableSystem
 {
-    public class HealthBar : MonoBehaviour
+    public interface OnSelectionUI
+    {
+        void OnSelect();
+        void OnDeselect();
+    }
+
+    public class  HealthBar : MonoBehaviour, OnSelectionUI
     {
         [SerializeField] private Slider healthPointsSlider;
         private IReadOnlyResourceStorage _healthStorage;

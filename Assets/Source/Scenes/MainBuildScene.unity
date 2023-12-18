@@ -1571,6 +1571,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6572058480269439008, guid: e1a6d86d1c3d6e24084c0efe07b687f7, type: 3}
+      propertyPath: delayTimer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6572058480269439008, guid: e1a6d86d1c3d6e24084c0efe07b687f7, type: 3}
       propertyPath: damageAmount
       value: 50
       objectReference: {fileID: 0}

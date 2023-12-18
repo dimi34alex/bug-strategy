@@ -38,8 +38,7 @@ public abstract class MovingUnit : UnitBase
     public void ChangeContainsStickyTiles(int delta)
     {
         _containsStickyTilesCount += delta;
-        Debug.Log(_containsStickyTilesCount);
-
+  
         if (_containsStickyTilesCount is 0)
             _navMeshAgent.speed = _startMaxSpeed;
         else

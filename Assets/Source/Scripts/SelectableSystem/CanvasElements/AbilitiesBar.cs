@@ -6,7 +6,7 @@ using UnityEngine.Rendering.PostProcessing;
 namespace SelectableSystem
 {
     [Serializable]
-    public class AbilitiesBar : MonoBehaviour
+    public class AbilitiesBar : MonoBehaviour, OnSelectionUI
     {
         [SerializeField] private GameObject abilityBlockPrefab;
         [SerializeField] private Transform firstIconTransform;

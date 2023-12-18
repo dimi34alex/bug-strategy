@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ResourceGlobalStorage : MonoBehaviour
@@ -10,7 +8,7 @@ public class ResourceGlobalStorage : MonoBehaviour
 
     public static event Action ResourceChanged;
 
-    void Awake()
+    private void Awake()
     {
         _resourceRepository = new ResourceRepository(resourceConfigs);
         _resourceRepository.CreateResource(ResourceID.Pollen,10, 10);

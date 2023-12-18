@@ -41,18 +41,16 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
 
     public void TakeDamage(IDamageApplicator damageApplicator)
     {
-        if (IsDied)
-        {
-            Debug.Log("���� " + this.gameObject.name + " �������� ");
-            ElementDestroyEvent?.Invoke(this);
-            return;
-        }
-
         _healthStorage.ChangeValue(-damageApplicator.Damage);
         OnDamaged();
 
         if (IsDied)
+        {
+            Debug.Log("���� " + this.gameObject.name + " �������� ");
             OnUnitDied?.Invoke(this);
+            ElementDestroyEvent?.Invoke(this);
+            return;
+        }
     }
 
     protected virtual void OnDamaged() { }

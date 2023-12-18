@@ -1,5 +1,16 @@
+using System;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+
+public enum GroupID
+{
+    Group1,
+    Group2,
+    Group3,
+    Group4,
+    Group5,
+}
 
 public class UnitPool : MonoBehaviour
 {
@@ -11,17 +22,15 @@ public class UnitPool : MonoBehaviour
 
     private void Awake()
     {
-        _groupsWithID = new Dictionary<GroupID, List<MovingUnit>>();
-        _groupsWithID.Add(GroupID.Group1, new List<MovingUnit>());
-        _groupsWithID.Add(GroupID.Group2, new List<MovingUnit>());
-        _groupsWithID.Add(GroupID.Group3, new List<MovingUnit>());
-        _groupsWithID.Add(GroupID.Group4, new List<MovingUnit>());
-        _groupsWithID.Add(GroupID.Group5, new List<MovingUnit>());
-
         if (Instance != null){
             Destroy(this);
             return;
         }
+
+        GroupID[] groupIDs = (GroupID[])Enum.GetValues(typeof(GroupID));
+        _groupsWithID = new List<GroupID>(groupIDs)
+           .ToDictionary(g => g, g => new List<MovingUnit>());
+
         Instance = this;
     }
 
@@ -98,13 +107,4 @@ public class UnitPool : MonoBehaviour
     {
         group.Clear();
     }
-}
-
-public enum GroupID
-{
-    Group1,
-    Group2,
-    Group3,
-    Group4,
-    Group5,
 }

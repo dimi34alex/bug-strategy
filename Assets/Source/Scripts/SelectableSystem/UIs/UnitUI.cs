@@ -11,18 +11,18 @@ namespace SelectableSystem
         protected override void OnStart()
         {
             base.OnStart();
-            
+
+            OnSelectionUI[] onSelectionUIs = { healthBar, selectionField, abilitiesBar };
+
             healthBar.Init(selectable.HealthStorage);
-            SelectedEvent += healthBar.OnSelect;
-            DeselectedEvent += healthBar.OnDeselect;
-
             abilitiesBar.Init(selectable.Abilities);
-            SelectedEvent += abilitiesBar.OnSelect;
-            DeselectedEvent += abilitiesBar.OnDeselect;
-
             selectionField.Init(selectable.IsSelected);
-            SelectedEvent += selectionField.OnSelect;
-            DeselectedEvent += selectionField.OnDeselect;
+
+            foreach (var OoSelectionUI in onSelectionUIs)
+            {
+                SelectedEvent += OoSelectionUI.OnSelect;
+                DeselectedEvent += OoSelectionUI.OnDeselect;
+            } 
         }
     }
 }
