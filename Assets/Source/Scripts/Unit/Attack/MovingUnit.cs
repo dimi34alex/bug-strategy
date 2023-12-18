@@ -69,7 +69,7 @@ public abstract class MovingUnit : UnitBase
     }
 }
 
-public class BeeUnit : MovingUnit
+public abstract class BeeUnit : MovingUnit
 {
     public override AffiliationEnum Affiliation => AffiliationEnum.Bees;
 }

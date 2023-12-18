@@ -1,5 +1,6 @@
 ﻿public enum UnitType
 {
-    AttackUnit,
-    MovingUnit,
+    WorkerBee,
+    Bumblebee, 
+
 }

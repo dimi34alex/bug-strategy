@@ -4,6 +4,8 @@ public class WorkerBee : BeeUnit
 {
     private WorkerDuty _workerDuty;
 
+    public override UnitType UnitType => UnitType.WorkerBee;
+
     private void Start()
     {
         UnitPool.Instance.UnitCreation(this);
@@ -15,8 +17,7 @@ public class WorkerBee : BeeUnit
         if (!IsSelected) return;
 
         string target_tag = target.tag;
-        if (gameObject.CompareTag("Worker"))
-        {
+
             switch (target_tag)
             {
                 case "PollenSource":
@@ -31,7 +32,7 @@ public class WorkerBee : BeeUnit
                     _workerDuty.isFindingBuild = false;
                     break;
             }
-        }
+     
         SetDestination(position);
     }
 }

@@ -1,63 +1,53 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileBehaviour : MonoBehaviour, IDamageApplicator
+public class ProjectileBehaviour : MonoBehaviour, IDamageApplicator, IPoolable<ProjectileBehaviour>
 {
-    public UnitBase objectiveUnit;
-    public ConstructionBase objectiveBuilding;
+    private Transform _target;
+    private IDamagable _damagable;
+
     public float speed = 1f;
 
     public float damageAmount;
+
+    public event System.Action<ProjectileBehaviour> ElementReturnEvent;
+    public event System.Action<ProjectileBehaviour> ElementDestroyEvent;
+
     public float Damage { get; set; }
 
-    void Start()
+    private void Start()
     {
         Damage = damageAmount;
     }
 
-    void Update()
+    private void Update()
     {
         var step = speed * Time.deltaTime;
-        if (objectiveUnit)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, objectiveUnit.gameObject.transform.position, step);
-        }
-        else if (objectiveBuilding)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, objectiveBuilding.gameObject.transform.position, step);
-        }
+
+        transform.position = Vector3.MoveTowards(transform.position, _target.position, step);
     }
 
-    public void TargetLockUnit(UnitBase target)
+    public void TargetLock(Transform target)
     {
-        objectiveUnit = target;
+        _target = target;
+        _damagable = target.GetComponent<IDamagable>();
     }
 
-    public void TargetLockBuilding(ConstructionBase target)
+    private void OnTriggerEnter(Collider collider)
     {
-        objectiveBuilding = target;
-    }
-
-    void OnTriggerEnter(Collider collider)
-    {
-        if (objectiveUnit&&(collider.gameObject.tag == "Unit" || collider.gameObject.tag == "Worker"))
+        if (_damagable!=null && (collider.gameObject.tag == "Unit" ||
+            collider.gameObject.tag == "Worker" || collider.gameObject.tag == "Building"))
         {
-            if (collider.gameObject.GetComponent<MovingUnit>() == objectiveUnit)
+            if (collider.gameObject.GetComponent<IDamagable>() == _damagable)
             {
-                objectiveUnit.TakeDamage(this);
-                Destroy(this.gameObject);
+                _damagable.TakeDamage(this);
+                ElementReturnEvent?.Invoke(this);
+                this.gameObject.SetActive(false);
             }
         }
-        else if (objectiveBuilding && (collider.gameObject.tag == "Building"))
-        {
-            if (collider.gameObject.GetComponent<ConstructionBase>() == objectiveBuilding);
-            {
-                objectiveBuilding.TakeDamage(this);
-                Destroy(this.gameObject);
-            }
-        }
+    }
 
-
+    private void OnDestroy()
+    {
+        ElementDestroyEvent?.Invoke(this);
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 using MiniMapSystem;
 
 public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable, IUnitTarget, IMiniMapObject,
-    SelectableSystem.ISelectable, IAffiliation
+    SelectableSystem.ISelectable, IAffiliation, IPoolable<UnitBase, UnitType>
 {
     [SerializeField] private UnitVisibleZone _unitVisibleZone;
 
@@ -18,7 +18,7 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
     public bool IsDied => _healthStorage.CurrentValue < 1f;
     public UnitPathData CurrentPathData { get; private set; }
     public UnitVisibleZone VisibleZone => _unitVisibleZone;
-
+   
     public Transform Transform => transform;
     public UnitTargetType TargetType => UnitTargetType.Other_Unit;
     public bool IsSelected { get; private set; }
@@ -30,14 +30,21 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
     public event Action OnSelect;
     public event Action OnDeselect;
 
+    public event Action<UnitBase> ElementReturnEvent;
+    public event Action<UnitBase> ElementDestroyEvent;
+
     public abstract AffiliationEnum Affiliation { get; }
-    
+
+    public abstract UnitType UnitType { get; }
+    public UnitType Identifier => UnitType;
+
+
     public void TakeDamage(IDamageApplicator damageApplicator)
     {
         if (IsDied)
         {
             Debug.Log("���� " + this.gameObject.name + " �������� ");
-            Destroy(gameObject);
+            ElementDestroyEvent?.Invoke(this);
             return;
         }
 
