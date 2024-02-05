@@ -8,4 +8,8 @@ public enum ConstructionID
     BeeHouse = 15,
     Bees_Wax_Produce_Construction = 20,
     Sticky_Tile_Construction = 25,
+    BeeStoreHouse = 30,
+    AntStoreHouse = 35,
+    ButterflyStoreHouse = 40,
+    
 }
