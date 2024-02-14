@@ -6,8 +6,8 @@ namespace ConstructionLevelSystem
     public class BeeHouseLevelSystem : ConstructionLevelSystemBase<BeeHouseLevel>
     {
         public BeeHouseLevelSystem(ConstructionLevelSystemBase<BeeHouseLevel> constructionLevelSystemBase,
-            ref ResourceStorage healthStorage) : base(constructionLevelSystemBase, ref healthStorage)
-        {
-        }
+            ref ResourceStorage healthStorage) 
+            : base(constructionLevelSystemBase, ref healthStorage)
+        { }
     }
 }
