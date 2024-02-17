@@ -1,5 +1,8 @@
 ﻿public enum UnitType
 {
     WorkerBee,
-    Bumblebee, 
+    Bumblebee,
+    AntStandard = 100,
+    AntBig = 110,
+    AntFlying = 120
 }

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using Unit.Professions;
+using UnityEngine;
 
 public class WorkerBee : BeeUnit
 {
@@ -6,6 +8,8 @@ public class WorkerBee : BeeUnit
 
     public override UnitType UnitType => UnitType.WorkerBee;
 
+    public override IReadOnlyProfession CurrentProfession => throw new NullReferenceException();
+    
     private void Start()
     {
         UnitPool.Instance.UnitCreation(this);
