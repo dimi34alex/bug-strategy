@@ -3,7 +3,8 @@ using UnityEngine;
 
 namespace Projectiles
 {
-    public abstract class ProjectileBase : MonoBehaviour, IDamageApplicator, IPoolable<ProjectileBase, ProjectileType>
+    public abstract class ProjectileBase : MonoBehaviour, IDamageApplicator, IPoolable<ProjectileBase, ProjectileType>,
+        IPoolEventListener
     {
         [field: SerializeField] public float Damage { get; private set; }
         [field: SerializeField] public float MoveSpeed { get; private set; }
@@ -17,16 +18,17 @@ namespace Projectiles
 
         public void HandleUpdate(float time)
         {
-            CheckTagetOnNull();
+            CheckTargetOnNull();
             Move(time);
         }
 
-        public void SetTarget(IUnitTarget target)
-        {
-            Target = target;
-        }
+        public void SetTarget(IUnitTarget target) => Target = target;
 
-        protected void CheckTagetOnNull()
+        public virtual void OnElementReturn() => gameObject.SetActive(false);
+
+        public virtual void OnElementExtract() => gameObject.SetActive(true);
+        
+        protected void CheckTargetOnNull()
         {
             if(Target.IsAnyNull())
                 ReturnInPool();
@@ -37,7 +39,6 @@ namespace Projectiles
             if (target.TryCast(out IDamagable damagable))
                 damagable.TakeDamage(this);
 
-            gameObject.SetActive(false);
             ReturnInPool();
         }
 
@@ -48,8 +49,8 @@ namespace Projectiles
             var step = MoveSpeed * time;
             transform.position = Vector3.MoveTowards(transform.position, Target.Transform.position, step);
         }
-        
-        void OnTriggerEnter(Collider someCollider)
+
+        private void OnTriggerEnter(Collider someCollider)
         {
             if (someCollider.TryGetComponent(out IUnitTarget target) && target == Target)
                 CollideWithTarget(target);
