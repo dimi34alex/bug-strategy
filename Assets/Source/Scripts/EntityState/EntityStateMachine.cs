@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 public enum EntityStateID
 {
+    Idle,
     Move,
     Build,
-    Atack
+    Attack,
+    ExtractionResource,
+    StorageResource,
+    SwitchProfession
 };
 
 public class EntityStateMachine

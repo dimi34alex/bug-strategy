@@ -7,12 +7,15 @@ public class UnitVisibleZone : TriggerZone
     [SerializeField] private List<IUnitTarget> _targets = new List<IUnitTarget>();
     private Func<IUnitTarget, bool> _filter = t => true;
 
+    protected override bool _refreshEnteredComponentsAfterExit { get; } = false;
+
     public new IReadOnlyList<IUnitTarget> ContainsComponents => _targets;
 
     public new event Action<IUnitTarget> EnterEvent;
     public new event Action<IUnitTarget> ExitEvent;
 
-    protected override Func<ITriggerable, bool> EnteredComponentIsSuitable => t => t is IUnitTarget && _filter(t.Cast<IUnitTarget>());
+    protected override Func<ITriggerable, bool> EnteredComponentIsSuitable 
+        => t => t is IUnitTarget && _filter(t.Cast<IUnitTarget>());
 
     public bool Contains(IUnitTarget target) => _targets.Contains(target);
     public bool Contains(Predicate<IUnitTarget> predicate) => _targets.Exists(predicate);
