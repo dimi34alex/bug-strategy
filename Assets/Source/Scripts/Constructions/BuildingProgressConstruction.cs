@@ -24,16 +24,16 @@ public class BuildingProgressConstruction : ConstructionBase
         pool = controller.GetComponent<UnitPool>();
     }
 
-    public void StartBuilding(int duration, ConstructionID constructionID, MovingUnit unit)
+    public void StartBuilding(int duration, ConstructionID constructionID)
     {
         if (BuildingProgressState != BuildingProgressState.Waiting)
             return;
         BuildingProgressState = BuildingProgressState.Started;
         BuildingConstructionID = constructionID;
-        StartCoroutine(StartBuildingCoroutine(duration, unit));
+        StartCoroutine(StartBuildingCoroutine(duration));
     }
 
-    private IEnumerator StartBuildingCoroutine(int duration, MovingUnit currentWorker)
+    private IEnumerator StartBuildingCoroutine(int duration)
     {
         int timer = duration;
 

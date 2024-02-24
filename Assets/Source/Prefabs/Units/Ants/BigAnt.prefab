@@ -474,6 +474,7 @@ MonoBehaviour:
   _unitVisibleZone: {fileID: 2761997208839948290}
   _professionInteractionZone: {fileID: 4654942780767838923}
   _dynamicProfessionZone: {fileID: 4004504988706017116}
+  CurrentStateId: 0
   _navMeshAgent: {fileID: 8850378427640695230}
   _ability1:
     reloadTimer:
@@ -485,12 +486,9 @@ MonoBehaviour:
       _currentValue: 5
       _capacity: 5
     abilityIcon: {fileID: 21300000, guid: 763620d23207e5442b18d34333491558, type: 3}
+  config: {fileID: 11400000, guid: 4f49e911679de4a41874a87af5fc0854, type: 2}
   resource: {fileID: 635144300185007799}
-  defaultProfessionConfig: {fileID: 11400000, guid: 0dbd011f66658db41bef9bbd3d13231c, type: 2}
   animator: {fileID: 1868798244636757250}
-  CurProfessionType: 0
-  UnitPathType: 0
-  state: 0
 --- !u!1001 &8311650961815615003
 PrefabInstance:
   m_ObjectHideFlags: 0
