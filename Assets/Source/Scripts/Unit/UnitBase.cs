@@ -130,7 +130,6 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
         CalculateNewState(targetMovePosition);
     }
 
-    public EntityStateID CurrentStateId;
     private void CalculateNewState(Vector3 newTargetMovePosition)
     {
         newTargetMovePosition.y = 0;
@@ -162,8 +161,6 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
         {
             StateMachine.SetState(EntityStateID.Move);
         }
-
-        CurrentStateId = _stateMachine.ActiveState;
     }
     
     private void OnDisable()
