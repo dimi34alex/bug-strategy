@@ -12,10 +12,10 @@ public class UserBuilder : CycleInitializerBase
     [SerializeField] private ConstructionBase[] constructions;
     private Dictionary<ConstructionID, ConstructionBase> _constructionWithID;
 
-    GameObject _currentConstructionMovableModel;
-    ConstructionID _currentConstructionID;
-    
-    bool _spawnConstruction = false;
+    private GameObject _currentConstructionMovableModel;
+    private ConstructionID _currentConstructionID;
+
+    private bool _spawnConstruction = false;
     private float _numberTownHall = 0;
     private UnitPool _pool;
     
@@ -93,10 +93,8 @@ public class UserBuilder : CycleInitializerBase
                     {
                         BuyConstruction(_currentConstructionID);
 
-                        unit.SetDestination(hit.point);
-                        unit.gameObject.transform.GetComponentInChildren<WorkerDuty>().isFindingBuild = true;
-
-                        SpawnConstruction(unit, _currentConstructionID);
+                        if (TrySpawnConstruction(_currentConstructionID, out var buildingProgressConstruction))
+                            unit.HandleGiveOrder(buildingProgressConstruction, UnitPathType.Build_Construction);
 
                         Destroy(_currentConstructionMovableModel);
                         _spawnConstruction = false;
@@ -128,36 +126,42 @@ public class UserBuilder : CycleInitializerBase
         foreach (var element in _constructionWithID[id].Cost.ResourceCost)
             ResourceGlobalStorage.GetResource(element.Key).SetValue(ResourceGlobalStorage.GetResource(element.Key).CurrentValue - element.Value);
     }
-
-
-    private void SpawnConstruction(MovingUnit unit, ConstructionID id)
+    
+    private bool TrySpawnConstruction(ConstructionID id, out BuildingProgressConstruction construction)
     {
-        if (id != ConstructionID.Town_Hall || _numberTownHall < 1)
-        {
-            if (id == ConstructionID.Town_Hall)
-                _numberTownHall++;
+        construction = null;
 
-            RaycastHit[] raycastHits = Physics.RaycastAll(Camera.main.ScreenPointToRay(Input.mousePosition));
-            int index = raycastHits.IndexOf(hit => !hit.collider.isTrigger);
+        if (id == ConstructionID.Town_Hall && _numberTownHall >= 1)
+            return false;
+        
+        RaycastHit[] raycastHits = Physics.RaycastAll(Camera.main.ScreenPointToRay(Input.mousePosition));
+        int index = raycastHits.IndexOf(hit => !hit.collider.isTrigger);
+        if (index <= -1) 
+            return false;
+        
+        Vector3 position = FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(raycastHits[index].point);
+        if (FrameworkCommander.GlobalData.ConstructionsRepository.ConstructionExist(position, false))
+            return false;
 
-            if (index > -1)
-            {
-                Vector3 position = FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(raycastHits[index].point);
-
-                if (FrameworkCommander.GlobalData.ConstructionsRepository.ConstructionExist(position, false))
-                {
-                    Debug.Log("Invalid place");
-                    return;
-                }
-                BuildingProgressConstruction progressConstruction = _constructionFactory.Create<BuildingProgressConstruction>(ConstructionID.Building_Progress_Construction);
-                progressConstruction.transform.position = position;
-                FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position, progressConstruction);
+        if (id == ConstructionID.Town_Hall)
+            _numberTownHall++;
+        
+        construction = SpawnConstruction(id, position);
+        
+        return true;
+    }
+    
+    private BuildingProgressConstruction SpawnConstruction(ConstructionID id, Vector3 position)
+    {
+        BuildingProgressConstruction progressConstruction = _constructionFactory.Create<BuildingProgressConstruction>(ConstructionID.Building_Progress_Construction);
+        progressConstruction.transform.position = position;
+        FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position, progressConstruction);
                 
-                progressConstruction.OnTimerEnd += c => CreateConstruction(c, position);
+        progressConstruction.OnTimerEnd += c => CreateConstruction(c, position);
 
-                progressConstruction.StartBuilding(4, id, unit);
-            }
-        }
+        progressConstruction.StartBuilding(4, id);
+
+        return progressConstruction;
     }
 
     private void CreateConstruction(BuildingProgressConstruction buildingProgressConstruction, Vector3 position)

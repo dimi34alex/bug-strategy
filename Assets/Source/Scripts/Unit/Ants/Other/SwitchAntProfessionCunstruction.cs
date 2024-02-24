@@ -1,7 +1,7 @@
 using System;
 using Unit.Ants;
-using Unit.Ants.ProfessionsConfigs;
-using Unit.Professions;
+using Unit.Ants.Configs.Professions;
+using Unit.ProfessionsCore;
 using UnityEngine;
 
 public class SwitchAntProfessionCunstruction : MonoBehaviour, IUnitTarget, ITriggerable

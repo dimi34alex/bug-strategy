@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using MiniMapSystem;
-using Unit.Professions;
+using Unit.ProfessionsCore;
 
 public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable, IUnitTarget, IMiniMapObject,
     SelectableSystem.ISelectable, IAffiliation, IPoolable<UnitBase, UnitType>
@@ -129,7 +129,7 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
 
         CalculateNewState(targetMovePosition);
     }
-    
+
     private void CalculateNewState(Vector3 newTargetMovePosition)
     {
         newTargetMovePosition.y = 0;

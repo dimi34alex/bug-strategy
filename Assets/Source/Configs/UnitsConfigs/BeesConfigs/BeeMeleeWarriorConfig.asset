@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a41f5465bb246d391aba8f897507bce, type: 3}
+  m_Name: BeeMeleeWarriorConfig
+  m_EditorClassIdentifier: 
+  <HealthPoints>k__BackingField: 100
+  <InteractionRange>k__BackingField: 4
+  <Cooldown>k__BackingField: 1
+  <AttackRange>k__BackingField: 4
+  <Damage>k__BackingField: 10

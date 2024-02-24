@@ -22,6 +22,8 @@ namespace Projectiles
             Move(time);
         }
 
+        public void SetDamage(IDamageApplicator damage) => Damage = damage.Damage;
+
         public void SetTarget(IUnitTarget target) => Target = target;
 
         public virtual void OnElementReturn() => gameObject.SetActive(false);

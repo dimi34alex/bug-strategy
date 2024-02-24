@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using Projectiles;
-using Unit.Ants.ProfessionsConfigs;
+using Unit.Ants.Configs;
+using Unit.Ants.Configs.Professions;
+using Unit.Ants.Professions;
 using Unit.Ants.States;
-using Unit.Professions;
-using Unit.Professions.Ants;
+using Unit.ProfessionsCore;
 using UnityEngine;
 using Zenject;
 
@@ -13,7 +14,7 @@ namespace Unit.Ants
 {
     public abstract class AntBase : AntUnit
     {
-        [SerializeField] private AntProfessionConfigBase defaultProfessionConfig;
+        [SerializeField] private AntUnitConfig config;
         [SerializeField] private GameObject resource;
         [SerializeField] private Animator animator;
 
@@ -28,14 +29,14 @@ namespace Unit.Ants
         public int TargetProfessionRang { get; private set; }
         
         private AntProfessionRang _antProfessionRang;
-        
-        private void Start()
+
+        protected override void OnAwake()
         {
-            FrameworkCommander.GlobalData.UnitRepository.AddUnit(this);
-            UnitPool.Instance.UnitCreation(this);
-            
+            base.OnAwake();
+
             resource.SetActive(false);
-            SetProfession(defaultProfessionConfig);
+            _healthStorage = new ResourceStorage(config.HealthPoints, config.HealthPoints);
+            SetProfession(config.DefaultProfession);
 
             var stateBases = new List<EntityStateBase>()
             {
@@ -53,12 +54,11 @@ namespace Unit.Ants
             AutoGiveOrder(null, Transform.position);
         }
 
-        private void Update()
+        protected override void OnUpdate()
         {
-            Profession?.HandleUpdate(Time.deltaTime);
+            base.OnUpdate();
             
-            foreach (var ability in _abilites)
-                ability.OnUpdate(Time.deltaTime);
+            Profession?.HandleUpdate(Time.deltaTime);
         }
         
         public override void GiveOrder(GameObject target, Vector3 position)
