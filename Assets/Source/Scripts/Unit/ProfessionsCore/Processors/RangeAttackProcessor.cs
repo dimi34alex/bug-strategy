@@ -28,6 +28,7 @@ namespace Unit.ProfessionsCore.Processors
 
             var projectile = _projectilesPool.Extract<ProjectileBase>(_projectileType);
             projectile.transform.position = Transform.position;
+            projectile.SetDamage(this);
             projectile.SetTarget(target);
         }
     }

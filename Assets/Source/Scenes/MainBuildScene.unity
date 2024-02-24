@@ -3421,10 +3421,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2885223405167819285, guid: 06376d819031a3f4980df3e7509ed1f1, type: 3}
-      propertyPath: config
-      value: 
-      objectReference: {fileID: 11400000, guid: b2a49cc7b620a9542827c46cad3a86b1, type: 2}
     - target: {fileID: 3076308753430282793, guid: 06376d819031a3f4980df3e7509ed1f1, type: 3}
       propertyPath: m_Name
       value: FlyAnt
