@@ -2,14 +2,13 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace UnitsRecruitingSystem
+namespace UnitsRecruitingSystemCore
 {
-    public class UnitsRecruiter<TEnum> : IReadOnlyUnitsRecruiter<TEnum>
-        where TEnum : Enum
+    public class UnitsRecruiter : IReadOnlyUnitsRecruiter
     {
         private readonly Transform _spawnTransform;
-        private readonly List<UnitRecruitingStack<TEnum>> _stacks;
-        private List<UnitRecruitingData<TEnum>> _recruitingDatas;
+        private readonly List<UnitRecruitingStack<UnitType>> _stacks;
+        private List<UnitRecruitingData<UnitType>> _recruitingDatas;
         private ResourceRepository _resourceRepository;
         
         public event Action OnChange;
@@ -18,21 +17,21 @@ namespace UnitsRecruitingSystem
         public event Action OnTick;
         public event Action OnCancelRecruit;
 
-        public UnitsRecruiter(int size, Transform spawnTransform, IReadOnlyList<UnitRecruitingData<TEnum>> newDatas,
+        public UnitsRecruiter(int size, Transform spawnTransform, IReadOnlyList<UnitRecruitingData<UnitType>> newDatas,
             ref ResourceRepository resourceRepository)
         {
             _spawnTransform = spawnTransform;
             _resourceRepository = resourceRepository;
-            _stacks = new List<UnitRecruitingStack<TEnum>>();
-            _recruitingDatas = new List<UnitRecruitingData<TEnum>>(newDatas);
+            _stacks = new List<UnitRecruitingStack<UnitType>>();
+            _recruitingDatas = new List<UnitRecruitingData<UnitType>>(newDatas);
 
             for (int n = 0; n < size; n++)
-                _stacks.Add(new UnitRecruitingStack<TEnum>(spawnTransform, ref resourceRepository));
+                _stacks.Add(new UnitRecruitingStack<UnitType>(spawnTransform, ref resourceRepository));
         }
 
-        public void SetNewDatas(IReadOnlyList<UnitRecruitingData<TEnum>> newDatas)
+        public void SetNewDatas(IReadOnlyList<UnitRecruitingData<UnitType>> newDatas)
         {
-            _recruitingDatas = new List<UnitRecruitingData<TEnum>>(newDatas);
+            _recruitingDatas = new List<UnitRecruitingData<UnitType>>(newDatas);
         }
         
         /// <returns> Returns first empty stack index. If it cant find free stack return -1 </returns>
@@ -49,7 +48,7 @@ namespace UnitsRecruitingSystem
         /// </summary>
         /// <param name="id"> unity id </param>
         /// <returns> If player have enough resources then return true, else false </returns>
-        public bool CheckCosts(TEnum id)
+        public bool CheckCosts(UnitType id)
         {
             var recruitingData = _recruitingDatas.Find(data => data.CurrentID.Equals(id));
             return CheckCosts(recruitingData.Costs);
@@ -75,7 +74,7 @@ namespace UnitsRecruitingSystem
         /// <param name="id"> unity id </param>
         /// <exception cref="Exception"> All stacks are busy </exception>
         /// <exception cref="Exception"> Need more resources </exception>
-        public void RecruitUnit(TEnum id)
+        public void RecruitUnit(UnitType id)
         {
             int freeStackIndex = _stacks.IndexOf(freeStack => freeStack.Empty);
             if (freeStackIndex == -1) throw new Exception("All stacks are busy");
@@ -90,7 +89,7 @@ namespace UnitsRecruitingSystem
         /// <param name="stackIndex"> index of empty stack </param>
         /// <exception cref="Exception"> Stack are busy </exception>
         /// <exception cref="Exception"> Need more resources </exception>
-        public void RecruitUnit(TEnum id, int stackIndex)
+        public void RecruitUnit(UnitType id, int stackIndex)
         {
             if (!_stacks[stackIndex].Empty)
                 throw new Exception("Stack are busy");
@@ -116,7 +115,7 @@ namespace UnitsRecruitingSystem
             if(newCount <= _stacks.Count) return;
             
             for (int n = _stacks.Count; n <newCount; n++)
-                _stacks.Add(new UnitRecruitingStack<TEnum>(_spawnTransform, ref _resourceRepository));
+                _stacks.Add(new UnitRecruitingStack<UnitType>(_spawnTransform, ref _resourceRepository));
 
             OnAddStack?.Invoke();
             OnChange?.Invoke();
@@ -149,9 +148,9 @@ namespace UnitsRecruitingSystem
         /// <returns>
         /// Return list of information about all stacks
         /// </returns>
-        public List<IReadOnlyUnitRecruitingStack<TEnum>> GetRecruitingInformation()
+        public List<IReadOnlyUnitRecruitingStack<UnitType>> GetRecruitingInformation()
         {
-            var fullInformation = new List<IReadOnlyUnitRecruitingStack<TEnum>>();
+            var fullInformation = new List<IReadOnlyUnitRecruitingStack<UnitType>>();
             foreach (var stack in _stacks)
                 fullInformation.Add(stack);
 

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Constructions.LevelSystemCore;
-using UnitsRecruitingSystem;
+using UnitsRecruitingSystemCore;
 using UnityEngine;
 
 namespace Constructions
@@ -9,14 +9,14 @@ namespace Constructions
     [Serializable]
     public class BeeBarrackLevelSystem : ConstructionLevelSystemBase<BeeBarrackLevel>
     {
-        private UnitsRecruiter<BeesRecruitingID> _recruiter;
+        private UnitsRecruiter _recruiter;
 
         public BeeBarrackLevelSystem(IReadOnlyList<BeeBarrackLevel> levels,
             Transform spawnPosition, ref ResourceRepository resourceRepository, ref ResourceStorage healthStorage,
-            ref UnitsRecruiter<BeesRecruitingID> recruiter) 
+            ref UnitsRecruiter recruiter) 
             : base(levels, ref resourceRepository, ref healthStorage)
         {
-            _recruiter = recruiter = new UnitsRecruiter<BeesRecruitingID>(CurrentLevel.RecruitingSize, spawnPosition,
+            _recruiter = recruiter = new UnitsRecruiter(CurrentLevel.RecruitingSize, spawnPosition,
                 CurrentLevel.BeesRecruitingData, ref resourceRepository);
         }
 

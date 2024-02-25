@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace UnitsRecruitingSystem
+namespace UnitsRecruitingSystemCore
 {
     public class UnitRecruitingStack<TEnum> : IReadOnlyUnitRecruitingStack<TEnum>
         where TEnum : Enum

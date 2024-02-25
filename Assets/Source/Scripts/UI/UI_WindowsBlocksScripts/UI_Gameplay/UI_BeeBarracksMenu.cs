@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Constructions;
 using TMPro;
-using UnitsRecruitingSystem;
+using UnitsRecruitingSystemCore;
 using UnityEngine;
 
 public class UI_BeeBarracksMenu : UI_EvolveConstructionScreenBase<BeeBarrack>
@@ -9,7 +9,7 @@ public class UI_BeeBarracksMenu : UI_EvolveConstructionScreenBase<BeeBarrack>
     [SerializeField] private List<TextMeshProUGUI> stackID;
     [SerializeField] private List<TextMeshProUGUI> stackTime;
 
-    private IReadOnlyUnitsRecruiter<BeesRecruitingID> _recruiter;
+    private IReadOnlyUnitsRecruiter _recruiter;
     
     public void _CallMenu(ConstructionBase barrack)
     {
@@ -44,12 +44,12 @@ public class UI_BeeBarracksMenu : UI_EvolveConstructionScreenBase<BeeBarrack>
     
     public void _RecruitingWax()
     {
-        _construction.RecruitBees(BeesRecruitingID.Wasp);
+        _construction.RecruitBees(UnitType.Wasp);
     }
     
     public void _RecruitingBumblebee()
     {
-        _construction.RecruitBees(BeesRecruitingID.Bumblebee);
+        _construction.RecruitBees(UnitType.Bumblebee);
     }
 
     private void OnDisable()

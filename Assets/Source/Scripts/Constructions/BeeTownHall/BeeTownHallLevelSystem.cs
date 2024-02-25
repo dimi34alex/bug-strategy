@@ -1,21 +1,21 @@
 using System;
 using System.Collections.Generic;
 using Constructions.LevelSystemCore;
-using UnitsRecruitingSystem;
+using UnitsRecruitingSystemCore;
 using UnityEngine;
 
 namespace Constructions
 {
     public class BeeTownHallLevelSystem : ConstructionLevelSystemBase<BeeTownHallLevel>
     {
-        private UnitsRecruiter<BeesRecruitingID> _recruiter;
+        private UnitsRecruiter _recruiter;
 
         public BeeTownHallLevelSystem(IReadOnlyList<BeeTownHallLevel> levels, Transform spawnPosition,
             ref ResourceRepository resourceRepository, ref ResourceStorage healthStorage, 
-            ref UnitsRecruiter<BeesRecruitingID> recruiter) 
+            ref UnitsRecruiter recruiter) 
             : base(levels, ref resourceRepository, ref healthStorage)
         {
-            _recruiter = recruiter = new UnitsRecruiter<BeesRecruitingID>(CurrentLevel.RecruitingSize, spawnPosition,
+            _recruiter = recruiter = new UnitsRecruiter(CurrentLevel.RecruitingSize, spawnPosition,
                 CurrentLevel.BeesRecruitingData, ref resourceRepository);
         }
 

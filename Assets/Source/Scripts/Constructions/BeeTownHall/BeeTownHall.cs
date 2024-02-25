@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Constructions.LevelSystemCore;
 using UnityEngine;
 using UnityEngine.Events;
-using UnitsRecruitingSystem;
+using UnitsRecruitingSystemCore;
 
 namespace Constructions
 {
@@ -16,11 +16,11 @@ namespace Constructions
         public bool AlarmIsOn { get; private set; }
     
         public override ConstructionID ConstructionID => ConstructionID.Bees_Town_Hall;
-        public IReadOnlyUnitsRecruiter<BeesRecruitingID> Recruiter => _recruiter;
+        public IReadOnlyUnitsRecruiter Recruiter => _recruiter;
         public IConstructionLevelSystem LevelSystem { get; private set; }
 
         static Stack<GameObject> WorkerBeesInTownHall = new Stack<GameObject>();//массив пчел, которые спрятались в ратуши
-        private UnitsRecruiter<BeesRecruitingID> _recruiter;
+        private UnitsRecruiter _recruiter;
     
         public static event UnityAction WorkerBeeAlarmOn;//оповещение рабочих пчел о тревоге
 
@@ -30,7 +30,8 @@ namespace Constructions
             gameObject.name = "TownHall";
 
             var takeResourceRepository = ResourceGlobalStorage.ResourceRepository;
-            LevelSystem = new BeeTownHallLevelSystem(config.Levels, workerBeesSpawnPosition, ref takeResourceRepository,ref _healthStorage, ref _recruiter);
+            LevelSystem = new BeeTownHallLevelSystem(config.Levels, workerBeesSpawnPosition, ref takeResourceRepository,
+                ref _healthStorage, ref _recruiter);
         
             _updateEvent += OnUpdate;
             _onDestroy += SetLooseScreen;
@@ -67,7 +68,7 @@ namespace Constructions
             }
         }
     
-        public void RecruitingWorkerBee(BeesRecruitingID beeID)
+        public void RecruitingWorkerBee(UnitType beeID)
         {
             int freeStackIndex = _recruiter.FindFreeStack();
 
@@ -85,12 +86,7 @@ namespace Constructions
         
             _recruiter.RecruitUnit(beeID, freeStackIndex);
         }
-    
-        public List<IReadOnlyUnitRecruitingStack<BeesRecruitingID>> GetRecruitingInformation()
-        {
-            return _recruiter.GetRecruitingInformation();
-        }
-
+        
         private void SetLooseScreen()
         {
             UI_Controller._SetWindow("UI_Lose");

@@ -22,7 +22,7 @@ MonoBehaviour:
       _cells: []
     recruitingSize: 3
     beesRecruitingData:
-    - currentId: 1
+    - currentId: 30
       recruitingTime: 5
       stackSize: 2
       spawnPauseTime: 0.5
@@ -31,7 +31,7 @@ MonoBehaviour:
         _cells:
         - Key: 1
           Value: 2
-    - currentId: 2
+    - currentId: 1
       recruitingTime: 10
       stackSize: 1
       spawnPauseTime: 0
@@ -47,7 +47,7 @@ MonoBehaviour:
       _cells: []
     recruitingSize: 6
     beesRecruitingData:
-    - currentId: 1
+    - currentId: 30
       recruitingTime: 4
       stackSize: 2
       spawnPauseTime: 0.5
@@ -56,7 +56,7 @@ MonoBehaviour:
         _cells:
         - Key: 1
           Value: 2
-    - currentId: 2
+    - currentId: 1
       recruitingTime: 7
       stackSize: 1
       spawnPauseTime: 0

@@ -1,6 +1,6 @@
 using Constructions.LevelSystemCore;
 using UnityEngine;
-using UnitsRecruitingSystem;
+using UnitsRecruitingSystemCore;
 
 namespace Constructions
 {
@@ -13,8 +13,8 @@ namespace Constructions
 
         public IConstructionLevelSystem LevelSystem { get; private set; }
 
-        private UnitsRecruiter<BeesRecruitingID> _recruiter;
-        public IReadOnlyUnitsRecruiter<BeesRecruitingID> Recruiter => _recruiter;
+        private UnitsRecruiter _recruiter;
+        public IReadOnlyUnitsRecruiter Recruiter => _recruiter;
 
         protected override void OnAwake()
         {
@@ -31,7 +31,7 @@ namespace Constructions
             _recruiter.Tick(Time.deltaTime);
         }
 
-        public void RecruitBees(BeesRecruitingID beeID)
+        public void RecruitBees(UnitType beeID)
         {
             int freeStackIndex = _recruiter.FindFreeStack();
 

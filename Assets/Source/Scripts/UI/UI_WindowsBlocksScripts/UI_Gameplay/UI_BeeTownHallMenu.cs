@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Constructions;
 using UnityEngine;
 using TMPro;
-using UnitsRecruitingSystem;
+using UnitsRecruitingSystemCore;
 
 public class UI_BeeTownHallMenu : UI_EvolveConstructionScreenBase<BeeTownHall>
 {
@@ -10,7 +10,7 @@ public class UI_BeeTownHallMenu : UI_EvolveConstructionScreenBase<BeeTownHall>
     [SerializeField] private List<TextMeshProUGUI> stackID;
     [SerializeField] private List<TextMeshProUGUI> stackTime;
     
-    private IReadOnlyUnitsRecruiter<BeesRecruitingID> _recruiter;
+    private IReadOnlyUnitsRecruiter _recruiter;
     
     public void _CallMenu(ConstructionBase townHall)
     {
@@ -46,7 +46,7 @@ public class UI_BeeTownHallMenu : UI_EvolveConstructionScreenBase<BeeTownHall>
 
     public void _RecruitingWorkerBee()
     {
-        _construction.RecruitingWorkerBee(BeesRecruitingID.WorkerBee);
+        _construction.RecruitingWorkerBee(UnitType.WorkerBee);
     }
     
     public void _WorkerBeeAlarmer()

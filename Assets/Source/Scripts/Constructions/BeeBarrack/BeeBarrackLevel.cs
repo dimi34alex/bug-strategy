@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Constructions.LevelSystemCore;
 using UnityEngine;
-using UnitsRecruitingSystem;
+using UnitsRecruitingSystemCore;
 
 namespace Constructions
 {
@@ -10,9 +10,9 @@ namespace Constructions
     public class BeeBarrackLevel : ConstructionLevelBase
     {
         [SerializeField] [Range(1, 6)] private int recruitingSize = 1;
-        [SerializeField] private List<UnitRecruitingData<BeesRecruitingID>> beesRecruitingData;
+        [SerializeField] private List<UnitRecruitingData<UnitType>> beesRecruitingData;
 
         public int RecruitingSize => recruitingSize;
-        public IReadOnlyList<UnitRecruitingData<BeesRecruitingID>> BeesRecruitingData => beesRecruitingData;
+        public IReadOnlyList<UnitRecruitingData<UnitType>> BeesRecruitingData => beesRecruitingData;
     }
 }

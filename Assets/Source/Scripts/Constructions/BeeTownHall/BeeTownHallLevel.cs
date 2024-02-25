@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Constructions.LevelSystemCore;
 using UnityEngine;
-using UnitsRecruitingSystem;
+using UnitsRecruitingSystemCore;
 
 namespace Constructions
 {
@@ -11,9 +11,9 @@ namespace Constructions
     {
         [Space]
         [SerializeField] [Range(0, 2)] private int recruitingSize = 0;
-        [SerializeField] private List<UnitRecruitingData<BeesRecruitingID>> beesRecruitingData;
+        [SerializeField] private List<UnitRecruitingData<UnitType>> beesRecruitingData;
 
         public int RecruitingSize => recruitingSize;
-        public IReadOnlyList<UnitRecruitingData<BeesRecruitingID>> BeesRecruitingData => beesRecruitingData;
+        public IReadOnlyList<UnitRecruitingData<UnitType>> BeesRecruitingData => beesRecruitingData;
     }
 }

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace UnitsRecruitingSystem
+namespace UnitsRecruitingSystemCore
 {
     [Serializable]
     public struct UnitRecruitingData<TEnum> where TEnum : Enum
