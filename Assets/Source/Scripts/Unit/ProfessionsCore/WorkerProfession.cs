@@ -1,4 +1,5 @@
-﻿using Unit.ProfessionsCore.Processors;
+﻿using Constructions;
+using Unit.ProfessionsCore.Processors;
 using UnityEngine;
 
 namespace Unit.ProfessionsCore
@@ -51,7 +52,7 @@ namespace Unit.ProfessionsCore
                     break;
                 case UnitPathType.Storage_Resource:
                     if (target.TargetType == UnitTargetType.Construction &&
-                        target.CastPossible<TownHall>() &&
+                        target.CastPossible<BeeTownHall>() &&
                         ResourceExtractionProcessor.GotResource)
                         return UnitPathType.Storage_Resource;
                     break;
@@ -81,7 +82,7 @@ namespace Unit.ProfessionsCore
                     if (unitTarget.CastPossible<BuildingProgressConstruction>())
                         return new UnitPathData(unitTarget, UnitPathType.Build_Construction);
                 
-                    if (unitTarget.CastPossible<TownHall>() && ResourceExtractionProcessor.GotResource)
+                    if (unitTarget.CastPossible<BeeTownHall>() && ResourceExtractionProcessor.GotResource)
                         return new UnitPathData(unitTarget, UnitPathType.Storage_Resource);  
                     break;                
             }

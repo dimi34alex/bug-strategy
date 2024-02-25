@@ -3,9 +3,11 @@ using UnityEngine;
 using Zenject;
 using UnityEngine.EventSystems;
 using System.Linq;
+using Constructions;
 
 public class UserBuilder : CycleInitializerBase
 {
+    [Inject] private readonly ConstructionsConfigsRepository _constructionsConfigsRepository;
     [Inject] private readonly IConstructionFactory _constructionFactory;
     
     [SerializeField] private SerializableDictionary<ConstructionID, GameObject> constructionMovableModels;
@@ -21,9 +23,6 @@ public class UserBuilder : CycleInitializerBase
     
     protected override void OnInit()
     {
-        foreach (var construct in constructions)
-            construct.CalculateCost();
-
         _constructionWithID = constructions.ToDictionary(x => x.ConstructionID, x => x);
         
         GameObject controller = GameObject.FindGameObjectWithTag("GameController");
@@ -114,7 +113,7 @@ public class UserBuilder : CycleInitializerBase
     {
         bool flagCanBuy = true;
 
-        foreach (var element in _constructionWithID[id].Cost.ResourceCost)
+        foreach (var element in _constructionsConfigsRepository.TakeBuyCost(id).ResourceCost)
              if (element.Value > ResourceGlobalStorage.GetResource(element.Key).CurrentValue)
                  flagCanBuy = false;
 
@@ -123,7 +122,7 @@ public class UserBuilder : CycleInitializerBase
 
     private void BuyConstruction(ConstructionID id)
     {
-        foreach (var element in _constructionWithID[id].Cost.ResourceCost)
+        foreach (var element in _constructionsConfigsRepository.TakeBuyCost(id).ResourceCost)
             ResourceGlobalStorage.GetResource(element.Key).SetValue(ResourceGlobalStorage.GetResource(element.Key).CurrentValue - element.Value);
     }
     
@@ -131,7 +130,7 @@ public class UserBuilder : CycleInitializerBase
     {
         construction = null;
 
-        if (id == ConstructionID.Town_Hall && _numberTownHall >= 1)
+        if (id == ConstructionID.Bees_Town_Hall && _numberTownHall >= 1)
             return false;
         
         RaycastHit[] raycastHits = Physics.RaycastAll(Camera.main.ScreenPointToRay(Input.mousePosition));
@@ -143,7 +142,7 @@ public class UserBuilder : CycleInitializerBase
         if (FrameworkCommander.GlobalData.ConstructionsRepository.ConstructionExist(position, false))
             return false;
 
-        if (id == ConstructionID.Town_Hall)
+        if (id == ConstructionID.Bees_Town_Hall)
             _numberTownHall++;
         
         construction = SpawnConstruction(id, position);

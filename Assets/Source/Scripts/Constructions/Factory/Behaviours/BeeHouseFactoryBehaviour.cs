@@ -1,4 +1,5 @@
 using System.Runtime.InteropServices.ComTypes;
+using Constructions;
 using Zenject;
 
 public class BeeHouseFactoryBehaviour : ConstructionFactoryBehaviourBase
@@ -9,7 +10,7 @@ public class BeeHouseFactoryBehaviour : ConstructionFactoryBehaviourBase
 
     public override TConstruction Create<TConstruction>(ConstructionID constructionID)
     {
-        ConstructionConfiguration<BeeHouse> configuration = _beeHouseConfig.GetConfiguration();
+        ConstructionSpawnConfiguration<BeeHouse> configuration = _beeHouseConfig.GetConfiguration();
 
         BeeHouse construction = Instantiate(configuration.ConstructionPrefab,
             configuration.ConstructionPrefab.transform.position, configuration.Rotation);

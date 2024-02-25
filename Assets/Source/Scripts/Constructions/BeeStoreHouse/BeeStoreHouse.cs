@@ -1,13 +1,19 @@
-using ConstructionLevelSystem;
+using Constructions.LevelSystemCore;
+using UnityEngine;
 
-public class BeeStoreHouse : EvolvConstruction<BeeStoreHouseLevel>
+namespace Constructions
 {
-    public override ConstructionID ConstructionID => ConstructionID.BeeStoreHouse;
-
-    protected override void OnAwake()
+    public class BeeStoreHouse : EvolvConstruction
     {
-        base.OnAwake();
+        [SerializeField] private BeeStoreHouseConfig config;
 
-        levelSystem = new BeeStoreHouseLevelSystem(levelSystem, ref _healthStorage);
+        public override ConstructionID ConstructionID => ConstructionID.BeeStoreHouse;
+
+        protected override void OnAwake()
+        {
+            base.OnAwake();
+
+            levelSystem = new BeeStoreHouseLevelSystem(config.Levels, ref _healthStorage);
+        }
     }
 }

@@ -55,12 +55,12 @@ public class UI_Controller : MonoBehaviour
     #region Spawn of buildings
     public static void _SpawnTownHall()
     {
-        builder.SpawnConstructionMovableModel(ConstructionID.Town_Hall);
+        builder.SpawnConstructionMovableModel(ConstructionID.Bees_Town_Hall);
     }
     
     public static void _SpawnBarrack()
     {
-        builder.SpawnConstructionMovableModel(ConstructionID.Barrack);
+        builder.SpawnConstructionMovableModel(ConstructionID.BeeBarrack);
     }
     
     public static void _SpawnBeeHouse()
@@ -75,7 +75,7 @@ public class UI_Controller : MonoBehaviour
 
     public static void _SpawnStickyTile()
     {
-        builder.SpawnConstructionMovableModel(ConstructionID.Sticky_Tile_Construction);
+        builder.SpawnConstructionMovableModel(ConstructionID.Bee_Sticky_Tile_Construction);
     }
 
     #endregion
@@ -150,12 +150,12 @@ public class UI_Controller : MonoBehaviour
         string windowName;
         switch (newConstruction.ConstructionID)
         {
-            case (ConstructionID.Town_Hall):
+            case (ConstructionID.Bees_Town_Hall):
             {
                 windowName = "UI_TownHallMenu";
                 break;
             }
-            case (ConstructionID.Barrack):
+            case (ConstructionID.BeeBarrack):
             {
                 windowName = "UI_BarracksMenu";
                 break;

@@ -6,9 +6,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "DefaultConstructionConfig", menuName = "Config/DefaultConstructionConfig")]
 public class DefaultConstructionConfig : ScriptableObject, ISingleConfig
 { 
-    [SerializeField] private ConstructionConfiguration<DefaultConstruction> _configuration;
+    [SerializeField] private ConstructionSpawnConfiguration<DefaultConstruction> _configuration;
 
-    public ConstructionConfiguration<DefaultConstruction> GetConfiguration()
+    public ConstructionSpawnConfiguration<DefaultConstruction> GetConfiguration()
     {
         return _configuration;
     }

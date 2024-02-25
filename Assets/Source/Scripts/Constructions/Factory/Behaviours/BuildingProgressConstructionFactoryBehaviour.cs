@@ -8,7 +8,7 @@ public class BuildingProgressConstructionFactoryBehaviour : ConstructionFactoryB
 
     public override TConstruction Create<TConstruction>(ConstructionID constructionID)
     {
-        ConstructionConfiguration<BuildingProgressConstruction> configuration = _constructionConfig.GetConfiguration();
+        ConstructionSpawnConfiguration<BuildingProgressConstruction> configuration = _constructionConfig.GetConfiguration();
 
         BuildingProgressConstruction construction = Instantiate(configuration.ConstructionPrefab,
             configuration.ConstructionPrefab.transform.position, configuration.Rotation);

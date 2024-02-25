@@ -51,26 +51,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   affiliationEnum: 10
-  levelSystem:
-    levels:
-    - maxHealPoints: 1500
-      <LevelUpCost>k__BackingField:
-        _cells: []
-      resourceCapacity:
-        _cells:
-        - Key: 1
-          Value: 5
-    - maxHealPoints: 2500
-      <LevelUpCost>k__BackingField:
-        _cells: []
-      resourceCapacity:
-        _cells:
-        - Key: 0
-          Value: 10
-  _costValues:
-    _cells:
-    - Key: 0
-      Value: 2
+  config: {fileID: 11400000, guid: 2eff88727298ea3438c8611da78a2b67, type: 2}
 --- !u!65 &1498097168595941684
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -11,7 +11,6 @@ public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagabl
     public abstract ConstructionID ConstructionID { get; }
     public UnitTargetType TargetType => UnitTargetType.Construction;
     public MiniMapObjectType MiniMapObjectType => MiniMapObjectType.Construction;
-    public virtual Cost Cost { get; }
     public Transform Transform => transform;
 
     protected ResourceStorage _healthStorage;
@@ -37,9 +36,7 @@ public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagabl
 
     protected virtual void OnAwake() { }
     protected virtual void OnStart() { }
-
-    public virtual void CalculateCost() { }
-
+    
     public virtual void TakeDamage(IDamageApplicator damageApplicator)
     {
         _healthStorage.ChangeValue(-damageApplicator.Damage);

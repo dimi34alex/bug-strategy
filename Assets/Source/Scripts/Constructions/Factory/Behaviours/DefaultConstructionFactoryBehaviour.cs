@@ -8,7 +8,7 @@ public class DefaultConstructionFactoryBehaviour : ConstructionFactoryBehaviourB
 
     public override TConstruction Create<TConstruction>(ConstructionID constructionID)
     {
-        ConstructionConfiguration<DefaultConstruction> configuration = _defaultConstructionConfig.GetConfiguration();
+        ConstructionSpawnConfiguration<DefaultConstruction> configuration = _defaultConstructionConfig.GetConfiguration();
 
         DefaultConstruction construction = Instantiate(configuration.ConstructionPrefab,
             configuration.ConstructionPrefab.transform.position, configuration.Rotation);

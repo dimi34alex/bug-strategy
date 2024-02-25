@@ -9,10 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0e1075aedf4b0f49a74b5bdb4ed5de2, type: 3}
+  m_Script: {fileID: 11500000, guid: 62dd7f0cf075407195d448ddef116a2c, type: 3}
   m_Name: BeeHouseConfig
   m_EditorClassIdentifier: 
-  _configuration:
-    ConstructionPrefab: {fileID: -4589124477280040743, guid: eb03e7e86e87e7e4186e4e1098d54590, type: 3}
-    SkinPrefab: {fileID: 0}
-    Rotation: {x: 0, y: 0, z: 0, w: 0}
+  buyCost:
+    _cells:
+    - Key: 0
+      Value: 10
+  levels:
+  - maxHealPoints: 1000
+    levelUpCost:
+      _cells: []
+    resourceCapacity:
+      _cells:
+      - Key: 1
+        Value: 10

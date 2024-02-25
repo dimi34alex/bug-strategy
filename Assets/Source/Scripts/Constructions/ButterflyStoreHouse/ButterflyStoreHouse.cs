@@ -1,13 +1,19 @@
-using ConstructionLevelSystem;
+using Constructions.LevelSystemCore;
+using UnityEngine;
 
-public class ButterflyStoreHouse : EvolvConstruction<ButterflyStoreHouseLevel>
+namespace Constructions
 {
-    public override ConstructionID ConstructionID => ConstructionID.ButterflyStoreHouse;
-
-    protected override void OnAwake()
+    public class ButterflyStoreHouse : EvolvConstruction
     {
-        base.OnAwake();
+        [SerializeField] private ButterflyStoreHouseConfig config;
+    
+        public override ConstructionID ConstructionID => ConstructionID.ButterflyStoreHouse;
 
-        levelSystem = new ButterflyStoreHouseLevelSystem(levelSystem, ref _healthStorage);
-    }
+        protected override void OnAwake()
+        {
+            base.OnAwake();
+
+            levelSystem = new ButterflyStoreHouseLevelSystem(config.Levels, ref _healthStorage);
+        }
+    }   
 }

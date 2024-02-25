@@ -1,3 +1,4 @@
+using Constructions;
 using Unit.ProfessionsCore;
 using UnityEngine;
 
@@ -21,13 +22,13 @@ namespace Unit.Ants.States
             if (_ant.CurProfessionType != ProfessionType.Worker ||
                 !_ant.Profession.TryCast(out _workerProfession) ||
                 !_workerProfession.ResourceExtractionProcessor.GotResource ||
-                !_ant.CurrentPathData.Target.CastPossible<TownHall>())
+                !_ant.CurrentPathData.Target.CastPossible<BeeTownHall>())
             {
 #if UNITY_EDITOR
                 Debug.LogWarning($"Some problem: " +
                                  $"{_ant.CurProfessionType} | " +
                                  $"{!_ant.Profession.TryCast(out _workerProfession)} | " +
-                                 $"{!_ant.CurrentPathData.Target.CastPossible<TownHall>()}");            
+                                 $"{!_ant.CurrentPathData.Target.CastPossible<BeeTownHall>()}");            
 #endif
                 _ant.AutoGiveOrder(null);
                 return;
