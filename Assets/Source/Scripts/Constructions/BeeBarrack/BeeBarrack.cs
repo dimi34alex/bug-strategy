@@ -4,12 +4,14 @@ using UnitsRecruitingSystem;
 
 namespace Constructions
 {
-    public class BeeBarrack : EvolvConstruction
+    public class BeeBarrack : ConstructionBase, IEvolveConstruction
     {
         public override ConstructionID ConstructionID => ConstructionID.BeeBarrack;
 
         [SerializeField] private BeeBarrackConfig config;
         [SerializeField] private Transform beesSpawnPosition;
+
+        public IConstructionLevelSystem LevelSystem { get; private set; }
 
         private UnitsRecruiter<BeesRecruitingID> _recruiter;
         public IReadOnlyUnitsRecruiter<BeesRecruitingID> Recruiter => _recruiter;
@@ -18,7 +20,8 @@ namespace Constructions
         {
             base.OnAwake();
 
-            levelSystem = new BeeBarrackLevelSystem(config.Levels, beesSpawnPosition, ref _healthStorage, ref _recruiter);
+            var resourceRepository = ResourceGlobalStorage.ResourceRepository;
+            LevelSystem = new BeeBarrackLevelSystem(config.Levels, beesSpawnPosition, ref resourceRepository, ref _healthStorage, ref _recruiter);
 
             _updateEvent += OnUpdate;
         }

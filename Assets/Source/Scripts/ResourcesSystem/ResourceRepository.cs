@@ -33,15 +33,31 @@ public class ResourceRepository
         }
         else
         {
-            throw new Exception("Such a resource already exists");
+            throw new Exception($"Such a resource already exists: {id}");
         }
     }
 
+    public void ChangeCapacity(ResourceID id, float changeValue)
+    {
+        if (_resources.TryGetValue(id, out ResourceBase resource)) 
+            resource.SetCapacity(resource.Capacity + changeValue);
+        else
+            throw new Exception($"No resource: {id}");
+    }
+    
+    public void ChangeValue(ResourceID id, float changeValue)
+    {
+        if (_resources.TryGetValue(id, out ResourceBase resource)) 
+            resource.ChangeValue(changeValue);
+        else
+            throw new Exception($"No resource: {id}");
+    }
+    
     public ResourceBase GetResource(ResourceID resourceType)
     {
         if (_resources.TryGetValue(resourceType, out ResourceBase resource))
             return resource;
         else
-            throw new Exception("No resource");
+            throw new Exception($"No resource: {resourceType}");
     }
 }

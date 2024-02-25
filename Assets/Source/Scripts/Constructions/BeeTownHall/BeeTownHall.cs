@@ -7,7 +7,7 @@ using UnitsRecruitingSystem;
 
 namespace Constructions
 {
-    public class BeeTownHall : EvolvConstruction
+    public class BeeTownHall : ConstructionBase, IEvolveConstruction
     {
         [SerializeField] private BeeTownHallConfig config;
         [SerializeField] [Range(0,5)] private float pauseTimeOfOutBeesFromTownHallAfterAlarm = 1;
@@ -17,6 +17,7 @@ namespace Constructions
     
         public override ConstructionID ConstructionID => ConstructionID.Bees_Town_Hall;
         public IReadOnlyUnitsRecruiter<BeesRecruitingID> Recruiter => _recruiter;
+        public IConstructionLevelSystem LevelSystem { get; private set; }
 
         static Stack<GameObject> WorkerBeesInTownHall = new Stack<GameObject>();//массив пчел, которые спрятались в ратуши
         private UnitsRecruiter<BeesRecruitingID> _recruiter;
@@ -28,7 +29,8 @@ namespace Constructions
             base.OnAwake();
             gameObject.name = "TownHall";
 
-            levelSystem = new BeeTownHallLevelSystem(config.Levels, workerBeesSpawnPosition, ref _healthStorage, ref _recruiter);
+            var takeResourceRepository = ResourceGlobalStorage.ResourceRepository;
+            LevelSystem = new BeeTownHallLevelSystem(config.Levels, workerBeesSpawnPosition, ref takeResourceRepository,ref _healthStorage, ref _recruiter);
         
             _updateEvent += OnUpdate;
             _onDestroy += SetLooseScreen;

@@ -10,21 +10,24 @@ namespace UnitsRecruitingSystem
         private readonly Transform _spawnTransform;
         private readonly List<UnitRecruitingStack<TEnum>> _stacks;
         private List<UnitRecruitingData<TEnum>> _recruitingDatas;
-
+        private ResourceRepository _resourceRepository;
+        
         public event Action OnChange;
         public event Action OnRecruitUnit;
         public event Action OnAddStack;
         public event Action OnTick;
         public event Action OnCancelRecruit;
 
-        public UnitsRecruiter(int size, Transform spawnTransform, IReadOnlyList<UnitRecruitingData<TEnum>> newDatas)
+        public UnitsRecruiter(int size, Transform spawnTransform, IReadOnlyList<UnitRecruitingData<TEnum>> newDatas,
+            ref ResourceRepository resourceRepository)
         {
             _spawnTransform = spawnTransform;
+            _resourceRepository = resourceRepository;
             _stacks = new List<UnitRecruitingStack<TEnum>>();
             _recruitingDatas = new List<UnitRecruitingData<TEnum>>(newDatas);
 
             for (int n = 0; n < size; n++)
-                _stacks.Add(new UnitRecruitingStack<TEnum>(spawnTransform));
+                _stacks.Add(new UnitRecruitingStack<TEnum>(spawnTransform, ref resourceRepository));
         }
 
         public void SetNewDatas(IReadOnlyList<UnitRecruitingData<TEnum>> newDatas)
@@ -42,7 +45,7 @@ namespace UnitsRecruitingSystem
         }
 
         /// <summary>
-        /// Check unit costs and resource count from ResourceGlobalStorage.
+        /// Check unit costs and resource count from resourceRepository.
         /// </summary>
         /// <param name="id"> unity id </param>
         /// <returns> If player have enough resources then return true, else false </returns>
@@ -60,7 +63,7 @@ namespace UnitsRecruitingSystem
         public bool CheckCosts(IReadOnlyDictionary<ResourceID, int>  costs)
         {
             foreach (var cost in costs)
-                if (cost.Value > ResourceGlobalStorage.GetResource(cost.Key).CurrentValue)
+                if (cost.Value > _resourceRepository.GetResource(cost.Key).CurrentValue)
                     return false;
             
             return true;
@@ -93,10 +96,11 @@ namespace UnitsRecruitingSystem
                 throw new Exception("Stack are busy");
 
             var recruitingData = _recruitingDatas.Find(data => data.CurrentID.Equals(id));
-            if (!CheckCosts(recruitingData.Costs)) throw new Exception("Need more resources");
+            if (!CheckCosts(recruitingData.Costs))
+                throw new Exception("Need more resources");
             
             foreach (var cost in recruitingData.Costs)
-                ResourceGlobalStorage.ChangeValue(cost.Key, -cost.Value);
+                _resourceRepository.ChangeValue(cost.Key, -cost.Value);
 
             _stacks[stackIndex].SetNewData(recruitingData);
             
@@ -107,13 +111,12 @@ namespace UnitsRecruitingSystem
         /// <summary>
         /// Add new stacks if newCount upper then current size, else does nothing
         /// </summary>
-        /// <param name="newCount"> new count of stacks </param>
         public void AddStacks(int newCount)
         {
             if(newCount <= _stacks.Count) return;
             
             for (int n = _stacks.Count; n <newCount; n++)
-                _stacks.Add(new UnitRecruitingStack<TEnum>(_spawnTransform));
+                _stacks.Add(new UnitRecruitingStack<TEnum>(_spawnTransform, ref _resourceRepository));
 
             OnAddStack?.Invoke();
             OnChange?.Invoke();
@@ -129,8 +132,9 @@ namespace UnitsRecruitingSystem
             OnChange?.Invoke();
         }
 
-        /// <param name="stackIndex"> stack index </param>
-        /// <returns> If Cancel is possible return true, else return false </returns>
+        /// <returns>
+        /// If Cancel is possible return true, else return false
+        /// </returns>
         public bool CancelRecruit(int stackIndex)
         {
             if (!_stacks[stackIndex].CancelRecruiting())
@@ -142,7 +146,9 @@ namespace UnitsRecruitingSystem
             return true;
         }
 
-        /// <returns> Return list of information about all stacks </returns>
+        /// <returns>
+        /// Return list of information about all stacks
+        /// </returns>
         public List<IReadOnlyUnitRecruitingStack<TEnum>> GetRecruitingInformation()
         {
             var fullInformation = new List<IReadOnlyUnitRecruitingStack<TEnum>>();

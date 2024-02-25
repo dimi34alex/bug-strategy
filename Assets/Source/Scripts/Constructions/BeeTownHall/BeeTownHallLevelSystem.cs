@@ -6,19 +6,17 @@ using UnityEngine;
 
 namespace Constructions
 {
-    [Serializable]
     public class BeeTownHallLevelSystem : ConstructionLevelSystemBase<BeeTownHallLevel>
     {
         private UnitsRecruiter<BeesRecruitingID> _recruiter;
 
-        public BeeTownHallLevelSystem(IReadOnlyList<BeeTownHallLevel> levels, Transform spawnPosition, 
-            ref ResourceStorage healthStorage, ref UnitsRecruiter<BeesRecruitingID> recruiter) 
-            : base(levels, ref healthStorage)
+        public BeeTownHallLevelSystem(IReadOnlyList<BeeTownHallLevel> levels, Transform spawnPosition,
+            ref ResourceRepository resourceRepository, ref ResourceStorage healthStorage, 
+            ref UnitsRecruiter<BeesRecruitingID> recruiter) 
+            : base(levels, ref resourceRepository, ref healthStorage)
         {
-            _recruiter = recruiter = new UnitsRecruiter<BeesRecruitingID>(
-                CurrentLevel.RecruitingSize,
-                spawnPosition,
-                CurrentLevel.BeesRecruitingData);
+            _recruiter = recruiter = new UnitsRecruiter<BeesRecruitingID>(CurrentLevel.RecruitingSize, spawnPosition,
+                CurrentLevel.BeesRecruitingData, ref resourceRepository);
         }
 
         protected override void LevelUpLogic()

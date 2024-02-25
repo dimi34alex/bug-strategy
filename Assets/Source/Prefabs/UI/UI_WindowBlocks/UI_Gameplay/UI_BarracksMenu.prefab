@@ -2439,8 +2439,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2844688747640624473}
-        m_TargetAssemblyTypeName: UI_BarracksMenu, Assembly-CSharp
-        m_MethodName: _BuildingLVL_Up
+        m_TargetAssemblyTypeName: UI_EvolveConstructionScreenBase`1[[Constructions.BeeBarrack,
+          Assembly-CSharp
+        m_MethodName: _TryLevelUp
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3200,7 +3201,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 546b88f270477b040aa391ba408a76a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiError: {fileID: 0}
   stackID:
   - {fileID: 6896370567607015495}
   - {fileID: 7688725777868862736}

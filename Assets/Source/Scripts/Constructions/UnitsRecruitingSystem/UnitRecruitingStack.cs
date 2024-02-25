@@ -7,7 +7,7 @@ namespace UnitsRecruitingSystem
     public class UnitRecruitingStack<TEnum> : IReadOnlyUnitRecruitingStack<TEnum>
         where TEnum : Enum
     {
-        public bool Empty { get; private set; }
+        private readonly ResourceRepository _resourceRepository;
         
         private UnitRecruitingData<TEnum> _unitRecruitingData;
         
@@ -18,16 +18,17 @@ namespace UnitsRecruitingSystem
         public float SpawnPauseTime => _unitRecruitingData.SpawnPauseTime;
         private IReadOnlyDictionary<ResourceID, int> Costs => _unitRecruitingData.Costs;
         
-        public Transform SpawnTransform { get; private set; }
+        public bool Empty { get; private set; }
         public float CurrentTime  { get; private set; }
         public float SpawnPauseTimer { get; private set; }
-
         public int SpawnedUnits { get; private set; }
+        public Transform SpawnTransform { get; }
         
-        public UnitRecruitingStack(Transform spawnTransform)
+        public UnitRecruitingStack(Transform spawnTransform, ref ResourceRepository resourceRepository)
         {
             Empty = true;
             SpawnTransform = spawnTransform;
+            _resourceRepository = resourceRepository;
         }
 
         /// <summary>
@@ -86,7 +87,7 @@ namespace UnitsRecruitingSystem
             if (SpawnedUnits > 0) return false;
 
             foreach (var cost in Costs)
-                ResourceGlobalStorage.ChangeValue(cost.Key, cost.Value);
+                _resourceRepository.ChangeValue(cost.Key, cost.Value);
 
             Empty = true;
 

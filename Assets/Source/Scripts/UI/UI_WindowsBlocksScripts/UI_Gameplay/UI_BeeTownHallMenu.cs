@@ -4,23 +4,22 @@ using UnityEngine;
 using TMPro;
 using UnitsRecruitingSystem;
 
-public class UI_TownHallMenu : UIScreen
+public class UI_BeeTownHallMenu : UI_EvolveConstructionScreenBase<BeeTownHall>
 {
     [SerializeField] private TextMeshProUGUI alarm;
-
     [SerializeField] private List<TextMeshProUGUI> stackID;
     [SerializeField] private List<TextMeshProUGUI> stackTime;
-    private BeeTownHall _beeTownHall;
+    
     private IReadOnlyUnitsRecruiter<BeesRecruitingID> _recruiter;
     
     public void _CallMenu(ConstructionBase townHall)
     {
-        _beeTownHall = townHall.Cast<BeeTownHall>();
+        _construction = townHall.Cast<BeeTownHall>();
         ChangeAlarmDisplay();
         
         if(!(_recruiter is null)) 
             _recruiter.OnChange -= UpdateRecruitInfo;
-        _recruiter = _beeTownHall.Recruiter;
+        _recruiter = _construction.Recruiter;
         _recruiter.OnChange += UpdateRecruitInfo;
         UpdateRecruitInfo();
     }
@@ -44,26 +43,21 @@ public class UI_TownHallMenu : UIScreen
             }
         }
     }
-    
-    public void _BuildingLVL_Up()
-    {
-        _beeTownHall.LevelUp();
-    }
 
     public void _RecruitingWorkerBee()
     {
-        _beeTownHall.RecruitingWorkerBee(BeesRecruitingID.WorkerBee);
+        _construction.RecruitingWorkerBee(BeesRecruitingID.WorkerBee);
     }
     
     public void _WorkerBeeAlarmer()
     {
-        _beeTownHall.WorkerBeeAlarmer();
+        _construction.WorkerBeeAlarmer();
         ChangeAlarmDisplay();
     }
 
     private void ChangeAlarmDisplay()
     {
-        if (_beeTownHall.AlarmIsOn)
+        if (_construction.AlarmIsOn)
             alarm.text = "Bee Alarm Off";
         else
             alarm.text = "Bee Alarm On";

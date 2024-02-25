@@ -20,13 +20,13 @@ MonoBehaviour:
       _cells: []
     resourceCapacity:
       _cells: []
-    recruitingSize: 1
+    recruitingSize: 3
     beesRecruitingData:
     - currentId: 1
       recruitingTime: 5
       stackSize: 2
       spawnPauseTime: 0.5
-      unitPrefab: {fileID: 0}
+      unitPrefab: {fileID: 5039214122889290809, guid: e1a6d86d1c3d6e24084c0efe07b687f7, type: 3}
       costs:
         _cells:
         - Key: 1
@@ -35,7 +35,7 @@ MonoBehaviour:
       recruitingTime: 10
       stackSize: 1
       spawnPauseTime: 0
-      unitPrefab: {fileID: 0}
+      unitPrefab: {fileID: 4364783689652272584, guid: 4b87cc0f9fb2f5f40937836b05228857, type: 3}
       costs:
         _cells:
         - Key: 1
@@ -45,13 +45,13 @@ MonoBehaviour:
       _cells: []
     resourceCapacity:
       _cells: []
-    recruitingSize: 1
+    recruitingSize: 6
     beesRecruitingData:
     - currentId: 1
       recruitingTime: 4
       stackSize: 2
       spawnPauseTime: 0.5
-      unitPrefab: {fileID: 0}
+      unitPrefab: {fileID: 5039214122889290809, guid: e1a6d86d1c3d6e24084c0efe07b687f7, type: 3}
       costs:
         _cells:
         - Key: 1
@@ -60,7 +60,7 @@ MonoBehaviour:
       recruitingTime: 7
       stackSize: 1
       spawnPauseTime: 0
-      unitPrefab: {fileID: 0}
+      unitPrefab: {fileID: 4364783689652272584, guid: 4b87cc0f9fb2f5f40937836b05228857, type: 3}
       costs:
         _cells:
         - Key: 1

@@ -7,8 +7,9 @@ namespace Constructions
     [Serializable]
     public class AntStoreHouseLevelSystem : ConstructionLevelSystemBase<AntStoreHouseLevel>
     {
-        public AntStoreHouseLevelSystem(IReadOnlyList<AntStoreHouseLevel> levels, ref ResourceStorage healPoints)
-            : base(levels, ref healPoints)
+        public AntStoreHouseLevelSystem(IReadOnlyList<AntStoreHouseLevel> levels,
+            ref ResourceRepository resourceRepository, ref ResourceStorage healPoints)
+            : base(levels, ref resourceRepository, ref healPoints)
         { }
     }
 }

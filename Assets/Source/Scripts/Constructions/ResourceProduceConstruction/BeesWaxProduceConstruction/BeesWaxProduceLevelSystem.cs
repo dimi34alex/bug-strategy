@@ -9,9 +9,10 @@ namespace Constructions
     {
         private ResourceConversionCore _resourceConversionCore;
 
-        public BeesWaxProduceLevelSystem(IReadOnlyList<BeesWaxProduceLevel> levels, ref ResourceStorage healthStorage, 
+        public BeesWaxProduceLevelSystem(IReadOnlyList<BeesWaxProduceLevel> levels, 
+            ref ResourceRepository resourceRepository, ref ResourceStorage healthStorage, 
             ref ResourceConversionCore resourceConversionCore)
-            : base(levels, ref healthStorage)
+            : base(levels, ref resourceRepository, ref healthStorage)
         {
             _resourceConversionCore = resourceConversionCore =
                 new ResourceConversionCore(CurrentLevel.ResourceConversionProccessInfo);

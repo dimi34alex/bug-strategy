@@ -12,13 +12,12 @@ namespace Constructions
         private UnitsRecruiter<BeesRecruitingID> _recruiter;
 
         public BeeBarrackLevelSystem(IReadOnlyList<BeeBarrackLevel> levels,
-            Transform spawnPosition, ref ResourceStorage healthStorage,
-            ref UnitsRecruiter<BeesRecruitingID> recruiter) : base(levels, ref healthStorage)
+            Transform spawnPosition, ref ResourceRepository resourceRepository, ref ResourceStorage healthStorage,
+            ref UnitsRecruiter<BeesRecruitingID> recruiter) 
+            : base(levels, ref resourceRepository, ref healthStorage)
         {
-            _recruiter = recruiter = new UnitsRecruiter<BeesRecruitingID>(
-                CurrentLevel.RecruitingSize,
-                spawnPosition,
-                CurrentLevel.BeesRecruitingData);
+            _recruiter = recruiter = new UnitsRecruiter<BeesRecruitingID>(CurrentLevel.RecruitingSize, spawnPosition,
+                CurrentLevel.BeesRecruitingData, ref resourceRepository);
         }
 
         protected override void LevelUpLogic()

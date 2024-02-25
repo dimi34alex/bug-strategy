@@ -4,10 +4,11 @@ namespace Constructions.LevelSystemCore
 {
     public interface IConstructionLevelSystem
     {
-        public int CurrentLevelNum { get; }
+        public int CurrentLevelIndex { get; }
         public event Action OnLevelUp;
+
         public bool LevelCapCheck();
-        public bool PriceCheck();
+        public bool LevelUpPriceCheck();
         public bool TryLevelUp();
     }
 }

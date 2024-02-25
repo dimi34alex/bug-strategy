@@ -1,40 +1,30 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Constructions;
 using UnityEngine;
-using UnityEngine.UI;
 using Image = UnityEngine.UI.Image;
 using TMPro;
 
-public class UI_BeesWaxProduceConstructionMenu : UIScreen
+public class UI_BeesWaxProduceConstructionMenu : UI_EvolveConstructionScreenBase<BeesWaxProduceConstruction>
 {
     [SerializeField] private FillBar spendableResource;
     [SerializeField] private FillBar produceResource;
-
-    BeesWaxProduceConstruction _beesWaxProduceConstruction;
-
+    
     public void _CallMenu(ConstructionBase beesWaxProduceConstruction)
     {
-        _beesWaxProduceConstruction = beesWaxProduceConstruction.Cast<BeesWaxProduceConstruction>();
+        _construction = beesWaxProduceConstruction.Cast<BeesWaxProduceConstruction>();
         
-        spendableResource.SetResourceStorage(_beesWaxProduceConstruction.TakeSpendableResourceInformation());
-        produceResource.SetResourceStorage(_beesWaxProduceConstruction.TakeProduceResourceInformation());
-    }
-    
-    public void _BuildingLVL_Up()
-    {
-        _beesWaxProduceConstruction.LevelUp();
+        spendableResource.SetResourceStorage(_construction.TakeSpendableResourceInformation());
+        produceResource.SetResourceStorage(_construction.TakeProduceResourceInformation());
     }
     
     public void _AddSpendableResource(int addPollen)
     {
-        _beesWaxProduceConstruction.AddSpendableResource(addPollen);
+        _construction.AddSpendableResource(addPollen);
     }
     
     public void _ExtractProduceResource()
     {
-        _beesWaxProduceConstruction.ExtractProduceResource();
+        _construction.ExtractProduceResource();
     }
 
     private void OnDisable()

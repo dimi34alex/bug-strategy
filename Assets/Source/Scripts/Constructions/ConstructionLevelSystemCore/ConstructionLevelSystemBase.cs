@@ -4,51 +4,53 @@ using System;
 
 namespace Constructions.LevelSystemCore
 {
-    [Serializable]
     public abstract class ConstructionLevelSystemBase<TConstructionLevel> : IConstructionLevelSystem
         where TConstructionLevel : ConstructionLevelBase
     {
         protected readonly IReadOnlyList<TConstructionLevel> Levels;
+        protected readonly ResourceStorage HealthStorage;
 
         public TConstructionLevel CurrentLevel => Levels[CurrentLevelIndex];
-        public int CurrentLevelNum => CurrentLevelIndex + 1;
-
-        protected int CurrentLevelIndex;
-        protected ResourceStorage HealthStorage;
-
+        public IReadOnlyDictionary<ResourceID, int> LevelUpCost => CurrentLevel.LevelUpCost;
+        public int CurrentLevelIndex { get; private set; }
+        
         public event Action OnLevelUp;
 
-        protected ConstructionLevelSystemBase(IReadOnlyList<TConstructionLevel> levels, ref ResourceStorage healthStorage)
+        private readonly ResourceRepository _resourceRepository;
+        
+        protected ConstructionLevelSystemBase(IReadOnlyList<TConstructionLevel> levels, 
+            ref ResourceRepository resourceRepository, ref ResourceStorage healthStorage)
         {
             Levels = levels;
             CurrentLevelIndex = 0;
 
+            _resourceRepository = resourceRepository;
             HealthStorage = healthStorage = new ResourceStorage(CurrentLevel.MaxHealPoints, CurrentLevel.MaxHealPoints);
 
             foreach (var resource in CurrentLevel.ResourceCapacity)
             {
-                ResourceGlobalStorage.ChangeCapacity(resource.Key, resource.Value);
+                _resourceRepository.ChangeCapacity(resource.Key, resource.Value);
 
                 if (resource.Key == ResourceID.Housing)
-                    ResourceGlobalStorage.ChangeValue(ResourceID.Housing, resource.Value);
+                    _resourceRepository.ChangeValue(ResourceID.Housing, resource.Value);
             }
         }
 
-        public bool LevelCapCheck() => CurrentLevelNum == Levels.Count;
+        public bool LevelCapCheck() => CurrentLevelIndex < Levels.Count - 1;
 
-        public bool PriceCheck()
+        public bool LevelUpPriceCheck()
         {
-            foreach (var resource in CurrentLevel.LevelUpCost)
-                if (!(ResourceGlobalStorage.GetResource(resource.Key).CurrentValue >= resource.Value))
+            foreach (var resourceCost in CurrentLevel.LevelUpCost)
+                if (_resourceRepository.GetResource(resourceCost.Key).CurrentValue < resourceCost.Value)
                     return false;
 
             return true;
         }
-
+        
         public bool TryLevelUp()
         {
-            if (LevelCapCheck()) return false;
-            if (!PriceCheck()) return false;
+            if (!LevelCapCheck()) return false;
+            if (!LevelUpPriceCheck()) return false;
 
             LevelUpLogic();
 
@@ -70,8 +72,9 @@ namespace Constructions.LevelSystemCore
 
         protected void SpendResources()
         {
-            foreach (var resource in CurrentLevel.LevelUpCost)
-                ResourceGlobalStorage.ChangeValue(resource.Key, -resource.Value);
+            foreach (var resourceCost in CurrentLevel.LevelUpCost)
+                _resourceRepository.ChangeValue(resourceCost.Key, -resourceCost.Value);
+                // ResourceGlobalStorage.ChangeValue(resourceCost.Key, -resourceCost.Value);
         }
 
         protected void ReCalculateHealthPoints()
@@ -94,19 +97,18 @@ namespace Constructions.LevelSystemCore
             {
                 if (CurrentLevel.ResourceCapacity.ContainsKey(prevResource.Key))
                 {
-                    ResourceGlobalStorage.ChangeCapacity(prevResource.Key,
+                    _resourceRepository.ChangeCapacity(prevResource.Key,
                         CurrentLevel.ResourceCapacity[prevResource.Key] - prevResource.Value);
 
                     if (prevResource.Key == ResourceID.Housing)
                     {
-                        ResourceGlobalStorage.ChangeValue(ResourceID.Housing,
+                        _resourceRepository.ChangeValue(ResourceID.Housing,
                             (CurrentLevel.ResourceCapacity[prevResource.Key] - prevResource.Value));
-                        Debug.Log(CurrentLevel.ResourceCapacity[prevResource.Key] - prevResource.Value);
                     }
                 }
                 else
                 {
-                    ResourceGlobalStorage.ChangeCapacity(prevResource.Key, -prevResource.Value);
+                    _resourceRepository.ChangeCapacity(prevResource.Key, -prevResource.Value);
                 }
 
                 checkedResources.Add(prevResource.Key);
@@ -115,11 +117,11 @@ namespace Constructions.LevelSystemCore
             foreach (var resource in CurrentLevel.ResourceCapacity)
                 if (!checkedResources.Contains(resource.Key))
                 {
-                    ResourceGlobalStorage.ChangeCapacity(resource.Key, resource.Value);
+                    _resourceRepository.ChangeCapacity(resource.Key, resource.Value);
 
                     if (resource.Key == ResourceID.Housing)
                     {
-                        ResourceGlobalStorage.ChangeValue(ResourceID.Housing, resource.Value);
+                        _resourceRepository.ChangeValue(ResourceID.Housing, resource.Value);
                         Debug.Log(resource.Value);
                     }
                 }

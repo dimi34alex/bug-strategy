@@ -1,8 +1,9 @@
+using Constructions.LevelSystemCore;
 using UnityEngine;
 
 namespace Constructions
 {
-    public class BeesWaxProduceConstruction : ResourceConversionConstructionBase
+    public class BeesWaxProduceConstruction : ResourceConversionConstructionBase, IEvolveConstruction
     {
         [SerializeField] private BeesWaxProduceConfig config;
 
@@ -10,15 +11,17 @@ namespace Constructions
         private ResourceProduceConstructionState _produceConstructionState;
 
         public override ResourceProduceConstructionState ProduceConstructionState => _produceConstructionState;
-
         public override ConstructionID ConstructionID => ConstructionID.Bees_Wax_Produce_Construction;
         public override ResourceConversionCore ResourceConversionCore => _resourceConversionCore;
+
+        public IConstructionLevelSystem LevelSystem { get; private set; }
 
         protected override void OnAwake()
         {
             base.OnAwake();
 
-            levelSystem = new BeesWaxProduceLevelSystem(config.Levels, ref _healthStorage, ref _resourceConversionCore);
+            var resourceRepository = ResourceGlobalStorage.ResourceRepository;
+            LevelSystem = new BeesWaxProduceLevelSystem(config.Levels, ref resourceRepository, ref _healthStorage, ref _resourceConversionCore);
 
             _updateEvent += OnUpdate;
         }

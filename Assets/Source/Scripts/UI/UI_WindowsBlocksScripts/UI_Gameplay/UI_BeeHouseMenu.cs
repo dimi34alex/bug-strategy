@@ -1,19 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using Constructions;
-using UnityEngine;
 
-public class UI_BeeHouseMenu : UIScreen
+public class UI_BeeHouseMenu : UI_EvolveConstructionScreenBase<BeeHouse>
 {
-    BeeHouse _beeHouse;
-    
     public void _CallMenu(ConstructionBase beeHouse)
     {
-        _beeHouse = beeHouse.Cast<BeeHouse>();
-    }
-    
-    public void _BuildingLVL_Up()
-    {
-        _beeHouse.LevelUp();
+        _construction = beeHouse.Cast<BeeHouse>();
     }
 }

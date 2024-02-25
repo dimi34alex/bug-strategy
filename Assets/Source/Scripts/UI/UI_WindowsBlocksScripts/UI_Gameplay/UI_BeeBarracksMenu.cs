@@ -4,20 +4,20 @@ using TMPro;
 using UnitsRecruitingSystem;
 using UnityEngine;
 
-public class UI_BarracksMenu : UIScreen
+public class UI_BeeBarracksMenu : UI_EvolveConstructionScreenBase<BeeBarrack>
 {
     [SerializeField] private List<TextMeshProUGUI> stackID;
     [SerializeField] private List<TextMeshProUGUI> stackTime;
-    private BeeBarrack _beeBarrack;
+
     private IReadOnlyUnitsRecruiter<BeesRecruitingID> _recruiter;
     
     public void _CallMenu(ConstructionBase barrack)
     {
-        _beeBarrack = barrack.Cast<BeeBarrack>();
+        _construction = barrack.Cast<BeeBarrack>();
 
         if(!(_recruiter is null)) 
             _recruiter.OnChange -= UpdateRecruitInfo;
-        _recruiter = _beeBarrack.Recruiter;
+        _recruiter = _construction.Recruiter;
         _recruiter.OnChange += UpdateRecruitInfo;
         UpdateRecruitInfo();
     }
@@ -42,19 +42,14 @@ public class UI_BarracksMenu : UIScreen
         }
     }
     
-    public void _BuildingLVL_Up()
-    {
-        _beeBarrack.LevelUp();
-    }
-
     public void _RecruitingWax()
     {
-        _beeBarrack.RecruitBees(BeesRecruitingID.Wasp);
+        _construction.RecruitBees(BeesRecruitingID.Wasp);
     }
     
     public void _RecruitingBumblebee()
     {
-        _beeBarrack.RecruitBees(BeesRecruitingID.Bumblebee);
+        _construction.RecruitBees(BeesRecruitingID.Bumblebee);
     }
 
     private void OnDisable()

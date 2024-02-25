@@ -3,17 +3,19 @@ using UnityEngine;
 
 namespace Constructions
 {
-    public class BeeHouse : EvolvConstruction
+    public class BeeHouse : ConstructionBase, IEvolveConstruction
     {
         [SerializeField] private BeeHouseEvolveConfig config;
 
         public override ConstructionID ConstructionID => ConstructionID.BeeHouse;
+        public IConstructionLevelSystem LevelSystem { get; private set; }
 
         protected override void OnAwake()
         {
             base.OnAwake();
 
-            levelSystem = new BeeHouseLevelSystem(config.Levels, ref _healthStorage);
+            var resourceRepository = ResourceGlobalStorage.ResourceRepository;
+            LevelSystem = new BeeHouseLevelSystem(config.Levels, ref resourceRepository, ref _healthStorage);
         }
     }
 }
