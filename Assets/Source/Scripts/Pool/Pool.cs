@@ -101,14 +101,16 @@ public class Pool<TElement, TID> where TElement : IPoolable<TElement, TID>
         _expandable = expandable;
         _freeElements = new Dictionary<TID, Queue<TElement>>();
         _elementInstantiateDelegate = elementInstantiateDelegate;
-
-        if (!expandable)
-            _extractedElements = new Dictionary<TID, LinkedList<TElement>>();
+        _extractedElements = new Dictionary<TID, LinkedList<TElement>>();
 
         if(startCapacity != null)
             foreach ((TID, int) id in startCapacity)
                 for (int i = 0; i < id.Item2; i++)
                     InstantiateElement(id.Item1);
+
+        foreach (var elements in _extractedElements)
+            foreach (var element in elements.Value)
+                TryCallElementExtractEvent(element);
     }
 
     public TElement ExtractElement(TID id)
@@ -154,7 +156,6 @@ public class Pool<TElement, TID> where TElement : IPoolable<TElement, TID>
             _freeElements.Add(id, new Queue<TElement>());
 
         _freeElements[id].Enqueue(element);
-        TryCallElementReturnEvent(element);
     }
 
     private void TryCallElementReturnEvent(TElement element) => (element as IPoolEventListener)?.OnElementReturn();

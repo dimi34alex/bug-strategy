@@ -9,6 +9,7 @@ public class UserBuilder : CycleInitializerBase
 {
     [Inject] private readonly ConstructionsConfigsRepository _constructionsConfigsRepository;
     [Inject] private readonly IConstructionFactory _constructionFactory;
+    [Inject] private readonly DiContainer _diContainer;
     
     [SerializeField] private SerializableDictionary<ConstructionID, GameObject> constructionMovableModels;
     [SerializeField] private ConstructionBase[] constructions;

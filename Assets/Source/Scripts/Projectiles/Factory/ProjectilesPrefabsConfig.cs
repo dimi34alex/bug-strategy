@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Projectiles
+namespace Projectiles.Factory
 {
     [CreateAssetMenu(fileName = nameof(ProjectilesPrefabsConfig), menuName = "Configs/" + nameof(ProjectilesPrefabsConfig))]
     public class ProjectilesPrefabsConfig : ScriptableObject, ISingleConfig

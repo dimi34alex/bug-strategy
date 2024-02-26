@@ -42,11 +42,22 @@ namespace Unit.ProfessionsCore
         /// </returns>
         public virtual bool CheckDistance(UnitPathData pathData) => CheckInteraction(pathData.Target);
 
-        public abstract UnitPathData AutoGiveOrder(IUnitTarget unitTarget);
+        public UnitPathData AutoGiveOrder(IUnitTarget target)
+        {
+            if (!target.IsAnyNull() && !target.IsActive)
+                target = null;
+            return ValidateAutoOrder(target);
+        }
         
-        public UnitPathData HandleGiveOrder(IUnitTarget unitTarget, UnitPathType pathType) 
-            => new UnitPathData(unitTarget, ValidateHandleOrder(unitTarget, pathType));
+        protected abstract UnitPathData ValidateAutoOrder(IUnitTarget target);
         
+        public UnitPathData HandleGiveOrder(IUnitTarget target, UnitPathType pathType)
+        {
+            if (!target.IsAnyNull() && !target.IsActive)
+                target = null;
+            return new UnitPathData(target, ValidateHandleOrder(target, pathType));
+        }
+
         protected abstract UnitPathType ValidateHandleOrder(IUnitTarget target, UnitPathType pathType);
     } 
 }

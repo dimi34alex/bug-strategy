@@ -9,7 +9,7 @@ namespace Unit.Bees
     public class Bumblebee : BeeUnit
     {
         [SerializeField] private BeeMeleeWarriorConfig config;
-        public override IReadOnlyProfession CurrentProfession => _warriorProfession;
+        protected override ProfessionBase CurrentProfession => _warriorProfession;
         public override UnitType UnitType => UnitType.Bumblebee;
 
         private WarriorProfessionBase _warriorProfession;
@@ -19,6 +19,13 @@ namespace Unit.Bees
             base.OnAwake();
 
             _healthStorage = new ResourceStorage(config.HealthPoints, config.HealthPoints);
+        }
+
+        public override void OnElementExtract()
+        {
+            base.OnElementExtract();
+            
+            _healthStorage.SetValue(_healthStorage.Capacity);
             _warriorProfession = new MeleeWarriorProfession(this, config.InteractionRange, config.Cooldown, config.AttackRange, config.Damage);
         
             var states = new List<EntityStateBase>()
@@ -28,13 +35,6 @@ namespace Unit.Bees
                 new AttackState(this, _warriorProfession),
             };
             _stateMachine = new EntityStateMachine(states, EntityStateID.Idle);
-        }
-
-        protected override void OnUpdate()
-        {
-            base.OnUpdate();
-        
-            _warriorProfession.HandleUpdate(Time.deltaTime);
         }
     }    
 }

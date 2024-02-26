@@ -11,9 +11,10 @@ public class BeesWaxProduceConstructionFactoryBehaviour : ConstructionFactoryBeh
     {
         ConstructionSpawnConfiguration<BeesWaxProduceConstruction> configuration = _beesWaxProduceConstructionConfig.GetConfiguration();
 
-        BeesWaxProduceConstruction construction = Instantiate(configuration.ConstructionPrefab,
-            configuration.ConstructionPrefab.transform.position, configuration.Rotation);
-
-        return construction.Cast<TConstruction>();
+        TConstruction construction = DiContainer.InstantiatePrefab(configuration.ConstructionPrefab,
+                configuration.ConstructionPrefab.transform.position, configuration.Rotation, null)
+            .GetComponent<TConstruction>();
+        
+        return construction;
     }
 }

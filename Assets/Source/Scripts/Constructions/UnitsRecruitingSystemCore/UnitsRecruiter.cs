@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Unit;
+using Unit.Factory;
 using UnityEngine;
 
 namespace UnitsRecruitingSystemCore
@@ -7,8 +9,9 @@ namespace UnitsRecruitingSystemCore
     public class UnitsRecruiter : IReadOnlyUnitsRecruiter
     {
         private readonly Transform _spawnTransform;
-        private readonly List<UnitRecruitingStack<UnitType>> _stacks;
-        private List<UnitRecruitingData<UnitType>> _recruitingDatas;
+        private readonly UnitFactory _unitFactory;
+        private readonly List<UnitRecruitingStack> _stacks;
+        private List<UnitRecruitingData> _recruitingDatas;
         private ResourceRepository _resourceRepository;
         
         public event Action OnChange;
@@ -17,21 +20,26 @@ namespace UnitsRecruitingSystemCore
         public event Action OnTick;
         public event Action OnCancelRecruit;
 
-        public UnitsRecruiter(int size, Transform spawnTransform, IReadOnlyList<UnitRecruitingData<UnitType>> newDatas,
-            ref ResourceRepository resourceRepository)
+        public UnitsRecruiter(int size, Transform spawnTransform, IReadOnlyList<UnitRecruitingData> newDatas,
+            UnitFactory unitFactory, ref ResourceRepository resourceRepository)
         {
             _spawnTransform = spawnTransform;
+            _unitFactory = unitFactory;
             _resourceRepository = resourceRepository;
-            _stacks = new List<UnitRecruitingStack<UnitType>>();
-            _recruitingDatas = new List<UnitRecruitingData<UnitType>>(newDatas);
+            _stacks = new List<UnitRecruitingStack>();
+            _recruitingDatas = new List<UnitRecruitingData>(newDatas);
 
             for (int n = 0; n < size; n++)
-                _stacks.Add(new UnitRecruitingStack<UnitType>(spawnTransform, ref resourceRepository));
+            {
+                var newStack = new UnitRecruitingStack(spawnTransform, ref resourceRepository);
+                newStack.OnSpawnUnit += SpawnUnit;
+                _stacks.Add(newStack);
+            }
         }
 
-        public void SetNewDatas(IReadOnlyList<UnitRecruitingData<UnitType>> newDatas)
+        public void SetNewDatas(IReadOnlyList<UnitRecruitingData> newDatas)
         {
-            _recruitingDatas = new List<UnitRecruitingData<UnitType>>(newDatas);
+            _recruitingDatas = new List<UnitRecruitingData>(newDatas);
         }
         
         /// <returns> Returns first empty stack index. If it cant find free stack return -1 </returns>
@@ -113,9 +121,13 @@ namespace UnitsRecruitingSystemCore
         public void AddStacks(int newCount)
         {
             if(newCount <= _stacks.Count) return;
-            
-            for (int n = _stacks.Count; n <newCount; n++)
-                _stacks.Add(new UnitRecruitingStack<UnitType>(_spawnTransform, ref _resourceRepository));
+
+            for (int n = _stacks.Count; n < newCount; n++)
+            {
+                var newStack = new UnitRecruitingStack(_spawnTransform, ref _resourceRepository);
+                newStack.OnSpawnUnit += SpawnUnit;
+                _stacks.Add(newStack);
+            }
 
             OnAddStack?.Invoke();
             OnChange?.Invoke();
@@ -148,13 +160,20 @@ namespace UnitsRecruitingSystemCore
         /// <returns>
         /// Return list of information about all stacks
         /// </returns>
-        public List<IReadOnlyUnitRecruitingStack<UnitType>> GetRecruitingInformation()
+        public List<IReadOnlyUnitRecruitingStack> GetRecruitingInformation()
         {
-            var fullInformation = new List<IReadOnlyUnitRecruitingStack<UnitType>>();
+            var fullInformation = new List<IReadOnlyUnitRecruitingStack>();
             foreach (var stack in _stacks)
                 fullInformation.Add(stack);
 
             return fullInformation;
+        }
+
+        private void SpawnUnit(UnitType unitType)
+        {
+            var unit = _unitFactory.Create(unitType);
+            float randomPosOffset = UnityEngine.Random.Range(-0.01f, 0.01f);
+            unit.Transform.position = _spawnTransform.position + Vector3.left * randomPosOffset;
         }
     }
 }

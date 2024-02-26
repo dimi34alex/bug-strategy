@@ -10,9 +10,10 @@ public class DefaultConstructionFactoryBehaviour : ConstructionFactoryBehaviourB
     {
         ConstructionSpawnConfiguration<DefaultConstruction> configuration = _defaultConstructionConfig.GetConfiguration();
 
-        DefaultConstruction construction = Instantiate(configuration.ConstructionPrefab,
-            configuration.ConstructionPrefab.transform.position, configuration.Rotation);
-
-        return construction.Cast<TConstruction>();
+        TConstruction construction = DiContainer.InstantiatePrefab(configuration.ConstructionPrefab,
+                configuration.ConstructionPrefab.transform.position, configuration.Rotation, null)
+            .GetComponent<TConstruction>();
+        
+        return construction;
     }
 }

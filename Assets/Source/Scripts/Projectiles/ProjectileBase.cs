@@ -9,7 +9,8 @@ namespace Projectiles
         [field: SerializeField] public float Damage { get; private set; }
         [field: SerializeField] public float MoveSpeed { get; private set; }
 
-        public abstract ProjectileType Identifier { get; }
+        public abstract ProjectileType ProjectileType { get; }
+        public ProjectileType Identifier => ProjectileType;
         
         protected IUnitTarget Target;
 
@@ -24,11 +25,21 @@ namespace Projectiles
 
         public void SetDamage(IDamageApplicator damage) => Damage = damage.Damage;
 
-        public void SetTarget(IUnitTarget target) => Target = target;
+        public void SetTarget(IUnitTarget target)
+        {
+            Target = target;
+            Target.OnDeactivation += DropTarget;
+        }
 
         public virtual void OnElementReturn() => gameObject.SetActive(false);
 
         public virtual void OnElementExtract() => gameObject.SetActive(true);
+
+        private void DropTarget()
+        {
+            Target.OnDeactivation -= DropTarget;
+            ReturnInPool();
+        }
         
         protected void CheckTargetOnNull()
         {

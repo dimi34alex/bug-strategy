@@ -12,7 +12,7 @@ namespace Unit.Bees
         [SerializeField] private GameObject resourceSkin;
 
         public override UnitType UnitType => UnitType.WorkerBee;
-        public override IReadOnlyProfession CurrentProfession => _workerProfession;
+        protected override ProfessionBase CurrentProfession => _workerProfession;
 
         private WorkerProfession _workerProfession;
 
@@ -21,6 +21,13 @@ namespace Unit.Bees
             base.OnAwake();
 
             _healthStorage = new ResourceStorage(beeWorkerConfig.HealthPoints, beeWorkerConfig.HealthPoints);
+        }
+
+        public override void OnElementExtract()
+        {
+            base.OnElementExtract();
+            
+            _healthStorage.SetValue(_healthStorage.Capacity);
             _workerProfession = new WorkerProfession(this, beeWorkerConfig.InteractionRange, beeWorkerConfig.GatheringCapacity, beeWorkerConfig.GatheringTime, resourceSkin);
             resourceSkin.SetActive(false);
 
@@ -33,13 +40,6 @@ namespace Unit.Bees
                 new StorageResourceState(this, _workerProfession),
             };
             _stateMachine = new EntityStateMachine(stateBases, EntityStateID.Idle);
-        }
-
-        protected override void OnUpdate()
-        {
-            base.OnUpdate();
-        
-            _workerProfession.HandleUpdate(Time.deltaTime);
         }
     }
 }

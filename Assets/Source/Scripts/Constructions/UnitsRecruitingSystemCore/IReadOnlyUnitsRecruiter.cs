@@ -11,6 +11,6 @@ namespace UnitsRecruitingSystemCore
         public event Action OnTick;
         public event Action OnCancelRecruit;
 
-        public List<IReadOnlyUnitRecruitingStack<UnitType>> GetRecruitingInformation();
+        public List<IReadOnlyUnitRecruitingStack> GetRecruitingInformation();
     }
 }

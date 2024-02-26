@@ -4,15 +4,14 @@ using UnityEngine;
 
 namespace UnitsRecruitingSystemCore
 {
-    public class UnitRecruitingStack<TEnum> : IReadOnlyUnitRecruitingStack<TEnum>
-        where TEnum : Enum
+    public class UnitRecruitingStack : IReadOnlyUnitRecruitingStack
     {
         private readonly ResourceRepository _resourceRepository;
         
-        private UnitRecruitingData<TEnum> _unitRecruitingData;
+        private UnitRecruitingData _unitRecruitingData;
         
-        public TEnum CurrentID => _unitRecruitingData.CurrentID;
-        public GameObject UnitPrefab => _unitRecruitingData.UnitPrefab;
+        public UnitType CurrentID => _unitRecruitingData.CurrentID;
+        // public GameObject UnitPrefab => _unitRecruitingData.UnitPrefab;
         public float RecruitingTime => _unitRecruitingData.RecruitingTime;
         public int StackSize => _unitRecruitingData.StackSize;
         public float SpawnPauseTime => _unitRecruitingData.SpawnPauseTime;
@@ -22,12 +21,14 @@ namespace UnitsRecruitingSystemCore
         public float CurrentTime  { get; private set; }
         public float SpawnPauseTimer { get; private set; }
         public int SpawnedUnits { get; private set; }
-        public Transform SpawnTransform { get; }
+        // public Transform SpawnTransform { get; }
+
+        public event Action<UnitType> OnSpawnUnit; 
         
         public UnitRecruitingStack(Transform spawnTransform, ref ResourceRepository resourceRepository)
         {
             Empty = true;
-            SpawnTransform = spawnTransform;
+            // SpawnTransform = spawnTransform;
             _resourceRepository = resourceRepository;
         }
 
@@ -37,10 +38,10 @@ namespace UnitsRecruitingSystemCore
         /// <param name="newData"> new data </param>
         /// <exception cref="Exception"> Error: stack is not empty </exception>
         /// <exception cref="Exception"> Error: newData.prefab is null </exception>
-        public void SetNewData(UnitRecruitingData<TEnum> newData)
+        public void SetNewData(UnitRecruitingData newData)
         {
             if (!Empty) throw new Exception("Error: stack is not empty");
-            if (newData.UnitPrefab is null) throw new Exception("Error: prefab is null");
+            // if (newData.UnitPrefab is null) throw new Exception("Error: prefab is null");
 
             Empty = false;
             
@@ -67,12 +68,12 @@ namespace UnitsRecruitingSystemCore
                 return;
             }
 
-            Vector3 spawnPos = SpawnTransform.position;
-            float randomPosition = UnityEngine.Random.Range(-0.01f, 0.01f);
+            // Vector3 spawnPos = SpawnTransform.position;
 
-            UnityEngine.Object.Instantiate(UnitPrefab,
-                new Vector3(spawnPos.x + randomPosition, spawnPos.y, spawnPos.z + randomPosition),
-                SpawnTransform.rotation);
+            OnSpawnUnit?.Invoke(CurrentID);
+            // UnityEngine.Object.Instantiate(UnitPrefab,
+            //     new Vector3(spawnPos.x + randomPosition, spawnPos.y, spawnPos.z + randomPosition),
+            //     SpawnTransform.rotation);
                         
             SpawnedUnits++;
             SpawnPauseTimer = 0;
@@ -95,13 +96,10 @@ namespace UnitsRecruitingSystemCore
         }
     }
     
-    public interface IReadOnlyUnitRecruitingStack<TEnum>
-        where TEnum : Enum
+    public interface IReadOnlyUnitRecruitingStack
     {
         public bool Empty { get; }
-        public TEnum CurrentID { get; }
-        public Transform SpawnTransform { get; }
-        public GameObject UnitPrefab { get; }
+        public UnitType CurrentID { get; }
         public float RecruitingTime { get; }
         public int StackSize { get; }
         public float SpawnPauseTime { get; }

@@ -12,9 +12,10 @@ public class BeeHouseFactoryBehaviour : ConstructionFactoryBehaviourBase
     {
         ConstructionSpawnConfiguration<BeeHouse> configuration = _beeHouseConfig.GetConfiguration();
 
-        BeeHouse construction = Instantiate(configuration.ConstructionPrefab,
-            configuration.ConstructionPrefab.transform.position, configuration.Rotation);
-
-        return construction.Cast<TConstruction>();
+        TConstruction construction = DiContainer.InstantiatePrefab(configuration.ConstructionPrefab,
+                configuration.ConstructionPrefab.transform.position, configuration.Rotation, null)
+            .GetComponent<TConstruction>();
+        
+        return construction;
     }
 }

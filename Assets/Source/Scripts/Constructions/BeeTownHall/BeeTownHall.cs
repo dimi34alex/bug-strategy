@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using Constructions.LevelSystemCore;
+using Unit.Factory;
 using UnityEngine;
 using UnityEngine.Events;
 using UnitsRecruitingSystemCore;
+using Zenject;
 
 namespace Constructions
 {
@@ -12,7 +14,9 @@ namespace Constructions
         [SerializeField] private BeeTownHallConfig config;
         [SerializeField] [Range(0,5)] private float pauseTimeOfOutBeesFromTownHallAfterAlarm = 1;
         [SerializeField] private Transform workerBeesSpawnPosition;
-    
+
+        [Inject] private readonly UnitFactory _unitFactory;
+
         public bool AlarmIsOn { get; private set; }
     
         public override ConstructionID ConstructionID => ConstructionID.Bees_Town_Hall;
@@ -30,8 +34,8 @@ namespace Constructions
             gameObject.name = "TownHall";
 
             var takeResourceRepository = ResourceGlobalStorage.ResourceRepository;
-            LevelSystem = new BeeTownHallLevelSystem(config.Levels, workerBeesSpawnPosition, ref takeResourceRepository,
-                ref _healthStorage, ref _recruiter);
+            LevelSystem = new BeeTownHallLevelSystem(config.Levels, workerBeesSpawnPosition, _unitFactory, 
+                ref takeResourceRepository, ref _healthStorage, ref _recruiter);
         
             _updateEvent += OnUpdate;
             _onDestroy += SetLooseScreen;

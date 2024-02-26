@@ -11,9 +11,9 @@ namespace Constructions
     {
         [Space]
         [SerializeField] [Range(0, 2)] private int recruitingSize = 0;
-        [SerializeField] private List<UnitRecruitingData<UnitType>> beesRecruitingData;
+        [SerializeField] private List<UnitRecruitingData> beesRecruitingData;
 
         public int RecruitingSize => recruitingSize;
-        public IReadOnlyList<UnitRecruitingData<UnitType>> BeesRecruitingData => beesRecruitingData;
+        public IReadOnlyList<UnitRecruitingData> BeesRecruitingData => beesRecruitingData;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Projectiles;
+using Projectiles.Factory;
 using Unit.ProfessionsCore.Processors;
 
 namespace Unit.ProfessionsCore
@@ -10,10 +11,10 @@ namespace Unit.ProfessionsCore
         public override AttackProcessorBase AttackProcessor { get; }
         
         public RangeWarriorProfession(UnitBase unit, float interactionRange, float cooldown,
-            float attackRange, float damage, ProjectileType projectileType, ProjectilesPool projectilesPool)
+            float attackRange, float damage, ProjectileType projectileType, ProjectileFactory projectilesFactory)
             : base(unit, interactionRange, cooldown)
         {
-            AttackProcessor = new RangeAttackProcessor(unit, attackRange, damage, CooldownProcessor, projectileType, projectilesPool);
+            AttackProcessor = new RangeAttackProcessor(unit, attackRange, damage, CooldownProcessor, projectileType, projectilesFactory);
             AttackProcessor.OnEnterEnemyInZone += EnterInZone;
         }
     }
