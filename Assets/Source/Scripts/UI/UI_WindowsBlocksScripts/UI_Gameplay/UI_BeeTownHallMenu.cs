@@ -37,7 +37,7 @@ public class UI_BeeTownHallMenu : UI_EvolveConstructionScreenBase<BeeTownHall>
             else
             {
                 stackID[n].text = beeRecruitingInformation[n].CurrentID.ToString();
-                float currentTime = Mathf.Clamp((Mathf.Round(beeRecruitingInformation[n].CurrentTime * 100F) / 100F), 0F, Mathf.Infinity);
+                float currentTime = Mathf.Clamp((Mathf.Round(beeRecruitingInformation[n].RecruitingTimer * 100F) / 100F), 0F, Mathf.Infinity);
                 float fullTime = Mathf.Round(beeRecruitingInformation[n].RecruitingTime * 100F) / 100F;
                 stackTime[n].text = (currentTime + "/" + fullTime);
             }

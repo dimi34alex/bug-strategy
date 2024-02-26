@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Unit;
 using Unit.Factory;
 using UnityEngine;
 
@@ -11,8 +10,8 @@ namespace UnitsRecruitingSystemCore
         private readonly Transform _spawnTransform;
         private readonly UnitFactory _unitFactory;
         private readonly List<UnitRecruitingStack> _stacks;
+        private readonly ResourceRepository _resourceRepository;
         private List<UnitRecruitingData> _recruitingDatas;
-        private ResourceRepository _resourceRepository;
         
         public event Action OnChange;
         public event Action OnRecruitUnit;
@@ -31,7 +30,7 @@ namespace UnitsRecruitingSystemCore
 
             for (int n = 0; n < size; n++)
             {
-                var newStack = new UnitRecruitingStack(spawnTransform, ref resourceRepository);
+                var newStack = new UnitRecruitingStack(_resourceRepository);
                 newStack.OnSpawnUnit += SpawnUnit;
                 _stacks.Add(newStack);
             }
@@ -124,7 +123,7 @@ namespace UnitsRecruitingSystemCore
 
             for (int n = _stacks.Count; n < newCount; n++)
             {
-                var newStack = new UnitRecruitingStack(_spawnTransform, ref _resourceRepository);
+                var newStack = new UnitRecruitingStack(_resourceRepository);
                 newStack.OnSpawnUnit += SpawnUnit;
                 _stacks.Add(newStack);
             }

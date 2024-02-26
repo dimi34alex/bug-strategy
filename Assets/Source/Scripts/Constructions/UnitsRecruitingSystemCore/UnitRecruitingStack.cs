@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace UnitsRecruitingSystemCore
 {
@@ -11,24 +10,21 @@ namespace UnitsRecruitingSystemCore
         private UnitRecruitingData _unitRecruitingData;
         
         public UnitType CurrentID => _unitRecruitingData.CurrentID;
-        // public GameObject UnitPrefab => _unitRecruitingData.UnitPrefab;
         public float RecruitingTime => _unitRecruitingData.RecruitingTime;
         public int StackSize => _unitRecruitingData.StackSize;
         public float SpawnPauseTime => _unitRecruitingData.SpawnPauseTime;
         private IReadOnlyDictionary<ResourceID, int> Costs => _unitRecruitingData.Costs;
         
         public bool Empty { get; private set; }
-        public float CurrentTime  { get; private set; }
+        public float RecruitingTimer  { get; private set; }
         public float SpawnPauseTimer { get; private set; }
         public int SpawnedUnits { get; private set; }
-        // public Transform SpawnTransform { get; }
 
         public event Action<UnitType> OnSpawnUnit; 
         
-        public UnitRecruitingStack(Transform spawnTransform, ref ResourceRepository resourceRepository)
+        public UnitRecruitingStack(ResourceRepository resourceRepository)
         {
             Empty = true;
-            // SpawnTransform = spawnTransform;
             _resourceRepository = resourceRepository;
         }
 
@@ -37,16 +33,14 @@ namespace UnitsRecruitingSystemCore
         /// </summary>
         /// <param name="newData"> new data </param>
         /// <exception cref="Exception"> Error: stack is not empty </exception>
-        /// <exception cref="Exception"> Error: newData.prefab is null </exception>
         public void SetNewData(UnitRecruitingData newData)
         {
             if (!Empty) throw new Exception("Error: stack is not empty");
-            // if (newData.UnitPrefab is null) throw new Exception("Error: prefab is null");
 
             Empty = false;
             
             _unitRecruitingData = newData;
-            CurrentTime = 0;
+            RecruitingTimer = 0;
             SpawnPauseTimer = newData.SpawnPauseTime;
             
             SpawnedUnits = 0;
@@ -56,9 +50,9 @@ namespace UnitsRecruitingSystemCore
         {
             if (Empty) return;
 
-            if (CurrentTime < RecruitingTime)
+            if (RecruitingTimer < RecruitingTime)
             {
-                CurrentTime += time;
+                RecruitingTimer += time;
                 return;
             }
 
@@ -67,13 +61,8 @@ namespace UnitsRecruitingSystemCore
                 SpawnPauseTimer += time;
                 return;
             }
-
-            // Vector3 spawnPos = SpawnTransform.position;
-
+            
             OnSpawnUnit?.Invoke(CurrentID);
-            // UnityEngine.Object.Instantiate(UnitPrefab,
-            //     new Vector3(spawnPos.x + randomPosition, spawnPos.y, spawnPos.z + randomPosition),
-            //     SpawnTransform.rotation);
                         
             SpawnedUnits++;
             SpawnPauseTimer = 0;
@@ -103,7 +92,7 @@ namespace UnitsRecruitingSystemCore
         public float RecruitingTime { get; }
         public int StackSize { get; }
         public float SpawnPauseTime { get; }
-        public float CurrentTime { get; }
+        public float RecruitingTimer { get; }
         public float SpawnPauseTimer { get; }
         public int SpawnedUnits { get; }
     }

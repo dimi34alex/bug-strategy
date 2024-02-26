@@ -11,14 +11,12 @@ namespace UnitsRecruitingSystemCore
         [SerializeField] private float recruitingTime;
         [SerializeField] private int stackSize;
         [SerializeField] private float spawnPauseTime;
-        // [SerializeField] private GameObject unitPrefab;
         [SerializeField] private SerializableDictionary<ResourceID, int> costs;
 
         public UnitType CurrentID => currentId;
         public float RecruitingTime => recruitingTime;
         public int StackSize => stackSize;
         public float SpawnPauseTime => spawnPauseTime;
-        // public GameObject UnitPrefab => unitPrefab;
         public IReadOnlyDictionary<ResourceID, int> Costs => costs;
 
         public UnitRecruitingData(UnitType id, float recruitingTime, int stackSize, float spawnPauseTime, 
@@ -28,7 +26,6 @@ namespace UnitsRecruitingSystemCore
             this.recruitingTime = recruitingTime;
             this.stackSize = stackSize;
             this.spawnPauseTime = spawnPauseTime;
-            // this.unitPrefab = unitPrefab;
             this.costs = costs;
         }
     }
