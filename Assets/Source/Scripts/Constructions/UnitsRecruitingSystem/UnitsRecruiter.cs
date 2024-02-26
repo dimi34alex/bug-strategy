@@ -30,7 +30,7 @@ namespace UnitsRecruitingSystemCore
 
             for (int n = 0; n < size; n++)
             {
-                var newStack = new UnitRecruitingStack(_resourceRepository);
+                var newStack = new UnitRecruitingStack();
                 newStack.OnSpawnUnit += SpawnUnit;
                 _stacks.Add(newStack);
             }
@@ -108,7 +108,7 @@ namespace UnitsRecruitingSystemCore
             foreach (var cost in recruitingData.Costs)
                 _resourceRepository.ChangeValue(cost.Key, -cost.Value);
 
-            _stacks[stackIndex].SetNewData(recruitingData);
+            _stacks[stackIndex].RecruitUnit(recruitingData);
             
             OnRecruitUnit?.Invoke();
             OnChange?.Invoke();
@@ -123,7 +123,7 @@ namespace UnitsRecruitingSystemCore
 
             for (int n = _stacks.Count; n < newCount; n++)
             {
-                var newStack = new UnitRecruitingStack(_resourceRepository);
+                var newStack = new UnitRecruitingStack();
                 newStack.OnSpawnUnit += SpawnUnit;
                 _stacks.Add(newStack);
             }
@@ -136,7 +136,7 @@ namespace UnitsRecruitingSystemCore
         {
             foreach (var stack in _stacks)
                 if (!stack.Empty)
-                    stack.StackTick(time);
+                    stack.Tick(time);
 
             OnTick?.Invoke();
             OnChange?.Invoke();
@@ -147,9 +147,13 @@ namespace UnitsRecruitingSystemCore
         /// </returns>
         public bool CancelRecruit(int stackIndex)
         {
-            if (!_stacks[stackIndex].CancelRecruiting())
+            var stack = _stacks[stackIndex];
+            if (!stack.CancelRecruiting())
                 return false;
 
+            foreach (var cost in stack.CurrentData.Costs)
+                _resourceRepository.ChangeValue(cost.Key, cost.Value);
+            
             OnCancelRecruit?.Invoke();
             OnChange?.Invoke();
 
