@@ -15,10 +15,10 @@ public class UI_BeeTownHallMenu : UI_EvolveConstructionScreenBase<BeeTownHall>
     public void _CallMenu(ConstructionBase townHall)
     {
         _construction = townHall.Cast<BeeTownHall>();
-        ChangeAlarmDisplay();
         
-        if(!(_recruiter is null)) 
+        if(_recruiter != null) 
             _recruiter.OnChange -= UpdateRecruitInfo;
+        
         _recruiter = _construction.Recruiter;
         _recruiter.OnChange += UpdateRecruitInfo;
         UpdateRecruitInfo();
@@ -47,20 +47,6 @@ public class UI_BeeTownHallMenu : UI_EvolveConstructionScreenBase<BeeTownHall>
     public void _RecruitingWorkerBee()
     {
         _construction.RecruitingWorkerBee(UnitType.WorkerBee);
-    }
-    
-    public void _WorkerBeeAlarmer()
-    {
-        _construction.WorkerBeeAlarmer();
-        ChangeAlarmDisplay();
-    }
-
-    private void ChangeAlarmDisplay()
-    {
-        if (_construction.AlarmIsOn)
-            alarm.text = "Bee Alarm Off";
-        else
-            alarm.text = "Bee Alarm On";
     }
 
     private void OnDisable()
