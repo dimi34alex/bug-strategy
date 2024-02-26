@@ -29,9 +29,7 @@ namespace Unit.Ants.States
         public override void OnStateExit()
         {
             if (_warriorProfession != null)
-            {
                 _warriorProfession.AttackProcessor.OnEnterEnemyInZone -= CheckEnemiesInZone;
-            }
         }
 
         public override void OnUpdate()

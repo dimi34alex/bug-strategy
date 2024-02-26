@@ -56,15 +56,6 @@ namespace Unit.Ants
                 new AntSwitchProfessionState(this)
             };
             _stateMachine = new EntityStateMachine(stateBases, EntityStateID.Idle);
-
-            TargetMovePosition = transform.position;
-            AutoGiveOrder(null, Transform.position);
-        }
-
-        public override void GiveOrder(GameObject target, Vector3 position)
-        {
-            position.y = 0;
-            AutoGiveOrder(target.GetComponent<IUnitTarget>(), position);
         }
 
         public void GiveOrderSwitchProfession(IUnitTarget unitTarget, AntProfessionConfigBase config) 
