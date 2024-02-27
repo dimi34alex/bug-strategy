@@ -28,16 +28,16 @@ namespace Projectiles
         public void SetTarget(IUnitTarget target)
         {
             Target = target;
-            Target.OnDeactivation += DropTarget;
+            Target.OnDeactivation += OnTargetDeactivation;
         }
 
         public virtual void OnElementReturn() => gameObject.SetActive(false);
 
         public virtual void OnElementExtract() => gameObject.SetActive(true);
 
-        private void DropTarget()
+        private void OnTargetDeactivation()
         {
-            Target.OnDeactivation -= DropTarget;
+            Target.OnDeactivation -= OnTargetDeactivation;
             ReturnInPool();
         }
         

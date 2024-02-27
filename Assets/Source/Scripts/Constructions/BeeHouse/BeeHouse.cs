@@ -5,7 +5,7 @@ namespace Constructions
 {
     public class BeeHouse : ConstructionBase, IEvolveConstruction
     {
-        [SerializeField] private BeeHouseEvolveConfig config;
+        [SerializeField] private BeeHouseConfig config;
 
         public override ConstructionID ConstructionID => ConstructionID.BeeHouse;
         public IConstructionLevelSystem LevelSystem { get; private set; }

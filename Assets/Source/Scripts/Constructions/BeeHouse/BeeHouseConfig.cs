@@ -2,14 +2,9 @@ using UnityEngine;
 
 namespace Constructions
 {
-    [CreateAssetMenu(fileName = nameof(BeeHouseConfig), menuName = "Config/" + nameof(BeeHouseConfig))]
-    public class BeeHouseConfig : ScriptableObject, ISingleConfig
+    [CreateAssetMenu(fileName = nameof(BeeHouseConfig), menuName = "Configs/Constructions/" + nameof(BeeHouseConfig))]
+    public class BeeHouseConfig : EvolveConstructionConfigBase<BeeHouseLevel>
     {
-        [SerializeField] private ConstructionSpawnConfiguration<BeeHouse> _configuration;
-
-        public ConstructionSpawnConfiguration<BeeHouse> GetConfiguration()
-        {
-            return _configuration;
-        }
+        
     }
 }

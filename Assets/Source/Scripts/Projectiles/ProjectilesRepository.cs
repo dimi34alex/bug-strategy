@@ -32,7 +32,7 @@ namespace Projectiles
             if (!_projectiles.TryGetValue(projectileType, out List<ProjectileBase> projectiles))
                 return default;
 
-            int index = projectiles.IndexOf(unit => unit.CastPossible<TProjectile>() && (predicate is null || predicate(unit.Cast<TProjectile>())));
+            int index = projectiles.IndexOf(projectile => projectile.CastPossible<TProjectile>() && (predicate is null || predicate(projectile.Cast<TProjectile>())));
 
             if (index is -1)
                 return default;

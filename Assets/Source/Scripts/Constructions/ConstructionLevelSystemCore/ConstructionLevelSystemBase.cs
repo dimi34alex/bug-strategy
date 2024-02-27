@@ -74,7 +74,6 @@ namespace Constructions.LevelSystemCore
         {
             foreach (var resourceCost in CurrentLevel.LevelUpCost)
                 _resourceRepository.ChangeValue(resourceCost.Key, -resourceCost.Value);
-                // ResourceGlobalStorage.ChangeValue(resourceCost.Key, -resourceCost.Value);
         }
 
         protected void ReCalculateHealthPoints()
