@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Projectiles;
+using Projectiles.Factory;
 using Unit.Bees.Configs;
 using Unit.ProfessionsCore;
 using Unit.States;
@@ -12,9 +12,9 @@ namespace Unit.Bees
     {
         [SerializeField] private BeeRangeWarriorConfig config;
     
-        [Inject] private ProjectilesPool _projectilesPool;
+        [Inject] private ProjectileFactory _projectileFactory;
     
-        public override IReadOnlyProfession CurrentProfession => _warriorProfession;
+        protected override ProfessionBase CurrentProfession => _warriorProfession;
         public override UnitType UnitType => UnitType.Wasp;
 
         private WarriorProfessionBase _warriorProfession;
@@ -24,7 +24,15 @@ namespace Unit.Bees
             base.OnAwake();
 
             _healthStorage = new ResourceStorage(config.HealthPoints, config.HealthPoints);
-            _warriorProfession = new RangeWarriorProfession(this, config.InteractionRange, config.Cooldown, config.AttackRange, config.Damage, config.ProjectileType, _projectilesPool);
+        }
+
+        public override void OnElementExtract()
+        {
+            base.OnElementExtract();
+            
+            _healthStorage.SetValue(_healthStorage.Capacity);
+            _warriorProfession = new RangeWarriorProfession(this, config.InteractionRange, config.Cooldown, config.AttackRange,
+                config.Damage, config.ProjectileType, _projectileFactory);
         
             var states = new List<EntityStateBase>()
             {
@@ -33,13 +41,6 @@ namespace Unit.Bees
                 new AttackState(this, _warriorProfession),
             };
             _stateMachine = new EntityStateMachine(states, EntityStateID.Idle);
-        }
-
-        protected override void OnUpdate()
-        {
-            base.OnUpdate();
-        
-            _warriorProfession.HandleUpdate(Time.deltaTime);
         }
     }
 }

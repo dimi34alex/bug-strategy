@@ -1,3 +1,4 @@
+using Constructions;
 using Unit.ProfessionsCore;
 using UnityEngine;
 
@@ -19,11 +20,11 @@ namespace Unit.States
         public override void OnStateEnter()
         {
             if (!_workerProfession.ResourceExtractionProcessor.GotResource ||
-                !_unit.CurrentPathData.Target.CastPossible<TownHall>())
+                !_unit.CurrentPathData.Target.CastPossible<BeeTownHall>())
             {
 #if UNITY_EDITOR
                 Debug.LogWarning($"Some problem: " +
-                                 $"{!_unit.CurrentPathData.Target.CastPossible<TownHall>()}");            
+                                 $"{!_unit.CurrentPathData.Target.CastPossible<BeeTownHall>()}");            
 #endif
                 _unit.AutoGiveOrder(null);
                 return;

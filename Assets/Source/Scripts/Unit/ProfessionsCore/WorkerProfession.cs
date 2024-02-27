@@ -1,4 +1,5 @@
-﻿using Unit.ProfessionsCore.Processors;
+﻿using Constructions;
+using Unit.ProfessionsCore.Processors;
 using UnityEngine;
 
 namespace Unit.ProfessionsCore
@@ -23,6 +24,29 @@ namespace Unit.ProfessionsCore
             ResourceExtractionProcessor.HandleUpdate(time);
         }
 
+        protected override UnitPathData ValidateAutoOrder(IUnitTarget target)
+        {
+            if(target.IsAnyNull())
+                return new UnitPathData(null, UnitPathType.Move);
+            
+            switch (target.TargetType)
+            {
+                case UnitTargetType.ResourceSource:
+                    if(!ResourceExtractionProcessor.GotResource)
+                        return new UnitPathData(target, UnitPathType.Collect_Resource);
+                    break;
+                case UnitTargetType.Construction:
+                    if (target.CastPossible<BuildingProgressConstruction>())
+                        return new UnitPathData(target, UnitPathType.Build_Construction);
+                
+                    if (target.CastPossible<BeeTownHall>() && ResourceExtractionProcessor.GotResource)
+                        return new UnitPathData(target, UnitPathType.Storage_Resource);  
+                    break;                
+            }
+            
+            return new UnitPathData(null, UnitPathType.Move);
+        }
+        
         protected override UnitPathType ValidateHandleOrder(IUnitTarget target, UnitPathType pathType)
         {
             if (target.IsAnyNull()) 
@@ -51,7 +75,7 @@ namespace Unit.ProfessionsCore
                     break;
                 case UnitPathType.Storage_Resource:
                     if (target.TargetType == UnitTargetType.Construction &&
-                        target.CastPossible<TownHall>() &&
+                        target.CastPossible<BeeTownHall>() &&
                         ResourceExtractionProcessor.GotResource)
                         return UnitPathType.Storage_Resource;
                     break;
@@ -64,29 +88,6 @@ namespace Unit.ProfessionsCore
             }
 
             return UnitPathType.Move;
-        }
-
-        public override UnitPathData AutoGiveOrder(IUnitTarget unitTarget)
-        {
-            if(unitTarget.IsAnyNull())
-                return new UnitPathData(null, UnitPathType.Move);
-
-            switch (unitTarget.TargetType)
-            {
-                case UnitTargetType.ResourceSource:
-                    if(!ResourceExtractionProcessor.GotResource)
-                        return new UnitPathData(unitTarget, UnitPathType.Collect_Resource);
-                    break;
-                case UnitTargetType.Construction:
-                    if (unitTarget.CastPossible<BuildingProgressConstruction>())
-                        return new UnitPathData(unitTarget, UnitPathType.Build_Construction);
-                
-                    if (unitTarget.CastPossible<TownHall>() && ResourceExtractionProcessor.GotResource)
-                        return new UnitPathData(unitTarget, UnitPathType.Storage_Resource);  
-                    break;                
-            }
-            
-            return new UnitPathData(null, UnitPathType.Move);
         }
     }
 }

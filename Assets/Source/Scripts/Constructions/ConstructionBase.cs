@@ -1,32 +1,31 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 using MiniMapSystem;
 
 public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagable, IRepairable, IMiniMapObject,
-    ITriggerable, IUnitTarget, SelectableSystem.ISelectable, IAffiliation
+    ITriggerable, IUnitTarget, SelectableSystem.ISelectable
 {
     [SerializeField] private AffiliationEnum affiliationEnum;
 
+    protected ResourceStorage _healthStorage;
+
+    public bool IsSelected { get; private set; }
+    public bool IsActive { get; protected set; } = true;
+    
     public abstract ConstructionID ConstructionID { get; }
     public UnitTargetType TargetType => UnitTargetType.Construction;
     public MiniMapObjectType MiniMapObjectType => MiniMapObjectType.Construction;
-    public virtual Cost Cost { get; }
     public Transform Transform => transform;
-
-    protected ResourceStorage _healthStorage;
     public IReadOnlyResourceStorage HealthStorage => _healthStorage;
+    public AffiliationEnum Affiliation => affiliationEnum;
     
     protected event Action _updateEvent;
     protected event Action _onDestroy;
     public event Action<ITriggerable> OnDisableITriggerableEvent;
-    
-    public bool IsSelected { get; private set; }
     public event Action OnSelect;
     public event Action OnDeselect;
-
-    public AffiliationEnum Affiliation => affiliationEnum;
-
+    public event Action OnDeactivation;
+    
     protected void Awake()
     {
         OnAwake();
@@ -37,14 +36,16 @@ public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagabl
 
     protected virtual void OnAwake() { }
     protected virtual void OnStart() { }
-
-    public virtual void CalculateCost() { }
-
+    
     public virtual void TakeDamage(IDamageApplicator damageApplicator)
     {
         _healthStorage.ChangeValue(-damageApplicator.Damage);
         if (_healthStorage.CurrentValue <= 0)
+        {
+            IsActive = false;
+            OnDeactivation?.Invoke();
             Destroy(gameObject);
+        }
     }
 
     public virtual void TakeRepair(IRepairApplicator repairApplicator)

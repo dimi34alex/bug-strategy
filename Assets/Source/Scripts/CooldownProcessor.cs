@@ -17,7 +17,7 @@ public class CooldownProcessor : IReadOnlyCooldownProcessor
     }
 
     public void HandleUpdate(float time) => _cooldown.Tick(time);
-
+    
     public void StartCooldown()
     {
         IsCooldown = true;

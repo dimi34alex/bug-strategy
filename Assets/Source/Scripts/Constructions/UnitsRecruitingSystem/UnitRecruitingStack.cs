@@ -1,111 +1,97 @@
 using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
-namespace UnitsRecruitingSystem
+namespace UnitsRecruitingSystemCore
 {
-    public class UnitRecruitingStack<TEnum> : IReadOnlyUnitRecruitingStack<TEnum>
-        where TEnum : Enum
+    public class UnitRecruitingStack : IReadOnlyUnitRecruitingStack
     {
-        public bool Empty { get; private set; }
-        
-        private UnitRecruitingData<TEnum> _unitRecruitingData;
-        
-        public TEnum CurrentID => _unitRecruitingData.CurrentID;
-        public GameObject UnitPrefab => _unitRecruitingData.UnitPrefab;
-        public float RecruitingTime => _unitRecruitingData.RecruitingTime;
-        public int StackSize => _unitRecruitingData.StackSize;
-        public float SpawnPauseTime => _unitRecruitingData.SpawnPauseTime;
-        private IReadOnlyDictionary<ResourceID, int> Costs => _unitRecruitingData.Costs;
-        
-        public Transform SpawnTransform { get; private set; }
-        public float CurrentTime  { get; private set; }
-        public float SpawnPauseTimer { get; private set; }
-
+        public bool Empty { get; private set; } = true;
+        public float RecruitingTimer  { get; private set; }
         public int SpawnedUnits { get; private set; }
-        
-        public UnitRecruitingStack(Transform spawnTransform)
-        {
-            Empty = true;
-            SpawnTransform = spawnTransform;
-        }
+        public UnitRecruitingData CurrentData { get; private set; }
 
-        /// <summary>
-        /// Set new data if data is correct.
-        /// </summary>
-        /// <param name="newData"> new data </param>
+        public UnitType UnitId => CurrentData.CurrentID;
+        public float RecruitingTime => CurrentData.RecruitingTime;
+        public int StackSize => CurrentData.StackSize;
+
+        private float SpawnPauseTime => CurrentData.SpawnPauseTime;
+        
+        private Sequence _sequenceTimer;
+        private IReadOnlyDictionary<ResourceID, int> Costs;
+        
+        public event Action<UnitType> OnSpawnUnit; 
+
         /// <exception cref="Exception"> Error: stack is not empty </exception>
-        /// <exception cref="Exception"> Error: newData.prefab is null </exception>
-        public void SetNewData(UnitRecruitingData<TEnum> newData)
+        public void RecruitUnit(UnitRecruitingData newData)
         {
             if (!Empty) throw new Exception("Error: stack is not empty");
-            if (newData.UnitPrefab is null) throw new Exception("Error: prefab is null");
 
             Empty = false;
+
+            CurrentData = newData;
             
-            _unitRecruitingData = newData;
-            CurrentTime = 0;
-            SpawnPauseTimer = newData.SpawnPauseTime;
-            
+            RecruitingTimer = 0;
             SpawnedUnits = 0;
+            
+            InvokeRecruiting();
+        }
+        
+        private void InvokeRecruiting()
+        {
+            _sequenceTimer = DOTween.Sequence()
+                .SetUpdate(UpdateType.Manual)
+                .AppendInterval(RecruitingTime)
+                .AppendCallback(SpawnUnit);
+        }
+        
+        private void InvokeSpawnPause()
+        {
+            _sequenceTimer = DOTween.Sequence()
+                .SetUpdate(UpdateType.Manual)
+                .AppendInterval(SpawnPauseTime)
+                .AppendCallback(SpawnUnit);
         }
 
-        public void StackTick(float time)
+        private void SpawnUnit()
+        {
+            OnSpawnUnit?.Invoke(UnitId);
+                        
+            SpawnedUnits++;
+            if (SpawnedUnits >= StackSize)
+                Empty = true;
+            else
+                InvokeSpawnPause();
+        }
+        
+        public void Tick(float time)
         {
             if (Empty) return;
 
-            if (CurrentTime < RecruitingTime)
-            {
-                CurrentTime += time;
-                return;
-            }
-
-            if (SpawnPauseTimer < SpawnPauseTime)
-            {
-                SpawnPauseTimer += time;
-                return;
-            }
-
-            Vector3 spawnPos = SpawnTransform.position;
-            float randomPosition = UnityEngine.Random.Range(-0.01f, 0.01f);
-
-            UnityEngine.Object.Instantiate(UnitPrefab,
-                new Vector3(spawnPos.x + randomPosition, spawnPos.y, spawnPos.z + randomPosition),
-                SpawnTransform.rotation);
-                        
-            SpawnedUnits++;
-            SpawnPauseTimer = 0;
-
-            if (SpawnedUnits >= StackSize)
-                Empty = true;
+            RecruitingTimer = Mathf.Clamp(RecruitingTimer + time, 0, RecruitingTime);
+            _sequenceTimer.ManualUpdate(time, time);
         }
 
-        /// <returns> If Cancel is possible return true, else return false </returns>
+        /// <returns> If cancel is possible return true, else return false </returns>
         public bool CancelRecruiting()
         {
             if (SpawnedUnits > 0) return false;
-
-            foreach (var cost in Costs)
-                ResourceGlobalStorage.ChangeValue(cost.Key, cost.Value);
-
+            
+            _sequenceTimer.Kill();
             Empty = true;
 
             return true;
         }
     }
     
-    public interface IReadOnlyUnitRecruitingStack<TEnum>
-        where TEnum : Enum
+    public interface IReadOnlyUnitRecruitingStack
     {
         public bool Empty { get; }
-        public TEnum CurrentID { get; }
-        public Transform SpawnTransform { get; }
-        public GameObject UnitPrefab { get; }
+        public UnitType UnitId { get; }
         public float RecruitingTime { get; }
+        public float RecruitingTimer { get; }
         public int StackSize { get; }
-        public float SpawnPauseTime { get; }
-        public float CurrentTime { get; }
-        public float SpawnPauseTimer { get; }
         public int SpawnedUnits { get; }
     }
 }

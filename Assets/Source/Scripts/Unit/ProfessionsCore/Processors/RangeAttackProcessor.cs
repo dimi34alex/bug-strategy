@@ -1,4 +1,5 @@
 ﻿using Projectiles;
+using Projectiles.Factory;
 using UnityEngine;
 
 namespace Unit.ProfessionsCore.Processors
@@ -6,14 +7,14 @@ namespace Unit.ProfessionsCore.Processors
     public class RangeAttackProcessor : AttackProcessorBase
     {
         private readonly ProjectileType _projectileType;
-        private readonly ProjectilesPool _projectilesPool;
+        private readonly ProjectileFactory _projectilesFactory;
         
         public RangeAttackProcessor(UnitBase unit, float attackRange, float damage,
-            CooldownProcessor cooldownProcessor, ProjectileType projectileType, ProjectilesPool projectilesPool)
+            CooldownProcessor cooldownProcessor, ProjectileType projectileType, ProjectileFactory projectilesFactory)
             : base(unit, attackRange, damage, cooldownProcessor)
         {
             _projectileType = projectileType;
-            _projectilesPool = projectilesPool;
+            _projectilesFactory = projectilesFactory;
         }
         
         protected override void Attack(IUnitTarget target)
@@ -26,7 +27,7 @@ namespace Unit.ProfessionsCore.Processors
                 return;
             }
 
-            var projectile = _projectilesPool.Extract<ProjectileBase>(_projectileType);
+            var projectile = _projectilesFactory.Create(_projectileType);
             projectile.transform.position = Transform.position;
             projectile.SetDamage(this);
             projectile.SetTarget(target);

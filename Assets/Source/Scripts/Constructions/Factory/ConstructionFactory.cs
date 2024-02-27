@@ -30,7 +30,7 @@ public class ConstructionFactory : MonoBehaviour, IConstructionFactory
 
         if (!_behaviours.ContainsKey(constructionType))
             throw new InvalidOperationException($"{constructionID} cannot be created, " +
-                $"because factory for this construction not found. Create new factory behavoiur for this construction");
+                $"because factory for this construction not found. Create new factory behaviour for this construction");
 
         return _behaviours[constructionType].Create<TConstruction>(constructionID);
     }

@@ -29,21 +29,19 @@ public abstract class MovingUnit : UnitBase
         
         OnStart();
     }
-    
-    private void Update()
+
+    public override void HandleUpdate(float time)
     {
+        base.HandleUpdate(time);
+        
         foreach (var ability in _abilites)
             ability.OnUpdate(Time.deltaTime);
-        
-        OnUpdate();
     }
 
     protected virtual void OnAwake() { }
     
     protected virtual void OnStart() { }
-    
-    protected virtual void OnUpdate() { }
-    
+
     public void SetDestination(Vector3 position)
     {
         _navMeshAgent.SetDestination(position);

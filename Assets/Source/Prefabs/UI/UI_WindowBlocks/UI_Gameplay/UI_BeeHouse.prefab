@@ -197,8 +197,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6341944490169627242}
-        m_TargetAssemblyTypeName: UI_BeeHouseMenu, Assembly-CSharp
-        m_MethodName: _BuildingLVL_Up
+        m_TargetAssemblyTypeName: UI_EvolveConstructionScreenBase`1[[Constructions.BeeHouse,
+          Assembly-CSharp
+        m_MethodName: _TryLevelUp
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

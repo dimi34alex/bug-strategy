@@ -28,6 +28,8 @@ public class UnitRepository : IUnitRepository
         if (!_units.ContainsKey(unit.UnitType))
             _units.Add(unit.UnitType, new List<UnitBase>(5));
 
+        unit.ElementReturnEvent += RemoveUnit;
+
         _units[unit.UnitType].Add(unit);
     }
 
@@ -47,6 +49,12 @@ public class UnitRepository : IUnitRepository
             units.RemoveAt(index);
 
         return unit;
+    }
+
+    public void RemoveUnit(UnitBase unit)
+    {
+        if (_units.TryGetValue(unit.UnitType, out var units))
+            units.Remove(unit);
     }
 }
 

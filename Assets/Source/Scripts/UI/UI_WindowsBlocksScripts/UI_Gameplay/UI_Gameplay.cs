@@ -24,11 +24,11 @@ public class UI_Gameplay : UIScreen
         _gameplayWindowsSetActions.Add("UI_Tactics", () => { _UI_Tactics.SetActive(true); });
         _gameplayWindowsSetActions.Add("UI_TownHallMenu", () => {
             _UI_TownHallMenu.SetActive(true);
-            _UI_TownHallMenu.GetComponent<UI_TownHallMenu>()._CallMenu(_construction);
+            _UI_TownHallMenu.GetComponent<UI_BeeTownHallMenu>()._CallMenu(_construction);
         });
         _gameplayWindowsSetActions.Add("UI_BarracksMenu", () => {
             _UI_BarracksMenu.SetActive(true);
-            _UI_BarracksMenu.GetComponent<UI_BarracksMenu>()._CallMenu(_construction);
+            _UI_BarracksMenu.GetComponent<UI_BeeBarracksMenu>()._CallMenu(_construction);
         });
         _gameplayWindowsSetActions.Add("UI_BeeHouseMenu", () => {
             _UI_BeeHouseMenu.SetActive(true);
@@ -41,8 +41,8 @@ public class UI_Gameplay : UIScreen
     
         _UI_Buildings = UIScreenRepository.GetScreen<UI_Buildings>().gameObject;
         _UI_Tactics = UIScreenRepository.GetScreen<UI_Tactics>().gameObject;
-        _UI_TownHallMenu = UIScreenRepository.GetScreen<UI_TownHallMenu>().gameObject;
-        _UI_BarracksMenu = UIScreenRepository.GetScreen<UI_BarracksMenu>().gameObject;
+        _UI_TownHallMenu = UIScreenRepository.GetScreen<UI_BeeTownHallMenu>().gameObject;
+        _UI_BarracksMenu = UIScreenRepository.GetScreen<UI_BeeBarracksMenu>().gameObject;
         _UI_BeeHouseMenu = UIScreenRepository.GetScreen<UI_BeeHouseMenu>().gameObject;
         _UI_BeesWaxProduceConstructionMenu = UIScreenRepository.GetScreen<UI_BeesWaxProduceConstructionMenu>().gameObject;
     }

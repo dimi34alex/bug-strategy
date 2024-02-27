@@ -1,19 +1,21 @@
+using Constructions;
 using Zenject;
 
 public class BarrakFactoryBehaviour : ConstructionFactoryBehaviourBase
 {
-    [Inject] private readonly BarrackConfig _barrackConfig;
+    [Inject] private readonly BeeBarrackSpawnConfig _barrackConfig;
 
-    public override ConstructionType ConstructionType => ConstructionType.Barrack;
+    public override ConstructionType ConstructionType => ConstructionType.BeeBarrack;
 
     public override TConstruction Create<TConstruction>(ConstructionID constructionID)
     {
-        ConstructionConfiguration<Barrack> configuration = _barrackConfig.GetConfiguration();
+        ConstructionSpawnConfiguration<BeeBarrack> configuration = _barrackConfig.GetConfiguration();
 
-        Barrack construction = Instantiate(configuration.ConstructionPrefab,
-            configuration.ConstructionPrefab.transform.position, configuration.Rotation);
-
-        return construction.Cast<TConstruction>();
+        TConstruction construction = DiContainer.InstantiatePrefab(configuration.ConstructionPrefab,
+                configuration.ConstructionPrefab.transform.position, configuration.Rotation, null)
+            .GetComponent<TConstruction>();
+        
+        return construction;
     }
 }
 

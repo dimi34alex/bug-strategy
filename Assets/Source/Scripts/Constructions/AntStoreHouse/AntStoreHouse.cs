@@ -1,13 +1,21 @@
-using ConstructionLevelSystem;
+using Constructions.LevelSystemCore;
+using UnityEngine;
 
-public class AntStoreHouse : EvolvConstruction<AntStoreHouseLevel>
+namespace Constructions
 {
-    public override ConstructionID ConstructionID => ConstructionID.AntStoreHouse;
-
-    protected override void OnAwake()
+    public class AntStoreHouse : ConstructionBase, IEvolveConstruction
     {
-        base.OnAwake();
+        [SerializeField] private AntStoreHouseConfig config;
 
-        levelSystem = new AntStoreHouseLevelSystem(levelSystem, ref _healthStorage);
+        public override ConstructionID ConstructionID => ConstructionID.AntStoreHouse;
+        public IConstructionLevelSystem LevelSystem { get; private set; }
+
+        protected override void OnAwake()
+        {
+            base.OnAwake();
+
+            var resourceRepository = ResourceGlobalStorage.ResourceRepository;
+            LevelSystem = new AntStoreHouseLevelSystem(config.Levels, ref resourceRepository, ref _healthStorage);
+        }
     }
 }

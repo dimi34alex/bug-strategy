@@ -25,45 +25,6 @@ namespace Unit.ProfessionsCore
             CooldownProcessor.HandleUpdate(time);
         }
         
-        protected override UnitPathType ValidateHandleOrder(IUnitTarget target, UnitPathType pathType)
-        {
-            switch (pathType)
-            {
-                case UnitPathType.Attack:
-                    if (!target.IsAnyNull() && target.Affiliation != Affiliation && target.CastPossible<IDamagable>() 
-                        || AttackProcessor.CheckEnemiesInAttackZone())
-                        return UnitPathType.Attack;
-                    break;
-                case UnitPathType.Switch_Profession:
-                    if (//!target.IsNullOrUnityNull() &&
-                        Affiliation == AffiliationEnum.Ants &&
-                        target.TargetType == UnitTargetType.Construction)
-                        // TODO: create construction for switching professions
-                        return UnitPathType.Switch_Profession;
-                    break;
-            }
-
-            return UnitPathType.Move;
-        }
-
-        public override UnitPathData AutoGiveOrder(IUnitTarget unitTarget)
-        {
-            if (unitTarget.IsAnyNull() ||
-                !unitTarget.CastPossible<IDamagable>() ||
-                unitTarget.Affiliation == Affiliation)
-                return new UnitPathData(null, UnitPathType.Move);
-
-            switch (unitTarget.TargetType)
-            {
-                case (UnitTargetType.Other_Unit):
-                    return new UnitPathData(unitTarget, UnitPathType.Attack);
-                case (UnitTargetType.Construction):
-                    return new UnitPathData(unitTarget, UnitPathType.Attack);
-                default:
-                    return new UnitPathData(null, UnitPathType.Move);
-            }
-        }
-
         public override bool CheckDistance(UnitPathData pathData)
         {
             switch (pathData.PathType)
@@ -75,6 +36,44 @@ namespace Unit.ProfessionsCore
                 default:
                     return !pathData.Target.IsAnyNull() && CheckInteraction(pathData.Target);
             }
+        }
+        
+        protected override UnitPathData ValidateAutoOrder(IUnitTarget target)
+        {
+            if (target.IsAnyNull() ||
+                !target.CastPossible<IDamagable>() ||
+                target.Affiliation == Affiliation)
+                return new UnitPathData(null, UnitPathType.Move);
+
+            switch (target.TargetType)
+            {
+                case (UnitTargetType.Other_Unit):
+                    return new UnitPathData(target, UnitPathType.Attack);
+                case (UnitTargetType.Construction):
+                    return new UnitPathData(target, UnitPathType.Attack);
+                default:
+                    return new UnitPathData(null, UnitPathType.Move);
+            }
+        }
+        
+        protected override UnitPathType ValidateHandleOrder(IUnitTarget target, UnitPathType pathType)
+        {
+            switch (pathType)
+            {
+                case UnitPathType.Attack:
+                    if (!target.IsAnyNull() && target.Affiliation != Affiliation && target.CastPossible<IDamagable>() 
+                        || AttackProcessor.CheckEnemiesInAttackZone())
+                        return UnitPathType.Attack;
+                    break;
+                case UnitPathType.Switch_Profession:
+                    if (!target.IsAnyNull() && Affiliation == AffiliationEnum.Ants &&
+                        target.TargetType == UnitTargetType.Construction)
+                        // TODO: create construction for switching professions
+                        return UnitPathType.Switch_Profession;
+                    break;
+            }
+
+            return UnitPathType.Move;
         }
     }
 }

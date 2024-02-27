@@ -2,6 +2,6 @@ namespace Projectiles
 {
     public class BeeStingProjectile : ProjectileBase
     {
-        public override ProjectileType Identifier => ProjectileType.BeeSting;
+        public override ProjectileType ProjectileType => ProjectileType.BeeSting;
     }
 }

@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
 
-namespace UnitsRecruitingSystem
+namespace UnitsRecruitingSystemCore
 {
-    public interface IReadOnlyUnitsRecruiter<TEnum>
-        where TEnum : Enum
+    public interface IReadOnlyUnitsRecruiter
     {
         public event Action OnChange;
         public event Action OnRecruitUnit;
@@ -12,6 +11,6 @@ namespace UnitsRecruitingSystem
         public event Action OnTick;
         public event Action OnCancelRecruit;
 
-        public List<IReadOnlyUnitRecruitingStack<TEnum>> GetRecruitingInformation();
+        public List<IReadOnlyUnitRecruitingStack> GetRecruitingInformation();
     }
 }

@@ -760,7 +760,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7737bf5eb342bd4b962a6638b70fac4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiError: {fileID: 0}
   alarm: {fileID: 3453346779833300299}
   stackID:
   - {fileID: 4705092199813106224}
@@ -1681,19 +1680,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4864782740582079647}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 703161551061978266}
-        m_TargetAssemblyTypeName: UI_TownHallMenu, Assembly-CSharp
-        m_MethodName: _WorkerBeeAlarmer
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 3
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &7577808466315870532
 GameObject:
   m_ObjectHideFlags: 0
@@ -1971,8 +1958,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 703161551061978266}
-        m_TargetAssemblyTypeName: UI_TownHallMenu, Assembly-CSharp
-        m_MethodName: _BuildingLVL_Up
+        m_TargetAssemblyTypeName: UI_EvolveConstructionScreenBase`1[[Constructions.BeeTownHall,
+          Assembly-CSharp
+        m_MethodName: _TryLevelUp
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

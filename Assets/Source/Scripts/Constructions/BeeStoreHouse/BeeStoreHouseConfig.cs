@@ -1,12 +1,10 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "BeeStoreHouseConfig", menuName = "Config/BeeStoreHouseConfig")]
-public class BeeStoreHouseConfig : ScriptableObject, ISingleConfig
+namespace Constructions
 {
-    [SerializeField] private ConstructionConfiguration<BeeStoreHouse> _configuration;
-
-    public ConstructionConfiguration<BeeStoreHouse> GetConfiguration()
+    [CreateAssetMenu(fileName = nameof(BeeStoreHouseConfig), menuName = "Configs/Constructions/" + nameof(BeeStoreHouseConfig))]
+    public class BeeStoreHouseConfig : EvolveConstructionConfigBase<BeeStoreHouseLevel>
     {
-        return _configuration;
+        
     }
 }

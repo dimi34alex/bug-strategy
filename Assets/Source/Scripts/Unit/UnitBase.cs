@@ -5,7 +5,7 @@ using MiniMapSystem;
 using Unit.ProfessionsCore;
 
 public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable, IUnitTarget, IMiniMapObject,
-    SelectableSystem.ISelectable, IAffiliation, IPoolable<UnitBase, UnitType>
+    SelectableSystem.ISelectable, IPoolable<UnitBase, UnitType>, IPoolEventListener
 {
     [SerializeField] private UnitVisibleZone _unitVisibleZone;
     [SerializeField] private ProfessionInteractionZone _professionInteractionZone;
@@ -15,12 +15,27 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
     protected EntityStateMachine _stateMachine;
     protected List<AbilityBase> _abilites = new List<AbilityBase>();
     
+    public bool IsSelected { get; private set; }
+    public bool IsActive { get; protected set; }
+    public Vector3 TargetMovePosition { get; protected set; }
+    protected abstract ProfessionBase CurrentProfession { get; }
+
+    public bool IsDied => _healthStorage.CurrentValue < 1f;
+    public Transform Transform => transform;
+    public UnitVisibleZone VisibleZone => _unitVisibleZone;
+    public ProfessionInteractionZone ProfessionInteractionZone => _professionInteractionZone;
+    public ProfessionInteractionZone DynamicProfessionZone => _dynamicProfessionZone;
+    public IReadOnlyProfession IReadOnlyProfession => CurrentProfession;
+    public UnitTargetType TargetType => UnitTargetType.Other_Unit;
+    public MiniMapObjectType MiniMapObjectType => MiniMapObjectType.Unit;
     public IReadOnlyResourceStorage HealthStorage => _healthStorage;
     public IReadOnlyList<AbilityBase> Abilities => _abilites;
     public EntityStateMachine StateMachine => _stateMachine;
-    public bool IsDied => _healthStorage.CurrentValue < 1f;
-
-    private UnitPathData _currentPathData;
+    public UnitType Identifier => UnitType;
+    public abstract AffiliationEnum Affiliation { get; }
+    public abstract UnitType UnitType { get; }
+    
+    private UnitPathData _currentPathData = new UnitPathData(null, UnitPathType.Idle);
     public UnitPathData CurrentPathData
     {
         get => _currentPathData;
@@ -28,38 +43,33 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
         {
             if (value == _currentPathData) return;
 
+            if (!_currentPathData.Target.IsAnyNull())
+                _currentPathData.Target.OnDeactivation -= ResetTarget;
+            
             _currentPathData = value;
+            if (!_currentPathData.Target.IsAnyNull())
+                _currentPathData.Target.OnDeactivation += ResetTarget;
+
             OnUnitPathChange?.Invoke(this);
         }
     }
-
-    public UnitVisibleZone VisibleZone => _unitVisibleZone;
-    public ProfessionInteractionZone ProfessionInteractionZone => _professionInteractionZone;
-    public ProfessionInteractionZone DynamicProfessionZone => _dynamicProfessionZone;
-    
-    public Transform Transform => transform;
-    public UnitTargetType TargetType => UnitTargetType.Other_Unit;
-    public bool IsSelected { get; private set; }
-    public MiniMapObjectType MiniMapObjectType => MiniMapObjectType.Unit;
-    public Vector3 TargetMovePosition { get; protected set; }
-    public abstract IReadOnlyProfession CurrentProfession { get; }
     
     public event Action<UnitBase> OnUnitPathChange;
     public event Action<UnitBase> OnUnitDied;
     public event Action<ITriggerable> OnDisableITriggerableEvent;
     public event Action OnSelect;
     public event Action OnDeselect;
-
     public event Action<UnitBase> ElementReturnEvent;
     public event Action<UnitBase> ElementDestroyEvent;
     public event Action OnTargetMovePositionChange;
+    public event Action OnDeactivation;
 
-    public abstract AffiliationEnum Affiliation { get; }
-
-    public abstract UnitType UnitType { get; }
-    public UnitType Identifier => UnitType;
-
-
+    public virtual void HandleUpdate(float time)
+    {
+        _stateMachine.OnUpdate();
+        CurrentProfession.HandleUpdate(time);
+    }
+    
     public void TakeDamage(IDamageApplicator damageApplicator)
     {
         _healthStorage.ChangeValue(-damageApplicator.Damage);
@@ -69,7 +79,8 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
         {
             Debug.Log("���� " + this.gameObject.name + " �������� ");
             OnUnitDied?.Invoke(this);
-            ElementDestroyEvent?.Invoke(this);
+            OnDeactivation?.Invoke();
+            ElementReturnEvent?.Invoke(this);
             return;
         }
     }
@@ -91,7 +102,20 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
         IsSelected = false;
         OnDeselect?.Invoke();
     }
-        
+
+    public virtual void OnElementReturn()
+    {
+        IsActive = false;
+        OnDeactivation?.Invoke();
+        gameObject.SetActive(false);
+    }
+
+    public virtual void OnElementExtract()
+    {
+        IsActive = true;
+        gameObject.SetActive(true);
+    }
+    
     public void AutoGiveOrder(IUnitTarget unitTarget) 
         => AutoGiveOrder(unitTarget, transform.position);
 
@@ -130,6 +154,9 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
         CalculateNewState(targetMovePosition);
     }
 
+    private void ResetTarget() 
+        => CurrentPathData = new UnitPathData(null, CurrentPathData.PathType);
+    
     private void CalculateNewState(Vector3 newTargetMovePosition)
     {
         newTargetMovePosition.y = 0;

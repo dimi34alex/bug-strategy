@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Projectiles;
+using Projectiles.Factory;
 using Unit.Ants.Configs;
 using Unit.Ants.Configs.Professions;
 using Unit.Ants.Professions;
@@ -18,11 +18,11 @@ namespace Unit.Ants
         [SerializeField] private GameObject resource;
         [SerializeField] private Animator animator;
 
-        [Inject] private ProjectilesPool _projectilesPool;
+        [Inject] private ProjectileFactory _projectileFactory;
         
         public ProfessionType CurProfessionType => CurrentProfession.ProfessionType;
-        public override IReadOnlyProfession CurrentProfession => Profession;
         public int CurProfessionRang => _antProfessionRang.Rang;
+        protected override ProfessionBase CurrentProfession => Profession;
         
         public ProfessionType TargetProfessionType { get; private set; }
         public ProfessionBase Profession { get; private set; }
@@ -33,9 +33,16 @@ namespace Unit.Ants
         protected override void OnAwake()
         {
             base.OnAwake();
-
-            resource.SetActive(false);
+            
             _healthStorage = new ResourceStorage(config.HealthPoints, config.HealthPoints);
+        }
+
+        public override void OnElementExtract()
+        {
+            base.OnElementExtract();
+            
+            resource.SetActive(false);
+            _healthStorage.SetValue(_healthStorage.Capacity);
             SetProfession(config.DefaultProfession);
 
             var stateBases = new List<EntityStateBase>()
@@ -49,22 +56,6 @@ namespace Unit.Ants
                 new AntSwitchProfessionState(this)
             };
             _stateMachine = new EntityStateMachine(stateBases, EntityStateID.Idle);
-
-            TargetMovePosition = transform.position;
-            AutoGiveOrder(null, Transform.position);
-        }
-
-        protected override void OnUpdate()
-        {
-            base.OnUpdate();
-            
-            Profession?.HandleUpdate(Time.deltaTime);
-        }
-        
-        public override void GiveOrder(GameObject target, Vector3 position)
-        {
-            position.y = 0;
-            AutoGiveOrder(target.GetComponent<IUnitTarget>(), position);
         }
 
         public void GiveOrderSwitchProfession(IUnitTarget unitTarget, AntProfessionConfigBase config) 
@@ -127,7 +118,7 @@ namespace Unit.Ants
                     Profession = new AntMeleeWarriorProfession(this, newProfession as AntMeleeWarriorConfig);
                     break;
                 case (ProfessionType.RangeWarrior):
-                    Profession  = new AntRangeWarriorProfession(this, newProfession as AntRangeWarriorConfig, _projectilesPool);
+                    Profession  = new AntRangeWarriorProfession(this, newProfession as AntRangeWarriorConfig, _projectileFactory);
                     break;
                 default: throw new NotImplementedException();
             }

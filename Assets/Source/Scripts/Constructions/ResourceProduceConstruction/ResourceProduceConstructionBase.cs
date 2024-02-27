@@ -1,7 +1,4 @@
-﻿using ConstructionLevelSystem;
-
-public abstract class ResourceProduceConstructionBase<TBuildingLevel> : EvolvConstruction<TBuildingLevel>
-    where TBuildingLevel : ConstructionLevelBase
+﻿public abstract class ResourceProduceConstructionBase : ConstructionBase
 {
     public abstract ResourceProduceCoreBase ResourceProduceCoreBase { get; }
     public abstract ResourceProduceConstructionState ProduceConstructionState { get; }

@@ -146,6 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e858b5aabb54899ba3e92e165874ccd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sphereCollider: {fileID: 7238903406453969140}
 --- !u!135 &7238903406453969140
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -203,6 +204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e858b5aabb54899ba3e92e165874ccd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sphereCollider: {fileID: 1796856609877183490}
 --- !u!135 &1796856609877183490
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -321,7 +323,6 @@ MonoBehaviour:
   _unitVisibleZone: {fileID: 5949649818072816824}
   _professionInteractionZone: {fileID: 1493000100019554460}
   _dynamicProfessionZone: {fileID: 4406851168027833582}
-  CurrentStateId: 0
   _navMeshAgent: {fileID: 6180183485359579963}
   _ability1:
     reloadTimer:

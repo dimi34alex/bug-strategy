@@ -1,35 +1,44 @@
 using System;
 using System.Collections.Generic;
+using Unit.Factory;
 using UnityEngine;
 
-namespace UnitsRecruitingSystem
+namespace UnitsRecruitingSystemCore
 {
-    public class UnitsRecruiter<TEnum> : IReadOnlyUnitsRecruiter<TEnum>
-        where TEnum : Enum
+    public class UnitsRecruiter : IReadOnlyUnitsRecruiter
     {
         private readonly Transform _spawnTransform;
-        private readonly List<UnitRecruitingStack<TEnum>> _stacks;
-        private List<UnitRecruitingData<TEnum>> _recruitingDatas;
-
+        private readonly UnitFactory _unitFactory;
+        private readonly List<UnitRecruitingStack> _stacks;
+        private readonly ResourceRepository _resourceRepository;
+        private List<UnitRecruitingData> _recruitingDatas;
+        
         public event Action OnChange;
         public event Action OnRecruitUnit;
         public event Action OnAddStack;
         public event Action OnTick;
         public event Action OnCancelRecruit;
 
-        public UnitsRecruiter(int size, Transform spawnTransform, IReadOnlyList<UnitRecruitingData<TEnum>> newDatas)
+        public UnitsRecruiter(int size, Transform spawnTransform, IReadOnlyList<UnitRecruitingData> newDatas,
+            UnitFactory unitFactory, ref ResourceRepository resourceRepository)
         {
             _spawnTransform = spawnTransform;
-            _stacks = new List<UnitRecruitingStack<TEnum>>();
-            _recruitingDatas = new List<UnitRecruitingData<TEnum>>(newDatas);
+            _unitFactory = unitFactory;
+            _resourceRepository = resourceRepository;
+            _stacks = new List<UnitRecruitingStack>();
+            _recruitingDatas = new List<UnitRecruitingData>(newDatas);
 
             for (int n = 0; n < size; n++)
-                _stacks.Add(new UnitRecruitingStack<TEnum>(spawnTransform));
+            {
+                var newStack = new UnitRecruitingStack();
+                newStack.OnSpawnUnit += SpawnUnit;
+                _stacks.Add(newStack);
+            }
         }
 
-        public void SetNewDatas(IReadOnlyList<UnitRecruitingData<TEnum>> newDatas)
+        public void SetNewDatas(IReadOnlyList<UnitRecruitingData> newDatas)
         {
-            _recruitingDatas = new List<UnitRecruitingData<TEnum>>(newDatas);
+            _recruitingDatas = new List<UnitRecruitingData>(newDatas);
         }
         
         /// <returns> Returns first empty stack index. If it cant find free stack return -1 </returns>
@@ -42,11 +51,11 @@ namespace UnitsRecruitingSystem
         }
 
         /// <summary>
-        /// Check unit costs and resource count from ResourceGlobalStorage.
+        /// Check unit costs and resource count from resourceRepository.
         /// </summary>
         /// <param name="id"> unity id </param>
         /// <returns> If player have enough resources then return true, else false </returns>
-        public bool CheckCosts(TEnum id)
+        public bool CheckCosts(UnitType id)
         {
             var recruitingData = _recruitingDatas.Find(data => data.CurrentID.Equals(id));
             return CheckCosts(recruitingData.Costs);
@@ -60,7 +69,7 @@ namespace UnitsRecruitingSystem
         public bool CheckCosts(IReadOnlyDictionary<ResourceID, int>  costs)
         {
             foreach (var cost in costs)
-                if (cost.Value > ResourceGlobalStorage.GetResource(cost.Key).CurrentValue)
+                if (cost.Value > _resourceRepository.GetResource(cost.Key).CurrentValue)
                     return false;
             
             return true;
@@ -72,7 +81,7 @@ namespace UnitsRecruitingSystem
         /// <param name="id"> unity id </param>
         /// <exception cref="Exception"> All stacks are busy </exception>
         /// <exception cref="Exception"> Need more resources </exception>
-        public void RecruitUnit(TEnum id)
+        public void RecruitUnit(UnitType id)
         {
             int freeStackIndex = _stacks.IndexOf(freeStack => freeStack.Empty);
             if (freeStackIndex == -1) throw new Exception("All stacks are busy");
@@ -87,18 +96,19 @@ namespace UnitsRecruitingSystem
         /// <param name="stackIndex"> index of empty stack </param>
         /// <exception cref="Exception"> Stack are busy </exception>
         /// <exception cref="Exception"> Need more resources </exception>
-        public void RecruitUnit(TEnum id, int stackIndex)
+        public void RecruitUnit(UnitType id, int stackIndex)
         {
             if (!_stacks[stackIndex].Empty)
                 throw new Exception("Stack are busy");
 
             var recruitingData = _recruitingDatas.Find(data => data.CurrentID.Equals(id));
-            if (!CheckCosts(recruitingData.Costs)) throw new Exception("Need more resources");
+            if (!CheckCosts(recruitingData.Costs))
+                throw new Exception("Need more resources");
             
             foreach (var cost in recruitingData.Costs)
-                ResourceGlobalStorage.ChangeValue(cost.Key, -cost.Value);
+                _resourceRepository.ChangeValue(cost.Key, -cost.Value);
 
-            _stacks[stackIndex].SetNewData(recruitingData);
+            _stacks[stackIndex].RecruitUnit(recruitingData);
             
             OnRecruitUnit?.Invoke();
             OnChange?.Invoke();
@@ -107,13 +117,16 @@ namespace UnitsRecruitingSystem
         /// <summary>
         /// Add new stacks if newCount upper then current size, else does nothing
         /// </summary>
-        /// <param name="newCount"> new count of stacks </param>
         public void AddStacks(int newCount)
         {
             if(newCount <= _stacks.Count) return;
-            
-            for (int n = _stacks.Count; n <newCount; n++)
-                _stacks.Add(new UnitRecruitingStack<TEnum>(_spawnTransform));
+
+            for (int n = _stacks.Count; n < newCount; n++)
+            {
+                var newStack = new UnitRecruitingStack();
+                newStack.OnSpawnUnit += SpawnUnit;
+                _stacks.Add(newStack);
+            }
 
             OnAddStack?.Invoke();
             OnChange?.Invoke();
@@ -123,33 +136,47 @@ namespace UnitsRecruitingSystem
         {
             foreach (var stack in _stacks)
                 if (!stack.Empty)
-                    stack.StackTick(time);
+                    stack.Tick(time);
 
             OnTick?.Invoke();
             OnChange?.Invoke();
         }
 
-        /// <param name="stackIndex"> stack index </param>
-        /// <returns> If Cancel is possible return true, else return false </returns>
+        /// <returns>
+        /// If Cancel is possible return true, else return false
+        /// </returns>
         public bool CancelRecruit(int stackIndex)
         {
-            if (!_stacks[stackIndex].CancelRecruiting())
+            var stack = _stacks[stackIndex];
+            if (!stack.CancelRecruiting())
                 return false;
 
+            foreach (var cost in stack.CurrentData.Costs)
+                _resourceRepository.ChangeValue(cost.Key, cost.Value);
+            
             OnCancelRecruit?.Invoke();
             OnChange?.Invoke();
 
             return true;
         }
 
-        /// <returns> Return list of information about all stacks </returns>
-        public List<IReadOnlyUnitRecruitingStack<TEnum>> GetRecruitingInformation()
+        /// <returns>
+        /// Return list of information about all stacks
+        /// </returns>
+        public List<IReadOnlyUnitRecruitingStack> GetRecruitingInformation()
         {
-            var fullInformation = new List<IReadOnlyUnitRecruitingStack<TEnum>>();
+            var fullInformation = new List<IReadOnlyUnitRecruitingStack>();
             foreach (var stack in _stacks)
                 fullInformation.Add(stack);
 
             return fullInformation;
+        }
+
+        private void SpawnUnit(UnitType unitType)
+        {
+            var unit = _unitFactory.Create(unitType);
+            float randomPosOffset = UnityEngine.Random.Range(-0.01f, 0.01f);
+            unit.Transform.position = _spawnTransform.position + Vector3.left * randomPosOffset;
         }
     }
 }
