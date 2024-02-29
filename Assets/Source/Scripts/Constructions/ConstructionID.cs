@@ -12,4 +12,5 @@ public enum ConstructionID
     AntStoreHouse = 35,
     ButterflyStoreHouse = 40,
     
+    AntTownHall = 100
 }

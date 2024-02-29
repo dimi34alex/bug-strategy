@@ -7,7 +7,9 @@ namespace Constructions
     {
         [SerializeField] private ButterflyStoreHouseConfig config;
     
+        public override AffiliationEnum Affiliation => AffiliationEnum.Butterflies;
         public override ConstructionID ConstructionID => ConstructionID.ButterflyStoreHouse;
+        
         public IConstructionLevelSystem LevelSystem { get; private set; }
 
         protected override void OnAwake()

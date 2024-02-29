@@ -5,7 +5,7 @@ using MiniMapSystem;
 public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagable, IRepairable, IMiniMapObject,
     ITriggerable, IUnitTarget, SelectableSystem.ISelectable
 {
-    [SerializeField] private AffiliationEnum affiliationEnum;
+    public abstract AffiliationEnum Affiliation { get; }
 
     protected ResourceStorage _healthStorage;
 
@@ -17,7 +17,6 @@ public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagabl
     public MiniMapObjectType MiniMapObjectType => MiniMapObjectType.Construction;
     public Transform Transform => transform;
     public IReadOnlyResourceStorage HealthStorage => _healthStorage;
-    public AffiliationEnum Affiliation => affiliationEnum;
     
     protected event Action _updateEvent;
     protected event Action _onDestroy;

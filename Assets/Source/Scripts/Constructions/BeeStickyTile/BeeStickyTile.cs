@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
-using UnityEngine.Rendering.VirtualTexturing;
+﻿using UnityEngine;
 
 namespace Constructions
 {
@@ -9,6 +6,8 @@ namespace Constructions
     {
         [SerializeField] private SerializableDictionary<ResourceID, int> _costValues;
         [SerializeField] private TriggerBehaviour _triggerBehaviour;
+        
+        public override AffiliationEnum Affiliation => AffiliationEnum.Bees;
         public override ConstructionID ConstructionID => ConstructionID.Bee_Sticky_Tile_Construction;
 
         protected override void OnAwake()

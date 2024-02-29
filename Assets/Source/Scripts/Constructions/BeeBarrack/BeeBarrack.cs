@@ -8,6 +8,7 @@ namespace Constructions
 {
     public class BeeBarrack : ConstructionBase, IEvolveConstruction
     {
+        public override AffiliationEnum Affiliation => AffiliationEnum.Bees;
         public override ConstructionID ConstructionID => ConstructionID.BeeBarrack;
 
         [SerializeField] private BeeBarrackConfig config;

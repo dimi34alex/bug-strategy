@@ -7,6 +7,7 @@ namespace Constructions
     {
         [SerializeField] private AntStoreHouseConfig config;
 
+        public override AffiliationEnum Affiliation => AffiliationEnum.Bees;
         public override ConstructionID ConstructionID => ConstructionID.AntStoreHouse;
         public IConstructionLevelSystem LevelSystem { get; private set; }
 

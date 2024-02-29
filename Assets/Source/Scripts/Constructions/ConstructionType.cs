@@ -11,4 +11,6 @@ public enum ConstructionType
     BeeStoreHouse = 16,
     AntStoreHouse = 17,
     ButterflyStoreHouse = 18,
+    
+    AntTownHall = 100,
 }

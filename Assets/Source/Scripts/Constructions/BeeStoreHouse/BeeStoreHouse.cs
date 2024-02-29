@@ -7,7 +7,9 @@ namespace Constructions
     {
         [SerializeField] private BeeStoreHouseConfig config;
 
+        public override AffiliationEnum Affiliation => AffiliationEnum.Bees;
         public override ConstructionID ConstructionID => ConstructionID.BeeStoreHouse;
+        
         public IConstructionLevelSystem LevelSystem { get; private set; }
 
         protected override void OnAwake()
