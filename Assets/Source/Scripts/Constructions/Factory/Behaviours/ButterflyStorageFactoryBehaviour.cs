@@ -1,16 +1,15 @@
-using System.Runtime.InteropServices.ComTypes;
 using Constructions;
 using Zenject;
 
-public class BeeHouseFactoryBehaviour : ConstructionFactoryBehaviourBase
+public class ButterflyStorageFactoryBehaviour : ConstructionFactoryBehaviourBase
 {
-    [Inject] private readonly BeeHouseSpawnConfig _beeHouseSpawnConfig;
-
-    public override ConstructionType ConstructionType => ConstructionType.BeeHouse;
+    [Inject] private readonly ButterflyStorageSpawnConfig _config;
+    
+    public override ConstructionType ConstructionType => ConstructionType.ButterflyStorage;
 
     public override TConstruction Create<TConstruction>(ConstructionID constructionID)
     {
-        ConstructionSpawnConfiguration<BeeHouse> configuration = _beeHouseSpawnConfig.Configuration;
+        ConstructionSpawnConfiguration<ButterflyStorage> configuration = _config.Configuration;
 
         TConstruction construction = DiContainer.InstantiatePrefab(configuration.ConstructionPrefab,
                 configuration.ConstructionPrefab.transform.position, configuration.Rotation, null)

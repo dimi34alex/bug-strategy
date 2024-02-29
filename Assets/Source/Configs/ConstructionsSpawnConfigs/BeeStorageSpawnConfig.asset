@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0e1075aedf4b0f49a74b5bdb4ed5de2, type: 3}
-  m_Name: BeeHouseSpawnConfig
+  m_Script: {fileID: 11500000, guid: 055c087d523c6c8448dffa4619fb1f78, type: 3}
+  m_Name: BeeStorageSpawnConfig
   m_EditorClassIdentifier: 
   <Configuration>k__BackingField:
-    <ConstructionPrefab>k__BackingField: {fileID: -4589124477280040743, guid: eb03e7e86e87e7e4186e4e1098d54590, type: 3}
+    <ConstructionPrefab>k__BackingField: {fileID: 6806489056680773626, guid: 5dc14c9d6ccd3794387265530ce8204f, type: 3}
     <SkinPrefab>k__BackingField: {fileID: 0}
     <Rotation>k__BackingField: {x: 0, y: 0, z: 0, w: 0}

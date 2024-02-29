@@ -13,7 +13,10 @@ namespace Constructions
         private void Start()
         {
             foreach (var init in inits)
-                CreateConstruction(init.ID, init.Transform.position);
+            {
+                Vector3 position = FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(init.Transform.position);
+                CreateConstruction(init.ID, position);
+            }
         }
         
         private void CreateConstruction(ConstructionID constructionID, Vector3 position)

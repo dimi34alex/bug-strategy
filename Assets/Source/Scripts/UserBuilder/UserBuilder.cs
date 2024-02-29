@@ -1,8 +1,6 @@
-using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 using UnityEngine.EventSystems;
-using System.Linq;
 using Constructions;
 
 public class UserBuilder : CycleInitializerBase
@@ -12,20 +10,16 @@ public class UserBuilder : CycleInitializerBase
     [Inject] private readonly DiContainer _diContainer;
     
     [SerializeField] private SerializableDictionary<ConstructionID, GameObject> constructionMovableModels;
-    [SerializeField] private ConstructionBase[] constructions;
-    private Dictionary<ConstructionID, ConstructionBase> _constructionWithID;
 
     private GameObject _currentConstructionMovableModel;
     private ConstructionID _currentConstructionID;
 
-    private bool _spawnConstruction = false;
-    private float _numberTownHall = 0;
+    private bool _spawnConstruction;
+    private float _numberTownHall;
     private UnitPool _pool;
     
     protected override void OnInit()
     {
-        _constructionWithID = constructions.ToDictionary(x => x.ConstructionID, x => x);
-        
         GameObject controller = GameObject.FindGameObjectWithTag("GameController");
         _pool = controller.GetComponent<UnitPool>();
     }

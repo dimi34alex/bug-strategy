@@ -9,25 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62dd7f0cf075407195d448ddef116a2c, type: 3}
-  m_Name: BeeHouseConfig
+  m_Script: {fileID: 11500000, guid: 11fd06016eba42ef8c3e4fee81538877, type: 3}
+  m_Name: ButterflyStorageConfig
   m_EditorClassIdentifier: 
   buyCost:
-    _cells:
-    - Key: 0
-      Value: 10
+    _cells: []
   levels:
   - maxHealPoints: 1000
     levelUpCost:
       _cells: []
     resourceCapacity:
       _cells:
-      - Key: 1
-        Value: 10
-  - maxHealPoints: 2000
-    levelUpCost:
-      _cells: []
-    resourceCapacity:
-      _cells:
-      - Key: 1
-        Value: 20
+      - Key: 0
+        Value: 100
