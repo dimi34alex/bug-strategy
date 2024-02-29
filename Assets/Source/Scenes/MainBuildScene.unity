@@ -176,7 +176,7 @@ GameObject:
   m_Component:
   - component: {fileID: 33967283}
   m_Layer: 0
-  m_Name: AntStoreHouse
+  m_Name: AntStorage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -190,7 +190,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 33967282}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.7, y: 0, z: 14.58}
+  m_LocalPosition: {x: -1.8, y: 0, z: 15.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1927483283}
@@ -404,7 +404,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1040379932}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &94527202
 MonoBehaviour:
@@ -1779,6 +1779,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b7620bbe59cf294da6537baea457694, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &679653727
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 679653728}
+  - component: {fileID: 679653729}
+  m_Layer: 0
+  m_Name: AntHouseFactoryBehaviour
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &679653728
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 679653727}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1040379932}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &679653729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 679653727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74b4ca89cc5b46c9861cf90d81449407, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &709940036
 GameObject:
   m_ObjectHideFlags: 0
@@ -2821,6 +2864,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaa0fc411479487a9d6eb52dd9d4c533, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1016939798
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1016939799}
+  - component: {fileID: 1016939800}
+  m_Layer: 0
+  m_Name: ButterflyHouseFactoryBehaviour (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1016939799
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1016939798}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1040379932}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1016939800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1016939798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27c979eaff3f47b1ae6e268335abb16a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1019018145
 GameObject:
   m_ObjectHideFlags: 0
@@ -2902,7 +2988,9 @@ Transform:
   - {fileID: 804627021}
   - {fileID: 2058652550}
   - {fileID: 1691440535}
+  - {fileID: 679653728}
   - {fileID: 94527201}
+  - {fileID: 1016939799}
   m_Father: {fileID: 300970758}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3177,7 +3265,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1180661216}
   m_Layer: 0
-  m_Name: BeeStoreHouse
+  m_Name: BeeStorage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3195,7 +3283,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1927483283}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &1189784712 stripped
 RectTransform:
@@ -3560,6 +3648,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 340cc67a4d507204e82d74e9e5b0cdac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1574304903
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1574304904}
+  m_Layer: 0
+  m_Name: AntHouse
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1574304904
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1574304903}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -15.95, y: 0, z: 18.08}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1927483283}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1691440534
 GameObject:
   m_ObjectHideFlags: 0
@@ -3571,7 +3689,7 @@ GameObject:
   - component: {fileID: 1691440535}
   - component: {fileID: 1691440536}
   m_Layer: 0
-  m_Name: AntStoreHouseFactoryBehaviour
+  m_Name: AntStorageFactoryBehaviour
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3890,7 +4008,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1844260365}
   m_Layer: 0
-  m_Name: ButterdlyStoreHouse
+  m_Name: ButterflyStorage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3908,7 +4026,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1927483283}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1848960287
 PrefabInstance:
@@ -4681,10 +4799,14 @@ MonoBehaviour:
     <Transform>k__BackingField: {fileID: 1934983289}
   - <ID>k__BackingField: 210
     <Transform>k__BackingField: {fileID: 33967283}
+  - <ID>k__BackingField: 220
+    <Transform>k__BackingField: {fileID: 1574304904}
   - <ID>k__BackingField: 30
     <Transform>k__BackingField: {fileID: 1180661216}
-  - <ID>k__BackingField: 300
+  - <ID>k__BackingField: 310
     <Transform>k__BackingField: {fileID: 1844260365}
+  - <ID>k__BackingField: 320
+    <Transform>k__BackingField: {fileID: 2056453342}
 --- !u!4 &1927483283
 Transform:
   m_ObjectHideFlags: 0
@@ -4698,8 +4820,10 @@ Transform:
   m_Children:
   - {fileID: 1934983289}
   - {fileID: 33967283}
+  - {fileID: 1574304904}
   - {fileID: 1180661216}
   - {fileID: 1844260365}
+  - {fileID: 2056453342}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4849,6 +4973,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 260b107cfd5400242a9e6da3fb3437a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2056453341
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2056453342}
+  m_Layer: 0
+  m_Name: ButterflyHouse
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2056453342
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2056453341}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 12.01, y: 0, z: 20.03}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1927483283}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2058652549
 GameObject:
   m_ObjectHideFlags: 0

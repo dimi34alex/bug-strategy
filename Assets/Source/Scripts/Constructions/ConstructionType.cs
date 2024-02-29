@@ -13,6 +13,9 @@ public enum ConstructionType
     
     AntTownHall = 200,
     AntStorage = 210,
+    AntHouse = 220,
     
-    ButterflyStorage = 300,
+    ButterflyTownHall = 310,
+    ButterflyStorage = 310,
+    ButterflyHouse = 320,
 }
