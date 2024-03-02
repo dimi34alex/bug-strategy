@@ -8,7 +8,7 @@ namespace Constructions
         [SerializeField] private AntWorkerWorkshopConfig config;
 
         public override AffiliationEnum Affiliation => AffiliationEnum.Ants;
-        public override ConstructionID ConstructionID => ConstructionID.AntRangeWorkshop;
+        public override ConstructionID ConstructionID => ConstructionID.AntWorkerWorkshop;
         
         public override IConstructionLevelSystem LevelSystem { get; protected set; }
         

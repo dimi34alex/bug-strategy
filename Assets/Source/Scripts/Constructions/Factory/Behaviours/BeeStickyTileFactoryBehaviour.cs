@@ -1,7 +1,7 @@
 ﻿using Constructions;
 using Zenject;
 
-public class StickyTileFactoryBehaviour : ConstructionFactoryBehaviourBase
+public class BeeStickyTileFactoryBehaviour : ConstructionFactoryBehaviourBase
 {
     [Inject] private readonly BeeStickyTileSpawnConfig _config;
 

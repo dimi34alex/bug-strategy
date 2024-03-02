@@ -17,7 +17,8 @@ public enum ConstructionType
     AntMeleeWorkshop = 230,
     AntRangeWorkshop = 240,
     AntWorkerWorkshop = 250,
-    
+    AntQuicksandTile = 260,
+
     ButterflyTownHall = 310,
     ButterflyStorage = 310,
     ButterflyHouse = 320,

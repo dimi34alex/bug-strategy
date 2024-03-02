@@ -25,11 +25,7 @@ public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagabl
     public event Action OnDeselect;
     public event Action OnDeactivation;
     
-    protected void Awake()
-    {
-        OnAwake();
-    }
-
+    protected void Awake() => OnAwake();
     protected void Start() => OnStart();
     protected void Update() => _updateEvent?.Invoke();
 

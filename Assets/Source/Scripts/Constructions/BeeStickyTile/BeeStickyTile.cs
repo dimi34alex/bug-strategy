@@ -4,7 +4,7 @@ namespace Constructions
 {
     public class BeeStickyTile : ConstructionBase
     {
-        [SerializeField] private SerializableDictionary<ResourceID, int> _costValues;
+        [SerializeField] private BeeStickyTileConfig config;
         [SerializeField] private TriggerBehaviour _triggerBehaviour;
         
         public override AffiliationEnum Affiliation => AffiliationEnum.Bees;
@@ -12,7 +12,7 @@ namespace Constructions
 
         protected override void OnAwake()
         {
-            _healthStorage = new ResourceStorage(100, 100);
+            _healthStorage = new ResourceStorage(config.HealthPoints, config.HealthPoints);
         }
 
         protected override void OnStart()

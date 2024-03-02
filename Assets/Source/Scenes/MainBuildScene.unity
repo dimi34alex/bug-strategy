@@ -2079,6 +2079,36 @@ Transform:
   m_Father: {fileID: 2106415608}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &772858046
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 772858047}
+  m_Layer: 0
+  m_Name: AntQuicksandTile
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &772858047
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 772858046}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -19.44, y: 0, z: 8.26}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1927483283}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &804627020
 GameObject:
   m_ObjectHideFlags: 0
@@ -4168,7 +4198,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1927483283}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1848960287
 PrefabInstance:
@@ -4951,6 +4981,8 @@ MonoBehaviour:
     <Transform>k__BackingField: {fileID: 31084654}
   - <ID>k__BackingField: 250
     <Transform>k__BackingField: {fileID: 741789124}
+  - <ID>k__BackingField: 260
+    <Transform>k__BackingField: {fileID: 772858047}
   - <ID>k__BackingField: 310
     <Transform>k__BackingField: {fileID: 1844260365}
   - <ID>k__BackingField: 320
@@ -4973,6 +5005,7 @@ Transform:
   - {fileID: 31084654}
   - {fileID: 1425883109}
   - {fileID: 741789124}
+  - {fileID: 772858047}
   - {fileID: 1844260365}
   - {fileID: 2056453342}
   m_Father: {fileID: 0}
@@ -5238,7 +5271,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1927483283}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2058652549
 GameObject:
