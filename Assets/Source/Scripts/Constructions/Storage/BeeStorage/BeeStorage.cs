@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Constructions
 {
-    public class BeeStorage : StorageHouseBase
+    public class BeeStorage : StorageBase
     {
         [SerializeField] private BeeStorageConfig config;
 

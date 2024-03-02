@@ -3,12 +3,12 @@ using UnityEngine;
 
 namespace Constructions
 {
-    public class AntStorage : StorageBase
+    public class AntMeleeWorkshop : AntWorkshopBase
     {
-        [SerializeField] private AntStorageConfig config;
-
+        [SerializeField] private AntMeleeWorkshopConfig config;
+        
         public override AffiliationEnum Affiliation => AffiliationEnum.Ants;
-        public override ConstructionID ConstructionID => ConstructionID.AntStorage;
+        public override ConstructionID ConstructionID => ConstructionID.AntMeleeWorkshop;
         
         public override IConstructionLevelSystem LevelSystem { get; protected set; }
 
@@ -17,7 +17,7 @@ namespace Constructions
             base.OnAwake();
 
             var resourceRepository = ResourceGlobalStorage.ResourceRepository;
-            LevelSystem = new AntStorageLevelSystem(config.Levels, ref resourceRepository, ref _healthStorage);
+            LevelSystem = new AntMeleeWorkshopLevelSystem(config.Levels, ref resourceRepository, ref _healthStorage);
         }
     }
 }

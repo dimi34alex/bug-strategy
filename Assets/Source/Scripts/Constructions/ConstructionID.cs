@@ -14,7 +14,10 @@ public enum ConstructionID
     AntTownHall = 200,
     AntStorage = 210,
     AntHouse = 220,
-
+    AntMeleeWorkshop = 230,
+    AntRangeWorkshop = 240,
+    AntWorkerWorkshop = 250,
+    
     ButterflyTownHall = 310,
     ButterflyStorage = 310,
     ButterflyHouse = 320,

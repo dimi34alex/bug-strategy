@@ -35,6 +35,12 @@ MonoBehaviour:
     ConstructionsID: d2000000
   - ConstructionType: 220
     ConstructionsID: dc000000
+  - ConstructionType: 230
+    ConstructionsID: e6000000
+  - ConstructionType: 240
+    ConstructionsID: f0000000
+  - ConstructionType: 250
+    ConstructionsID: fa000000
   - ConstructionType: 310
     ConstructionsID: 36010000
   - ConstructionType: 320

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Constructions
 {
-    public class ButterflyHouse : StorageHouseBase
+    public class ButterflyHouse : StorageBase
     {
         [SerializeField] private ButterflyHouseConfig config;
 

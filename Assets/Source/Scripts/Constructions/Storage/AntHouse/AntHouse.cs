@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Constructions
 {
-    public class AntHouse : StorageHouseBase
+    public class AntHouse : StorageBase
     {
         [SerializeField] private AntHouseConfig config;
 
