@@ -43,6 +43,8 @@ MonoBehaviour:
     ConstructionsID: fa000000
   - ConstructionType: 260
     ConstructionsID: 04010000
+  - ConstructionType: 270
+    ConstructionsID: 0e010000
   - ConstructionType: 310
     ConstructionsID: 36010000
   - ConstructionType: 320
