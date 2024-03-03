@@ -9,7 +9,7 @@ namespace Constructions
         [SerializeField] private BeeTownHallConfig config;
 
         public override AffiliationEnum Affiliation => AffiliationEnum.Bees;
-        public override ConstructionID ConstructionID => ConstructionID.Bees_Town_Hall;
+        public override ConstructionID ConstructionID => ConstructionID.BeeTownHall;
         
         public override IConstructionLevelSystem LevelSystem { get; protected set; }
 

@@ -8,7 +8,7 @@ namespace Constructions
         [SerializeField] private TriggerBehaviour _triggerBehaviour;
         
         public override AffiliationEnum Affiliation => AffiliationEnum.Bees;
-        public override ConstructionID ConstructionID => ConstructionID.Bee_Sticky_Tile_Construction;
+        public override ConstructionID ConstructionID => ConstructionID.BeeStickyTileConstruction;
 
         protected override void OnAwake()
         {

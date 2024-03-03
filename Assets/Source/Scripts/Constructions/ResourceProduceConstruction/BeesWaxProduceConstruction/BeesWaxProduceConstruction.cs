@@ -11,7 +11,7 @@ namespace Constructions
         private ResourceProduceConstructionState _produceConstructionState;
 
         public override AffiliationEnum Affiliation => AffiliationEnum.Bees;
-        public override ConstructionID ConstructionID => ConstructionID.Bees_Wax_Produce_Construction;
+        public override ConstructionID ConstructionID => ConstructionID.BeeWaxProduceConstruction;
         public override ResourceProduceConstructionState ProduceConstructionState => _produceConstructionState;
         public override ResourceConversionCore ResourceConversionCore => _resourceConversionCore;
 

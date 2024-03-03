@@ -1,14 +1,13 @@
-﻿
-public enum ConstructionID
+﻿public enum ConstructionID
 {
-    Test_Construction = 0,
-    Building_Progress_Construction = 1,
+    TestConstruction = 0,
+    BuildingProgressConstruction = 1,
     
-    Bees_Town_Hall = 5,
+    BeeTownHall = 5,
     BeeBarrack = 10,
     BeeHouse = 15,
-    Bees_Wax_Produce_Construction = 20,
-    Bee_Sticky_Tile_Construction = 25,
+    BeeWaxProduceConstruction = 20,
+    BeeStickyTileConstruction = 25,
     BeeStorage = 30,
     
     AntTownHall = 200,

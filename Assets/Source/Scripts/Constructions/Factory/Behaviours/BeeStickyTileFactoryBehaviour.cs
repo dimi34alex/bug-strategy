@@ -5,7 +5,7 @@ public class BeeStickyTileFactoryBehaviour : ConstructionFactoryBehaviourBase
 {
     [Inject] private readonly BeeStickyTileSpawnConfig _config;
 
-    public override ConstructionType ConstructionType => ConstructionType.Bee_Sticky_Tile_Construction;
+    public override ConstructionType ConstructionType => ConstructionType.BeeStickyTileConstruction;
 
     public override TConstruction Create<TConstruction>(ConstructionID constructionID)
     {

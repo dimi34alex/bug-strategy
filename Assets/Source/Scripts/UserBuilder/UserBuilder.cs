@@ -125,7 +125,7 @@ public class UserBuilder : CycleInitializerBase
     {
         construction = null;
 
-        if (id == ConstructionID.Bees_Town_Hall && _numberTownHall >= 1)
+        if (id == ConstructionID.BeeTownHall && _numberTownHall >= 1)
             return false;
         
         RaycastHit[] raycastHits = Physics.RaycastAll(Camera.main.ScreenPointToRay(Input.mousePosition));
@@ -137,7 +137,7 @@ public class UserBuilder : CycleInitializerBase
         if (FrameworkCommander.GlobalData.ConstructionsRepository.ConstructionExist(position, false))
             return false;
 
-        if (id == ConstructionID.Bees_Town_Hall)
+        if (id == ConstructionID.BeeTownHall)
             _numberTownHall++;
         
         construction = SpawnConstruction(id, position);
@@ -147,7 +147,7 @@ public class UserBuilder : CycleInitializerBase
     
     private BuildingProgressConstruction SpawnConstruction(ConstructionID id, Vector3 position)
     {
-        BuildingProgressConstruction progressConstruction = _constructionFactory.Create<BuildingProgressConstruction>(ConstructionID.Building_Progress_Construction);
+        BuildingProgressConstruction progressConstruction = _constructionFactory.Create<BuildingProgressConstruction>(ConstructionID.BuildingProgressConstruction);
         progressConstruction.transform.position = position;
         FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position, progressConstruction);
                 

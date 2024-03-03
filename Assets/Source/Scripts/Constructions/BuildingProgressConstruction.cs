@@ -8,7 +8,7 @@ public class BuildingProgressConstruction : ConstructionBase
     [SerializeField] private TMP_Text _timerText;
 
     public override AffiliationEnum Affiliation => AffiliationEnum.Neutral;
-    public override ConstructionID ConstructionID => ConstructionID.Building_Progress_Construction;
+    public override ConstructionID ConstructionID => ConstructionID.BuildingProgressConstruction;
     public ConstructionID BuildingConstructionID { get; private set; }
 
     public BuildingProgressState BuildingProgressState { get; private set; } = BuildingProgressState.Waiting;
