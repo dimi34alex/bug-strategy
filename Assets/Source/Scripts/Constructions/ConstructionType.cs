@@ -20,7 +20,8 @@ public enum ConstructionType
     AntQuicksandTile = 260,
     AntMine = 270,
     AntAphidFarm = 280,
-
+    AntFort = 290,
+    
     ButterflyTownHall = 300,
     ButterflyStorage = 310,
     ButterflyHouse = 320,
