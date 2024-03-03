@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9165e78ef97544b5bda6df108763fa9b, type: 3}
-  m_Name: AntRangeWarriorConstructionConfig
+  m_Name: AntRangeWorkshopConfig
   m_EditorClassIdentifier: 
   buyCost:
     _cells: []

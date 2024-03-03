@@ -434,7 +434,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1040379932}
-  m_RootOrder: 16
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &94527202
 MonoBehaviour:
@@ -2550,6 +2550,8 @@ MonoBehaviour:
       Value: {fileID: 579087990629832931, guid: ec8d76fe3a274b24ab9e6c84054d8524, type: 3}
     - Key: 270
       Value: {fileID: 8583148275930896778, guid: d6dc5f4d404163943bee80150e3d7aad, type: 3}
+    - Key: 280
+      Value: {fileID: 8984171332907046911, guid: 4fbf615161adb8641b889742548086e6, type: 3}
     - Key: 310
       Value: {fileID: 4359571722333101012, guid: 283c4e9ae0b253b42a6ae4c31f6ca1cd, type: 3}
     - Key: 320
@@ -3079,7 +3081,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1040379932}
-  m_RootOrder: 17
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1016939800
 MonoBehaviour:
@@ -3180,6 +3182,7 @@ Transform:
   - {fileID: 2026513127}
   - {fileID: 135861034}
   - {fileID: 749093515}
+  - {fileID: 1437366957}
   - {fileID: 94527201}
   - {fileID: 1016939799}
   m_Father: {fileID: 300970758}
@@ -3774,6 +3777,49 @@ Transform:
   m_Father: {fileID: 974971679}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1437366956
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1437366957}
+  - component: {fileID: 1437366958}
+  m_Layer: 0
+  m_Name: AntAphidFarmFactoryBehaviour
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1437366957
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1437366956}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1040379932}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1437366958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1437366956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94b1d41ad271462cb7f2cc4c12b50884, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1499478161
 GameObject:
   m_ObjectHideFlags: 0
@@ -4290,7 +4336,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1927483283}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1848960287
 PrefabInstance:
@@ -5107,6 +5153,8 @@ MonoBehaviour:
     <Transform>k__BackingField: {fileID: 772858047}
   - <ID>k__BackingField: 270
     <Transform>k__BackingField: {fileID: 1893042692}
+  - <ID>k__BackingField: 280
+    <Transform>k__BackingField: {fileID: 2094286242}
   - <ID>k__BackingField: 310
     <Transform>k__BackingField: {fileID: 1844260365}
   - <ID>k__BackingField: 320
@@ -5131,6 +5179,7 @@ Transform:
   - {fileID: 741789124}
   - {fileID: 772858047}
   - {fileID: 1893042692}
+  - {fileID: 2094286242}
   - {fileID: 1844260365}
   - {fileID: 2056453342}
   m_Father: {fileID: 0}
@@ -5396,7 +5445,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1927483283}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2058652549
 GameObject:
@@ -5441,6 +5490,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d6ae07a7e02443db8625a2e78144799, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2094286241
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2094286242}
+  m_Layer: 0
+  m_Name: AntAphidFarm
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2094286242
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2094286241}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -10.07, y: 0, z: -1.32}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1927483283}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2101317958
 GameObject:
   m_ObjectHideFlags: 0
