@@ -9,6 +9,7 @@
     BeeWaxProduceConstruction = 5,
     BeeStickyTileConstruction = 10,
     BeeStorage = 16,
+    BeeLandmine = 40,
     
     AntTownHall = 200,
     AntStorage = 210,
