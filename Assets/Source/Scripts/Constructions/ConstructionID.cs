@@ -10,6 +10,7 @@
     BeeStickyTileConstruction = 25,
     BeeStorage = 30,
     BeeLandmine = 40,
+    BeeMercenaryBarrack = 50,
     
     AntTownHall = 200,
     AntStorage = 210,
