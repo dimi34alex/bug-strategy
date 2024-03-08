@@ -7,7 +7,7 @@ namespace Constructions
         [SerializeField] private BeeBarrackConfig config;
         
         public override AffiliationEnum Affiliation => AffiliationEnum.Bees;
-        public override ConstructionID ConstructionID => ConstructionID.BeeMercenaryBarrack;
+        public override ConstructionID ConstructionID => ConstructionID.BeeBarrack;
 
         protected override void OnAwake()
         {

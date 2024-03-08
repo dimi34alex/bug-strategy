@@ -26,4 +26,5 @@
     ButterflyTownHall = 300,
     ButterflyStorage = 310,
     ButterflyHouse = 320,
+    ButterflyPoisonFlower = 330,
 }

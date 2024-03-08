@@ -59,3 +59,5 @@ MonoBehaviour:
     ConstructionsID: 36010000
   - ConstructionType: 320
     ConstructionsID: 40010000
+  - ConstructionType: 330
+    ConstructionsID: 4a010000

@@ -24,7 +24,6 @@ public abstract class MovingUnit : UnitBase
     
     private void Start()
     {
-        FrameworkCommander.GlobalData.UnitRepository.AddUnit(this);
         UnitPool.Instance.UnitCreation(this);
         
         OnStart();

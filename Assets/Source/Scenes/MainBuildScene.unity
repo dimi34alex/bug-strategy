@@ -2678,6 +2678,8 @@ MonoBehaviour:
       Value: {fileID: 4359571722333101012, guid: 283c4e9ae0b253b42a6ae4c31f6ca1cd, type: 3}
     - Key: 320
       Value: {fileID: 5143360930569530163, guid: c904f7748dcade743baad384acd3406b, type: 3}
+    - Key: 330
+      Value: {fileID: 3519576925981362349, guid: e8b294432f378bb47a79b25e3fe144fb, type: 3}
 --- !u!1 &847315266
 GameObject:
   m_ObjectHideFlags: 0
@@ -3030,6 +3032,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9c7531dcb854c8187ac21c2f89daa0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &968836797
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 968836798}
+  - component: {fileID: 968836799}
+  m_Layer: 0
+  m_Name: ButterflyPoisonFlowerFactoryBehaviour (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &968836798
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 968836797}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1040379932}
+  m_RootOrder: 22
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &968836799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 968836797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb07c0b4e799485aa3accc78f0644bac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &974971678
 GameObject:
   m_ObjectHideFlags: 0
@@ -3353,6 +3398,7 @@ Transform:
   - {fileID: 959751084}
   - {fileID: 94527201}
   - {fileID: 1016939799}
+  - {fileID: 968836798}
   m_Father: {fileID: 300970758}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3617,6 +3663,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1159634571}
   m_CullTransparentMesh: 1
+--- !u!1 &1178648232
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1178648233}
+  m_Layer: 0
+  m_Name: ButterflyPoisonFlower
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1178648233
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1178648232}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 19.5, y: 0, z: 21.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1927483283}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1180661215
 GameObject:
   m_ObjectHideFlags: 0
@@ -5425,6 +5501,8 @@ MonoBehaviour:
     <Transform>k__BackingField: {fileID: 1844260365}
   - <ID>k__BackingField: 320
     <Transform>k__BackingField: {fileID: 2056453342}
+  - <ID>k__BackingField: 330
+    <Transform>k__BackingField: {fileID: 1178648233}
 --- !u!4 &1927483283
 Transform:
   m_ObjectHideFlags: 0
@@ -5452,6 +5530,7 @@ Transform:
   - {fileID: 66438654}
   - {fileID: 1844260365}
   - {fileID: 2056453342}
+  - {fileID: 1178648233}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

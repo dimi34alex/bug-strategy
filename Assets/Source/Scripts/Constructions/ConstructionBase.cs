@@ -24,6 +24,7 @@ public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagabl
     public event Action OnSelect;
     public event Action OnDeselect;
     public event Action OnDeactivation;
+    public event Action OnDestruction;
     
     protected void Awake() => OnAwake();
     protected void Start() => OnStart();
@@ -39,6 +40,7 @@ public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagabl
         {
             IsActive = false;
             OnDeactivation?.Invoke();
+            OnDestruction?.Invoke();
             Destroy(gameObject);
         }
     }
