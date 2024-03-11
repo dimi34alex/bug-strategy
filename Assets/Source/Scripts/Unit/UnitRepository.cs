@@ -13,7 +13,9 @@ public interface IUnitRepository
 public class UnitRepository : IUnitRepository
 {
     private readonly Dictionary<UnitType, List<UnitBase>> _units;
+    private readonly List<MovingUnit> _movingUnits;
 
+    public List<MovingUnit> MovingUnits =>  _movingUnits;
     public IReadOnlyDictionary<UnitType, List<UnitBase>> Units => _units;
     public event Action<UnitBase> OnUnitAdd;
     public event Action<UnitBase> OnUnitRemove;
@@ -21,6 +23,7 @@ public class UnitRepository : IUnitRepository
     public UnitRepository()
     {
         _units = new Dictionary<UnitType, List<UnitBase>>(5);
+        _movingUnits = new List<MovingUnit>();
     }
 
     public void AddUnit(UnitBase unit)
@@ -29,6 +32,11 @@ public class UnitRepository : IUnitRepository
             _units.Add(unit.UnitType, new List<UnitBase>(5));
 
         unit.ElementReturnEvent += RemoveUnit;
+
+        MovingUnit movingUnit;
+        if (unit.TryCast<MovingUnit>(out movingUnit))
+            _movingUnits.Add(movingUnit);
+
 
         _units[unit.UnitType].Add(unit);
     }
@@ -47,6 +55,10 @@ public class UnitRepository : IUnitRepository
 
         if (remove)
             units.RemoveAt(index);
+
+        MovingUnit movingUnit;
+        if (unit.TryCast<MovingUnit>(out movingUnit))
+            _movingUnits.Remove(movingUnit);
 
         return unit;
     }
