@@ -1,4 +1,5 @@
 ﻿using Constructions.LevelSystemCore;
+using Poison;
 using Projectiles.Factory;
 using UnityEngine;
 using Zenject;
@@ -10,21 +11,22 @@ namespace Constructions
         [SerializeField] private ButterflyPoisonFlowerConfig config;
         [SerializeField] private TriggerBehaviour triggerBehaviour;
         [SerializeField] private SphereCollider attackZoneCollider;
-        [SerializeField] private PoisonFog poisonFogPrefab;
 
         [Inject] private ProjectileFactory _projectileFactory;
+        [Inject] private PoisonFogFactory _poisonFogFactory;
 
         private ButterflyPoisonFlowerAttackProcessor _attackProcessor;
         private ButterflyPoisonFlowerPoisonFogProcessor _poisonFogProcessor;
         
         public override AffiliationEnum Affiliation => AffiliationEnum.Butterflies;
         public override ConstructionID ConstructionID => ConstructionID.ButterflyPoisonFlower;
+        
         public IConstructionLevelSystem LevelSystem { get; private set; }
         
         protected override void OnAwake()
         {
             _attackProcessor = new ButterflyPoisonFlowerAttackProcessor(transform, _projectileFactory, triggerBehaviour);
-            _poisonFogProcessor = new ButterflyPoisonFlowerPoisonFogProcessor(transform, poisonFogPrefab);
+            _poisonFogProcessor = new ButterflyPoisonFlowerPoisonFogProcessor(transform, _poisonFogFactory);
             
             var resourceRepository = ResourceGlobalStorage.ResourceRepository;
             LevelSystem = new ButterflyPoisonFlowerLevelSystem(config.Levels, ref resourceRepository, ref _healthStorage, 
