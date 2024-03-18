@@ -11,6 +11,7 @@
     BeeStorage = 30,
     BeeLandmine = 40,
     BeeMercenaryBarrack = 50,
+    BeeWaxTower = 60,
     
     AntTownHall = 200,
     AntStorage = 210,

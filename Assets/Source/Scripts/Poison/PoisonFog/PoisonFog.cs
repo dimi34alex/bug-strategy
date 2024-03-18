@@ -32,7 +32,6 @@ namespace Poison
             triggerCollider.radius = fogRadius;
             skinParent.transform.localScale = new Vector3(fogRadius, fogRadius, fogRadius);
             _existTimer.SetMaxValue(fogExistTime);
-            _existTimer.Reset();
         }
 
         public void HandleUpdate(float time)

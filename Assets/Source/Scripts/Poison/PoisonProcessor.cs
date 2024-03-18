@@ -47,9 +47,7 @@ namespace Poison
                 if (!InFog)
                     _existTimer.SetMaxValue(_existTime);
             }
-
-            _existTimer.Reset();
-
+            
             if (_damageCooldown.Paused)
                 CauseDamage();
         }
@@ -62,7 +60,6 @@ namespace Poison
             {
                 InFog = false;
                 _existTimer.SetMaxValue(_existTime);
-                _existTimer.Reset();
             }
         }
 

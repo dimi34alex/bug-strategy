@@ -1,3 +1,4 @@
+using MoveSpeedChangerSystem;
 using UnityEngine;
 
 namespace Constructions
@@ -6,5 +7,8 @@ namespace Constructions
     public class BeeStickyTileConfig : ConstructionBuyCostConfig
     {
         [field: SerializeField] public float HealthPoints { get; private set; }
+        [field: SerializeField] public float DelayBeforeApply { get; private set; }
+        [field: SerializeField] public MoveSpeedChangerConfig EnemyMoveSpeedChangerConfig { get; private set; }
+        [field: SerializeField] public MoveSpeedChangerConfig BeeMoveSpeedChangerConfig { get; private set; }
     }
 }

@@ -15,3 +15,10 @@ MonoBehaviour:
   buyCost:
     _cells: []
   <HealthPoints>k__BackingField: 100
+  <DelayBeforeApply>k__BackingField: 0.5
+  <EnemyMoveSpeedChangerConfig>k__BackingField:
+    <Power>k__BackingField: -50
+    <Time>k__BackingField: 5
+  <BeeMoveSpeedChangerConfig>k__BackingField:
+    <Power>k__BackingField: 50
+    <Time>k__BackingField: 5
