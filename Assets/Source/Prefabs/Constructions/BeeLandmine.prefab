@@ -51,6 +51,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: 9d8ccb25f29c00643b6362c50655e145, type: 2}
   _triggerBehaviour: {fileID: 6579585022906207400}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 6144
 --- !u!65 &6474542541501875018
 BoxCollider:
   m_ObjectHideFlags: 0

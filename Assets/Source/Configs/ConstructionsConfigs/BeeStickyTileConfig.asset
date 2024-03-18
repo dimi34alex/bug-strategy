@@ -16,6 +16,7 @@ MonoBehaviour:
     _cells: []
   <HealthPoints>k__BackingField: 100
   <DelayBeforeApply>k__BackingField: 0.5
+  <ExistTime>k__BackingField: 10
   <EnemyMoveSpeedChangerConfig>k__BackingField:
     <Power>k__BackingField: -50
     <Time>k__BackingField: 5

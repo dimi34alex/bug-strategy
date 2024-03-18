@@ -2,6 +2,7 @@
 using CustomTimer;
 using MoveSpeedChangerSystem;
 using StickySystem;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 namespace Constructions
@@ -12,6 +13,7 @@ namespace Constructions
         [SerializeField] private TriggerBehaviour stickZone;
 
         private readonly List<BufferBeforeApplyStick> _buffers = new List<BufferBeforeApplyStick>();
+        private Timer _existsTimer;
         
         public override AffiliationEnum Affiliation => AffiliationEnum.Bees;
         public override ConstructionID ConstructionID => ConstructionID.BeeStickyTileConstruction;
@@ -19,7 +21,10 @@ namespace Constructions
         protected override void OnAwake()
         {
             _healthStorage = new ResourceStorage(config.HealthPoints, config.HealthPoints);
-
+            _existsTimer = new Timer(config.ExistTime);
+            _existsTimer.OnTimerEnd += DestructStickyTile;
+            
+            _updateEvent += UpdateExistsTimer;
             _updateEvent += UpdateTimers;
         }
 
@@ -29,6 +34,9 @@ namespace Constructions
             stickZone.ExitEvent += OnUnitExit;
         }
 
+        private void UpdateExistsTimer()
+            => _existsTimer.Tick(Time.deltaTime);
+        
         private void UpdateTimers()
         {
             var time = Time.deltaTime;
@@ -87,6 +95,12 @@ namespace Constructions
                     moveSpeedChangeable.MoveSpeedChangerProcessor.Invoke(moveSpeedChangerConfig, true);
                 }
             }
+        }
+
+        private void DestructStickyTile()
+        {
+            FrameworkCommander.GlobalData.ConstructionsRepository.GetConstruction(transform.position, true);
+            Destroy(gameObject);
         }
         
         private struct BufferBeforeApplyStick

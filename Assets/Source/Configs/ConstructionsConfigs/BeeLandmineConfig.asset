@@ -16,6 +16,6 @@ MonoBehaviour:
     _cells: []
   <HealthPoints>k__BackingField: 100
   <Damage>k__BackingField: 50
-  <ResponseDelay>k__BackingField: 0.5
-  <StickyTileEffectPower>k__BackingField: 1
-  <StickyTileEffectTime>k__BackingField: 1
+  <ExplosionDelay>k__BackingField: 0.5
+  <ExplosionRadius>k__BackingField: 10
+  <StickyTilesRadius>k__BackingField: 2

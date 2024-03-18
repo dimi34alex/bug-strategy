@@ -7,8 +7,8 @@ namespace Constructions
     {
         [field: SerializeField] public float HealthPoints { get; private set; }
         [field: SerializeField] public float Damage { get; private set; }
-        [field: SerializeField] public float ResponseDelay { get; private set; }
-        [field: SerializeField] public float StickyTileEffectPower { get; private set; }
-        [field: SerializeField] public float StickyTileEffectTime { get; private set; }
+        [field: SerializeField] public float ExplosionDelay { get; private set; }
+        [field: SerializeField] public float ExplosionRadius { get; private set; }
+        [field: SerializeField] [field: Range(0, 5)] public int StickyTilesRadius { get; private set; }
     }
 }
