@@ -83,7 +83,7 @@ public class UnitPool : MonoBehaviour
         ClearGroup(group);
 
         foreach (MovingUnit unit in movingUnits)
-            if (unit.GetComponent<MovingUnit>().IsSelected)
+            if (unit.IsSelected)
                 group.Add(unit);
     }
 

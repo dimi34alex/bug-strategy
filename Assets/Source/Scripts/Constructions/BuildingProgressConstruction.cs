@@ -15,13 +15,11 @@ public class BuildingProgressConstruction : ConstructionBase
     public event Action<BuildingProgressConstruction> OnTimerEnd;
 
     private GameObject currentWorker;
-    public UnitPool pool;
     public bool WorkerArrived;
 
     void Start()
     {
         GameObject controller = GameObject.FindGameObjectWithTag("GameController");
-        pool = controller.GetComponent<UnitPool>();
     }
 
     public void StartBuilding(int duration, ConstructionID constructionID)

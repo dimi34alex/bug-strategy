@@ -145,7 +145,7 @@ public class UI_Controller : MonoBehaviour
         }
     }
 
-    public static void SetBuilding(ConstructionBase newConstruction)//установка текущего выделеного здания здания
+    public static void SetBuilding(ConstructionBase newConstruction)
     {
         string windowName;
         switch (newConstruction.ConstructionID)

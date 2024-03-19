@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public interface IUnitRepository
 {
@@ -17,6 +18,10 @@ public class UnitRepository : IUnitRepository
 
     public List<MovingUnit> MovingUnits =>  _movingUnits;
     public IReadOnlyDictionary<UnitType, List<UnitBase>> Units => _units;
+    public List<MovingUnit> MovingUnits => _units.Values.SelectMany(list => list)
+                                                .OfType<MovingUnit>()
+                                                .ToList();
+
     public event Action<UnitBase> OnUnitAdd;
     public event Action<UnitBase> OnUnitRemove;
 

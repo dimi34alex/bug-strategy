@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2547530101701635693}
   - component: {fileID: 2547530101701635692}
-  - component: {fileID: 2547530101701635691}
+  - component: {fileID: 3915183769676513310}
+  - component: {fileID: 1122201779320277654}
   m_Layer: 0
   m_Name: UnitSelection
   m_TagString: GameController
@@ -28,6 +29,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -44,13 +46,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3c65214290b0ab458cffd9d96355006, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  units: []
-  group1: []
-  group2: []
-  group3: []
-  group4: []
-  group5: []
---- !u!114 &2547530101701635691
+  movingUnits: []
+--- !u!114 &3915183769676513310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2547530101701635690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3ad2b688b9863844a85a77b2526ce8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _texture: {fileID: 2800000, guid: c8a9df530bc835040a371b34f11b17e9, type: 3}
+--- !u!114 &1122201779320277654
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -62,11 +72,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 245cc41f86a97d44ca9d72c71a3a6374, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitAndGroundLayers:
-    serializedVersion: 2
-    m_Bits: 14387
-  targetPositionMarkerPrefab: {fileID: 7016719962065652304, guid: 8f7ee1907c9131446ba0b156c5705bc9, type: 3}
-  ringStep: 2
-  unitsCounRingStep: 8
-  positions: []
-  texture: {fileID: 2800000, guid: c8a9df530bc835040a371b34f11b17e9, type: 3}

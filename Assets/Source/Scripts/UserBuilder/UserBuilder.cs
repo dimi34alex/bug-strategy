@@ -20,14 +20,12 @@ public class UserBuilder : CycleInitializerBase
 
     private bool _spawnConstruction = false;
     private float _numberTownHall = 0;
-    private UnitPool _pool;
     
     protected override void OnInit()
     {
         _constructionWithID = constructions.ToDictionary(x => x.ConstructionID, x => x);
         
         GameObject controller = GameObject.FindGameObjectWithTag("GameController");
-        _pool = controller.GetComponent<UnitPool>();
     }
 
     protected override void OnUpdate()
@@ -87,7 +85,7 @@ public class UserBuilder : CycleInitializerBase
                     }
                 }
                 
-                foreach (MovingUnit unit in _pool.movingUnits)
+                foreach (MovingUnit unit in FrameworkCommander.GlobalData.UnitRepository.MovingUnits)
                 {
                     if (unit.IsSelected && unit.gameObject.CompareTag("Worker") && CanBuyConstruction(_currentConstructionID))
                     {
