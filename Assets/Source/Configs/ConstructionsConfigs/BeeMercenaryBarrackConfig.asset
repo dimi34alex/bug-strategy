@@ -22,9 +22,11 @@ MonoBehaviour:
       _cells: []
     recruitingSize: 1
     recruitingData:
-    - currentId: 30
+    - currentId: 40
       recruitingTime: 1
       stackSize: 1
       spawnPauseTime: 1
       costs:
-        _cells: []
+        _cells:
+        - Key: 1
+          Value: 1
