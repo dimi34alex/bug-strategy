@@ -22,5 +22,10 @@ namespace Constructions
         [ContextMenu(nameof(RecruitSawyer))]
         private void RecruitSawyer()
             => RecruitUnit(UnitType.Sawyer);
+        
+        //TODO: remove this temporary code when new ui will be create
+        [ContextMenu(nameof(RecruitHorntail))]
+        private void RecruitHorntail()
+            => RecruitUnit(UnitType.Horntail);
     }
 }

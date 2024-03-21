@@ -17,7 +17,7 @@ namespace Unit.ProfessionsCore.Processors
             _projectilesFactory = projectilesFactory;
         }
         
-        protected override void Attack(IUnitTarget target)
+        protected sealed override void Attack(IUnitTarget target)
         {
             if (!target.CastPossible<IDamagable>())
             {
@@ -29,6 +29,11 @@ namespace Unit.ProfessionsCore.Processors
 
             var projectile = _projectilesFactory.Create(_projectileType);
             projectile.transform.position = Transform.position;
+            InitProjectileData(projectile, target);
+        }
+
+        protected virtual void InitProjectileData(ProjectileBase projectile, IUnitTarget target)
+        {
             projectile.SetDamage(this);
             projectile.SetTarget(target);
         }

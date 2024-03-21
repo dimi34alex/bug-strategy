@@ -30,3 +30,11 @@ MonoBehaviour:
         _cells:
         - Key: 1
           Value: 1
+    - currentId: 60
+      recruitingTime: 1
+      stackSize: 1
+      spawnPauseTime: 1
+      costs:
+        _cells:
+        - Key: 1
+          Value: 1

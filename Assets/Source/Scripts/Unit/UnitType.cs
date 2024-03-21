@@ -5,6 +5,7 @@
     Wasp = 30,
     Sawyer = 40,
     Hornet = 50,
+    Horntail = 60,
     
     AntStandard = 100,
     AntBig = 110,
