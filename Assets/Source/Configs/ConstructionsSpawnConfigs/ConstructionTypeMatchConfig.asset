@@ -35,6 +35,8 @@ MonoBehaviour:
     ConstructionsID: 32000000
   - ConstructionType: 60
     ConstructionsID: 3c000000
+  - ConstructionType: 70
+    ConstructionsID: 46000000
   - ConstructionType: 200
     ConstructionsID: c8000000
   - ConstructionType: 210
