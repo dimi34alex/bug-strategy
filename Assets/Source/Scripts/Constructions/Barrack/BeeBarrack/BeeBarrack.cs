@@ -18,7 +18,7 @@ namespace Constructions
                 ref resourceRepository, ref _healthStorage, ref recruiter);
         }
         
-        //TODO: remove this legacy code, use BarrackBase.RecruitUnit(...)
+        //TODO: remove this legacy code, when new ui will be create; use BarrackBase.RecruitUnit(...)
         public void RecruitBees(UnitType beeID)
         {
             int freeStackIndex = recruiter.FindFreeStack();
@@ -37,5 +37,10 @@ namespace Constructions
 
             recruiter.RecruitUnit(beeID, freeStackIndex);
         }
+
+        //TODO: remove this temporary code, when new ui will be create
+        [ContextMenu(nameof(RecruitHornet))]
+        private void RecruitHornet()
+            => RecruitUnit(UnitType.Hornet);
     }
 }
