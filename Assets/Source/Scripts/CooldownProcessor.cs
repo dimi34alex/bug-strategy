@@ -24,6 +24,12 @@ public class CooldownProcessor : IReadOnlyCooldownProcessor
         _cooldown.Reset();
     }
 
+    public void Reset()
+    {
+        IsCooldown = false;
+        _cooldown.Reset(true);
+    }
+
     private void CooldownEnd()
     {
         IsCooldown = false;

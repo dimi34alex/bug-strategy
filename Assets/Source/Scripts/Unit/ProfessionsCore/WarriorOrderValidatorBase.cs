@@ -4,25 +4,19 @@ using Unit.ProfessionsCore.Processors;
 namespace Unit.ProfessionsCore
 {
     [Serializable]
-    public abstract class WarriorProfessionBase : ProfessionBase
+    public abstract class WarriorOrderValidatorBase : OrderValidatorBase
     {
         protected readonly CooldownProcessor CooldownProcessor;
         
-        public abstract AttackProcessorBase AttackProcessor { get; }
+        public AttackProcessorBase AttackProcessor { get; }
         public IReadOnlyCooldownProcessor Cooldown => CooldownProcessor;
         public bool CanAttack => !CooldownProcessor.IsCooldown;
         
-        protected WarriorProfessionBase(UnitBase unit, float interactionRange, float attackCooldown)
+        protected WarriorOrderValidatorBase(UnitBase unit, float interactionRange, CooldownProcessor cooldownProcessor, AttackProcessorBase attackProcessor)
             : base(unit, interactionRange)
         {
-            CooldownProcessor = new CooldownProcessor(attackCooldown);
-        }
-
-        public override void HandleUpdate(float time)
-        {
-            base.HandleUpdate(time);
-            
-            CooldownProcessor.HandleUpdate(time);
+            CooldownProcessor = cooldownProcessor;
+            AttackProcessor = attackProcessor;
         }
         
         public override bool CheckDistance(UnitPathData pathData)

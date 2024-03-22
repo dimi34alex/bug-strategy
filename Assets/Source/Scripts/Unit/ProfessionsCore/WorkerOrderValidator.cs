@@ -1,28 +1,16 @@
 ﻿using Construction.TownHalls;
-using Constructions;
 using Unit.ProfessionsCore.Processors;
-using UnityEngine;
 
 namespace Unit.ProfessionsCore
 {
-    public class WorkerProfession : ProfessionBase
+    public sealed class WorkerOrderValidator : OrderValidatorBase
     {
-        public override ProfessionType ProfessionType => ProfessionType.Worker; 
-
-        public ResourceExtractionProcessor ResourceExtractionProcessor { get; private set; }
+        private readonly ResourceExtractionProcessor _resourceExtractionProcessor;
         
-        public WorkerProfession(UnitBase unit, float interactionRange,  int gatheringCapacity, float extractionTime, 
-            ResourceRepository resourceRepository, GameObject resourceSkin)
+        public WorkerOrderValidator(UnitBase unit, float interactionRange,  ResourceExtractionProcessor resourceExtractionProcessor)
             : base(unit, interactionRange)
         {
-            ResourceExtractionProcessor = new ResourceExtractionProcessor(gatheringCapacity, extractionTime, resourceRepository, resourceSkin);
-        }
-
-        public override void HandleUpdate(float time)
-        {
-            base.HandleUpdate(time);
-                
-            ResourceExtractionProcessor.HandleUpdate(time);
+            _resourceExtractionProcessor = resourceExtractionProcessor;
         }
 
         protected override UnitPathData ValidateAutoOrder(IUnitTarget target)
@@ -33,7 +21,7 @@ namespace Unit.ProfessionsCore
             switch (target.TargetType)
             {
                 case UnitTargetType.ResourceSource:
-                    if(!ResourceExtractionProcessor.GotResource)
+                    if(!_resourceExtractionProcessor.GotResource)
                         return new UnitPathData(target, UnitPathType.Collect_Resource);
                     break;
                 case UnitTargetType.Construction:
@@ -42,7 +30,7 @@ namespace Unit.ProfessionsCore
                 
                     if (target.Affiliation == Affiliation &&
                         target.CastPossible<TownHallBase>() &&
-                        ResourceExtractionProcessor.GotResource)
+                        _resourceExtractionProcessor.GotResource)
                         return new UnitPathData(target, UnitPathType.Storage_Resource);  
                     break;                
             }
@@ -73,14 +61,14 @@ namespace Unit.ProfessionsCore
                 case UnitPathType.Collect_Resource:
                     if (target.TargetType == UnitTargetType.ResourceSource &&
                         target.CastPossible<ResourceSourceBase>() &&
-                        !ResourceExtractionProcessor.GotResource)
+                        !_resourceExtractionProcessor.GotResource)
                         return UnitPathType.Collect_Resource;
                     break;
                 case UnitPathType.Storage_Resource:
                     if (target.TargetType == UnitTargetType.Construction &&
                         target.Affiliation == Affiliation &&
                         target.CastPossible<TownHallBase>() &&
-                        ResourceExtractionProcessor.GotResource)
+                        _resourceExtractionProcessor.GotResource)
                         return UnitPathType.Storage_Resource;
                     break;
                 case UnitPathType.Switch_Profession:

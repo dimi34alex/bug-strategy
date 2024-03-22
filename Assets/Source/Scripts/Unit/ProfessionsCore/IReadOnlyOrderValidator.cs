@@ -2,9 +2,8 @@ using System;
 
 namespace Unit.ProfessionsCore
 {
-    public interface IReadOnlyProfession
+    public interface IReadOnlyOrderValidator
     {
-        public ProfessionType ProfessionType { get; } 
         public event Action OnEnterInZone;
 
         public bool CheckDistance(UnitPathData pathData);

@@ -1,3 +1,4 @@
+using Unit.Ants.Professions;
 using Unit.ProfessionsCore;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ namespace Unit.Ants.States
 
         private readonly AntBase _ant;
 
-        private WarriorProfessionBase _warriorProfession;
+        private AntWarriorProfessionBase _antWarriorProfession;
         
         public AntAttackState(AntBase ant)
         {
@@ -19,28 +20,28 @@ namespace Unit.Ants.States
         public override void OnStateEnter()
         {
             if(_ant.CurProfessionType != ProfessionType.MeleeWarrior && _ant.CurProfessionType != ProfessionType.RangeWarrior ||
-               !_ant.Profession.TryCast(out _warriorProfession) ||
-               !_warriorProfession.AttackProcessor.CheckEnemiesInAttackZone())
+               !_ant.CurrentProfession.TryCast(out _antWarriorProfession) ||
+               !_antWarriorProfession.AttackProcessor.CheckEnemiesInAttackZone())
             {
 #if UNITY_EDITOR
                 Debug.LogWarning($"Some problem: " +
                                  $"{_ant.CurProfessionType} | " +
-                                 $"{!_ant.Profession.TryCast(out _warriorProfession)}");           
+                                 $"{!_ant.CurrentProfession.TryCast(out _antWarriorProfession)}");           
 #endif
                 _ant.AutoGiveOrder(null);
                 return;
             }
             
-            _warriorProfession.Cooldown.OnCooldownEnd += TryAttack;
-            _warriorProfession.AttackProcessor.OnExitEnemyFromZone += OnExitEnemyFromZone;
+            _antWarriorProfession.CooldownProcessor.OnCooldownEnd += TryAttack;
+            _antWarriorProfession.AttackProcessor.OnExitEnemyFromZone += OnExitEnemyFromZone;
 
-            if(_warriorProfession.CanAttack) TryAttack();
+            if(_antWarriorProfession.CanAttack) TryAttack();
         }
 
         public override void OnStateExit()
         {
-            _warriorProfession.Cooldown.OnCooldownEnd -= TryAttack;
-            _warriorProfession.AttackProcessor.OnExitEnemyFromZone -= OnExitEnemyFromZone;
+            _antWarriorProfession.CooldownProcessor.OnCooldownEnd -= TryAttack;
+            _antWarriorProfession.AttackProcessor.OnExitEnemyFromZone -= OnExitEnemyFromZone;
         }
 
         public override void OnUpdate()
@@ -48,11 +49,11 @@ namespace Unit.Ants.States
             
         }
         
-        private void TryAttack() => _warriorProfession.AttackProcessor.TryAttack(_ant.CurrentPathData.Target);
+        private void TryAttack() => _antWarriorProfession.AttackProcessor.TryAttack(_ant.CurrentPathData.Target);
         
         private void OnExitEnemyFromZone()
         {
-            if(_warriorProfession.AttackProcessor.EnemiesCount <= 0)
+            if(_antWarriorProfession.AttackProcessor.EnemiesCount <= 0)
                 _ant.AutoGiveOrder(null);
         }
     }

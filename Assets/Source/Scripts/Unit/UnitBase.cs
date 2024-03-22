@@ -21,7 +21,7 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
     public bool IsSelected { get; private set; }
     public bool IsActive { get; protected set; }
     public Vector3 TargetMovePosition { get; protected set; }
-    protected abstract ProfessionBase CurrentProfession { get; }
+    protected abstract OrderValidatorBase OrderValidator { get; }
     public MoveSpeedChangerProcessor MoveSpeedChangerProcessor { get; protected set; }
     public StickyProcessor StickyProcessor { get; } = new StickyProcessor();
 
@@ -30,7 +30,6 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
     public UnitVisibleZone VisibleZone => _unitVisibleZone;
     public ProfessionInteractionZone ProfessionInteractionZone => _professionInteractionZone;
     public ProfessionInteractionZone DynamicProfessionZone => _dynamicProfessionZone;
-    public IReadOnlyProfession IReadOnlyProfession => CurrentProfession;
     public UnitTargetType TargetType => UnitTargetType.Other_Unit;
     public MiniMapObjectType MiniMapObjectType => MiniMapObjectType.Unit;
     public IReadOnlyResourceStorage HealthStorage => _healthStorage;
@@ -72,7 +71,6 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
     public virtual void HandleUpdate(float time)
     {
         _stateMachine.OnUpdate();
-        CurrentProfession.HandleUpdate(time);
     }
     
     public void TakeDamage(IDamageApplicator damageApplicator)
@@ -129,10 +127,10 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
     {
         targetMovePosition.y = 0;
             
-        CurrentPathData = CurrentProfession.AutoGiveOrder(unitTarget);
+        CurrentPathData = OrderValidator.AutoGiveOrder(unitTarget);
         if (!CurrentPathData.Target.IsAnyNull())
         {
-            targetMovePosition = CurrentProfession.CheckDistance(CurrentPathData) 
+            targetMovePosition = OrderValidator.CheckDistance(CurrentPathData) 
                 ? transform.position 
                 : unitTarget.Transform.position;
         }
@@ -148,10 +146,10 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
     {
         targetMovePosition.y = 0;
 
-        CurrentPathData = CurrentProfession.HandleGiveOrder(unitTarget, unitPathType);
+        CurrentPathData = OrderValidator.HandleGiveOrder(unitTarget, unitPathType);
         if (!CurrentPathData.Target.IsAnyNull())
         {
-            targetMovePosition = CurrentProfession.CheckDistance(CurrentPathData) 
+            targetMovePosition = OrderValidator.CheckDistance(CurrentPathData) 
                 ? transform.position 
                 : unitTarget.Transform.position;
         }
@@ -161,7 +159,8 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
 
     private void ResetTarget() 
         => CurrentPathData = new UnitPathData(null, CurrentPathData.PathType);
-    
+
+    public EntityStateID EntityStateID;
     private void CalculateNewState(Vector3 newTargetMovePosition)
     {
         newTargetMovePosition.y = 0;
@@ -193,6 +192,8 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
         {
             StateMachine.SetState(EntityStateID.Move);
         }
+
+        EntityStateID = _stateMachine.ActiveState;
     }
     
     private void OnDisable()

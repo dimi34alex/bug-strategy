@@ -64,7 +64,6 @@ namespace Constructions
                     (damageable.Affiliation == AffiliationEnum.Butterflies || 
                      damageable.Affiliation == AffiliationEnum.Ants))
                 {
-                    Debug.Log(Damage);
                     damageable.TakeDamage(this);
                 }
             }

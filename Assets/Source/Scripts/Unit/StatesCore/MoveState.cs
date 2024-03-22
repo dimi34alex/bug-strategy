@@ -11,14 +11,14 @@ namespace Unit.States
         private const float DistanceBuffer = 0.1f;
         
         private readonly MovingUnit _unit;
-        private readonly ProfessionBase _profession;
+        private readonly OrderValidatorBase _orderValidator;
         
         private event Action UpdateEvent;
         
-        public MoveState(MovingUnit unit, ProfessionBase profession)
+        public MoveState(MovingUnit unit, OrderValidatorBase orderValidator)
         {
             _unit = unit;
-            _profession = profession;
+            _orderValidator = orderValidator;
         }
         
         public override void OnStateEnter()
@@ -29,7 +29,7 @@ namespace Unit.States
             if (_unit.CurrentPathData.Target.IsAnyNull())
                 UpdateEvent += ManualCheckDistance;
             else
-                _profession.OnEnterInZone += CheckTargetDistance;
+                _orderValidator.OnEnterInZone += CheckTargetDistance;
         }
 
         public override void OnStateExit()
@@ -38,7 +38,7 @@ namespace Unit.States
             _unit.OnTargetMovePositionChange -= UpdateDestinationPosition;
             
             UpdateEvent -= ManualCheckDistance;
-            _profession.OnEnterInZone -= CheckTargetDistance;
+            _orderValidator.OnEnterInZone -= CheckTargetDistance;
         }
 
         public override void OnUpdate() => UpdateEvent?.Invoke();
@@ -48,12 +48,12 @@ namespace Unit.States
             _unit.SetDestination(_unit.TargetMovePosition);
             
             UpdateEvent -= ManualCheckDistance;
-            _profession.OnEnterInZone -= CheckTargetDistance;
+            _orderValidator.OnEnterInZone -= CheckTargetDistance;
 
             if (_unit.CurrentPathData.Target.IsAnyNull())
                 UpdateEvent += ManualCheckDistance;
             else
-                _profession.OnEnterInZone += CheckTargetDistance;
+                _orderValidator.OnEnterInZone += CheckTargetDistance;
         }
 
         private void ManualCheckDistance()
@@ -64,7 +64,7 @@ namespace Unit.States
         
         private void CheckTargetDistance()
         {
-            if (_profession.CheckDistance(_unit.CurrentPathData))
+            if (_orderValidator.CheckDistance(_unit.CurrentPathData))
                 _unit.HandleGiveOrder(_unit.CurrentPathData.Target, _unit.CurrentPathData.PathType);
         }
     }

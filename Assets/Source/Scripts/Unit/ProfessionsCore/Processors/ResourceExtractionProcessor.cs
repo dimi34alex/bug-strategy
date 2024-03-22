@@ -6,11 +6,12 @@ namespace Unit.ProfessionsCore.Processors
 {
     public class ResourceExtractionProcessor
     {
+        public readonly int ExtractionCapacity;
+        
         private readonly Timer _extractionTimer;
         private readonly GameObject _resourceSkin;
         private readonly ResourceRepository _resourceRepository;
         
-        public int ExtractionCapacity  { get; private set; }
         public ResourceID ExtractedResourceID { get; private set; }
         public bool GotResource { get; private set; } = false;
         public bool Extraction { get; private set; } = false;
@@ -64,6 +65,15 @@ namespace Unit.ProfessionsCore.Processors
             GotResource = false;
             HideResource();
             OnStorageResources?.Invoke();
+        }
+
+        public void Reset()
+        {
+            _extractionTimer.Reset(true);
+            _extractionTimer.OnTimerEnd += ExtractResource;
+            GotResource = false;
+            Extraction = false;
+            HideResource();
         }
         
         private void ShowResource() => _resourceSkin.SetActive(true);

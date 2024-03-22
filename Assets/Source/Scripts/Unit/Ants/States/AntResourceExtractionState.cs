@@ -1,3 +1,4 @@
+using Unit.Ants.Professions;
 using Unit.ProfessionsCore;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ namespace Unit.Ants.States
 
         private readonly AntBase _ant;
 
-        private WorkerProfession _workerProfession;
+        private AntWorkerProfession _workerProfession;
         
         public AntResourceExtractionState(AntBase ant)
         {
@@ -19,13 +20,13 @@ namespace Unit.Ants.States
         public override void OnStateEnter()
         {
             if (_ant.CurProfessionType != ProfessionType.Worker ||
-                !_ant.Profession.TryCast(out _workerProfession) ||
+                !_ant.CurrentProfession.TryCast(out _workerProfession) ||
                 _workerProfession.ResourceExtractionProcessor.GotResource ||
                 !_ant.CurrentPathData.Target.TryCast(out ResourceSourceBase resourceSource))
             {
 #if UNITY_EDITOR
                 Debug.LogWarning($"Some problem: {_ant.CurProfessionType} " +
-                                 $"| {!_ant.Profession.TryCast(out _workerProfession)} " +
+                                 $"| {!_ant.CurrentProfession.TryCast(out _workerProfession)} " +
                                  $"| {!_ant.CurrentPathData.Target.TryCast(out resourceSource)}");
 #endif
                 _ant.AutoGiveOrder(null);

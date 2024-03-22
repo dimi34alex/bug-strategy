@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SawyerConfig
   m_EditorClassIdentifier: 
   <HealthPoints>k__BackingField: 150
-  <InteractionRange>k__BackingField: 2
+  <InteractionRange>k__BackingField: 4
   <Cooldown>k__BackingField: 1
   <AttackRange>k__BackingField: 12
   <Damage>k__BackingField: 12

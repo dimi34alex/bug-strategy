@@ -1,3 +1,4 @@
+using Unit.Ants.Professions;
 using Unit.ProfessionsCore;
 
 namespace Unit.Ants.States
@@ -8,7 +9,7 @@ namespace Unit.Ants.States
         
         private readonly AntBase _ant;
         
-        private WarriorProfessionBase _warriorProfession;
+        private AntWarriorProfessionBase _antWarriorProfessionBase;
         
         public AntIdleState(AntBase ant)
         {
@@ -18,17 +19,17 @@ namespace Unit.Ants.States
         public override void OnStateEnter()
         {
             if ((_ant.CurProfessionType == ProfessionType.MeleeWarrior || _ant.CurProfessionType == ProfessionType.RangeWarrior) &&
-                 _ant.Profession.TryCast(out _warriorProfession))
+                 _ant.CurrentProfession.TryCast(out _antWarriorProfessionBase))
             {
-                _warriorProfession.AttackProcessor.OnEnterEnemyInZone += CheckEnemiesInZone;
+                _antWarriorProfessionBase.AttackProcessor.OnEnterEnemyInZone += CheckEnemiesInZone;
                 CheckEnemiesInZone();
             }
         }
 
         public override void OnStateExit()
         {
-            if (_warriorProfession != null)
-                _warriorProfession.AttackProcessor.OnEnterEnemyInZone -= CheckEnemiesInZone;
+            if (_antWarriorProfessionBase != null)
+                _antWarriorProfessionBase.AttackProcessor.OnEnterEnemyInZone -= CheckEnemiesInZone;
         }
 
         public override void OnUpdate()
@@ -38,7 +39,7 @@ namespace Unit.Ants.States
 
         private void CheckEnemiesInZone()
         {
-            if (!_warriorProfession.AttackProcessor.CheckEnemiesInAttackZone()) return;
+            if (!_antWarriorProfessionBase.AttackProcessor.CheckEnemiesInAttackZone()) return;
             
             _ant.HandleGiveOrder(null, UnitPathType.Attack);
         }

@@ -1,4 +1,5 @@
 using Unit.ProfessionsCore;
+using Unit.ProfessionsCore.Processors;
 
 namespace Unit.States
 {
@@ -8,32 +9,43 @@ namespace Unit.States
 
         private readonly MovingUnit _unit;
 
-        private readonly WarriorProfessionBase _warriorProfession;
+        private readonly AttackProcessorBase _attackProcessor;
+        private readonly IReadOnlyCooldownProcessor _cooldownProcessor;
+
+        private bool CanAttack => !_cooldownProcessor.IsCooldown; 
         
-        public AttackState(MovingUnit unit, WarriorProfessionBase warriorProfession)
+        public AttackState(MovingUnit unit, WarriorOrderValidatorBase warriorOrderValidator)
         {
             _unit = unit;
-            _warriorProfession = warriorProfession;
+            _attackProcessor = warriorOrderValidator.AttackProcessor;
+            _cooldownProcessor = warriorOrderValidator.Cooldown;
+        }
+        
+        public AttackState(MovingUnit unit, AttackProcessorBase attackProcessor, IReadOnlyCooldownProcessor cooldownProcessor)
+        {
+            _unit = unit;
+            _attackProcessor = attackProcessor;
+            _cooldownProcessor = cooldownProcessor;
         }
         
         public override void OnStateEnter()
         {
-            if(!_warriorProfession.AttackProcessor.CheckEnemiesInAttackZone())
+            if(!_attackProcessor.CheckEnemiesInAttackZone())
             {
                 _unit.AutoGiveOrder(null);
                 return;
             }
             
-            _warriorProfession.Cooldown.OnCooldownEnd += TryAttack;
-            _warriorProfession.AttackProcessor.OnExitEnemyFromZone += OnExitEnemyFromZone;
+            _cooldownProcessor.OnCooldownEnd += TryAttack;
+            _attackProcessor.OnExitEnemyFromZone += OnExitEnemyFromZone;
 
-            if(_warriorProfession.CanAttack) TryAttack();
+            if(CanAttack) TryAttack();
         }
 
         public override void OnStateExit()
         {
-            _warriorProfession.Cooldown.OnCooldownEnd -= TryAttack;
-            _warriorProfession.AttackProcessor.OnExitEnemyFromZone -= OnExitEnemyFromZone;
+            _cooldownProcessor.OnCooldownEnd -= TryAttack;
+            _attackProcessor.OnExitEnemyFromZone -= OnExitEnemyFromZone;
         }
 
         public override void OnUpdate()
@@ -41,11 +53,12 @@ namespace Unit.States
             
         }
         
-        private void TryAttack() => _warriorProfession.AttackProcessor.TryAttack(_unit.CurrentPathData.Target);
+        private void TryAttack() 
+            => _attackProcessor.TryAttack(_unit.CurrentPathData.Target);
         
         private void OnExitEnemyFromZone()
         {
-            if(_warriorProfession.AttackProcessor.EnemiesCount <= 0)
+            if(_attackProcessor.EnemiesCount <= 0)
                 _unit.AutoGiveOrder(null);
         }
     }

@@ -7,23 +7,23 @@ namespace Unit.States
         public override EntityStateID EntityStateID => EntityStateID.Idle;
         
         private readonly MovingUnit _unit;
-        private readonly WarriorProfessionBase _warriorProfession;
+        private readonly WarriorOrderValidatorBase _warriorOrderValidator;
         
-        public WarriorIdleState(MovingUnit unit, WarriorProfessionBase warriorProfession)
+        public WarriorIdleState(MovingUnit unit, WarriorOrderValidatorBase warriorOrderValidator)
         {
             _unit = unit;
-            _warriorProfession = warriorProfession;
+            _warriorOrderValidator = warriorOrderValidator;
         }
 
         public override void OnStateEnter()
         {
-            _warriorProfession.AttackProcessor.OnEnterEnemyInZone += CheckEnemiesInZone;
+            _warriorOrderValidator.AttackProcessor.OnEnterEnemyInZone += CheckEnemiesInZone;
             CheckEnemiesInZone();
         }
 
         public override void OnStateExit()
         {
-            _warriorProfession.AttackProcessor.OnEnterEnemyInZone -= CheckEnemiesInZone;
+            _warriorOrderValidator.AttackProcessor.OnEnterEnemyInZone -= CheckEnemiesInZone;
         }
 
         public override void OnUpdate()
@@ -33,7 +33,7 @@ namespace Unit.States
 
         private void CheckEnemiesInZone()
         {
-            if (!_warriorProfession.AttackProcessor.CheckEnemiesInAttackZone()) return;
+            if (!_warriorOrderValidator.AttackProcessor.CheckEnemiesInAttackZone()) return;
             
             _unit.HandleGiveOrder(null, UnitPathType.Attack);
         }

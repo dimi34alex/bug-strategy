@@ -1,5 +1,5 @@
 using Construction.TownHalls;
-using Unit.ProfessionsCore;
+using Unit.ProfessionsCore.Processors;
 using UnityEngine;
 
 namespace Unit.States
@@ -9,17 +9,17 @@ namespace Unit.States
         public override EntityStateID EntityStateID => EntityStateID.StorageResource;
 
         private readonly MovingUnit _unit;
-        private readonly WorkerProfession _workerProfession;
+        private readonly ResourceExtractionProcessor _resourceExtractionProcessor;
         
-        public StorageResourceState(MovingUnit unit, WorkerProfession workerProfession)
+        public StorageResourceState(MovingUnit unit, ResourceExtractionProcessor resourceExtractionProcessor)
         {
             _unit = unit;
-            _workerProfession = workerProfession;
+            _resourceExtractionProcessor = resourceExtractionProcessor;
         }
         
         public override void OnStateEnter()
         {
-            if (!_workerProfession.ResourceExtractionProcessor.GotResource ||
+            if (!_resourceExtractionProcessor.GotResource ||
                 !_unit.CurrentPathData.Target.CastPossible<TownHallBase>())
             {
 #if UNITY_EDITOR
@@ -30,7 +30,7 @@ namespace Unit.States
                 return;
             }
             
-            _workerProfession.ResourceExtractionProcessor.StorageResources();
+            _resourceExtractionProcessor.StorageResources();
             
             _unit.AutoGiveOrder(null);
         }

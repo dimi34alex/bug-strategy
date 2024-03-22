@@ -21,20 +21,26 @@ namespace Unit.Ants
         [Inject] private ProjectileFactory _projectileFactory;
         
         public ProfessionType CurProfessionType => CurrentProfession.ProfessionType;
-        public int CurProfessionRang => _antProfessionRang.Rang;
-        protected override ProfessionBase CurrentProfession => Profession;
+        public int CurProfessionRang => CurrentProfession.ProfessionRang;
         
+        protected override OrderValidatorBase OrderValidator => CurrentProfession.OrderValidatorBase;
+        
+        public AntProfessionBase CurrentProfession { get; private set; }
         public ProfessionType TargetProfessionType { get; private set; }
-        public ProfessionBase Profession { get; private set; }
         public int TargetProfessionRang { get; private set; }
         
-        private AntProfessionRang _antProfessionRang;
-
         protected override void OnAwake()
         {
             base.OnAwake();
             
             _healthStorage = new ResourceStorage(config.HealthPoints, config.HealthPoints);
+        }
+
+        public override void HandleUpdate(float time)
+        {
+            base.HandleUpdate(time);
+            
+            CurrentProfession.HandleUpdate(time);
         }
 
         public override void OnElementExtract()
@@ -112,15 +118,14 @@ namespace Unit.Ants
             {
                 case (ProfessionType.Worker):
                     var resourceRepository = ResourceGlobalStorage.ResourceRepository;
-                    var workerLogic = new AntWorkerProfession(this, newProfession as AntWorkerConfig,
-                        resourceRepository, resource);
-                    Profession = workerLogic;
+                    CurrentProfession = new AntWorkerProfession(this, newProfession as AntWorkerConfig, resourceRepository,
+                        resource);
                     break;
                 case (ProfessionType.MeleeWarrior):
-                    Profession = new AntMeleeWarriorProfession(this, newProfession as AntMeleeWarriorConfig);
+                    CurrentProfession = new AntMeleeWarriorProfession(this, newProfession as AntMeleeWarriorConfig);
                     break;
                 case (ProfessionType.RangeWarrior):
-                    Profession  = new AntRangeWarriorProfession(this, newProfession as AntRangeWarriorConfig, _projectileFactory);
+                    CurrentProfession  = new AntRangeWarriorOrderValidator(this, newProfession as AntRangeWarriorConfig, _projectileFactory);
                     break;
                 default: throw new NotImplementedException();
             }
@@ -128,7 +133,6 @@ namespace Unit.Ants
             /*need because worker can have resource in the hands,
              so it is need for hide resource skin with profession changing*/
             resource.SetActive(false);
-            _antProfessionRang = newProfession.AntProfessionRang;
             animator.runtimeAnimatorController = newProfession.AnimatorController;
         }
     }

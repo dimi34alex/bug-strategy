@@ -5,28 +5,26 @@ using UnityEngine;
 namespace Unit.ProfessionsCore
 {
     [Serializable]
-    public abstract class ProfessionBase : IReadOnlyProfession
+    public abstract class OrderValidatorBase : IReadOnlyOrderValidator
     {
         protected readonly UnitBase Unit;
         protected readonly ProfessionInteractionZoneProcessor ProfessionInteractionZoneProcessor;
         
-        public abstract ProfessionType ProfessionType { get; } 
         public event Action OnEnterInZone;
         
         protected AffiliationEnum Affiliation => Unit.Affiliation;
         protected Transform Transform => Unit.transform;
         
-        protected ProfessionBase(UnitBase unit, float interactionRange)
+        protected OrderValidatorBase(UnitBase unit, float interactionRange)
         {
             ProfessionInteractionZoneProcessor = new ProfessionInteractionZoneProcessor(unit.ProfessionInteractionZone, interactionRange);
             ProfessionInteractionZoneProcessor.OnEnterInZone += EnterInZone;
             Unit = unit;
         }
 
-        protected void EnterInZone() => OnEnterInZone?.Invoke();
-        
-        public virtual void HandleUpdate(float time) { }
-        
+        protected void EnterInZone()
+            => OnEnterInZone?.Invoke();
+
         /// <returns>
         /// return distance between unit and someTarget
         /// </returns>

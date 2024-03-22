@@ -19,6 +19,11 @@ namespace Constructions
         }
 
         //TODO: remove this temporary code when new ui will be create
+        [ContextMenu(nameof(RecruitMurmur))]
+        private void RecruitMurmur()
+            => RecruitUnit(UnitType.Murmur);
+        
+        //TODO: remove this temporary code when new ui will be create
         [ContextMenu(nameof(RecruitSawyer))]
         private void RecruitSawyer()
             => RecruitUnit(UnitType.Sawyer);

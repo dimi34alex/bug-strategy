@@ -9,11 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8308f7a5649e4e1a9a564310d53280b1, type: 3}
-  m_Name: HornetConfig
+  m_Script: {fileID: 11500000, guid: a688e237d05342c3af90ea8eb1f7c6e9, type: 3}
+  m_Name: MurmurConfig
   m_EditorClassIdentifier: 
-  <HealthPoints>k__BackingField: 150
+  <HealthPoints>k__BackingField: 80
   <InteractionRange>k__BackingField: 4
-  <Cooldown>k__BackingField: 2
-  <AttackRange>k__BackingField: 4
-  <Damage>k__BackingField: 15
+  <GatheringCapacity>k__BackingField: 5
+  <GatheringTime>k__BackingField: 8
+  <AttackDamage>k__BackingField: 5
+  <AttackRange>k__BackingField: 3
+  <AttackCooldown>k__BackingField: 1

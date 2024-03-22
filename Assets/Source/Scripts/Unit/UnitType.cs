@@ -6,6 +6,7 @@
     Sawyer = 40,
     Hornet = 50,
     Horntail = 60,
+    Murmur = 70,
     
     AntStandard = 100,
     AntBig = 110,

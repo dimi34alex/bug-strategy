@@ -14,31 +14,43 @@ namespace Unit.Bees
     
         [Inject] private ProjectileFactory _projectileFactory;
     
-        protected override ProfessionBase CurrentProfession => _warriorProfession;
+        protected override OrderValidatorBase OrderValidator => _orderValidator;
         public override UnitType UnitType => UnitType.Horntail;
 
-        private HorntailProfession _warriorProfession;
-
+        private HorntailOrderValidator _orderValidator;
+        private CooldownProcessor _cooldownProcessor;
+        private HorntailAttackProcessor _attackProcessor;
+        
         protected override void OnAwake()
         {
             base.OnAwake();
 
             _healthStorage = new ResourceStorage(config.HealthPoints, config.HealthPoints);
+            _cooldownProcessor = new CooldownProcessor(config.Cooldown);
+            _attackProcessor = new HorntailAttackProcessor(this, config.AttackRange, config.Damage, config.DamageRadius,
+                _cooldownProcessor, _projectileFactory);
+            _orderValidator = new HorntailOrderValidator(this, config.InteractionRange, _cooldownProcessor, _attackProcessor);
         }
 
+        public override void HandleUpdate(float time)
+        {
+            base.HandleUpdate(time);
+            
+            _cooldownProcessor.HandleUpdate(time);
+        }
+        
         public override void OnElementExtract()
         {
             base.OnElementExtract();
             
             _healthStorage.SetValue(_healthStorage.Capacity);
-            _warriorProfession = new HorntailProfession(this, config.InteractionRange, config.Cooldown, 
-                config.AttackRange, config.Damage, config.DamageRadius, _projectileFactory);
-        
+            _cooldownProcessor.Reset();
+            
             var states = new List<EntityStateBase>()
             {
-                new WarriorIdleState(this, _warriorProfession),
-                new MoveState(this, _warriorProfession),
-                new AttackState(this, _warriorProfession),
+                new WarriorIdleState(this, _orderValidator),
+                new MoveState(this, _orderValidator),
+                new AttackState(this, _orderValidator),
             };
             _stateMachine = new EntityStateMachine(states, EntityStateID.Idle);
         }

@@ -1,26 +1,27 @@
-﻿using System;
+﻿using Projectiles.Factory;
 using Unit.Ants.Configs.Professions;
 using Unit.ProfessionsCore;
 using Unit.ProfessionsCore.Processors;
 
 namespace Unit.Ants.Professions
 {
-    [Serializable]
-    public sealed class AntMeleeWarriorProfession : AntWarriorProfessionBase
+    public sealed class AntRangeWarriorOrderValidator : AntWarriorProfessionBase
     {
-        public override ProfessionType ProfessionType => ProfessionType.MeleeWarrior;
-
+        public override ProfessionType ProfessionType => ProfessionType.RangeWarrior;
+        
         public override OrderValidatorBase OrderValidatorBase { get; }
         public override CooldownProcessor CooldownProcessor { get; }
         public override AttackProcessorBase AttackProcessor { get; }
         
-        public AntMeleeWarriorProfession(AntBase ant, AntMeleeWarriorConfig antHandItem)
+        public AntRangeWarriorOrderValidator(AntBase ant, AntRangeWarriorConfig antHandItem, ProjectileFactory projectileFactory)
             : base(antHandItem.AntProfessionRang)
         {
             CooldownProcessor = new CooldownProcessor(antHandItem.Cooldown);
-            AttackProcessor = new MeleeAttackProcessor(ant, antHandItem.AttackRange, antHandItem.Damage, CooldownProcessor);
-            OrderValidatorBase = new MeleeWarriorOrderValidator(ant, antHandItem.AttackRange, CooldownProcessor, AttackProcessor);
-           
+            AttackProcessor = new RangeAttackProcessor(ant, antHandItem.AttackRange, antHandItem.Damage, 
+                CooldownProcessor, antHandItem.ProjectileType, projectileFactory);
+            OrderValidatorBase = new RangeWarriorOrderValidator(ant, antHandItem.InteractionRange, CooldownProcessor,
+                AttackProcessor);
+
             AttackProcessor.OnEnterEnemyInZone += EnterInZone;
             OrderValidatorBase.OnEnterInZone += EnterInZone;
         }
