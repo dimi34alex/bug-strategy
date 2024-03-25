@@ -1,7 +1,7 @@
 ﻿using Construction.TownHalls;
-using Unit.ProfessionsCore.Processors;
+using Unit.ProcessorsCore;
 
-namespace Unit.ProfessionsCore
+namespace Unit.OrderValidatorCore
 {
     public sealed class WorkerOrderValidator : OrderValidatorBase
     {

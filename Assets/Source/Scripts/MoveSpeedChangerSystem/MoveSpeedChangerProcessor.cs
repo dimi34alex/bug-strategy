@@ -48,8 +48,7 @@ namespace MoveSpeedChangerSystem
 
             public void HandleUpdate(float time)
             {
-                var cells = _cells.ToList();
-                foreach (var cell in cells)
+                foreach (var cell in _cells)
                     cell.HandleUpdate(time);
             }
 

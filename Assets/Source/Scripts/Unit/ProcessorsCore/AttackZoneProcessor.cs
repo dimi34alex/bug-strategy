@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
+using Unit.OrderValidatorCore;
 
-namespace Unit.ProfessionsCore.Processors
+namespace Unit.ProcessorsCore
 {
     public class AttackZoneProcessor
     {
-        private readonly ProfessionInteractionZone _attackZone;
+        private readonly UnitInteractionZone _attackZone;
         private readonly AffiliationEnum _affiliation;
         private readonly Dictionary<IUnitTarget, IDamagable> _targets = new Dictionary<IUnitTarget, IDamagable>();
 
@@ -21,7 +22,7 @@ namespace Unit.ProfessionsCore.Processors
             _affiliation = unit.Affiliation;
             AttackRange = attackRange;
             
-            _attackZone = unit.DynamicProfessionZone;
+            _attackZone = unit.DynamicUnitZone;
             _attackZone.SetRadius(AttackRange);
             _attackZone.EnterEvent += OnEnterTargetInZone;
             _attackZone.ExitEvent += OnExitTargetFromZone;

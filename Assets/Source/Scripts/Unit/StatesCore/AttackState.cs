@@ -1,5 +1,5 @@
-using Unit.ProfessionsCore;
-using Unit.ProfessionsCore.Processors;
+using Unit.OrderValidatorCore;
+using Unit.ProcessorsCore;
 
 namespace Unit.States
 {
@@ -14,7 +14,7 @@ namespace Unit.States
 
         private bool CanAttack => !_cooldownProcessor.IsCooldown; 
         
-        public AttackState(MovingUnit unit, WarriorOrderValidatorBase warriorOrderValidator)
+        public AttackState(MovingUnit unit, WarriorOrderValidator warriorOrderValidator)
         {
             _unit = unit;
             _attackProcessor = warriorOrderValidator.AttackProcessor;

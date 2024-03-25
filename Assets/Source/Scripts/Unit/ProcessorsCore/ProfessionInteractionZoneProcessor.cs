@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
-using Unit.ProfessionsCore;
+using Unit.OrderValidatorCore;
 
-namespace Unit.ProfessionsCore.Processors
+namespace Unit.ProcessorsCore 
 {
     public class ProfessionInteractionZoneProcessor
     {
-        private readonly ProfessionInteractionZone _interactionZone;
+        private readonly UnitInteractionZone _interactionZone;
         
         private IReadOnlyList<IUnitTarget> Targets => _interactionZone.UnitTargets;
 
@@ -15,11 +15,11 @@ namespace Unit.ProfessionsCore.Processors
         public event Action OnEnterInZone;
         public event Action OnExitFromZone;
 
-        public ProfessionInteractionZoneProcessor(ProfessionInteractionZone professionInteractionZone, float interactionRange)
+        public ProfessionInteractionZoneProcessor(UnitInteractionZone unitInteractionZone, float interactionRange)
         {
             InteractionRange = interactionRange;
             
-            _interactionZone = professionInteractionZone;
+            _interactionZone = unitInteractionZone;
             _interactionZone.SetRadius(interactionRange);
             _interactionZone.EnterEvent += OnEnterTargetInZone;
             _interactionZone.ExitEvent += OnExitTargetFromZone;

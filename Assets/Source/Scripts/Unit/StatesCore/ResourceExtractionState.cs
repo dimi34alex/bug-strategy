@@ -1,4 +1,4 @@
-using Unit.ProfessionsCore.Processors;
+using Unit.ProcessorsCore;
 using UnityEngine;
 
 namespace Unit.States

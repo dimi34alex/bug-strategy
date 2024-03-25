@@ -1,5 +1,5 @@
 using Unit.Ants.Configs.Professions;
-using Unit.ProfessionsCore.Processors;
+using Unit.ProcessorsCore;
 
 namespace Unit.Ants.Professions
 {

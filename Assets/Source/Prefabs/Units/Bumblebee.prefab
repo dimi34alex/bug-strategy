@@ -321,8 +321,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _unitVisibleZone: {fileID: 5949649818072816824}
-  _professionInteractionZone: {fileID: 1493000100019554460}
-  _dynamicProfessionZone: {fileID: 4406851168027833582}
+  unitInteractionZone: {fileID: 1493000100019554460}
+  dynamicUnitZone: {fileID: 4406851168027833582}
+  EntityStateID: 0
   _navMeshAgent: {fileID: 6180183485359579963}
   _ability1:
     reloadTimer:

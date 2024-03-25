@@ -1,6 +1,6 @@
 using System;
 
-namespace Unit.ProfessionsCore.Processors
+namespace Unit.ProcessorsCore
 {
     public interface IReadOnlyAttackProcessor
     {

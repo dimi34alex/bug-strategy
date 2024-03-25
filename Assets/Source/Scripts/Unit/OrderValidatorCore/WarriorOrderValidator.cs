@@ -1,10 +1,10 @@
 ﻿using System;
-using Unit.ProfessionsCore.Processors;
+using Unit.ProcessorsCore;
 
-namespace Unit.ProfessionsCore
+namespace Unit.OrderValidatorCore
 {
     [Serializable]
-    public abstract class WarriorOrderValidatorBase : OrderValidatorBase
+    public class WarriorOrderValidator : OrderValidatorBase
     {
         protected readonly CooldownProcessor CooldownProcessor;
         
@@ -12,7 +12,7 @@ namespace Unit.ProfessionsCore
         public IReadOnlyCooldownProcessor Cooldown => CooldownProcessor;
         public bool CanAttack => !CooldownProcessor.IsCooldown;
         
-        protected WarriorOrderValidatorBase(UnitBase unit, float interactionRange, CooldownProcessor cooldownProcessor, AttackProcessorBase attackProcessor)
+        public WarriorOrderValidator(UnitBase unit, float interactionRange, CooldownProcessor cooldownProcessor, AttackProcessorBase attackProcessor)
             : base(unit, interactionRange)
         {
             CooldownProcessor = cooldownProcessor;

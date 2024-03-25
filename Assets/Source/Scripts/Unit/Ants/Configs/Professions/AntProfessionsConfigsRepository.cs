@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Unit.ProfessionsCore;
+using Unit.Ants.Professions;
 using UnityEngine;
 
 namespace Unit.Ants.Configs.Professions

@@ -1,11 +1,11 @@
 ﻿using System;
-using Unit.ProfessionsCore.Processors;
+using Unit.ProcessorsCore;
 using UnityEngine;
 
-namespace Unit.ProfessionsCore
+namespace Unit.OrderValidatorCore
 {
     [Serializable]
-    public abstract class OrderValidatorBase : IReadOnlyOrderValidator
+    public abstract class OrderValidatorBase
     {
         protected readonly UnitBase Unit;
         protected readonly ProfessionInteractionZoneProcessor ProfessionInteractionZoneProcessor;
@@ -17,7 +17,7 @@ namespace Unit.ProfessionsCore
         
         protected OrderValidatorBase(UnitBase unit, float interactionRange)
         {
-            ProfessionInteractionZoneProcessor = new ProfessionInteractionZoneProcessor(unit.ProfessionInteractionZone, interactionRange);
+            ProfessionInteractionZoneProcessor = new ProfessionInteractionZoneProcessor(unit.UnitInteractionZone, interactionRange);
             ProfessionInteractionZoneProcessor.OnEnterInZone += EnterInZone;
             Unit = unit;
         }

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Projectiles.Factory;
 using Unit.Bees.Configs;
-using Unit.ProfessionsCore;
+using Unit.OrderValidatorCore;
 using Unit.States;
 using UnityEngine;
 using Zenject;
@@ -17,7 +17,7 @@ namespace Unit.Bees
         protected override OrderValidatorBase OrderValidator => _orderValidator;
         public override UnitType UnitType => UnitType.Horntail;
 
-        private HorntailOrderValidator _orderValidator;
+        private WarriorOrderValidator _orderValidator;
         private CooldownProcessor _cooldownProcessor;
         private HorntailAttackProcessor _attackProcessor;
         
@@ -29,7 +29,7 @@ namespace Unit.Bees
             _cooldownProcessor = new CooldownProcessor(config.Cooldown);
             _attackProcessor = new HorntailAttackProcessor(this, config.AttackRange, config.Damage, config.DamageRadius,
                 _cooldownProcessor, _projectileFactory);
-            _orderValidator = new HorntailOrderValidator(this, config.InteractionRange, _cooldownProcessor, _attackProcessor);
+            _orderValidator = new WarriorOrderValidator(this, config.InteractionRange, _cooldownProcessor, _attackProcessor);
         }
 
         public override void HandleUpdate(float time)

@@ -1,7 +1,7 @@
 ﻿using Projectiles.Factory;
 using Unit.Ants.Configs.Professions;
-using Unit.ProfessionsCore;
-using Unit.ProfessionsCore.Processors;
+using Unit.OrderValidatorCore;
+using Unit.ProcessorsCore;
 
 namespace Unit.Ants.Professions
 {
@@ -19,7 +19,7 @@ namespace Unit.Ants.Professions
             CooldownProcessor = new CooldownProcessor(antHandItem.Cooldown);
             AttackProcessor = new RangeAttackProcessor(ant, antHandItem.AttackRange, antHandItem.Damage, 
                 CooldownProcessor, antHandItem.ProjectileType, projectileFactory);
-            OrderValidatorBase = new RangeWarriorOrderValidator(ant, antHandItem.InteractionRange, CooldownProcessor,
+            OrderValidatorBase = new WarriorOrderValidator(ant, antHandItem.InteractionRange, CooldownProcessor,
                 AttackProcessor);
 
             AttackProcessor.OnEnterEnemyInZone += EnterInZone;

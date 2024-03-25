@@ -1,8 +1,9 @@
 using System;
 using Unit.Ants;
 using Unit.Ants.Configs.Professions;
+using Unit.Ants.Professions;
 using Unit.Factory;
-using Unit.ProfessionsCore;
+using Unit.OrderValidatorCore;
 using UnityEngine;
 using Zenject;
 

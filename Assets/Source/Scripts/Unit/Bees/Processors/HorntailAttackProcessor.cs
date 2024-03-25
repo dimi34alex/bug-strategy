@@ -1,6 +1,6 @@
 using Projectiles;
 using Projectiles.Factory;
-using Unit.ProfessionsCore.Processors;
+using Unit.ProcessorsCore;
 
 namespace Unit.Bees
 {

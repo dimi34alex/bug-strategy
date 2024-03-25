@@ -1,6 +1,6 @@
 using System;
 using Unit.Ants.Configs.Professions;
-using Unit.ProfessionsCore;
+using Unit.OrderValidatorCore;
 
 namespace Unit.Ants.Professions
 {

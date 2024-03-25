@@ -1,6 +1,6 @@
 using Construction.TownHalls;
 using Unit.Ants.Professions;
-using Unit.ProfessionsCore;
+using Unit.OrderValidatorCore;
 using UnityEngine;
 
 namespace Unit.Ants.States

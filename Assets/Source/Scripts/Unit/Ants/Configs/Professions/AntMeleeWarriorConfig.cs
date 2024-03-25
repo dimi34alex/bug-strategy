@@ -1,4 +1,5 @@
-using Unit.ProfessionsCore;
+using Unit.Ants.Professions;
+using Unit.OrderValidatorCore;
 using UnityEngine;
 
 namespace Unit.Ants.Configs.Professions

@@ -4,15 +4,15 @@ using UnityEngine;
 using MiniMapSystem;
 using MoveSpeedChangerSystem;
 using StickySystem;
-using Unit.ProfessionsCore;
+using Unit.OrderValidatorCore;
 
 public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable, IUnitTarget, IMiniMapObject,
     SelectableSystem.ISelectable, IPoolable<UnitBase, UnitType>, IPoolEventListener, 
     IMoveSpeedChangeable, IStickeable
 {
     [SerializeField] private UnitVisibleZone _unitVisibleZone;
-    [SerializeField] private ProfessionInteractionZone _professionInteractionZone;
-    [SerializeField] private ProfessionInteractionZone _dynamicProfessionZone;
+    [SerializeField] private UnitInteractionZone unitInteractionZone;
+    [SerializeField] private UnitInteractionZone dynamicUnitZone;
 
     protected ResourceStorage _healthStorage { get; set; } = new ResourceStorage(100, 100);
     protected EntityStateMachine _stateMachine;
@@ -28,8 +28,8 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
     public bool IsDied => _healthStorage.CurrentValue < 1f;
     public Transform Transform => transform;
     public UnitVisibleZone VisibleZone => _unitVisibleZone;
-    public ProfessionInteractionZone ProfessionInteractionZone => _professionInteractionZone;
-    public ProfessionInteractionZone DynamicProfessionZone => _dynamicProfessionZone;
+    public UnitInteractionZone UnitInteractionZone => unitInteractionZone;
+    public UnitInteractionZone DynamicUnitZone => dynamicUnitZone;
     public UnitTargetType TargetType => UnitTargetType.Other_Unit;
     public MiniMapObjectType MiniMapObjectType => MiniMapObjectType.Unit;
     public IReadOnlyResourceStorage HealthStorage => _healthStorage;

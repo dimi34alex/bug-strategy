@@ -1,7 +1,7 @@
 ﻿using System;
 using Unit.Ants.Configs.Professions;
-using Unit.ProfessionsCore;
-using Unit.ProfessionsCore.Processors;
+using Unit.OrderValidatorCore;
+using Unit.ProcessorsCore;
 
 namespace Unit.Ants.Professions
 {
@@ -19,7 +19,7 @@ namespace Unit.Ants.Professions
         {
             CooldownProcessor = new CooldownProcessor(antHandItem.Cooldown);
             AttackProcessor = new MeleeAttackProcessor(ant, antHandItem.AttackRange, antHandItem.Damage, CooldownProcessor);
-            OrderValidatorBase = new MeleeWarriorOrderValidator(ant, antHandItem.AttackRange, CooldownProcessor, AttackProcessor);
+            OrderValidatorBase = new WarriorOrderValidator(ant, antHandItem.AttackRange, CooldownProcessor, AttackProcessor);
            
             AttackProcessor.OnEnterEnemyInZone += EnterInZone;
             OrderValidatorBase.OnEnterInZone += EnterInZone;

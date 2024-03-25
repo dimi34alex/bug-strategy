@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Unit.ProfessionsCore.Processors
+namespace Unit.ProcessorsCore
 {
     public abstract class AttackProcessorBase : IReadOnlyAttackProcessor, IDamageApplicator
     {

@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Unit.ProfessionsCore
+namespace Unit.OrderValidatorCore
 {
     [RequireComponent(typeof(SphereCollider))]
-    public class ProfessionInteractionZone : TriggerZone
+    public class UnitInteractionZone : TriggerZone
     {
         [SerializeField] private SphereCollider sphereCollider;
         

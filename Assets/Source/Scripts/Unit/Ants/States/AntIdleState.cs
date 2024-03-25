@@ -1,5 +1,5 @@
 using Unit.Ants.Professions;
-using Unit.ProfessionsCore;
+using Unit.OrderValidatorCore;
 
 namespace Unit.Ants.States
 {

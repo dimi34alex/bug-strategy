@@ -1,4 +1,4 @@
-using Unit.ProfessionsCore;
+using Unit.OrderValidatorCore;
 
 namespace Unit.States
 {
@@ -7,9 +7,9 @@ namespace Unit.States
         public override EntityStateID EntityStateID => EntityStateID.Idle;
         
         private readonly MovingUnit _unit;
-        private readonly WarriorOrderValidatorBase _warriorOrderValidator;
+        private readonly WarriorOrderValidator _warriorOrderValidator;
         
-        public WarriorIdleState(MovingUnit unit, WarriorOrderValidatorBase warriorOrderValidator)
+        public WarriorIdleState(MovingUnit unit, WarriorOrderValidator warriorOrderValidator)
         {
             _unit = unit;
             _warriorOrderValidator = warriorOrderValidator;

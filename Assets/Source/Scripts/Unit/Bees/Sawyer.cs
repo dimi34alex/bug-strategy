@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using Projectiles.Factory;
 using Unit.Bees.Configs;
-using Unit.ProfessionsCore;
-using Unit.ProfessionsCore.Processors;
+using Unit.OrderValidatorCore;
+using Unit.ProcessorsCore;
 using Unit.States;
 using UnityEngine;
 using Zenject;
@@ -18,7 +18,7 @@ namespace Unit.Bees
         protected override OrderValidatorBase OrderValidator => _orderValidator;
         public override UnitType UnitType => UnitType.Sawyer;
 
-        private RangeWarriorOrderValidator _orderValidator;
+        private WarriorOrderValidator _orderValidator;
         private CooldownProcessor _cooldownProcessor;
         private AttackProcessorBase _attackProcessor;
         
@@ -31,7 +31,7 @@ namespace Unit.Bees
             _cooldownProcessor = new CooldownProcessor(config.Cooldown);
             _attackProcessor = new RangeAttackProcessor(this, config.AttackRange, config.Damage, _cooldownProcessor,
                 config.ProjectileType, _projectileFactory);
-            _orderValidator = new RangeWarriorOrderValidator(this, config.InteractionRange, _cooldownProcessor, _attackProcessor);
+            _orderValidator = new WarriorOrderValidator(this, config.InteractionRange, _cooldownProcessor, _attackProcessor);
         }
         
         public override void HandleUpdate(float time)

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Unit.Bees.Configs;
-using Unit.ProfessionsCore;
-using Unit.ProfessionsCore.Processors;
+using Unit.OrderValidatorCore;
+using Unit.ProcessorsCore;
 using Unit.States;
 using UnityEngine;
 

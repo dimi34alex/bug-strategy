@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Unit.ProfessionsCore.Processors
+namespace Unit.ProcessorsCore
 {
     public class MeleeAttackProcessor : AttackProcessorBase
     {

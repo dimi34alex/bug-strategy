@@ -2,7 +2,7 @@
 using Projectiles.Factory;
 using UnityEngine;
 
-namespace Unit.ProfessionsCore.Processors
+namespace Unit.ProcessorsCore
 {
     public class RangeAttackProcessor : AttackProcessorBase
     {

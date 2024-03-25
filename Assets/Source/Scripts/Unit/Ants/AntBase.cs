@@ -6,7 +6,7 @@ using Unit.Ants.Configs;
 using Unit.Ants.Configs.Professions;
 using Unit.Ants.Professions;
 using Unit.Ants.States;
-using Unit.ProfessionsCore;
+using Unit.OrderValidatorCore;
 using UnityEngine;
 using Zenject;
 

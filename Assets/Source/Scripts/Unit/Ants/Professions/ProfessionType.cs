@@ -1,4 +1,4 @@
-﻿namespace Unit.ProfessionsCore
+﻿namespace Unit.Ants.Professions
 {
     public enum ProfessionType
     {
