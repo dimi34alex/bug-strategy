@@ -5,20 +5,26 @@ using Unit.OrderValidatorCore;
 using Unit.ProcessorsCore;
 using Unit.States;
 using UnityEngine;
+using Zenject;
 
 namespace Unit.Bees
 {
     public class Bumblebee : BeeUnit, IAttackCooldownChangeable
     {
-        [SerializeField] private BeeMeleeWarriorConfig config;
+        [SerializeField] private BumblebeeConfig config;
+        
+        [Inject] private readonly IConstructionFactory _constructionFactory;
+
+        public AttackCooldownChanger AttackCooldownChanger { get; private set; }
+        public override UnitType UnitType => UnitType.Bumblebee;
         
         protected override OrderValidatorBase OrderValidator => _orderValidator;
-        public override UnitType UnitType => UnitType.Bumblebee;
 
         private WarriorOrderValidator _orderValidator;
         private CooldownProcessor _cooldownProcessor;
         private MeleeAttackProcessor _attackProcessor;
-        public AttackCooldownChanger AttackCooldownChanger { get; private set; }
+
+        private AbilityAccumulation _abilityAccumulation;
 
         protected override void OnAwake()
         {
@@ -29,6 +35,8 @@ namespace Unit.Bees
             _attackProcessor = new MeleeAttackProcessor(this, config.AttackRange, config.Damage, _cooldownProcessor);
             _orderValidator = new WarriorOrderValidator(this, config.InteractionRange, _cooldownProcessor, _attackProcessor);
             AttackCooldownChanger = new AttackCooldownChanger(_cooldownProcessor);
+
+            _abilityAccumulation = new AbilityAccumulation(this, config.ExplosionRadius, config.ExplosionDamage, config.ExplosionLayers, _constructionFactory);
         }
 
         public override void HandleUpdate(float time)

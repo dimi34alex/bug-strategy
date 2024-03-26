@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using CustomTimer;
 using UnityEngine;
 using UnityEngine.AI;
@@ -39,10 +40,10 @@ namespace MoveSpeedChangerSystem
         ///     If scale == 0, then value dont change
         /// </param>
         public void Apply(float scale)
-            => _navMeshAgent.speed = _navMeshAgent.speed / (1 + scale);
+            => _navMeshAgent.speed = _navMeshAgent.speed * (1 + scale);
         //TODO: ask Dima about working of increase and decrease speed
         public void DeApply(float scale)
-            => _navMeshAgent.speed = _navMeshAgent.speed * (1 + scale);
+            => _navMeshAgent.speed = _navMeshAgent.speed / (1 + scale);
         
         private class ProcessorBlock
         {
@@ -59,7 +60,8 @@ namespace MoveSpeedChangerSystem
 
             public void HandleUpdate(float time)
             {
-                foreach (var cell in _cells)
+                var cells = _cells.ToList();
+                foreach (var cell in cells)
                     cell.HandleUpdate(time);
             }
             
@@ -152,7 +154,7 @@ namespace MoveSpeedChangerSystem
                         return;
 
                     _isActive = true;
-                    _navMeshAgent.speed = _navMeshAgent.speed / (1 + _changeScale);
+                    _navMeshAgent.speed = _navMeshAgent.speed * (1 + _changeScale);
                 }
 
                 public void DeActivate()
@@ -161,7 +163,7 @@ namespace MoveSpeedChangerSystem
                         return;
 
                     _isActive = false;
-                    _navMeshAgent.speed = _navMeshAgent.speed * (1 + _changeScale);
+                    _navMeshAgent.speed = _navMeshAgent.speed / (1 + _changeScale);
                 }
                 
                 public void TrySetTime(float time, bool hardSet)
