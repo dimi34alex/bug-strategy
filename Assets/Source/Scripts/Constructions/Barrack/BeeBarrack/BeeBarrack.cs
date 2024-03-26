@@ -42,5 +42,10 @@ namespace Constructions
         [ContextMenu(nameof(RecruitHornet))]
         private void RecruitHornet()
             => RecruitUnit(UnitType.Hornet);
+        
+        //TODO: remove this temporary code, when new ui will be create
+        [ContextMenu(nameof(RecruitTruten))]
+        private void RecruitTruten()
+            => RecruitUnit(UnitType.Truten);
     }
 }

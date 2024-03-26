@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using CustomTimer;
 using UnityEngine;
 using UnityEngine.AI;
@@ -10,11 +9,13 @@ namespace MoveSpeedChangerSystem
     {
         private readonly ProcessorBlock _speedUpBlock;
         private readonly ProcessorBlock _speedDownBlock;
+        private readonly NavMeshAgent _navMeshAgent;
 
-        public MoveSpeedChangerProcessor(NavMeshAgent navMeshAgent, float mainSpeed)
+        public MoveSpeedChangerProcessor(NavMeshAgent navMeshAgent)
         {
-            _speedUpBlock = new ProcessorBlock(navMeshAgent, mainSpeed);
-            _speedDownBlock = new ProcessorBlock(navMeshAgent, mainSpeed);
+            _navMeshAgent = navMeshAgent;
+            _speedUpBlock = new ProcessorBlock(_navMeshAgent);
+            _speedDownBlock = new ProcessorBlock(_navMeshAgent);
         }
 
         public void HandleUpdate(float time)
@@ -31,18 +32,28 @@ namespace MoveSpeedChangerSystem
                 _speedDownBlock.Invoke(moveSpeedChangerConfig, hardSet);
         }
 
+        //TODO: ask Dima about working of increase and decrease speed
+        /// <param name="scale">
+        ///     Positive scale mean increase <br/>
+        ///     Negative scale mean decrease <br/>
+        ///     If scale == 0, then value dont change
+        /// </param>
+        public void Apply(float scale)
+            => _navMeshAgent.speed = _navMeshAgent.speed / (1 + scale);
+        //TODO: ask Dima about working of increase and decrease speed
+        public void DeApply(float scale)
+            => _navMeshAgent.speed = _navMeshAgent.speed * (1 + scale);
+        
         private class ProcessorBlock
         {
-            private readonly float _mainSpeed;
             private readonly NavMeshAgent _navMeshAgent;
             private readonly List<ProcessorBlockCell> _cells;
 
             private ProcessorBlockCell _currentBlockCell;
 
-            public ProcessorBlock(NavMeshAgent navMeshAgent, float mainSpeed)
+            public ProcessorBlock(NavMeshAgent navMeshAgent)
             {
                 _navMeshAgent = navMeshAgent;
-                _mainSpeed = mainSpeed;
                 _cells = new List<ProcessorBlockCell>();
             }
 
@@ -51,7 +62,7 @@ namespace MoveSpeedChangerSystem
                 foreach (var cell in _cells)
                     cell.HandleUpdate(time);
             }
-
+            
             public void Invoke(MoveSpeedChangerConfig moveSpeedChangerConfig, bool hardSet)
             {
                 foreach (var cell in _cells)
@@ -61,8 +72,7 @@ namespace MoveSpeedChangerSystem
                         return;
                     }
 
-                var processorBlockCell =
-                    new ProcessorBlockCell(_navMeshAgent, moveSpeedChangerConfig, _mainSpeed);
+                var processorBlockCell = new ProcessorBlockCell(_navMeshAgent, moveSpeedChangerConfig);
                 processorBlockCell.Timer.OnTimerEnd += Recheck;
                 _cells.Add(processorBlockCell);
 
@@ -122,15 +132,14 @@ namespace MoveSpeedChangerSystem
                 public readonly Timer Timer;
 
                 private readonly NavMeshAgent _navMeshAgent;
-                private readonly float _changeSpeed;
+                private readonly float _changeScale;
                 private bool _isActive;
 
-                public ProcessorBlockCell(NavMeshAgent navMeshAgent, MoveSpeedChangerConfig moveSpeedChangerConfig,
-                    float mainSpeed)
+                public ProcessorBlockCell(NavMeshAgent navMeshAgent, MoveSpeedChangerConfig moveSpeedChangerConfig)
                 {
                     _navMeshAgent = navMeshAgent;
                     Power = moveSpeedChangerConfig.Power;
-                    _changeSpeed = mainSpeed * Power / 100;
+                    _changeScale = (float)Power / 100;
                     Timer = new Timer(moveSpeedChangerConfig.Time);
                 }
 
@@ -143,7 +152,7 @@ namespace MoveSpeedChangerSystem
                         return;
 
                     _isActive = true;
-                    _navMeshAgent.speed += _changeSpeed;
+                    _navMeshAgent.speed = _navMeshAgent.speed / (1 + _changeScale);
                 }
 
                 public void DeActivate()
@@ -152,7 +161,7 @@ namespace MoveSpeedChangerSystem
                         return;
 
                     _isActive = false;
-                    _navMeshAgent.speed -= _changeSpeed;
+                    _navMeshAgent.speed = _navMeshAgent.speed * (1 + _changeScale);
                 }
                 
                 public void TrySetTime(float time, bool hardSet)

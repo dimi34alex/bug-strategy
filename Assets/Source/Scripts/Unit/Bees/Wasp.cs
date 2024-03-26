@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using AttackCooldownChangerSystem;
 using Projectiles.Factory;
 using Unit.Bees.Configs;
 using Unit.OrderValidatorCore;
@@ -9,7 +10,7 @@ using Zenject;
 
 namespace Unit.Bees
 {
-    public class Wasp : BeeUnit
+    public class Wasp : BeeUnit, IAttackCooldownChangeable
     {
         [SerializeField] private BeeRangeWarriorConfig config;
     
@@ -21,7 +22,8 @@ namespace Unit.Bees
         private WarriorOrderValidator _warriorOrderValidator;
         private CooldownProcessor _cooldownProcessor;
         private AttackProcessorBase _attackProcessor;
-        
+        public AttackCooldownChanger AttackCooldownChanger { get; private set; }
+
         protected override void OnAwake()
         {
             base.OnAwake();
@@ -31,6 +33,8 @@ namespace Unit.Bees
             _attackProcessor = new RangeAttackProcessor(this, config.AttackRange, config.Damage, _cooldownProcessor,
                 config.ProjectileType, _projectileFactory);
             _warriorOrderValidator = new WarriorOrderValidator(this, config.InteractionRange, _cooldownProcessor, _attackProcessor);
+            
+            AttackCooldownChanger = new AttackCooldownChanger(_cooldownProcessor);
         }
 
         public override void HandleUpdate(float time)

@@ -1,51 +1,52 @@
 using System.Collections.Generic;
 using AttackCooldownChangerSystem;
-using Projectiles.Factory;
 using Unit.Bees.Configs;
 using Unit.OrderValidatorCore;
 using Unit.ProcessorsCore;
 using Unit.States;
 using UnityEngine;
-using Zenject;
 
 namespace Unit.Bees
 {
-    public sealed class Sawyer : BeeUnit, IAttackCooldownChangeable
+    public class Truten : BeeUnit, IAttackCooldownChangeable
     {
-        [SerializeField] private SawyerConfig config;
-    
-        [Inject] private ProjectileFactory _projectileFactory;
-    
+        [SerializeField] private TrutenConfig config;
+        [SerializeField] private SphereTrigger abilityStandardBearerZone;
+        
+        public AttackCooldownChanger AttackCooldownChanger { get; private set; }
+        public override UnitType UnitType => UnitType.Truten;
+        
         protected override OrderValidatorBase OrderValidator => _orderValidator;
-        public override UnitType UnitType => UnitType.Sawyer;
 
         private WarriorOrderValidator _orderValidator;
         private CooldownProcessor _cooldownProcessor;
-        private AttackProcessorBase _attackProcessor;
+        private MeleeAttackProcessor _attackProcessor;
         
-        public AttackCooldownChanger AttackCooldownChanger { get; private set; }
+        private AbilityStandardBearer _abilityStandardBearer;
+        private AbilityBraveDeath _abilityBraveDeath;
         
         protected override void OnAwake()
         {
             base.OnAwake();
 
             _healthStorage = new ResourceStorage(config.HealthPoints, config.HealthPoints);
-            
             _cooldownProcessor = new CooldownProcessor(config.Cooldown);
-            _attackProcessor = new RangeAttackProcessor(this, config.AttackRange, config.Damage, _cooldownProcessor,
-                config.ProjectileType, _projectileFactory);
+            _attackProcessor = new MeleeAttackProcessor(this, config.AttackRange, config.Damage, _cooldownProcessor);
             _orderValidator = new WarriorOrderValidator(this, config.InteractionRange, _cooldownProcessor, _attackProcessor);
-           
+
+            _abilityStandardBearer = new AbilityStandardBearer(abilityStandardBearerZone, config.AttackSpeedChangePower,
+                config.MoveSpeedChangePower, config.StandardBearerRadius);
             AttackCooldownChanger = new AttackCooldownChanger(_cooldownProcessor);
+            _abilityBraveDeath = new AbilityBraveDeath(this, config.HealValue, config.HealRadius, config.HealLayers);
         }
-        
+
         public override void HandleUpdate(float time)
         {
             base.HandleUpdate(time);
             
             _cooldownProcessor.HandleUpdate(time);
         }
-
+        
         public override void OnElementExtract()
         {
             base.OnElementExtract();

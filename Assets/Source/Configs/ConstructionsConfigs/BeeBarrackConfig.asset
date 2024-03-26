@@ -46,6 +46,14 @@ MonoBehaviour:
         _cells:
         - Key: 1
           Value: 1
+    - currentId: 80
+      recruitingTime: 10
+      stackSize: 1
+      spawnPauseTime: 0
+      costs:
+        _cells:
+        - Key: 1
+          Value: 1
   - maxHealPoints: 200
     levelUpCost:
       _cells: []
@@ -70,6 +78,14 @@ MonoBehaviour:
         - Key: 1
           Value: 4
     - currentId: 50
+      recruitingTime: 5
+      stackSize: 1
+      spawnPauseTime: 0
+      costs:
+        _cells:
+        - Key: 1
+          Value: 4
+    - currentId: 80
       recruitingTime: 5
       stackSize: 1
       spawnPauseTime: 0

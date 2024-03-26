@@ -4,11 +4,13 @@ using UnityEngine;
 using MiniMapSystem;
 using MoveSpeedChangerSystem;
 using StickySystem;
+using Unit;
+using Unit.Bees;
 using Unit.OrderValidatorCore;
 
 public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable, IUnitTarget, IMiniMapObject,
     SelectableSystem.ISelectable, IPoolable<UnitBase, UnitType>, IPoolEventListener, 
-    IMoveSpeedChangeable, IStickeable
+    IMoveSpeedChangeable, IStickeable, IHealable
 {
     [SerializeField] private UnitVisibleZone _unitVisibleZone;
     [SerializeField] private UnitInteractionZone unitInteractionZone;
@@ -87,6 +89,9 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
             return;
         }
     }
+    
+    public void TakeHeal(float value)
+        => _healthStorage.ChangeValue(value);
     
     protected virtual void OnDamaged() { }
 

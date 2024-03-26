@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using AttackCooldownChangerSystem;
 using Unit.Bees.Configs;
 using Unit.OrderValidatorCore;
 using Unit.ProcessorsCore;
@@ -7,7 +8,7 @@ using UnityEngine;
 
 namespace Unit.Bees
 {
-    public sealed class Murmur : BeeUnit
+    public sealed class Murmur : BeeUnit, IAttackCooldownChangeable
     {
         [SerializeField] private MurmurConfig config;
         [SerializeField] private GameObject resourceSkin;
@@ -19,7 +20,8 @@ namespace Unit.Bees
         private MurmurOrderValidator _orderValidator;
         private AttackProcessorBase _attackProcessor;
         private CooldownProcessor _cooldownProcessor;
-        
+        public AttackCooldownChanger AttackCooldownChanger { get; private set; }
+
         protected override void OnAwake()
         {
             base.OnAwake();
@@ -33,6 +35,7 @@ namespace Unit.Bees
             _attackProcessor = new MeleeAttackProcessor(this, config.AttackRange, config.AttackDamage, _cooldownProcessor);
             _orderValidator = new MurmurOrderValidator(this, config.InteractionRange, _attackProcessor, 
                 _cooldownProcessor, _resourceExtractionProcessor);
+            AttackCooldownChanger = new AttackCooldownChanger(_cooldownProcessor);
         }
 
         public override void HandleUpdate(float time)

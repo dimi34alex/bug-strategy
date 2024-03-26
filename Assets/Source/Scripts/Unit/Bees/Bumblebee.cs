@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using AttackCooldownChangerSystem;
 using Unit.Bees.Configs;
 using Unit.OrderValidatorCore;
 using Unit.ProcessorsCore;
@@ -7,7 +8,7 @@ using UnityEngine;
 
 namespace Unit.Bees
 {
-    public class Bumblebee : BeeUnit
+    public class Bumblebee : BeeUnit, IAttackCooldownChangeable
     {
         [SerializeField] private BeeMeleeWarriorConfig config;
         
@@ -17,7 +18,8 @@ namespace Unit.Bees
         private WarriorOrderValidator _orderValidator;
         private CooldownProcessor _cooldownProcessor;
         private MeleeAttackProcessor _attackProcessor;
-        
+        public AttackCooldownChanger AttackCooldownChanger { get; private set; }
+
         protected override void OnAwake()
         {
             base.OnAwake();
@@ -26,6 +28,7 @@ namespace Unit.Bees
             _cooldownProcessor = new CooldownProcessor(config.Cooldown);
             _attackProcessor = new MeleeAttackProcessor(this, config.AttackRange, config.Damage, _cooldownProcessor);
             _orderValidator = new WarriorOrderValidator(this, config.InteractionRange, _cooldownProcessor, _attackProcessor);
+            AttackCooldownChanger = new AttackCooldownChanger(_cooldownProcessor);
         }
 
         public override void HandleUpdate(float time)

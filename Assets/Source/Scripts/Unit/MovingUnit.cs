@@ -19,7 +19,7 @@ public abstract class MovingUnit : UnitBase
 
         _startMaxSpeed = _navMeshAgent.speed;
 
-        MoveSpeedChangerProcessor = new MoveSpeedChangerProcessor(_navMeshAgent, _startMaxSpeed);
+        MoveSpeedChangerProcessor = new MoveSpeedChangerProcessor(_navMeshAgent);
         
         OnAwake();
     }

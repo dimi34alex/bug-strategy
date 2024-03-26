@@ -4,9 +4,11 @@ using CustomTimer;
 public class CooldownProcessor : IReadOnlyCooldownProcessor
 {
     private readonly Timer _cooldown;
-        
+    
     public bool IsCooldown { get; private set; }
-
+    public float CooldownCurrentValue => _cooldown.CurrentTime;
+    public float CooldownMaxValue => _cooldown.MaxTime;
+    
     public event Action OnCooldownEnd;
 
     public CooldownProcessor(float cooldownTime)
@@ -35,4 +37,7 @@ public class CooldownProcessor : IReadOnlyCooldownProcessor
         IsCooldown = false;
         OnCooldownEnd?.Invoke();
     }
+
+    public void SetCooldownTime(float newCooldownTime)
+        => _cooldown.SetMaxValue(newCooldownTime, false, true);
 }

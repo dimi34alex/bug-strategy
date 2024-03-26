@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using AttackCooldownChangerSystem;
 using Unit.Bees.Configs;
 using Unit.OrderValidatorCore;
 using Unit.ProcessorsCore;
@@ -7,13 +8,15 @@ using UnityEngine;
 
 namespace Unit.Bees
 {
-    public sealed class Hornet : BeeUnit
+    public sealed class Hornet : BeeUnit, IAttackCooldownChangeable
     {
         [SerializeField] private HornetConfig config;
         
         protected override OrderValidatorBase OrderValidator => _orderValidator;
         public override UnitType UnitType => UnitType.Hornet;
 
+        public AttackCooldownChanger AttackCooldownChanger { get; private set; }
+        
         private WarriorOrderValidator _orderValidator;
         private CooldownProcessor _cooldownProcessor;
         private AttackProcessorBase _attackProcessor;
@@ -26,6 +29,8 @@ namespace Unit.Bees
             _cooldownProcessor = new CooldownProcessor(config.Cooldown);
             _attackProcessor = new MeleeAttackProcessor(this, config.AttackRange, config.Damage, _cooldownProcessor);
             _orderValidator = new WarriorOrderValidator(this, config.InteractionRange, _cooldownProcessor, _attackProcessor);
+            
+            AttackCooldownChanger = new AttackCooldownChanger(_cooldownProcessor);
         }
 
         public override void HandleUpdate(float time)
