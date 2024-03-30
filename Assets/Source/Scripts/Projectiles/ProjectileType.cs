@@ -7,6 +7,7 @@ namespace Projectiles
         ButterflyPoisonFlowerProjectile = 20,
         BeeWaxTowerProjectile = 30,
         SawyerProjectile = 40,
-        HorntailProjectile = 50
+        HorntailProjectile = 50,
+        HoneyСatapultProjectile = 60
     }
 }

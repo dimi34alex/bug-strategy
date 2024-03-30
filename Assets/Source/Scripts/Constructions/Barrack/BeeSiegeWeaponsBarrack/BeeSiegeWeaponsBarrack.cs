@@ -17,5 +17,10 @@ namespace Constructions
             LevelSystem = new BeeSiegeWeaponsBarrackLevelSystem(config.Levels, unitsSpawnPosition, unitFactory,
                 ref resourceRepository, ref _healthStorage, ref recruiter);
         }
+        
+        //TODO: remove this temporary code, when new ui will be create
+        [ContextMenu(nameof(RecruitHoneyCatapult))]
+        private void RecruitHoneyCatapult()
+            => RecruitUnit(UnitType.HoneyСatapult);
     }
 }

@@ -33,9 +33,9 @@ public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagabl
     protected virtual void OnAwake() { }
     protected virtual void OnStart() { }
     
-    public virtual void TakeDamage(IDamageApplicator damageApplicator)
+    public virtual void TakeDamage(IDamageApplicator damageApplicator, float damageScale = 1)
     {
-        _healthStorage.ChangeValue(-damageApplicator.Damage);
+        _healthStorage.ChangeValue(-damageApplicator.Damage * damageScale);
         if (_healthStorage.CurrentValue <= 0)
         {
             IsActive = false;

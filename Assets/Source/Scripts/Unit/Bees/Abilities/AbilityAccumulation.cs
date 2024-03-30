@@ -52,7 +52,7 @@ namespace Unit.Bees
             
             ConstructionBase construction = _constructionFactory.Create<ConstructionBase>(ConstructionID.BeeStickyTileConstruction);
             FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(_bumblebee.transform.position, construction);
-            construction.transform.position = _bumblebee.transform.position;
+            construction.transform.position = FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(_bumblebee.transform.position);
         }
     }
 }

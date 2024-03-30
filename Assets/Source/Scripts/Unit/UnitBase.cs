@@ -75,9 +75,9 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
         _stateMachine.OnUpdate();
     }
     
-    public void TakeDamage(IDamageApplicator damageApplicator)
+    public void TakeDamage(IDamageApplicator damageApplicator, float damageScale = 1)
     {
-        _healthStorage.ChangeValue(-damageApplicator.Damage);
+        _healthStorage.ChangeValue(-damageApplicator.Damage * damageScale);
         OnDamaged();
 
         if (IsDied)

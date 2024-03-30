@@ -20,5 +20,11 @@ MonoBehaviour:
       _cells: []
     resourceCapacity:
       _cells: []
-    recruitingSize: 0
-    recruitingData: []
+    recruitingSize: 1
+    recruitingData:
+    - currentId: 90
+      recruitingTime: 4
+      stackSize: 1
+      spawnPauseTime: 1
+      costs:
+        _cells: []

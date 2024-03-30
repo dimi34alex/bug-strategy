@@ -8,6 +8,7 @@
     Horntail = 60,
     Murmur = 70,
     Truten = 80,
+    HoneyСatapult = 90,
     
     AntStandard = 100,
     AntBig = 110,

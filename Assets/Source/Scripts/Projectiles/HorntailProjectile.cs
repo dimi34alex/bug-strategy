@@ -26,7 +26,9 @@ namespace Projectiles
                 {
                     damageable.TakeDamage(this);
                 }
-            } 
+            }
+            
+            ReturnInPool();
         }
     }
 }
