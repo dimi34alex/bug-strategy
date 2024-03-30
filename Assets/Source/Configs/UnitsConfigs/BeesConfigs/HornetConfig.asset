@@ -17,3 +17,5 @@ MonoBehaviour:
   <Cooldown>k__BackingField: 2
   <AttackRange>k__BackingField: 4
   <Damage>k__BackingField: 15
+  <AbilityCooldown>k__BackingField: 4
+  <CriticalDamageScale>k__BackingField: 5
