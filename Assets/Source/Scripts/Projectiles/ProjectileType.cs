@@ -8,6 +8,7 @@ namespace Projectiles
         BeeWaxTowerProjectile = 30,
         SawyerProjectile = 40,
         HorntailProjectile = 50,
-        HoneyСatapultProjectile = 60
+        HoneyCatapultProjectile = 60,
+        MobileHiveProjectile = 70
     }
 }

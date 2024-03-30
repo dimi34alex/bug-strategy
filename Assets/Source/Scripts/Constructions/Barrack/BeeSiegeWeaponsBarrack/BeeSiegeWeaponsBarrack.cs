@@ -22,5 +22,10 @@ namespace Constructions
         [ContextMenu(nameof(RecruitHoneyCatapult))]
         private void RecruitHoneyCatapult()
             => RecruitUnit(UnitType.HoneyСatapult);
+        
+        //TODO: remove this temporary code, when new ui will be create
+        [ContextMenu(nameof(RecruitMobileHive))]
+        private void RecruitMobileHive()
+            => RecruitUnit(UnitType.MobileHive);
     }
 }

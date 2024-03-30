@@ -28,3 +28,9 @@ MonoBehaviour:
       spawnPauseTime: 1
       costs:
         _cells: []
+    - currentId: 95
+      recruitingTime: 1
+      stackSize: 1
+      spawnPauseTime: 1
+      costs:
+        _cells: []

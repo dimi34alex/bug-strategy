@@ -12,7 +12,7 @@ namespace Projectiles
         [Inject] private readonly StickConfig _stickConfig;
         [Inject] private readonly IConstructionFactory _constructionFactory;
         
-        public override ProjectileType ProjectileType => ProjectileType.HoneyСatapultProjectile;
+        public override ProjectileType ProjectileType => ProjectileType.HoneyCatapultProjectile;
 
         private float _constructionDamageScale;
         private float _damageRadius;

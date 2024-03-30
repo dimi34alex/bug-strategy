@@ -28,3 +28,5 @@ MonoBehaviour:
       Value: {fileID: 1416421263751779959, guid: dcefca0e6222e3f4f85006c38ad01781, type: 3}
     - Key: 60
       Value: {fileID: 7954358097663491537, guid: dd096786287f07f47939f67aa8366a97, type: 3}
+    - Key: 70
+      Value: {fileID: 6832589305159534113, guid: 4bedf832344f4c241848ad916c062eda, type: 3}

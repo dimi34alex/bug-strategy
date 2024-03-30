@@ -12,7 +12,7 @@ namespace Unit.Bees
         private float _constructionDamageScale;
         
         public HoneyCatapultAttackProcessor(UnitBase unit, float attackRange, float damage, float damageRadius, CooldownProcessor cooldownProcessor, ProjectileFactory projectilesFactory) 
-            : base(unit, attackRange, damage, cooldownProcessor, ProjectileType.HoneyСatapultProjectile, projectilesFactory)
+            : base(unit, attackRange, damage, cooldownProcessor, ProjectileType.HoneyCatapultProjectile, projectilesFactory)
         {
             _damageRadius = damageRadius;
             _stickTileNum = new ResourceStorage(0,0);
