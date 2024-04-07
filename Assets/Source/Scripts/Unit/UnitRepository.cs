@@ -16,7 +16,7 @@ public class UnitRepository : IUnitRepository
     private readonly Dictionary<UnitType, List<UnitBase>> _units;
     private readonly List<MovingUnit> _movingUnits;
 
-    public List<MovingUnit> MovingUnits =>  _movingUnits;
+    // public List<MovingUnit> MovingUnits =>  _movingUnits;
     public IReadOnlyDictionary<UnitType, List<UnitBase>> Units => _units;
     public List<MovingUnit> MovingUnits => _units.Values.SelectMany(list => list)
                                                 .OfType<MovingUnit>()
