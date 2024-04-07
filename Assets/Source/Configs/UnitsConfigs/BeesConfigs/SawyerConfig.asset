@@ -18,3 +18,7 @@ MonoBehaviour:
   <AttackRange>k__BackingField: 12
   <Damage>k__BackingField: 12
   <ProjectileType>k__BackingField: 40
+  <DamageEnterScale>k__BackingField: 10
+  <DamageExitScale>k__BackingField: 10
+  <RaiseShieldsExistTime>k__BackingField: 5
+  <RaiseShieldsCooldown>k__BackingField: 5

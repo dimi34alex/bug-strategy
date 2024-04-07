@@ -3,7 +3,6 @@ using AttackCooldownChangerSystem;
 using Projectiles.Factory;
 using Unit.Bees.Configs;
 using Unit.OrderValidatorCore;
-using Unit.ProcessorsCore;
 using Unit.States;
 using UnityEngine;
 using Zenject;
@@ -21,8 +20,10 @@ namespace Unit.Bees
 
         private WarriorOrderValidator _orderValidator;
         private CooldownProcessor _cooldownProcessor;
-        private AttackProcessorBase _attackProcessor;
-        
+        private SawyerAttackProcessor _attackProcessor;
+        private AbilityRaiseShields _abilityRaiseShields; 
+        private float _enterDamageScale = 1;
+
         public AttackCooldownChanger AttackCooldownChanger { get; private set; }
         
         protected override void OnAwake()
@@ -32,11 +33,14 @@ namespace Unit.Bees
             _healthStorage = new ResourceStorage(config.HealthPoints, config.HealthPoints);
             
             _cooldownProcessor = new CooldownProcessor(config.Cooldown);
-            _attackProcessor = new RangeAttackProcessor(this, config.AttackRange, config.Damage, _cooldownProcessor,
+            _attackProcessor = new SawyerAttackProcessor(this, config.AttackRange, config.Damage, _cooldownProcessor,
                 config.ProjectileType, _projectileFactory);
             _orderValidator = new WarriorOrderValidator(this, config.InteractionRange, _cooldownProcessor, _attackProcessor);
            
             AttackCooldownChanger = new AttackCooldownChanger(_cooldownProcessor);
+
+            _abilityRaiseShields = new AbilityRaiseShields(this, _attackProcessor, config.RaiseShieldsExistTime,
+                config.RaiseShieldsCooldown, config.DamageEnterScale, config.DamageExitScale);
         }
         
         public override void HandleUpdate(float time)
@@ -44,6 +48,7 @@ namespace Unit.Bees
             base.HandleUpdate(time);
             
             _cooldownProcessor.HandleUpdate(time);
+            _abilityRaiseShields.HandleUpdate(time);
         }
 
         public override void OnElementExtract()
@@ -61,5 +66,19 @@ namespace Unit.Bees
             };
             _stateMachine = new EntityStateMachine(states, EntityStateID.Idle);
         }
+
+        public void SetEnterDamageScale(float enterDamageScale)
+            => _enterDamageScale = enterDamageScale;
+        
+        public override void TakeDamage(IDamageApplicator damageApplicator, float damageScale = 1)
+        {
+            damageScale *= _enterDamageScale;
+            
+            base.TakeDamage(damageApplicator, damageScale);
+        }
+
+        [ContextMenu(nameof(UseAbility))]
+        private void UseAbility()
+            => _abilityRaiseShields.Activate();
     }
 }

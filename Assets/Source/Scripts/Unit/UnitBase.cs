@@ -75,7 +75,7 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
         _stateMachine.OnUpdate();
     }
     
-    public void TakeDamage(IDamageApplicator damageApplicator, float damageScale = 1)
+    public virtual void TakeDamage(IDamageApplicator damageApplicator, float damageScale = 1)
     {
         _healthStorage.ChangeValue(-damageApplicator.Damage * damageScale);
         OnDamaged();
@@ -131,7 +131,7 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
     public void AutoGiveOrder(IUnitTarget unitTarget, Vector3 targetMovePosition)
     {
         targetMovePosition.y = 0;
-            
+        
         CurrentPathData = OrderValidator.AutoGiveOrder(unitTarget);
         if (!CurrentPathData.Target.IsAnyNull())
         {
