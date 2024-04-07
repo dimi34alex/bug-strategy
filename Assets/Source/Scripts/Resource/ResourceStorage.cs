@@ -7,11 +7,11 @@ public interface IReadOnlyResourceStorage
     public int CurrentValueInt { get; }
     public float Capacity { get; }
 
-    public event Action OnChange;
-    public event Action OnResourceChange;
-    public event Action<float> OnResourceAdd;
-    public event Action<float> OnResourceRemove;
-    public event Action OnCapacityChange;
+    public event Action Changed;
+    public event Action ResourceChanged;
+    public event Action<float> ResourceAdded;
+    public event Action<float> ResourceRemoved;
+    public event Action CapacityChanged;
 }
 
 [Serializable]
@@ -24,11 +24,11 @@ public class ResourceStorage : IReadOnlyResourceStorage
     public int CurrentValueInt => (int)CurrentValue;
     public float Capacity => _capacity;
 
-    public event Action OnChange;
-    public event Action OnResourceChange;
-    public event Action<float> OnResourceAdd;
-    public event Action<float> OnResourceRemove;
-    public event Action OnCapacityChange;
+    public event Action Changed;
+    public event Action ResourceChanged;
+    public event Action<float> ResourceAdded;
+    public event Action<float> ResourceRemoved;
+    public event Action CapacityChanged;
 
     public ResourceStorage(float currentValue, float capacity)
     {
@@ -45,28 +45,28 @@ public class ResourceStorage : IReadOnlyResourceStorage
             return;
 
         if (oldValue < _currentValue)
-            OnResourceAdd?.Invoke(_currentValue - oldValue);
+            ResourceAdded?.Invoke(_currentValue - oldValue);
         else
-            OnResourceRemove?.Invoke(oldValue - _currentValue);
+            ResourceRemoved?.Invoke(oldValue - _currentValue);
 
-        OnResourceChange?.Invoke();
-        OnChange?.Invoke();
+        ResourceChanged?.Invoke();
+        Changed?.Invoke();
     }
 
     public void SetValue(float value)
     {
         _currentValue = Mathf.Clamp(value, 0f, _capacity);
-        OnResourceChange?.Invoke();
-        OnChange?.Invoke();
+        ResourceChanged?.Invoke();
+        Changed?.Invoke();
     }
 
     public void SetCapacity(float value)
     {
         _capacity = value;
-        OnCapacityChange?.Invoke();
+        CapacityChanged?.Invoke();
 
         ChangeValue(0f);
-        OnChange?.Invoke();
+        Changed?.Invoke();
     }
 }
 

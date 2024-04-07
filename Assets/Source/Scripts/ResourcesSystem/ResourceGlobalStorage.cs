@@ -19,7 +19,7 @@ public class ResourceGlobalStorage : MonoBehaviour
         ResourceRepository.OnResourceAdd += OnResourceAdded;
 
         foreach (var element in ResourceRepository.Resources)
-            element.Value.OnChange += OnResourceChanged;
+            element.Value.Changed += OnResourceChanged;
 
     }
     

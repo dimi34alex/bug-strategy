@@ -6,11 +6,11 @@ namespace Unit.States
     {
         public override EntityStateID EntityStateID => EntityStateID.Attack;
 
-        private readonly MovingUnit _unit;
+        private readonly UnitBase _unit;
 
         private readonly WarriorProfessionBase _warriorProfession;
         
-        public AttackState(MovingUnit unit, WarriorProfessionBase warriorProfession)
+        public AttackState(UnitBase unit, WarriorProfessionBase warriorProfession)
         {
             _unit = unit;
             _warriorProfession = warriorProfession;

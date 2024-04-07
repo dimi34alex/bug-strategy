@@ -10,12 +10,12 @@ namespace Unit.States
 
         private const float DistanceBuffer = 0.1f;
         
-        private readonly MovingUnit _unit;
+        private readonly UnitBase _unit;
         private readonly ProfessionBase _profession;
         
         private event Action UpdateEvent;
         
-        public MoveState(MovingUnit unit, ProfessionBase profession)
+        public MoveState(UnitBase unit, ProfessionBase profession)
         {
             _unit = unit;
             _profession = profession;

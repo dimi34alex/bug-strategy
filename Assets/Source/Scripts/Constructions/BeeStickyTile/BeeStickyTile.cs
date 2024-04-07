@@ -24,7 +24,7 @@ namespace Constructions
 
         private void OnUnitEnter(ITriggerable triggerable)
         {
-            if (triggerable.TryCast(out MovingUnit movingUnit))
+            if (triggerable.TryCast(out UnitBase movingUnit))
             {
                 movingUnit.ChangeContainsStickyTiles(1);
             }
@@ -32,7 +32,7 @@ namespace Constructions
 
         private void OnUnitExit(ITriggerable triggerable)
         {
-            if (triggerable.TryCast(out MovingUnit movingUnit))
+            if (triggerable.TryCast(out UnitBase movingUnit))
             {
                 movingUnit.ChangeContainsStickyTiles(-1);
             }

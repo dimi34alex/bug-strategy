@@ -7,11 +7,11 @@ namespace Unit.States
     {
         public override EntityStateID EntityStateID => EntityStateID.ExtractionResource;
 
-        private readonly MovingUnit _unit;
+        private readonly UnitBase _unit;
 
         private readonly WorkerProfession _workerProfession;
         
-        public ResourceExtractionState(MovingUnit unit, WorkerProfession workerProfession)
+        public ResourceExtractionState(UnitBase unit, WorkerProfession workerProfession)
         {
             _unit = unit;
             _workerProfession = workerProfession;

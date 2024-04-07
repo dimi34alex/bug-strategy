@@ -11,6 +11,10 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
     [SerializeField] private ProfessionInteractionZone _professionInteractionZone;
     [SerializeField] private ProfessionInteractionZone _dynamicProfessionZone;
 
+    [SerializeField] private UnityEngine.AI.NavMeshAgent _navMeshAgent;
+    [SerializeField] private SomeTestAbility_1 _ability1;
+    [SerializeField] private SomeTestAbility_2 _ability2;
+
     protected ResourceStorage _healthStorage { get; set; } = new ResourceStorage(100, 100);
     protected EntityStateMachine _stateMachine;
     protected List<AbilityBase> _abilites = new List<AbilityBase>();
@@ -68,8 +72,32 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
     {
         _stateMachine.OnUpdate();
         CurrentProfession.HandleUpdate(time);
+        
+        foreach (var ability in _abilites)
+            ability.OnUpdate(Time.deltaTime);
     }
-    
+
+    private int _containsStickyTilesCount;
+    private float _startMaxSpeed;
+
+    public Vector3 Velocity => _navMeshAgent.velocity;
+
+    private void Awake()
+    {
+        _abilites.Add(_ability1);
+        _abilites.Add(_ability2);
+
+        _startMaxSpeed = _navMeshAgent.speed;
+
+        OnAwake();
+    }
+
+    private void Start()
+    {
+        FrameworkCommander.GlobalData.UnitRepository.AddUnit(this);
+        OnStart();
+    }
+
     public void TakeDamage(IDamageApplicator damageApplicator)
     {
         _healthStorage.ChangeValue(-damageApplicator.Damage);
@@ -189,7 +217,38 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
             StateMachine.SetState(EntityStateID.Move);
         }
     }
-    
+
+    protected virtual void OnAwake() { }
+
+    protected virtual void OnStart() { }
+
+    public void SetDestination(Vector3 position)
+    {
+        _navMeshAgent.SetDestination(position);
+    }
+
+    public void Warp(Vector3 position)
+    {
+        _navMeshAgent.Warp(position);
+    }
+
+    public void ChangeContainsStickyTiles(int delta)
+    {
+        _containsStickyTilesCount += delta;
+
+        if (_containsStickyTilesCount is 0)
+            _navMeshAgent.speed = _startMaxSpeed;
+        else
+            _navMeshAgent.speed *= 1.75f;
+    }
+
+    public virtual void GiveOrder(GameObject target, Vector3 position)
+        => AutoGiveOrder(target.GetComponent<IUnitTarget>(), position);
+
+    public void UseAbility(int abilityIndex)
+        => _abilites[abilityIndex].OnUse();
+
+
     private void OnDisable()
     {
         OnDisableITriggerableEvent?.Invoke(this);

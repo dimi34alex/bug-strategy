@@ -1,5 +1,4 @@
-﻿
-public enum ConstructionID
+﻿public enum ConstructionID
 {
     Test_Construction = 0,
     Building_Progress_Construction = 1,
@@ -11,5 +10,4 @@ public enum ConstructionID
     BeeStoreHouse = 30,
     AntStoreHouse = 35,
     ButterflyStoreHouse = 40,
-    
 }

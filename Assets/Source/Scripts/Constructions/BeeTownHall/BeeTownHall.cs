@@ -17,6 +17,7 @@ namespace Constructions
         public IReadOnlyUnitsRecruiter Recruiter => _recruiter;
         public IConstructionLevelSystem LevelSystem { get; private set; }
 
+        private UIController _UIController;
         private UnitsRecruiter _recruiter;
         
         protected override void OnAwake()
@@ -27,7 +28,9 @@ namespace Constructions
             var takeResourceRepository = ResourceGlobalStorage.ResourceRepository;
             LevelSystem = new BeeTownHallLevelSystem(config.Levels, workerBeesSpawnPosition, _unitFactory, 
                 ref takeResourceRepository, ref _healthStorage, ref _recruiter);
-        
+
+            _UIController = UIScreenRepository.GetScreen<UIController>();
+
             _updateEvent += OnUpdate;
             _onDestroy += SetLooseScreen;
         }
@@ -43,13 +46,13 @@ namespace Constructions
 
             if (freeStackIndex == -1)
             {
-                UI_Controller._ErrorCall("All stacks are busy");
+                UIController.ErrorCall("All stacks are busy");
                 return;
             }
 
             if (!_recruiter.CheckCosts(beeID))
             {
-                UI_Controller._ErrorCall("Need more resources");
+                UIController.ErrorCall("Need more resources");
                 return;
             }
         
@@ -58,7 +61,7 @@ namespace Constructions
         
         private void SetLooseScreen()
         {
-            UI_Controller._SetWindow("UI_Lose");
+            _UIController.SetWindow(UIWindowType.GameLose);
             _onDestroy -= SetLooseScreen;
         }
     }  

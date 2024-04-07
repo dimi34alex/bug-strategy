@@ -13,13 +13,13 @@ public abstract class UI_EvolveConstructionScreenBase<TConstruction> : UIScreen
     {
         if (!_construction.LevelSystem.LevelCapCheck())
         {
-            UI_Controller._ErrorCall("Max level");
+            UIController.ErrorCall("Max level");
             return false;
         }
         
         if (!_construction.LevelSystem.LevelUpPriceCheck())
         {
-            UI_Controller._ErrorCall("Need more resources");
+            UIController.ErrorCall("Need more resources");
             return false;
         }
         

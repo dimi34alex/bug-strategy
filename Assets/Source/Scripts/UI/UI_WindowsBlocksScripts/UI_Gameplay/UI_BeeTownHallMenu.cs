@@ -12,7 +12,7 @@ public class UI_BeeTownHallMenu : UI_EvolveConstructionScreenBase<BeeTownHall>
     
     private IReadOnlyUnitsRecruiter _recruiter;
     
-    public void _CallMenu(ConstructionBase townHall)
+    public void CallMenu(ConstructionBase townHall)
     {
         _construction = townHall.Cast<BeeTownHall>();
         

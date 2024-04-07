@@ -42,17 +42,17 @@ public class UI_BeesWaxProduceConstructionMenu : UI_EvolveConstructionScreenBase
 
         public void SetResourceStorage(IReadOnlyResourceStorage newIReadOnlyResourceStorage)
         {
-            _resourceStorage.OnChange -= UpdateInfo;
+            _resourceStorage.Changed -= UpdateInfo;
             
             _resourceStorage = newIReadOnlyResourceStorage;
-            _resourceStorage.OnChange += UpdateInfo;
+            _resourceStorage.Changed += UpdateInfo;
 
             UpdateInfo();
         }
 
         public void Reset()
         {
-            _resourceStorage.OnChange -= UpdateInfo;
+            _resourceStorage.Changed -= UpdateInfo;
         }
         
         private void UpdateInfo()
@@ -64,7 +64,7 @@ public class UI_BeesWaxProduceConstructionMenu : UI_EvolveConstructionScreenBase
         ~FillBar()
         {
             if (_resourceStorage != null)
-                _resourceStorage.OnChange -= UpdateInfo;
+                _resourceStorage.Changed -= UpdateInfo;
         }
     }
 }

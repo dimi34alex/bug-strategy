@@ -4,7 +4,7 @@ using TMPro;
 using System;
 using System.Collections.Generic;
 
-public class UI_GameplayMain : UIScreen
+public class ResourcesView : UIScreen
 {
     [Serializable]
     private struct SomeResourcePrint
@@ -14,21 +14,21 @@ public class UI_GameplayMain : UIScreen
         public TextMeshProUGUI value;
     }
     
-    [SerializeField] private SomeResourcePrint pollen;
-    [SerializeField] private SomeResourcePrint wax;
-    [SerializeField] private SomeResourcePrint housing;
-    [SerializeField] private SomeResourcePrint honey;
+    [SerializeField] private SomeResourcePrint _pollen;
+    [SerializeField] private SomeResourcePrint _wax;
+    [SerializeField] private SomeResourcePrint _housing;
+    [SerializeField] private SomeResourcePrint _honey;
 
     private Dictionary<ResourceID, SomeResourcePrint> _printResoucesWithType;
 
-    private void Awake()
+    private void Start()
     {
         _printResoucesWithType = new Dictionary<ResourceID, SomeResourcePrint>();
 
-        _printResoucesWithType.Add(ResourceID.Pollen, pollen);
-        _printResoucesWithType.Add(ResourceID.Bees_Wax, wax);
-        _printResoucesWithType.Add(ResourceID.Housing, housing);
-        _printResoucesWithType.Add(ResourceID.Honey, honey);
+        _printResoucesWithType.Add(ResourceID.Pollen, _pollen);
+        _printResoucesWithType.Add(ResourceID.Bees_Wax, _wax);
+        _printResoucesWithType.Add(ResourceID.Housing, _housing);
+        _printResoucesWithType.Add(ResourceID.Honey, _honey);
 
         foreach (var printResouce in _printResoucesWithType)
         {
