@@ -15,7 +15,7 @@ namespace Unit.Bees
             _cooldown = new Timer(reloadTime, reloadTime);
 
             _attackProcessor.SetCriticalDamageScale(_criticalDamageScale);
-            _attackProcessor.OnAttack += ResetCooldown;
+            _attackProcessor.Attacked += ResetCooldown;
             
             _cooldown.OnTimerEnd += ActivateAbility;
         }

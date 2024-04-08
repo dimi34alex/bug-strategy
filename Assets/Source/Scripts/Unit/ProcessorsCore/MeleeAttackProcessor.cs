@@ -5,8 +5,8 @@ namespace Unit.ProcessorsCore
 {
     public class MeleeAttackProcessor : AttackProcessorBase
     {
-        public override event Action OnAttack;
-        public override event Action<IUnitTarget> OnAttackTarget;
+        public override event Action Attacked;
+        public override event Action<IUnitTarget> TargetAttacked;
 
         public MeleeAttackProcessor(UnitBase unit, float attackRange, float damage, CooldownProcessor cooldownProcessor) 
             : base(unit, attackRange, damage, cooldownProcessor)
@@ -17,8 +17,8 @@ namespace Unit.ProcessorsCore
             if (target.TryCast(out IDamagable damageable))
             {
                 damageable.TakeDamage(this);
-                OnAttack?.Invoke();
-                OnAttackTarget?.Invoke(target);
+                Attacked?.Invoke();
+                TargetAttacked?.Invoke(target);
             }
 #if UNITY_EDITOR
             else

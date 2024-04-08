@@ -1,6 +1,6 @@
 namespace Unit.Bees
 {
-    public class AbilityStickyProjectiles
+    public sealed class AbilityStickyProjectiles
     {
         private readonly HoneyCatapultAttackProcessor _honeyCatapultAttackProcessor;
         private readonly int _projectilesCounter;
@@ -10,7 +10,7 @@ namespace Unit.Bees
             _honeyCatapultAttackProcessor = honeyCatapultAttackProcessor;
             _projectilesCounter = projectilesCount;
             
-            _honeyCatapultAttackProcessor.SetStickTileNum(_projectilesCounter);
+            _honeyCatapultAttackProcessor.SetProjectileCounterCapacity(_projectilesCounter);
         }
     }
 }

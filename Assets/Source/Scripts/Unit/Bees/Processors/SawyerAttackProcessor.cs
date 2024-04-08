@@ -4,7 +4,7 @@ using Unit.ProcessorsCore;
 
 namespace Unit.Bees
 {
-    public class SawyerAttackProcessor : RangeAttackProcessor
+    public sealed class SawyerAttackProcessor : RangeAttackProcessor
     {
         private float _exitDamageScale = 1;
         
@@ -12,6 +12,7 @@ namespace Unit.Bees
             ProjectileType projectileType, ProjectileFactory projectilesFactory) 
             : base(unit, attackRange, damage, cooldownProcessor, projectileType, projectilesFactory)
         {
+            
         }
 
         public void SetExitDamageScale(float exitDamageScale)

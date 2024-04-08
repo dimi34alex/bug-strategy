@@ -13,8 +13,8 @@ namespace Unit.ProcessorsCore
         public float AttackRange => _attackZoneProcessor.AttackRange;
         public float Damage { get; }
 
-        public abstract event Action OnAttack;
-        public abstract event Action<IUnitTarget> OnAttackTarget;
+        public abstract event Action Attacked;
+        public abstract event Action<IUnitTarget> TargetAttacked;
         public event Action OnEnterEnemyInZone;
         public event Action OnExitEnemyFromZone;
 

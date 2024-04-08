@@ -4,25 +4,25 @@ using Unit.ProcessorsCore;
 
 namespace Unit.Bees
 {
-    public class HoneyCatapultAttackProcessor : RangeAttackProcessor
+    public sealed class HoneyCatapultAttackProcessor : RangeAttackProcessor
     {
         private readonly float _damageRadius;
-        private readonly ResourceStorage _stickTileNum;
+        private readonly ResourceStorage _projectileCounter;
         
-        private float _constructionDamageScale;
+        private float _constructionDamageScale = 1;
         
         public HoneyCatapultAttackProcessor(UnitBase unit, float attackRange, float damage, float damageRadius, CooldownProcessor cooldownProcessor, ProjectileFactory projectilesFactory) 
             : base(unit, attackRange, damage, cooldownProcessor, ProjectileType.HoneyCatapultProjectile, projectilesFactory)
         {
             _damageRadius = damageRadius;
-            _stickTileNum = new ResourceStorage(0,0);
+            _projectileCounter = new ResourceStorage(0, 0);
         }
 
         public void SetConstructionDamageScale(float newScale)
             => _constructionDamageScale = newScale;
 
-        public void SetStickTileNum(int newStickTileNum)
-            => _stickTileNum.SetCapacity(newStickTileNum);
+        public void SetProjectileCounterCapacity(int newProjectileCounterCapacity)
+            => _projectileCounter.SetCapacity(newProjectileCounterCapacity);
         
         protected override void InitProjectileData(ProjectileBase projectile, IUnitTarget target)
         {
@@ -32,16 +32,16 @@ namespace Unit.Bees
 
             honeyCatapultProjectile.SetDamageRadius(_damageRadius);
             honeyCatapultProjectile.SetConstructionDamageScale(_constructionDamageScale);
-            TryMadeStickProjectile(honeyCatapultProjectile);
+            TryMadeProjectileSticky(honeyCatapultProjectile);
         }
         
-        private void TryMadeStickProjectile(HoneyCatapultProjectile projectile)
+        private void TryMadeProjectileSticky(HoneyCatapultProjectile projectile)
         {
-            _stickTileNum.ChangeValue(1);
+            _projectileCounter.ChangeValue(1);
 
-            if (_stickTileNum.CurrentValue >= _stickTileNum.Capacity)
+            if (_projectileCounter.CurrentValue >= _projectileCounter.Capacity)
             {
-                _stickTileNum.SetValue(0);
+                _projectileCounter.SetValue(0);
                 
                 projectile.SetSticky();
             }

@@ -1,6 +1,6 @@
 namespace Unit.Bees
 {
-    public class AbilityArtillerySalvo
+    public sealed class AbilityArtillerySalvo
     {
         private readonly HoneyCatapultAttackProcessor _attackProcessor;
         private readonly float _constructionDamageScale;

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Unit.Bees
 {
-    public class AbilityBraveDeath
+    public sealed class AbilityBraveDeath
     {
         private readonly Truten _truten;
         private readonly float _healValue;
@@ -16,10 +16,10 @@ namespace Unit.Bees
             _healRadius = healRadius;
             _healLayers = healLayers;
             
-            truten.OnDeactivation += Heal;
+            truten.OnDeactivation += HealNearAllies;
         }
 
-        private void Heal()
+        private void HealNearAllies()
         {
             RaycastHit[] result = new RaycastHit[100];
             var size = Physics.SphereCastNonAlloc(_truten.transform.position, _healRadius, Vector3.down,

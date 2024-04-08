@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Unit.Bees
 {
-    public class AbilitySwordStrike : IDamageApplicator
+    public sealed class AbilitySwordStrike : IDamageApplicator
     {
         private readonly UnitBase _unitBase;
         private readonly HorntailAttackProcessor _attackProcessor;
@@ -24,7 +24,7 @@ namespace Unit.Bees
             _cooldown = new Timer(cooldown, cooldown);
             _attackLayers = attackLayers; 
             
-            attackProcessor.OnAttackTarget += TryActivate;
+            attackProcessor.TargetAttacked += TryActivateAbility;
         }
 
         public void HandleUpdate(float time)
@@ -32,16 +32,16 @@ namespace Unit.Bees
             _cooldown.Tick(time);
         }
         
-        private void TryActivate(IUnitTarget target)
+        private void TryActivateAbility(IUnitTarget target)
         {
             if (!_cooldown.TimerIsEnd) 
                 return;
             
-            SwordStrike(target);
+            ActivateAbility(target);
             _cooldown.Reset();
         }
 
-        private void SwordStrike(IUnitTarget target)
+        private void ActivateAbility(IUnitTarget target)
         {
             var swordStrikeDirection = (_unitBase.Transform.position - target.Transform.position).normalized;
             

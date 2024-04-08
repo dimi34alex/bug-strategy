@@ -2,7 +2,7 @@ using CustomTimer;
 
 namespace Unit.Bees
 {
-    public class AbilityRaiseShields
+    public sealed class AbilityRaiseShields
     {
         private readonly Sawyer _sawyer;
         private readonly SawyerAttackProcessor _attackProcessor;
@@ -21,7 +21,7 @@ namespace Unit.Bees
             _damageEnterScale = damageEnterScale;
             _damageExitScale = damageExitScale;
 
-            _existsTimer.OnTimerEnd += EffectEnd;
+            _existsTimer.OnTimerEnd += OnAbilityExistEnd;
         }
 
         public void HandleUpdate(float time)
@@ -30,7 +30,7 @@ namespace Unit.Bees
             _cooldown.Tick(time);
         }
         
-        public void Activate()
+        public void ActivateAbility()
         {
             if(!_cooldown.TimerIsEnd)
                 return;
@@ -41,7 +41,7 @@ namespace Unit.Bees
             _attackProcessor.SetExitDamageScale(_damageExitScale);
         }
 
-        private void EffectEnd()
+        private void OnAbilityExistEnd()
         {
             _sawyer.SetEnterDamageScale(1);
             _attackProcessor.SetExitDamageScale(1);

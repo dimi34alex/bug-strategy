@@ -3,7 +3,7 @@ using MoveSpeedChangerSystem;
 
 namespace Unit.Bees
 {
-    public class AbilityStandardBearer
+    public sealed class AbilityStandardBearer
     {
         private readonly SphereTrigger _abilityZone;
         private readonly float _attackSpeedIncreasePower;
@@ -17,11 +17,11 @@ namespace Unit.Bees
             _moveSpeedIncreasePower = moveSpeedIncreasePower;
             _abilityZone.SetRadius(abilityRadius);
             
-            _abilityZone.EnterEvent += Enter;
-            _abilityZone.ExitEvent += Exit;
+            _abilityZone.EnterEvent += OnEnterInAbilityZone;
+            _abilityZone.ExitEvent += OnExitFromAbilityZone;
         }
 
-        private void Enter(ITriggerable triggerable)
+        private void OnEnterInAbilityZone(ITriggerable triggerable)
         {
             if (triggerable.TryCast(out IAttackCooldownChangeable attackSpeedChangeable) 
                 && attackSpeedChangeable.Affiliation == AffiliationEnum.Bees)
@@ -36,7 +36,7 @@ namespace Unit.Bees
             }
         }
 
-        private void Exit(ITriggerable triggerable)
+        private void OnExitFromAbilityZone(ITriggerable triggerable)
         {
             if (triggerable.TryCast(out IAttackCooldownChangeable attackSpeedChangeable) 
                 && attackSpeedChangeable.Affiliation == AffiliationEnum.Bees)

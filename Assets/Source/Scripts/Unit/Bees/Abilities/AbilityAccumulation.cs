@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Unit.Bees
 {
-    public class AbilityAccumulation : IDamageApplicator
+    public sealed class AbilityAccumulation : IDamageApplicator
     {
         private readonly Bumblebee _bumblebee;
         private readonly float _explosionRadius;

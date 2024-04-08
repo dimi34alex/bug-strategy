@@ -79,6 +79,6 @@ namespace Unit.Bees
 
         [ContextMenu(nameof(UseAbility))]
         private void UseAbility()
-            => _abilityRaiseShields.Activate();
+            => _abilityRaiseShields.ActivateAbility();
     }
 }
