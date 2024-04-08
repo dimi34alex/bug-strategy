@@ -17,6 +17,8 @@ namespace Unit.OrderValidatorCore
         {
             CooldownProcessor = cooldownProcessor;
             AttackProcessor = attackProcessor;
+            
+            AttackProcessor.OnEnterEnemyInZone += EnterInZone;
         }
         
         public override bool CheckDistance(UnitPathData pathData)
