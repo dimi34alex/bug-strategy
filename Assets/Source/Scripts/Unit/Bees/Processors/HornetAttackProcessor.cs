@@ -8,9 +8,10 @@ namespace Unit.Bees
     {
         private float _criticalDamageScale; 
         private bool _isCriticalAttack;
-
-        public event Action OnAttack;
         
+        public override event Action OnAttack;
+        public override event Action<IUnitTarget> OnAttackTarget;
+
         public HornetAttackProcessor(UnitBase unit, float attackRange, float damage, CooldownProcessor cooldownProcessor) 
             : base(unit, attackRange, damage, cooldownProcessor)
         {
@@ -36,6 +37,7 @@ namespace Unit.Bees
  
                 damageable.TakeDamage(this, damageScale);
                 OnAttack?.Invoke();
+                OnAttackTarget?.Invoke(target);
             }
 #if UNITY_EDITOR
             else

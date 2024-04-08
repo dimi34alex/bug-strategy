@@ -21,9 +21,10 @@ namespace Unit.Bees
         private WarriorOrderValidator _orderValidator;
         private CooldownProcessor _cooldownProcessor;
         private HorntailAttackProcessor _attackProcessor;
+        private AbilitySwordStrike _abilitySwordStrike;
         
         public AttackCooldownChanger AttackCooldownChanger { get; private set; }
-
+        
         protected override void OnAwake()
         {
             base.OnAwake();
@@ -34,6 +35,9 @@ namespace Unit.Bees
                 _cooldownProcessor, _projectileFactory);
             _orderValidator = new WarriorOrderValidator(this, config.InteractionRange, _cooldownProcessor, _attackProcessor);
             AttackCooldownChanger = new AttackCooldownChanger(_cooldownProcessor);
+
+            _abilitySwordStrike = new AbilitySwordStrike(this, _attackProcessor, config.SwordStrikeDamage, 
+                config.SwordStrikeDistanceFromCenter, config.SwordStrikeRadius, config.SwordStrikeCooldown, config.SwordStrikeLayers);
         }
 
         public override void HandleUpdate(float time)
@@ -41,6 +45,7 @@ namespace Unit.Bees
             base.HandleUpdate(time);
             
             _cooldownProcessor.HandleUpdate(time);
+            _abilitySwordStrike.HandleUpdate(time);
         }
         
         public override void OnElementExtract()

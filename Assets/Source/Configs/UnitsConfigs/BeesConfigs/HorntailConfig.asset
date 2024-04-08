@@ -18,3 +18,10 @@ MonoBehaviour:
   <AttackRange>k__BackingField: 10
   <Damage>k__BackingField: 5
   <DamageRadius>k__BackingField: 5
+  <SwordStrikeDamage>k__BackingField: 50
+  <SwordStrikeDistanceFromCenter>k__BackingField: 2
+  <SwordStrikeRadius>k__BackingField: 5
+  <SwordStrikeCooldown>k__BackingField: 5
+  <SwordStrikeLayers>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 6144

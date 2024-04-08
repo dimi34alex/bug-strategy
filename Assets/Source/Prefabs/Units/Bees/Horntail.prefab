@@ -297,6 +297,7 @@ MonoBehaviour:
       _capacity: 0
     abilityIcon: {fileID: 0}
   config: {fileID: 11400000, guid: 4d8985e07212b8b40966e878b0173c57, type: 2}
+  swordStrikePoint: {fileID: 0}
 --- !u!195 &4616154419457536015
 NavMeshAgent:
   m_ObjectHideFlags: 0
