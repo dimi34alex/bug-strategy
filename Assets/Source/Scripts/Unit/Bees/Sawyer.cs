@@ -4,12 +4,13 @@ using Projectiles.Factory;
 using Unit.Bees.Configs;
 using Unit.OrderValidatorCore;
 using Unit.States;
+using UnitsHideCore;
 using UnityEngine;
 using Zenject;
 
 namespace Unit.Bees
 {
-    public sealed class Sawyer : BeeUnit, IAttackCooldownChangeable
+    public sealed class Sawyer : BeeUnit, IAttackCooldownChangeable, IHidableUnit
     {
         [SerializeField] private SawyerConfig config;
     
@@ -18,7 +19,7 @@ namespace Unit.Bees
         protected override OrderValidatorBase OrderValidator => _orderValidator;
         public override UnitType UnitType => UnitType.Sawyer;
 
-        private WarriorOrderValidator _orderValidator;
+        private OrderValidatorBase _orderValidator;
         private CooldownProcessor _cooldownProcessor;
         private SawyerAttackProcessor _attackProcessor;
         private AbilityRaiseShields _abilityRaiseShields; 
@@ -35,7 +36,7 @@ namespace Unit.Bees
             _cooldownProcessor = new CooldownProcessor(config.Cooldown);
             _attackProcessor = new SawyerAttackProcessor(this, config.AttackRange, config.Damage, _cooldownProcessor,
                 config.ProjectileType, _projectileFactory);
-            _orderValidator = new WarriorOrderValidator(this, config.InteractionRange, _cooldownProcessor, _attackProcessor);
+            _orderValidator = new HidableWarriorOrderValidator(this, config.InteractionRange, _cooldownProcessor, _attackProcessor);
            
             AttackCooldownChanger = new AttackCooldownChanger(_cooldownProcessor);
 
@@ -57,12 +58,15 @@ namespace Unit.Bees
             
             _healthStorage.SetValue(_healthStorage.Capacity);
             _cooldownProcessor.Reset();
-        
+            _abilityRaiseShields.Reset();
+            AttackCooldownChanger.Reset();
+            
             var states = new List<EntityStateBase>()
             {
-                new WarriorIdleState(this, _orderValidator),
+                new WarriorIdleState(this, _attackProcessor),
                 new MoveState(this, _orderValidator),
-                new AttackState(this, _orderValidator),
+                new AttackState(this, _attackProcessor, _cooldownProcessor),
+                new HideInConstructionState(this, this, ReturnInPool)
             };
             _stateMachine = new EntityStateMachine(states, EntityStateID.Idle);
         }
@@ -80,5 +84,22 @@ namespace Unit.Bees
         [ContextMenu(nameof(UseAbility))]
         private void UseAbility()
             => _abilityRaiseShields.ActivateAbility();
+
+        public HiderCellBase TakeHideCell()      
+            => new SawyerHiderCell(this, _cooldownProcessor, _abilityRaiseShields);
+        
+        public void LoadHideCell(HiderCellBase hiderCell)
+        {
+            if (hiderCell.TryCast(out SawyerHiderCell hideCell))
+            {
+                _healthStorage.SetValue(hideCell.HealthPoints.CurrentValue);
+                _cooldownProcessor.LoadData(hideCell.AttackCooldown.CurrentTime);
+                _abilityRaiseShields.LoadData(hideCell.AbilityRaiseShields.CurrentTime);
+            }
+            else
+            {
+                Debug.LogError($"Invalid hider cell");
+            }
+        }
     }
 }

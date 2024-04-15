@@ -20,7 +20,7 @@ namespace Unit.Bees
             _explosionLayers = explosionLayers;
             _constructionFactory = constructionFactory;
             
-            _bumblebee.OnDeactivation += Explosion;
+            _bumblebee.OnUnitDiedEvent += Explosion;
         }
 
         private void Explosion()
@@ -47,12 +47,16 @@ namespace Unit.Bees
 
         private void TrySpawnStickyTile()
         {
-            if(FrameworkCommander.GlobalData.ConstructionsRepository.ConstructionExist(_bumblebee.transform.position))
+            var roundedPosition = 
+                FrameworkCommander.GlobalData.ConstructionsRepository
+                    .RoundPositionToGrid(_bumblebee.transform.position);
+            
+            if(FrameworkCommander.GlobalData.ConstructionsRepository.ConstructionExist(roundedPosition))
                 return;
             
             ConstructionBase construction = _constructionFactory.Create<ConstructionBase>(ConstructionID.BeeStickyTileConstruction);
-            FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(_bumblebee.transform.position, construction);
-            construction.transform.position = FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(_bumblebee.transform.position);
+            construction.transform.position = roundedPosition;
+            FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(roundedPosition, construction);
         }
     }
 }

@@ -14,6 +14,13 @@ namespace Unit.States
 
         private bool CanAttack => !_cooldownProcessor.IsCooldown; 
         
+        public AttackState(MovingUnit unit, AttackProcessorBase attackProcessor, CooldownProcessor cooldownProcessor)
+        {
+            _unit = unit;
+            _attackProcessor = attackProcessor;
+            _cooldownProcessor = cooldownProcessor;
+        }
+        
         public AttackState(MovingUnit unit, WarriorOrderValidator warriorOrderValidator)
         {
             _unit = unit;

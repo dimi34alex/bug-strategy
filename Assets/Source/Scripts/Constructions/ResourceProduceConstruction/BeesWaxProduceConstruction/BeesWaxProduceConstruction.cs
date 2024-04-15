@@ -1,12 +1,20 @@
 using Constructions.LevelSystemCore;
+using Unit.Factory;
+using UnitsHideCore;
 using UnityEngine;
+using Zenject;
 
 namespace Constructions
 {
-    public class BeesWaxProduceConstruction : ResourceConversionConstructionBase, IEvolveConstruction
+    public class BeesWaxProduceConstruction : ResourceConversionConstructionBase, IEvolveConstruction, IHiderConstruction
     {
         [SerializeField] private BeesWaxProduceConfig config;
+        [SerializeField] private Transform hiderExtractPosition;
 
+        [Inject] private UnitFactory _unitFactory;
+        
+        private UnitsHider _hider;
+        
         private ResourceConversionCore _resourceConversionCore;
         private ResourceProduceConstructionState _produceConstructionState;
 
@@ -14,6 +22,7 @@ namespace Constructions
         public override ConstructionID ConstructionID => ConstructionID.BeeWaxProduceConstruction;
         public override ResourceProduceConstructionState ProduceConstructionState => _produceConstructionState;
         public override ResourceConversionCore ResourceConversionCore => _resourceConversionCore;
+        public IHider Hider => _hider;
 
         public IConstructionLevelSystem LevelSystem { get; private set; }
 
@@ -22,7 +31,8 @@ namespace Constructions
             base.OnAwake();
 
             var resourceRepository = ResourceGlobalStorage.ResourceRepository;
-            LevelSystem = new BeesWaxProduceLevelSystem(config.Levels, ref resourceRepository, ref _healthStorage, ref _resourceConversionCore);
+            LevelSystem = new BeesWaxProduceLevelSystem(config, _unitFactory, hiderExtractPosition, ref resourceRepository,
+                ref _healthStorage, ref _resourceConversionCore, ref _hider);
 
             _updateEvent += OnUpdate;
         }
@@ -102,5 +112,10 @@ namespace Constructions
         {
             return _resourceConversionCore.ProducedResource;
         }
+        
+        //TODO: remove this temporary code, when new ui will be create
+        [ContextMenu(nameof(ExtractHidedUnit))]
+        public void ExtractHidedUnit()
+            => Hider.ExtractUnit(0);
     }
 }

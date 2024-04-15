@@ -1,7 +1,7 @@
 using System;
-using System.Collections.Generic;
 using Constructions.LevelSystemCore;
 using Unit.Factory;
+using UnitsHideCore;
 using UnitsRecruitingSystemCore;
 using UnityEngine;
 
@@ -10,15 +10,18 @@ namespace Constructions
     [Serializable]
     public class BeeBarrackLevelSystem : ConstructionLevelSystemBase<BeeBarrackLevel>
     {
-        private UnitsRecruiter _recruiter;
+        private readonly UnitsRecruiter _recruiter;
+        private readonly UnitsHider _hider;
 
-        public BeeBarrackLevelSystem(IReadOnlyList<BeeBarrackLevel> levels, Transform spawnPosition, 
+        public BeeBarrackLevelSystem(BeeBarrackConfig config, Transform spawnPosition, 
             UnitFactory unitFactory, ref ResourceRepository resourceRepository, ref ResourceStorage healthStorage,
-            ref UnitsRecruiter recruiter) 
-            : base(levels, ref resourceRepository, ref healthStorage)
+            ref UnitsRecruiter recruiter, ref UnitsHider hider) 
+            : base(config.Levels, ref resourceRepository, ref healthStorage)
         {
             _recruiter = recruiter = new UnitsRecruiter(CurrentLevel.RecruitingSize, spawnPosition,
                 CurrentLevel.BeesRecruitingData, unitFactory, ref resourceRepository);
+            
+            _hider = hider = new UnitsHider(CurrentLevel.HiderCapacity ,unitFactory , spawnPosition, config.HiderAccess);
         }
 
         protected override void LevelUpLogic()
@@ -27,6 +30,7 @@ namespace Constructions
 
             _recruiter.AddStacks(CurrentLevel.RecruitingSize);
             _recruiter.SetNewDatas(CurrentLevel.BeesRecruitingData);
+            _hider.SetCapacity(CurrentLevel.HiderCapacity);
         }
     }
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace CustomTimer
 {
-    public class Timer
+    public class Timer : IReadOnlyTimer
     {
         public float CurrentTime { get; private set; }
         public float MaxTime { get; private set; }
@@ -47,6 +47,17 @@ namespace CustomTimer
         public void SetPause() => Paused = true;
         
         public void Continue() => Paused = false;
+
+        public void SetCurrentTIme(float currentTime)
+        {
+            CurrentTime = currentTime;
+            
+            if (CurrentTime >= MaxTime)
+            {
+                TimerIsEnd = true;
+                OnTimerEnd?.Invoke();
+            }
+        }
         
         public void Tick(float time)
         {

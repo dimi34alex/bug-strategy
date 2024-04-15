@@ -99,7 +99,8 @@ namespace Constructions
 
         private void DestructStickyTile()
         {
-            FrameworkCommander.GlobalData.ConstructionsRepository.GetConstruction(transform.position, true);
+            var roundedPosition = FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(transform.position);
+            FrameworkCommander.GlobalData.ConstructionsRepository.GetConstruction(roundedPosition, true);
             Destroy(gameObject);
         }
         

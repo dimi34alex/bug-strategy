@@ -8,14 +8,16 @@ namespace Unit.Bees
         private readonly float _criticalDamageScale;
         private readonly Timer _cooldown;
 
+        public IReadOnlyTimer Cooldown => _cooldown;
+        
         public AbilityVerifiedBites(HornetAttackProcessor hornetAttackProcessor, float reloadTime, float criticalDamageScale)
         {
             _attackProcessor = hornetAttackProcessor;
             _criticalDamageScale = criticalDamageScale;
-            _cooldown = new Timer(reloadTime, reloadTime);
+            _cooldown = new Timer(reloadTime);
 
             _attackProcessor.SetCriticalDamageScale(_criticalDamageScale);
-            _attackProcessor.Attacked += ResetCooldown;
+            _attackProcessor.Attacked += Reset;
             
             _cooldown.OnTimerEnd += ActivateAbility;
         }
@@ -24,15 +26,15 @@ namespace Unit.Bees
             => _cooldown.Tick(time);
 
         public void Reset()
-            => _cooldown.Tick(float.MaxValue);
+            => _cooldown.Reset();
         
         private void ActivateAbility()
             => _attackProcessor.SetCriticalAttack();
-        
-        private void ResetCooldown()
+
+        public void LoadData(float currentCooldownValue)
         {
-            if(_cooldown.TimerIsEnd)
-                _cooldown.Reset();
+            Reset();
+            _cooldown.SetCurrentTIme(currentCooldownValue);
         }
     }
 }

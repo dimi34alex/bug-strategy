@@ -6,22 +6,21 @@ namespace Unit.Bees
     public sealed class AbilitySwordStrike : IDamageApplicator
     {
         private readonly UnitBase _unitBase;
-        private readonly HorntailAttackProcessor _attackProcessor;
         private readonly float _distanceFromCenter;
         private readonly float _attackRadius;
         private readonly Timer _cooldown;
         private readonly LayerMask _attackLayers;
         
         public float Damage { get; }
-
+        public IReadOnlyTimer Cooldown => _cooldown;
+        
         public AbilitySwordStrike(UnitBase unitBase, HorntailAttackProcessor attackProcessor, float attackDamage, float distanceFromCenter, float attackRadius, float cooldown, LayerMask attackLayers)
         {
             _unitBase = unitBase;
             _distanceFromCenter = distanceFromCenter;
-            _attackProcessor = attackProcessor;
             Damage = attackDamage;
             _attackRadius = attackRadius;
-            _cooldown = new Timer(cooldown, cooldown);
+            _cooldown = new Timer(cooldown);
             _attackLayers = attackLayers; 
             
             attackProcessor.TargetAttacked += TryActivateAbility;
@@ -31,6 +30,11 @@ namespace Unit.Bees
         {
             _cooldown.Tick(time);
         }
+
+        public void Reset()
+        {
+            _cooldown.Reset();
+        }
         
         private void TryActivateAbility(IUnitTarget target)
         {
@@ -38,7 +42,7 @@ namespace Unit.Bees
                 return;
             
             ActivateAbility(target);
-            _cooldown.Reset();
+            Reset();
         }
 
         private void ActivateAbility(IUnitTarget target)
@@ -58,6 +62,12 @@ namespace Unit.Bees
                     damageable.TakeDamage(this);
                 }
             }
+        }
+
+        public void LoadData(float currentCooldownValue)
+        {
+            Reset();
+            _cooldown.SetCurrentTIme(currentCooldownValue);
         }
     }
 }

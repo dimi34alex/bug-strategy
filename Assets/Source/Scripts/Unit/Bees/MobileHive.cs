@@ -62,7 +62,7 @@ namespace Unit.Bees
         
             var states = new List<EntityStateBase>()
             {
-                new WarriorIdleState(this, _warriorOrderValidator),
+                new WarriorIdleState(this, _attackProcessor),
                 new MoveState(this, _warriorOrderValidator),
                 new AttackState(this, _warriorOrderValidator),
             };

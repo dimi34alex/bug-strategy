@@ -19,9 +19,9 @@ namespace Unit.Bees
         
         public AttackCooldownChanger AttackCooldownChanger { get; private set; }
         
-        protected override OrderValidatorBase OrderValidator => _warriorOrderValidator;
+        protected override OrderValidatorBase OrderValidator => _orderValidator;
 
-        private WarriorOrderValidator _warriorOrderValidator;
+        private OrderValidatorBase _orderValidator;
         private CooldownProcessor _cooldownProcessor;
         private HoneyCatapultAttackProcessor _attackProcessor;
 
@@ -36,7 +36,7 @@ namespace Unit.Bees
             _cooldownProcessor = new CooldownProcessor(config.Cooldown);
             _attackProcessor = new HoneyCatapultAttackProcessor(this, config.AttackRange, config.Damage, 
                 config.DamageRadius, _cooldownProcessor, _projectileFactory);
-            _warriorOrderValidator = new WarriorOrderValidator(this, config.InteractionRange, _cooldownProcessor, _attackProcessor);
+            _orderValidator = new WarriorOrderValidator(this, config.InteractionRange, _cooldownProcessor, _attackProcessor);
             
             AttackCooldownChanger = new AttackCooldownChanger(_cooldownProcessor);
 
@@ -57,12 +57,13 @@ namespace Unit.Bees
             
             _healthStorage.SetValue(_healthStorage.Capacity);
             _cooldownProcessor.Reset();
-        
+            AttackCooldownChanger.Reset();
+
             var states = new List<EntityStateBase>()
             {
-                new WarriorIdleState(this, _warriorOrderValidator),
-                new MoveState(this, _warriorOrderValidator),
-                new AttackState(this, _warriorOrderValidator),
+                new WarriorIdleState(this, _attackProcessor),
+                new MoveState(this, _orderValidator),
+                new AttackState(this, _attackProcessor, _cooldownProcessor),
             };
             _stateMachine = new EntityStateMachine(states, EntityStateID.Idle);
         }

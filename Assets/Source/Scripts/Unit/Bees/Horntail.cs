@@ -4,12 +4,13 @@ using Projectiles.Factory;
 using Unit.Bees.Configs;
 using Unit.OrderValidatorCore;
 using Unit.States;
+using UnitsHideCore;
 using UnityEngine;
 using Zenject;
 
 namespace Unit.Bees
 {
-    public class Horntail : BeeUnit, IAttackCooldownChangeable
+    public class Horntail : BeeUnit, IAttackCooldownChangeable, IHidableUnit
     {
         [SerializeField] private HorntailConfig config;
     
@@ -18,7 +19,7 @@ namespace Unit.Bees
         protected override OrderValidatorBase OrderValidator => _orderValidator;
         public override UnitType UnitType => UnitType.Horntail;
 
-        private WarriorOrderValidator _orderValidator;
+        private OrderValidatorBase _orderValidator;
         private CooldownProcessor _cooldownProcessor;
         private HorntailAttackProcessor _attackProcessor;
         private AbilitySwordStrike _abilitySwordStrike;
@@ -33,7 +34,7 @@ namespace Unit.Bees
             _cooldownProcessor = new CooldownProcessor(config.Cooldown);
             _attackProcessor = new HorntailAttackProcessor(this, config.AttackRange, config.Damage, config.DamageRadius,
                 _cooldownProcessor, _projectileFactory);
-            _orderValidator = new WarriorOrderValidator(this, config.InteractionRange, _cooldownProcessor, _attackProcessor);
+            _orderValidator = new HidableWarriorOrderValidator(this, config.InteractionRange, _cooldownProcessor, _attackProcessor);
             AttackCooldownChanger = new AttackCooldownChanger(_cooldownProcessor);
 
             _abilitySwordStrike = new AbilitySwordStrike(this, _attackProcessor, config.SwordStrikeDamage, 
@@ -54,14 +55,34 @@ namespace Unit.Bees
             
             _healthStorage.SetValue(_healthStorage.Capacity);
             _cooldownProcessor.Reset();
+            AttackCooldownChanger.Reset();
+            _abilitySwordStrike.Reset();
             
             var states = new List<EntityStateBase>()
             {
-                new WarriorIdleState(this, _orderValidator),
+                new WarriorIdleState(this, _attackProcessor),
                 new MoveState(this, _orderValidator),
-                new AttackState(this, _orderValidator),
+                new AttackState(this, _attackProcessor, _cooldownProcessor),
+                new HideInConstructionState(this, this, ReturnInPool)
             };
             _stateMachine = new EntityStateMachine(states, EntityStateID.Idle);
+        }
+
+        public HiderCellBase TakeHideCell()
+            => new HorntailHiderCell(this, _cooldownProcessor, _abilitySwordStrike);
+
+        public void LoadHideCell(HiderCellBase hiderCell)
+        {
+            if (hiderCell.TryCast(out HorntailHiderCell hideCell))
+            {
+                _healthStorage.SetValue(hideCell.HealthPoints.CurrentValue);
+                _cooldownProcessor.LoadData(hideCell.AttackCooldown.CurrentTime);
+                _abilitySwordStrike.LoadData(hideCell.AbilitySwordStrikeCooldown.CurrentTime);
+            }
+            else
+            {
+                Debug.LogError($"Invalid hider cell");
+            }
         }
     }
 }

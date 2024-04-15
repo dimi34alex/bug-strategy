@@ -1,22 +1,20 @@
 using Construction.TownHalls;
 using Unit.OrderValidatorCore;
 using Unit.ProcessorsCore;
-using UnityEngine;
+using UnitsHideCore;
 
 namespace Unit.Bees
 {
     public sealed class MurmurOrderValidator : OrderValidatorBase
     {
         private readonly ResourceExtractionProcessor _resourceExtractionProcessor;
-        private readonly CooldownProcessor _cooldownProcessor;
         private readonly AttackProcessorBase _attackProcessor;
         
         public MurmurOrderValidator(UnitBase unit, float interactionRange, AttackProcessorBase attackProcessor, 
-            CooldownProcessor cooldownProcessor, ResourceExtractionProcessor resourceExtractionProcessor) 
+            ResourceExtractionProcessor resourceExtractionProcessor) 
             : base(unit, interactionRange)
         {
             _resourceExtractionProcessor = resourceExtractionProcessor;
-            _cooldownProcessor = cooldownProcessor;
             _attackProcessor = attackProcessor;
             
             _attackProcessor.OnEnterEnemyInZone += EnterInZone;
@@ -43,12 +41,8 @@ namespace Unit.Bees
             switch (target.TargetType)
             {
                 case UnitTargetType.ResourceSource:
-                    Debug.Log("ResourceSource");
                     if (!_resourceExtractionProcessor.GotResource)
-                    {
-                        Debug.Log("Collect_Resource");
                         return new UnitPathData(target, UnitPathType.Collect_Resource);
-                    }
                     break;
                 case UnitTargetType.Construction:
                     if(target.Affiliation != Affiliation)
@@ -58,6 +52,10 @@ namespace Unit.Bees
                         target.CastPossible<TownHallBase>() &&
                         _resourceExtractionProcessor.GotResource)
                         return new UnitPathData(target, UnitPathType.Storage_Resource);  
+                    
+                    if (target.Affiliation == Affiliation && target.TryCast(out IHiderConstruction hiderConstruction) 
+                                                          && hiderConstruction.Hider.CheckAccess(Unit.UnitType))
+                        return new UnitPathData(target, UnitPathType.HideInConstruction);
                     break;      
                 case (UnitTargetType.Other_Unit):
                     return new UnitPathData(target, UnitPathType.Attack);
@@ -90,6 +88,11 @@ namespace Unit.Bees
                     if (!target.IsAnyNull() && target.Affiliation != Affiliation && target.CastPossible<IDamagable>() 
                         || _attackProcessor.CheckEnemiesInAttackZone())
                         return UnitPathType.Attack;
+                    break;
+                case UnitPathType.HideInConstruction:
+                    if (target.Affiliation == Affiliation && target.TryCast(out IHiderConstruction hiderConstruction) 
+                                                          && hiderConstruction.Hider.CheckAccess(Unit.UnitType))
+                        return UnitPathType.HideInConstruction;
                     break;
             }
             

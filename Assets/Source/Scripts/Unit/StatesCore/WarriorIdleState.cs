@@ -1,4 +1,5 @@
 using Unit.OrderValidatorCore;
+using Unit.ProcessorsCore;
 
 namespace Unit.States
 {
@@ -7,23 +8,23 @@ namespace Unit.States
         public override EntityStateID EntityStateID => EntityStateID.Idle;
         
         private readonly MovingUnit _unit;
-        private readonly WarriorOrderValidator _warriorOrderValidator;
+        private readonly AttackProcessorBase _attackProcessorBase;
         
-        public WarriorIdleState(MovingUnit unit, WarriorOrderValidator warriorOrderValidator)
+        public WarriorIdleState(MovingUnit unit, AttackProcessorBase attackProcessorBase)
         {
             _unit = unit;
-            _warriorOrderValidator = warriorOrderValidator;
+            _attackProcessorBase = attackProcessorBase;
         }
 
         public override void OnStateEnter()
         {
-            _warriorOrderValidator.AttackProcessor.OnEnterEnemyInZone += CheckEnemiesInZone;
+            _attackProcessorBase.OnEnterEnemyInZone += CheckEnemiesInZone;
             CheckEnemiesInZone();
         }
 
         public override void OnStateExit()
         {
-            _warriorOrderValidator.AttackProcessor.OnEnterEnemyInZone -= CheckEnemiesInZone;
+            _attackProcessorBase.OnEnterEnemyInZone -= CheckEnemiesInZone;
         }
 
         public override void OnUpdate()
@@ -33,7 +34,7 @@ namespace Unit.States
 
         private void CheckEnemiesInZone()
         {
-            if (!_warriorOrderValidator.AttackProcessor.CheckEnemiesInAttackZone()) return;
+            if (!_attackProcessorBase.CheckEnemiesInAttackZone()) return;
             
             _unit.HandleGiveOrder(null, UnitPathType.Attack);
         }

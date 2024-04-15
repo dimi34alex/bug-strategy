@@ -36,6 +36,7 @@ MonoBehaviour:
       spawnPauseTime: 0
       costs:
         _cells: []
+    <HiderCapacity>k__BackingField: 1
   - maxHealPoints: 2000
     levelUpCost:
       _cells:
@@ -59,6 +60,7 @@ MonoBehaviour:
       spawnPauseTime: 0
       costs:
         _cells: []
+    <HiderCapacity>k__BackingField: 2
   - maxHealPoints: 3000
     levelUpCost:
       _cells:
@@ -84,3 +86,5 @@ MonoBehaviour:
       spawnPauseTime: 0
       costs:
         _cells: []
+    <HiderCapacity>k__BackingField: 3
+  hiderAccess: 00000000010000001e00000028000000320000003c00000046000000500000005a0000005f000000

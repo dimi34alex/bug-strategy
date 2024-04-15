@@ -62,6 +62,7 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
     
     public event Action<UnitBase> OnUnitPathChange;
     public event Action<UnitBase> OnUnitDied;
+    public event Action OnUnitDiedEvent;
     public event Action<ITriggerable> OnDisableITriggerableEvent;
     public event Action OnSelect;
     public event Action OnDeselect;
@@ -84,8 +85,8 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
         {
             Debug.Log("���� " + this.gameObject.name + " �������� ");
             OnUnitDied?.Invoke(this);
-            OnDeactivation?.Invoke();
-            ElementReturnEvent?.Invoke(this);
+            OnUnitDiedEvent?.Invoke();
+            ReturnInPool();
             return;
         }
     }
@@ -188,6 +189,7 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
                 UnitPathType.Move => EntityStateID.Idle,
                 UnitPathType.Switch_Profession => EntityStateID.SwitchProfession,
                 UnitPathType.Repair_Construction => throw new NotImplementedException(),
+                UnitPathType.HideInConstruction => EntityStateID.HideInConstruction,
                 _ => throw new NotImplementedException()
             };
 
@@ -200,6 +202,9 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
 
         EntityStateID = _stateMachine.ActiveState;
     }
+    
+    protected void ReturnInPool()
+        => ElementReturnEvent?.Invoke(this);
     
     private void OnDisable()
     {

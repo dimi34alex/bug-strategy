@@ -4,11 +4,12 @@ using Unit.Bees.Configs;
 using Unit.OrderValidatorCore;
 using Unit.ProcessorsCore;
 using Unit.States;
+using UnitsHideCore;
 using UnityEngine;
 
 namespace Unit.Bees
 {
-    public sealed class Murmur : BeeUnit, IAttackCooldownChangeable
+    public sealed class Murmur : BeeUnit, IAttackCooldownChangeable, IHidableUnit
     {
         [SerializeField] private MurmurConfig config;
         [SerializeField] private GameObject resourceSkin;
@@ -33,8 +34,7 @@ namespace Unit.Bees
                 resourceRepository, resourceSkin);
             _cooldownProcessor = new CooldownProcessor(config.AttackCooldown);
             _attackProcessor = new MeleeAttackProcessor(this, config.AttackRange, config.AttackDamage, _cooldownProcessor);
-            _orderValidator = new MurmurOrderValidator(this, config.InteractionRange, _attackProcessor, 
-                _cooldownProcessor, _resourceExtractionProcessor);
+            _orderValidator = new MurmurOrderValidator(this, config.InteractionRange, _attackProcessor, _resourceExtractionProcessor);
             AttackCooldownChanger = new AttackCooldownChanger(_cooldownProcessor);
         }
 
@@ -53,16 +53,35 @@ namespace Unit.Bees
             _healthStorage.SetValue(_healthStorage.Capacity);
             _resourceExtractionProcessor.Reset();
             _cooldownProcessor.Reset();
-            
+            AttackCooldownChanger.Reset();
+
             var stateBases = new List<EntityStateBase>()
             {
                 new IdleState(),
                 new MoveState(this, _orderValidator),
                 new ResourceExtractionState(this, _resourceExtractionProcessor),
                 new StorageResourceState(this, _resourceExtractionProcessor),
-                new AttackState(this, _attackProcessor, _cooldownProcessor)
+                new AttackState(this, _attackProcessor, _cooldownProcessor),
+                new HideInConstructionState(this, this, ReturnInPool)
             };
             _stateMachine = new EntityStateMachine(stateBases, EntityStateID.Idle);
+        }
+
+        public HiderCellBase TakeHideCell()
+            => new MurmurHiderCell(this, _resourceExtractionProcessor, _cooldownProcessor);
+        
+        public void LoadHideCell(HiderCellBase hiderCell)
+        {
+            if (hiderCell.TryCast(out MurmurHiderCell hideCell))
+            {
+                _healthStorage.SetValue(hideCell.HealthPoints.CurrentValue);
+                _resourceExtractionProcessor.LoadData(hideCell.ResourceExtracted, hideCell.ExtractedResourceID);
+                _cooldownProcessor.LoadData(hideCell.CooldownValue.CurrentTime);
+            }
+            else
+            {
+                Debug.LogError($"Invalid hider cell");
+            }
         }
     }
 }

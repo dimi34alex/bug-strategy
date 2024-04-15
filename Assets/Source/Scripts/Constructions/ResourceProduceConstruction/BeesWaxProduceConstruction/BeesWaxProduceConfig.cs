@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Constructions
@@ -6,6 +7,8 @@ namespace Constructions
 
     public class BeesWaxProduceConfig : EvolveConstructionConfigBase<BeesWaxProduceLevel>
     {
+        [SerializeField] private List<UnitType> hiderAccess;
         
+        public IReadOnlyList<UnitType> HiderAccess => hiderAccess;
     }
 }

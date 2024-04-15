@@ -3,11 +3,12 @@ using AttackCooldownChangerSystem;
 using Unit.Bees.Configs;
 using Unit.OrderValidatorCore;
 using Unit.States;
+using UnitsHideCore;
 using UnityEngine;
 
 namespace Unit.Bees
 {
-    public sealed class Hornet : BeeUnit, IAttackCooldownChangeable
+    public sealed class Hornet : BeeUnit, IAttackCooldownChangeable, IHidableUnit
     {
         [SerializeField] private HornetConfig config;
         
@@ -16,7 +17,7 @@ namespace Unit.Bees
 
         public AttackCooldownChanger AttackCooldownChanger { get; private set; }
         
-        private WarriorOrderValidator _orderValidator;
+        private OrderValidatorBase _orderValidator;
         private CooldownProcessor _cooldownProcessor;
         private HornetAttackProcessor _attackProcessor;
 
@@ -29,7 +30,7 @@ namespace Unit.Bees
             _healthStorage = new ResourceStorage(config.HealthPoints, config.HealthPoints);
             _cooldownProcessor = new CooldownProcessor(config.Cooldown);
             _attackProcessor = new HornetAttackProcessor(this, config.AttackRange, config.Damage, _cooldownProcessor);
-            _orderValidator = new WarriorOrderValidator(this, config.InteractionRange, _cooldownProcessor, _attackProcessor);
+            _orderValidator = new HidableWarriorOrderValidator(this, config.InteractionRange, _cooldownProcessor, _attackProcessor);
             
             AttackCooldownChanger = new AttackCooldownChanger(_cooldownProcessor);
 
@@ -52,14 +53,33 @@ namespace Unit.Bees
             _healthStorage.SetValue(_healthStorage.Capacity);
             _cooldownProcessor.Reset();
             _abilityVerifiedBites.Reset();
+            AttackCooldownChanger.Reset();
 
             var states = new List<EntityStateBase>()
             {
-                new WarriorIdleState(this, _orderValidator),
+                new WarriorIdleState(this, _attackProcessor),
                 new MoveState(this, _orderValidator),
-                new AttackState(this, _orderValidator),
+                new AttackState(this, _attackProcessor, _cooldownProcessor),
+                new HideInConstructionState(this, this, ReturnInPool)
             };
             _stateMachine = new EntityStateMachine(states, EntityStateID.Idle);
+        }
+
+        public HiderCellBase TakeHideCell()
+            => new HornetHiderCell(this, _cooldownProcessor, _abilityVerifiedBites);
+
+        public void LoadHideCell(HiderCellBase hiderCell)
+        {
+            if (hiderCell.TryCast(out HornetHiderCell hideCell))
+            {
+                _healthStorage.SetValue(hideCell.HealthPoints.CurrentValue);
+                _cooldownProcessor.LoadData(hideCell.AttackCooldown.CurrentTime);
+                _abilityVerifiedBites.LoadData(hideCell.AbilityVerifiedBitesCooldown.CurrentTime);
+            }
+            else
+            {
+                Debug.LogError($"Invalid hider cell");
+            }
         }
     }
 }

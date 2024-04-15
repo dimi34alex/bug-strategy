@@ -1,12 +1,19 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
 namespace AttackCooldownChangerSystem
 {
     public sealed class AttackCooldownChanger
     {
         private readonly CooldownProcessor _cooldownProcessor;
+
+        private readonly List<AttackCooldownChangerCell> _cells;
         
         public AttackCooldownChanger(CooldownProcessor cooldownProcessor)
         {
             _cooldownProcessor = cooldownProcessor;
+            _cells = new List<AttackCooldownChangerCell>();
         }
         
         /// <param name="scale">
@@ -16,14 +23,40 @@ namespace AttackCooldownChangerSystem
         /// </param>
         public void Apply(float scale)
         {
-            var currentValue =  _cooldownProcessor.CooldownMaxValue * (1 + scale);
+            if(scale == 0)
+                return;
+            
+            var currentValue =  _cooldownProcessor.CurrentCapacity * (1 + scale);
+            _cells.Add(new AttackCooldownChangerCell(scale));
             _cooldownProcessor.SetCooldownTime(currentValue);
         }
 
         public void DeApply(float scale)
         {
-            var currentValue = _cooldownProcessor.CooldownMaxValue / (1 + scale);
+            var result = _cells.FindIndex(cell => Math.Abs(cell.Scale - scale) < 0.001f);
+            if (result <= -1) 
+                return;
+            
+            _cells.RemoveAt(result);
+            
+            var currentValue = _cooldownProcessor.CurrentCapacity / (1 + scale);
             _cooldownProcessor.SetCooldownTime(currentValue);   
+        }
+
+        public void Reset()
+        {
+            foreach (var cell in _cells)
+                DeApply(cell.Scale);
+        }
+        
+        private struct AttackCooldownChangerCell
+        {
+            public readonly float Scale;
+
+            public AttackCooldownChangerCell(float scale)
+            {
+                Scale = scale;
+            }
         }
     }
 }

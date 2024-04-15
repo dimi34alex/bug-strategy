@@ -10,6 +10,8 @@ namespace Unit.Bees
         private readonly Timer _cooldown;
         private readonly float _damageEnterScale;
         private readonly float _damageExitScale;
+
+        public IReadOnlyTimer Cooldown => _cooldown;
         
         public AbilityRaiseShields(Sawyer sawyer, SawyerAttackProcessor attackProcessor, float existsTime, 
             float cooldown, float damageEnterScale, float damageExitScale)
@@ -17,7 +19,7 @@ namespace Unit.Bees
             _sawyer = sawyer;
             _attackProcessor = attackProcessor;
             _existsTimer = new Timer(existsTime, 0, true);
-            _cooldown = new Timer(cooldown, cooldown);
+            _cooldown = new Timer(cooldown);
             _damageEnterScale = damageEnterScale;
             _damageExitScale = damageExitScale;
 
@@ -41,10 +43,23 @@ namespace Unit.Bees
             _attackProcessor.SetExitDamageScale(_damageExitScale);
         }
 
+        public void Reset()
+        {
+            _cooldown.Reset();
+            _existsTimer.Reset(true);
+            OnAbilityExistEnd();
+        }
+        
         private void OnAbilityExistEnd()
         {
             _sawyer.SetEnterDamageScale(1);
             _attackProcessor.SetExitDamageScale(1);
+        }
+
+        public void LoadData(float currentCooldownValue)
+        {
+            Reset();
+            _cooldown.SetCurrentTIme(currentCooldownValue);
         }
     }
 }

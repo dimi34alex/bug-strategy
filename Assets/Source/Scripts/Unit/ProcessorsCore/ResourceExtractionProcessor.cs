@@ -30,6 +30,15 @@ namespace Unit.ProcessorsCore
         }
         
         public void HandleUpdate(float time) => _extractionTimer.Tick(time);
+
+        public void LoadData(bool resourceExtracted, ResourceID extractedResourceID)
+        {
+            if (resourceExtracted)
+            {
+                ExtractedResourceID = extractedResourceID;
+                ExtractResource();              
+            }
+        }
         
         /// <summary>
         /// Start resource extraction timer
