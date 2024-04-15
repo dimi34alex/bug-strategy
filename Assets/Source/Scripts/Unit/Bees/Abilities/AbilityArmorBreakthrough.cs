@@ -1,10 +1,11 @@
 using System.Collections.Generic;
+using Unit.AbilitiesCore;
 using Unit.Factory;
 using UnityEngine;
 
 namespace Unit.Bees
 {
-    public sealed class AbilityArmorBreakthrough : IDamageApplicator
+    public sealed class AbilityArmorBreakthrough : IDamageApplicator, IAbility
     {
         private readonly IReadOnlyDictionary<UnitType, int> _spawnUnits;
         private readonly UnitFactory _unitFactory;
@@ -13,6 +14,7 @@ namespace Unit.Bees
         private readonly LayerMask _explosionLayers;
         
         public float Damage { get; private set; }
+        public AbilityType AbilityType => AbilityType.ArmorBreakthrough;
 
         public AbilityArmorBreakthrough(MobileHive mobileHive, float explosionDamage, float explosionRadius, LayerMask explosionLayers,  UnitFactory unitFactory, IReadOnlyDictionary<UnitType, int> spawnUnits)
         {

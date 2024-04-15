@@ -1,8 +1,9 @@
 using CustomTimer;
+using Unit.AbilitiesCore;
 
 namespace Unit.Bees
 {
-    public sealed class AbilityRaiseShields
+    public sealed class AbilityRaiseShields : IAbility
     {
         private readonly Sawyer _sawyer;
         private readonly SawyerAttackProcessor _attackProcessor;
@@ -12,7 +13,8 @@ namespace Unit.Bees
         private readonly float _damageExitScale;
 
         public IReadOnlyTimer Cooldown => _cooldown;
-        
+        public AbilityType AbilityType => AbilityType.RaiseShields;
+
         public AbilityRaiseShields(Sawyer sawyer, SawyerAttackProcessor attackProcessor, float existsTime, 
             float cooldown, float damageEnterScale, float damageExitScale)
         {

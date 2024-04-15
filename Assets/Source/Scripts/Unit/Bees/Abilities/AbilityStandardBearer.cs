@@ -1,13 +1,16 @@
 using AttackCooldownChangerSystem;
 using MoveSpeedChangerSystem;
+using Unit.AbilitiesCore;
 
 namespace Unit.Bees
 {
-    public sealed class AbilityStandardBearer
+    public sealed class AbilityStandardBearer : IAbility
     {
         private readonly SphereTrigger _abilityZone;
         private readonly float _attackSpeedIncreasePower;
         private readonly float _moveSpeedIncreasePower;
+        
+        public AbilityType AbilityType => AbilityType.StandardBearer;
         
         public AbilityStandardBearer(SphereTrigger abilityZone, float attackSpeedIncreasePower, float moveSpeedIncreasePower, 
             float abilityRadius)

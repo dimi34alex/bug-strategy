@@ -1,9 +1,10 @@
 using CustomTimer;
+using Unit.AbilitiesCore;
 using UnityEngine;
 
 namespace Unit.Bees
 {
-    public sealed class AbilitySwordStrike : IDamageApplicator
+    public sealed class AbilitySwordStrike : IDamageApplicator, IAbility
     {
         private readonly UnitBase _unitBase;
         private readonly float _distanceFromCenter;
@@ -13,6 +14,7 @@ namespace Unit.Bees
         
         public float Damage { get; }
         public IReadOnlyTimer Cooldown => _cooldown;
+        public AbilityType AbilityType => AbilityType.SwordStrike;
         
         public AbilitySwordStrike(UnitBase unitBase, HorntailAttackProcessor attackProcessor, float attackDamage, float distanceFromCenter, float attackRadius, float cooldown, LayerMask attackLayers)
         {

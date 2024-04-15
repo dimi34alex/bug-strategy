@@ -1,14 +1,17 @@
+using Unit.AbilitiesCore;
 using UnityEngine;
 
 namespace Unit.Bees
 {
-    public sealed class AbilityBraveDeath
+    public sealed class AbilityBraveDeath : IAbility
     {
         private readonly Truten _truten;
         private readonly float _healValue;
         private readonly float _healRadius;
         private readonly LayerMask _healLayers;
         
+        public AbilityType AbilityType => AbilityType.BraveDeath;
+
         public AbilityBraveDeath(Truten truten, float healValue, float healRadius, LayerMask healLayers)
         {
             _truten = truten;

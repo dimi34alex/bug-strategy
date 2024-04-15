@@ -1,15 +1,17 @@
 using CustomTimer;
+using Unit.AbilitiesCore;
 
 namespace Unit.Bees
 {
-    public sealed class AbilityVerifiedBites
+    public sealed class AbilityVerifiedBites : IAbility
     {
         private readonly HornetAttackProcessor _attackProcessor;
         private readonly float _criticalDamageScale;
         private readonly Timer _cooldown;
 
         public IReadOnlyTimer Cooldown => _cooldown;
-        
+        public AbilityType AbilityType => AbilityType.VerifiedBites;
+
         public AbilityVerifiedBites(HornetAttackProcessor hornetAttackProcessor, float reloadTime, float criticalDamageScale)
         {
             _attackProcessor = hornetAttackProcessor;

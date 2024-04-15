@@ -1,8 +1,9 @@
+using Unit.AbilitiesCore;
 using UnityEngine;
 
 namespace Unit.Bees
 {
-    public sealed class AbilityAccumulation : IDamageApplicator
+    public sealed class AbilityAccumulation : IDamageApplicator, IAbility
     {
         private readonly Bumblebee _bumblebee;
         private readonly float _explosionRadius;
@@ -11,7 +12,8 @@ namespace Unit.Bees
         private readonly IConstructionFactory _constructionFactory;
 
         public float Damage => _explosionDamage;
-        
+        public AbilityType AbilityType => AbilityType.Accumulation;
+
         public AbilityAccumulation(Bumblebee bumblebee, float explosionRadius, float explosionDamage, LayerMask explosionLayers, IConstructionFactory constructionFactory)
         {
             _bumblebee = bumblebee;
