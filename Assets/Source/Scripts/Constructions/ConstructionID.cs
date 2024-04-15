@@ -13,6 +13,7 @@
     BeeMercenaryBarrack = 50,
     BeeWaxTower = 60,
     BeeSiegeWeaponsBarrack = 70,
+    BeeHospital = 80,
     
     AntTownHall = 200,
     AntStorage = 210,
