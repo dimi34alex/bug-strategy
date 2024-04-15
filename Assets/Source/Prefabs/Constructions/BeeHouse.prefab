@@ -31,6 +31,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4902213020702799119}
   - {fileID: 2119081518401477201}
@@ -137,6 +138,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2225733219021671339}
   m_RootOrder: 1
@@ -263,6 +265,42 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2225733219021671339}
     m_Modifications:
+    - target: {fileID: 728466722917173185, guid: 97d3c4038830dfa408773672f985d000, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4bb509e0fb8e3d147ac80617fbc76a9d, type: 3}
+    - target: {fileID: 728466722917173185, guid: 97d3c4038830dfa408773672f985d000, type: 3}
+      propertyPath: m_Color.b
+      value: 0.4245283
+      objectReference: {fileID: 0}
+    - target: {fileID: 728466722917173185, guid: 97d3c4038830dfa408773672f985d000, type: 3}
+      propertyPath: m_Color.g
+      value: 0.4245283
+      objectReference: {fileID: 0}
+    - target: {fileID: 728466722917173185, guid: 97d3c4038830dfa408773672f985d000, type: 3}
+      propertyPath: m_Color.r
+      value: 0.4245283
+      objectReference: {fileID: 0}
+    - target: {fileID: 6081692737494570783, guid: 97d3c4038830dfa408773672f985d000, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.45385316
+      objectReference: {fileID: 0}
+    - target: {fileID: 6081692737494570783, guid: 97d3c4038830dfa408773672f985d000, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6081692737494570783, guid: 97d3c4038830dfa408773672f985d000, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.76593876
+      objectReference: {fileID: 0}
+    - target: {fileID: 6081692737494570783, guid: 97d3c4038830dfa408773672f985d000, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.43
+      objectReference: {fileID: 0}
+    - target: {fileID: 6081692737494570783, guid: 97d3c4038830dfa408773672f985d000, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7990777937018456503, guid: 97d3c4038830dfa408773672f985d000, type: 3}
       propertyPath: m_Name
       value: BeeHouseMovableModel
