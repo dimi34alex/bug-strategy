@@ -39,6 +39,15 @@ namespace Unit.Bees
 
             _abilitySwordStrike = new AbilitySwordStrike(this, _attackProcessor, config.SwordStrikeDamage, 
                 config.SwordStrikeDistanceFromCenter, config.SwordStrikeRadius, config.SwordStrikeCooldown, config.SwordStrikeLayers);
+                    
+            var states = new List<EntityStateBase>()
+            {
+                new WarriorIdleState(this, _attackProcessor),
+                new MoveState(this, _orderValidator),
+                new AttackState(this, _attackProcessor, _cooldownProcessor),
+                new HideInConstructionState(this, this, ReturnInPool)
+            };
+            _stateMachine = new EntityStateMachine(states, EntityStateID.Idle);
         }
 
         public override void HandleUpdate(float time)
@@ -57,15 +66,8 @@ namespace Unit.Bees
             _cooldownProcessor.Reset();
             AttackCooldownChanger.Reset();
             _abilitySwordStrike.Reset();
-            
-            var states = new List<EntityStateBase>()
-            {
-                new WarriorIdleState(this, _attackProcessor),
-                new MoveState(this, _orderValidator),
-                new AttackState(this, _attackProcessor, _cooldownProcessor),
-                new HideInConstructionState(this, this, ReturnInPool)
-            };
-            _stateMachine = new EntityStateMachine(states, EntityStateID.Idle);
+
+            _stateMachine.SetState(EntityStateID.Idle);
         }
 
         public HiderCellBase TakeHideCell()

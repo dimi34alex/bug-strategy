@@ -30,6 +30,17 @@ namespace Unit.Bees
             _resourceExtractionProcessor = new ResourceExtractionProcessor(config.GatheringCapacity, config.GatheringTime,
                 resourceRepository, resourceSkin);
             _orderValidator = new WorkerBeeValidator(this, config.InteractionRange, _resourceExtractionProcessor);
+            
+            var stateBases = new List<EntityStateBase>()
+            {
+                new IdleState(),
+                new MoveState(this, _orderValidator),
+                new BuildState(this),
+                new ResourceExtractionState(this, _resourceExtractionProcessor),
+                new StorageResourceState(this, _resourceExtractionProcessor),
+                new HideInConstructionState(this, this, ReturnInPool)
+            };
+            _stateMachine = new EntityStateMachine(stateBases, EntityStateID.Idle);
         }
 
         public override void HandleUpdate(float time)
@@ -46,16 +57,7 @@ namespace Unit.Bees
             _healthStorage.SetValue(_healthStorage.Capacity);
             _resourceExtractionProcessor.Reset();
 
-            var stateBases = new List<EntityStateBase>()
-            {
-                new IdleState(),
-                new MoveState(this, _orderValidator),
-                new BuildState(this),
-                new ResourceExtractionState(this, _resourceExtractionProcessor),
-                new StorageResourceState(this, _resourceExtractionProcessor),
-                new HideInConstructionState(this, this, ReturnInPool)
-            };
-            _stateMachine = new EntityStateMachine(stateBases, EntityStateID.Idle);
+            _stateMachine.SetState(EntityStateID.Idle);
         }
 
         public HiderCellBase TakeHideCell()

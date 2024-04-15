@@ -36,6 +36,17 @@ namespace Unit.Bees
             _attackProcessor = new MeleeAttackProcessor(this, config.AttackRange, config.AttackDamage, _cooldownProcessor);
             _orderValidator = new MurmurOrderValidator(this, config.InteractionRange, _attackProcessor, _resourceExtractionProcessor);
             AttackCooldownChanger = new AttackCooldownChanger(_cooldownProcessor);
+        
+            var stateBases = new List<EntityStateBase>()
+            {
+                new IdleState(),
+                new MoveState(this, _orderValidator),
+                new ResourceExtractionState(this, _resourceExtractionProcessor),
+                new StorageResourceState(this, _resourceExtractionProcessor),
+                new AttackState(this, _attackProcessor, _cooldownProcessor),
+                new HideInConstructionState(this, this, ReturnInPool)
+            };
+            _stateMachine = new EntityStateMachine(stateBases, EntityStateID.Idle);
         }
 
         public override void HandleUpdate(float time)
@@ -55,16 +66,7 @@ namespace Unit.Bees
             _cooldownProcessor.Reset();
             AttackCooldownChanger.Reset();
 
-            var stateBases = new List<EntityStateBase>()
-            {
-                new IdleState(),
-                new MoveState(this, _orderValidator),
-                new ResourceExtractionState(this, _resourceExtractionProcessor),
-                new StorageResourceState(this, _resourceExtractionProcessor),
-                new AttackState(this, _attackProcessor, _cooldownProcessor),
-                new HideInConstructionState(this, this, ReturnInPool)
-            };
-            _stateMachine = new EntityStateMachine(stateBases, EntityStateID.Idle);
+            _stateMachine.SetState(EntityStateID.Idle);
         }
 
         public HiderCellBase TakeHideCell()

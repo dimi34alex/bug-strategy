@@ -44,6 +44,14 @@ namespace Unit.Bees
 
             _abilityArmorBreakthrough = new AbilityArmorBreakthrough(this, config.ExplosionDamage,
                 config.ExplosionRadius, config.ExplosionLayers, _unitFactory, config.spawnUnits);
+                
+            var states = new List<EntityStateBase>()
+            {
+                new WarriorIdleState(this, _attackProcessor),
+                new MoveState(this, _warriorOrderValidator),
+                new AttackState(this, _warriorOrderValidator),
+            };
+            _stateMachine = new EntityStateMachine(states, EntityStateID.Idle);
         }
 
         public override void HandleUpdate(float time)
@@ -59,14 +67,8 @@ namespace Unit.Bees
             
             _healthStorage.SetValue(_healthStorage.Capacity);
             _cooldownProcessor.Reset();
-        
-            var states = new List<EntityStateBase>()
-            {
-                new WarriorIdleState(this, _attackProcessor),
-                new MoveState(this, _warriorOrderValidator),
-                new AttackState(this, _warriorOrderValidator),
-            };
-            _stateMachine = new EntityStateMachine(states, EntityStateID.Idle);
+
+            _stateMachine.SetState(EntityStateID.Idle);
         }
     }
 }

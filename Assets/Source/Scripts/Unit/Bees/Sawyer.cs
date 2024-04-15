@@ -42,6 +42,15 @@ namespace Unit.Bees
 
             _abilityRaiseShields = new AbilityRaiseShields(this, _attackProcessor, config.RaiseShieldsExistTime,
                 config.RaiseShieldsCooldown, config.DamageEnterScale, config.DamageExitScale);
+            
+            var states = new List<EntityStateBase>()
+            {
+                new WarriorIdleState(this, _attackProcessor),
+                new MoveState(this, _orderValidator),
+                new AttackState(this, _attackProcessor, _cooldownProcessor),
+                new HideInConstructionState(this, this, ReturnInPool)
+            };
+            _stateMachine = new EntityStateMachine(states, EntityStateID.Idle);
         }
         
         public override void HandleUpdate(float time)
@@ -61,14 +70,7 @@ namespace Unit.Bees
             _abilityRaiseShields.Reset();
             AttackCooldownChanger.Reset();
             
-            var states = new List<EntityStateBase>()
-            {
-                new WarriorIdleState(this, _attackProcessor),
-                new MoveState(this, _orderValidator),
-                new AttackState(this, _attackProcessor, _cooldownProcessor),
-                new HideInConstructionState(this, this, ReturnInPool)
-            };
-            _stateMachine = new EntityStateMachine(states, EntityStateID.Idle);
+            _stateMachine.SetState(EntityStateID.Idle);
         }
 
         public void SetEnterDamageScale(float enterDamageScale)

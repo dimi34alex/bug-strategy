@@ -42,6 +42,14 @@ namespace Unit.Bees
 
             _abilityArtillerySalvo = new AbilityArtillerySalvo(_attackProcessor, config.ConstructionDamageScale);
             _abilityStickyProjectiles = new AbilityStickyProjectiles(_attackProcessor, config.StickyProjectileNum);
+            
+            var states = new List<EntityStateBase>()
+            {
+                new WarriorIdleState(this, _attackProcessor),
+                new MoveState(this, _orderValidator),
+                new AttackState(this, _attackProcessor, _cooldownProcessor),
+            };
+            _stateMachine = new EntityStateMachine(states, EntityStateID.Idle);
         }
 
         public override void HandleUpdate(float time)
@@ -58,14 +66,8 @@ namespace Unit.Bees
             _healthStorage.SetValue(_healthStorage.Capacity);
             _cooldownProcessor.Reset();
             AttackCooldownChanger.Reset();
-
-            var states = new List<EntityStateBase>()
-            {
-                new WarriorIdleState(this, _attackProcessor),
-                new MoveState(this, _orderValidator),
-                new AttackState(this, _attackProcessor, _cooldownProcessor),
-            };
-            _stateMachine = new EntityStateMachine(states, EntityStateID.Idle);
+            
+            _stateMachine.SetState(EntityStateID.Idle);
         }
     }
 }

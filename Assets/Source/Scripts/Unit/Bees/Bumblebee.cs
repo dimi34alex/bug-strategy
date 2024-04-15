@@ -38,6 +38,15 @@ namespace Unit.Bees
             AttackCooldownChanger = new AttackCooldownChanger(_cooldownProcessor);
 
             _abilityAccumulation = new AbilityAccumulation(this, config.ExplosionRadius, config.ExplosionDamage, config.ExplosionLayers, _constructionFactory);
+            
+            var states = new List<EntityStateBase>()
+            {
+                new WarriorIdleState(this, _attackProcessor),
+                new MoveState(this, _orderValidator),
+                new AttackState(this, _attackProcessor, _cooldownProcessor),
+                new HideInConstructionState(this, this, ReturnInPool)
+            };
+            _stateMachine = new EntityStateMachine(states, EntityStateID.Idle);
         }
 
         public override void HandleUpdate(float time)
@@ -55,14 +64,7 @@ namespace Unit.Bees
             _cooldownProcessor.Reset();
             AttackCooldownChanger.Reset();
             
-            var states = new List<EntityStateBase>()
-            {
-                new WarriorIdleState(this, _attackProcessor),
-                new MoveState(this, _orderValidator),
-                new AttackState(this, _attackProcessor, _cooldownProcessor),
-                new HideInConstructionState(this, this, ReturnInPool)
-            };
-            _stateMachine = new EntityStateMachine(states, EntityStateID.Idle);
+            _stateMachine.SetState(EntityStateID.Idle);
         }
 
         public HiderCellBase TakeHideCell()
