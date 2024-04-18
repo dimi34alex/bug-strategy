@@ -2,15 +2,16 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using MiniMapSystem;
-using MoveSpeedChangerSystem;
-using StickySystem;
 using Unit;
-using Unit.Bees;
+using Unit.Effects;
+using Unit.Effects.InnerProcessors;
+using Unit.Effects.Interfaces;
 using Unit.OrderValidatorCore;
 
 public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable, IUnitTarget, IMiniMapObject,
     SelectableSystem.ISelectable, IPoolable<UnitBase, UnitType>, IPoolEventListener, 
-    IMoveSpeedChangeable, IStickeable, IHealable
+    IHealable,
+    IEffectable, IPoisonEffectable, IStickyHoneyEffectable, IMoveSpeedChangeEffectable
 {
     [SerializeField] private UnitVisibleZone _unitVisibleZone;
     [SerializeField] private UnitInteractionZone unitInteractionZone;
@@ -20,12 +21,13 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
     protected EntityStateMachine _stateMachine;
     protected List<AbilityBase> _abilites = new List<AbilityBase>();
     
+    public bool IsSticky { get; private set; }
     public bool IsSelected { get; private set; }
     public bool IsActive { get; protected set; }
     public Vector3 TargetMovePosition { get; protected set; }
     protected abstract OrderValidatorBase OrderValidator { get; }
+    public EffectsProcessor EffectsProcessor { get; protected set; }
     public MoveSpeedChangerProcessor MoveSpeedChangerProcessor { get; protected set; }
-    public StickyProcessor StickyProcessor { get; } = new StickyProcessor();
 
     public bool IsDied => _healthStorage.CurrentValue < 1f;
     public Transform Transform => transform;
@@ -123,6 +125,10 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
     {
         IsActive = true;
         gameObject.SetActive(true);
+        EffectsProcessor.Reset();
+        MoveSpeedChangerProcessor.Reset();
+        
+        SwitchSticky(false);
     }
     
     public void AutoGiveOrder(IUnitTarget unitTarget) 
@@ -209,5 +215,10 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
     private void OnDisable()
     {
         OnDisableITriggerableEvent?.Invoke(this);
+    }
+
+    public void SwitchSticky(bool isSticky)
+    {
+        IsSticky = isSticky;
     }
 }

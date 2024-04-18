@@ -1,23 +1,19 @@
-using AttackCooldownChangerSystem;
-using MoveSpeedChangerSystem;
+using System.Collections.Generic;
 using Unit.AbilitiesCore;
+using Unit.Effects;
 
 namespace Unit.Bees
 {
     public sealed class AbilityStandardBearer : IAbility
     {
         private readonly SphereTrigger _abilityZone;
-        private readonly float _attackSpeedIncreasePower;
-        private readonly float _moveSpeedIncreasePower;
+        private readonly List<IEffectable> _enters = new List<IEffectable>();
         
         public AbilityType AbilityType => AbilityType.StandardBearer;
         
-        public AbilityStandardBearer(SphereTrigger abilityZone, float attackSpeedIncreasePower, float moveSpeedIncreasePower, 
-            float abilityRadius)
+        public AbilityStandardBearer(SphereTrigger abilityZone, float abilityRadius)
         {
             _abilityZone = abilityZone;
-            _attackSpeedIncreasePower = attackSpeedIncreasePower;
-            _moveSpeedIncreasePower = moveSpeedIncreasePower;
             _abilityZone.SetRadius(abilityRadius);
             
             _abilityZone.EnterEvent += OnEnterInAbilityZone;
@@ -26,31 +22,24 @@ namespace Unit.Bees
 
         private void OnEnterInAbilityZone(ITriggerable triggerable)
         {
-            if (triggerable.TryCast(out IAttackCooldownChangeable attackSpeedChangeable) 
-                && attackSpeedChangeable.Affiliation == AffiliationEnum.Bees)
+            if (triggerable.TryCast(out IEffectable effectable)
+                && effectable.Affiliation == AffiliationEnum.Bees 
+                && !_enters.Contains(effectable))
             {
-                attackSpeedChangeable.AttackCooldownChanger.Apply(_attackSpeedIncreasePower);
-            }
-            
-            if (triggerable.TryCast(out IMoveSpeedChangeable moveSpeedChangeable) 
-                && moveSpeedChangeable.Affiliation == AffiliationEnum.Bees)
-            {
-                moveSpeedChangeable.MoveSpeedChangerProcessor.Apply(_moveSpeedIncreasePower);
+                _enters.Add(effectable);
+                effectable.EffectsProcessor.ApplyEffect(EffectType.AttackCooldownDecrease, true);
+                effectable.EffectsProcessor.ApplyEffect(EffectType.MoveSpeedUp, true);
             }
         }
 
         private void OnExitFromAbilityZone(ITriggerable triggerable)
         {
-            if (triggerable.TryCast(out IAttackCooldownChangeable attackSpeedChangeable) 
-                && attackSpeedChangeable.Affiliation == AffiliationEnum.Bees)
+            if (triggerable.TryCast(out IEffectable effectable)
+                && _enters.Contains(effectable))
             {
-                attackSpeedChangeable.AttackCooldownChanger.DeApply(_attackSpeedIncreasePower);
-            }
-            
-            if (triggerable.TryCast(out IMoveSpeedChangeable moveSpeedChangeable) 
-                && moveSpeedChangeable.Affiliation == AffiliationEnum.Bees)
-            {
-                moveSpeedChangeable.MoveSpeedChangerProcessor.DeApply(_moveSpeedIncreasePower);
+                _enters.Remove(effectable);
+                effectable.EffectsProcessor.RemoveFixedEnter(EffectType.AttackCooldownDecrease);
+                effectable.EffectsProcessor.RemoveFixedEnter(EffectType.MoveSpeedUp);
             }
         }
     }

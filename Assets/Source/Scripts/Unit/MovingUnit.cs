@@ -1,6 +1,8 @@
-using MoveSpeedChangerSystem;
+using Unit.Effects;
+using Unit.Effects.InnerProcessors;
 using UnityEngine;
 using UnityEngine.AI;
+using Zenject;
 
 public abstract class MovingUnit : UnitBase
 {
@@ -8,6 +10,8 @@ public abstract class MovingUnit : UnitBase
     [SerializeField] private SomeTestAbility_1 _ability1;
     [SerializeField] private SomeTestAbility_2 _ability2;
 
+    [Inject] private readonly EffectsFactory _effectsFactory;
+    
     private float _startMaxSpeed;
 
     public Vector3 Velocity => _navMeshAgent.velocity;
@@ -20,6 +24,7 @@ public abstract class MovingUnit : UnitBase
         _startMaxSpeed = _navMeshAgent.speed;
 
         MoveSpeedChangerProcessor = new MoveSpeedChangerProcessor(_navMeshAgent);
+        EffectsProcessor = new EffectsProcessor(this, _effectsFactory);
         
         OnAwake();
     }
@@ -35,7 +40,7 @@ public abstract class MovingUnit : UnitBase
     {
         base.HandleUpdate(time);
         
-        MoveSpeedChangerProcessor.HandleUpdate(time);
+        EffectsProcessor.HandleUpdate(time);
         
         foreach (var ability in _abilites)
             ability.OnUpdate(Time.deltaTime);

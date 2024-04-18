@@ -1,7 +1,8 @@
 using System.Collections.Generic;
-using AttackCooldownChangerSystem;
 using Projectiles.Factory;
 using Unit.Bees.Configs;
+using Unit.Effects.InnerProcessors;
+using Unit.Effects.Interfaces;
 using Unit.OrderValidatorCore;
 using Unit.States;
 using UnitsHideCore;
@@ -10,7 +11,7 @@ using Zenject;
 
 namespace Unit.Bees
 {
-    public class Horntail : BeeUnit, IAttackCooldownChangeable, IHidableUnit
+    public class Horntail : BeeUnit, IAttackCooldownChangerEffectable, IHidableUnit
     {
         [SerializeField] private HorntailConfig config;
     
@@ -64,7 +65,7 @@ namespace Unit.Bees
             
             _healthStorage.SetValue(_healthStorage.Capacity);
             _cooldownProcessor.Reset();
-            AttackCooldownChanger.Reset();
+            AttackCooldownChanger.Clear();
             _abilitySwordStrike.Reset();
 
             _stateMachine.SetState(EntityStateID.Idle);

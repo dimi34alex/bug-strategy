@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using CustomTimer;
-using MoveSpeedChangerSystem;
 using Projectiles;
 using Projectiles.Factory;
 using UnityEngine;
@@ -40,12 +39,12 @@ namespace Constructions
             _cooldown.Tick(time);
         }
 
-        public void SetData(int projectilesCount, float cooldown, float spawnPause, float damage, MoveSpeedChangerConfig moveSpeedChangerConfig, ProjectileType projectileType)
+        public void SetData(int projectilesCount, float cooldown, float spawnPause, float damage, ProjectileType projectileType)
         {
             _projectilesCount = projectilesCount;
             _cooldown.SetMaxValue(cooldown, false);
             
-            _spawnProcessor.SetData(spawnPause, damage, moveSpeedChangerConfig, projectileType);
+            _spawnProcessor.SetData(spawnPause, damage, projectileType);
         }
 
         private void OnTargetEnter(ITriggerable triggerable)
@@ -111,7 +110,6 @@ namespace Constructions
             private readonly Transform _spawnTransform;
             private readonly Timer _spawnPauseTimer;
             
-            private MoveSpeedChangerConfig _moveSpeedChangerConfig;
             private ProjectileType _projectileType;
             private List<IUnitTarget> _targets;
             private float _damage;
@@ -129,10 +127,9 @@ namespace Constructions
             public void HandleUpdate(float time)
                 => _spawnPauseTimer.Tick(time);
             
-            public void SetData(float spawnPause, float damage, MoveSpeedChangerConfig moveSpeedChangerConfig, ProjectileType projectileType)
+            public void SetData(float spawnPause, float damage, ProjectileType projectileType)
             {
                 _spawnPauseTimer.SetMaxValue(spawnPause, false);
-                _moveSpeedChangerConfig = moveSpeedChangerConfig;
                 _projectileType = projectileType;
                 _damage = damage;
             }
@@ -157,7 +154,6 @@ namespace Constructions
                 var projectile = _projectileFactory.Create(_projectileType).Cast<BeeWaxTowerProjectile>();
                 projectile.SetTarget(target);
                 projectile.SetDamage(_damage);
-                projectile.SetSpeedChangerConfig(_moveSpeedChangerConfig);
                 projectile.transform.position = _spawnTransform.position;
                 
                 if(_targets.Count > 0)

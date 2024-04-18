@@ -12,8 +12,6 @@ namespace Unit.Bees.Configs
         [field: SerializeField] public float Damage { get; private set; }   
         [field: Space]
         [field: Header("Ability: Standard Bearer")]
-        [field: SerializeField] public float AttackSpeedChangePower { get; private set; }
-        [field: SerializeField] public float MoveSpeedChangePower { get; private set; }
         [field: SerializeField] public float StandardBearerRadius { get; private set; }
         [field: Space]
         [field: Header("Ability: Brave Death")]

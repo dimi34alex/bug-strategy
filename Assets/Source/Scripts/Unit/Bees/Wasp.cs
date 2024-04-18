@@ -1,8 +1,9 @@
 using System.Collections.Generic;
-using AttackCooldownChangerSystem;
 using Constructions.UnitsHideConstruction.Cells.BeesHiderCells;
 using Projectiles.Factory;
 using Unit.Bees.Configs;
+using Unit.Effects.InnerProcessors;
+using Unit.Effects.Interfaces;
 using Unit.OrderValidatorCore;
 using Unit.ProcessorsCore;
 using Unit.States;
@@ -12,7 +13,7 @@ using Zenject;
 
 namespace Unit.Bees
 {
-    public class Wasp : BeeUnit, IAttackCooldownChangeable, IHidableUnit
+    public class Wasp : BeeUnit, IAttackCooldownChangerEffectable, IHidableUnit
     {
         [SerializeField] private BeeRangeWarriorConfig config;
     
@@ -62,7 +63,7 @@ namespace Unit.Bees
             
             _healthStorage.SetValue(_healthStorage.Capacity);
             _cooldownProcessor.Reset();
-            AttackCooldownChanger.Reset();
+            AttackCooldownChanger.Clear();
 
             _stateMachine.SetState(EntityStateID.Idle);
         }

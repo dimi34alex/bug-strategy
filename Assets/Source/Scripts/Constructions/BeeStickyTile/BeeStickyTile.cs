@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using CustomTimer;
-using MoveSpeedChangerSystem;
-using StickySystem;
-using UnityEditor.Rendering;
+using Unit.Effects;
 using UnityEngine;
 
 namespace Constructions
@@ -47,52 +45,45 @@ namespace Constructions
                 if (_buffers[i].DelayBeforeApplyTimer.TimerIsEnd)
                 {
                     TryStick(_buffers[i]);
-                    
                     _buffers.RemoveAt(i);
                     i--;
                 }
         }
 
-        private void TryStick(BufferBeforeApplyStick bufferBeforeApplyStick)
+        private void TryStick(BufferBeforeApplyStick buffer)
         {
-            if (!stickZone.Contains(bufferBeforeApplyStick.Triggerable)) 
-                return;
+            buffer.Effectable.EffectsProcessor.ApplyEffect(EffectType.StickyHoney, true);
             
-            var moveSpeedChangerConfig = bufferBeforeApplyStick.MoveSpeedChangeable.Affiliation == AffiliationEnum.Bees 
-                    ? new MoveSpeedChangerConfig(config.BeeMoveSpeedChangerConfig.Power, float.PositiveInfinity) 
-                    : new MoveSpeedChangerConfig(config.EnemyMoveSpeedChangerConfig.Power, float.PositiveInfinity);
-                        
-            if (bufferBeforeApplyStick.TryCast(out IStickeable stickable))
-                stickable.StickyProcessor.BecameSticky(moveSpeedChangerConfig.Time, true);
-                        
-            bufferBeforeApplyStick.MoveSpeedChangeable.MoveSpeedChangerProcessor.Invoke(moveSpeedChangerConfig, true);
+            if (buffer.Effectable.Affiliation == AffiliationEnum.Bees)
+                buffer.Effectable.EffectsProcessor.ApplyEffect(EffectType.MoveSpeedUp, true);
+            else
+                buffer.Effectable.EffectsProcessor.ApplyEffect(EffectType.MoveSpeedDown, true);
         }
         
         private void OnUnitEnter(ITriggerable triggerable)
         {
-            if (triggerable.TryCast(out IMoveSpeedChangeable moveSpeedChangeable))
+            if (triggerable.TryCast(out IEffectable effectable))
             {
-                if(!_buffers.Contains(c => c.MoveSpeedChangeable == moveSpeedChangeable))
-                    _buffers.Add(new BufferBeforeApplyStick(triggerable, moveSpeedChangeable, config.DelayBeforeApply));
+                if(!_buffers.Contains(c => c.Effectable == effectable))
+                    _buffers.Add(new BufferBeforeApplyStick(effectable, config.DelayBeforeApply));
             }
         }
 
         private void OnUnitExit(ITriggerable triggerable)
         {
-            if (triggerable.TryCast(out IMoveSpeedChangeable moveSpeedChangeable))
+            if (triggerable.TryCast(out IEffectable effectable))
             {
-                var index = _buffers.IndexOf(c => c.MoveSpeedChangeable == moveSpeedChangeable);
+                var index = _buffers.IndexOf(c => c.Effectable == effectable);
                 if (index > -1)
                     _buffers.RemoveAt(index);
                 else
                 {
-                    var moveSpeedChangerConfig = moveSpeedChangeable.Affiliation == AffiliationEnum.Bees
-                            ? config.BeeMoveSpeedChangerConfig
-                            : config.EnemyMoveSpeedChangerConfig;
+                    if(effectable.Affiliation == AffiliationEnum.Bees)
+                        effectable.EffectsProcessor.RemoveFixedEnter(EffectType.MoveSpeedUp);
+                    else
+                        effectable.EffectsProcessor.RemoveFixedEnter(EffectType.MoveSpeedDown);
                     
-                    if (triggerable.TryCast(out IStickeable stickeable))
-                        stickeable.StickyProcessor.BecameSticky(moveSpeedChangerConfig.Time, true);
-                    moveSpeedChangeable.MoveSpeedChangerProcessor.Invoke(moveSpeedChangerConfig, true);
+                    effectable.EffectsProcessor.RemoveFixedEnter(EffectType.StickyHoney);
                 }
             }
         }
@@ -106,14 +97,12 @@ namespace Constructions
         
         private struct BufferBeforeApplyStick
         {
-            public readonly ITriggerable Triggerable;
-            public readonly IMoveSpeedChangeable MoveSpeedChangeable;
+            public readonly IEffectable Effectable;
             public readonly Timer DelayBeforeApplyTimer;
 
-            public BufferBeforeApplyStick(ITriggerable triggerable, IMoveSpeedChangeable moveSpeedChangeable,float timer)
+            public BufferBeforeApplyStick(IEffectable effectable, float timer)
             {
-                Triggerable = triggerable;
-                MoveSpeedChangeable = moveSpeedChangeable;
+                Effectable = effectable;
                 DelayBeforeApplyTimer = new Timer(timer);
             }
         }

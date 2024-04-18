@@ -45,7 +45,7 @@ MonoBehaviour:
     resourceCapacity:
       _cells: []
     <AttackDamage>k__BackingField: 10
-    <AttackCooldown>k__BackingField: 1
+    <AttackCooldown>k__BackingField: 0.45
     <AttackRadius>k__BackingField: 10
     <DamageRadius>k__BackingField: 2.5
     <FogRadius>k__BackingField: 10

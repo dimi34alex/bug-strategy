@@ -1,4 +1,5 @@
-using Poison;
+using PoisonFog;
+using PoisonFog.Factory;
 using UnityEngine;
 
 namespace Constructions
@@ -7,7 +8,7 @@ namespace Constructions
     {
         private readonly PoisonFogFactory _poisonFogFactory;
         private readonly Transform _flowerTransform;
-        private PoisonFog _staticPoisonFog;
+        private PoisonFogBehaviour _staticPoisonFog;
         private float _fogExistTime;
         private float _fogRadius;
 

@@ -1,5 +1,5 @@
 using Source.Scripts;
-using StickySystem;
+using Unit.Effects;
 using UnityEngine;
 using Zenject;
 
@@ -46,8 +46,11 @@ namespace Projectiles
                      damageable.Affiliation == AffiliationEnum.Ants))
                 {
                     float damageScale = 1;
-                    if (target.TryCast(out IStickeable stickeable) && stickeable.StickyProcessor.IsSticky)
+
+                    if (target.TryCast(out IEffectable effectable) && 
+                        effectable.EffectsProcessor.HaveEffect(EffectType.StickyHoney))
                         damageScale *= _stickConfig.TakeDamageScale;
+                    
                     if (target.CastPossible<IConstruction>())
                         damageScale *= _constructionDamageScale;
                     

@@ -1,5 +1,5 @@
 ﻿using System;
-using Poison;
+using PoisonFog;
 using Projectiles;
 
 [Serializable]

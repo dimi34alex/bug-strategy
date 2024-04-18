@@ -1,6 +1,7 @@
 using System.Collections.Generic;
-using AttackCooldownChangerSystem;
 using Unit.Bees.Configs;
+using Unit.Effects.InnerProcessors;
+using Unit.Effects.Interfaces;
 using Unit.OrderValidatorCore;
 using Unit.States;
 using UnitsHideCore;
@@ -8,7 +9,7 @@ using UnityEngine;
 
 namespace Unit.Bees
 {
-    public sealed class Hornet : BeeUnit, IAttackCooldownChangeable, IHidableUnit
+    public sealed class Hornet : BeeUnit, IAttackCooldownChangerEffectable, IHidableUnit
     {
         [SerializeField] private HornetConfig config;
         
@@ -62,7 +63,7 @@ namespace Unit.Bees
             _healthStorage.SetValue(_healthStorage.Capacity);
             _cooldownProcessor.Reset();
             _abilityVerifiedBites.Reset();
-            AttackCooldownChanger.Reset();
+            AttackCooldownChanger.Clear();
             
             _stateMachine.SetState(EntityStateID.Idle);
         }

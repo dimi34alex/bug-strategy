@@ -14,7 +14,7 @@ namespace Constructions
             _attackProcessor = attackProcessor;
 
             _attackProcessor.SetData(CurrentLevel.ProjectilesCount, CurrentLevel.Cooldown, CurrentLevel.SpawnPause, 
-                CurrentLevel.Damage, CurrentLevel.MoveSpeedChangerConfig, CurrentLevel.ProjectilesType);
+                CurrentLevel.Damage, CurrentLevel.ProjectilesType);
         }
 
         protected override void LevelUpLogic()
@@ -22,7 +22,7 @@ namespace Constructions
             base.LevelUpLogic();
             
             _attackProcessor.SetData(CurrentLevel.ProjectilesCount, CurrentLevel.Cooldown, CurrentLevel.SpawnPause, 
-                CurrentLevel.Damage, CurrentLevel.MoveSpeedChangerConfig, CurrentLevel.ProjectilesType);
+                CurrentLevel.Damage, CurrentLevel.ProjectilesType);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
-using AttackCooldownChangerSystem;
 using Unit.Bees.Configs;
+using Unit.Effects.InnerProcessors;
+using Unit.Effects.Interfaces;
 using Unit.OrderValidatorCore;
 using Unit.ProcessorsCore;
 using Unit.States;
@@ -10,7 +11,7 @@ using Zenject;
 
 namespace Unit.Bees
 {
-    public class Bumblebee : BeeUnit, IAttackCooldownChangeable, IHidableUnit
+    public class Bumblebee : BeeUnit, IAttackCooldownChangerEffectable, IHidableUnit
     {
         [SerializeField] private BumblebeeConfig config;
         
@@ -62,7 +63,7 @@ namespace Unit.Bees
             
             _healthStorage.SetValue(_healthStorage.Capacity);
             _cooldownProcessor.Reset();
-            AttackCooldownChanger.Reset();
+            AttackCooldownChanger.Clear();
             
             _stateMachine.SetState(EntityStateID.Idle);
         }

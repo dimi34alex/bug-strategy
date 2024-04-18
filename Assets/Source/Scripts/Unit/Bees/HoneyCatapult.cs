@@ -1,7 +1,8 @@
 using System.Collections.Generic;
-using AttackCooldownChangerSystem;
 using Projectiles.Factory;
 using Unit.Bees.Configs;
+using Unit.Effects.InnerProcessors;
+using Unit.Effects.Interfaces;
 using Unit.OrderValidatorCore;
 using Unit.States;
 using UnityEngine;
@@ -9,7 +10,7 @@ using Zenject;
 
 namespace Unit.Bees
 {
-    public class HoneyCatapult : BeeUnit, IAttackCooldownChangeable
+    public class HoneyCatapult : BeeUnit, IAttackCooldownChangerEffectable
     {
         [SerializeField] private HoneyCatapultConfig config;
     
@@ -65,7 +66,7 @@ namespace Unit.Bees
             
             _healthStorage.SetValue(_healthStorage.Capacity);
             _cooldownProcessor.Reset();
-            AttackCooldownChanger.Reset();
+            AttackCooldownChanger.Clear();
             
             _stateMachine.SetState(EntityStateID.Idle);
         }

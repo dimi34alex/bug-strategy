@@ -1,6 +1,7 @@
 using System.Collections.Generic;
-using AttackCooldownChangerSystem;
 using Unit.Bees.Configs;
+using Unit.Effects.InnerProcessors;
+using Unit.Effects.Interfaces;
 using Unit.OrderValidatorCore;
 using Unit.ProcessorsCore;
 using Unit.States;
@@ -9,7 +10,7 @@ using UnityEngine;
 
 namespace Unit.Bees
 {
-    public sealed class Murmur : BeeUnit, IAttackCooldownChangeable, IHidableUnit
+    public sealed class Murmur : BeeUnit, IAttackCooldownChangerEffectable, IHidableUnit
     {
         [SerializeField] private MurmurConfig config;
         [SerializeField] private GameObject resourceSkin;
@@ -64,7 +65,7 @@ namespace Unit.Bees
             _healthStorage.SetValue(_healthStorage.Capacity);
             _resourceExtractionProcessor.Reset();
             _cooldownProcessor.Reset();
-            AttackCooldownChanger.Reset();
+            AttackCooldownChanger.Clear();
 
             _stateMachine.SetState(EntityStateID.Idle);
         }

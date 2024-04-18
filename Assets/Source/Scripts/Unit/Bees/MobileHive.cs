@@ -1,8 +1,9 @@
 using System.Collections.Generic;
-using AttackCooldownChangerSystem;
 using Projectiles;
 using Projectiles.Factory;
 using Unit.Bees.Configs;
+using Unit.Effects.InnerProcessors;
+using Unit.Effects.Interfaces;
 using Unit.Factory;
 using Unit.OrderValidatorCore;
 using Unit.ProcessorsCore;
@@ -12,7 +13,7 @@ using Zenject;
 
 namespace Unit.Bees
 {
-    public class MobileHive : BeeUnit
+    public class MobileHive : BeeUnit, IAttackCooldownChangerEffectable
     {
         [SerializeField] private MobileHiveConfig config;
     
@@ -67,7 +68,8 @@ namespace Unit.Bees
             
             _healthStorage.SetValue(_healthStorage.Capacity);
             _cooldownProcessor.Reset();
-
+            AttackCooldownChanger.Clear();
+            
             _stateMachine.SetState(EntityStateID.Idle);
         }
     }
