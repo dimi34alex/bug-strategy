@@ -36,11 +36,11 @@ namespace Unit.Bees
             switch (target.TargetType)
             {
                 case (UnitTargetType.Other_Unit):
-                    if (target.Affiliation != Affiliation && !target.CastPossible<IDamagable>())
+                    if (target.Affiliation != Affiliation && target.CastPossible<IDamagable>())
                         return new UnitPathData(target, UnitPathType.Attack);
                     break;
                 case (UnitTargetType.Construction):
-                    if (target.Affiliation != Affiliation && !target.CastPossible<IDamagable>())
+                    if (target.Affiliation != Affiliation && target.CastPossible<IDamagable>())
                         return new UnitPathData(target, UnitPathType.Attack);
                     if (target.Affiliation == Affiliation && target.TryCast(out IHiderConstruction hiderConstruction) 
                                                           && hiderConstruction.Hider.CheckAccess(Unit.UnitType))
@@ -53,23 +53,25 @@ namespace Unit.Bees
         
         protected override UnitPathType ValidateHandleOrder(IUnitTarget target, UnitPathType pathType)
         {
-            if(target.IsAnyNull())
-                return UnitPathType.Move;
-
             switch (pathType)
             {
                 case UnitPathType.Attack:
-                    if (target.Affiliation != Affiliation && target.CastPossible<IDamagable>() 
+                    if (!target.IsAnyNull() && 
+                        target.Affiliation != Affiliation && 
+                        target.CastPossible<IDamagable>() 
                         || _attackProcessor.CheckEnemiesInAttackZone())
                         return UnitPathType.Attack;
                     break;
                 case UnitPathType.Switch_Profession:
-                    if (Affiliation == AffiliationEnum.Ants && target.TargetType == UnitTargetType.Construction)
+                    if (!target.IsAnyNull() && 
+                        Affiliation == AffiliationEnum.Ants && 
+                        target.TargetType == UnitTargetType.Construction)
                         return UnitPathType.Switch_Profession;
                     break;
                 case UnitPathType.HideInConstruction:
-                    if (target.Affiliation == Affiliation && target.TryCast(out IHiderConstruction hiderConstruction) 
-                                                          && hiderConstruction.Hider.CheckAccess(Unit.UnitType))
+                    if (!target.IsAnyNull() && target.Affiliation == Affiliation &&
+                        target.TryCast(out IHiderConstruction hiderConstruction) &&
+                        hiderConstruction.Hider.CheckAccess(Unit.UnitType))
                         return UnitPathType.HideInConstruction;
                     break;
             }
