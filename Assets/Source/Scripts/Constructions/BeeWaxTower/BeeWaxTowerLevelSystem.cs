@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Constructions.LevelSystemCore;
 
 namespace Constructions
@@ -7,12 +6,18 @@ namespace Constructions
     {
         private readonly BeeWaxTowerAttackProcessor _attackProcessor; 
         
-        public BeeWaxTowerLevelSystem(IReadOnlyList<BeeWaxTowerLevel> levels, ref ResourceRepository resourceRepository, 
-            ref ResourceStorage healthStorage, ref BeeWaxTowerAttackProcessor attackProcessor) 
-            : base(levels, ref resourceRepository, ref healthStorage)
+        public BeeWaxTowerLevelSystem(ConstructionBase construction, BeeWaxTowerConfig config, 
+            IResourceGlobalStorage resourceGlobalStorage, ResourceStorage healthStorage, 
+            BeeWaxTowerAttackProcessor attackProcessor) 
+            : base(construction, config.Levels,  resourceGlobalStorage, healthStorage)
         {
             _attackProcessor = attackProcessor;
+        }
 
+        public override void Init(int initialLevelIndex)
+        {
+            base.Init(initialLevelIndex);
+            
             _attackProcessor.SetData(CurrentLevel.ProjectilesCount, CurrentLevel.Cooldown, CurrentLevel.SpawnPause, 
                 CurrentLevel.Damage, CurrentLevel.ProjectilesType);
         }

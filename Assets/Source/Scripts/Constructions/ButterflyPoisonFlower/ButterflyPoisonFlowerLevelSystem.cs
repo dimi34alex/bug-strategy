@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Constructions.LevelSystemCore;
 using UnityEngine;
 
@@ -12,24 +11,26 @@ namespace Constructions
         private readonly ButterflyPoisonFlowerAttackProcessor _attackProcessor;
         private readonly SphereCollider _attackZoneCollider;
         
-        public ButterflyPoisonFlowerLevelSystem(
-            IReadOnlyList<ButterflyPoisonFlowerLevel> levels, 
-            ref ResourceRepository resourceRepository,
-            ref ResourceStorage healthStorage, 
-            ref SphereCollider attackZoneCollider, 
-            ref ButterflyPoisonFlowerAttackProcessor attackProcessor,
+        public ButterflyPoisonFlowerLevelSystem(ConstructionBase construction, ButterflyPoisonFlowerConfig config, 
+            IResourceGlobalStorage resourceGlobalStorage, ResourceStorage healthStorage, 
+            ref SphereCollider attackZoneCollider, ref ButterflyPoisonFlowerAttackProcessor attackProcessor,
             ref ButterflyPoisonFlowerPoisonFogProcessor poisonFogProcessor) 
-            : base(levels, ref resourceRepository, ref healthStorage)
+            : base(construction, config.Levels,  resourceGlobalStorage, healthStorage)
         {
             _attackZoneCollider = attackZoneCollider;
             _attackProcessor = attackProcessor;
             _poisonFogProcessor = poisonFogProcessor;
-            
-            _attackZoneCollider.radius = CurrentLevel.AttackRadius;
-            _attackProcessor.SetData(CurrentLevel.AttackCooldown, CurrentLevel.AttackDamage, CurrentLevel.DamageRadius);
-            _poisonFogProcessor.SetData(CurrentLevel.FogExistTime, CurrentLevel.FogRadius, CurrentLevel.StaticFogRadius);
         }
 
+        public override void Init(int initialLevelIndex)
+        {
+            base.Init(initialLevelIndex);
+            
+            _attackProcessor.SetData(CurrentLevel.AttackCooldown, CurrentLevel.AttackDamage, CurrentLevel.DamageRadius);
+            _attackZoneCollider.radius = CurrentLevel.AttackRadius;
+            _poisonFogProcessor.SetData(CurrentLevel.FogExistTime, CurrentLevel.FogRadius, CurrentLevel.StaticFogRadius);
+        }
+        
         protected override void LevelUpLogic()
         {
             base.LevelUpLogic();

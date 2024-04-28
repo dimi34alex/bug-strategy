@@ -37,7 +37,7 @@ namespace Unit.Bees
             _attackProcessor = new MeleeAttackProcessor(this, config.AttackRange, config.Damage, _cooldownProcessor);
             _orderValidator = new HidableWarriorOrderValidator(this, config.InteractionRange, _cooldownProcessor, _attackProcessor);
 
-            _abilityStandardBearer = new AbilityStandardBearer(abilityStandardBearerZone, config.StandardBearerRadius);
+            _abilityStandardBearer = new AbilityStandardBearer(this, abilityStandardBearerZone, config.StandardBearerRadius);
             AttackCooldownChanger = new AttackCooldownChanger(_cooldownProcessor);
             _abilityBraveDeath = new AbilityBraveDeath(this, config.HealValue, config.HealRadius, config.HealLayers);
                 

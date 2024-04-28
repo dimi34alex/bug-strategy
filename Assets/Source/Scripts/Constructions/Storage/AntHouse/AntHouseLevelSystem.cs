@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Constructions.LevelSystemCore;
 
 namespace Constructions
@@ -7,9 +6,9 @@ namespace Constructions
     [Serializable]
     public class AntHouseLevelSystem : ConstructionLevelSystemBase<AntHouseLevel>
     {
-        public AntHouseLevelSystem(IReadOnlyList<AntHouseLevel> levels, 
-            ref ResourceRepository resourceRepository, ref ResourceStorage healthStorage) 
-            : base(levels, ref resourceRepository, ref healthStorage)
+        public AntHouseLevelSystem(ConstructionBase construction, AntHouseConfig config,
+            IResourceGlobalStorage resourceGlobalStorage, ResourceStorage healthStorage) 
+            : base(construction, config.Levels,  resourceGlobalStorage, healthStorage)
         { }
     }
 }

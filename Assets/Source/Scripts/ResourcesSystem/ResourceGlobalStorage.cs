@@ -2,6 +2,7 @@ using System;
 using EnumValuesExtension;
 using UnityEngine;
 
+//TODO: Remove legacy rgs, new rgs is ResourceGlobalStorageV2.cs
 public class ResourceGlobalStorage : MonoBehaviour
 {
     public static ResourceRepository ResourceRepository { get; private set; }

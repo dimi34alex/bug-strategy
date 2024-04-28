@@ -10,10 +10,11 @@ namespace Unit.Bees
         private readonly float _explosionDamage;
         private readonly LayerMask _explosionLayers;
         private readonly IConstructionFactory _constructionFactory;
-
+        
         public float Damage => _explosionDamage;
         public AbilityType AbilityType => AbilityType.Accumulation;
-
+        public AffiliationEnum Affiliation => _bumblebee.Affiliation;
+        
         public AbilityAccumulation(Bumblebee bumblebee, float explosionRadius, float explosionDamage, LayerMask explosionLayers, IConstructionFactory constructionFactory)
         {
             _bumblebee = bumblebee;
@@ -39,8 +40,8 @@ namespace Unit.Bees
 
             for (int i = 0; i < size; i++)
             {
-                if (result[i].collider.gameObject.TryGetComponent(out IDamagable damageable) &&
-                    damageable.Affiliation != AffiliationEnum.Bees)
+                if (result[i].collider.gameObject.TryGetComponent(out IDamagable damageable) 
+                    && Affiliation.CheckEnemies(damageable.Affiliation))
                 {
                     damageable.TakeDamage(this);
                 }
@@ -56,7 +57,7 @@ namespace Unit.Bees
             if(FrameworkCommander.GlobalData.ConstructionsRepository.ConstructionExist(roundedPosition))
                 return;
             
-            ConstructionBase construction = _constructionFactory.Create<ConstructionBase>(ConstructionID.BeeStickyTileConstruction);
+            ConstructionBase construction = _constructionFactory.Create<ConstructionBase>(ConstructionID.BeeStickyTileConstruction, Affiliation);
             construction.transform.position = roundedPosition;
             FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(roundedPosition, construction);
         }

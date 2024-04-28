@@ -6,8 +6,8 @@ namespace Constructions
     {
         [SerializeField] private AntQuicksandTileConfig config;
         [SerializeField] private TriggerBehaviour triggerBehaviour;
-        
-        public override AffiliationEnum Affiliation => AffiliationEnum.Ants;
+
+        public override FractionType Fraction => FractionType.Ants;
         public override ConstructionID ConstructionID => ConstructionID.AntQuicksandTile;
 
         protected override void OnAwake()

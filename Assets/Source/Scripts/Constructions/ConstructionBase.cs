@@ -3,11 +3,12 @@ using UnityEngine;
 using MiniMapSystem;
 
 public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagable, IRepairable, IMiniMapObject,
-    ITriggerable, IUnitTarget, SelectableSystem.ISelectable
+    ITriggerable, IUnitTarget, SelectableSystem.ISelectable, IAffiliation
 {
-    public abstract AffiliationEnum Affiliation { get; }
+    public AffiliationEnum Affiliation { get; private set; }
+    public abstract FractionType Fraction { get; }
 
-    protected ResourceStorage _healthStorage;
+    protected ResourceStorage _healthStorage = new ResourceStorage(0,0);
 
     public bool IsSelected { get; private set; }
     public bool IsActive { get; protected set; } = true;
@@ -25,6 +26,7 @@ public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagabl
     public event Action OnDeselect;
     public event Action OnDeactivation;
     public event Action OnDestruction;
+    public event Action Initialized;
     
     protected void Awake() => OnAwake();
     protected void Start() => OnStart();
@@ -32,6 +34,12 @@ public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagabl
 
     protected virtual void OnAwake() { }
     protected virtual void OnStart() { }
+
+    public void Initialize(AffiliationEnum newAffiliation)
+    {
+        Affiliation = newAffiliation;
+        Initialized?.Invoke();
+    }
     
     public virtual void TakeDamage(IDamageApplicator damageApplicator, float damageScale = 1)
     {

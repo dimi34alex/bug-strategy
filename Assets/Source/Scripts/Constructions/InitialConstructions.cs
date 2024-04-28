@@ -6,22 +6,25 @@ namespace Constructions
 {
     public class InitialConstructions : MonoBehaviour
     {
-        [SerializeField] private InitPair[] inits;
+        [SerializeField] private SerializableDictionary<AffiliationEnum, InitPair[]> initUnits;
 
         [Inject] private readonly IConstructionFactory _constructionFactory;
         
         private void Start()
         {
-            foreach (var init in inits)
+            foreach (var initUnitsArray in initUnits)
             {
-                Vector3 position = FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(init.Transform.position);
-                CreateConstruction(init.ID, position);
+                foreach (var initUnitPair in initUnitsArray.Value)
+                {
+                    Vector3 position = FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(initUnitPair.Transform.position);
+                    CreateConstruction(initUnitPair.ID, position, initUnitsArray.Key);
+                }
             }
         }
         
-        private void CreateConstruction(ConstructionID constructionID, Vector3 position)
+        private void CreateConstruction(ConstructionID constructionID, Vector3 position, AffiliationEnum affiliation)
         {
-            ConstructionBase construction = _constructionFactory.Create<ConstructionBase>(constructionID);
+            ConstructionBase construction = _constructionFactory.Create<ConstructionBase>(constructionID, affiliation);
             
             FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position, construction);
             construction.transform.position = position;

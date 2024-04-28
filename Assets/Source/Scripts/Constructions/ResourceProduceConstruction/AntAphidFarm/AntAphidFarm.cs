@@ -1,13 +1,16 @@
 using Constructions.LevelSystemCore;
 using UnityEngine;
+using Zenject;
 
 namespace Constructions
 {
     public class AntAphidFarm : ResourceProduceConstructionBase, IEvolveConstruction
     {
         [SerializeField] private AntAphidFarmConfig config;
+
+        [Inject] private readonly IResourceGlobalStorage _resourceGlobalStorage;
         
-        public override AffiliationEnum Affiliation => AffiliationEnum.Ants;
+        public override FractionType Fraction => FractionType.Ants;
         public override ConstructionID ConstructionID => ConstructionID.AntAphidFarm;
         public override ResourceProduceCoreBase ResourceProduceCoreBase => _resourceProduceCore;
         public override ResourceProduceConstructionState ProduceConstructionState => _resourceProduceConstructionState;
@@ -21,13 +24,16 @@ namespace Constructions
         {
             base.OnAwake();
 
-            var resourceRepository = ResourceGlobalStorage.ResourceRepository;
-            LevelSystem = new AntAphidFarmLevelSystem(config.Levels, ref _resourceProduceCore, ref resourceRepository, ref _healthStorage);
+            LevelSystem = new AntAphidFarmLevelSystem(this, config, _resourceGlobalStorage, ref _resourceProduceCore, _healthStorage);
             
             _resourceProduceConstructionState = ResourceProduceConstructionState.Paused;
 
             _updateEvent += OnUpdate;
+            Initialized += InitLevelSystem;
         }
+
+        private void InitLevelSystem()
+            => LevelSystem.Init(0);
 
         private void OnUpdate()
         {
@@ -42,7 +48,7 @@ namespace Constructions
 
         public void ExtractResource()
         {
-            ResourceBase resource = ResourceGlobalStorage.GetResource(_resourceProduceCore.TargetResourceID);
+            ResourceBase resource = _resourceGlobalStorage.GetResource(Affiliation, _resourceProduceCore.TargetResourceID);
             var produceResource = _resourceProduceCore.ProducedResource;
             
             if (produceResource.CurrentValue > 0 && resource.CurrentValue < resource.Capacity)
@@ -50,7 +56,7 @@ namespace Constructions
                 int extractValue = (int)produceResource.CurrentValue;
                 extractValue = (int)Mathf.Clamp(extractValue, 0, (resource.Capacity - resource.CurrentValue));
                 int addResource = _resourceProduceCore.ExtractProducedResources(extractValue);
-                ResourceGlobalStorage.ChangeValue(_resourceProduceCore.TargetResourceID, addResource);
+                _resourceGlobalStorage.ChangeValue(Affiliation, _resourceProduceCore.TargetResourceID, addResource);
             }
         }
 

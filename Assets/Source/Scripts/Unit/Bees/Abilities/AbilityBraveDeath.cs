@@ -31,7 +31,7 @@ namespace Unit.Bees
             for (int i = 0; i < size; i++)
             {
                 if (result[i].collider.gameObject.TryGetComponent(out IHealable healable) && 
-                    healable.Affiliation == AffiliationEnum.Bees)
+                    healable.Affiliation == _truten.Affiliation)
                 {
                     healable.TakeHeal(_healValue);
                 }

@@ -1,5 +1,6 @@
 using Constructions.LevelSystemCore;
 using UnityEngine;
+using Zenject;
 
 namespace Constructions
 {
@@ -7,7 +8,9 @@ namespace Constructions
     {
         [SerializeField] private AntWorkerWorkshopConfig config;
 
-        public override AffiliationEnum Affiliation => AffiliationEnum.Ants;
+        [Inject] private readonly IResourceGlobalStorage _resourceGlobalStorage;
+
+        public override FractionType Fraction => FractionType.Ants;
         public override ConstructionID ConstructionID => ConstructionID.AntWorkerWorkshop;
         
         public override IConstructionLevelSystem LevelSystem { get; protected set; }
@@ -16,8 +19,11 @@ namespace Constructions
         {
             base.OnAwake();
 
-            var resourceRepository = ResourceGlobalStorage.ResourceRepository;
-            LevelSystem = new AntWorkerWorkshopLevelSystem(config.Levels, ref resourceRepository, ref _healthStorage);
+            LevelSystem = new AntWorkerWorkshopLevelSystem(this, config, _resourceGlobalStorage, _healthStorage);
+            Initialized += InitLevelSystem;
         }
+
+        private void InitLevelSystem()
+            => LevelSystem.Init(0);
     }
 }

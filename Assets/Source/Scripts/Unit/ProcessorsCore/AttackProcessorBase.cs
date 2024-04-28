@@ -7,10 +7,12 @@ namespace Unit.ProcessorsCore
     {
         private readonly CooldownProcessor _cooldownProcessor;
         private readonly AttackZoneProcessor _attackZoneProcessor;
+        private readonly IAffiliation _affiliation;
         protected readonly Transform Transform;
         
         public int EnemiesCount => _attackZoneProcessor.EnemiesCount;
         public float AttackRange => _attackZoneProcessor.AttackRange;
+        protected AffiliationEnum Affiliation => _affiliation.Affiliation;
         public float Damage { get; }
 
         public abstract event Action Attacked;
@@ -21,7 +23,7 @@ namespace Unit.ProcessorsCore
         protected AttackProcessorBase(UnitBase unit, float attackRange, float damage, CooldownProcessor cooldownProcessor)
         {
             Transform = unit.Transform;
-            
+            _affiliation = unit;
             Damage = damage;
             
             _cooldownProcessor = cooldownProcessor;

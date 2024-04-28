@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Constructions.LevelSystemCore;
 
 namespace Constructions
@@ -7,9 +6,9 @@ namespace Constructions
     [Serializable]
     public class ButterflyStorageLevelSystem : ConstructionLevelSystemBase<ButterflyStorageLevel>
     {
-        public ButterflyStorageLevelSystem(IReadOnlyList<ButterflyStorageLevel> levels, 
-            ref ResourceRepository resourceRepository, ref ResourceStorage healPoints)
-            : base(levels, ref resourceRepository, ref healPoints)
+        public ButterflyStorageLevelSystem(ConstructionBase construction, ButterflyStorageConfig config,
+            IResourceGlobalStorage resourceGlobalStorage, ResourceStorage healthStorage)
+            : base(construction, config.Levels,  resourceGlobalStorage, healthStorage)
         { }
     }
 }

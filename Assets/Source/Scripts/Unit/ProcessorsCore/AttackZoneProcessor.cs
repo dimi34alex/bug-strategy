@@ -7,7 +7,7 @@ namespace Unit.ProcessorsCore
     public class AttackZoneProcessor
     {
         private readonly UnitInteractionZone _attackZone;
-        private readonly AffiliationEnum _affiliation;
+        private readonly IAffiliation _affiliation;
         private readonly Dictionary<IUnitTarget, IDamagable> _targets = new Dictionary<IUnitTarget, IDamagable>();
 
         public IReadOnlyDictionary<IUnitTarget, IDamagable> Targets => _targets;
@@ -19,7 +19,7 @@ namespace Unit.ProcessorsCore
 
         public AttackZoneProcessor(UnitBase unit, float attackRange)
         {
-            _affiliation = unit.Affiliation;
+            _affiliation = unit;
             AttackRange = attackRange;
             
             _attackZone = unit.DynamicUnitZone;
@@ -34,7 +34,7 @@ namespace Unit.ProcessorsCore
         protected void OnEnterTargetInZone(IUnitTarget target)
         {
             if (target.IsAnyNull() ||
-                target.Affiliation == _affiliation ||
+                target.Affiliation == _affiliation.Affiliation ||
                 !target.TryCast(out IDamagable damageable) ||
                 Targets.ContainsKey(target))
                 return;

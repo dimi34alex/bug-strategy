@@ -15,8 +15,8 @@ namespace Constructions
         [Inject] private readonly BuildingGridConfig _buildingGridConfig;
         
         private Timer _explosionTimer;
-        
-        public override AffiliationEnum Affiliation => AffiliationEnum.Bees;
+
+        public override FractionType Fraction => FractionType.Bees;
         public override ConstructionID ConstructionID => ConstructionID.BeeLandmine;
 
         public float Damage { get; private set; }
@@ -43,8 +43,7 @@ namespace Constructions
         {
             if (triggerable.TryCast(out UnitBase unit))
             {
-                if (unit.Affiliation == AffiliationEnum.Ants ||
-                    unit.Affiliation == AffiliationEnum.Butterflies)
+                if (Affiliation.CheckEnemies(unit.Affiliation))
                 {
                     _triggerBehaviour.EnterEvent -= OnUnitEnter;
                     _explosionTimer.Reset();
@@ -61,8 +60,7 @@ namespace Constructions
             for (int i = 0; i < size; i++)
             {
                 if (result[i].collider.gameObject.TryGetComponent(out IDamagable damageable) && 
-                    (damageable.Affiliation == AffiliationEnum.Butterflies || 
-                     damageable.Affiliation == AffiliationEnum.Ants))
+                    Affiliation.CheckEnemies(damageable.Affiliation));
                 {
                     damageable.TakeDamage(this);
                 }
@@ -120,8 +118,6 @@ namespace Constructions
 
                 prevSpawnedTiles = newSpawnedTiles;
             }
-            
-
         }
 
         private void SpawnStickyTile(Vector3 position)
@@ -129,7 +125,7 @@ namespace Constructions
             if( FrameworkCommander.GlobalData.ConstructionsRepository.ConstructionExist(position))
                 return;
             
-            BeeStickyTile construction = _constructionFactory.Create<BeeStickyTile>(ConstructionID.BeeStickyTileConstruction);
+            BeeStickyTile construction = _constructionFactory.Create<BeeStickyTile>(ConstructionID.BeeStickyTileConstruction, Affiliation);
             FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position, construction);
             construction.transform.position = position;
         }

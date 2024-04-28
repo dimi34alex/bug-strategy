@@ -1,7 +1,5 @@
 using Constructions.LevelSystemCore;
-using Unit.Factory;
 using UnitsHideCore;
-using UnityEngine;
 
 namespace Constructions.BeeHospital
 {
@@ -10,13 +8,21 @@ namespace Constructions.BeeHospital
         private readonly UnitsHider _hider;
         private readonly HealProcessor _healProcessor;
 
-        public BeeHospitalLevelSystem(BeeHospitalConfig config, Transform spawnPosition, 
-            UnitFactory unitFactory, ref ResourceRepository resourceRepository, ref ResourceStorage healthStorage, 
-            ref UnitsHider hider, ref HealProcessor healProcessor) 
-            : base(config.Levels, ref resourceRepository, ref healthStorage)
+        public BeeHospitalLevelSystem(ConstructionBase construction, BeeHospitalConfig config, 
+            IResourceGlobalStorage resourceGlobalStorage, ResourceStorage healthStorage, UnitsHider hider, 
+            HealProcessor healProcessor) 
+            : base(construction, config.Levels,  resourceGlobalStorage, healthStorage)
         {
-            _hider = hider = new UnitsHider(CurrentLevel.HiderCapacity ,unitFactory , spawnPosition, config.HiderAccess);
-            _healProcessor = healProcessor = new HealProcessor(hider, CurrentLevel.HealPerSecond);
+            _hider = hider;
+            _healProcessor = healProcessor;
+        }
+
+        public override void Init(int initialLevelIndex)
+        {
+            base.Init(initialLevelIndex);
+            
+            _hider.SetCapacity(CurrentLevel.HiderCapacity);
+            _healProcessor.SetHealPerSecond(CurrentLevel.HealPerSecond);
         }
 
         protected override void LevelUpLogic()

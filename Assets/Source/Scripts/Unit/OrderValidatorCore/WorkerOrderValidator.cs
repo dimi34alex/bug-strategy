@@ -72,7 +72,7 @@ namespace Unit.OrderValidatorCore
                         return UnitPathType.Storage_Resource;
                     break;
                 case UnitPathType.Switch_Profession:
-                    if (Affiliation == AffiliationEnum.Ants &&
+                    if (Unit.Fraction == FractionType.Ants &&
                         target.TargetType == UnitTargetType.Construction)
                         // TODO: create construction for switching ants professions
                         return UnitPathType.Switch_Profession;

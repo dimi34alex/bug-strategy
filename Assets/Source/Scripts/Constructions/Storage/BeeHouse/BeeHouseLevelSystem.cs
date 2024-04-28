@@ -11,11 +11,19 @@ namespace Constructions
     {
         private readonly UnitsHider _hider;
 
-        public BeeHouseLevelSystem(BeeHouseConfig config, Transform hiderSpawnPosition, UnitFactory unitFactory, 
-            ref ResourceRepository resourceRepository, ref ResourceStorage healthStorage, ref UnitsHider hider)
-            : base(config.Levels, ref resourceRepository, ref healthStorage)
+        public BeeHouseLevelSystem(ConstructionBase construction, BeeHouseConfig config, Transform hiderSpawnPosition,
+            UnitFactory unitFactory, IResourceGlobalStorage resourceGlobalStorage, ResourceStorage healthStorage, 
+            ref UnitsHider hider)
+            : base(construction, config.Levels,  resourceGlobalStorage, healthStorage)
         {
             _hider = hider = new UnitsHider(CurrentLevel.HiderCapacity ,unitFactory , hiderSpawnPosition, config.HiderAccess);
+        }
+        
+        public override void Init(int initialLevelIndex)
+        {
+            base.Init(initialLevelIndex);
+            
+            _hider.SetCapacity(CurrentLevel.HiderCapacity);
         }
         
         protected override void LevelUpLogic()

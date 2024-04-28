@@ -58,8 +58,8 @@ namespace Unit.Bees
             
             for (int i = 0; i < size; i++)
             {
-                if (result[i].collider.gameObject.TryGetComponent(out IDamagable damageable) && 
-                    damageable.Affiliation != AffiliationEnum.Bees)
+                if (result[i].collider.gameObject.TryGetComponent(out IDamagable damageable) 
+                    && _unitBase.Affiliation.CheckEnemies(damageable.Affiliation))
                 {
                     damageable.TakeDamage(this);
                 }

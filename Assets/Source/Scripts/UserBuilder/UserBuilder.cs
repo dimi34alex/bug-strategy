@@ -8,6 +8,7 @@ public class UserBuilder : CycleInitializerBase
     [Inject] private readonly ConstructionsConfigsRepository _constructionsConfigsRepository;
     [Inject] private readonly IConstructionFactory _constructionFactory;
     [Inject] private readonly DiContainer _diContainer;
+    [Inject] private readonly IResourceGlobalStorage _resourceGlobalStorage;
     
     [SerializeField] private SerializableDictionary<ConstructionID, GameObject> constructionMovableModels;
 
@@ -83,11 +84,11 @@ public class UserBuilder : CycleInitializerBase
                 
                 foreach (MovingUnit unit in _pool.movingUnits)
                 {
-                    if (unit.IsSelected && unit.gameObject.CompareTag("Worker") && CanBuyConstruction(_currentConstructionID))
+                    if (unit.IsSelected && unit.gameObject.CompareTag("Worker") && CanBuyConstruction(unit.Affiliation, _currentConstructionID))
                     {
-                        BuyConstruction(_currentConstructionID);
+                        BuyConstruction(unit.Affiliation, _currentConstructionID);
 
-                        if (TrySpawnConstruction(_currentConstructionID, out var buildingProgressConstruction))
+                        if (TrySpawnConstruction(unit.Affiliation, _currentConstructionID, out var buildingProgressConstruction))
                             unit.HandleGiveOrder(buildingProgressConstruction, UnitPathType.Build_Construction);
 
                         Destroy(_currentConstructionMovableModel);
@@ -104,24 +105,24 @@ public class UserBuilder : CycleInitializerBase
         }
     }
     
-    private bool CanBuyConstruction(ConstructionID id )
+    private bool CanBuyConstruction(AffiliationEnum affiliation,ConstructionID id )
     {
         bool flagCanBuy = true;
 
         foreach (var element in _constructionsConfigsRepository.TakeBuyCost(id).ResourceCost)
-             if (element.Value > ResourceGlobalStorage.GetResource(element.Key).CurrentValue)
+             if (element.Value > _resourceGlobalStorage.GetResource(affiliation, element.Key).CurrentValue)
                  flagCanBuy = false;
 
         return flagCanBuy;
     }
 
-    private void BuyConstruction(ConstructionID id)
+    private void BuyConstruction(AffiliationEnum affiliation, ConstructionID id)
     {
         foreach (var element in _constructionsConfigsRepository.TakeBuyCost(id).ResourceCost)
-            ResourceGlobalStorage.GetResource(element.Key).SetValue(ResourceGlobalStorage.GetResource(element.Key).CurrentValue - element.Value);
+            _resourceGlobalStorage.GetResource(affiliation, element.Key).SetValue(_resourceGlobalStorage.GetResource(affiliation, element.Key).CurrentValue - element.Value);
     }
     
-    private bool TrySpawnConstruction(ConstructionID id, out BuildingProgressConstruction construction)
+    private bool TrySpawnConstruction(AffiliationEnum affiliation, ConstructionID id, out BuildingProgressConstruction construction)
     {
         construction = null;
 
@@ -140,27 +141,27 @@ public class UserBuilder : CycleInitializerBase
         if (id == ConstructionID.BeeTownHall)
             _numberTownHall++;
         
-        construction = SpawnConstruction(id, position);
+        construction = SpawnConstruction(affiliation, id, position);
         
         return true;
     }
     
-    private BuildingProgressConstruction SpawnConstruction(ConstructionID id, Vector3 position)
+    private BuildingProgressConstruction SpawnConstruction(AffiliationEnum affiliation, ConstructionID id, Vector3 position)
     {
-        BuildingProgressConstruction progressConstruction = _constructionFactory.Create<BuildingProgressConstruction>(ConstructionID.BuildingProgressConstruction);
+        BuildingProgressConstruction progressConstruction = _constructionFactory.Create<BuildingProgressConstruction>(ConstructionID.BuildingProgressConstruction, affiliation);
         progressConstruction.transform.position = position;
         FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position, progressConstruction);
                 
-        progressConstruction.OnTimerEnd += c => CreateConstruction(c, position);
+        progressConstruction.OnTimerEnd += c => CreateConstruction(affiliation, c, position);
 
         progressConstruction.StartBuilding(4, id);
 
         return progressConstruction;
     }
 
-    private void CreateConstruction(BuildingProgressConstruction buildingProgressConstruction, Vector3 position)
+    private void CreateConstruction(AffiliationEnum affiliation, BuildingProgressConstruction buildingProgressConstruction, Vector3 position)
     {
-        ConstructionBase construction = _constructionFactory.Create<ConstructionBase>(buildingProgressConstruction.BuildingConstructionID);
+        ConstructionBase construction = _constructionFactory.Create<ConstructionBase>(buildingProgressConstruction.BuildingConstructionID, affiliation);
         
         FrameworkCommander.GlobalData.ConstructionsRepository.GetConstruction(position, true);
 

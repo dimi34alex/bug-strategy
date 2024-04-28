@@ -1366,14 +1366,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initUnits:
-  - <UnitType>k__BackingField: 0
-    <Transform>k__BackingField: {fileID: 1992121117}
-  - <UnitType>k__BackingField: 100
-    <Transform>k__BackingField: {fileID: 738955861}
-  - <UnitType>k__BackingField: 110
-    <Transform>k__BackingField: {fileID: 1877830769}
-  - <UnitType>k__BackingField: 120
-    <Transform>k__BackingField: {fileID: 1115382176}
+    _cells:
+    - Key: 10
+      Value:
+      - <UnitType>k__BackingField: 0
+        <Transform>k__BackingField: {fileID: 1992121117}
+    - Key: 20
+      Value:
+      - <UnitType>k__BackingField: 30
+        <Transform>k__BackingField: {fileID: 738955861}
+      - <UnitType>k__BackingField: 110
+        <Transform>k__BackingField: {fileID: 1877830769}
+      - <UnitType>k__BackingField: 120
+        <Transform>k__BackingField: {fileID: 1115382176}
 --- !u!4 &445832216
 Transform:
   m_ObjectHideFlags: 0
@@ -2206,6 +2211,7 @@ MonoBehaviour:
   targetProfessionRang:
     <Rang>k__BackingField: 1
   antProfessionsConfigsRepository: {fileID: 11400000, guid: 02a99708a1faf5f468541cb5a3215eec, type: 2}
+  affiliationEnum: 0
 --- !u!65 &808316585
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2753,6 +2759,59 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 854769781}
   m_CullTransparentMesh: 1
+--- !u!1 &863067494
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 863067496}
+  - component: {fileID: 863067495}
+  m_Layer: 0
+  m_Name: RGSv2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &863067495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 863067494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a24f049985aa47108a359507e40be646, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  config: {fileID: 11400000, guid: e71c5e066322ca24db46b1a72c6b7929, type: 2}
+  resourceConfigs:
+  - {fileID: 11400000, guid: 661f65eb25b0aea4f9cd436a09caa3b3, type: 2}
+  - {fileID: 11400000, guid: 44acca147432bfe4ebc927d4354b8a80, type: 2}
+  - {fileID: 11400000, guid: fc161b6f9d4e2814daadf2cdf2c19dd6, type: 2}
+  - {fileID: 11400000, guid: acb4e0291b430d74b94feb1507845c87, type: 2}
+  - {fileID: 11400000, guid: dbc65c809c937f048a0de2203fbf4691, type: 2}
+  - {fileID: 11400000, guid: 2349c2f89e090c148a7021ce5574d53a, type: 2}
+  - {fileID: 11400000, guid: 4e7992a59486d4a4eb00e12b84f2c568, type: 2}
+  - {fileID: 11400000, guid: d81e9e714bffcfb4c9ae3a1b92484de0, type: 2}
+--- !u!4 &863067496
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 863067494}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &889771834
 GameObject:
   m_ObjectHideFlags: 0
@@ -4540,6 +4599,49 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1857206149}
   m_CullTransparentMesh: 1
+--- !u!1 &1870373502
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1870373504}
+  - component: {fileID: 1870373503}
+  m_Layer: 0
+  m_Name: ResourceGlobalStorageInstaller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1870373503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1870373502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 955de27322844f43a686d21f870134ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1870373504
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1870373502}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2106415608}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1872116865
 GameObject:
   m_ObjectHideFlags: 0
@@ -4810,49 +4912,56 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c911ff3d57c4b1bbb69ca8c2467f599, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inits:
-  - <ID>k__BackingField: 30
-    <Transform>k__BackingField: {fileID: 1180661216}
-  - <ID>k__BackingField: 40
-    <Transform>k__BackingField: {fileID: 1757699495}
-  - <ID>k__BackingField: 40
-    <Transform>k__BackingField: {fileID: 1872116866}
-  - <ID>k__BackingField: 50
-    <Transform>k__BackingField: {fileID: 1559393078}
-  - <ID>k__BackingField: 60
-    <Transform>k__BackingField: {fileID: 212401114}
-  - <ID>k__BackingField: 70
-    <Transform>k__BackingField: {fileID: 900069424}
-  - <ID>k__BackingField: 80
-    <Transform>k__BackingField: {fileID: 646310247}
-  - <ID>k__BackingField: 200
-    <Transform>k__BackingField: {fileID: 1934983289}
-  - <ID>k__BackingField: 220
-    <Transform>k__BackingField: {fileID: 1574304904}
-  - <ID>k__BackingField: 210
-    <Transform>k__BackingField: {fileID: 33967283}
-  - <ID>k__BackingField: 240
-    <Transform>k__BackingField: {fileID: 1425883109}
-  - <ID>k__BackingField: 230
-    <Transform>k__BackingField: {fileID: 31084654}
-  - <ID>k__BackingField: 250
-    <Transform>k__BackingField: {fileID: 741789124}
-  - <ID>k__BackingField: 260
-    <Transform>k__BackingField: {fileID: 772858047}
-  - <ID>k__BackingField: 270
-    <Transform>k__BackingField: {fileID: 1893042692}
-  - <ID>k__BackingField: 280
-    <Transform>k__BackingField: {fileID: 2094286242}
-  - <ID>k__BackingField: 290
-    <Transform>k__BackingField: {fileID: 66438654}
-  - <ID>k__BackingField: 310
-    <Transform>k__BackingField: {fileID: 1844260365}
-  - <ID>k__BackingField: 320
-    <Transform>k__BackingField: {fileID: 2056453342}
-  - <ID>k__BackingField: 330
-    <Transform>k__BackingField: {fileID: 1178648233}
-  - <ID>k__BackingField: 330
-    <Transform>k__BackingField: {fileID: 1540062699}
+  initUnits:
+    _cells:
+    - Key: 10
+      Value:
+      - <ID>k__BackingField: 30
+        <Transform>k__BackingField: {fileID: 1180661216}
+      - <ID>k__BackingField: 40
+        <Transform>k__BackingField: {fileID: 1757699495}
+      - <ID>k__BackingField: 40
+        <Transform>k__BackingField: {fileID: 1872116866}
+      - <ID>k__BackingField: 50
+        <Transform>k__BackingField: {fileID: 1559393078}
+      - <ID>k__BackingField: 60
+        <Transform>k__BackingField: {fileID: 212401114}
+      - <ID>k__BackingField: 70
+        <Transform>k__BackingField: {fileID: 900069424}
+      - <ID>k__BackingField: 80
+        <Transform>k__BackingField: {fileID: 646310247}
+    - Key: 20
+      Value:
+      - <ID>k__BackingField: 200
+        <Transform>k__BackingField: {fileID: 1934983289}
+      - <ID>k__BackingField: 210
+        <Transform>k__BackingField: {fileID: 33967283}
+      - <ID>k__BackingField: 220
+        <Transform>k__BackingField: {fileID: 1574304904}
+      - <ID>k__BackingField: 230
+        <Transform>k__BackingField: {fileID: 31084654}
+      - <ID>k__BackingField: 240
+        <Transform>k__BackingField: {fileID: 1425883109}
+      - <ID>k__BackingField: 250
+        <Transform>k__BackingField: {fileID: 741789124}
+      - <ID>k__BackingField: 260
+        <Transform>k__BackingField: {fileID: 772858047}
+      - <ID>k__BackingField: 270
+        <Transform>k__BackingField: {fileID: 1893042692}
+      - <ID>k__BackingField: 280
+        <Transform>k__BackingField: {fileID: 2094286242}
+      - <ID>k__BackingField: 290
+        <Transform>k__BackingField: {fileID: 66438654}
+    - Key: 30
+      Value:
+      - <ID>k__BackingField: 310
+        <Transform>k__BackingField: {fileID: 1844260365}
+      - <ID>k__BackingField: 320
+        <Transform>k__BackingField: {fileID: 2056453342}
+      - <ID>k__BackingField: 330
+        <Transform>k__BackingField: {fileID: 1178648233}
+      - <ID>k__BackingField: 330
+        <Transform>k__BackingField: {fileID: 1540062699}
 --- !u!4 &1927483283
 Transform:
   m_ObjectHideFlags: 0
@@ -5220,6 +5329,7 @@ MonoBehaviour:
   - {fileID: 65771340}
   - {fileID: 493575357}
   - {fileID: 2017406361}
+  - {fileID: 1870373503}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -5256,6 +5366,7 @@ Transform:
   - {fileID: 65771341}
   - {fileID: 493575356}
   - {fileID: 2017406360}
+  - {fileID: 1870373504}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

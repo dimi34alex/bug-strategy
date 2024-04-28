@@ -10,13 +10,14 @@ namespace Constructions
     {
         [SerializeField] protected Transform unitsSpawnPosition;
 
-        [Inject] protected readonly UnitFactory unitFactory;
-        
-        public IReadOnlyUnitsRecruiter Recruiter => recruiter;
+        [Inject] protected readonly UnitFactory _unitFactory;
+        [Inject] protected readonly IResourceGlobalStorage _resourceGlobalStorage;
+
+        public IReadOnlyUnitsRecruiter Recruiter => _recruiter;
 
         public IConstructionLevelSystem LevelSystem { get; protected set; }
 
-        protected UnitsRecruiter recruiter;
+        protected UnitsRecruiter _recruiter;
         
         protected override void OnAwake()
         {
@@ -26,12 +27,12 @@ namespace Constructions
         }
 
         private void RecruiterTick() 
-            => recruiter.Tick(Time.deltaTime);
+            => _recruiter.Tick(Time.deltaTime);
 
         public void RecruitUnit(UnitType unitType) 
-            => recruiter.RecruitUnit(unitType);
+            => _recruiter.RecruitUnit(unitType);
         
         public void RecruitUnit(UnitType unitType, int stackIndex) 
-            => recruiter.RecruitUnit(unitType, stackIndex);
+            => _recruiter.RecruitUnit(unitType, stackIndex);
     }
 }

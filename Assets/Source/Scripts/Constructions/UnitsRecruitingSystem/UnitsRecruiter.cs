@@ -7,10 +7,11 @@ namespace UnitsRecruitingSystemCore
 {
     public class UnitsRecruiter : IReadOnlyUnitsRecruiter
     {
+        private readonly IAffiliation _affiliation;
         private readonly Transform _spawnTransform;
         private readonly UnitFactory _unitFactory;
         private readonly List<UnitRecruitingStack> _stacks;
-        private readonly ResourceRepository _resourceRepository;
+        private readonly IResourceGlobalStorage _resourceGlobalStorage;
         private List<UnitRecruitingData> _recruitingDatas;
         
         public event Action OnChange;
@@ -19,14 +20,15 @@ namespace UnitsRecruitingSystemCore
         public event Action OnTick;
         public event Action OnCancelRecruit;
 
-        public UnitsRecruiter(int size, Transform spawnTransform, IReadOnlyList<UnitRecruitingData> newDatas,
-            UnitFactory unitFactory, ref ResourceRepository resourceRepository)
+        public UnitsRecruiter(IAffiliation affiliation, int size, Transform spawnTransform, UnitFactory unitFactory, 
+            IResourceGlobalStorage resourceGlobalStorage)
         {
+            _affiliation = affiliation;
             _spawnTransform = spawnTransform;
             _unitFactory = unitFactory;
-            _resourceRepository = resourceRepository;
+            _resourceGlobalStorage = resourceGlobalStorage;
             _stacks = new List<UnitRecruitingStack>();
-            _recruitingDatas = new List<UnitRecruitingData>(newDatas);
+            _recruitingDatas = new List<UnitRecruitingData>();
 
             for (int n = 0; n < size; n++)
             {
@@ -69,7 +71,7 @@ namespace UnitsRecruitingSystemCore
         public bool CheckCosts(IReadOnlyDictionary<ResourceID, int>  costs)
         {
             foreach (var cost in costs)
-                if (cost.Value > _resourceRepository.GetResource(cost.Key).CurrentValue)
+                if (cost.Value > _resourceGlobalStorage.GetResource(_affiliation.Affiliation, cost.Key).CurrentValue)
                     return false;
             
             return true;
@@ -106,7 +108,7 @@ namespace UnitsRecruitingSystemCore
                 throw new Exception("Need more resources");
             
             foreach (var cost in recruitingData.Costs)
-                _resourceRepository.ChangeValue(cost.Key, -cost.Value);
+                _resourceGlobalStorage.ChangeValue(_affiliation.Affiliation, cost.Key, -cost.Value);
 
             _stacks[stackIndex].RecruitUnit(recruitingData);
             
@@ -117,7 +119,7 @@ namespace UnitsRecruitingSystemCore
         /// <summary>
         /// Add new stacks if newCount upper then current size, else does nothing
         /// </summary>
-        public void AddStacks(int newCount)
+        public void SetStackCount(int newCount)
         {
             if(newCount <= _stacks.Count) return;
 
@@ -152,7 +154,7 @@ namespace UnitsRecruitingSystemCore
                 return false;
 
             foreach (var cost in stack.CurrentData.Costs)
-                _resourceRepository.ChangeValue(cost.Key, cost.Value);
+                _resourceGlobalStorage.ChangeValue(_affiliation.Affiliation, cost.Key, cost.Value);
             
             OnCancelRecruit?.Invoke();
             OnChange?.Invoke();
@@ -177,6 +179,7 @@ namespace UnitsRecruitingSystemCore
             var unit = _unitFactory.Create(unitType);
             float randomPosOffset = UnityEngine.Random.Range(-0.01f, 0.01f);
             unit.Transform.position = _spawnTransform.position + Vector3.left * randomPosOffset;
+            unit.SetAffiliation(_affiliation.Affiliation);
         }
     }
 }

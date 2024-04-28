@@ -10,7 +10,7 @@ using Unit.OrderValidatorCore;
 
 public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable, IUnitTarget, IMiniMapObject,
     SelectableSystem.ISelectable, IPoolable<UnitBase, UnitType>, IPoolEventListener, 
-    IHealable,
+    IHealable, IAffiliation,
     IEffectable, IPoisonEffectable, IStickyHoneyEffectable, IMoveSpeedChangeEffectable
 {
     [SerializeField] private UnitVisibleZone _unitVisibleZone;
@@ -28,6 +28,7 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
     protected abstract OrderValidatorBase OrderValidator { get; }
     public EffectsProcessor EffectsProcessor { get; protected set; }
     public MoveSpeedChangerProcessor MoveSpeedChangerProcessor { get; protected set; }
+    public AffiliationEnum Affiliation { get; private set; }
 
     public bool IsDied => _healthStorage.CurrentValue < 1f;
     public Transform Transform => transform;
@@ -40,7 +41,7 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
     public IReadOnlyList<AbilityBase> Abilities => _abilites;
     public EntityStateMachine StateMachine => _stateMachine;
     public UnitType Identifier => UnitType;
-    public abstract AffiliationEnum Affiliation { get; }
+    public abstract FractionType Fraction { get; }
     public abstract UnitType UnitType { get; }
     
     private UnitPathData _currentPathData = new UnitPathData(null, UnitPathType.Idle);
@@ -73,6 +74,11 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
     public event Action OnTargetMovePositionChange;
     public event Action OnDeactivation;
 
+    public void SetAffiliation(AffiliationEnum affiliation)
+    {
+        Affiliation = affiliation;
+    }
+    
     public virtual void HandleUpdate(float time)
     {
         _stateMachine.OnUpdate();

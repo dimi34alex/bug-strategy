@@ -21,7 +21,7 @@ public class BeesWaxProduceConstructionTester : CycleInitializerBase
                     return;
 
                 BeesWaxProduceConstruction construction =
-                    _constructionFactory.Create<BeesWaxProduceConstruction>(ConstructionID.BeeWaxProduceConstruction);
+                    _constructionFactory.Create<BeesWaxProduceConstruction>(ConstructionID.BeeWaxProduceConstruction, AffiliationEnum.None);
                 construction.transform.position = position;
                 FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position.ToInt(), construction);
             }

@@ -11,22 +11,30 @@ namespace Constructions
         private readonly UnitsRecruiter _recruiter;
         private readonly UnitsHider _hider;
         
-        public BeeTownHallLevelSystem(BeeTownHallConfig config, Transform spawnPosition, 
-            UnitFactory unitFactory, ref ResourceRepository resourceRepository, ref ResourceStorage healthStorage, 
+        public BeeTownHallLevelSystem(ConstructionBase construction, BeeTownHallConfig config, Transform spawnPosition, 
+            UnitFactory unitFactory, IResourceGlobalStorage resourceGlobalStorage, ResourceStorage healthStorage, 
             ref UnitsRecruiter recruiter, ref UnitsHider hider) 
-            : base(config.Levels, ref resourceRepository, ref healthStorage)
+            : base(construction, config.Levels,  resourceGlobalStorage, healthStorage)
         {
-            _recruiter = recruiter = new UnitsRecruiter(CurrentLevel.RecruitingSize, spawnPosition,
-                CurrentLevel.BeesRecruitingData, unitFactory, ref resourceRepository);
+            _recruiter = recruiter;
 
-            _hider = hider = new UnitsHider(CurrentLevel.HiderCapacity ,unitFactory , spawnPosition, config.HiderAccess);
+            _hider = hider;
         }
 
+        public override void Init(int initialLevelIndex)
+        {
+            base.Init(initialLevelIndex);
+            
+            _recruiter.SetStackCount(CurrentLevel.RecruitingSize);
+            _recruiter.SetNewDatas(CurrentLevel.BeesRecruitingData);
+            _hider.SetCapacity(CurrentLevel.HiderCapacity);
+        }
+        
         protected override void LevelUpLogic()
         {
             base.LevelUpLogic();
 
-            _recruiter.AddStacks(CurrentLevel.RecruitingSize);
+            _recruiter.SetStackCount(CurrentLevel.RecruitingSize);
             _recruiter.SetNewDatas(CurrentLevel.BeesRecruitingData);
             _hider.SetCapacity(CurrentLevel.HiderCapacity);
         }

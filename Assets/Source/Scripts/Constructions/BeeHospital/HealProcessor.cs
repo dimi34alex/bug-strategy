@@ -13,7 +13,7 @@ namespace Constructions.BeeHospital
             _hider = hider;
             HealPerSecond = startHealPerSecond;
         }
-
+        
         public void HandleUpdate(float time)
         {
             foreach (var hiderCell in _hider.HiderCells)

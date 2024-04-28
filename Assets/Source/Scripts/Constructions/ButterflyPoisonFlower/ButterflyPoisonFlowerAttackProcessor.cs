@@ -8,6 +8,7 @@ namespace Constructions
 {
     public class ButterflyPoisonFlowerAttackProcessor
     {
+        private readonly IAffiliation _affiliation;
         private readonly List<UnitBase> _enemies = new List<UnitBase>();
         private readonly ProjectileFactory _projectileFactory;
         private readonly TriggerBehaviour _triggerBehaviour;
@@ -18,9 +19,12 @@ namespace Constructions
         private float _attackDamage;
         private float _damageRadius;
 
-        public ButterflyPoisonFlowerAttackProcessor(Transform flowerPosition, 
+        public AffiliationEnum Affiliation => _affiliation.Affiliation;
+        
+        public ButterflyPoisonFlowerAttackProcessor(IAffiliation affiliation, Transform flowerPosition, 
             ProjectileFactory projectileFactory, TriggerBehaviour triggerBehaviour)
         {
+            _affiliation = affiliation;
             _flowerPosition = flowerPosition;
             _projectileFactory = projectileFactory;
             _triggerBehaviour = triggerBehaviour;
@@ -70,7 +74,7 @@ namespace Constructions
             
             var projectile = _projectileFactory.Create(ProjectileType.ButterflyPoisonFlowerProjectile).Cast<ButterflyPoisonFlowerProjectile>();
             projectile.SetTarget(target);
-            projectile.SetDamage(_attackDamage);
+            projectile.Init(Affiliation, _attackDamage);
             projectile.SetDamageRadius(_damageRadius);
             projectile.transform.position = _flowerPosition.position;
             
@@ -87,9 +91,8 @@ namespace Constructions
         {
             if (triggerable.TryCast(out UnitBase unit))
             {
-                if (unit.Affiliation == AffiliationEnum.Ants ||
-                    unit.Affiliation == AffiliationEnum.Bees || 
-                    !_enemies.Contains(unit))
+                if (Affiliation.CheckEnemies(unit.Affiliation) 
+                    || !_enemies.Contains(unit))
                 {
                     _enemies.Add(unit);
                     

@@ -42,7 +42,7 @@ namespace Unit.ProcessorsCore
 
         protected virtual void InitProjectileData(ProjectileBase projectile, IUnitTarget target)
         {
-            projectile.SetDamage(this);
+            projectile.Init(Affiliation, this);
             projectile.SetTarget(target);
         }
     }

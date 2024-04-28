@@ -1,5 +1,7 @@
 using UnitsHideCore;
+using UnitsRecruitingSystemCore;
 using UnityEngine;
+using Zenject;
 
 namespace Constructions
 {
@@ -9,7 +11,7 @@ namespace Constructions
         
         private UnitsHider _hider;
 
-        public override AffiliationEnum Affiliation => AffiliationEnum.Bees;
+        public override FractionType Fraction => FractionType.Bees;
         public override ConstructionID ConstructionID => ConstructionID.BeeBarrack;
         public IHider Hider => _hider;
 
@@ -18,15 +20,20 @@ namespace Constructions
         {
             base.OnAwake();
 
-            var resourceRepository = ResourceGlobalStorage.ResourceRepository;
-            LevelSystem = new BeeBarrackLevelSystem(config, unitsSpawnPosition, unitFactory,
-                ref resourceRepository, ref _healthStorage, ref recruiter, ref _hider);
+            _recruiter = new UnitsRecruiter(this, 0, unitsSpawnPosition, _unitFactory, _resourceGlobalStorage);
+            _hider = new UnitsHider(0, _unitFactory, unitsSpawnPosition, config.HiderAccess);
+            LevelSystem = new BeeBarrackLevelSystem(this, config, _resourceGlobalStorage, _healthStorage,
+                _recruiter, _hider);
+            InitLevelSystem();
         }
+        
+        private void InitLevelSystem()
+            => LevelSystem.Init(0);
         
         //TODO: remove this legacy code, when new ui will be create; use BarrackBase.RecruitUnit(...)
         public void RecruitBees(UnitType beeID)
         {
-            int freeStackIndex = recruiter.FindFreeStack();
+            int freeStackIndex = _recruiter.FindFreeStack();
 
             if (freeStackIndex == -1)
             {
@@ -34,13 +41,13 @@ namespace Constructions
                 return;
             }
 
-            if (!recruiter.CheckCosts(beeID))
+            if (!_recruiter.CheckCosts(beeID))
             {
                 UI_Controller._ErrorCall("Need more resources");
                 return;
             }
 
-            recruiter.RecruitUnit(beeID, freeStackIndex);
+            _recruiter.RecruitUnit(beeID, freeStackIndex);
         }
 
         //TODO: remove this temporary code, when new ui will be create

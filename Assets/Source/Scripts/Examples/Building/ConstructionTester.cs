@@ -22,7 +22,7 @@ public class ConstructionTester : CycleInitializerBase
                     return;
 
                 BuildingProgressConstruction progressConstruction = 
-                    _constructionFactory.Create<BuildingProgressConstruction>(ConstructionID.BuildingProgressConstruction);
+                    _constructionFactory.Create<BuildingProgressConstruction>(ConstructionID.BuildingProgressConstruction, AffiliationEnum.None);
                 progressConstruction.transform.position = position;
                 FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position.ToInt(), progressConstruction);
 
@@ -35,7 +35,7 @@ public class ConstructionTester : CycleInitializerBase
     private void CreateDefaultConstruction(BuildingProgressConstruction buildingProgressConstruction, Vector3Int position)
     {
         DefaultConstruction defaultConstruction =
-            _constructionFactory.Create<DefaultConstruction>(buildingProgressConstruction.BuildingConstructionID);
+            _constructionFactory.Create<DefaultConstruction>(buildingProgressConstruction.BuildingConstructionID, AffiliationEnum.None);
 
         FrameworkCommander.GlobalData.ConstructionsRepository
             .GetConstruction(position, true);

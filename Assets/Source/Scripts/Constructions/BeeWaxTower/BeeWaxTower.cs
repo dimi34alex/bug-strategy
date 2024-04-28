@@ -12,27 +12,36 @@ namespace Constructions
         
         [Inject] private readonly ProjectileFactory _projectileFactory;
         [Inject] private readonly IConstructionFactory _constructionFactory;
+        [Inject] private readonly IResourceGlobalStorage _resourceGlobalStorage;
         
-        public override AffiliationEnum Affiliation => AffiliationEnum.Bees;
+        public override FractionType Fraction => FractionType.Bees;
         public override ConstructionID ConstructionID => ConstructionID.BeeWaxTower;
 
-        public IConstructionLevelSystem LevelSystem { get; private set; }
-
+        public IConstructionLevelSystem LevelSystem => _levelSystem;
+        private BeeWaxTowerLevelSystem _levelSystem;
+        
         private BeeWaxTowerAttackProcessor _attackProcessor;
 
         protected override void OnAwake()
         {
             base.OnAwake();
 
-            _attackProcessor = new BeeWaxTowerAttackProcessor(_projectileFactory, attackZone, transform);
-            
-            var resourceRepository = ResourceGlobalStorage.ResourceRepository;
-            LevelSystem = new BeeWaxTowerLevelSystem(config.Levels, ref resourceRepository, ref _healthStorage, ref _attackProcessor);
+            _attackProcessor = new BeeWaxTowerAttackProcessor(this, _projectileFactory, attackZone, transform);
 
+            _levelSystem = new BeeWaxTowerLevelSystem(this, config, _resourceGlobalStorage,
+                _healthStorage, _attackProcessor);
+            
             _updateEvent += UpdateAttackProcessor;
             OnDestruction += SpawnStickyTile;
+
+            Initialized += InitLevelSystem;
         }
 
+        private void InitLevelSystem()
+        {
+            _levelSystem.Init(0);
+        }
+        
         private void UpdateAttackProcessor()
             => _attackProcessor.HandleUpdate(Time.deltaTime);
 
@@ -40,7 +49,7 @@ namespace Constructions
         {
             FrameworkCommander.GlobalData.ConstructionsRepository.GetConstruction(transform.position, true);
             
-            ConstructionBase construction = _constructionFactory.Create<ConstructionBase>(ConstructionID.BeeStickyTileConstruction);
+            ConstructionBase construction = _constructionFactory.Create<ConstructionBase>(ConstructionID.BeeStickyTileConstruction, Affiliation);
             FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(transform.position, construction);
             construction.transform.position = transform.position;
         }

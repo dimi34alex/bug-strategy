@@ -12,12 +12,12 @@ namespace Unit.Ants.Professions
         public override OrderValidatorBase OrderValidatorBase { get; }
         public readonly ResourceExtractionProcessor ResourceExtractionProcessor;
         
-        public AntWorkerProfession(AntBase ant, AntWorkerConfig antHandItem, ResourceRepository resourceRepository,
+        public AntWorkerProfession(AntBase ant, AntWorkerConfig antHandItem, IResourceGlobalStorage resourceGlobalStorage,
             GameObject resourceSkin)
             : base(antHandItem.AntProfessionRang)
         {
-            ResourceExtractionProcessor = new ResourceExtractionProcessor(antHandItem.GatheringCapacity,
-                antHandItem.GatheringTime, resourceRepository, resourceSkin);
+            ResourceExtractionProcessor = new ResourceExtractionProcessor(ant, antHandItem.GatheringCapacity,
+                antHandItem.GatheringTime, resourceGlobalStorage, resourceSkin);
 
             OrderValidatorBase = new WorkerOrderValidator(ant, antHandItem.InteractionRange, ResourceExtractionProcessor);
             

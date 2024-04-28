@@ -12,25 +12,33 @@ namespace Constructions.BeeHospital
         [SerializeField] private Transform hiderExtractionPosition;
 
         [Inject] private UnitFactory _unitFactory;
-        
-        public override AffiliationEnum Affiliation => AffiliationEnum.Bees;
+        [Inject] private readonly IResourceGlobalStorage _resourceGlobalStorage;
+
+        public override FractionType Fraction => FractionType.Bees;
         public override ConstructionID ConstructionID => ConstructionID.BeeHospital;
         public IHider Hider => _hider;
 
-        public IConstructionLevelSystem LevelSystem { get; private set; }
-        private UnitsHider _hider;
+        public IConstructionLevelSystem LevelSystem => _levelSystem;
+        private BeeHospitalLevelSystem _levelSystem;
         private HealProcessor _healProcessor;
+        private UnitsHider _hider;
 
         protected override void OnAwake()
         {
             base.OnAwake();
-            
-            var resourceRepository = ResourceGlobalStorage.ResourceRepository;
-            LevelSystem = new BeeHospitalLevelSystem(config, hiderExtractionPosition, _unitFactory,
-                ref resourceRepository, ref _healthStorage, ref _hider, ref _healProcessor);
 
+            _hider = new UnitsHider(0, _unitFactory, hiderExtractionPosition, config.HiderAccess);
+            _healProcessor = new HealProcessor(_hider, 0);
+            
+            _levelSystem = new BeeHospitalLevelSystem(this, config, _resourceGlobalStorage, _healthStorage, 
+                _hider, _healProcessor);
+
+            Initialized += InitializeLevelSystem;
             _updateEvent += UpdateHealProcessor;
         }
+
+        private void InitializeLevelSystem()
+            => _levelSystem.Init(0);
 
         private void UpdateHealProcessor()
             => _healProcessor.HandleUpdate(Time.deltaTime);

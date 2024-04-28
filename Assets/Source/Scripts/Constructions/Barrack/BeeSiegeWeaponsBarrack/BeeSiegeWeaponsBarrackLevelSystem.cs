@@ -1,9 +1,7 @@
 using System;
 using Constructions.LevelSystemCore;
-using Unit.Factory;
 using UnitsHideCore;
 using UnitsRecruitingSystemCore;
-using UnityEngine;
 
 namespace Constructions
 {
@@ -13,22 +11,29 @@ namespace Constructions
         private readonly UnitsRecruiter _recruiter;
         private readonly UnitsHider _hider;
 
-        public BeeSiegeWeaponsBarrackLevelSystem(BeeSiegeWeaponsBarrackConfig config, Transform spawnPosition, 
-            UnitFactory unitFactory, ref ResourceRepository resourceRepository, ref ResourceStorage healthStorage,
-            ref UnitsRecruiter recruiter, ref UnitsHider hider) 
-            : base(config.Levels, ref resourceRepository, ref healthStorage)
+        public BeeSiegeWeaponsBarrackLevelSystem(ConstructionBase construction, BeeSiegeWeaponsBarrackConfig config, 
+            IResourceGlobalStorage resourceGlobalStorage, ResourceStorage healthStorage, 
+            UnitsRecruiter recruiter, UnitsHider hider) 
+            : base(construction, config.Levels,  resourceGlobalStorage, healthStorage)
         {
-            _recruiter = recruiter = new UnitsRecruiter(CurrentLevel.RecruitingSize, spawnPosition,
-                CurrentLevel.RecruitingData, unitFactory, ref resourceRepository);
-            
-            _hider = hider = new UnitsHider(CurrentLevel.HiderCapacity ,unitFactory , spawnPosition, config.HiderAccess);
+            _recruiter = recruiter;
+            _hider = hider;
         }
 
+        public override void Init(int initialLevelIndex)
+        {
+            base.Init(initialLevelIndex);
+            
+            _recruiter.SetStackCount(CurrentLevel.RecruitingSize);
+            _recruiter.SetNewDatas(CurrentLevel.RecruitingData);
+            _hider.SetCapacity(CurrentLevel.HiderCapacity);
+        }
+        
         protected override void LevelUpLogic()
         {
             base.LevelUpLogic();
 
-            _recruiter.AddStacks(CurrentLevel.RecruitingSize);
+            _recruiter.SetStackCount(CurrentLevel.RecruitingSize);
             _recruiter.SetNewDatas(CurrentLevel.RecruitingData);
             _hider.SetCapacity(CurrentLevel.HiderCapacity);
         }

@@ -6,6 +6,7 @@ using Unit.ProcessorsCore;
 using Unit.States;
 using UnitsHideCore;
 using UnityEngine;
+using Zenject;
 
 namespace Unit.Bees
 {
@@ -14,6 +15,8 @@ namespace Unit.Bees
         [SerializeField] private BeeWorkerConfig config;
         [SerializeField] private GameObject resourceSkin;
 
+        [Inject] private readonly IResourceGlobalStorage _resourceGlobalStorage;
+        
         public override UnitType UnitType => UnitType.WorkerBee;
         protected override OrderValidatorBase OrderValidator => _orderValidator;
 
@@ -26,9 +29,8 @@ namespace Unit.Bees
 
             _healthStorage = new ResourceStorage(config.HealthPoints, config.HealthPoints);
            
-            var resourceRepository = ResourceGlobalStorage.ResourceRepository;
-            _resourceExtractionProcessor = new ResourceExtractionProcessor(config.GatheringCapacity, config.GatheringTime,
-                resourceRepository, resourceSkin);
+            _resourceExtractionProcessor = new ResourceExtractionProcessor(this, config.GatheringCapacity, config.GatheringTime,
+                _resourceGlobalStorage, resourceSkin);
             _orderValidator = new WorkerBeeValidator(this, config.InteractionRange, _resourceExtractionProcessor);
             
             var stateBases = new List<EntityStateBase>()

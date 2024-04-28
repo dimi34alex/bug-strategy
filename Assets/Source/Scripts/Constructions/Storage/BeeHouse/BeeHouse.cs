@@ -12,10 +12,11 @@ namespace Constructions
         [SerializeField] private Transform hiderExtractPosition;
 
         [Inject] private readonly UnitFactory _unitFactory;
-        
+        [Inject] private readonly IResourceGlobalStorage _resourceGlobalStorage;
+
         private UnitsHider _hider;
 
-        public override AffiliationEnum Affiliation => AffiliationEnum.Bees;
+        public override FractionType Fraction => FractionType.Bees;
         public override ConstructionID ConstructionID => ConstructionID.BeeHouse;
         public IHider Hider => _hider;
 
@@ -25,11 +26,14 @@ namespace Constructions
         {
             base.OnAwake();
 
-            var resourceRepository = ResourceGlobalStorage.ResourceRepository;
-            LevelSystem = new BeeHouseLevelSystem(config, hiderExtractPosition, _unitFactory, ref resourceRepository,
-                ref _healthStorage, ref _hider);
+            LevelSystem = new BeeHouseLevelSystem(this, config, hiderExtractPosition, _unitFactory, _resourceGlobalStorage,
+                _healthStorage, ref _hider);
+            Initialized += InitLevelSystem;
         }
-        
+
+        private void InitLevelSystem()
+            => LevelSystem.Init(0);
+
         //TODO: remove this temporary code, when new ui will be create
         [ContextMenu(nameof(ExtractHidedUnit))]
         public void ExtractHidedUnit()

@@ -7,7 +7,7 @@ public class BuildingProgressConstruction : ConstructionBase
 {
     [SerializeField] private TMP_Text _timerText;
 
-    public override AffiliationEnum Affiliation => AffiliationEnum.Neutral;
+    public override FractionType Fraction => FractionType.None;
     public override ConstructionID ConstructionID => ConstructionID.BuildingProgressConstruction;
     public ConstructionID BuildingConstructionID { get; private set; }
 

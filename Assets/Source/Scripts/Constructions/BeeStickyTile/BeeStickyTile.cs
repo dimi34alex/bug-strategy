@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using CustomTimer;
+using Source.Scripts;
 using Unit.Effects;
 using UnityEngine;
 
@@ -13,7 +14,7 @@ namespace Constructions
         private readonly List<BufferBeforeApplyStick> _buffers = new List<BufferBeforeApplyStick>();
         private Timer _existsTimer;
         
-        public override AffiliationEnum Affiliation => AffiliationEnum.Bees;
+        public override FractionType Fraction => FractionType.Bees;
         public override ConstructionID ConstructionID => ConstructionID.BeeStickyTileConstruction;
 
         protected override void OnAwake()
@@ -54,7 +55,7 @@ namespace Constructions
         {
             buffer.Effectable.EffectsProcessor.ApplyEffect(EffectType.StickyHoney, true);
             
-            if (buffer.Effectable.Affiliation == AffiliationEnum.Bees)
+            if (buffer.Effectable.Affiliation == Affiliation)
                 buffer.Effectable.EffectsProcessor.ApplyEffect(EffectType.MoveSpeedUp, true);
             else
                 buffer.Effectable.EffectsProcessor.ApplyEffect(EffectType.MoveSpeedDown, true);
@@ -78,7 +79,7 @@ namespace Constructions
                     _buffers.RemoveAt(index);
                 else
                 {
-                    if(effectable.Affiliation == AffiliationEnum.Bees)
+                    if(effectable.Affiliation == Affiliation)
                         effectable.EffectsProcessor.RemoveFixedEnter(EffectType.MoveSpeedUp);
                     else
                         effectable.EffectsProcessor.RemoveFixedEnter(EffectType.MoveSpeedDown);

@@ -1,12 +1,15 @@
 using UnityEngine;
+using Zenject;
 
 namespace Constructions
 {
     public class AntMine : ResourceProduceConstructionBase
     {
         [SerializeField] private AntMineConfig config;
+
+        [Inject] private readonly IResourceGlobalStorage _resourceGlobalStorage;
         
-        public override AffiliationEnum Affiliation => AffiliationEnum.Ants;
+        public override FractionType Fraction => FractionType.Ants;
         public override ConstructionID ConstructionID => ConstructionID.AntMine;
         public override ResourceProduceCoreBase ResourceProduceCoreBase => _resourceProduceCore;
         public override ResourceProduceConstructionState ProduceConstructionState => _resourceProduceConstructionState;
@@ -39,7 +42,7 @@ namespace Constructions
 
         public void ExtractResource()
         {
-            ResourceBase resource = ResourceGlobalStorage.GetResource(_resourceProduceCore.TargetResourceID);
+            ResourceBase resource = _resourceGlobalStorage.GetResource(Affiliation, _resourceProduceCore.TargetResourceID);
             var produceResource = _resourceProduceCore.ProducedResource;
             
             if (produceResource.CurrentValue > 0 && resource.CurrentValue < resource.Capacity)
@@ -47,7 +50,7 @@ namespace Constructions
                 int extractValue = (int)produceResource.CurrentValue;
                 extractValue = (int)Mathf.Clamp(extractValue, 0, (resource.Capacity - resource.CurrentValue));
                 int addResource = _resourceProduceCore.ExtractProducedResources(extractValue);
-                ResourceGlobalStorage.ChangeValue(_resourceProduceCore.TargetResourceID, addResource);
+                _resourceGlobalStorage.ChangeValue(Affiliation, _resourceProduceCore.TargetResourceID, addResource);
             }
         }
 

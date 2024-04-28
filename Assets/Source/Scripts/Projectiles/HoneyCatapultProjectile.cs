@@ -41,9 +41,8 @@ namespace Projectiles
 
             for (int i = 0; i < size; i++)
             {
-                if (result[i].collider.gameObject.TryGetComponent(out IDamagable damageable) && 
-                    (damageable.Affiliation == AffiliationEnum.Butterflies || 
-                     damageable.Affiliation == AffiliationEnum.Ants))
+                if (result[i].collider.gameObject.TryGetComponent(out IDamagable damageable) 
+                    && Affiliation.CheckEnemies(damageable.Affiliation))
                 {
                     float damageScale = 1;
 
@@ -70,7 +69,7 @@ namespace Projectiles
             if(FrameworkCommander.GlobalData.ConstructionsRepository.ConstructionExist(roundedPos))
                 return;
             
-            ConstructionBase construction = _constructionFactory.Create<ConstructionBase>(ConstructionID.BeeStickyTileConstruction);
+            ConstructionBase construction = _constructionFactory.Create<ConstructionBase>(ConstructionID.BeeStickyTileConstruction, Affiliation);
             FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(roundedPos, construction);
             construction.transform.position = roundedPos;
         }

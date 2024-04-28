@@ -11,6 +11,7 @@ namespace Projectiles
         public float Damage { get; private set; }
         public abstract ProjectileType ProjectileType { get; }
         public ProjectileType Identifier => ProjectileType;
+        public AffiliationEnum Affiliation { get; private set; }
         
         protected IUnitTarget Target;
 
@@ -23,8 +24,17 @@ namespace Projectiles
             Move(time);
         }
 
-        public void SetDamage(IDamageApplicator damage) => Damage = damage.Damage;
-        public void SetDamage(float damage) => Damage = damage;
+        public void Init(AffiliationEnum affiliation, float damage)
+        {
+            Affiliation = affiliation;
+            Damage = damage;
+        }
+        
+        public void Init(AffiliationEnum affiliation, IDamageApplicator damageApplicator)
+        {
+            Affiliation = affiliation;
+            Damage = damageApplicator.Damage;
+        }
 
         public void SetTarget(IUnitTarget target)
         {

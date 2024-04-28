@@ -28,13 +28,11 @@ namespace Projectiles
 
                 for (int i = 0; i < size; i++)
                 {
-                    var dam = new DividedDamage(this, 2);
-                    if (result[i].collider.gameObject.TryGetComponent(out IDamagable damageable) && 
-                        (damageable.Affiliation == AffiliationEnum.Bees || 
-                         damageable.Affiliation == AffiliationEnum.Ants) &&
-                        damageable != mainDamageable)
+                    if (result[i].collider.gameObject.TryGetComponent(out IDamagable damageable) 
+                        && Affiliation.CheckEnemies(damageable.Affiliation) 
+                        && damageable != mainDamageable)
                     {
-                        damageable.TakeDamage(dam);
+                        damageable.TakeDamage(this, 0.5f);
                     }
                 }  
             }
@@ -46,13 +44,6 @@ namespace Projectiles
         {
             base.OnElementReturn();
             _damageRadius = 0;
-        }
-
-        private class DividedDamage : IDamageApplicator
-        {
-            public float Damage { get; }
-
-            public DividedDamage(IDamageApplicator damage, float divideScale) => Damage = damage.Damage / divideScale;
         }
     }
 }

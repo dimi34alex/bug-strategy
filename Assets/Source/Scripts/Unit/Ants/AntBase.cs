@@ -18,7 +18,8 @@ namespace Unit.Ants
         [SerializeField] private GameObject resource;
         [SerializeField] private Animator animator;
 
-        [Inject] private ProjectileFactory _projectileFactory;
+        [Inject] private readonly ProjectileFactory _projectileFactory;
+        [Inject] private readonly IResourceGlobalStorage _resourceGlobalStorage;
         
         public ProfessionType CurProfessionType => CurrentProfession.ProfessionType;
         public int CurProfessionRang => CurrentProfession.ProfessionRang;
@@ -117,8 +118,7 @@ namespace Unit.Ants
             switch (newProfession.ProfessionType)
             {
                 case (ProfessionType.Worker):
-                    var resourceRepository = ResourceGlobalStorage.ResourceRepository;
-                    CurrentProfession = new AntWorkerProfession(this, newProfession as AntWorkerConfig, resourceRepository,
+                    CurrentProfession = new AntWorkerProfession(this, newProfession as AntWorkerConfig, _resourceGlobalStorage,
                         resource);
                     break;
                 case (ProfessionType.MeleeWarrior):

@@ -3,7 +3,6 @@ using Unit.Ants;
 using Unit.Ants.Configs.Professions;
 using Unit.Ants.Professions;
 using Unit.Factory;
-using Unit.OrderValidatorCore;
 using UnityEngine;
 using Zenject;
 
@@ -13,12 +12,13 @@ public class SwitchAntProfessionCunstruction : MonoBehaviour, IUnitTarget, ITrig
     [SerializeField] private AntBase ant;
     [SerializeField] private AntProfessionRang targetProfessionRang;
     [SerializeField] private AntProfessionsConfigsRepository antProfessionsConfigsRepository;
-
+    [SerializeField] private AffiliationEnum affiliationEnum;
+    
     [Inject] private UnitFactory _unitFactory;
     
     public Transform Transform => transform;
     public UnitTargetType TargetType => UnitTargetType.Construction;
-    public AffiliationEnum Affiliation => AffiliationEnum.Ants;
+    public AffiliationEnum Affiliation => affiliationEnum;
     public bool IsActive { get; protected set; } = true;
 
     public event Action<ITriggerable> OnDisableITriggerableEvent;

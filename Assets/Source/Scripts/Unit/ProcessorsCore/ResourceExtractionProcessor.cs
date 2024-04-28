@@ -7,10 +7,11 @@ namespace Unit.ProcessorsCore
     public class ResourceExtractionProcessor
     {
         public readonly int ExtractionCapacity;
-        
+
+        private readonly IAffiliation _affiliation;
         private readonly Timer _extractionTimer;
         private readonly GameObject _resourceSkin;
-        private readonly ResourceRepository _resourceRepository;
+        private readonly IResourceGlobalStorage _resourceGlobalStorage;
         
         public ResourceID ExtractedResourceID { get; private set; }
         public bool GotResource { get; private set; } = false;
@@ -19,12 +20,13 @@ namespace Unit.ProcessorsCore
         public event Action OnResourceExtracted;
         public event Action OnStorageResources;
         
-        public ResourceExtractionProcessor(int gatheringCapacity, float extractionTime, ResourceRepository resourceRepository, GameObject resourceSkin)
+        public ResourceExtractionProcessor(IAffiliation affiliation, int gatheringCapacity, float extractionTime, IResourceGlobalStorage resourceGlobalStorage, GameObject resourceSkin)
         {
+            _affiliation = affiliation;
             ExtractionCapacity = gatheringCapacity;
             _extractionTimer = new Timer(extractionTime, 0, true);
             _extractionTimer.OnTimerEnd += ExtractResource;
-            _resourceRepository = resourceRepository;
+            _resourceGlobalStorage = resourceGlobalStorage;
             _resourceSkin = resourceSkin;
             HideResource();
         }
@@ -70,7 +72,7 @@ namespace Unit.ProcessorsCore
         {
             if(!GotResource) return;
             
-            _resourceRepository.ChangeValue(ExtractedResourceID, ExtractionCapacity);
+            _resourceGlobalStorage.ChangeValue(_affiliation.Affiliation, ExtractedResourceID, ExtractionCapacity);
             GotResource = false;
             HideResource();
             OnStorageResources?.Invoke();

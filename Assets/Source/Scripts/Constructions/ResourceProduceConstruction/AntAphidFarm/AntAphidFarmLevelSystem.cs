@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Constructions.LevelSystemCore;
 
 namespace Constructions
@@ -9,13 +8,21 @@ namespace Constructions
     {
         private readonly ResourceProduceCore _resourceProduceCore;
         
-        public AntAphidFarmLevelSystem(IReadOnlyList<AntAphidFarmLevel> levels, ref ResourceProduceCore resourceProduceCore,
-            ref ResourceRepository resourceRepository, ref ResourceStorage healthStorage) 
-            : base(levels, ref resourceRepository, ref healthStorage)
+        public AntAphidFarmLevelSystem(ConstructionBase construction, AntAphidFarmConfig config,
+            IResourceGlobalStorage resourceGlobalStorage, ref ResourceProduceCore resourceProduceCore, 
+            ResourceStorage healthStorage) 
+            : base(construction, config.Levels,  resourceGlobalStorage, healthStorage)
         {
             _resourceProduceCore = resourceProduceCore = new ResourceProduceCore(CurrentLevel.ResourceProduceProcessInfo);
         }
-
+        
+        public override void Init(int initialLevelIndex)
+        {
+            base.Init(initialLevelIndex);
+            
+            _resourceProduceCore.SetResourceProduceProccessInfo(CurrentLevel.ResourceProduceProcessInfo);
+        }
+        
         protected override void LevelUpLogic()
         {
             base.LevelUpLogic();

@@ -62,7 +62,8 @@ namespace Unit.OrderValidatorCore
                         return UnitPathType.Attack;
                     break;
                 case UnitPathType.Switch_Profession:
-                    if (!target.IsAnyNull() && Affiliation == AffiliationEnum.Ants &&
+                    if (!target.IsAnyNull() && 
+                        Unit.Fraction == FractionType.Ants &&
                         target.TargetType == UnitTargetType.Construction)
                         // TODO: create construction for switching professions
                         return UnitPathType.Switch_Profession;

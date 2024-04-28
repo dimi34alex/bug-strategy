@@ -1,29 +1,32 @@
-using System.Collections.Generic;
 using Constructions.LevelSystemCore;
-using Unit.Factory;
 using UnitsRecruitingSystemCore;
-using UnityEngine;
 
 namespace Constructions
 {
     public class AntTownHallLevelSystem : ConstructionLevelSystemBase<AntTownHallLevel>
     {
-        private UnitsRecruiter _recruiter;
+        private readonly UnitsRecruiter _recruiter;
 
-        public AntTownHallLevelSystem(IReadOnlyList<AntTownHallLevel> levels, Transform spawnPosition, 
-            UnitFactory unitFactory, ref ResourceRepository resourceRepository, ref ResourceStorage healthStorage, 
-            ref UnitsRecruiter recruiter) 
-            : base(levels, ref resourceRepository, ref healthStorage)
+        public AntTownHallLevelSystem(ConstructionBase construction, AntTownHallConfig config, 
+            IResourceGlobalStorage resourceGlobalStorage, ResourceStorage healthStorage, UnitsRecruiter recruiter) 
+            : base(construction, config.Levels,  resourceGlobalStorage, healthStorage)
         {
-            _recruiter = recruiter = new UnitsRecruiter(CurrentLevel.RecruitingSize, spawnPosition,
-                CurrentLevel.RecruitingData, unitFactory, ref resourceRepository);
+            _recruiter = recruiter;
+        }
+
+        public override void Init(int initialLevelIndex)
+        {
+            base.Init(initialLevelIndex);
+            
+            _recruiter.SetStackCount(CurrentLevel.RecruitingSize);
+            _recruiter.SetNewDatas(CurrentLevel.RecruitingData);
         }
 
         protected override void LevelUpLogic()
         {
             base.LevelUpLogic();
 
-            _recruiter.AddStacks(CurrentLevel.RecruitingSize);
+            _recruiter.SetStackCount(CurrentLevel.RecruitingSize);
             _recruiter.SetNewDatas(CurrentLevel.RecruitingData);
         }
     }

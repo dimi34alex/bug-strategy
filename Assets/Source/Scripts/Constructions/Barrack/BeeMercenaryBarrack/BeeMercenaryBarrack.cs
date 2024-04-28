@@ -1,5 +1,7 @@
 using UnitsHideCore;
+using UnitsRecruitingSystemCore;
 using UnityEngine;
+using Zenject;
 
 namespace Constructions
 {
@@ -9,7 +11,7 @@ namespace Constructions
         
         private UnitsHider _hider;
 
-        public override AffiliationEnum Affiliation => AffiliationEnum.Bees;
+        public override FractionType Fraction => FractionType.Bees;
         public override ConstructionID ConstructionID => ConstructionID.BeeMercenaryBarrack;
         public IHider Hider => _hider;
 
@@ -17,10 +19,15 @@ namespace Constructions
         {
             base.OnAwake();
 
-            var resourceRepository = ResourceGlobalStorage.ResourceRepository;
-            LevelSystem = new BeeMercenaryBarrackLevelSystem(config, unitsSpawnPosition, unitFactory,
-                ref resourceRepository, ref _healthStorage, ref recruiter, ref _hider);
+            _recruiter = new UnitsRecruiter(this, 0, unitsSpawnPosition, _unitFactory, _resourceGlobalStorage);
+            _hider = new UnitsHider(0, _unitFactory, unitsSpawnPosition, config.HiderAccess);
+            LevelSystem = new BeeMercenaryBarrackLevelSystem(this, config, _resourceGlobalStorage, 
+                _healthStorage, _recruiter, _hider);
+            InitLevelSystem();
         }
+        
+        private void InitLevelSystem()
+            => LevelSystem.Init(0);
 
         //TODO: remove this temporary code when new ui will be create
         [ContextMenu(nameof(RecruitMurmur))]

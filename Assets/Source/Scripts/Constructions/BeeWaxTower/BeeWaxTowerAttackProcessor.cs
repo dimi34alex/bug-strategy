@@ -9,6 +9,7 @@ namespace Constructions
 {
     public class BeeWaxTowerAttackProcessor
     {
+        private readonly IAffiliation _affiliation;
         private readonly SpawnProcessor _spawnProcessor;
         private readonly TriggerBehaviour _attackZone;
         private readonly List<IUnitTarget> _targets;
@@ -16,14 +17,17 @@ namespace Constructions
         private readonly Timer _cooldown;
         
         private int _projectilesCount;
+
+        public AffiliationEnum Affiliation => _affiliation.Affiliation;
         
-        public BeeWaxTowerAttackProcessor(ProjectileFactory projectileFactory, TriggerBehaviour attackZone, Transform spawnTransform)
+        public BeeWaxTowerAttackProcessor(IAffiliation affiliation, ProjectileFactory projectileFactory, TriggerBehaviour attackZone, Transform spawnTransform)
         {
+            _affiliation = affiliation;
             _attackZone = attackZone;
             _spawnTransform = spawnTransform;
             _targets = new List<IUnitTarget>();
 
-            _spawnProcessor = new SpawnProcessor(projectileFactory, spawnTransform);
+            _spawnProcessor = new SpawnProcessor(_affiliation, projectileFactory, spawnTransform);
             _spawnProcessor.OnEndSpawn += ResetCooldown;
             
             _attackZone.EnterEvent += OnTargetEnter;
@@ -38,7 +42,7 @@ namespace Constructions
             _spawnProcessor.HandleUpdate(time);
             _cooldown.Tick(time);
         }
-
+        
         public void SetData(int projectilesCount, float cooldown, float spawnPause, float damage, ProjectileType projectileType)
         {
             _projectilesCount = projectilesCount;
@@ -49,7 +53,9 @@ namespace Constructions
 
         private void OnTargetEnter(ITriggerable triggerable)
         {
-            if (triggerable.TryCast(out IUnitTarget target) && target.Affiliation != AffiliationEnum.Bees && target.CastPossible<IDamagable>())
+            if (triggerable.TryCast(out IUnitTarget target) 
+                && Affiliation.CheckEnemies(target.Affiliation) 
+                && target.CastPossible<IDamagable>())
             {
                 if(_targets.Contains(target))
                     return;
@@ -63,7 +69,9 @@ namespace Constructions
         
         private void OnTargetExit(ITriggerable triggerable)
         {
-            if (triggerable.TryCast(out IUnitTarget target) && target.Affiliation != AffiliationEnum.Bees && target.CastPossible<IDamagable>())
+            if (triggerable.TryCast(out IUnitTarget target) 
+                && Affiliation.CheckEnemies(target.Affiliation) 
+                && target.CastPossible<IDamagable>())
                 _targets.Remove(target);
         }
         
@@ -105,6 +113,7 @@ namespace Constructions
         
         private class SpawnProcessor
         {
+            private readonly IAffiliation _affiliation;
             private readonly ProjectileFactory _projectileFactory;
             private readonly TriggerBehaviour _attackZone;
             private readonly Transform _spawnTransform;
@@ -113,11 +122,14 @@ namespace Constructions
             private ProjectileType _projectileType;
             private List<IUnitTarget> _targets;
             private float _damage;
+
+            public AffiliationEnum Affiliation => _affiliation.Affiliation;
             
             public event Action OnEndSpawn;
             
-            public SpawnProcessor(ProjectileFactory projectileFactory, Transform spawnTransform)
+            public SpawnProcessor(IAffiliation affiliation, ProjectileFactory projectileFactory, Transform spawnTransform)
             {
+                _affiliation = affiliation;
                 _projectileFactory = projectileFactory;
                 _spawnTransform = spawnTransform;
                 _spawnPauseTimer = new Timer(0, 0, true);
@@ -153,7 +165,7 @@ namespace Constructions
                 
                 var projectile = _projectileFactory.Create(_projectileType).Cast<BeeWaxTowerProjectile>();
                 projectile.SetTarget(target);
-                projectile.SetDamage(_damage);
+                projectile.Init(Affiliation, _damage);
                 projectile.transform.position = _spawnTransform.position;
                 
                 if(_targets.Count > 0)

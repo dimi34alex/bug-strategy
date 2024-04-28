@@ -64,7 +64,7 @@ namespace Unit.Bees
                     break;
                 case UnitPathType.Switch_Profession:
                     if (!target.IsAnyNull() && 
-                        Affiliation == AffiliationEnum.Ants && 
+                        Unit.Fraction == FractionType.Ants && 
                         target.TargetType == UnitTargetType.Construction)
                         return UnitPathType.Switch_Profession;
                     break;
