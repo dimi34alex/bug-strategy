@@ -11,6 +11,7 @@ public class GlobalData
     public readonly ResourceRepository ResourceRepository;
     public readonly ConstructionsRepository ConstructionsRepository;
     public readonly ConstructionSelector ConstructionSelector;
+    public readonly ResourceSourcesRepository ResourceSourcesRepository;
     
     public GlobalData()
     {
@@ -20,5 +21,6 @@ public class GlobalData
         ResourceRepository = new ResourceRepository();
         ConstructionsRepository = new ConstructionsRepository();
         ConstructionSelector = new ConstructionSelector(ConstructionsRepository);
+        ResourceSourcesRepository = new ResourceSourcesRepository();
     }
 }

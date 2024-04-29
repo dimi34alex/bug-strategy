@@ -34,7 +34,7 @@ namespace Unit.Ants.States
             }
             
             _workerProfession.ResourceExtractionProcessor.OnResourceExtracted += ResourceExtracted;
-            _workerProfession.ResourceExtractionProcessor.StartExtraction(resourceSource.ResourceID);
+            _workerProfession.ResourceExtractionProcessor.StartExtraction(resourceSource);
         }
 
         public override void OnStateExit()

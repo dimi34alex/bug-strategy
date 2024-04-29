@@ -30,7 +30,7 @@ namespace Unit.States
             }
             
             _resourceExtractionProcessor.OnResourceExtracted += ResourceExtracted;
-            _resourceExtractionProcessor.StartExtraction(resourceSource.ResourceID);
+            _resourceExtractionProcessor.StartExtraction(resourceSource);
         }
 
         public override void OnStateExit()

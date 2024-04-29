@@ -12,10 +12,11 @@ namespace Unit.ProcessorsCore
         private readonly Timer _extractionTimer;
         private readonly GameObject _resourceSkin;
         private readonly IResourceGlobalStorage _resourceGlobalStorage;
+        private ResourceSourceBase _resourceSource;
         
         public ResourceID ExtractedResourceID { get; private set; }
         public bool GotResource { get; private set; } = false;
-        public bool Extraction { get; private set; } = false;
+        public bool IsExtract { get; private set; } = false;
         
         public event Action OnResourceExtracted;
         public event Action OnStorageResources;
@@ -45,12 +46,13 @@ namespace Unit.ProcessorsCore
         /// <summary>
         /// Start resource extraction timer
         /// </summary>
-        public void StartExtraction(ResourceID resourceID)
+        public void StartExtraction(ResourceSourceBase resourceSource)
         {
-            if(Extraction) return;
-            
-            Extraction = true;
-            ExtractedResourceID = resourceID;
+            if(IsExtract) return;
+
+            _resourceSource = resourceSource;
+            IsExtract = true;
+            ExtractedResourceID = _resourceSource.ResourceID;
             _extractionTimer.Reset();
         }
 
@@ -59,9 +61,9 @@ namespace Unit.ProcessorsCore
         /// </summary>
         public void AbortExtraction()
         {
-            if(!Extraction) return;
+            if(!IsExtract) return;
             
-            Extraction = false;
+            IsExtract = false;
             _extractionTimer.Reset(true);
         }
         
@@ -83,7 +85,7 @@ namespace Unit.ProcessorsCore
             _extractionTimer.Reset(true);
             _extractionTimer.OnTimerEnd += ExtractResource;
             GotResource = false;
-            Extraction = false;
+            IsExtract = false;
             HideResource();
         }
         
@@ -92,9 +94,14 @@ namespace Unit.ProcessorsCore
         
         private void ExtractResource()
         {
-            GotResource = true;
-            Extraction = false;
-            ShowResource();
+            if (_resourceSource.CanBeCollected)
+            {
+                GotResource = true;
+                ShowResource();
+                _resourceSource.ExtractResource(ExtractionCapacity);    
+            }
+            
+            IsExtract = false;
             OnResourceExtracted?.Invoke();
         }
     }

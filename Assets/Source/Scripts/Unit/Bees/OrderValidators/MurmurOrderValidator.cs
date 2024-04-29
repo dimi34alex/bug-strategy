@@ -41,7 +41,8 @@ namespace Unit.Bees
             switch (target.TargetType)
             {
                 case UnitTargetType.ResourceSource:
-                    if (!_resourceExtractionProcessor.GotResource)
+                    if (!_resourceExtractionProcessor.GotResource &&
+                        target.Cast<ResourceSourceBase>().CanBeCollected)
                         return new UnitPathData(target, UnitPathType.Collect_Resource);
                     break;
                 case UnitTargetType.Construction:
@@ -73,7 +74,7 @@ namespace Unit.Bees
             {
                 case UnitPathType.Collect_Resource:
                     if (target.TargetType == UnitTargetType.ResourceSource &&
-                        target.CastPossible<ResourceSourceBase>() &&
+                        target.Cast<ResourceSourceBase>().CanBeCollected &&
                         !_resourceExtractionProcessor.GotResource)
                         return UnitPathType.Collect_Resource;
                     break;
