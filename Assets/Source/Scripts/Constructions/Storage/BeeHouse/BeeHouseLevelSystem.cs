@@ -16,7 +16,7 @@ namespace Constructions
             ref UnitsHider hider)
             : base(construction, config.Levels,  resourceGlobalStorage, healthStorage)
         {
-            _hider = hider = new UnitsHider(CurrentLevel.HiderCapacity ,unitFactory , hiderSpawnPosition, config.HiderAccess);
+            _hider = hider = new UnitsHider(construction, CurrentLevel.HiderCapacity ,unitFactory , hiderSpawnPosition, config.HiderAccess);
         }
         
         public override void Init(int initialLevelIndex)

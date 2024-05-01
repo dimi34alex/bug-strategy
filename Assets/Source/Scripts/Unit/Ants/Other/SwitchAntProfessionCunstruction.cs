@@ -36,11 +36,11 @@ public class SwitchAntProfessionCunstruction : MonoBehaviour, IUnitTarget, ITrig
         
         
         if (Input.GetKeyDown(KeyCode.Alpha1))
-            _unitFactory.Create(UnitType.AntStandard).transform.position = transform.position;
+            _unitFactory.Create(UnitType.AntStandard, transform.position, affiliationEnum);
         if (Input.GetKeyDown(KeyCode.Alpha2))
-            _unitFactory.Create(UnitType.AntBig).transform.position = transform.position;
+            _unitFactory.Create(UnitType.AntBig, transform.position, affiliationEnum);
         if (Input.GetKeyDown(KeyCode.Alpha3))
-            _unitFactory.Create(UnitType.AntFlying).transform.position = transform.position;
+            _unitFactory.Create(UnitType.AntFlying, transform.position, affiliationEnum);
     }
 
     private void GiveOrderSwitchProfession(ProfessionType newProfessionType) 

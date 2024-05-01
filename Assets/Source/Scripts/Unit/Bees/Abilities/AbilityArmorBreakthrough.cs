@@ -56,9 +56,9 @@ namespace Unit.Bees
             {
                 for (int i = 0; i < spawnUnit.Value; i++)
                 {
-                    var newUnit = _unitFactory.Create(spawnUnit.Key);
-                    float randomPos = Random.value;
-                    newUnit.transform.position = _mobileHive.transform.position + Vector3.left * randomPos;
+                    float randomPos = Random.value; 
+                    var spawnPosition = _mobileHive.transform.position + Vector3.left * randomPos;
+                    _unitFactory.Create(spawnUnit.Key, spawnPosition, _mobileHive.Affiliation);
                 }
             }
         }

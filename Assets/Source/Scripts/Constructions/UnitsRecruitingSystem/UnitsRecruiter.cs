@@ -176,9 +176,10 @@ namespace UnitsRecruitingSystemCore
 
         private void SpawnUnit(UnitType unitType)
         {
-            var unit = _unitFactory.Create(unitType);
             float randomPosOffset = UnityEngine.Random.Range(-0.01f, 0.01f);
-            unit.Transform.position = _spawnTransform.position + Vector3.left * randomPosOffset;
+            var spawnPosition = _spawnTransform.position + Vector3.left * randomPosOffset;
+            var unit = _unitFactory.Create(unitType, spawnPosition, _affiliation.Affiliation);
+ 
             unit.SetAffiliation(_affiliation.Affiliation);
         }
     }

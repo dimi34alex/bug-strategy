@@ -4,19 +4,18 @@ using UnityEngine;
 
 namespace Unit.ProcessorsCore
 {
-    public class ResourceExtractionProcessor
+    public class ResourceExtractionProcessor : IReadOnlyResourceExtractionProcessor
     {
-        public readonly int ExtractionCapacity;
-
         private readonly IAffiliation _affiliation;
         private readonly Timer _extractionTimer;
         private readonly GameObject _resourceSkin;
         private readonly IResourceGlobalStorage _resourceGlobalStorage;
         private ResourceSourceBase _resourceSource;
-        
+
         public ResourceID ExtractedResourceID { get; private set; }
         public bool GotResource { get; private set; } = false;
         public bool IsExtract { get; private set; } = false;
+        public int ExtractionCapacity { get; }
         
         public event Action OnResourceExtracted;
         public event Action OnStorageResources;
@@ -77,6 +76,7 @@ namespace Unit.ProcessorsCore
             _resourceGlobalStorage.ChangeValue(_affiliation.Affiliation, ExtractedResourceID, ExtractionCapacity);
             GotResource = false;
             HideResource();
+            
             OnStorageResources?.Invoke();
         }
 
@@ -102,6 +102,7 @@ namespace Unit.ProcessorsCore
             }
             
             IsExtract = false;
+            
             OnResourceExtracted?.Invoke();
         }
     }

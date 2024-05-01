@@ -1,7 +1,6 @@
 using System;
 using Unit.Factory;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 
 namespace Unit
@@ -18,9 +17,8 @@ namespace Unit
             {
                 foreach (var initUnitPair in initUnitsArray.Value)
                 {
-                    var unit = _unitFactory.Create(initUnitPair.UnitType);
-                    unit.Transform.position = initUnitPair.Transform.position;
-                    unit.SetAffiliation(initUnitsArray.Key);
+                    var spawnPosition = initUnitPair.Transform.position;
+                    _unitFactory.Create(initUnitPair.UnitType, spawnPosition, initUnitsArray.Key);
                 }
             }
         }

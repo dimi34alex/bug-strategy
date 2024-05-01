@@ -20,7 +20,7 @@ namespace Constructions
             _resourceConversionCore = resourceConversionCore =
                 new ResourceConversionCore(CurrentLevel.ResourceConversionProccessInfo);
             
-            _hider = hider = new UnitsHider(CurrentLevel.HiderCapacity ,unitFactory , hiderSpawnPosition, config.HiderAccess);
+            _hider = hider = new UnitsHider(construction, CurrentLevel.HiderCapacity ,unitFactory , hiderSpawnPosition, config.HiderAccess);
         }
 
         public override void Init(int initialLevelIndex)

@@ -6,6 +6,7 @@ namespace UnitsHideCore
 {
     public class UnitsHider : IHider
     {
+        private readonly IAffiliation _affiliation;
         private readonly IReadOnlyList<UnitType> _access;
         private readonly UnitFactory _unitFactory;
         private readonly Transform _extractTransform;
@@ -15,8 +16,9 @@ namespace UnitsHideCore
         public IReadOnlyList<UnitType> Access => _access;
         public IReadOnlyList<HiderCellBase> HiderCells => _hiderCells;
 
-        public UnitsHider(int startCapacity, UnitFactory unitFactory, Transform extractTransform, IReadOnlyList<UnitType> access)
+        public UnitsHider(IAffiliation affiliation, int startCapacity, UnitFactory unitFactory, Transform extractTransform, IReadOnlyList<UnitType> access)
         {
+            _affiliation = affiliation;
             _capacity = startCapacity;
             _unitFactory = unitFactory;
             _extractTransform = extractTransform;
@@ -75,8 +77,7 @@ namespace UnitsHideCore
             
             var cell = _hiderCells[index];
             _hiderCells.RemoveAt(index);
-            var unit = _unitFactory.Create(cell.UnitType);
-            unit.transform.position = extractPosition;
+            var unit = _unitFactory.Create(cell.UnitType, extractPosition, _affiliation.Affiliation);
 
             if (unit.TryCast(out IHidableUnit hidableUnit))
                 hidableUnit.LoadHideCell(cell);

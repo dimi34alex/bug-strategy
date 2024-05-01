@@ -27,7 +27,7 @@ namespace Constructions.BeeHospital
         {
             base.OnAwake();
 
-            _hider = new UnitsHider(0, _unitFactory, hiderExtractionPosition, config.HiderAccess);
+            _hider = new UnitsHider(this, 0, _unitFactory, hiderExtractionPosition, config.HiderAccess);
             _healProcessor = new HealProcessor(_hider, 0);
             
             _levelSystem = new BeeHospitalLevelSystem(this, config, _resourceGlobalStorage, _healthStorage, 

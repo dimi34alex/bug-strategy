@@ -28,7 +28,7 @@ namespace Constructions
             gameObject.name = "TownHall";
 
             _recruiter = new UnitsRecruiter(this, 0, workerBeesSpawnPosition, _unitFactory, _resourceGlobalStorage);
-            _hider = new UnitsHider(0, _unitFactory, workerBeesSpawnPosition, config.HiderAccess);
+            _hider = new UnitsHider(this, 0, _unitFactory, workerBeesSpawnPosition, config.HiderAccess);
             LevelSystem = new BeeTownHallLevelSystem(this, config, workerBeesSpawnPosition, _unitFactory, 
                 _resourceGlobalStorage, _healthStorage, ref _recruiter, ref _hider);
             Initialized += InitLevelSystem;

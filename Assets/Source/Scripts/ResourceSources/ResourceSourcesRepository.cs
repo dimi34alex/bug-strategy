@@ -42,7 +42,33 @@ public class ResourceSourcesRepository
 
         return resourceSource;
     }
+    
+    public ResourceSourceBase GetNearest(Vector3 position, bool onlyCanBeCollected)
+    {
+        if (_resourceSources.Count <= 0)
+            throw new ArgumentException();
         
+        var currentDistance = float.MaxValue;
+        ResourceSourceBase nearestResourceSource = null;
+        foreach (var resourceSource in _resourceSources)
+        {
+            if(onlyCanBeCollected && !resourceSource.Value.CanBeCollected)
+                continue;
+            
+            var distance = Vector3.Distance(position, resourceSource.Value.transform.position);
+            if (distance < currentDistance)
+            {
+                currentDistance = distance;
+                nearestResourceSource = resourceSource.Value;
+            }
+        }
+        
+        if (nearestResourceSource == null)
+            throw new NullReferenceException($"nearestResourceSource is null");
+        
+        return nearestResourceSource;
+    }
+    
     public void BlockCell(Vector3 position)
     {
         _blockedCells.Add(position);
