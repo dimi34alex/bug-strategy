@@ -32,6 +32,5 @@ public abstract class ResourceSourceBase : MonoBehaviour, IMiniMapObject, ITrigg
     private void OnDisable()
     {
         OnDisableITriggerableEvent?.Invoke(this);
-        OnDeactivation?.Invoke();
     }
 }

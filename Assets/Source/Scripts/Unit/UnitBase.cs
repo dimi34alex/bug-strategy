@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using MiniMapSystem;
+using Source.Scripts.Ai.InternalAis;
 using Unit;
 using Unit.Effects;
 using Unit.Effects.InnerProcessors;
@@ -29,6 +30,7 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
     public EffectsProcessor EffectsProcessor { get; protected set; }
     public MoveSpeedChangerProcessor MoveSpeedChangerProcessor { get; protected set; }
     public AffiliationEnum Affiliation { get; private set; }
+    public abstract InternalAiBase InternalAi { get; protected set; }
 
     public bool IsDied => _healthStorage.CurrentValue < 1f;
     public Transform Transform => transform;
@@ -53,11 +55,11 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
             if (value == _currentPathData) return;
 
             if (!_currentPathData.Target.IsAnyNull())
-                _currentPathData.Target.OnDeactivation -= ResetTarget;
+                _currentPathData.Target.OnDeactivation -= OnPathTargetDeactivated;
             
             _currentPathData = value;
             if (!_currentPathData.Target.IsAnyNull())
-                _currentPathData.Target.OnDeactivation += ResetTarget;
+                _currentPathData.Target.OnDeactivation += OnPathTargetDeactivated;
 
             OnUnitPathChange?.Invoke(this);
         }
@@ -73,6 +75,9 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
     public event Action<UnitBase> ElementDestroyEvent;
     public event Action OnTargetMovePositionChange;
     public event Action OnDeactivation;
+    public event Action TookDamage;
+    public event Action<IUnitTarget> TookDamageWithAttacker;
+    public event Action PathTargetDeactivated;
 
     public void SetAffiliation(AffiliationEnum affiliation)
     {
@@ -83,15 +88,19 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
     {
         _stateMachine.OnUpdate();
     }
+
+    public void TakeDamage(IDamageApplicator damageApplicator, float damageScale)
+        => TakeDamage(null, damageApplicator, damageScale);
     
-    public virtual void TakeDamage(IDamageApplicator damageApplicator, float damageScale = 1)
+    public virtual void TakeDamage(IUnitTarget attacker, IDamageApplicator damageApplicator, float damageScale = 1)
     {
         _healthStorage.ChangeValue(-damageApplicator.Damage * damageScale);
         OnDamaged();
+        TookDamage?.Invoke();
+        TookDamageWithAttacker?.Invoke(attacker);
 
         if (IsDied)
         {
-            Debug.Log("���� " + this.gameObject.name + " �������� ");
             OnUnitDied?.Invoke(this);
             OnUnitDiedEvent?.Invoke();
             ReturnInPool();
@@ -175,8 +184,8 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
         CalculateNewState(targetMovePosition);
     }
 
-    private void ResetTarget() 
-        => CurrentPathData = new UnitPathData(null, CurrentPathData.PathType);
+    private void OnPathTargetDeactivated() 
+        => PathTargetDeactivated?.Invoke();
 
     public EntityStateID EntityStateID;
     private void CalculateNewState(Vector3 newTargetMovePosition)

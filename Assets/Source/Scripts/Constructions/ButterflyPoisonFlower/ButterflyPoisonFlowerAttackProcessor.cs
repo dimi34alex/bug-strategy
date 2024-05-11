@@ -8,6 +8,7 @@ namespace Constructions
 {
     public class ButterflyPoisonFlowerAttackProcessor
     {
+        private readonly IUnitTarget _shooter;
         private readonly IAffiliation _affiliation;
         private readonly List<UnitBase> _enemies = new List<UnitBase>();
         private readonly ProjectileFactory _projectileFactory;
@@ -22,13 +23,14 @@ namespace Constructions
         public AffiliationEnum Affiliation => _affiliation.Affiliation;
         
         public ButterflyPoisonFlowerAttackProcessor(IAffiliation affiliation, Transform flowerPosition, 
-            ProjectileFactory projectileFactory, TriggerBehaviour triggerBehaviour)
+            ProjectileFactory projectileFactory, TriggerBehaviour triggerBehaviour, IUnitTarget shooter)
         {
             _affiliation = affiliation;
             _flowerPosition = flowerPosition;
             _projectileFactory = projectileFactory;
             _triggerBehaviour = triggerBehaviour;
-            
+            _shooter = shooter;
+
             _triggerBehaviour.EnterEvent += OnUnitEnter;
             _triggerBehaviour.ExitEvent += OnUnitExit;
             
@@ -74,7 +76,7 @@ namespace Constructions
             
             var projectile = _projectileFactory.Create(ProjectileType.ButterflyPoisonFlowerProjectile).Cast<ButterflyPoisonFlowerProjectile>();
             projectile.SetTarget(target);
-            projectile.Init(Affiliation, _attackDamage);
+            projectile.Init(Affiliation, _shooter, _attackDamage);
             projectile.SetDamageRadius(_damageRadius);
             projectile.transform.position = _flowerPosition.position;
             

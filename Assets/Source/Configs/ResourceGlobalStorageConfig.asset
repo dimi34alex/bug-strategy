@@ -40,19 +40,15 @@ MonoBehaviour:
           Value:
             <Capacity>k__BackingField: 10
             <Value>k__BackingField: 10
-        - Key: 10
-          Value:
-            <Capacity>k__BackingField: 10
-            <Value>k__BackingField: 10
-        - Key: 20
-          Value:
-            <Capacity>k__BackingField: 10
-            <Value>k__BackingField: 10
-        - Key: 30
+        - Key: 5
           Value:
             <Capacity>k__BackingField: 10
             <Value>k__BackingField: 10
         - Key: 1
+          Value:
+            <Capacity>k__BackingField: 10
+            <Value>k__BackingField: 10
+        - Key: 2
           Value:
             <Capacity>k__BackingField: 10
             <Value>k__BackingField: 10

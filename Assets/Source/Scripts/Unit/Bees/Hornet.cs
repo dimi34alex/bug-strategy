@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using Source.Scripts.Ai.InternalAis;
 using Unit.Bees.Configs;
 using Unit.Effects.InnerProcessors;
 using Unit.Effects.Interfaces;
 using Unit.OrderValidatorCore;
+using Unit.ProcessorsCore;
 using Unit.States;
 using UnitsHideCore;
 using UnityEngine;
@@ -17,7 +19,9 @@ namespace Unit.Bees
         public override UnitType UnitType => UnitType.Hornet;
 
         public AttackCooldownChanger AttackCooldownChanger { get; private set; }
-        
+        public override InternalAiBase InternalAi { get; protected set; }
+        public IReadOnlyAttackProcessor AttackProcessor => _attackProcessor;
+
         private OrderValidatorBase _orderValidator;
         private CooldownProcessor _cooldownProcessor;
         private HornetAttackProcessor _attackProcessor;
@@ -46,6 +50,8 @@ namespace Unit.Bees
                 new HideInConstructionState(this, this, ReturnInPool)
             };
             _stateMachine = new EntityStateMachine(states, EntityStateID.Idle);
+
+            InternalAi = new HornetInternalAi(this, states);
         }
 
         public override void HandleUpdate(float time)

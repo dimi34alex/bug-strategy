@@ -26,7 +26,8 @@ namespace Constructions
         
         protected override void OnAwake()
         {
-            _attackProcessor = new ButterflyPoisonFlowerAttackProcessor(this, transform, _projectileFactory, triggerBehaviour);
+            _attackProcessor = new ButterflyPoisonFlowerAttackProcessor(this, transform, _projectileFactory,
+                triggerBehaviour, this);
             _poisonFogProcessor = new ButterflyPoisonFlowerPoisonFogProcessor(transform, _poisonFogFactory);
             
             LevelSystem = new ButterflyPoisonFlowerLevelSystem(this, config, _resourceGlobalStorage, _healthStorage, 

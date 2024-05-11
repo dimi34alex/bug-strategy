@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Projectiles;
 using Projectiles.Factory;
+using Source.Scripts.Ai.InternalAis;
 using Unit.Bees.Configs;
 using Unit.Effects.InnerProcessors;
 using Unit.Effects.Interfaces;
@@ -22,9 +23,11 @@ namespace Unit.Bees
     
         public override UnitType UnitType => UnitType.MobileHive;
         public AttackCooldownChanger AttackCooldownChanger { get; private set; }
+        public override InternalAiBase InternalAi { get; protected set; }
 
         protected override OrderValidatorBase OrderValidator => _warriorOrderValidator;
-        
+        public IReadOnlyAttackProcessor AttackProcessor => _attackProcessor;
+
         private WarriorOrderValidator _warriorOrderValidator;
         private CooldownProcessor _cooldownProcessor;
         private AttackProcessorBase _attackProcessor;
@@ -53,6 +56,8 @@ namespace Unit.Bees
                 new AttackState(this, _warriorOrderValidator),
             };
             _stateMachine = new EntityStateMachine(states, EntityStateID.Idle);
+
+            InternalAi = new MobileHiveInternalAi(this, states);
         }
 
         public override void HandleUpdate(float time)

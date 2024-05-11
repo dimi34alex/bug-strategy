@@ -14,8 +14,8 @@ namespace Unit.ProcessorsCore
         public override event Action<IUnitTarget> TargetAttacked;
         public event Action<ProjectileBase> ProjectileSpawned; 
         
-        public RangeAttackProcessor(UnitBase unit, float attackRange, float damage,
-            CooldownProcessor cooldownProcessor, ProjectileType projectileType, ProjectileFactory projectilesFactory)
+        public RangeAttackProcessor(UnitBase unit, float attackRange, float damage, CooldownProcessor cooldownProcessor, 
+            ProjectileType projectileType, ProjectileFactory projectilesFactory)
             : base(unit, attackRange, damage, cooldownProcessor)
         {
             _projectileType = projectileType;
@@ -42,7 +42,7 @@ namespace Unit.ProcessorsCore
 
         protected virtual void InitProjectileData(ProjectileBase projectile, IUnitTarget target)
         {
-            projectile.Init(Affiliation, this);
+            projectile.Init(Affiliation, Attacker, this);
             projectile.SetTarget(target);
         }
     }

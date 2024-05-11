@@ -1,3 +1,4 @@
+using System;
 using Construction.TownHalls;
 using Unit.Ants.Professions;
 using Unit.OrderValidatorCore;
@@ -12,6 +13,8 @@ namespace Unit.Ants.States
         private readonly AntBase _ant;
 
         private AntWorkerProfession _workerProfession;
+        
+        public override event Action StateExecuted;
         
         public AntStorageResourceState(AntBase ant)
         {
@@ -31,13 +34,15 @@ namespace Unit.Ants.States
                                  $"{!_ant.CurrentProfession.TryCast(out _workerProfession)} | " +
                                  $"{!_ant.CurrentPathData.Target.CastPossible<TownHallBase>()}");            
 #endif
-                _ant.AutoGiveOrder(null);
+                // _ant.AutoGiveOrder(null);
+                StateExecuted?.Invoke();
                 return;
             }
             
             _workerProfession.ResourceExtractionProcessor.StorageResources();
             
-            _ant.AutoGiveOrder(null);
+            // _ant.AutoGiveOrder(null);
+            StateExecuted?.Invoke();
         }
 
         public override void OnStateExit()

@@ -12,6 +12,7 @@ namespace Unit.Ants.States
         private readonly AntBase _ant;
 
         private event Action UpdateEvent;
+        public override event Action StateExecuted;
         
         public AntMoveState(AntBase ant)
         {
@@ -56,13 +57,15 @@ namespace Unit.Ants.States
         private void ManualCheckDistance()
         {
             if(Vector3.Distance(_ant.Transform.position, _ant.TargetMovePosition) < DistanceBuffer)
-                _ant.HandleGiveOrder(_ant.CurrentPathData.Target, _ant.CurrentPathData.PathType);
+                // _ant.HandleGiveOrder(_ant.CurrentPathData.Target, _ant.CurrentPathData.PathType);
+                StateExecuted?.Invoke();
         }
         
         private void CheckTargetDistance()
         {
             if (_ant.CurrentProfession.OrderValidatorBase.CheckDistance(_ant.CurrentPathData))
-                _ant.HandleGiveOrder(_ant.CurrentPathData.Target, _ant.CurrentPathData.PathType);
+                // _ant.HandleGiveOrder(_ant.CurrentPathData.Target, _ant.CurrentPathData.PathType);
+                StateExecuted?.Invoke();
         }
     }
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Source.Scripts.Ai.InternalAis;
 using Unit.Bees.Configs;
 using Unit.Effects.InnerProcessors;
 using Unit.Effects.Interfaces;
@@ -20,12 +21,15 @@ namespace Unit.Bees
         
         public override UnitType UnitType => UnitType.Murmur;
         protected override OrderValidatorBase OrderValidator => _orderValidator;
+        public IReadOnlyAttackProcessor AttackProcessor => _attackProcessor;
 
         private ResourceExtractionProcessor _resourceExtractionProcessor;
         private MurmurOrderValidator _orderValidator;
         private AttackProcessorBase _attackProcessor;
         private CooldownProcessor _cooldownProcessor;
+        
         public AttackCooldownChanger AttackCooldownChanger { get; private set; }
+        public override InternalAiBase InternalAi { get; protected set; }
 
         protected override void OnAwake()
         {
@@ -40,7 +44,7 @@ namespace Unit.Bees
             _orderValidator = new MurmurOrderValidator(this, config.InteractionRange, _attackProcessor, _resourceExtractionProcessor);
             AttackCooldownChanger = new AttackCooldownChanger(_cooldownProcessor);
         
-            var stateBases = new List<EntityStateBase>()
+            var states = new List<EntityStateBase>()
             {
                 new IdleState(),
                 new MoveState(this, _orderValidator),
@@ -49,7 +53,9 @@ namespace Unit.Bees
                 new AttackState(this, _attackProcessor, _cooldownProcessor),
                 new HideInConstructionState(this, this, ReturnInPool)
             };
-            _stateMachine = new EntityStateMachine(stateBases, EntityStateID.Idle);
+            _stateMachine = new EntityStateMachine(states, EntityStateID.Idle);
+
+            InternalAi = new MurmurInternalAi(this, states);
         }
 
         public override void HandleUpdate(float time)

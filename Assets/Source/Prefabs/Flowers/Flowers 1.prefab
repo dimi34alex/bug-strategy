@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resourceCapacity: 100
-  refillTime: 30
+  refillTime: 90
   model: {fileID: 1384668718197465365}
   pollinatedModel: {fileID: 7161246113156744325}
 --- !u!65 &5775281600303665132

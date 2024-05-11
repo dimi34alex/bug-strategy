@@ -1,3 +1,4 @@
+using System;
 using Unit.Ants.Professions;
 using Unit.OrderValidatorCore;
 
@@ -10,6 +11,8 @@ namespace Unit.Ants.States
         private readonly AntBase _ant;
         
         private AntWarriorProfessionBase _antWarriorProfessionBase;
+        
+        public override event Action StateExecuted;
         
         public AntIdleState(AntBase ant)
         {
@@ -41,7 +44,8 @@ namespace Unit.Ants.States
         {
             if (!_antWarriorProfessionBase.AttackProcessor.CheckEnemiesInAttackZone()) return;
             
-            _ant.HandleGiveOrder(null, UnitPathType.Attack);
+            // _ant.HandleGiveOrder(null, UnitPathType.Attack);
+            StateExecuted?.Invoke();
         }
     }
 }

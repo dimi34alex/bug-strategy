@@ -10,12 +10,13 @@ namespace Unit.ProcessorsCore
         private readonly Timer _extractionTimer;
         private readonly GameObject _resourceSkin;
         private readonly IResourceGlobalStorage _resourceGlobalStorage;
-        private ResourceSourceBase _resourceSource;
-
+        private ResourceSourceBase _prevResourceSource;
+        
         public ResourceID ExtractedResourceID { get; private set; }
         public bool GotResource { get; private set; } = false;
         public bool IsExtract { get; private set; } = false;
         public int ExtractionCapacity { get; }
+        public ResourceSourceBase PrevResourceSource => _prevResourceSource;
         
         public event Action OnResourceExtracted;
         public event Action OnStorageResources;
@@ -49,9 +50,9 @@ namespace Unit.ProcessorsCore
         {
             if(IsExtract) return;
 
-            _resourceSource = resourceSource;
+            _prevResourceSource = resourceSource;
             IsExtract = true;
-            ExtractedResourceID = _resourceSource.ResourceID;
+            ExtractedResourceID = _prevResourceSource.ResourceID;
             _extractionTimer.Reset();
         }
 
@@ -94,11 +95,11 @@ namespace Unit.ProcessorsCore
         
         private void ExtractResource()
         {
-            if (_resourceSource.CanBeCollected)
+            if (_prevResourceSource.CanBeCollected)
             {
                 GotResource = true;
                 ShowResource();
-                _resourceSource.ExtractResource(ExtractionCapacity);    
+                _prevResourceSource.ExtractResource(ExtractionCapacity);    
             }
             
             IsExtract = false;

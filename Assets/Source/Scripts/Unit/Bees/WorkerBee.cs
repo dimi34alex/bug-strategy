@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Constructions.UnitsHideConstruction.Cells.BeesHiderCells;
+using Source.Scripts.Ai.InternalAis;
 using Unit.Bees.Configs;
 using Unit.OrderValidatorCore;
 using Unit.ProcessorsCore;
@@ -22,6 +23,8 @@ namespace Unit.Bees
 
         private OrderValidatorBase _orderValidator;
         private ResourceExtractionProcessor _resourceExtractionProcessor;
+        public IReadOnlyResourceExtractionProcessor ResourceExtractionProcessor => _resourceExtractionProcessor;
+        public override InternalAiBase InternalAi { get; protected set; }
         
         protected override void OnAwake()
         {
@@ -43,6 +46,8 @@ namespace Unit.Bees
                 new HideInConstructionState(this, this, ReturnInPool)
             };
             _stateMachine = new EntityStateMachine(stateBases, EntityStateID.Idle);
+
+            InternalAi = new WorkerBeeInternalAi(this, stateBases);
         }
 
         public override void HandleUpdate(float time)
@@ -58,6 +63,7 @@ namespace Unit.Bees
             
             _healthStorage.SetValue(_healthStorage.Capacity);
             _resourceExtractionProcessor.Reset();
+            InternalAi.Reset();
 
             _stateMachine.SetState(EntityStateID.Idle);
         }

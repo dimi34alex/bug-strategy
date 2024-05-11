@@ -1,5 +1,7 @@
+using System;
 using Unit.OrderValidatorCore;
 using Unit.ProcessorsCore;
+using UnityEngine;
 
 namespace Unit.States
 {
@@ -13,6 +15,8 @@ namespace Unit.States
         private readonly IReadOnlyCooldownProcessor _cooldownProcessor;
 
         private bool CanAttack => !_cooldownProcessor.IsCooldown; 
+        
+        public override event Action StateExecuted;
         
         public AttackState(MovingUnit unit, AttackProcessorBase attackProcessor, CooldownProcessor cooldownProcessor)
         {
@@ -39,7 +43,8 @@ namespace Unit.States
         {
             if(!_attackProcessor.CheckEnemiesInAttackZone())
             {
-                _unit.AutoGiveOrder(null);
+                // _unit.AutoGiveOrder(null);
+                StateExecuted?.Invoke();
                 return;
             }
             
@@ -65,8 +70,10 @@ namespace Unit.States
         
         private void OnExitEnemyFromZone()
         {
-            if(_attackProcessor.EnemiesCount <= 0)
-                _unit.AutoGiveOrder(null);
+            //if(_attackProcessor.EnemiesCount <= 0)
+                // _unit.AutoGiveOrder(null);
+
+            StateExecuted?.Invoke();
         }
     }
 }

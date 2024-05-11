@@ -13,6 +13,7 @@ namespace Unit.States
         private readonly MovingUnit _unit;
         private readonly OrderValidatorBase _orderValidator;
         
+        public override event Action StateExecuted;
         private event Action UpdateEvent;
         
         public MoveState(MovingUnit unit, OrderValidatorBase orderValidator)
@@ -59,13 +60,16 @@ namespace Unit.States
         private void ManualCheckDistance()
         {
             if (Vector3.Distance(_unit.Transform.position, _unit.TargetMovePosition) < DistanceBuffer)
-                _unit.HandleGiveOrder(_unit.CurrentPathData.Target, _unit.CurrentPathData.PathType);
+                StateExecuted?.Invoke();
+                // _unit.HandleGiveOrder(_unit.CurrentPathData.Target, _unit.CurrentPathData.PathType);
         }
         
         private void CheckTargetDistance()
         {
-            if (_orderValidator.CheckDistance(_unit.CurrentPathData))
-                _unit.HandleGiveOrder(_unit.CurrentPathData.Target, _unit.CurrentPathData.PathType);
+            StateExecuted?.Invoke();
+
+            //if (_orderValidator.CheckDistance(_unit.CurrentPathData))
+                // _unit.HandleGiveOrder(_unit.CurrentPathData.Target, _unit.CurrentPathData.PathType);
         }
     }
 }

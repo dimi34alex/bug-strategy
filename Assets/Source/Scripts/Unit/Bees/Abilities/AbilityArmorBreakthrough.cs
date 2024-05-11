@@ -45,7 +45,7 @@ namespace Unit.Bees
                 if (result[i].collider.gameObject.TryGetComponent(out IDamagable damageable)
                     && _mobileHive.Affiliation.CheckEnemies(damageable.Affiliation))
                 {
-                    damageable.TakeDamage(this);
+                    damageable.TakeDamage(_mobileHive, this);
                 }
             }  
         }

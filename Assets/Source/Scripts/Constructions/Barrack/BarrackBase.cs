@@ -1,4 +1,5 @@
 using Constructions.LevelSystemCore;
+using Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators;
 using Unit.Factory;
 using UnitsRecruitingSystemCore;
 using UnityEngine;
@@ -6,7 +7,7 @@ using Zenject;
 
 namespace Constructions
 {
-    public abstract class BarrackBase : ConstructionBase, IEvolveConstruction
+    public abstract class BarrackBase : ConstructionBase, IEvolveConstruction, IRecruitingConstruction
     {
         [SerializeField] protected Transform unitsSpawnPosition;
 

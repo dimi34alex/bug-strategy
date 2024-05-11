@@ -61,7 +61,7 @@ namespace Unit.Bees
                 if (result[i].collider.gameObject.TryGetComponent(out IDamagable damageable) 
                     && _unitBase.Affiliation.CheckEnemies(damageable.Affiliation))
                 {
-                    damageable.TakeDamage(this);
+                    damageable.TakeDamage(_unitBase, this);
                 }
             }
         }

@@ -16,7 +16,7 @@ namespace Unit.ProcessorsCore
         {
             if (target.TryCast(out IDamagable damageable))
             {
-                damageable.TakeDamage(this);
+                damageable.TakeDamage(Attacker, this);
                 Attacked?.Invoke();
                 TargetAttacked?.Invoke(target);
             }

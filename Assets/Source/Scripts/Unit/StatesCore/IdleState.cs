@@ -1,8 +1,12 @@
+using System;
+
 namespace Unit.States
 {
     public class IdleState : EntityStateBase
     {
         public override EntityStateID EntityStateID => EntityStateID.Idle;
+        
+        public override event Action StateExecuted;
         
         public IdleState()
         {

@@ -9,6 +9,7 @@ namespace Unit.ProcessorsCore
         private readonly AttackZoneProcessor _attackZoneProcessor;
         private readonly IAffiliation _affiliation;
         protected readonly Transform Transform;
+        protected readonly IUnitTarget Attacker;
         
         public int EnemiesCount => _attackZoneProcessor.EnemiesCount;
         public float AttackRange => _attackZoneProcessor.AttackRange;
@@ -27,12 +28,16 @@ namespace Unit.ProcessorsCore
             Damage = damage;
             
             _cooldownProcessor = cooldownProcessor;
+            Attacker = unit;
 
             _attackZoneProcessor = new AttackZoneProcessor(unit, attackRange);
             _attackZoneProcessor.OnEnterEnemyInZone += EnterEnemyInZone;
             _attackZoneProcessor.OnExitEnemyFromZone += ExitEnemyFromZone;
         }
-        
+
+        public bool TargetInZone(IUnitTarget someTarget)
+            => _attackZoneProcessor.Targets.ContainsKey(someTarget);
+
         /// <returns>
         /// return true if distance between unit and someTarget less or equal attack range, else return false
         /// </returns>

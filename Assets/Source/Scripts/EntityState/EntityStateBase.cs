@@ -1,5 +1,9 @@
-﻿public abstract class EntityStateBase
+﻿using System;
+
+public abstract class EntityStateBase
 {
+    public abstract event Action StateExecuted;
+    
     public abstract EntityStateID EntityStateID { get; }
     public abstract void OnStateEnter();
     public abstract void OnStateExit();

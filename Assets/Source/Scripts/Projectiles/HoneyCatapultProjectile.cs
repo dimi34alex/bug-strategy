@@ -53,7 +53,7 @@ namespace Projectiles
                     if (target.CastPossible<IConstruction>())
                         damageScale *= _constructionDamageScale;
                     
-                    damageable.TakeDamage(this, damageScale);
+                    damageable.TakeDamage(Attacker, this, damageScale);
                 }
             }  
             

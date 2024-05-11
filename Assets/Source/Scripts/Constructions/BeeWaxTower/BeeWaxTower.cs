@@ -26,7 +26,7 @@ namespace Constructions
         {
             base.OnAwake();
 
-            _attackProcessor = new BeeWaxTowerAttackProcessor(this, _projectileFactory, attackZone, transform);
+            _attackProcessor = new BeeWaxTowerAttackProcessor(this, _projectileFactory, attackZone, transform, this);
 
             _levelSystem = new BeeWaxTowerLevelSystem(this, config, _resourceGlobalStorage,
                 _healthStorage, _attackProcessor);

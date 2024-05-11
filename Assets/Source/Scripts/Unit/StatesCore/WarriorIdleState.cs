@@ -1,3 +1,4 @@
+using System;
 using Unit.OrderValidatorCore;
 using Unit.ProcessorsCore;
 
@@ -9,6 +10,8 @@ namespace Unit.States
         
         private readonly MovingUnit _unit;
         private readonly AttackProcessorBase _attackProcessorBase;
+        
+        public override event Action StateExecuted;
         
         public WarriorIdleState(MovingUnit unit, AttackProcessorBase attackProcessorBase)
         {
@@ -36,7 +39,8 @@ namespace Unit.States
         {
             if (!_attackProcessorBase.CheckEnemiesInAttackZone()) return;
             
-            _unit.HandleGiveOrder(null, UnitPathType.Attack);
+            StateExecuted?.Invoke();
+            //_unit.HandleGiveOrder(null, UnitPathType.Attack);
         }
     }
 }

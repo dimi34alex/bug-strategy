@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Projectiles.Factory;
+using Source.Scripts.Ai.InternalAis;
 using Unit.Ants.Configs;
 using Unit.Ants.Configs.Professions;
 using Unit.Ants.Professions;
@@ -26,6 +27,8 @@ namespace Unit.Ants
         
         protected override OrderValidatorBase OrderValidator => CurrentProfession.OrderValidatorBase;
         
+        //TODO: create internal ais for ants
+        public override InternalAiBase InternalAi { get; protected set; }
         public AntProfessionBase CurrentProfession { get; private set; }
         public ProfessionType TargetProfessionType { get; private set; }
         public int TargetProfessionRang { get; private set; }
@@ -88,7 +91,7 @@ namespace Unit.Ants
         public void SwitchProfession(AntProfessionConfigBase newProfession)
         {
             TrySetProfession(newProfession);
-            AutoGiveOrder(null);
+            // AutoGiveOrder(null);
         }
         
         /// <summary>

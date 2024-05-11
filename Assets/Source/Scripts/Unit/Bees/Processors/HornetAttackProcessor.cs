@@ -35,7 +35,7 @@ namespace Unit.Bees
                     damageScale = _criticalDamageScale;
                 }
  
-                damageable.TakeDamage(this, damageScale);
+                damageable.TakeDamage(Attacker, this, damageScale);
                 Attacked?.Invoke();
                 TargetAttacked?.Invoke(target);
             }

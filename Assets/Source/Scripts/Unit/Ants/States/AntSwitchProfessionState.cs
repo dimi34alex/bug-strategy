@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Unit.Ants.States
@@ -7,6 +8,8 @@ namespace Unit.Ants.States
         public override EntityStateID EntityStateID => EntityStateID.SwitchProfession;
 
         private readonly AntBase _ant;
+        
+        public override event Action StateExecuted;
         
         public AntSwitchProfessionState(AntBase ant)
         {
@@ -24,17 +27,23 @@ namespace Unit.Ants.States
                                  $"{_ant.CurrentPathData.Target.IsAnyNull()} | " +
                                  $"{!_ant.CurrentPathData.Target.TryCast(out professionConstruction)}");
                 
-                _ant.AutoGiveOrder(null);
+                // _ant.AutoGiveOrder(null);
+                StateExecuted?.Invoke();
                 return;
             }
             
             if (!professionConstruction.TryTakeConfig(_ant.TargetProfessionType, _ant.TargetProfessionRang, out var config))
             {
-                _ant.AutoGiveOrder(_ant.CurrentPathData.Target);
                 Debug.LogWarning($"Config is null: {_ant.TargetProfessionType}, {_ant.TargetProfessionRang}");
+                //_ant.AutoGiveOrder(_ant.CurrentPathData.Target);
+                StateExecuted?.Invoke();
             }
             else
+            {
                 _ant.SwitchProfession(config);
+                //_ant.AutoGiveOrder(null);
+                StateExecuted?.Invoke();
+            }
         }
 
         public override void OnStateExit()

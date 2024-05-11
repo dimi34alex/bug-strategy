@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Source.Scripts.Ai.InternalAis;
 using Unit.Bees.Configs;
 using Unit.Effects.InnerProcessors;
 using Unit.Effects.Interfaces;
@@ -18,9 +19,11 @@ namespace Unit.Bees
         [Inject] private readonly IConstructionFactory _constructionFactory;
 
         public AttackCooldownChanger AttackCooldownChanger { get; private set; }
+        public override InternalAiBase InternalAi { get; protected set; }
         public override UnitType UnitType => UnitType.Bumblebee;
         
         protected override OrderValidatorBase OrderValidator => _orderValidator;
+        public IReadOnlyAttackProcessor AttackProcessor => _attackProcessor;
 
         private OrderValidatorBase _orderValidator;
         private CooldownProcessor _cooldownProcessor;
@@ -48,6 +51,8 @@ namespace Unit.Bees
                 new HideInConstructionState(this, this, ReturnInPool)
             };
             _stateMachine = new EntityStateMachine(states, EntityStateID.Idle);
+
+            InternalAi = new BumblebeeInternalAi(this, states);
         }
 
         public override void HandleUpdate(float time)

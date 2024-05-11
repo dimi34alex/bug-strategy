@@ -67,32 +67,35 @@ namespace Unit.Bees
 
         protected override UnitPathType ValidateHandleOrder(IUnitTarget target, UnitPathType pathType)
         {
-            if (target.IsAnyNull()) 
-                return UnitPathType.Move;
-            
             switch (pathType)
             {
                 case UnitPathType.Collect_Resource:
-                    if (target.TargetType == UnitTargetType.ResourceSource &&
+                    if (!target.IsAnyNull() &&
+                        target.TargetType == UnitTargetType.ResourceSource &&
                         target.Cast<ResourceSourceBase>().CanBeCollected &&
                         !_resourceExtractionProcessor.GotResource)
                         return UnitPathType.Collect_Resource;
                     break;
                 case UnitPathType.Storage_Resource:
-                    if (target.TargetType == UnitTargetType.Construction &&
+                    if (!target.IsAnyNull() &&
+                        target.TargetType == UnitTargetType.Construction &&
                         target.Affiliation == Affiliation &&
                         target.CastPossible<TownHallBase>() &&
                         _resourceExtractionProcessor.GotResource)
                         return UnitPathType.Storage_Resource;
                     break;
                 case UnitPathType.Attack:
-                    if (!target.IsAnyNull() && target.Affiliation != Affiliation && target.CastPossible<IDamagable>() 
+                    if (!target.IsAnyNull() && 
+                        target.Affiliation != Affiliation && 
+                        target.CastPossible<IDamagable>() 
                         || _attackProcessor.CheckEnemiesInAttackZone())
                         return UnitPathType.Attack;
                     break;
                 case UnitPathType.HideInConstruction:
-                    if (target.Affiliation == Affiliation && target.TryCast(out IHiderConstruction hiderConstruction) 
-                                                          && hiderConstruction.Hider.CheckAccess(Unit.UnitType))
+                    if (!target.IsAnyNull() &&
+                        target.Affiliation == Affiliation && 
+                        target.TryCast(out IHiderConstruction hiderConstruction) && 
+                        hiderConstruction.Hider.CheckAccess(Unit.UnitType))
                         return UnitPathType.HideInConstruction;
                     break;
             }

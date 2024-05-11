@@ -1,3 +1,4 @@
+using System;
 using Unit.ProcessorsCore;
 using UnityEngine;
 
@@ -9,6 +10,8 @@ namespace Unit.States
 
         private readonly UnitBase _unit;
         private readonly ResourceExtractionProcessor _resourceExtractionProcessor;
+        
+        public override event Action StateExecuted;
         
         public ResourceExtractionState(UnitBase unit, ResourceExtractionProcessor resourceExtractionProcessor)
         {
@@ -25,7 +28,8 @@ namespace Unit.States
                 Debug.LogWarning($"Some problem:" +
                                  $"| {!_unit.CurrentPathData.Target.TryCast(out resourceSource)}");
 #endif
-                _unit.AutoGiveOrder(null);
+                //_unit.AutoGiveOrder(null);
+                StateExecuted?.Invoke();
                 return;
             }
             
@@ -46,7 +50,8 @@ namespace Unit.States
 
         private void ResourceExtracted()
         {
-            _unit.AutoGiveOrder(null);
+            // _unit.AutoGiveOrder(null);
+            StateExecuted?.Invoke();
         }
     }
 }

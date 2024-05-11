@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Unit.States
@@ -8,6 +9,8 @@ namespace Unit.States
 
         private readonly MovingUnit _unit;
         private BuildingProgressConstruction _buildingProgressConstruction;
+        
+        public override event Action StateExecuted;
         
         public BuildState(MovingUnit unit)
         {
@@ -25,7 +28,8 @@ namespace Unit.States
                                  $"{_unit.CurrentPathData.Target.IsAnyNull()} | " +
                                  $"{!_unit.CurrentPathData.Target.TryCast(out _buildingProgressConstruction)}");
                 
-                _unit.AutoGiveOrder(null);
+                // _unit.AutoGiveOrder(null);
+                StateExecuted?.Invoke();
                 return;
             }
             
@@ -48,7 +52,8 @@ namespace Unit.States
         {
             buildingProgressConstruction.WorkerArrived = false;
 
-            _unit.AutoGiveOrder(null);
+            // _unit.AutoGiveOrder(null);
+            StateExecuted?.Invoke();
         }
     }
 }

@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using Projectiles.Factory;
+using Source.Scripts.Ai.InternalAis;
 using Unit.Bees.Configs;
 using Unit.Effects.InnerProcessors;
 using Unit.Effects.Interfaces;
 using Unit.OrderValidatorCore;
+using Unit.ProcessorsCore;
 using Unit.States;
 using UnitsHideCore;
 using UnityEngine;
@@ -19,6 +21,7 @@ namespace Unit.Bees
     
         protected override OrderValidatorBase OrderValidator => _orderValidator;
         public override UnitType UnitType => UnitType.Horntail;
+        public IReadOnlyAttackProcessor AttackProcessor => _attackProcessor;
 
         private OrderValidatorBase _orderValidator;
         private CooldownProcessor _cooldownProcessor;
@@ -26,6 +29,7 @@ namespace Unit.Bees
         private AbilitySwordStrike _abilitySwordStrike;
         
         public AttackCooldownChanger AttackCooldownChanger { get; private set; }
+        public override InternalAiBase InternalAi { get; protected set; }
         
         protected override void OnAwake()
         {
@@ -49,6 +53,8 @@ namespace Unit.Bees
                 new HideInConstructionState(this, this, ReturnInPool)
             };
             _stateMachine = new EntityStateMachine(states, EntityStateID.Idle);
+
+            InternalAi = new HorntailInternalAi(this, states);
         }
 
         public override void HandleUpdate(float time)

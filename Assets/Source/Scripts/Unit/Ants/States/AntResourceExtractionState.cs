@@ -1,3 +1,4 @@
+using System;
 using Unit.Ants.Professions;
 using Unit.OrderValidatorCore;
 using UnityEngine;
@@ -11,6 +12,8 @@ namespace Unit.Ants.States
         private readonly AntBase _ant;
 
         private AntWorkerProfession _workerProfession;
+        
+        public override event Action StateExecuted;
         
         public AntResourceExtractionState(AntBase ant)
         {
@@ -29,7 +32,8 @@ namespace Unit.Ants.States
                                  $"| {!_ant.CurrentProfession.TryCast(out _workerProfession)} " +
                                  $"| {!_ant.CurrentPathData.Target.TryCast(out resourceSource)}");
 #endif
-                _ant.AutoGiveOrder(null);
+                // _ant.AutoGiveOrder(null);
+                StateExecuted?.Invoke();
                 return;
             }
             
@@ -50,7 +54,8 @@ namespace Unit.Ants.States
 
         private void ResourceExtracted()
         {
-            _ant.AutoGiveOrder(null);
+            // _ant.AutoGiveOrder(null);
+            StateExecuted?.Invoke();
         }
     }
 }

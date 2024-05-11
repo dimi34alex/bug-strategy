@@ -14,6 +14,7 @@ namespace Projectiles
         public AffiliationEnum Affiliation { get; private set; }
         
         protected IUnitTarget Target;
+        protected IUnitTarget Attacker;
 
         public event Action<ProjectileBase> ElementReturnEvent;
         public event Action<ProjectileBase> ElementDestroyEvent;
@@ -24,16 +25,16 @@ namespace Projectiles
             Move(time);
         }
 
-        public void Init(AffiliationEnum affiliation, float damage)
-        {
-            Affiliation = affiliation;
-            Damage = damage;
-        }
+        public void Init(AffiliationEnum affiliation, IUnitTarget attacker, IDamageApplicator damageApplicator)
+            => Init(affiliation, attacker, damageApplicator.Damage);
         
-        public void Init(AffiliationEnum affiliation, IDamageApplicator damageApplicator)
+        public void Init(AffiliationEnum affiliation, IUnitTarget attacker, float damage)
         {
             Affiliation = affiliation;
-            Damage = damageApplicator.Damage;
+            Attacker = attacker;
+            Damage = damage;
+
+            Attacker.OnDeactivation += () => Attacker = null;
         }
 
         public void SetTarget(IUnitTarget target)
@@ -61,7 +62,7 @@ namespace Projectiles
         protected virtual void CollideWithTarget(IUnitTarget target)
         {
             if (target.TryCast(out IDamagable damagable))
-                damagable.TakeDamage(this);
+                damagable.TakeDamage(Attacker, this);
 
             ReturnInPool();
         }

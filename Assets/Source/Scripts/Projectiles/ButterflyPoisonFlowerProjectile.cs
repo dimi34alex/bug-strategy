@@ -18,7 +18,7 @@ namespace Projectiles
         protected override void CollideWithTarget(IUnitTarget target)
         {
             if (target.TryCast(out IDamagable mainDamageable))
-                mainDamageable.TakeDamage(this);
+                mainDamageable.TakeDamage(Attacker, this);
 
             if (_damageRadius > 0)
             {
@@ -32,7 +32,7 @@ namespace Projectiles
                         && Affiliation.CheckEnemies(damageable.Affiliation) 
                         && damageable != mainDamageable)
                     {
-                        damageable.TakeDamage(this, 0.5f);
+                        damageable.TakeDamage(Attacker, this, 0.5f);
                     }
                 }  
             }

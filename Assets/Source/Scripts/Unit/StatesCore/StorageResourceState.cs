@@ -1,3 +1,4 @@
+using System;
 using Construction.TownHalls;
 using Unit.ProcessorsCore;
 using UnityEngine;
@@ -10,6 +11,8 @@ namespace Unit.States
 
         private readonly MovingUnit _unit;
         private readonly ResourceExtractionProcessor _resourceExtractionProcessor;
+        
+        public override event Action StateExecuted;
         
         public StorageResourceState(MovingUnit unit, ResourceExtractionProcessor resourceExtractionProcessor)
         {
@@ -26,13 +29,15 @@ namespace Unit.States
                 Debug.LogWarning($"Some problem: " +
                                  $"{!_unit.CurrentPathData.Target.CastPossible<TownHallBase>()}");            
 #endif
-                _unit.AutoGiveOrder(null);
+                //_unit.AutoGiveOrder(null);
+                StateExecuted?.Invoke();
                 return;
             }
             
             _resourceExtractionProcessor.StorageResources();
             
-            _unit.AutoGiveOrder(null);
+            //_unit.AutoGiveOrder(null);
+            StateExecuted?.Invoke();
         }
 
         public override void OnStateExit()

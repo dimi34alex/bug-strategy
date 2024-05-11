@@ -57,7 +57,9 @@ namespace Unit.OrderValidatorCore
             switch (pathType)
             {
                 case UnitPathType.Attack:
-                    if (!target.IsAnyNull() && target.Affiliation != Affiliation && target.CastPossible<IDamagable>() 
+                    if (!target.IsAnyNull() && 
+                        target.Affiliation != Affiliation && 
+                        target.CastPossible<IDamagable>() 
                         || AttackProcessor.CheckEnemiesInAttackZone())
                         return UnitPathType.Attack;
                     break;

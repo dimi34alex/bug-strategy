@@ -1,4 +1,5 @@
 using Constructions.LevelSystemCore;
+using Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators;
 using Unit.Factory;
 using UnitsRecruitingSystemCore;
 using UnityEngine;
@@ -6,7 +7,7 @@ using Zenject;
 
 namespace Construction.TownHalls
 {
-    public abstract class TownHallBase : ConstructionBase, IEvolveConstruction
+    public abstract class TownHallBase : ConstructionBase, IEvolveConstruction, IRecruitingConstruction
     {
         [SerializeField] protected Transform workerBeesSpawnPosition;
        

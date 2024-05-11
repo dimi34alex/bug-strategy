@@ -7,6 +7,8 @@ using Zenject;
 public interface IConstructionFactory
 {
     public TConstruction Create<TConstruction>(ConstructionID constructionID, AffiliationEnum affiliation) where TConstruction : ConstructionBase;
+
+    public event Action<ConstructionBase> Created;
 }
 
 public class ConstructionFactory : MonoBehaviour, IConstructionFactory
@@ -14,6 +16,8 @@ public class ConstructionFactory : MonoBehaviour, IConstructionFactory
     [Inject] private readonly ConstructionTypeMatchConfig _constructionTypeMatchConfig;
 
     private IReadOnlyDictionary<ConstructionType, ConstructionFactoryBehaviourBase> _behaviours;
+
+    public event Action<ConstructionBase> Created;
 
     private void Awake()
     {
@@ -34,6 +38,7 @@ public class ConstructionFactory : MonoBehaviour, IConstructionFactory
 
         var construction = _behaviours[constructionType].Create<TConstruction>(constructionID);
         construction.Initialize(affiliation);
+        Created?.Invoke(construction);
         return construction;
     }
 }

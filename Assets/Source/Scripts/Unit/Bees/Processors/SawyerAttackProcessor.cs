@@ -22,7 +22,7 @@ namespace Unit.Bees
         
         protected override void InitProjectileData(ProjectileBase projectile, IUnitTarget target)
         {
-            projectile.Init(Affiliation, Damage * _exitDamageScale);
+            projectile.Init(Affiliation, Attacker, Damage * _exitDamageScale);
             projectile.SetTarget(target);
         }
     }

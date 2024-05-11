@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using Projectiles.Factory;
+using Source.Scripts.Ai.InternalAis;
 using Unit.Bees.Configs;
 using Unit.Effects.InnerProcessors;
 using Unit.Effects.Interfaces;
 using Unit.OrderValidatorCore;
+using Unit.ProcessorsCore;
 using Unit.States;
 using UnityEngine;
 using Zenject;
@@ -16,11 +18,13 @@ namespace Unit.Bees
     
         [Inject] private ProjectileFactory _projectileFactory;
     
-        public override UnitType UnitType => UnitType.HoneyСatapult;
+        public override UnitType UnitType => UnitType.HoneyCatapult;
         
         public AttackCooldownChanger AttackCooldownChanger { get; private set; }
+        public override InternalAiBase InternalAi { get; protected set; }
         
         protected override OrderValidatorBase OrderValidator => _orderValidator;
+        public IReadOnlyAttackProcessor AttackProcessor => _attackProcessor;
 
         private OrderValidatorBase _orderValidator;
         private CooldownProcessor _cooldownProcessor;
@@ -51,6 +55,8 @@ namespace Unit.Bees
                 new AttackState(this, _attackProcessor, _cooldownProcessor),
             };
             _stateMachine = new EntityStateMachine(states, EntityStateID.Idle);
+
+            InternalAi = new HoneyCatapultInternalAi(this, states);
         }
 
         public override void HandleUpdate(float time)

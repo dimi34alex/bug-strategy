@@ -1,3 +1,4 @@
+using System;
 using Unit.Ants.Professions;
 using UnityEngine;
 
@@ -9,6 +10,8 @@ namespace Unit.Ants.States
 
         private readonly AntBase _ant;
         private BuildingProgressConstruction _buildingProgressConstruction;
+        
+        public override event Action StateExecuted;
         
         public AntBuildState(AntBase ant)
         {
@@ -28,7 +31,8 @@ namespace Unit.Ants.States
                                  $"{_ant.CurrentPathData.Target.IsAnyNull()} | " +
                                  $"{!_ant.CurrentPathData.Target.TryCast(out _buildingProgressConstruction)}");
                 
-                _ant.AutoGiveOrder(null);
+                // _ant.AutoGiveOrder(null);
+                StateExecuted?.Invoke();
                 return;
             }
             
@@ -51,7 +55,8 @@ namespace Unit.Ants.States
         {
             buildingProgressConstruction.WorkerArrived = false;
 
-            _ant.AutoGiveOrder(null);
+            // _ant.AutoGiveOrder(null);
+            StateExecuted?.Invoke();
         }
     }
 }

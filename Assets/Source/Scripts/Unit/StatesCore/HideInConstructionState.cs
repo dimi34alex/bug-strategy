@@ -12,6 +12,8 @@ namespace Unit.States
         private readonly IHidableUnit _hidableUnit;
         private readonly Action _onHideUnitMethod;
         
+        public override event Action StateExecuted;
+        
         public HideInConstructionState(UnitBase unitBase, IHidableUnit hidableUnit, Action onHideUnitMethod)
         {
             _unitBase = unitBase;
@@ -26,12 +28,14 @@ namespace Unit.States
                 if(hiderConstruction.Hider.TryHideUnit(_hidableUnit))
                     _onHideUnitMethod?.Invoke();
                 else
-                    _unitBase.AutoGiveOrder(null);
+                    // _unitBase.AutoGiveOrder(null);
+                    StateExecuted?.Invoke();
             }
             else
             {
                 Debug.LogWarning("target cant be casted to hider construction");
-                _unitBase.AutoGiveOrder(null);
+                // _unitBase.AutoGiveOrder(null);
+                StateExecuted?.Invoke();
             }
         }
 

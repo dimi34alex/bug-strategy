@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using Projectiles.Factory;
+using Source.Scripts.Ai.InternalAis;
 using Unit.Bees.Configs;
 using Unit.Effects.InnerProcessors;
 using Unit.Effects.Interfaces;
 using Unit.OrderValidatorCore;
+using Unit.ProcessorsCore;
 using Unit.States;
 using UnitsHideCore;
 using UnityEngine;
@@ -19,6 +21,7 @@ namespace Unit.Bees
     
         protected override OrderValidatorBase OrderValidator => _orderValidator;
         public override UnitType UnitType => UnitType.Sawyer;
+        public IReadOnlyAttackProcessor AttackProcessor => _attackProcessor;
 
         private OrderValidatorBase _orderValidator;
         private CooldownProcessor _cooldownProcessor;
@@ -27,6 +30,7 @@ namespace Unit.Bees
         private float _enterDamageScale = 1;
 
         public AttackCooldownChanger AttackCooldownChanger { get; private set; }
+        public override InternalAiBase InternalAi { get; protected set; }
         
         protected override void OnAwake()
         {
@@ -52,6 +56,8 @@ namespace Unit.Bees
                 new HideInConstructionState(this, this, ReturnInPool)
             };
             _stateMachine = new EntityStateMachine(states, EntityStateID.Idle);
+
+            InternalAi = new SawyerInternalAi(this, states);
         }
         
         public override void HandleUpdate(float time)
@@ -77,11 +83,11 @@ namespace Unit.Bees
         public void SetEnterDamageScale(float enterDamageScale)
             => _enterDamageScale = enterDamageScale;
         
-        public override void TakeDamage(IDamageApplicator damageApplicator, float damageScale = 1)
+        public override void TakeDamage(IUnitTarget attacker, IDamageApplicator damageApplicator, float damageScale = 1)
         {
             damageScale *= _enterDamageScale;
             
-            base.TakeDamage(damageApplicator, damageScale);
+            base.TakeDamage(attacker, damageApplicator, damageScale);
         }
 
         [ContextMenu(nameof(UseAbility))]

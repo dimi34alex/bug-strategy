@@ -32,7 +32,7 @@ namespace Constructions
         //TODO: remove this temporary code, when new ui will be create
         [ContextMenu(nameof(RecruitHoneyCatapult))]
         private void RecruitHoneyCatapult()
-            => RecruitUnit(UnitType.HoneyСatapult);
+            => RecruitUnit(UnitType.HoneyCatapult);
         
         //TODO: remove this temporary code, when new ui will be create
         [ContextMenu(nameof(RecruitMobileHive))]

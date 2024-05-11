@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Constructions.UnitsHideConstruction.Cells.BeesHiderCells;
 using Projectiles.Factory;
+using Source.Scripts.Ai.InternalAis;
 using Unit.Bees.Configs;
 using Unit.Effects.InnerProcessors;
 using Unit.Effects.Interfaces;
@@ -26,7 +27,9 @@ namespace Unit.Bees
         private CooldownProcessor _cooldownProcessor;
         private AttackProcessorBase _attackProcessor;
         
+        public override InternalAiBase InternalAi { get; protected set; }
         public AttackCooldownChanger AttackCooldownChanger { get; private set; }
+        public IReadOnlyAttackProcessor AttackProcessor => _attackProcessor;
 
         protected override void OnAwake()
         {
@@ -48,6 +51,8 @@ namespace Unit.Bees
                 new HideInConstructionState(this, this, ReturnInPool)
             };
             _stateMachine = new EntityStateMachine(states, EntityStateID.Idle);
+
+            InternalAi = new WaspInternalAi(this, states);
         }
 
         public override void HandleUpdate(float time)

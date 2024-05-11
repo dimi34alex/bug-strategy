@@ -11,6 +11,8 @@ namespace Unit.ProcessorsCore
         public event Action OnEnterEnemyInZone;
         public event Action OnExitEnemyFromZone;
 
+        public bool TargetInZone(IUnitTarget someTarget);
+        
         public bool CheckAttackDistance(IUnitTarget someTarget);
 
         public bool CheckEnemiesInAttackZone();

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,8 @@ using UnityEngine;
 public class UnitMoveState : EntityStateBase
 {
     private EntityStateID _entityStateID = EntityStateID.Move;
+    public override event Action StateExecuted;
+
     public override EntityStateID EntityStateID => _entityStateID;
     //get object unit
 

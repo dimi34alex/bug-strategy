@@ -1,3 +1,4 @@
+using System;
 using Unit.Ants.Professions;
 using Unit.OrderValidatorCore;
 using UnityEngine;
@@ -11,6 +12,8 @@ namespace Unit.Ants.States
         private readonly AntBase _ant;
 
         private AntWarriorProfessionBase _antWarriorProfession;
+        
+        public override event Action StateExecuted;
         
         public AntAttackState(AntBase ant)
         {
@@ -28,7 +31,8 @@ namespace Unit.Ants.States
                                  $"{_ant.CurProfessionType} | " +
                                  $"{!_ant.CurrentProfession.TryCast(out _antWarriorProfession)}");           
 #endif
-                _ant.AutoGiveOrder(null);
+                // _ant.AutoGiveOrder(null);
+                StateExecuted?.Invoke();
                 return;
             }
             
@@ -54,7 +58,8 @@ namespace Unit.Ants.States
         private void OnExitEnemyFromZone()
         {
             if(_antWarriorProfession.AttackProcessor.EnemiesCount <= 0)
-                _ant.AutoGiveOrder(null);
+                // _ant.AutoGiveOrder(null);
+                StateExecuted?.Invoke();
         }
     }
 }

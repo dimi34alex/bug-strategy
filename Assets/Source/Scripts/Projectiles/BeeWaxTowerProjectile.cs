@@ -12,7 +12,7 @@ namespace Projectiles
                 effectable.EffectsProcessor.ApplyEffect(EffectType.MoveSpeedDown);
             
             if (target.TryCast(out IDamagable damageable))
-                damageable.TakeDamage(this);
+                damageable.TakeDamage(Attacker, this);
 
             ReturnInPool();
         }

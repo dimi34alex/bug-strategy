@@ -13,6 +13,8 @@ namespace UnitsRecruitingSystemCore
         private readonly List<UnitRecruitingStack> _stacks;
         private readonly IResourceGlobalStorage _resourceGlobalStorage;
         private List<UnitRecruitingData> _recruitingDatas;
+
+        public IReadOnlyList<UnitRecruitingData> UnitRecruitingData => _recruitingDatas;
         
         public event Action OnChange;
         public event Action OnRecruitUnit;
@@ -161,6 +163,9 @@ namespace UnitsRecruitingSystemCore
 
             return true;
         }
+
+        public bool HaveFreeStack()
+            => FindFreeStack() >= 0;
 
         /// <returns>
         /// Return list of information about all stacks

@@ -5,7 +5,7 @@ using UnityEngine;
 namespace UnitsRecruitingSystemCore
 {
     [Serializable]
-    public struct UnitRecruitingData
+    public class UnitRecruitingData
     {
         [SerializeField] private UnitType currentId;
         [SerializeField] private float recruitingTime;

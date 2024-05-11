@@ -41,7 +41,7 @@ public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagabl
         Initialized?.Invoke();
     }
     
-    public virtual void TakeDamage(IDamageApplicator damageApplicator, float damageScale = 1)
+    public virtual void TakeDamage(IUnitTarget attacker, IDamageApplicator damageApplicator, float damageScale = 1)
     {
         _healthStorage.ChangeValue(-damageApplicator.Damage * damageScale);
         if (_healthStorage.CurrentValue <= 0)
