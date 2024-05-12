@@ -7,7 +7,7 @@ namespace Unit.States
     {
         public override EntityStateID EntityStateID => EntityStateID.Attack;
 
-        private readonly MovingUnit _unit;
+        private readonly UnitBase _unit;
 
         private readonly AttackProcessorBase _attackProcessor;
         private readonly IReadOnlyCooldownProcessor _cooldownProcessor;

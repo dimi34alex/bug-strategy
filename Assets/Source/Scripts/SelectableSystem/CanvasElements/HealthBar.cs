@@ -26,13 +26,13 @@ namespace SelectableSystem
 
         public void OnSelect()
         {
-            _healthStorage.OnChange += UpdateHealthBarValue;
+            _healthStorage.Changed += UpdateHealthBarValue;
             SetHealthBarValue();
         }
 
         public void OnDeselect()
         {
-            _healthStorage.OnChange -= UpdateHealthBarValue;
+            _healthStorage.Changed -= UpdateHealthBarValue;
             if (_coroutineIsActive)
             {
                 StopCoroutine(ChangeHealthBarValue());

@@ -17,6 +17,10 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
     [SerializeField] private UnitInteractionZone unitInteractionZone;
     [SerializeField] private UnitInteractionZone dynamicUnitZone;
 
+    [SerializeField] private UnityEngine.AI.NavMeshAgent _navMeshAgent;
+    [SerializeField] private SomeTestAbility_1 _ability1;
+    [SerializeField] private SomeTestAbility_2 _ability2;
+
     protected ResourceStorage _healthStorage { get; set; } = new ResourceStorage(100, 100);
     protected EntityStateMachine _stateMachine;
     protected List<AbilityBase> _abilites = new List<AbilityBase>();

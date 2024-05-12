@@ -6,7 +6,7 @@ public class UI_ERROR : UIScreen
 {
     [SerializeField] private GameObject error;
 
-    public void _ErrorCall(string errorText)
+    public void ErrorCall(string errorText)
     {
         if(errorText != null)
             StartCoroutine(ErrorInvis(errorText));

@@ -14,11 +14,11 @@ public enum GroupID
 
 public class UnitPool : MonoBehaviour
 {
-    public List<MovingUnit> movingUnits;
+    public List<UnitBase> movingUnits;
 
     public static UnitPool Instance { get; private set; }
 
-    private Dictionary<GroupID, List<MovingUnit>> _groupsWithID;
+    private Dictionary<GroupID, List<UnitBase>> _groupsWithID;
 
     private void Awake()
     {
@@ -29,7 +29,7 @@ public class UnitPool : MonoBehaviour
 
         GroupID[] groupIDs = (GroupID[])Enum.GetValues(typeof(GroupID));
         _groupsWithID = new List<GroupID>(groupIDs)
-           .ToDictionary(g => g, g => new List<MovingUnit>());
+           .ToDictionary(g => g, g => new List<UnitBase>());
 
         Instance = this;
     }
@@ -71,30 +71,30 @@ public class UnitPool : MonoBehaviour
                 SelectGroup(GroupID.Group5);
         }
     }
-    public void UnitCreation(MovingUnit unit)
+    public void UnitCreation(UnitBase unit)
     {
         movingUnits.Add(unit);
     }
 
     private void CreateGroup(GroupID id)
     {
-        List<MovingUnit> group = _groupsWithID[id];
+        List<UnitBase> group = _groupsWithID[id];
 
         ClearGroup(group);
 
-        foreach (MovingUnit unit in movingUnits)
-            if (unit.GetComponent<MovingUnit>().IsSelected)
+        foreach (UnitBase unit in movingUnits)
+            if (unit.IsSelected)
                 group.Add(unit);
     }
 
     public void SelectGroup(GroupID id)
     {
-        List<MovingUnit> group = _groupsWithID[id];
+        List<UnitBase> group = _groupsWithID[id];
 
         UnitSelection.Instance.DeselectAll();
         
-        foreach (MovingUnit groupUnit in group)
-            groupUnit.GetComponent<MovingUnit>().Select();
+        foreach (UnitBase groupUnit in group)
+            groupUnit.GetComponent<UnitBase>().Select();
         
     }
 
@@ -103,7 +103,7 @@ public class UnitPool : MonoBehaviour
         SelectGroup(GroupID.Group1);
     }
 
-    private void ClearGroup(List<MovingUnit> group)
+    private void ClearGroup(List<UnitBase> group)
     {
         group.Clear();
     }
