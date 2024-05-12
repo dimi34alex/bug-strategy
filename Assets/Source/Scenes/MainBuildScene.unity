@@ -1655,10 +1655,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1470030966051180825, guid: fd7bc902444e43945add82eec5fe12ec, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 130
-      objectReference: {fileID: 0}
     - target: {fileID: 4586424346006713866, guid: fd7bc902444e43945add82eec5fe12ec, type: 3}
       propertyPath: m_Name
       value: Canvas

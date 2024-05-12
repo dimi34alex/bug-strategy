@@ -25,6 +25,9 @@ public class ConstructionUIController : UIScreen
         constructionProductsUIView.TurnOffButtons();
         constructionOperationUIView.TurnOffButtons();
 
+        if (constructionUIConfig.ConstructionProducts == null ||  constructionUIConfig.ConstructionProducts.Count == 0 )
+            isChooseState = true;
+
         if (isChooseState)
         {
             constructionOperationUIView.SetButtons(constructionUIConfig.ConstructionOperationsDictionary, constructionUIConfig.ConstructionOperations

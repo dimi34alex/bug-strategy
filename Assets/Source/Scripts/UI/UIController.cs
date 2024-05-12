@@ -1,4 +1,6 @@
+using Constructions;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -18,6 +20,8 @@ public class UIController : UIScreen
 
     private ConstructionBase _construction;
 
+    private UnitBase _unitBase;
+
     private ConstructionUIController _constructionUIController;
 
     private TacticsUIView _tacticsUIView;
@@ -29,6 +33,7 @@ public class UIController : UIScreen
 
     private ConstructionOperationUIView _constructionOperationUIView;
     private ConstructionProductsUIView _constructionProductsUIView;
+    private ConstructionCreationProductUIView _сonstructionCreationProductUIView;
 
     private void Start()
     {
@@ -86,7 +91,7 @@ public class UIController : UIScreen
 
         _constructionUIController = UIScreenRepository.GetScreen<ConstructionUIController>();
 
-
+        _сonstructionCreationProductUIView = UIScreenRepository.GetScreen<ConstructionCreationProductUIView>();
 
         _constructionInfoScreen.UpgradeClicked += OnConstructionUpgrated;
 
@@ -106,7 +111,36 @@ public class UIController : UIScreen
     {
         _isChooseState = false;
         _constructionUIController.SetWindow(_construction, _constructionInfoScreen,
-       _constructionProductsUIView, _constructionOperationUIView, _isChooseState);
+        _constructionProductsUIView, _constructionOperationUIView, _isChooseState);
+
+
+        switch (constructionOperationType)
+        {
+            case ConstructionOperationType.CreateUnit:
+                BeeTownHall beeTownHall = _construction.Cast<BeeTownHall>();
+   
+                beeTownHall.RecruitUnit(UnitType.WorkerBee);
+                Dictionary<UnitType, Sprite> dictin = new Dictionary<UnitType, Sprite>();
+
+                dictin.Add(UnitType.WorkerBee, null);
+                List<UnitType> units = new List<UnitType>();
+
+                int a = beeTownHall.Recruiter.FindFreeStack();
+
+                Debug.Log(a);
+                units.Add(UnitType.WorkerBee);
+
+
+
+                _сonstructionCreationProductUIView.SetButtons(dictin, units);
+
+
+                break;
+
+            case ConstructionOperationType.AllBeesGoToBase:
+                break;
+        }
+
 
     }
 
@@ -122,6 +156,9 @@ public class UIController : UIScreen
         {
             case UnitTacticsType.Build:
                
+                break;
+            case UnitTacticsType.Repair:
+               // _unitBase.AutoGiveOrder();
                 break;
         }
     }
@@ -142,6 +179,7 @@ public class UIController : UIScreen
 
     public void SetWindow(UnitBase unitBase)
     {
+        _unitBase = unitBase;
         UnitType unitType = unitBase.UnitType;
 
         CloseConstructionInfoWindow();

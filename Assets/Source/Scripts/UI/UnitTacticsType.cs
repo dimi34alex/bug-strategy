@@ -7,8 +7,8 @@
 
 public enum ConstructionOperationType
 {
-    Build, 
-    Reset,
+    CreateUnit = 1, 
+    AllBeesGoToBase = 2 ,
 }
 
 public enum ConstructionProduct

@@ -30,6 +30,7 @@ public class BarView : MonoBehaviour
     {
         float storageRatio = _storage.CurrentValue / _storage.Capacity;
         _bar.transform.DOScaleX(_storage.CurrentValue / _storage.Capacity, _updateValueDuration);
+        if (_dynamicBar!=null)
         _dynamicBar.transform.DOScaleX(_storage.CurrentValue / _storage.Capacity, _updateValueDuration* _updateValueDynamicRatio);
     }
 }
