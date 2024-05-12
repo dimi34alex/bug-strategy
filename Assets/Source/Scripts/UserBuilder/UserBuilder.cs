@@ -15,6 +15,8 @@ public class UserBuilder : CycleInitializerBase
     private GameObject _currentConstructionMovableModel;
     private ConstructionID _currentConstructionID;
 
+    private UIController _UIController;
+
     private bool _spawnConstruction;
     private float _numberTownHall;
     private UnitPool _pool;
@@ -22,8 +24,6 @@ public class UserBuilder : CycleInitializerBase
     protected override void OnInit()
     {
         _UIController = UIScreenRepository.GetScreen<UIController>();
-        _constructionWithID = constructions.ToDictionary(x => x.ConstructionID, x => x);
-        
         GameObject controller = GameObject.FindGameObjectWithTag("GameController");
     }
 

@@ -8,10 +8,10 @@ namespace Unit.States
     {
         public override EntityStateID EntityStateID => EntityStateID.StorageResource;
 
-        private readonly MovingUnit _unit;
+        private readonly UnitBase _unit;
         private readonly ResourceExtractionProcessor _resourceExtractionProcessor;
         
-        public StorageResourceState(MovingUnit unit, ResourceExtractionProcessor resourceExtractionProcessor)
+        public StorageResourceState(UnitBase unit, ResourceExtractionProcessor resourceExtractionProcessor)
         {
             _unit = unit;
             _resourceExtractionProcessor = resourceExtractionProcessor;

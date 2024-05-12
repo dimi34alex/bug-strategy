@@ -14,21 +14,21 @@ namespace Unit.States
 
         private bool CanAttack => !_cooldownProcessor.IsCooldown; 
         
-        public AttackState(MovingUnit unit, AttackProcessorBase attackProcessor, CooldownProcessor cooldownProcessor)
+        public AttackState(UnitBase unit, AttackProcessorBase attackProcessor, CooldownProcessor cooldownProcessor)
         {
             _unit = unit;
             _attackProcessor = attackProcessor;
             _cooldownProcessor = cooldownProcessor;
         }
         
-        public AttackState(MovingUnit unit, WarriorOrderValidator warriorOrderValidator)
+        public AttackState(UnitBase unit, WarriorOrderValidator warriorOrderValidator)
         {
             _unit = unit;
             _attackProcessor = warriorOrderValidator.AttackProcessor;
             _cooldownProcessor = warriorOrderValidator.Cooldown;
         }
         
-        public AttackState(MovingUnit unit, AttackProcessorBase attackProcessor, IReadOnlyCooldownProcessor cooldownProcessor)
+        public AttackState(UnitBase unit, AttackProcessorBase attackProcessor, IReadOnlyCooldownProcessor cooldownProcessor)
         {
             _unit = unit;
             _attackProcessor = attackProcessor;

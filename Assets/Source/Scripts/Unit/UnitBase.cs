@@ -7,24 +7,31 @@ using Unit.Effects;
 using Unit.Effects.InnerProcessors;
 using Unit.Effects.Interfaces;
 using Unit.OrderValidatorCore;
+using UnityEngine.AI;
+using Zenject;
 
 public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable, IUnitTarget, IMiniMapObject,
-    SelectableSystem.ISelectable, IPoolable<UnitBase, UnitType>, IPoolEventListener, 
+    SelectableSystem.ISelectable, IPoolable<UnitBase, UnitType>, IPoolEventListener,
     IHealable, IAffiliation,
     IEffectable, IPoisonEffectable, IStickyHoneyEffectable, IMoveSpeedChangeEffectable
 {
+    //
+    private NavMeshAgent _navMeshAgent;
+
+    [Inject] private readonly EffectsFactory _effectsFactory;
+    private float _startMaxSpeed;
+
+    public Vector3 Velocity => _navMeshAgent.velocity;
+    //
+
     [SerializeField] private UnitVisibleZone _unitVisibleZone;
     [SerializeField] private UnitInteractionZone unitInteractionZone;
     [SerializeField] private UnitInteractionZone dynamicUnitZone;
 
-    [SerializeField] private UnityEngine.AI.NavMeshAgent _navMeshAgent;
-    [SerializeField] private SomeTestAbility_1 _ability1;
-    [SerializeField] private SomeTestAbility_2 _ability2;
-
     protected ResourceStorage _healthStorage { get; set; } = new ResourceStorage(100, 100);
     protected EntityStateMachine _stateMachine;
     protected List<AbilityBase> _abilites = new List<AbilityBase>();
-    
+
     public bool IsSticky { get; private set; }
     public bool IsSelected { get; private set; }
     public bool IsActive { get; protected set; }
@@ -47,7 +54,7 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
     public UnitType Identifier => UnitType;
     public abstract FractionType Fraction { get; }
     public abstract UnitType UnitType { get; }
-    
+
     private UnitPathData _currentPathData = new UnitPathData(null, UnitPathType.Idle);
     public UnitPathData CurrentPathData
     {
@@ -58,7 +65,7 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
 
             if (!_currentPathData.Target.IsAnyNull())
                 _currentPathData.Target.OnDeactivation -= ResetTarget;
-            
+
             _currentPathData = value;
             if (!_currentPathData.Target.IsAnyNull())
                 _currentPathData.Target.OnDeactivation += ResetTarget;
@@ -66,7 +73,7 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
             OnUnitPathChange?.Invoke(this);
         }
     }
-    
+
     public event Action<UnitBase> OnUnitPathChange;
     public event Action<UnitBase> OnUnitDied;
     public event Action OnUnitDiedEvent;
@@ -78,16 +85,57 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
     public event Action OnTargetMovePositionChange;
     public event Action OnDeactivation;
 
+    private void Awake()
+    {
+        _startMaxSpeed = _navMeshAgent.speed;
+
+        MoveSpeedChangerProcessor = new MoveSpeedChangerProcessor(_navMeshAgent);
+        EffectsProcessor = new EffectsProcessor(this, _effectsFactory);
+
+        OnAwake();
+    }
+
+    private void Start()
+    {
+        UnitPool.Instance.UnitCreation(this);
+
+        OnStart();
+    }
+
+    public virtual void HandleUpdate(float time)
+    {
+        _stateMachine.OnUpdate();
+      
+        EffectsProcessor.HandleUpdate(time);
+
+        foreach (var ability in _abilites)
+            ability.OnUpdate(Time.deltaTime);
+    }
+
+    protected virtual void OnAwake() { }
+
+    protected virtual void OnStart() { }
+
+    public void SetDestination(Vector3 position)
+    {
+        _navMeshAgent.SetDestination(position);
+    }
+
+    public void Warp(Vector3 position)
+    {
+        _navMeshAgent.Warp(position);
+    }
+
+    public virtual void GiveOrder(GameObject target, Vector3 position)
+        => AutoGiveOrder(target.GetComponent<IUnitTarget>(), position);
+
+    public void UseAbility(int abilityIndex)
+        => _abilites[abilityIndex].OnUse();
     public void SetAffiliation(AffiliationEnum affiliation)
     {
         Affiliation = affiliation;
     }
-    
-    public virtual void HandleUpdate(float time)
-    {
-        _stateMachine.OnUpdate();
-    }
-    
+
     public virtual void TakeDamage(IDamageApplicator damageApplicator, float damageScale = 1)
     {
         _healthStorage.ChangeValue(-damageApplicator.Damage * damageScale);
@@ -102,24 +150,24 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
             return;
         }
     }
-    
+
     public void TakeHeal(float value)
         => _healthStorage.ChangeValue(value);
-    
+
     protected virtual void OnDamaged() { }
 
     public void Select()
     {
-        if(IsSelected) return;
-        
+        if (IsSelected) return;
+
         IsSelected = true;
         OnSelect?.Invoke();
     }
 
     public void Deselect()
     {
-        if(!IsSelected) return;
-        
+        if (!IsSelected) return;
+
         IsSelected = false;
         OnDeselect?.Invoke();
     }
@@ -137,30 +185,30 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
         gameObject.SetActive(true);
         EffectsProcessor.Reset();
         MoveSpeedChangerProcessor.Reset();
-        
+
         SwitchSticky(false);
     }
-    
-    public void AutoGiveOrder(IUnitTarget unitTarget) 
+
+    public void AutoGiveOrder(IUnitTarget unitTarget)
         => AutoGiveOrder(unitTarget, transform.position);
 
     /// <param name="targetMovePosition"> move position that used if unitTarget is null</param>
     public void AutoGiveOrder(IUnitTarget unitTarget, Vector3 targetMovePosition)
     {
         targetMovePosition.y = 0;
-        
+
         CurrentPathData = OrderValidator.AutoGiveOrder(unitTarget);
         if (!CurrentPathData.Target.IsAnyNull())
         {
-            targetMovePosition = OrderValidator.CheckDistance(CurrentPathData) 
-                ? transform.position 
+            targetMovePosition = OrderValidator.CheckDistance(CurrentPathData)
+                ? transform.position
                 : unitTarget.Transform.position;
         }
 
         CalculateNewState(targetMovePosition);
     }
 
-    public void HandleGiveOrder(IUnitTarget unitTarget, UnitPathType unitPathType) 
+    public void HandleGiveOrder(IUnitTarget unitTarget, UnitPathType unitPathType)
         => HandleGiveOrder(unitTarget, unitPathType, transform.position);
 
     /// <param name="targetMovePosition"> move position that used if unitTarget is null</param>
@@ -171,27 +219,27 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
         CurrentPathData = OrderValidator.HandleGiveOrder(unitTarget, unitPathType);
         if (!CurrentPathData.Target.IsAnyNull())
         {
-            targetMovePosition = OrderValidator.CheckDistance(CurrentPathData) 
-                ? transform.position 
+            targetMovePosition = OrderValidator.CheckDistance(CurrentPathData)
+                ? transform.position
                 : unitTarget.Transform.position;
         }
 
         CalculateNewState(targetMovePosition);
     }
 
-    private void ResetTarget() 
+    private void ResetTarget()
         => CurrentPathData = new UnitPathData(null, CurrentPathData.PathType);
 
     public EntityStateID EntityStateID;
     private void CalculateNewState(Vector3 newTargetMovePosition)
     {
         newTargetMovePosition.y = 0;
-        if(TargetMovePosition != newTargetMovePosition)
+        if (TargetMovePosition != newTargetMovePosition)
         {
             TargetMovePosition = newTargetMovePosition;
             OnTargetMovePositionChange?.Invoke();
         }
-            
+
         var curPos = transform.position;
         curPos.y = 0;
         if (TargetMovePosition == curPos)
@@ -218,10 +266,10 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
 
         EntityStateID = _stateMachine.ActiveState;
     }
-    
+
     protected void ReturnInPool()
         => ElementReturnEvent?.Invoke(this);
-    
+
     private void OnDisable()
     {
         OnDisableITriggerableEvent?.Invoke(this);

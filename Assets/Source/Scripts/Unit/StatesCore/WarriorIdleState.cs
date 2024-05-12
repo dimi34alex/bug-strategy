@@ -7,10 +7,10 @@ namespace Unit.States
     {
         public override EntityStateID EntityStateID => EntityStateID.Idle;
         
-        private readonly MovingUnit _unit;
+        private readonly UnitBase _unit;
         private readonly AttackProcessorBase _attackProcessorBase;
         
-        public WarriorIdleState(MovingUnit unit, AttackProcessorBase attackProcessorBase)
+        public WarriorIdleState(UnitBase unit, AttackProcessorBase attackProcessorBase)
         {
             _unit = unit;
             _attackProcessorBase = attackProcessorBase;
