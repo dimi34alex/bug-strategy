@@ -1,40 +1,34 @@
 using System.Collections;
 using UnityEngine;
 
-public class PollenStorage : ResourceSourceBase
+public sealed class PollenStorage : ResourceSourceBase
 {
+    [SerializeField] private int refillTime = 30;
+    [SerializeField] private GameObject model;
+    [SerializeField] private GameObject pollinatedModel;
+    
     public override ResourceID ResourceID => ResourceID.Pollen;
-    protected ResourceStorage Pollen = new ResourceStorage(100, 100);
-    public float MaxPollen => Pollen.Capacity;
-    public float CurrentPollen => Pollen.CurrentValue;
-    public int timer;
-    public bool isPollinated = false;
-    public GameObject Model;
-    public GameObject pollinatedModel;
 
     public override void ExtractResource(int extracted)
     {
-        Pollen.ChangeValue(-extracted);
+        ResourceStorage.ChangeValue(-extracted);
 
-        if (CurrentPollen <= 0)
+        if (ResourceStorage.CurrentValue <= 0)
         {
-            isPollinated = true;
+            CanBeCollected = false;
+            model.SetActive(false);
             pollinatedModel.SetActive(true);
-            Model.SetActive(false);
-            StartCoroutine(StartRePollinating(timer));
+            StartCoroutine(StartRePollinating(refillTime));
         }
     }
     
     private IEnumerator StartRePollinating(int duration)
     {
-        while (duration > 0)
-        {
-            yield return new WaitForSeconds(1f);
-            duration--;
-        }
+        yield return new WaitForSeconds(duration);
 
-        isPollinated = false;
+        CanBeCollected = true;
         pollinatedModel.SetActive(false);
-        Model.SetActive(true);
+        ResourceStorage.SetValue(float.MaxValue);
+        model.SetActive(true);
     }
 }

@@ -6,7 +6,7 @@ using Zenject;
 
 public interface IConstructionFactory
 {
-    public TConstruction Create<TConstruction>(ConstructionID constructionID) where TConstruction : ConstructionBase;
+    public TConstruction Create<TConstruction>(ConstructionID constructionID, AffiliationEnum affiliation) where TConstruction : ConstructionBase;
 }
 
 public class ConstructionFactory : MonoBehaviour, IConstructionFactory
@@ -24,7 +24,7 @@ public class ConstructionFactory : MonoBehaviour, IConstructionFactory
             Debug.Log($"Factory behaviour {behaviour.GetType()} has been registered");
     }
 
-    public TConstruction Create<TConstruction>(ConstructionID constructionID) where TConstruction : ConstructionBase
+    public TConstruction Create<TConstruction>(ConstructionID constructionID, AffiliationEnum affiliation) where TConstruction : ConstructionBase
     {
         ConstructionType constructionType = _constructionTypeMatchConfig.GetConstructionType(constructionID);
 
@@ -32,6 +32,8 @@ public class ConstructionFactory : MonoBehaviour, IConstructionFactory
             throw new InvalidOperationException($"{constructionID} cannot be created, " +
                 $"because factory for this construction not found. Create new factory behaviour for this construction");
 
-        return _behaviours[constructionType].Create<TConstruction>(constructionID);
+        var construction = _behaviours[constructionType].Create<TConstruction>(constructionID);
+        construction.Initialize(affiliation);
+        return construction;
     }
 }

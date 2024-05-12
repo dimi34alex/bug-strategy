@@ -13,9 +13,7 @@ MonoBehaviour:
   m_Name: BeeTownHallConfig
   m_EditorClassIdentifier: 
   buyCost:
-    _cells:
-    - Key: 0
-      Value: 10
+    _cells: []
   levels:
   - maxHealPoints: 1000
     levelUpCost:
@@ -36,9 +34,9 @@ MonoBehaviour:
       recruitingTime: 5
       stackSize: 1
       spawnPauseTime: 0
-      unitPrefab: {fileID: 3549433375624800588, guid: 3a4407f137678c14fb55fe57fde82205, type: 3}
       costs:
         _cells: []
+    <HiderCapacity>k__BackingField: 1
   - maxHealPoints: 2000
     levelUpCost:
       _cells:
@@ -60,9 +58,9 @@ MonoBehaviour:
       recruitingTime: 4
       stackSize: 1
       spawnPauseTime: 0
-      unitPrefab: {fileID: 3549433375624800588, guid: 3a4407f137678c14fb55fe57fde82205, type: 3}
       costs:
         _cells: []
+    <HiderCapacity>k__BackingField: 2
   - maxHealPoints: 3000
     levelUpCost:
       _cells:
@@ -86,6 +84,7 @@ MonoBehaviour:
       recruitingTime: 3
       stackSize: 1
       spawnPauseTime: 0
-      unitPrefab: {fileID: 3549433375624800588, guid: 3a4407f137678c14fb55fe57fde82205, type: 3}
       costs:
         _cells: []
+    <HiderCapacity>k__BackingField: 3
+  hiderAccess: 00000000010000001e00000028000000320000003c00000046000000500000005a0000005f000000

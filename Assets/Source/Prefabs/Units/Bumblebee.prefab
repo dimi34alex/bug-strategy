@@ -321,8 +321,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _unitVisibleZone: {fileID: 5949649818072816824}
-  _professionInteractionZone: {fileID: 1493000100019554460}
-  _dynamicProfessionZone: {fileID: 4406851168027833582}
+  unitInteractionZone: {fileID: 1493000100019554460}
+  dynamicUnitZone: {fileID: 4406851168027833582}
+  EntityStateID: 0
   _navMeshAgent: {fileID: 6180183485359579963}
   _ability1:
     reloadTimer:
@@ -334,7 +335,7 @@ MonoBehaviour:
       _currentValue: 0
       _capacity: 0
     abilityIcon: {fileID: 21300000, guid: 763620d23207e5442b18d34333491558, type: 3}
-  config: {fileID: 11400000, guid: aac513c4727523c4884bd4c1cd283c29, type: 2}
+  config: {fileID: 11400000, guid: 624611f8997607247a3d2da8405fffdb, type: 2}
 --- !u!1 &6598553407153258799
 GameObject:
   m_ObjectHideFlags: 0

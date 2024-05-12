@@ -1,8 +1,8 @@
 using System;
 using Unit.Ants;
 using Unit.Ants.Configs.Professions;
+using Unit.Ants.Professions;
 using Unit.Factory;
-using Unit.ProfessionsCore;
 using UnityEngine;
 using Zenject;
 
@@ -12,12 +12,13 @@ public class SwitchAntProfessionCunstruction : MonoBehaviour, IUnitTarget, ITrig
     [SerializeField] private AntBase ant;
     [SerializeField] private AntProfessionRang targetProfessionRang;
     [SerializeField] private AntProfessionsConfigsRepository antProfessionsConfigsRepository;
-
+    [SerializeField] private AffiliationEnum affiliationEnum;
+    
     [Inject] private UnitFactory _unitFactory;
     
     public Transform Transform => transform;
     public UnitTargetType TargetType => UnitTargetType.Construction;
-    public AffiliationEnum Affiliation => AffiliationEnum.Ants;
+    public AffiliationEnum Affiliation => affiliationEnum;
     public bool IsActive { get; protected set; } = true;
 
     public event Action<ITriggerable> OnDisableITriggerableEvent;
@@ -35,11 +36,11 @@ public class SwitchAntProfessionCunstruction : MonoBehaviour, IUnitTarget, ITrig
         
         
         if (Input.GetKeyDown(KeyCode.Alpha1))
-            _unitFactory.Create(UnitType.AntStandard).transform.position = transform.position;
+            _unitFactory.Create(UnitType.AntStandard, transform.position, affiliationEnum);
         if (Input.GetKeyDown(KeyCode.Alpha2))
-            _unitFactory.Create(UnitType.AntBig).transform.position = transform.position;
+            _unitFactory.Create(UnitType.AntBig, transform.position, affiliationEnum);
         if (Input.GetKeyDown(KeyCode.Alpha3))
-            _unitFactory.Create(UnitType.AntFlying).transform.position = transform.position;
+            _unitFactory.Create(UnitType.AntFlying, transform.position, affiliationEnum);
     }
 
     private void GiveOrderSwitchProfession(ProfessionType newProfessionType) 

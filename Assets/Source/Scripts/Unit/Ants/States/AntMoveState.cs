@@ -26,7 +26,7 @@ namespace Unit.Ants.States
             if (_ant.CurrentPathData.Target.IsAnyNull())
                 UpdateEvent += ManualCheckDistance;
             else
-                _ant.Profession.OnEnterInZone += CheckTargetDistance;
+                _ant.CurrentProfession.OnEnterInZone += CheckTargetDistance;
         }
 
         public override void OnStateExit()
@@ -35,7 +35,7 @@ namespace Unit.Ants.States
             _ant.OnTargetMovePositionChange -= UpdateDestinationPosition;
             
             UpdateEvent -= ManualCheckDistance;
-            _ant.Profession.OnEnterInZone -= CheckTargetDistance;
+            _ant.CurrentProfession.OnEnterInZone -= CheckTargetDistance;
         }
 
         public override void OnUpdate() => UpdateEvent?.Invoke();
@@ -45,12 +45,12 @@ namespace Unit.Ants.States
             _ant.SetDestination(_ant.TargetMovePosition);
             
             UpdateEvent -= ManualCheckDistance;
-            _ant.Profession.OnEnterInZone -= CheckTargetDistance;
+            _ant.CurrentProfession.OnEnterInZone -= CheckTargetDistance;
 
             if (_ant.CurrentPathData.Target.IsAnyNull())
                 UpdateEvent += ManualCheckDistance;
             else
-                _ant.Profession.OnEnterInZone += CheckTargetDistance;
+                _ant.CurrentProfession.OnEnterInZone += CheckTargetDistance;
         }
 
         private void ManualCheckDistance()
@@ -61,7 +61,7 @@ namespace Unit.Ants.States
         
         private void CheckTargetDistance()
         {
-            if (_ant.Profession.CheckDistance(_ant.CurrentPathData))
+            if (_ant.CurrentProfession.OrderValidatorBase.CheckDistance(_ant.CurrentPathData))
                 _ant.HandleGiveOrder(_ant.CurrentPathData.Target, _ant.CurrentPathData.PathType);
         }
     }

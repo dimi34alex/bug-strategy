@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 117cc840ada24367b6373979eb89a145, type: 3}
+  m_Name: BeeHospitalSpawnConfig
+  m_EditorClassIdentifier: 
+  <Config>k__BackingField:
+    <ConstructionPrefab>k__BackingField: {fileID: 4166484307064783392, guid: ba6ec717f91c4824da1f1bff263ca06c, type: 3}
+    <SkinPrefab>k__BackingField: {fileID: 0}
+    <Rotation>k__BackingField: {x: 0, y: 0, z: 0, w: 0}

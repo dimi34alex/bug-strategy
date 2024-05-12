@@ -35,6 +35,7 @@ Transform:
   - {fileID: 7896836255248176593}
   - {fileID: 2235824996066003292}
   - {fileID: 1541990069262671500}
+  - {fileID: 7050724822444638802}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -50,8 +51,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efa3e63424f5cb14e8b78fc27d89959a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  affiliationEnum: 10
   config: {fileID: 11400000, guid: 6d91083181a0966448d820c38a10248e, type: 2}
+  hiderExtractPosition: {fileID: 7050724822444638802}
 --- !u!65 &-3724024334100814529
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -109,6 +110,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4be58a052bbe72d4abe49722c409dce3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &7520572030117342773
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7050724822444638802}
+  m_Layer: 0
+  m_Name: HiderExtractPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7050724822444638802
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7520572030117342773}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -1.75}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5330466338465754199}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9178477231197315896
 GameObject:
   m_ObjectHideFlags: 0
@@ -250,6 +281,14 @@ PrefabInstance:
     - target: {fileID: 1444907711519400201, guid: 206be7d484850b04f89116fec19c5c6e, type: 3}
       propertyPath: m_Name
       value: ConstructionUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 4419972147423338378, guid: 206be7d484850b04f89116fec19c5c6e, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4419972147423338378, guid: 206be7d484850b04f89116fec19c5c6e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4968152841790649111, guid: 206be7d484850b04f89116fec19c5c6e, type: 3}
       propertyPath: selectable

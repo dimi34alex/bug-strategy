@@ -3,5 +3,6 @@ using UnityEngine;
 
 public class DefaultConstruction : ConstructionBase
 {
-    public override ConstructionID ConstructionID => ConstructionID.Test_Construction;
+    public override FractionType Fraction => FractionType.None;
+    public override ConstructionID ConstructionID => ConstructionID.TestConstruction;
 }

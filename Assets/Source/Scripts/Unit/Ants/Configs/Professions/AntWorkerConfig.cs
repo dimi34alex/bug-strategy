@@ -1,4 +1,4 @@
-using Unit.ProfessionsCore;
+using Unit.Ants.Professions;
 using UnityEngine;
 
 namespace Unit.Ants.Configs.Professions

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Unit.ProfessionsCore;
+using Unit.Ants.Professions;
 using UnityEditor.Animations;
 using UnityEngine;
 

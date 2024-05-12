@@ -27,3 +27,5 @@ MonoBehaviour:
       _spendableResourceID: 0
       _spendRatio: 0.5
       _spendableResourceCapacity: 100
+    <HiderCapacity>k__BackingField: 1
+  hiderAccess: 00000000010000001e00000028000000320000003c0000004600000050000000

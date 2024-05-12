@@ -1,4 +1,4 @@
-using Unit.ProfessionsCore;
+using Unit.ProcessorsCore;
 using UnityEngine;
 
 namespace Unit.States
@@ -8,18 +8,17 @@ namespace Unit.States
         public override EntityStateID EntityStateID => EntityStateID.ExtractionResource;
 
         private readonly UnitBase _unit;
-
-        private readonly WorkerProfession _workerProfession;
+        private readonly ResourceExtractionProcessor _resourceExtractionProcessor;
         
-        public ResourceExtractionState(UnitBase unit, WorkerProfession workerProfession)
+        public ResourceExtractionState(UnitBase unit, ResourceExtractionProcessor resourceExtractionProcessor)
         {
             _unit = unit;
-            _workerProfession = workerProfession;
+            _resourceExtractionProcessor = resourceExtractionProcessor;
         }
-
+        
         public override void OnStateEnter()
         {
-            if (_workerProfession.ResourceExtractionProcessor.GotResource ||
+            if (_resourceExtractionProcessor.GotResource ||
                 !_unit.CurrentPathData.Target.TryCast(out ResourceSourceBase resourceSource))
             {
 #if UNITY_EDITOR
@@ -30,14 +29,14 @@ namespace Unit.States
                 return;
             }
             
-            _workerProfession.ResourceExtractionProcessor.OnResourceExtracted += ResourceExtracted;
-            _workerProfession.ResourceExtractionProcessor.StartExtraction(resourceSource.ResourceID);
+            _resourceExtractionProcessor.OnResourceExtracted += ResourceExtracted;
+            _resourceExtractionProcessor.StartExtraction(resourceSource);
         }
 
         public override void OnStateExit()
         {
-            _workerProfession.ResourceExtractionProcessor.OnResourceExtracted -= ResourceExtracted;
-            _workerProfession.ResourceExtractionProcessor.AbortExtraction();
+            _resourceExtractionProcessor.OnResourceExtracted -= ResourceExtracted;
+            _resourceExtractionProcessor.AbortExtraction();
         }
 
         public override void OnUpdate()

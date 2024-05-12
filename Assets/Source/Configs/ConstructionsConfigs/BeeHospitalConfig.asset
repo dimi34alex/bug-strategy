@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b24e48f7aa44a6297a2ef9904f349a1, type: 3}
+  m_Name: BeeHospitalConfig
+  m_EditorClassIdentifier: 
+  buyCost:
+    _cells: []
+  levels:
+  - maxHealPoints: 1000
+    levelUpCost:
+      _cells: []
+    resourceCapacity:
+      _cells: []
+    HealPerSecond: 5
+    <HiderCapacity>k__BackingField: 4
+  hiderAccess: 00000000010000001e00000028000000320000003c0000004600000050000000
