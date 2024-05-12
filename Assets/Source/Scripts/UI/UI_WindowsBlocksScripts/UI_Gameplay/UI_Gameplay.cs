@@ -19,8 +19,7 @@ public class UI_Gameplay : UIScreen
         _gameplayWindowsSetActions.Add(UIWindowType.GameMain, () => { });
         _gameplayWindowsSetActions.Add(UIWindowType.Building, () => { _UI_Buildings.SetActive(true); });
         _gameplayWindowsSetActions.Add(UIWindowType.Tactics, () => { _UI_Tactics.SetActive(true); });
-        _gameplayWindowsSetActions.Add(UIWindowType.ConstructionMenu, () => { _buldingUIController.SetWindow(_construction); });
-
+       // _gameplayWindowsSetActions.Add(UIWindowType.ConstructionMenu, () => { _buldingUIController.SetWindow(_construction); });
 
         _buldingUIController = UIScreenRepository.GetScreen<ConstructionUIController>();
         _UI_Buildings = UIScreenRepository.GetScreen<UI_Buildings>().gameObject;

@@ -49,7 +49,10 @@ public class UserBuilder : CycleInitializerBase
             {
                 ConstructionBase selectedConstruction = FrameworkCommander.GlobalData.ConstructionSelector.SelectedConstruction;
                 selectedConstruction.Select();
-                _UIController.SetBuilding(selectedConstruction);
+                UnitSelection.Instance.DeselectAllWithoutCheck();
+                _UIController.CloseisChooseState();
+                Debug.Log(selectedConstruction.ConstructionID);
+                _UIController.SetWindow(selectedConstruction);
             }
             else if (!MouseCursorOverUI())
             {

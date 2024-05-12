@@ -1,7 +1,7 @@
 ﻿public class HealthView : BarView
 {
-    public void Init(Health storage)
+    public new void Init(IReadOnlyResourceStorage storage)
     {
-        Init(storage.BarStorage);
+        base.Init(storage);
     }
 }

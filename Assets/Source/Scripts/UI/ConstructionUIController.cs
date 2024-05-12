@@ -1,13 +1,42 @@
-﻿public class ConstructionUIController : UIScreen
+﻿using System.Linq;
+
+public class ConstructionUIController : UIScreen
 {
+    private UIConstructionsConfig _UIConstructionsConfig;
+
+    private void Awake()
+    {
+        _UIConstructionsConfig = ConfigsRepository.FindConfig<UIConstructionsConfig>();
+    }
+
+
     public void ClearWindow()
     {
 
     }
 
-
-    public void SetWindow(ConstructionBase construction)
+    public void SetWindow(ConstructionBase construction, ConstructionInfoScreen constructionInfoScreen,
+        ConstructionProductsUIView constructionProductsUIView, ConstructionOperationUIView constructionOperationUIView, bool isChooseState)
     {
+        UIConstructionConfig constructionUIConfig = _UIConstructionsConfig.ConstructionsUIConfigs[construction.ConstructionID];
+
+        constructionInfoScreen.SetInfo(constructionUIConfig.InfoSprite, construction.HealthStorage);
+
+        constructionProductsUIView.TurnOffButtons();
+        constructionOperationUIView.TurnOffButtons();
+
+        if (isChooseState)
+        {
+            constructionOperationUIView.SetButtons(constructionUIConfig.ConstructionOperationsDictionary, constructionUIConfig.ConstructionOperations
+                    .Select(x => x.Key).ToList());
+        }
+        else
+        {
+            constructionProductsUIView.SetButtons(constructionUIConfig.ConstructionProductsDictionary, constructionUIConfig.ConstructionProducts
+                  .Select(x => x.Key).ToList());
+         
+        }
+     
         /*  _UI_TownHallMenu = UIScreenRepository.GetScreen<UI_BeeTownHallMenu>().gameObject;
           _UI_BarracksMenu = UIScreenRepository.GetScreen<UI_BeeBarracksMenu>().gameObject;
           _UI_BeeHouseMenu = UIScreenRepository.GetScreen<UI_BeeHouseMenu>().gameObject;

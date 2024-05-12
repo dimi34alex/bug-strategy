@@ -37,13 +37,13 @@ namespace Constructions
 
             if (freeStackIndex == -1)
             {
-                UI_Controller._ErrorCall("All stacks are busy");
+                UIController.ErrorCall("All stacks are busy");
                 return;
             }
 
             if (!_recruiter.CheckCosts(beeID))
             {
-                UI_Controller._ErrorCall("Need more resources");
+                UIController.ErrorCall("Need more resources");
                 return;
             }
 

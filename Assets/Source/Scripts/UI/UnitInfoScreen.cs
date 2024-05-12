@@ -1,26 +1,23 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class UnitInfoScreen : UIScreen
+public class UnitInfoScreen : EntityInfoScreen
+{
+}
+
+public class EntityInfoScreen : UIScreen
 {
     [SerializeField] private Image _infoImage;
+    [SerializeField] private HealthView _healthView;
 
     private IReadOnlyResourceStorage _health;
 
-    public void SetInfoUnit(Sprite sprite, IReadOnlyResourceStorage storage)
+    public void SetInfo(Sprite sprite, IReadOnlyResourceStorage storage)
     {
-        if (_health != null)
-            _health.Changed -= OnHealthChanged;
+        _healthView.Init(storage);
 
         _health = storage;
 
-        _health.Changed += OnHealthChanged;
-
         _infoImage.sprite = sprite;
-    }
-
-    private void OnHealthChanged()
-    {
-
     }
 }

@@ -87,6 +87,8 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
 
     private void Awake()
     {
+        _navMeshAgent = gameObject.GetComponent<NavMeshAgent>();
+
         _startMaxSpeed = _navMeshAgent.speed;
 
         MoveSpeedChangerProcessor = new MoveSpeedChangerProcessor(_navMeshAgent);

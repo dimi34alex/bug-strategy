@@ -38,13 +38,15 @@ public class UnitSelection : MonoBehaviour
 
     private void SelectProcess()
     {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
         if (Input.GetMouseButtonDown(0))
         {
             _isSelecting = true;
             _mouseStartSelectionPoint = Input.mousePosition;
         }
 
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) && !FrameworkCommander.GlobalData.ConstructionSelector.TrySelect(ray))
         {
             _isSelecting = false;
             _mouseEndSelectionPoint = Input.mousePosition;
@@ -124,11 +126,22 @@ public class UnitSelection : MonoBehaviour
     {
         if (_selectedUnits != null && _selectedUnits.Count != 0)
         {
-            Debug.Log(_selectedUnits[0].UnitType);
             _UIController.SetWindow(_selectedUnits[0]);
         }
+        else
+        {
+            if (!EventSystem.current.IsPointerOverGameObject())
+                _UIController.SetWindow(UIWindowType.Game);
+        }
     }
-
+    public void DeselectAllWithoutCheck()
+    {
+        foreach (UnitBase unit in _selectedUnits)
+        {
+            unit.Deselect();
+        }
+        _selectedUnits.Clear();
+    }
 
     public void DeselectAll()
     {
