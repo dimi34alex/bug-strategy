@@ -36,7 +36,10 @@ namespace Unit.ProcessorsCore
         }
 
         public bool TargetInZone(IUnitTarget someTarget)
-            => _attackZoneProcessor.Targets.ContainsKey(someTarget);
+        {
+            if(someTarget.IsAnyNull()) return false;
+            return _attackZoneProcessor.Targets.ContainsKey(someTarget);
+        }
 
         /// <returns>
         /// return true if distance between unit and someTarget less or equal attack range, else return false
