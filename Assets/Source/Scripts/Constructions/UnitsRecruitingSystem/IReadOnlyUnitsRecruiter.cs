@@ -12,5 +12,6 @@ namespace UnitsRecruitingSystemCore
         public event Action OnCancelRecruit;
 
         public List<IReadOnlyUnitRecruitingStack> GetRecruitingInformation();
+        public int FindFreeStack();
     }
 }

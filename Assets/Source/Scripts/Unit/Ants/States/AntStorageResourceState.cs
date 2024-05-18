@@ -1,5 +1,6 @@
-using Constructions;
-using Unit.ProfessionsCore;
+using Construction.TownHalls;
+using Unit.Ants.Professions;
+using Unit.OrderValidatorCore;
 using UnityEngine;
 
 namespace Unit.Ants.States
@@ -10,7 +11,7 @@ namespace Unit.Ants.States
 
         private readonly AntBase _ant;
 
-        private WorkerProfession _workerProfession;
+        private AntWorkerProfession _workerProfession;
         
         public AntStorageResourceState(AntBase ant)
         {
@@ -20,21 +21,20 @@ namespace Unit.Ants.States
         public override void OnStateEnter()
         {
             if (_ant.CurProfessionType != ProfessionType.Worker ||
-                !_ant.Profession.TryCast(out _workerProfession) ||
+                !_ant.CurrentProfession.TryCast(out _workerProfession) ||
                 !_workerProfession.ResourceExtractionProcessor.GotResource ||
-                !_ant.CurrentPathData.Target.CastPossible<BeeTownHall>())
+                !_ant.CurrentPathData.Target.CastPossible<TownHallBase>())
             {
 #if UNITY_EDITOR
                 Debug.LogWarning($"Some problem: " +
                                  $"{_ant.CurProfessionType} | " +
-                                 $"{!_ant.Profession.TryCast(out _workerProfession)} | " +
-                                 $"{!_ant.CurrentPathData.Target.CastPossible<BeeTownHall>()}");            
+                                 $"{!_ant.CurrentProfession.TryCast(out _workerProfession)} | " +
+                                 $"{!_ant.CurrentPathData.Target.CastPossible<TownHallBase>()}");            
 #endif
                 _ant.AutoGiveOrder(null);
                 return;
             }
             
-            ResourceGlobalStorage.ChangeValue(ResourceID.Pollen, _workerProfession.ResourceExtractionProcessor.ExtractionCapacity);
             _workerProfession.ResourceExtractionProcessor.StorageResources();
             
             _ant.AutoGiveOrder(null);

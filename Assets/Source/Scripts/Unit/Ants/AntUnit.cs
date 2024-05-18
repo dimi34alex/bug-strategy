@@ -1,7 +1,7 @@
 namespace Unit.Ants
 {
-    public abstract class AntUnit : MovingUnit
+    public abstract class AntUnit : UnitBase
     {
-        public override AffiliationEnum Affiliation => AffiliationEnum.Ants;
+        public override FractionType Fraction => FractionType.Ants;
     }
 }

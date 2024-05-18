@@ -9,7 +9,8 @@ public enum EntityStateID
     Attack,
     ExtractionResource,
     StorageResource,
-    SwitchProfession
+    SwitchProfession,
+    HideInConstruction
 };
 
 public class EntityStateMachine

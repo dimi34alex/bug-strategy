@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using CustomTimer;
 using DG.Tweening;
 using UnityEngine;
 
@@ -8,52 +9,44 @@ namespace UnitsRecruitingSystemCore
     public class UnitRecruitingStack : IReadOnlyUnitRecruitingStack
     {
         public bool Empty { get; private set; } = true;
-        public float RecruitingTimer  { get; private set; }
         public int SpawnedUnits { get; private set; }
         public UnitRecruitingData CurrentData { get; private set; }
-
+        
         public UnitType UnitId => CurrentData.CurrentID;
         public float RecruitingTime => CurrentData.RecruitingTime;
+        public float SpawnPauseTime => CurrentData.SpawnPauseTime;
         public int StackSize => CurrentData.StackSize;
+        public float RecruitingTimer => _recruitingTimer.CurrentTime;
 
-        private float SpawnPauseTime => CurrentData.SpawnPauseTime;
+        private readonly Timer _recruitingTimer;
+        private readonly Timer _spawnPauseTimer;
+        private IReadOnlyDictionary<ResourceID, int> _costs;
         
-        private Sequence _sequenceTimer;
-        private IReadOnlyDictionary<ResourceID, int> Costs;
-        
-        public event Action<UnitType> OnSpawnUnit; 
+        public event Action<UnitType> OnSpawnUnit;
 
+        public UnitRecruitingStack()
+        {
+            _recruitingTimer = new Timer(0);
+            _spawnPauseTimer = new Timer(0);
+
+            _recruitingTimer.OnTimerEnd += SpawnUnit;
+            _spawnPauseTimer.OnTimerEnd += SpawnUnit;
+        }
+        
         /// <exception cref="Exception"> Error: stack is not empty </exception>
         public void RecruitUnit(UnitRecruitingData newData)
         {
-            if (!Empty) throw new Exception("Error: stack is not empty");
+            if (!Empty) 
+                throw new Exception("Error: stack is not empty");
 
             Empty = false;
-
             CurrentData = newData;
-            
-            RecruitingTimer = 0;
             SpawnedUnits = 0;
             
-            InvokeRecruiting();
+            _recruitingTimer.SetMaxValue(RecruitingTime);
+            _spawnPauseTimer.SetMaxValue(SpawnPauseTime, false);
         }
         
-        private void InvokeRecruiting()
-        {
-            _sequenceTimer = DOTween.Sequence()
-                .SetUpdate(UpdateType.Manual)
-                .AppendInterval(RecruitingTime)
-                .AppendCallback(SpawnUnit);
-        }
-        
-        private void InvokeSpawnPause()
-        {
-            _sequenceTimer = DOTween.Sequence()
-                .SetUpdate(UpdateType.Manual)
-                .AppendInterval(SpawnPauseTime)
-                .AppendCallback(SpawnUnit);
-        }
-
         private void SpawnUnit()
         {
             OnSpawnUnit?.Invoke(UnitId);
@@ -62,24 +55,26 @@ namespace UnitsRecruitingSystemCore
             if (SpawnedUnits >= StackSize)
                 Empty = true;
             else
-                InvokeSpawnPause();
+                _spawnPauseTimer.Reset();
         }
         
         public void Tick(float time)
         {
             if (Empty) return;
 
-            RecruitingTimer = Mathf.Clamp(RecruitingTimer + time, 0, RecruitingTime);
-            _sequenceTimer.ManualUpdate(time, time);
+            _recruitingTimer.Tick(time);
+            _spawnPauseTimer.Tick(time);
         }
 
         /// <returns> If cancel is possible return true, else return false </returns>
         public bool CancelRecruiting()
         {
-            if (SpawnedUnits > 0) return false;
+            if (SpawnedUnits > 0) 
+                return false;
             
-            _sequenceTimer.Kill();
             Empty = true;
+            _recruitingTimer.SetPause();
+            _spawnPauseTimer.SetPause();
 
             return true;
         }

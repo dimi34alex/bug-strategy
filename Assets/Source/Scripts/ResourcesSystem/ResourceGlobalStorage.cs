@@ -1,6 +1,8 @@
 using System;
+using EnumValuesExtension;
 using UnityEngine;
 
+//TODO: Remove legacy rgs, new rgs is ResourceGlobalStorageV2.cs
 public class ResourceGlobalStorage : MonoBehaviour
 {
     public static ResourceRepository ResourceRepository { get; private set; }
@@ -11,15 +13,15 @@ public class ResourceGlobalStorage : MonoBehaviour
     private void Awake()
     {
         ResourceRepository = new ResourceRepository(resourceConfigs);
-        ResourceRepository.CreateResource(ResourceID.Pollen,10, 10);
-        ResourceRepository.CreateResource(ResourceID.Bees_Wax,10, 10);
-        ResourceRepository.CreateResource(ResourceID.Housing,10, 10);
-        ResourceRepository.CreateResource(ResourceID.Honey,10, 10);
+
+        var resourceIds = EnumValuesTool.GetValues<ResourceID>();
+        foreach (var resourceId in resourceIds)
+            ResourceRepository.CreateResource(resourceId,10, 10);
 
         ResourceRepository.OnResourceAdd += OnResourceAdded;
 
         foreach (var element in ResourceRepository.Resources)
-            element.Value.OnChange += OnResourceChanged;
+            element.Value.Changed += OnResourceChanged;
 
     }
     

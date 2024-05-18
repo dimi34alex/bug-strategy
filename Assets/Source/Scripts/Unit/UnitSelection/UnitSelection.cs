@@ -9,8 +9,10 @@ public class UnitSelection : MonoBehaviour
     private Vector3 _mouseStartSelectionPoint;
     private Vector3 _mouseEndSelectionPoint;
 
-    private List<MovingUnit> _unitsInScreen =>FrameworkCommander.GlobalData.UnitRepository.MovingUnits;
-    private List<MovingUnit> _selectedUnits = new List<MovingUnit>();
+    private UIController _UIController;
+
+    private List<UnitBase> _unitsInScreen =>FrameworkCommander.GlobalData.UnitRepository.AllUnits;
+    private List<UnitBase> _selectedUnits = new List<UnitBase>();
 
     public Camera Camera => Camera.main;
 
@@ -24,6 +26,8 @@ public class UnitSelection : MonoBehaviour
             return;
         }
         Instance = this;
+
+        _UIController = UIScreenRepository.GetScreen<UIController>();
     }
 
     private void Update()
@@ -34,13 +38,15 @@ public class UnitSelection : MonoBehaviour
 
     private void SelectProcess()
     {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
         if (Input.GetMouseButtonDown(0))
         {
             _isSelecting = true;
             _mouseStartSelectionPoint = Input.mousePosition;
         }
 
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) && !FrameworkCommander.GlobalData.ConstructionSelector.TrySelect(ray))
         {
             _isSelecting = false;
             _mouseEndSelectionPoint = Input.mousePosition;
@@ -58,13 +64,15 @@ public class UnitSelection : MonoBehaviour
         {
             Vector3 targetPosition = Input.mousePosition;
 
+            targetPosition = Camera.ScreenToWorldPoint(targetPosition);
+
             List<Vector3> newUnitpositions =
                 RingStepPositionGenerator.TakeRingsPositions(targetPosition, _selectedUnits.Count);
 
             int n = 0;
             foreach (var unit in _selectedUnits)
             {
-         //       unit.GiveOrder(null, newUnitpositions[n++]);
+                unit.AutoGiveOrder(null, newUnitpositions[n]);
             }
 
             UnitsTargetPositionMarkerFactory.Instance.Create(targetPosition);
@@ -84,7 +92,7 @@ public class UnitSelection : MonoBehaviour
             endPoint = oldStartPoint + offsetSelection;
         }
 
-        foreach (MovingUnit unit in _unitsInScreen)
+        foreach (UnitBase unit in _unitsInScreen)
         {
             Vector2 unitCoordinate = new Vector2(unit.transform.position.x, unit.transform.position.z);
           
@@ -116,33 +124,30 @@ public class UnitSelection : MonoBehaviour
 
     private void UICall()
     {
-        // Нужно поговорить, о том что это система в принципе плоха и ее надо переделать......
-        // Определение рабочих или других классов,
-        // у нас совершенно не готова система UI впринципе, из-за появления новых классов
-
-        /*  if (unit.gameObject.CompareTag("Worker"))
-          {
-              workerSelected = true;
-          }*/
-        //Вот так не пойдет ...
-
-
-        /* if (workerSelected)
-         {
-             UI_Controller._SetWindow("UI_Buildings");
-         }
-         else if (anySelected)
-         {
-             UI_Controller._SetWindow("UI_Tactics");
-         }*/
+        if (_selectedUnits != null && _selectedUnits.Count != 0)
+        {
+            _UIController.SetWindow(_selectedUnits[0]);
+        }
+        else
+        {
+            if (!EventSystem.current.IsPointerOverGameObject())
+                _UIController.SetWindow(UIWindowType.Game);
+        }
     }
-
+    public void DeselectAllWithoutCheck()
+    {
+        foreach (UnitBase unit in _selectedUnits)
+        {
+            unit.Deselect();
+        }
+        _selectedUnits.Clear();
+    }
 
     public void DeselectAll()
     {
         if (!EventSystem.current.IsPointerOverGameObject()) // тут надо прикрутить проверку на контрл, или как там вообще ..
         {
-            foreach (MovingUnit unit in _selectedUnits)
+            foreach (UnitBase unit in _selectedUnits)
             {
                 unit.Deselect();
             }

@@ -53,17 +53,17 @@ namespace MiniMapSystem
         {
             switch (miniMapObject.Affiliation, miniMapObject.MiniMapObjectType)
             {
-                case (AffiliationEnum.Bees, MiniMapObjectType.Construction):
+                case (AffiliationEnum.Team1, MiniMapObjectType.Construction):
                     return MiniMapIconID.BeeConstruction;
-                case (AffiliationEnum.Bees, MiniMapObjectType.Unit):
+                case (AffiliationEnum.Team1, MiniMapObjectType.Unit):
                     return MiniMapIconID.BeeUnit;
-                case (AffiliationEnum.Ants, MiniMapObjectType.Construction):
+                case (AffiliationEnum.Team2, MiniMapObjectType.Construction):
                     return MiniMapIconID.AntConstruction;
-                case (AffiliationEnum.Ants, MiniMapObjectType.Unit):
+                case (AffiliationEnum.Team2, MiniMapObjectType.Unit):
                     return MiniMapIconID.AntUnit;
-                case (AffiliationEnum.Butterflies, MiniMapObjectType.Construction):
+                case (AffiliationEnum.Team3, MiniMapObjectType.Construction):
                     return MiniMapIconID.ButterflyConstruction;
-                case (AffiliationEnum.Butterflies, MiniMapObjectType.Unit):
+                case (AffiliationEnum.Team3, MiniMapObjectType.Unit):
                     return MiniMapIconID.ButterflyUnit;
                 case (AffiliationEnum.Neutral, MiniMapObjectType.Construction):
                     return MiniMapIconID.NeutralConstruction;

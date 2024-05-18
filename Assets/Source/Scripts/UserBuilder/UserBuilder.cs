@@ -1,8 +1,6 @@
-using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 using UnityEngine.EventSystems;
-using System.Linq;
 using Constructions;
 
 public class UserBuilder : CycleInitializerBase
@@ -10,21 +8,22 @@ public class UserBuilder : CycleInitializerBase
     [Inject] private readonly ConstructionsConfigsRepository _constructionsConfigsRepository;
     [Inject] private readonly IConstructionFactory _constructionFactory;
     [Inject] private readonly DiContainer _diContainer;
+    [Inject] private readonly IResourceGlobalStorage _resourceGlobalStorage;
     
     [SerializeField] private SerializableDictionary<ConstructionID, GameObject> constructionMovableModels;
-    [SerializeField] private ConstructionBase[] constructions;
-    private Dictionary<ConstructionID, ConstructionBase> _constructionWithID;
 
     private GameObject _currentConstructionMovableModel;
     private ConstructionID _currentConstructionID;
 
-    private bool _spawnConstruction = false;
-    private float _numberTownHall = 0;
+    private UIController _UIController;
+
+    private bool _spawnConstruction;
+    private float _numberTownHall;
+    private UnitPool _pool;
     
     protected override void OnInit()
     {
-        _constructionWithID = constructions.ToDictionary(x => x.ConstructionID, x => x);
-        
+        _UIController = UIScreenRepository.GetScreen<UIController>();
         GameObject controller = GameObject.FindGameObjectWithTag("GameController");
     }
 
@@ -50,11 +49,14 @@ public class UserBuilder : CycleInitializerBase
             {
                 ConstructionBase selectedConstruction = FrameworkCommander.GlobalData.ConstructionSelector.SelectedConstruction;
                 selectedConstruction.Select();
-                UI_Controller.SetBuilding(selectedConstruction);
+                UnitSelection.Instance.DeselectAllWithoutCheck();
+                _UIController.CloseisChooseState();
+                Debug.Log(selectedConstruction.ConstructionID);
+                _UIController.SetWindow(selectedConstruction);
             }
             else if (!MouseCursorOverUI())
             {
-                UI_Controller._SetWindow("UI_GameplayMain");
+                _UIController.SetWindow(UIWindowType.GameMain);
             }
         }
     }
@@ -85,13 +87,13 @@ public class UserBuilder : CycleInitializerBase
                     }
                 }
                 
-                foreach (MovingUnit unit in FrameworkCommander.GlobalData.UnitRepository.MovingUnits)
+                foreach (UnitBase unit in FrameworkCommander.GlobalData.UnitRepository.AllUnits)
                 {
-                    if (unit.IsSelected && unit.gameObject.CompareTag("Worker") && CanBuyConstruction(_currentConstructionID))
+                    if (unit.IsSelected && unit.gameObject.CompareTag("Worker") && CanBuyConstruction(unit.Affiliation, _currentConstructionID))
                     {
-                        BuyConstruction(_currentConstructionID);
+                        BuyConstruction(unit.Affiliation, _currentConstructionID);
 
-                        if (TrySpawnConstruction(_currentConstructionID, out var buildingProgressConstruction))
+                        if (TrySpawnConstruction(unit.Affiliation, _currentConstructionID, out var buildingProgressConstruction))
                             unit.HandleGiveOrder(buildingProgressConstruction, UnitPathType.Build_Construction);
 
                         Destroy(_currentConstructionMovableModel);
@@ -108,28 +110,28 @@ public class UserBuilder : CycleInitializerBase
         }
     }
     
-    private bool CanBuyConstruction(ConstructionID id )
+    private bool CanBuyConstruction(AffiliationEnum affiliation,ConstructionID id )
     {
         bool flagCanBuy = true;
 
         foreach (var element in _constructionsConfigsRepository.TakeBuyCost(id).ResourceCost)
-             if (element.Value > ResourceGlobalStorage.GetResource(element.Key).CurrentValue)
+             if (element.Value > _resourceGlobalStorage.GetResource(affiliation, element.Key).CurrentValue)
                  flagCanBuy = false;
 
         return flagCanBuy;
     }
 
-    private void BuyConstruction(ConstructionID id)
+    private void BuyConstruction(AffiliationEnum affiliation, ConstructionID id)
     {
         foreach (var element in _constructionsConfigsRepository.TakeBuyCost(id).ResourceCost)
-            ResourceGlobalStorage.GetResource(element.Key).SetValue(ResourceGlobalStorage.GetResource(element.Key).CurrentValue - element.Value);
+            _resourceGlobalStorage.GetResource(affiliation, element.Key).SetValue(_resourceGlobalStorage.GetResource(affiliation, element.Key).CurrentValue - element.Value);
     }
     
-    private bool TrySpawnConstruction(ConstructionID id, out BuildingProgressConstruction construction)
+    private bool TrySpawnConstruction(AffiliationEnum affiliation, ConstructionID id, out BuildingProgressConstruction construction)
     {
         construction = null;
 
-        if (id == ConstructionID.Bees_Town_Hall && _numberTownHall >= 1)
+        if (id == ConstructionID.BeeTownHall && _numberTownHall >= 1)
             return false;
         
         RaycastHit[] raycastHits = Physics.RaycastAll(Camera.main.ScreenPointToRay(Input.mousePosition));
@@ -141,30 +143,30 @@ public class UserBuilder : CycleInitializerBase
         if (FrameworkCommander.GlobalData.ConstructionsRepository.ConstructionExist(position, false))
             return false;
 
-        if (id == ConstructionID.Bees_Town_Hall)
+        if (id == ConstructionID.BeeTownHall)
             _numberTownHall++;
         
-        construction = SpawnConstruction(id, position);
+        construction = SpawnConstruction(affiliation, id, position);
         
         return true;
     }
     
-    private BuildingProgressConstruction SpawnConstruction(ConstructionID id, Vector3 position)
+    private BuildingProgressConstruction SpawnConstruction(AffiliationEnum affiliation, ConstructionID id, Vector3 position)
     {
-        BuildingProgressConstruction progressConstruction = _constructionFactory.Create<BuildingProgressConstruction>(ConstructionID.Building_Progress_Construction);
+        BuildingProgressConstruction progressConstruction = _constructionFactory.Create<BuildingProgressConstruction>(ConstructionID.BuildingProgressConstruction, affiliation);
         progressConstruction.transform.position = position;
         FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position, progressConstruction);
                 
-        progressConstruction.OnTimerEnd += c => CreateConstruction(c, position);
+        progressConstruction.OnTimerEnd += c => CreateConstruction(affiliation, c, position);
 
         progressConstruction.StartBuilding(4, id);
 
         return progressConstruction;
     }
 
-    private void CreateConstruction(BuildingProgressConstruction buildingProgressConstruction, Vector3 position)
+    private void CreateConstruction(AffiliationEnum affiliation, BuildingProgressConstruction buildingProgressConstruction, Vector3 position)
     {
-        ConstructionBase construction = _constructionFactory.Create<ConstructionBase>(buildingProgressConstruction.BuildingConstructionID);
+        ConstructionBase construction = _constructionFactory.Create<ConstructionBase>(buildingProgressConstruction.BuildingConstructionID, affiliation);
         
         FrameworkCommander.GlobalData.ConstructionsRepository.GetConstruction(position, true);
 

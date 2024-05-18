@@ -14,7 +14,7 @@ public class AbilityBlock : MonoBehaviour
         _abilityBase = abilityBase;
         icon.sprite = iconSprite;
 
-        _abilityBase.ReloadTimer.OnChange += UpdateFill;
+        _abilityBase.ReloadTimer.Changed += UpdateFill;
         UpdateFill();
     }
 
@@ -25,13 +25,13 @@ public class AbilityBlock : MonoBehaviour
     
     public void Subscribe()
     {
-        _abilityBase.ReloadTimer.OnChange += UpdateFill;
+        _abilityBase.ReloadTimer.Changed += UpdateFill;
         UpdateFill();
     }
     
     public void UnSubscribe()
     {
-        _abilityBase.ReloadTimer.OnChange -= UpdateFill;
+        _abilityBase.ReloadTimer.Changed -= UpdateFill;
     }
     
     private void OnDestroy()

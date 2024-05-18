@@ -1,4 +1,5 @@
-using Unit.ProfessionsCore;
+using Unit.OrderValidatorCore;
+using Unit.ProcessorsCore;
 
 namespace Unit.States
 {
@@ -6,24 +7,24 @@ namespace Unit.States
     {
         public override EntityStateID EntityStateID => EntityStateID.Idle;
         
-        private readonly MovingUnit _unit;
-        private readonly WarriorProfessionBase _warriorProfession;
+        private readonly UnitBase _unit;
+        private readonly AttackProcessorBase _attackProcessorBase;
         
-        public WarriorIdleState(MovingUnit unit, WarriorProfessionBase warriorProfession)
+        public WarriorIdleState(UnitBase unit, AttackProcessorBase attackProcessorBase)
         {
             _unit = unit;
-            _warriorProfession = warriorProfession;
+            _attackProcessorBase = attackProcessorBase;
         }
 
         public override void OnStateEnter()
         {
-            _warriorProfession.AttackProcessor.OnEnterEnemyInZone += CheckEnemiesInZone;
+            _attackProcessorBase.OnEnterEnemyInZone += CheckEnemiesInZone;
             CheckEnemiesInZone();
         }
 
         public override void OnStateExit()
         {
-            _warriorProfession.AttackProcessor.OnEnterEnemyInZone -= CheckEnemiesInZone;
+            _attackProcessorBase.OnEnterEnemyInZone -= CheckEnemiesInZone;
         }
 
         public override void OnUpdate()
@@ -33,7 +34,7 @@ namespace Unit.States
 
         private void CheckEnemiesInZone()
         {
-            if (!_warriorProfession.AttackProcessor.CheckEnemiesInAttackZone()) return;
+            if (!_attackProcessorBase.CheckEnemiesInAttackZone()) return;
             
             _unit.HandleGiveOrder(null, UnitPathType.Attack);
         }

@@ -1,7 +1,7 @@
 namespace Unit.Bees
 {
-    public abstract class BeeUnit : MovingUnit
+    public abstract class BeeUnit : UnitBase
     {
-        public override AffiliationEnum Affiliation => AffiliationEnum.Bees;
+        public override FractionType Fraction => FractionType.Bees;
     }
 }

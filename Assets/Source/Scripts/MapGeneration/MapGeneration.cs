@@ -13,7 +13,7 @@ public class MapGeneration : MonoBehaviour
 
     [SerializeField] private List<GameObject> tilesPrefabs;
 
-    [SerializeField] private List<GameObject> flowerPrefabs;
+    [SerializeField] private List<ResourceSourceBase> flowerPrefabs;
     
     [SerializeField] private GameObject bushPrefab;
     [SerializeField] private GameObject grassPrefab;
@@ -58,7 +58,10 @@ public class MapGeneration : MonoBehaviour
             {
                 int flowerNum = (int)Random.Range(0, flowerPrefabs.Count);
 
-                Instantiate(flowerPrefabs[flowerNum], FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(_currentTilePosition), Quaternion.Euler(0, 0, 0), this.transform);
+                var flowerPosition = FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(_currentTilePosition);
+                var flower = Instantiate(flowerPrefabs[flowerNum], flowerPosition, Quaternion.Euler(0, 0, 0), this.transform);
+                FrameworkCommander.GlobalData.ResourceSourcesRepository.Add(flowerPosition, flower);
+                FrameworkCommander.GlobalData.ConstructionsRepository.BlockCell(flowerPosition);
             }
             else if (tryToSpawnBush < bushGenChance)
             {
@@ -86,8 +89,5 @@ public class MapGeneration : MonoBehaviour
                 }
             }  
         }
-        
-        Destroy(this);
     }
-    
 }

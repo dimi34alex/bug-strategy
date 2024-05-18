@@ -8,5 +8,6 @@
     Storage_Resource = 50,
     Switch_Profession = 60,
     Repair_Construction = 70,
-    Idle = 80
+    Idle = 80,
+    HideInConstruction = 90
 }

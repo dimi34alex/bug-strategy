@@ -1,26 +1,55 @@
 ﻿using System.Collections.Generic;
+using Constructions.UnitsHideConstruction.Cells.BeesHiderCells;
 using Unit.Bees.Configs;
-using Unit.ProfessionsCore;
+using Unit.OrderValidatorCore;
+using Unit.ProcessorsCore;
 using Unit.States;
+using UnitsHideCore;
 using UnityEngine;
+using Zenject;
 
 namespace Unit.Bees
 {
-    public class WorkerBee : BeeUnit
+    public class WorkerBee : BeeUnit, IHidableUnit
     {
-        [SerializeField] private BeeWorkerConfig beeWorkerConfig;
+        [SerializeField] private BeeWorkerConfig config;
         [SerializeField] private GameObject resourceSkin;
 
+        [Inject] private readonly IResourceGlobalStorage _resourceGlobalStorage;
+        
         public override UnitType UnitType => UnitType.WorkerBee;
-        protected override ProfessionBase CurrentProfession => _workerProfession;
+        protected override OrderValidatorBase OrderValidator => _orderValidator;
 
-        private WorkerProfession _workerProfession;
-
+        private OrderValidatorBase _orderValidator;
+        private ResourceExtractionProcessor _resourceExtractionProcessor;
+        
         protected override void OnAwake()
         {
             base.OnAwake();
 
-            _healthStorage = new ResourceStorage(beeWorkerConfig.HealthPoints, beeWorkerConfig.HealthPoints);
+            _healthStorage = new ResourceStorage(config.HealthPoints, config.HealthPoints);
+           
+            _resourceExtractionProcessor = new ResourceExtractionProcessor(this, config.GatheringCapacity, config.GatheringTime,
+                _resourceGlobalStorage, resourceSkin);
+            _orderValidator = new WorkerBeeValidator(this, config.InteractionRange, _resourceExtractionProcessor);
+            
+            var stateBases = new List<EntityStateBase>()
+            {
+                new IdleState(),
+                new MoveState(this, _orderValidator),
+                new BuildState(this),
+                new ResourceExtractionState(this, _resourceExtractionProcessor),
+                new StorageResourceState(this, _resourceExtractionProcessor),
+                new HideInConstructionState(this, this, ReturnInPool)
+            };
+            _stateMachine = new EntityStateMachine(stateBases, EntityStateID.Idle);
+        }
+
+        public override void HandleUpdate(float time)
+        {
+            base.HandleUpdate(time);
+            
+            _resourceExtractionProcessor.HandleUpdate(time);
         }
 
         public override void OnElementExtract()
@@ -28,18 +57,25 @@ namespace Unit.Bees
             base.OnElementExtract();
             
             _healthStorage.SetValue(_healthStorage.Capacity);
-            _workerProfession = new WorkerProfession(this, beeWorkerConfig.InteractionRange, beeWorkerConfig.GatheringCapacity, beeWorkerConfig.GatheringTime, resourceSkin);
-            resourceSkin.SetActive(false);
+            _resourceExtractionProcessor.Reset();
 
-            var stateBases = new List<EntityStateBase>()
+            _stateMachine.SetState(EntityStateID.Idle);
+        }
+
+        public HiderCellBase TakeHideCell()
+            => new WorkerBeeHiderCell(this, _resourceExtractionProcessor);
+
+        public void LoadHideCell(HiderCellBase hiderCell)
+        {
+            if (hiderCell.TryCast(out WorkerBeeHiderCell workerBeeHideCell))
             {
-                new IdleState(),
-                new MoveState(this, _workerProfession),
-                new BuildState(this),
-                new ResourceExtractionState(this, _workerProfession),
-                new StorageResourceState(this, _workerProfession),
-            };
-            _stateMachine = new EntityStateMachine(stateBases, EntityStateID.Idle);
+                _healthStorage.SetValue(workerBeeHideCell.HealthPoints.CurrentValue);
+                _resourceExtractionProcessor.LoadData(workerBeeHideCell.ResourceExtracted, workerBeeHideCell.ExtractedResourceID);
+            }
+            else
+            {
+                Debug.LogError($"Invalid hider cell");
+            }
         }
     }
 }

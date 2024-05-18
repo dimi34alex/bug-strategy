@@ -13,6 +13,8 @@ namespace Unit.Factory
 
         private Pool<UnitBase, UnitType> _pool;
         private readonly Dictionary<UnitType, Transform> _parents = new Dictionary<UnitType, Transform>();
+
+        public event Action<UnitBase> UnitCreated; 
         
         private void Awake()
         {
@@ -30,10 +32,13 @@ namespace Unit.Factory
             }
         }
 
-        public UnitBase Create(UnitType unitType)
+        public UnitBase Create(UnitType unitType, Vector3 position, AffiliationEnum affiliation)
         {
             var unit = _pool.ExtractElement(unitType);
+            unit.Transform.position = position;
+            unit.SetAffiliation(affiliation);
             FrameworkCommander.GlobalData.UnitRepository.AddUnit(unit);
+            UnitCreated?.Invoke(unit);
             
             return unit;
         }
