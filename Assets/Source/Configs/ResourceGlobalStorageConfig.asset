@@ -33,6 +33,14 @@ MonoBehaviour:
           Value:
             <Capacity>k__BackingField: 10
             <Value>k__BackingField: 10
+        - Key: 10
+          Value:
+            <Capacity>k__BackingField: 10
+            <Value>k__BackingField: 10
+        - Key: 30
+          Value:
+            <Capacity>k__BackingField: 10
+            <Value>k__BackingField: 10
     - Key: 20
       Value:
         _cells:
@@ -52,6 +60,14 @@ MonoBehaviour:
           Value:
             <Capacity>k__BackingField: 10
             <Value>k__BackingField: 10
+        - Key: 10
+          Value:
+            <Capacity>k__BackingField: 10
+            <Value>k__BackingField: 10
+        - Key: 30
+          Value:
+            <Capacity>k__BackingField: 10
+            <Value>k__BackingField: 10
     - Key: 30
       Value:
         _cells:
@@ -64,6 +80,14 @@ MonoBehaviour:
             <Capacity>k__BackingField: 10
             <Value>k__BackingField: 10
         - Key: 0
+          Value:
+            <Capacity>k__BackingField: 10
+            <Value>k__BackingField: 10
+        - Key: 10
+          Value:
+            <Capacity>k__BackingField: 10
+            <Value>k__BackingField: 10
+        - Key: 30
           Value:
             <Capacity>k__BackingField: 10
             <Value>k__BackingField: 10
