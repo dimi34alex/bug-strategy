@@ -15,10 +15,21 @@ public class ConstructionUIController : UIScreen
 
     }
 
-    public void SetWindow(ConstructionBase construction, ConstructionInfoScreen constructionInfoScreen,
-        ConstructionProductsUIView constructionProductsUIView, ConstructionOperationUIView constructionOperationUIView, bool isChooseState)
+    public void SetPanel(ConstructionBase construction, ConstructionCreationProductUIView сonstructionCreationProductUIView)
     {
         UIConstructionConfig constructionUIConfig = _UIConstructionsConfig.ConstructionsUIConfigs[construction.ConstructionID];
+
+        сonstructionCreationProductUIView.CloseAll();
+    }
+
+
+    public void SetWindow(ConstructionBase construction, ConstructionInfoScreen constructionInfoScreen,
+        ConstructionProductsUIView constructionProductsUIView, ConstructionOperationUIView constructionOperationUIView,
+        bool isChooseState, ConstructionCreationProductUIView сonstructionCreationProductUIView)
+    {
+        UIConstructionConfig constructionUIConfig = _UIConstructionsConfig.ConstructionsUIConfigs[construction.ConstructionID];
+
+        сonstructionCreationProductUIView.CloseAll();
 
         constructionInfoScreen.SetInfo(constructionUIConfig.InfoSprite, construction.HealthStorage);
 
@@ -37,9 +48,18 @@ public class ConstructionUIController : UIScreen
         {
             constructionProductsUIView.SetButtons(constructionUIConfig.ConstructionProductsDictionary, constructionUIConfig.ConstructionProducts
                   .Select(x => x.Key).ToList());
-         
         }
-     
+
+        if ((constructionUIConfig.ConstructionProducts != null &&  constructionUIConfig.ConstructionProducts.Count > 0)||
+            (constructionUIConfig.ConstructionOperations != null && constructionUIConfig.ConstructionOperations.Count > 0))
+        {
+
+            сonstructionCreationProductUIView.ActivatePanel();
+        }
+
+            сonstructionCreationProductUIView.ActivateBar();
+
+
         /*  _UI_TownHallMenu = UIScreenRepository.GetScreen<UI_BeeTownHallMenu>().gameObject;
           _UI_BarracksMenu = UIScreenRepository.GetScreen<UI_BeeBarracksMenu>().gameObject;
           _UI_BeeHouseMenu = UIScreenRepository.GetScreen<UI_BeeHouseMenu>().gameObject;

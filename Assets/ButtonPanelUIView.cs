@@ -38,7 +38,7 @@ public class ButtonPanelUIView<T> : UIScreen
         ButtonClicked?.Invoke(type);
     }
 
-    public void SetButtons(IReadOnlyDictionary<T, Sprite> images, List<T> orderedTypes)
+    public virtual void SetButtons(IReadOnlyDictionary<T, Sprite> images, List<T> orderedTypes)
     {
         _unitTacticsTypes = orderedTypes;
 
@@ -53,6 +53,8 @@ public class ButtonPanelUIView<T> : UIScreen
 
     public void TurnOffButtons()
     {
+        Debug.Log(":LLLLLLLLLLLLLL");
+        Debug.Log(_buttons.Length);
         for (int i = 0; i < _buttons.Length; i++)
         {
             _buttons[i].gameObject.SetActive(false);

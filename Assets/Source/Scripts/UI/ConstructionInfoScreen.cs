@@ -10,6 +10,7 @@ public class ConstructionInfoScreen : EntityInfoScreen
 
     private void Awake()
     {
+        OnAwake();
         _upgradeButton.onClick.AddListener(OnUpgradeButtonClicked);
     }
 
@@ -17,5 +18,4 @@ public class ConstructionInfoScreen : EntityInfoScreen
     {
         UpgradeClicked?.Invoke();
     }
-
 }
