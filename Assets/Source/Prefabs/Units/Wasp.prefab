@@ -28,6 +28,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 268472792609559189}
   m_RootOrder: 2
@@ -87,6 +88,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 268472792609559189}
   m_RootOrder: 1
@@ -155,7 +157,8 @@ Transform:
   m_GameObject: {fileID: 4416387360485093014}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0.16}
-  m_LocalScale: {x: 0.09, y: 0.09, z: 0.09}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 268472792609559189}
   m_RootOrder: 0
@@ -171,6 +174,7 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -200,7 +204,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 101
-  m_Sprite: {fileID: 21300000, guid: 71632daa7002fdc45ae5c12599eb2e84, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9b49164aaa1536548a2a41046278c465, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -213,7 +217,7 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 --- !u!95 &632949190398828776
 Animator:
-  serializedVersion: 3
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -221,15 +225,17 @@ Animator:
   m_GameObject: {fileID: 4416387360485093014}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: aa6aa2b5f77652d408b4d4c911593e45, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5039214122889290809
 GameObject:
   m_ObjectHideFlags: 0
@@ -260,6 +266,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8264466513170375251}
   - {fileID: 1699145800824057324}
@@ -336,17 +343,6 @@ MonoBehaviour:
   unitInteractionZone: {fileID: 3587719593990544550}
   dynamicUnitZone: {fileID: 1560417879816243091}
   EntityStateID: 0
-  _navMeshAgent: {fileID: 6047302736304574508}
-  _ability1:
-    reloadTimer:
-      _currentValue: 0
-      _capacity: 0
-    abilityIcon: {fileID: 0}
-  _ability2:
-    reloadTimer:
-      _currentValue: 0
-      _capacity: 0
-    abilityIcon: {fileID: 0}
   config: {fileID: 11400000, guid: fa70d379c9612af4aa666c9069bc6a78, type: 2}
 --- !u!1 &7180101254881562162
 GameObject:
@@ -376,6 +372,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 268472792609559189}
   m_RootOrder: 3
