@@ -7,8 +7,13 @@
 
 public enum ConstructionOperationType
 {
-    CreateUnit = 1, 
+    CreateWorkerBee = 1, 
     AllBeesGoToBase = 2 ,
+
+    CreateHornetBee = 3,
+    CreateBumbleBee = 4,
+    CreatTrutenBee = 5,
+    CreatWaspBee = 6,
 }
 
 public enum ConstructionProduct

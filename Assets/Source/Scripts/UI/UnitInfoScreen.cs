@@ -8,9 +8,19 @@ public class UnitInfoScreen : EntityInfoScreen
 public class EntityInfoScreen : UIScreen
 {
     [SerializeField] private Image _infoImage;
-    [SerializeField] private HealthView _healthView;
+    private HealthView _healthView;
 
     private IReadOnlyResourceStorage _health;
+
+    private void Awake()
+    {
+        OnAwake();
+    }
+
+    public void OnAwake()
+    {
+        _healthView = gameObject.GetComponentInChildren<HealthView>(true);
+    }
 
     public void SetInfo(Sprite sprite, IReadOnlyResourceStorage storage)
     {

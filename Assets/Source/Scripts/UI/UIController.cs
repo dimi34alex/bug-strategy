@@ -33,6 +33,7 @@ public class UIController : UIScreen
 
     private ConstructionOperationUIView _constructionOperationUIView;
     private ConstructionProductsUIView _constructionProductsUIView;
+
     private ConstructionCreationProductUIView _сonstructionCreationProductUIView;
 
     private void Start()
@@ -111,34 +112,54 @@ public class UIController : UIScreen
     {
         _isChooseState = false;
         _constructionUIController.SetWindow(_construction, _constructionInfoScreen,
-        _constructionProductsUIView, _constructionOperationUIView, _isChooseState);
-
-
+        _constructionProductsUIView, _constructionOperationUIView, _isChooseState, _сonstructionCreationProductUIView);
+      
         switch (constructionOperationType)
         {
-            case ConstructionOperationType.CreateUnit:
-                BeeTownHall beeTownHall = _construction.Cast<BeeTownHall>();
-   
-                beeTownHall.RecruitUnit(UnitType.WorkerBee);
-                Dictionary<UnitType, Sprite> dictin = new Dictionary<UnitType, Sprite>();
+            case ConstructionOperationType.CreateWorkerBee:
+                {
+                    BeeTownHall beeTownHall = _construction.Cast<BeeTownHall>();
 
-                dictin.Add(UnitType.WorkerBee, null);
-                List<UnitType> units = new List<UnitType>();
+                    beeTownHall.RecruitUnit(UnitType.WorkerBee);
 
-                int a = beeTownHall.Recruiter.FindFreeStack();
+                    Dictionary<UnitType, Sprite> dictin = new Dictionary<UnitType, Sprite>();
 
-                Debug.Log(a);
-                units.Add(UnitType.WorkerBee);
+                    dictin.Add(UnitType.WorkerBee, null);
+                    List<UnitType> units = new List<UnitType>();
 
+                    int a = beeTownHall.Recruiter.FindFreeStack();
+                    units.Add(UnitType.WorkerBee);
 
-
-                _сonstructionCreationProductUIView.SetButtons(dictin, units);
-
-
-                break;
-
+              
+                   
+                    _сonstructionCreationProductUIView.InitRec(beeTownHall.Recruiter);
+                    _сonstructionCreationProductUIView.SetButtons(dictin, units);
+                
+                    break;
+                }
             case ConstructionOperationType.AllBeesGoToBase:
                 break;
+
+
+
+
+            case ConstructionOperationType.CreateBumbleBee:
+                {
+                    BeeBarrack beeTownHall = _construction.Cast<BeeBarrack>();
+
+                    beeTownHall.RecruitUnit(UnitType.WorkerBee);
+
+                    Dictionary<UnitType, Sprite> dictin = new Dictionary<UnitType, Sprite>();
+
+                    dictin.Add(UnitType.WorkerBee, null);
+                    List<UnitType> units = new List<UnitType>();
+
+                    int a = beeTownHall.Recruiter.FindFreeStack();
+                    units.Add(UnitType.WorkerBee);
+
+                    _сonstructionCreationProductUIView.SetButtons(dictin, units);
+                    break;
+                }
         }
 
 
@@ -214,8 +235,9 @@ public class UIController : UIScreen
         CloseUnitInfoWindow();
         _constructionInfoScreen.gameObject.SetActive(true);
         _constructionUIController.ClearWindow();
+        _constructionUIController.SetPanel(construction, _сonstructionCreationProductUIView);
         _constructionUIController.SetWindow(construction,_constructionInfoScreen,
-        _constructionProductsUIView,_constructionOperationUIView, _isChooseState);
+        _constructionProductsUIView,_constructionOperationUIView, _isChooseState, _сonstructionCreationProductUIView);
     }
 
     public void CloseisChooseState()
