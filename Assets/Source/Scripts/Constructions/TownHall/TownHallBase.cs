@@ -12,7 +12,7 @@ namespace Construction.TownHalls
         [SerializeField] protected Transform workerBeesSpawnPosition;
        
         [Inject] protected readonly UnitFactory _unitFactory;
-        
+
         public abstract IConstructionLevelSystem LevelSystem { get; protected set; }
         public IReadOnlyUnitsRecruiter Recruiter => _recruiter;
 
@@ -21,7 +21,6 @@ namespace Construction.TownHalls
         protected override void OnAwake()
         {
             base.OnAwake();
-            
             _updateEvent += OnUpdate;
         }
 
@@ -36,13 +35,13 @@ namespace Construction.TownHalls
 
             if (freeStackIndex == -1)
             {
-                UI_Controller._ErrorCall("All stacks are busy");
+                UIController.ErrorCall("All stacks are busy");
                 return;
             }
 
             if (!_recruiter.CheckCosts(unitID))
             {
-                UI_Controller._ErrorCall("Need more resources");
+                UIController.ErrorCall("Need more resources");
                 return;
             }
         

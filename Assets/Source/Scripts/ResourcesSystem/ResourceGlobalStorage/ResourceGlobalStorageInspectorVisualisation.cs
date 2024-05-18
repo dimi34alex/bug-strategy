@@ -33,7 +33,7 @@ public class ResourceGlobalStorageInspectorVisualisationCell
         _resourceID = resourceID;
         _resourceBase = resourceBase;
 
-        resourceBase.OnChange += Update;
+        resourceBase.Changed += Update;
         Update();
     }
 

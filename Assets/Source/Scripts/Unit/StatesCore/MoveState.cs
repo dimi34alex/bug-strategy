@@ -10,13 +10,13 @@ namespace Unit.States
 
         private const float DistanceBuffer = 0.1f;
         
-        private readonly MovingUnit _unit;
+        private readonly UnitBase _unit;
         private readonly OrderValidatorBase _orderValidator;
         
         public override event Action StateExecuted;
         private event Action UpdateEvent;
         
-        public MoveState(MovingUnit unit, OrderValidatorBase orderValidator)
+        public MoveState(UnitBase unit, OrderValidatorBase orderValidator)
         {
             _unit = unit;
             _orderValidator = orderValidator;

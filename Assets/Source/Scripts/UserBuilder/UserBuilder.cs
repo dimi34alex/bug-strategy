@@ -15,14 +15,16 @@ public class UserBuilder : CycleInitializerBase
     private GameObject _currentConstructionMovableModel;
     private ConstructionID _currentConstructionID;
 
+    private UIController _UIController;
+
     private bool _spawnConstruction;
     private float _numberTownHall;
     private UnitPool _pool;
     
     protected override void OnInit()
     {
+        _UIController = UIScreenRepository.GetScreen<UIController>();
         GameObject controller = GameObject.FindGameObjectWithTag("GameController");
-        _pool = controller.GetComponent<UnitPool>();
     }
 
     protected override void OnUpdate()
@@ -47,11 +49,14 @@ public class UserBuilder : CycleInitializerBase
             {
                 ConstructionBase selectedConstruction = FrameworkCommander.GlobalData.ConstructionSelector.SelectedConstruction;
                 selectedConstruction.Select();
-                UI_Controller.SetBuilding(selectedConstruction);
+                UnitSelection.Instance.DeselectAllWithoutCheck();
+                _UIController.CloseisChooseState();
+                Debug.Log(selectedConstruction.ConstructionID);
+                _UIController.SetWindow(selectedConstruction);
             }
             else if (!MouseCursorOverUI())
             {
-                UI_Controller._SetWindow("UI_GameplayMain");
+                _UIController.SetWindow(UIWindowType.GameMain);
             }
         }
     }
@@ -82,7 +87,7 @@ public class UserBuilder : CycleInitializerBase
                     }
                 }
                 
-                foreach (MovingUnit unit in _pool.movingUnits)
+                foreach (UnitBase unit in FrameworkCommander.GlobalData.UnitRepository.AllUnits)
                 {
                     if (unit.IsSelected && unit.gameObject.CompareTag("Worker") && CanBuyConstruction(unit.Affiliation, _currentConstructionID))
                     {

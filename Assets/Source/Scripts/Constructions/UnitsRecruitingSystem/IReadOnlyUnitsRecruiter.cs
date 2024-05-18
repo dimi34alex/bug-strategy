@@ -16,5 +16,6 @@ namespace UnitsRecruitingSystemCore
         public bool HaveFreeStack();
         
         public List<IReadOnlyUnitRecruitingStack> GetRecruitingInformation();
+        public int FindFreeStack();
     }
 }

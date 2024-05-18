@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public interface IUnitRepository
 {
     public event Action<UnitBase> OnUnitAdd;
     public event Action<UnitBase> OnUnitRemove;
-    public IReadOnlyDictionary<UnitType, List<UnitBase>> Units { get;}
+    public IReadOnlyDictionary<UnitType, List<UnitBase>> Units { get; }
     public void AddUnit(UnitBase unit);
     public TUnit TryGetUnit<TUnit>(UnitType unitType, Predicate<TUnit> predicate = null, bool remove = false) where TUnit : UnitBase;
 }
@@ -15,6 +16,8 @@ public class UnitRepository : IUnitRepository
     private readonly Dictionary<UnitType, List<UnitBase>> _units;
 
     public IReadOnlyDictionary<UnitType, List<UnitBase>> Units => _units;
+
+    public List<UnitBase> AllUnits => _units.Values.SelectMany(list => list).OfType<UnitBase>().ToList();
     public event Action<UnitBase> OnUnitAdd;
     public event Action<UnitBase> OnUnitRemove;
 

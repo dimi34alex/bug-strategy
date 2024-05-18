@@ -7,12 +7,12 @@ namespace Unit.States
     {
         public override EntityStateID EntityStateID => EntityStateID.Build;
 
-        private readonly MovingUnit _unit;
+        private readonly UnitBase _unit;
         private BuildingProgressConstruction _buildingProgressConstruction;
         
         public override event Action StateExecuted;
         
-        public BuildState(MovingUnit unit)
+        public BuildState(UnitBase unit)
         {
             _unit = unit;
         }

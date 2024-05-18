@@ -28,6 +28,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1274404536982251029}
   m_RootOrder: 1
@@ -88,6 +89,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7004317949016415637}
   - {fileID: 753298931353431248}
@@ -107,14 +109,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b89eaabbe4245f46ade715a4a779df5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  affiliationEnum: 10
-  _costValues:
-    _cells:
-    - Key: 0
-      Value: 3
-  config: {fileID: 11400000, guid: 55c9a5a1e42a4f741b260290dfa75e51, type: 2}
-  pauseTimeOfOutBeesFromTownHallAfterAlarm: 1
   workerBeesSpawnPosition: {fileID: 5545980254773833652}
+  config: {fileID: 11400000, guid: 55c9a5a1e42a4f741b260290dfa75e51, type: 2}
 --- !u!208 &4844941556788702066
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -239,24 +235,20 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: f8942df3ef59c894c9b49b9034f00253, type: 2}
-    - target: {fileID: 4351874455037664214, guid: ffb8c292185cd514094b2e78bf50524d, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5918854304423215760, guid: ffb8c292185cd514094b2e78bf50524d, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffb8c292185cd514094b2e78bf50524d, type: 3}
---- !u!4 &7004317949016415637 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2678729469616822426, guid: ffb8c292185cd514094b2e78bf50524d, type: 3}
-  m_PrefabInstance: {fileID: 4906834878104175887}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5545980254773833652 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 643966344881662651, guid: ffb8c292185cd514094b2e78bf50524d, type: 3}
+  m_PrefabInstance: {fileID: 4906834878104175887}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7004317949016415637 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2678729469616822426, guid: ffb8c292185cd514094b2e78bf50524d, type: 3}
   m_PrefabInstance: {fileID: 4906834878104175887}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7994231403088893632

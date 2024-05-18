@@ -9,7 +9,7 @@ namespace Unit.States
     {
         public override EntityStateID EntityStateID => EntityStateID.Attack;
 
-        private readonly MovingUnit _unit;
+        private readonly UnitBase _unit;
 
         private readonly AttackProcessorBase _attackProcessor;
         private readonly IReadOnlyCooldownProcessor _cooldownProcessor;
@@ -18,21 +18,21 @@ namespace Unit.States
         
         public override event Action StateExecuted;
         
-        public AttackState(MovingUnit unit, AttackProcessorBase attackProcessor, CooldownProcessor cooldownProcessor)
+        public AttackState(UnitBase unit, AttackProcessorBase attackProcessor, CooldownProcessor cooldownProcessor)
         {
             _unit = unit;
             _attackProcessor = attackProcessor;
             _cooldownProcessor = cooldownProcessor;
         }
         
-        public AttackState(MovingUnit unit, WarriorOrderValidator warriorOrderValidator)
+        public AttackState(UnitBase unit, WarriorOrderValidator warriorOrderValidator)
         {
             _unit = unit;
             _attackProcessor = warriorOrderValidator.AttackProcessor;
             _cooldownProcessor = warriorOrderValidator.Cooldown;
         }
         
-        public AttackState(MovingUnit unit, AttackProcessorBase attackProcessor, IReadOnlyCooldownProcessor cooldownProcessor)
+        public AttackState(UnitBase unit, AttackProcessorBase attackProcessor, IReadOnlyCooldownProcessor cooldownProcessor)
         {
             _unit = unit;
             _attackProcessor = attackProcessor;
