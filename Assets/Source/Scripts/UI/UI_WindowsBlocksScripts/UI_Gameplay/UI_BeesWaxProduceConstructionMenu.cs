@@ -1,70 +1,73 @@
 using System;
 using Constructions;
+using TMPro;
 using UnityEngine;
 using Image = UnityEngine.UI.Image;
-using TMPro;
 
-public class UI_BeesWaxProduceConstructionMenu : UI_EvolveConstructionScreenBase<BeesWaxProduceConstruction>
+namespace Source.Scripts.UI.UI_WindowsBlocksScripts.UI_Gameplay
 {
-    [SerializeField] private FillBar spendableResource;
-    [SerializeField] private FillBar produceResource;
-    
-    public void _CallMenu(ConstructionBase beesWaxProduceConstruction)
+    public class UI_BeesWaxProduceConstructionMenu : UI_EvolveConstructionScreenBase<BeesWaxProduceConstruction>
     {
-        _construction = beesWaxProduceConstruction.Cast<BeesWaxProduceConstruction>();
+        [SerializeField] private FillBar spendableResource;
+        [SerializeField] private FillBar produceResource;
+    
+        public void _CallMenu(ConstructionBase beesWaxProduceConstruction)
+        {
+            _construction = beesWaxProduceConstruction.Cast<BeesWaxProduceConstruction>();
         
-        spendableResource.SetResourceStorage(_construction.TakeSpendableResourceInformation());
-        produceResource.SetResourceStorage(_construction.TakeProduceResourceInformation());
-    }
+            spendableResource.SetResourceStorage(_construction.TakeSpendableResourceInformation());
+            produceResource.SetResourceStorage(_construction.TakeProduceResourceInformation());
+        }
     
-    public void _AddSpendableResource(int addPollen)
-    {
-        _construction.AddSpendableResource(addPollen);
-    }
+        public void _AddSpendableResource(int addPollen)
+        {
+            _construction.AddSpendableResource(addPollen);
+        }
     
-    public void _ExtractProduceResource()
-    {
-        _construction.ExtractProduceResource();
-    }
-
-    private void OnDisable()
-    {
-        spendableResource.Reset();
-        produceResource.Reset();
-    }
-
-    [Serializable]
-    private class FillBar
-    {
-        [field: SerializeField] public Image ImageFill { get; private set; }
-        [field: SerializeField] public TextMeshProUGUI Text { get; private set; }
-        private IReadOnlyResourceStorage _resourceStorage = new ResourceStorage(0,0);
-
-        public void SetResourceStorage(IReadOnlyResourceStorage newIReadOnlyResourceStorage)
+        public void _ExtractProduceResource()
         {
-            _resourceStorage.Changed -= UpdateInfo;
-            
-            _resourceStorage = newIReadOnlyResourceStorage;
-            _resourceStorage.Changed += UpdateInfo;
-
-            UpdateInfo();
+            _construction.ExtractProduceResource();
         }
 
-        public void Reset()
+        private void OnDisable()
         {
-            _resourceStorage.Changed -= UpdateInfo;
-        }
-        
-        private void UpdateInfo()
-        {
-            ImageFill.fillAmount = _resourceStorage.CurrentValue / _resourceStorage.Capacity;
-            Text.text = _resourceStorage.CurrentValue + "/" + _resourceStorage.Capacity;
+            spendableResource.Reset();
+            produceResource.Reset();
         }
 
-        ~FillBar()
+        [Serializable]
+        private class FillBar
         {
-            if (_resourceStorage != null)
+            [field: SerializeField] public Image ImageFill { get; private set; }
+            [field: SerializeField] public TextMeshProUGUI Text { get; private set; }
+            private IReadOnlyResourceStorage _resourceStorage = new ResourceStorage(0,0);
+
+            public void SetResourceStorage(IReadOnlyResourceStorage newIReadOnlyResourceStorage)
+            {
                 _resourceStorage.Changed -= UpdateInfo;
+            
+                _resourceStorage = newIReadOnlyResourceStorage;
+                _resourceStorage.Changed += UpdateInfo;
+
+                UpdateInfo();
+            }
+
+            public void Reset()
+            {
+                _resourceStorage.Changed -= UpdateInfo;
+            }
+        
+            private void UpdateInfo()
+            {
+                ImageFill.fillAmount = _resourceStorage.CurrentValue / _resourceStorage.Capacity;
+                Text.text = _resourceStorage.CurrentValue + "/" + _resourceStorage.Capacity;
+            }
+
+            ~FillBar()
+            {
+                if (_resourceStorage != null)
+                    _resourceStorage.Changed -= UpdateInfo;
+            }
         }
     }
 }

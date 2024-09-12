@@ -1,23 +1,30 @@
-﻿public enum UnitTacticsType
+﻿namespace Source.Scripts.UI
 {
-    Attack,
-    Build,
-    Repair,
-}
+    public enum UnitTacticsType
+    {
+        Attack,
+        Build,
+        Repair,
+    }
 
-public enum ConstructionOperationType
-{
-    CreateWorkerBee = 1, 
-    AllBeesGoToBase = 2 ,
+    public enum ConstructionProduct
+    {
+        AntSwoard,
+        Ant,
+    }
 
-    CreateHornetBee = 3,
-    CreateBumbleBee = 4,
-    CreatTrutenBee = 5,
-    CreatWaspBee = 6,
-}
+    public enum UnitActionsType
+    {
+        None = 0,
+        Tactics = 10,
+        Constructions = 20,
+        Abilities = 30,
+    }
 
-public enum ConstructionProduct
-{
-    AntSwoard,
-    Ant,
+    public enum ConstructionActionsType
+    {
+        None = 0,
+        RecruitUnits = 10,
+        ProduceResources = 20
+    }
 }

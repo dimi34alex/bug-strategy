@@ -13,13 +13,12 @@ MonoBehaviour:
   m_Name: UIBeesBarrackCommonConfig
   m_EditorClassIdentifier: 
   _infoSprite: {fileID: 21300000, guid: 98082128e16458143a55a58ec8597919, type: 3}
-  _constructionOperations:
-  - Key: 3
-    Value: {fileID: 21300000, guid: 76e75cdf7d39fcf4b81ef1a4498e4084, type: 3}
-  - Key: 4
-    Value: {fileID: 21300000, guid: 3a100549117cb2d459a56b34589f8ace, type: 3}
-  - Key: 5
-    Value: {fileID: 21300000, guid: 1d82d858076ff5047ace29060e302987, type: 3}
-  - Key: 6
+  _constructionActions:
+  - Key: 10
+    Value: {fileID: 0}
+  recruiting:
+  - Key: 1
+    Value: {fileID: 21300000, guid: 00eb5f24119839045a69be570faaffc9, type: 3}
+  - Key: 30
     Value: {fileID: 21300000, guid: 1c515b4434baae943b516da271cfa830, type: 3}
   _constructionProducts: []

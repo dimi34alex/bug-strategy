@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: UIBeesTownHallConfig
   m_EditorClassIdentifier: 
   _infoSprite: {fileID: 21300000, guid: 3309651f788af4a45b5ed4e3a60f2add, type: 3}
-  _constructionOperations:
-  - Key: 1
+  _constructionActions:
+  - Key: 10
+    Value: {fileID: 0}
+  recruiting:
+  - Key: 0
     Value: {fileID: 21300000, guid: 76e75cdf7d39fcf4b81ef1a4498e4084, type: 3}
   _constructionProducts: []

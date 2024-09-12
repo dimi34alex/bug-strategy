@@ -21,3 +21,10 @@ MonoBehaviour:
     Value: {fileID: 21300000, guid: 1362a4762a6cc8848938d8c81b69a997, type: 3}
   - Key: 10
     Value: {fileID: 21300000, guid: 5fc6fc619eeea2c4b9691a3c6aacfceb, type: 3}
+  _unitSections:
+  - Key: 10
+    Value: {fileID: 0}
+  - Key: 20
+    Value: {fileID: 0}
+  - Key: 30
+    Value: {fileID: 0}
