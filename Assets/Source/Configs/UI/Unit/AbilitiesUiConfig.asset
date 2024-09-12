@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4703520b80c43ca833ece906e99b9ea, type: 3}
+  m_Name: AbilitiesUiConfig
+  m_EditorClassIdentifier: 
+  abilitiesUiIcons:
+    _cells:
+    - Key: 0
+      Value: {fileID: 21300000, guid: 49df8f90c660972458b384f012472dac, type: 3}
+    - Key: 5
+      Value: {fileID: 21300000, guid: 49df8f90c660972458b384f012472dac, type: 3}
+    - Key: 10
+      Value: {fileID: 21300000, guid: 49df8f90c660972458b384f012472dac, type: 3}
+    - Key: 15
+      Value: {fileID: 21300000, guid: 49df8f90c660972458b384f012472dac, type: 3}
+    - Key: 20
+      Value: {fileID: 21300000, guid: 49df8f90c660972458b384f012472dac, type: 3}
+    - Key: 35
+      Value: {fileID: 21300000, guid: 49df8f90c660972458b384f012472dac, type: 3}
+    - Key: 40
+      Value: {fileID: 21300000, guid: 49df8f90c660972458b384f012472dac, type: 3}
+    - Key: 45
+      Value: {fileID: 21300000, guid: 49df8f90c660972458b384f012472dac, type: 3}
+    - Key: 50
+      Value: {fileID: 21300000, guid: 49df8f90c660972458b384f012472dac, type: 3}

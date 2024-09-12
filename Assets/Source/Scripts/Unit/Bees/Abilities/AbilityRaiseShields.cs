@@ -1,5 +1,6 @@
 using CustomTimer;
 using Source.Scripts.Unit.AbilitiesCore;
+using UnityEngine;
 
 namespace Unit.Bees
 {
@@ -36,6 +37,8 @@ namespace Unit.Bees
         
         public void TryActivate()
         {
+            Debug.Log("AFAFSDFSAD");
+            
             if(!_cooldown.TimerIsEnd)
                 return;
             
