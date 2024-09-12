@@ -10,21 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc80038d359e4374ca26476440ebd023, type: 3}
-  m_Name: UIWorkerBeeConfig 2
+  m_Name: BumblebeeUIConfig
   m_EditorClassIdentifier: 
   _infoSprite: {fileID: 21300000, guid: 3a100549117cb2d459a56b34589f8ace, type: 3}
-  _unitTactics:
-  - Key: 0
-    Value: {fileID: 21300000, guid: c5175f2b99bf123489002d17f5ab14ef, type: 3}
-  _unitConstruction:
-  - Key: 5
-    Value: {fileID: 21300000, guid: 1362a4762a6cc8848938d8c81b69a997, type: 3}
-  - Key: 10
-    Value: {fileID: 21300000, guid: 5fc6fc619eeea2c4b9691a3c6aacfceb, type: 3}
-  _unitSections:
-  - Key: 10
-    Value: {fileID: 0}
-  - Key: 20
-    Value: {fileID: 0}
-  - Key: 30
-    Value: {fileID: 0}
+  _actions: []
+  _unitTactics: []
+  _unitConstruction: []

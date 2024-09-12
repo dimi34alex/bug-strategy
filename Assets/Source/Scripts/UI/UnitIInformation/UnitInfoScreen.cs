@@ -62,7 +62,7 @@ namespace Source.Scripts.UI.UnitIInformation
                 switch (_actionsType)
                 {
                     case UnitActionsType.None:
-                        _actionsUIView.SetButtons(unitUIConfig.UnitSectionsDictionary, unitUIConfig.UnitSections
+                        _actionsUIView.SetButtons(unitUIConfig.UnitSectionsDictionary, unitUIConfig.Actions
                             .Select(x => x.Key).ToList());
                         break;
                     case UnitActionsType.Tactics:

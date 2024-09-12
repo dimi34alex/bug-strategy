@@ -9,17 +9,17 @@ namespace Source.Scripts.UI
     {
         [SerializeField] private Sprite _infoSprite;
 
+        [SerializeField] private List<DictionaryCell<UnitActionsType, Sprite>> _actions;
         [SerializeField] private List<DictionaryCell<UnitTacticsType, Sprite>> _unitTactics;
         [SerializeField] private List<DictionaryCell<ConstructionID, Sprite>> _unitConstruction;
-        [SerializeField] private List<DictionaryCell<UnitActionsType, Sprite>> _unitSections;
 
         public Sprite InfoSprite => _infoSprite;
 
-        public List<DictionaryCell<UnitActionsType, Sprite>> UnitSections => _unitSections;
+        public List<DictionaryCell<UnitActionsType, Sprite>> Actions => _actions;
         public List<DictionaryCell<ConstructionID, Sprite>> UnitConstruction => _unitConstruction;
         public List<DictionaryCell<UnitTacticsType, Sprite>> UnitTactics => _unitTactics;
 
-        public IReadOnlyDictionary<UnitActionsType, Sprite> UnitSectionsDictionary => _unitSections.ToDictionary(
+        public IReadOnlyDictionary<UnitActionsType, Sprite> UnitSectionsDictionary => _actions.ToDictionary(
             kvp => kvp.Key,
             kvp => kvp.Value);
     
