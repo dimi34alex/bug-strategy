@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Constructions.UnitsHideConstruction.Cells.BeesHiderCells;
 using Source.Scripts.Ai.InternalAis;
+using Source.Scripts.Unit.AbilitiesCore;
 using Unit.Bees.Configs;
 using Unit.OrderValidatorCore;
 using Unit.ProcessorsCore;
@@ -25,6 +26,9 @@ namespace Unit.Bees
         private ResourceExtractionProcessor _resourceExtractionProcessor;
         public IReadOnlyResourceExtractionProcessor ResourceExtractionProcessor => _resourceExtractionProcessor;
         public override InternalAiBase InternalAi { get; protected set; }
+        
+        public override IReadOnlyList<IActiveAbility> ActiveAbilities { get; } = new List<IActiveAbility>();
+        public override IReadOnlyList<IPassiveAbility> PassiveAbilities { get; } = new List<IPassiveAbility>();
         
         protected override void OnAwake()
         {

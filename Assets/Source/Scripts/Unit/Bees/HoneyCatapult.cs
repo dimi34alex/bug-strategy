@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Projectiles.Factory;
 using Source.Scripts.Ai.InternalAis;
+using Source.Scripts.Unit.AbilitiesCore;
 using Unit.Bees.Configs;
 using Unit.Effects.InnerProcessors;
 using Unit.Effects.Interfaces;
@@ -33,6 +34,10 @@ namespace Unit.Bees
         private AbilityArtillerySalvo _abilityArtillerySalvo;
         private AbilityStickyProjectiles _abilityStickyProjectiles;
         
+        private readonly List<IPassiveAbility> _passiveAbilities = new(1);
+        public override IReadOnlyList<IActiveAbility> ActiveAbilities { get; } = new List<IActiveAbility>();
+        public override IReadOnlyList<IPassiveAbility> PassiveAbilities => _passiveAbilities;
+        
         protected override void OnAwake()
         {
             base.OnAwake();
@@ -47,7 +52,9 @@ namespace Unit.Bees
 
             _abilityArtillerySalvo = new AbilityArtillerySalvo(_attackProcessor, config.ConstructionDamageScale);
             _abilityStickyProjectiles = new AbilityStickyProjectiles(_attackProcessor, config.StickyProjectileNum);
-            
+            _passiveAbilities.Add(_abilityArtillerySalvo);
+            _passiveAbilities.Add(_abilityStickyProjectiles);
+                
             var states = new List<EntityStateBase>()
             {
                 new WarriorIdleState(this, _attackProcessor),

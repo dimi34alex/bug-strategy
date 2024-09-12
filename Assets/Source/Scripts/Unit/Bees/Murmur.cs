@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Source.Scripts.Ai.InternalAis;
+using Source.Scripts.Unit.AbilitiesCore;
 using Unit.Bees.Configs;
 using Unit.Effects.InnerProcessors;
 using Unit.Effects.Interfaces;
@@ -27,6 +28,9 @@ namespace Unit.Bees
         private MurmurOrderValidator _orderValidator;
         private AttackProcessorBase _attackProcessor;
         private CooldownProcessor _cooldownProcessor;
+        
+        public override IReadOnlyList<IActiveAbility> ActiveAbilities { get; } = new List<IActiveAbility>();
+        public override IReadOnlyList<IPassiveAbility> PassiveAbilities { get; } = new List<IPassiveAbility>();
         
         public AttackCooldownChanger AttackCooldownChanger { get; private set; }
         public override InternalAiBase InternalAi { get; protected set; }

@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: SawyerUIConfig
   m_EditorClassIdentifier: 
   _infoSprite: {fileID: 21300000, guid: d1d83ee4ec7727748a04c8454f5b4dda, type: 3}
-  _actions: []
+  _actions:
+  - Key: 30
+    Value: {fileID: 0}
   _unitTactics: []
   _unitConstruction: []

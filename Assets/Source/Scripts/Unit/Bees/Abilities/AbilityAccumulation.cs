@@ -1,9 +1,9 @@
-using Unit.AbilitiesCore;
+using Source.Scripts.Unit.AbilitiesCore;
 using UnityEngine;
 
 namespace Unit.Bees
 {
-    public sealed class AbilityAccumulation : IDamageApplicator, IAbility
+    public sealed class AbilityAccumulation : IDamageApplicator, IPassiveAbility
     {
         private readonly Bumblebee _bumblebee;
         private readonly float _explosionRadius;

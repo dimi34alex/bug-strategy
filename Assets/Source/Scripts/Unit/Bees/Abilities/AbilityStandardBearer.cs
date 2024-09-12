@@ -1,10 +1,10 @@
 using System.Collections.Generic;
-using Unit.AbilitiesCore;
+using Source.Scripts.Unit.AbilitiesCore;
 using Unit.Effects;
 
 namespace Unit.Bees
 {
-    public sealed class AbilityStandardBearer : IAbility
+    public sealed class AbilityStandardBearer : IPassiveAbility
     {
         private readonly IAffiliation _affiliation;
         private readonly SphereTrigger _abilityZone;

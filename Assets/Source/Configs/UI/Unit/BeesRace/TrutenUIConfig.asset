@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: TrutenUIConfig
   m_EditorClassIdentifier: 
   _infoSprite: {fileID: 21300000, guid: 3bb26a1f3be6a30448157967547f0b1b, type: 3}
-  _actions: []
+  _actions:
+  - Key: 30
+    Value: {fileID: 0}
   _unitTactics: []
   _unitConstruction: []

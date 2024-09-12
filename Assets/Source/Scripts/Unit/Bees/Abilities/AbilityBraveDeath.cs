@@ -1,9 +1,9 @@
-using Unit.AbilitiesCore;
+using Source.Scripts.Unit.AbilitiesCore;
 using UnityEngine;
 
 namespace Unit.Bees
 {
-    public sealed class AbilityBraveDeath : IAbility
+    public sealed class AbilityBraveDeath : IPassiveAbility
     {
         private readonly Truten _truten;
         private readonly float _healValue;
