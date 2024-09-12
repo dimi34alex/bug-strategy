@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Source.Scripts.Ai.InternalAis;
+using Source.Scripts.Unit.AbilitiesCore;
 using Unit.Bees.Configs;
 using Unit.Effects.InnerProcessors;
 using Unit.Effects.Interfaces;
@@ -28,6 +29,10 @@ namespace Unit.Bees
 
         private AbilityVerifiedBites _abilityVerifiedBites;
         
+        private readonly List<IPassiveAbility> _passiveAbilities = new(1);
+        public override IReadOnlyList<IActiveAbility> ActiveAbilities { get; } = new List<IActiveAbility>();
+        public override IReadOnlyList<IPassiveAbility> PassiveAbilities => _passiveAbilities;
+        
         protected override void OnAwake()
         {
             base.OnAwake();
@@ -39,8 +44,8 @@ namespace Unit.Bees
             
             AttackCooldownChanger = new AttackCooldownChanger(_cooldownProcessor);
 
-            _abilityVerifiedBites =
-                new AbilityVerifiedBites(_attackProcessor, config.AbilityCooldown, config.CriticalDamageScale);
+            _abilityVerifiedBites = new AbilityVerifiedBites(_attackProcessor, config.AbilityCooldown, config.CriticalDamageScale);
+            _passiveAbilities.Add(_abilityVerifiedBites);
             
             var states = new List<EntityStateBase>()
             {

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Projectiles.Factory;
 using Source.Scripts.Ai.InternalAis;
+using Source.Scripts.Unit.AbilitiesCore;
 using Unit.Bees.Configs;
 using Unit.Effects.InnerProcessors;
 using Unit.Effects.Interfaces;
@@ -26,7 +27,12 @@ namespace Unit.Bees
         private OrderValidatorBase _orderValidator;
         private CooldownProcessor _cooldownProcessor;
         private HorntailAttackProcessor _attackProcessor;
+        
         private AbilitySwordStrike _abilitySwordStrike;
+        
+        private readonly List<IPassiveAbility> _passiveAbilities = new(1);
+        public override IReadOnlyList<IActiveAbility> ActiveAbilities { get; } = new List<IActiveAbility>();
+        public override IReadOnlyList<IPassiveAbility> PassiveAbilities => _passiveAbilities;
         
         public AttackCooldownChanger AttackCooldownChanger { get; private set; }
         public override InternalAiBase InternalAi { get; protected set; }
@@ -44,7 +50,8 @@ namespace Unit.Bees
 
             _abilitySwordStrike = new AbilitySwordStrike(this, _attackProcessor, config.SwordStrikeDamage, 
                 config.SwordStrikeDistanceFromCenter, config.SwordStrikeRadius, config.SwordStrikeCooldown, config.SwordStrikeLayers);
-                    
+            _passiveAbilities.Add(_abilitySwordStrike);        
+            
             var states = new List<EntityStateBase>()
             {
                 new WarriorIdleState(this, _attackProcessor),

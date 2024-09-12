@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Constructions.UnitsHideConstruction.Cells.BeesHiderCells;
 using Projectiles.Factory;
 using Source.Scripts.Ai.InternalAis;
+using Source.Scripts.Unit.AbilitiesCore;
 using Unit.Bees.Configs;
 using Unit.Effects.InnerProcessors;
 using Unit.Effects.Interfaces;
@@ -31,6 +32,9 @@ namespace Unit.Bees
         public AttackCooldownChanger AttackCooldownChanger { get; private set; }
         public IReadOnlyAttackProcessor AttackProcessor => _attackProcessor;
 
+        public override IReadOnlyList<IActiveAbility> ActiveAbilities { get; } = new List<IActiveAbility>();
+        public override IReadOnlyList<IPassiveAbility> PassiveAbilities { get; } = new List<IPassiveAbility>();
+        
         protected override void OnAwake()
         {
             base.OnAwake();

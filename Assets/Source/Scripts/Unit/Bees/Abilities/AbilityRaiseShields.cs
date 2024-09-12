@@ -3,7 +3,7 @@ using Source.Scripts.Unit.AbilitiesCore;
 
 namespace Unit.Bees
 {
-    public sealed class AbilityRaiseShields : IAbility
+    public sealed class AbilityRaiseShields : IActiveAbility
     {
         private readonly Sawyer _sawyer;
         private readonly SawyerAttackProcessor _attackProcessor;
@@ -34,7 +34,7 @@ namespace Unit.Bees
             _cooldown.Tick(time);
         }
         
-        public void ActivateAbility()
+        public void TryActivate()
         {
             if(!_cooldown.TimerIsEnd)
                 return;

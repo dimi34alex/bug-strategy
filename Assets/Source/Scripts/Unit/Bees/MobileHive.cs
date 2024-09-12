@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Projectiles;
 using Projectiles.Factory;
 using Source.Scripts.Ai.InternalAis;
+using Source.Scripts.Unit.AbilitiesCore;
 using Unit.Bees.Configs;
 using Unit.Effects.InnerProcessors;
 using Unit.Effects.Interfaces;
@@ -34,6 +35,10 @@ namespace Unit.Bees
 
         private AbilityArmorBreakthrough _abilityArmorBreakthrough;
         
+        private readonly List<IPassiveAbility> _passiveAbilities = new(1);
+        public override IReadOnlyList<IActiveAbility> ActiveAbilities { get; } = new List<IActiveAbility>();
+        public override IReadOnlyList<IPassiveAbility> PassiveAbilities => _passiveAbilities;
+        
         protected override void OnAwake()
         {
             base.OnAwake();
@@ -48,7 +53,8 @@ namespace Unit.Bees
 
             _abilityArmorBreakthrough = new AbilityArmorBreakthrough(this, config.ExplosionDamage,
                 config.ExplosionRadius, config.ExplosionLayers, _unitFactory, config.spawnUnits);
-                
+            _passiveAbilities.Add(_abilityArmorBreakthrough);    
+            
             var states = new List<EntityStateBase>()
             {
                 new WarriorIdleState(this, _attackProcessor),

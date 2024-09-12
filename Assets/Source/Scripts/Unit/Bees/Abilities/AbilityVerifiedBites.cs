@@ -3,7 +3,7 @@ using Source.Scripts.Unit.AbilitiesCore;
 
 namespace Unit.Bees
 {
-    public sealed class AbilityVerifiedBites : IAbility
+    public sealed class AbilityVerifiedBites : IPassiveAbility
     {
         private readonly HornetAttackProcessor _attackProcessor;
         private readonly float _criticalDamageScale;

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Unit.Bees
 {
-    public sealed class AbilityArmorBreakthrough : IDamageApplicator, IAbility
+    public sealed class AbilityArmorBreakthrough : IDamageApplicator, IPassiveAbility
     {
         private readonly IReadOnlyDictionary<UnitType, int> _spawnUnits;
         private readonly UnitFactory _unitFactory;

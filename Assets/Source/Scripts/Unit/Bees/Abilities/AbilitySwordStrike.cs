@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Unit.Bees
 {
-    public sealed class AbilitySwordStrike : IDamageApplicator, IAbility
+    public sealed class AbilitySwordStrike : IDamageApplicator, IPassiveAbility
     {
         private readonly UnitBase _unitBase;
         private readonly float _distanceFromCenter;

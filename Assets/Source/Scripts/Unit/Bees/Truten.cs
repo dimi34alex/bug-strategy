@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Source.Scripts.Ai.InternalAis;
+using Source.Scripts.Unit.AbilitiesCore;
 using Source.Scripts.Unit.Bees.HiderCells;
 using Unit.Bees.Configs;
 using Unit.Effects.InnerProcessors;
@@ -31,6 +32,10 @@ namespace Unit.Bees
         private AbilityStandardBearer _abilityStandardBearer;
         private AbilityBraveDeath _abilityBraveDeath;
         
+        private readonly List<IPassiveAbility> _passiveAbilities = new(2);
+        public override IReadOnlyList<IActiveAbility> ActiveAbilities { get; } = new List<IActiveAbility>();
+        public override IReadOnlyList<IPassiveAbility> PassiveAbilities => _passiveAbilities;
+        
         protected override void OnAwake()
         {
             base.OnAwake();
@@ -44,6 +49,9 @@ namespace Unit.Bees
             AttackCooldownChanger = new AttackCooldownChanger(_cooldownProcessor);
             _abilityBraveDeath = new AbilityBraveDeath(this, config.HealValue, config.HealRadius, config.HealLayers);
                 
+            _passiveAbilities.Add(_abilityBraveDeath);
+            _passiveAbilities.Add(_abilityStandardBearer);
+            
             var states = new List<EntityStateBase>()
             {
                 new WarriorIdleState(this, _attackProcessor),

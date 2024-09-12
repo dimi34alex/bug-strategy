@@ -2,7 +2,7 @@ using Source.Scripts.Unit.AbilitiesCore;
 
 namespace Unit.Bees
 {
-    public sealed class AbilityStickyProjectiles : IAbility
+    public sealed class AbilityStickyProjectiles : IPassiveAbility
     {
         private readonly HoneyCatapultAttackProcessor _honeyCatapultAttackProcessor;
         private readonly int _projectilesCounter;

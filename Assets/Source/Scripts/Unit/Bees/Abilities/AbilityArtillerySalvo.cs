@@ -2,7 +2,7 @@ using Source.Scripts.Unit.AbilitiesCore;
 
 namespace Unit.Bees
 {
-    public sealed class AbilityArtillerySalvo : IAbility
+    public sealed class AbilityArtillerySalvo : IPassiveAbility
     {
         private readonly HoneyCatapultAttackProcessor _attackProcessor;
         private readonly float _constructionDamageScale;

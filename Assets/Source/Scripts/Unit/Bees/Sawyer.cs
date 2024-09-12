@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Projectiles.Factory;
 using Source.Scripts.Ai.InternalAis;
+using Source.Scripts.Unit.AbilitiesCore;
 using Unit.Bees.Configs;
 using Unit.Effects.InnerProcessors;
 using Unit.Effects.Interfaces;
@@ -26,9 +27,14 @@ namespace Unit.Bees
         private OrderValidatorBase _orderValidator;
         private CooldownProcessor _cooldownProcessor;
         private SawyerAttackProcessor _attackProcessor;
+        
         private AbilityRaiseShields _abilityRaiseShields; 
         private float _enterDamageScale = 1;
 
+        private readonly List<IActiveAbility> _activeAbilities = new(1);
+        public override IReadOnlyList<IActiveAbility> ActiveAbilities => _activeAbilities;
+        public override IReadOnlyList<IPassiveAbility> PassiveAbilities { get; } = new List<IPassiveAbility>();
+        
         public AttackCooldownChanger AttackCooldownChanger { get; private set; }
         public override InternalAiBase InternalAi { get; protected set; }
         
@@ -47,6 +53,7 @@ namespace Unit.Bees
 
             _abilityRaiseShields = new AbilityRaiseShields(this, _attackProcessor, config.RaiseShieldsExistTime,
                 config.RaiseShieldsCooldown, config.DamageEnterScale, config.DamageExitScale);
+            _activeAbilities.Add(_abilityRaiseShields);
             
             var states = new List<EntityStateBase>()
             {
@@ -92,7 +99,7 @@ namespace Unit.Bees
 
         [ContextMenu(nameof(UseAbility))]
         private void UseAbility()
-            => _abilityRaiseShields.ActivateAbility();
+            => _abilityRaiseShields.TryActivate();
 
         public HiderCellBase TakeHideCell()      
             => new SawyerHiderCell(this, _cooldownProcessor, _abilityRaiseShields);

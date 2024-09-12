@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Source.Scripts.Ai.InternalAis;
+using Source.Scripts.Unit.AbilitiesCore;
 using Unit.Bees.Configs;
 using Unit.Effects.InnerProcessors;
 using Unit.Effects.Interfaces;
@@ -31,6 +32,10 @@ namespace Unit.Bees
 
         private AbilityAccumulation _abilityAccumulation;
 
+        private readonly List<IPassiveAbility> _passiveAbilities = new(1);
+        public override IReadOnlyList<IActiveAbility> ActiveAbilities { get; } = new List<IActiveAbility>();
+        public override IReadOnlyList<IPassiveAbility> PassiveAbilities => _passiveAbilities;
+        
         protected override void OnAwake()
         {
             base.OnAwake();
@@ -42,6 +47,7 @@ namespace Unit.Bees
             AttackCooldownChanger = new AttackCooldownChanger(_cooldownProcessor);
 
             _abilityAccumulation = new AbilityAccumulation(this, config.ExplosionRadius, config.ExplosionDamage, config.ExplosionLayers, _constructionFactory);
+            _passiveAbilities.Add(_abilityAccumulation);
             
             var states = new List<EntityStateBase>()
             {
