@@ -48,5 +48,8 @@ namespace Construction.TownHalls
         
             _recruiter.RecruitUnit(unitID, freeStackIndex);
         }
+        
+        public void CancelRecruit(int stackIndex)
+            => _recruiter.CancelRecruit(stackIndex);
     }
 }

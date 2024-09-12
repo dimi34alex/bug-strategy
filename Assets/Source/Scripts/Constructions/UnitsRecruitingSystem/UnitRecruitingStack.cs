@@ -23,6 +23,7 @@ namespace UnitsRecruitingSystemCore
         private IReadOnlyDictionary<ResourceID, int> _costs;
         
         public event Action<UnitType> OnSpawnUnit;
+        public event Action OnBecameEmpty; 
 
         public UnitRecruitingStack()
         {
@@ -53,7 +54,10 @@ namespace UnitsRecruitingSystemCore
                         
             SpawnedUnits++;
             if (SpawnedUnits >= StackSize)
+            {
                 Empty = true;
+                OnBecameEmpty?.Invoke();
+            }
             else
                 _spawnPauseTimer.Reset();
         }

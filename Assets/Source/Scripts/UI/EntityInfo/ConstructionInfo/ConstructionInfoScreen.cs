@@ -10,6 +10,7 @@ namespace Source.Scripts.UI.EntityInfo.ConstructionInfo
     public class ConstructionInfoScreen : EntityInfoScreen
     {
         [SerializeField] private Button _upgradeButton;
+        [SerializeField] private GameObject _dopPanel;
 
         private ConstructionBase _construction;
         
@@ -18,7 +19,7 @@ namespace Source.Scripts.UI.EntityInfo.ConstructionInfo
         private ConstructionProductsUIView _productsUIView;
         private ConstructionRecruitingUIView _recruitingUIView;
         
-        private ConstructionCreationProductUIView _creationProductUIView;
+        private ConstructionRecruitingProcessUIView _recruitingProcessUIView;
 
         private UIConstructionConfig _uiConstructionConfig;
         private UIConstructionsConfig _uiConstructionsConfig;
@@ -41,7 +42,7 @@ namespace Source.Scripts.UI.EntityInfo.ConstructionInfo
             _recruitingUIView.BackButtonClicked += SetNonActionsType;
             _productsUIView.BackButtonClicked += SetNonActionsType;
         
-            _creationProductUIView = UIScreenRepository.GetScreen<ConstructionCreationProductUIView>();
+            _recruitingProcessUIView = UIScreenRepository.GetScreen<ConstructionRecruitingProcessUIView>();
         }
 
         public void SetConstruction(ConstructionBase newConstruction)
@@ -60,13 +61,17 @@ namespace Source.Scripts.UI.EntityInfo.ConstructionInfo
                     $"Настоятельно рекомендую проверить есть ли конфиг ({nameof(UIConstructionConfig)} " +
                     $"и добавлен ли он в {nameof(UIConstructionConfig)}) | {exp.Message}");
             }
+
+            var recruitingConstruction = _construction.UnSafeCast<IRecruitingConstruction>();
+            _recruitingProcessUIView.InitRecruiter(recruitingConstruction);
             
             SetActionsType(ConstructionActionsType.None);
         }
     
         private void UpdateView()
         {
-            _creationProductUIView.CloseAll();
+            _recruitingProcessUIView.Hide();
+            _dopPanel.SetActive(false);
 
             SetHealthPointsInfo(_uiConstructionConfig.InfoSprite, _construction.HealthStorage);
 
@@ -104,10 +109,10 @@ namespace Source.Scripts.UI.EntityInfo.ConstructionInfo
             if ((_uiConstructionConfig.ConstructionProducts != null &&  _uiConstructionConfig.ConstructionProducts.Count > 0)||
                 (_uiConstructionConfig.Recruiting != null && _uiConstructionConfig.Recruiting.Count > 0))
             {
-                _creationProductUIView.ActivatePanel();
+                _dopPanel.SetActive(true);
             }
 
-            _creationProductUIView.ActivateBar();
+            _recruitingProcessUIView.ActivateBar();
         }
     
         private void SetNonActionsType()
