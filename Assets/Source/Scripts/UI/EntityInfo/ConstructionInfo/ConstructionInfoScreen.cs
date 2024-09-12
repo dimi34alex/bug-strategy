@@ -13,12 +13,13 @@ namespace Source.Scripts.UI.EntityInfo.ConstructionInfo
 
         private ConstructionBase _construction;
         
-        private ConstructionActionsType _activeActionsType;
+        private ConstructionActionsType _actionsType;
         private ConstructionActionsUIView _actionsUIView;
         private ConstructionProductsUIView _productsUIView;
         private ConstructionRecruitingUIView _recruitingUIView;
         
         private ConstructionCreationProductUIView _creationProductUIView;
+        
         private UIConstructionsConfig _uiConstructionsConfig;
         
         private void Awake()
@@ -42,12 +43,12 @@ namespace Source.Scripts.UI.EntityInfo.ConstructionInfo
             _creationProductUIView = UIScreenRepository.GetScreen<ConstructionCreationProductUIView>();
         }
 
-        public void SetConstruction(ConstructionBase construction)
+        public void SetConstruction(ConstructionBase newConstruction)
         {
-            if (_construction == construction)
+            if (_construction == newConstruction)
                 return;
 
-            _construction = construction;
+            _construction = newConstruction;
             SetActionsType(ConstructionActionsType.None);
         }
     
@@ -66,10 +67,10 @@ namespace Source.Scripts.UI.EntityInfo.ConstructionInfo
             var onlyOneActionsType = constructionUIConfig.ConstructionActions.Count == 1;
             var showBackButton = !onlyOneActionsType;
             if (onlyOneActionsType)
-                _activeActionsType = constructionUIConfig.ConstructionActions.First().Key;
+                _actionsType = constructionUIConfig.ConstructionActions.First().Key;
             
-            Debug.Log(_activeActionsType);
-            switch (_activeActionsType)
+            Debug.Log(_actionsType);
+            switch (_actionsType)
             {
                 case ConstructionActionsType.None:
                     _actionsUIView.SetButtons(showBackButton, constructionUIConfig.ConstructionActionsDictionary, 
@@ -102,9 +103,9 @@ namespace Source.Scripts.UI.EntityInfo.ConstructionInfo
         private void SetNonActionsType()
             => SetActionsType(ConstructionActionsType.None);
 
-        private void SetActionsType(ConstructionActionsType actionsType)
+        private void SetActionsType(ConstructionActionsType newActionsType)
         {
-            _activeActionsType = actionsType;
+            _actionsType = newActionsType;
             UpdateView();
         }
         
@@ -116,7 +117,7 @@ namespace Source.Scripts.UI.EntityInfo.ConstructionInfo
             recruitingConstruction.RecruitUnit(unitType);
         }
     
-        private void ProductResource(ConstructionProductType constructionProductType)
+        private void ProductResource(ConstructionProductType productType)
         {
 
         }

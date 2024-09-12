@@ -7,58 +7,61 @@ namespace Source.Scripts.UI.EntityInfo.UnitInfo
 {
     public class UnitInfoScreen : EntityInfoScreen
     {
-        private UIUnitsConfig _uiUnitsConfig;
-        private UnitActionsUIView _actionsUIView;
-        private TacticsUIView _tacticsUIView;
-        private BuldingsUIView _buldingsUIView;
         private UnitBase _unit;
+        
         private UnitActionsType _actionsType;
-
+        private UnitActionsUIView _actionsUIView;
+        private ConstructUIView _constructUIView;
+        private TacticsUIView _tacticsUIView;
+        
+        private UIUnitsConfig _uiUnitsConfig;
+        
         private UserBuilder _builder;
         
         private void Awake()
         {
+            //TODO: remove this shit with "Find"
             _builder = GameObject.Find("Builder").GetComponent<UserBuilder>();
             if(_builder == null)
                 Debug.LogError("Builder is null");
             
             OnAwake();
+            
             _uiUnitsConfig = ConfigsRepository.FindConfig<UIUnitsConfig>();
 
             _actionsUIView = UIScreenRepository.GetScreen<UnitActionsUIView>();
             _tacticsUIView = UIScreenRepository.GetScreen<TacticsUIView>();
-            _buldingsUIView = UIScreenRepository.GetScreen<BuldingsUIView>();
+            _constructUIView = UIScreenRepository.GetScreen<ConstructUIView>();
             
-            _actionsUIView.ButtonClicked += SetActiveAction;
-            _buldingsUIView.ButtonClicked += OnBuldingInstance;
-            _tacticsUIView.ButtonClicked += OnTacticsUse;
+            _actionsUIView.ButtonClicked += SetActionsType;
+            _constructUIView.ButtonClicked += CreateConstruction;
+            _tacticsUIView.ButtonClicked += ActivateTactic;
         
-            _actionsUIView.BackButtonClicked += BackButtonsMenu;
-            _buldingsUIView.BackButtonClicked += BackButtonsMenu;
-            _tacticsUIView.BackButtonClicked += BackButtonsMenu;
+            _actionsUIView.BackButtonClicked += SetNonActionsType;
+            _constructUIView.BackButtonClicked += SetNonActionsType;
+            _tacticsUIView.BackButtonClicked += SetNonActionsType;
         }
 
-        public void SetUnit(UnitBase unit)
+        public void SetUnit(UnitBase newUnit)
         {
-            if (_unit == unit)
+            if (_unit == newUnit)
                 return;
 
-            _unit = unit;
-            SetActiveAction(UnitActionsType.None);
+            _unit = newUnit;
+            SetActionsType(UnitActionsType.None);
         }
     
         private void UpdateView()
         {
-            UnitType unitType = _unit.UnitType;
-
             try
             {
-                UIUnitConfig unitUIConfig = _uiUnitsConfig.UnitsUIConfigs[unitType];
+                var unitUIConfig = _uiUnitsConfig.UnitsUIConfigs[_unit.UnitType];
 
                 SetHealthPointsInfo(unitUIConfig.InfoSprite, _unit.HealthStorage);
+               
                 _actionsUIView.TurnOffButtons();
                 _tacticsUIView.TurnOffButtons();
-                _buldingsUIView.TurnOffButtons();
+                _constructUIView.TurnOffButtons();
 
                 var onlyOneActionsType = unitUIConfig.Actions.Count == 1;
                 var showBackButton = !onlyOneActionsType;
@@ -78,7 +81,7 @@ namespace Source.Scripts.UI.EntityInfo.UnitInfo
                                 .Select(x => x.Key).ToList());
                         break;
                     case UnitActionsType.Constructions:
-                        _buldingsUIView.SetButtons(showBackButton, unitUIConfig.UnitConstructionDictionary,
+                        _constructUIView.SetButtons(showBackButton, unitUIConfig.UnitConstructionDictionary,
                             unitUIConfig.UnitConstruction
                                 .Select(x => x.Key).ToList());
                         break;
@@ -96,18 +99,18 @@ namespace Source.Scripts.UI.EntityInfo.UnitInfo
             }
         }
     
-        private void BackButtonsMenu()
-            => SetActiveAction(UnitActionsType.None);
+        private void SetNonActionsType()
+            => SetActionsType(UnitActionsType.None);
     
-        private void SetActiveAction(UnitActionsType actionsType)
+        private void SetActionsType(UnitActionsType newActionsType)
         {
-            _actionsType = actionsType;
+            _actionsType = newActionsType;
             UpdateView();
         }
         
-        private void OnTacticsUse(UnitTacticType unitTacticType)
+        private void ActivateTactic(UnitTacticType tacticType)
         {
-            switch (unitTacticType)
+            switch (tacticType)
             {
                 case UnitTacticType.Build:
                
@@ -118,7 +121,7 @@ namespace Source.Scripts.UI.EntityInfo.UnitInfo
             }
         }
         
-        private void OnBuldingInstance(ConstructionID constructionID) 
+        private void CreateConstruction(ConstructionID constructionID) 
             => _builder.SpawnConstructionMovableModel(constructionID);
     }
 }
