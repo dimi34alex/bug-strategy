@@ -1,4 +1,4 @@
-using Unit.AbilitiesCore;
+using Source.Scripts.Unit.AbilitiesCore;
 using UnityEngine;
 
 namespace Unit.Bees

@@ -1,4 +1,4 @@
-namespace Unit.AbilitiesCore
+namespace Source.Scripts.Unit.AbilitiesCore
 {
     public interface IAbility
     {

@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Unit.AbilitiesCore;
+using Source.Scripts.Unit.AbilitiesCore;
 using Unit.Effects;
 
 namespace Unit.Bees

@@ -1,4 +1,4 @@
-using Unit.AbilitiesCore;
+using Source.Scripts.Unit.AbilitiesCore;
 
 namespace Unit.Bees
 {
