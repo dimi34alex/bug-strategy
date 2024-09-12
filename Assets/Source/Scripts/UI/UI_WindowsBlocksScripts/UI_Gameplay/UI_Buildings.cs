@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class UI_Buildings : UIScreen
+namespace Source.Scripts.UI.UI_WindowsBlocksScripts.UI_Gameplay
 {
+    public class UI_Buildings : UIScreen
+    {
+    }
 }

@@ -2,6 +2,7 @@ using UnityEngine;
 using Zenject;
 using UnityEngine.EventSystems;
 using Constructions;
+using Source.Scripts.UI;
 
 public class UserBuilder : CycleInitializerBase
 {
@@ -50,7 +51,6 @@ public class UserBuilder : CycleInitializerBase
                 ConstructionBase selectedConstruction = FrameworkCommander.GlobalData.ConstructionSelector.SelectedConstruction;
                 selectedConstruction.Select();
                 UnitSelection.Instance.DeselectAllWithoutCheck();
-                _UIController.CloseisChooseState();
                 Debug.Log(selectedConstruction.ConstructionID);
                 _UIController.SetWindow(selectedConstruction);
             }

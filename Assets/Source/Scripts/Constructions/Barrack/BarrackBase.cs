@@ -32,7 +32,10 @@ namespace Constructions
 
         public void RecruitUnit(UnitType unitType) 
             => _recruiter.RecruitUnit(unitType);
-        
+
+        public void CancelRecruit(int stackIndex)
+            => _recruiter.CancelRecruit(stackIndex);
+
         public void RecruitUnit(UnitType unitType, int stackIndex) 
             => _recruiter.RecruitUnit(unitType, stackIndex);
     }

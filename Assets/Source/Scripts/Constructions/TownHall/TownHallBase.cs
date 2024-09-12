@@ -1,5 +1,6 @@
 using Constructions.LevelSystemCore;
 using Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators;
+using Source.Scripts.UI;
 using Unit.Factory;
 using UnitsRecruitingSystemCore;
 using UnityEngine;
@@ -47,5 +48,8 @@ namespace Construction.TownHalls
         
             _recruiter.RecruitUnit(unitID, freeStackIndex);
         }
+        
+        public void CancelRecruit(int stackIndex)
+            => _recruiter.CancelRecruit(stackIndex);
     }
 }

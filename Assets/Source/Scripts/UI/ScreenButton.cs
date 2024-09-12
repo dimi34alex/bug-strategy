@@ -3,29 +3,32 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ScreenButton : MonoBehaviour
+namespace Source.Scripts.UI
 {
-    private Button _screenButton;
-    private Image _image;
-    private TextMeshProUGUI _text;
-    public event Action ScreenButtonClicked;
-
-    private void Awake()
+    public class ScreenButton : MonoBehaviour
     {
-        _text = gameObject.GetComponentInChildren<TextMeshProUGUI>();
-        _image = gameObject.GetComponent<Image>();
-        _screenButton = gameObject.GetComponent<Button>();
-        _screenButton.onClick.AddListener(OnClick);
-    }
+        private Button _screenButton;
+        private Image _image;
+        private TextMeshProUGUI _text;
+        public event Action ScreenButtonClicked;
+
+        private void Awake()
+        {
+            _text = gameObject.GetComponentInChildren<TextMeshProUGUI>();
+            _image = gameObject.GetComponent<Image>();
+            _screenButton = gameObject.GetComponent<Button>();
+            _screenButton.onClick.AddListener(OnClick);
+        }
 
 
-    protected void OnClick()
-    {
-        ScreenButtonClickedInvoke();
-    }
+        protected void OnClick()
+        {
+            ScreenButtonClickedInvoke();
+        }
     
-    protected void ScreenButtonClickedInvoke()
-    {
-        ScreenButtonClicked?.Invoke();
+        protected void ScreenButtonClickedInvoke()
+        {
+            ScreenButtonClicked?.Invoke();
+        }
     }
 }

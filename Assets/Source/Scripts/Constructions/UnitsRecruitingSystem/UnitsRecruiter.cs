@@ -36,6 +36,7 @@ namespace UnitsRecruitingSystemCore
             {
                 var newStack = new UnitRecruitingStack();
                 newStack.OnSpawnUnit += SpawnUnit;
+                newStack.OnBecameEmpty += OnStackBecameEmpty;
                 _stacks.Add(newStack);
             }
         }
@@ -129,6 +130,7 @@ namespace UnitsRecruitingSystemCore
             {
                 var newStack = new UnitRecruitingStack();
                 newStack.OnSpawnUnit += SpawnUnit;
+                newStack.OnBecameEmpty += OnStackBecameEmpty;
                 _stacks.Add(newStack);
             }
 
@@ -138,12 +140,16 @@ namespace UnitsRecruitingSystemCore
 
         public void Tick(float time)
         {
+            var allIsEmpty = true;
             foreach (var stack in _stacks)
                 if (!stack.Empty)
+                {
                     stack.Tick(time);
+                    allIsEmpty = false;
+                }
 
-            OnTick?.Invoke();
-            OnChange?.Invoke();
+            if (!allIsEmpty)
+                OnTick?.Invoke();
         }
 
         /// <returns>
@@ -187,5 +193,8 @@ namespace UnitsRecruitingSystemCore
  
             unit.SetAffiliation(_affiliation.Affiliation);
         }
+
+        private void OnStackBecameEmpty() 
+            => OnChange?.Invoke();
     }
 }

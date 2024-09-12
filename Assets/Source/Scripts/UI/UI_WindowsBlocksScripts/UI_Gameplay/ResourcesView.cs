@@ -1,53 +1,56 @@
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 using System;
 using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
-public class ResourcesView : UIScreen
+namespace Source.Scripts.UI.UI_WindowsBlocksScripts.UI_Gameplay
 {
-    [Serializable]
-    private struct SomeResourcePrint
+    public class ResourcesView : UIScreen
     {
-        public TextMeshProUGUI name;
-        public Image Icon;
-        public TextMeshProUGUI value;
-    }
-    
-    [SerializeField] private SomeResourcePrint _pollen;
-    [SerializeField] private SomeResourcePrint _wax;
-    [SerializeField] private SomeResourcePrint _housing;
-    [SerializeField] private SomeResourcePrint _honey;
-
-    private Dictionary<ResourceID, SomeResourcePrint> _printResoucesWithType;
-
-    private void Start()
-    {
-        _printResoucesWithType = new Dictionary<ResourceID, SomeResourcePrint>();
-
-        _printResoucesWithType.Add(ResourceID.Pollen, _pollen);
-        _printResoucesWithType.Add(ResourceID.Bees_Wax, _wax);
-        _printResoucesWithType.Add(ResourceID.Housing, _housing);
-        _printResoucesWithType.Add(ResourceID.Honey, _honey);
-
-        foreach (var printResouce in _printResoucesWithType)
+        [Serializable]
+        private struct SomeResourcePrint
         {
-            ResourceBase resource = ResourceGlobalStorage.GetResource(printResouce.Key);
-            printResouce.Value.Icon.sprite = resource.Icon;
-            printResouce.Value.name.text = resource.ID.ToString();
+            public TextMeshProUGUI name;
+            public Image Icon;
+            public TextMeshProUGUI value;
         }
-
-        ResourceGlobalStorage.ResourceChanged += UpdateResourceInformation;
-    }
     
-    private void UpdateResourceInformation()
-    {
-        if (_printResoucesWithType!= null) 
-        foreach (var printResouce in _printResoucesWithType)
+        [SerializeField] private SomeResourcePrint _pollen;
+        [SerializeField] private SomeResourcePrint _wax;
+        [SerializeField] private SomeResourcePrint _housing;
+        [SerializeField] private SomeResourcePrint _honey;
+
+        private Dictionary<ResourceID, SomeResourcePrint> _printResoucesWithType;
+
+        private void Start()
         {
-            ResourceBase resource = ResourceGlobalStorage.GetResource(printResouce.Key);
-            printResouce.Value.value.text = resource.CurrentValue.ToString() + "/" +
-                resource.Capacity.ToString();
+            _printResoucesWithType = new Dictionary<ResourceID, SomeResourcePrint>();
+
+            _printResoucesWithType.Add(ResourceID.Pollen, _pollen);
+            _printResoucesWithType.Add(ResourceID.Bees_Wax, _wax);
+            _printResoucesWithType.Add(ResourceID.Housing, _housing);
+            _printResoucesWithType.Add(ResourceID.Honey, _honey);
+
+            foreach (var printResouce in _printResoucesWithType)
+            {
+                ResourceBase resource = ResourceGlobalStorage.GetResource(printResouce.Key);
+                printResouce.Value.Icon.sprite = resource.Icon;
+                printResouce.Value.name.text = resource.ID.ToString();
+            }
+
+            ResourceGlobalStorage.ResourceChanged += UpdateResourceInformation;
+        }
+    
+        private void UpdateResourceInformation()
+        {
+            if (_printResoucesWithType!= null) 
+                foreach (var printResouce in _printResoucesWithType)
+                {
+                    ResourceBase resource = ResourceGlobalStorage.GetResource(printResouce.Key);
+                    printResouce.Value.value.text = resource.CurrentValue.ToString() + "/" +
+                                                    resource.Capacity.ToString();
+                }
         }
     }
 }

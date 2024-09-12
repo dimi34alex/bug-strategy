@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class UI_MainMenu : UIScreen
+namespace Source.Scripts.UI.UI_WindowsBlocksScripts
 {
+    public class UI_MainMenu : UIScreen
+    {
+    }
 }

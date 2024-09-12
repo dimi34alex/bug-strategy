@@ -8,5 +8,6 @@ namespace Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators
         public IReadOnlyUnitsRecruiter Recruiter { get; }
 
         public void RecruitUnit(UnitType unitType);
+        public void CancelRecruit(int stackIndex);
     }
 }

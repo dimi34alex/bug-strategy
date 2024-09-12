@@ -1,38 +1,41 @@
 using UnityEngine;
 
-public class UI_Tactics : UIScreen
+namespace Source.Scripts.UI.UI_WindowsBlocksScripts.UI_Gameplay
 {
-    [SerializeField] private ScreenButton[] _screenButtons;
-    [SerializeField] private UnitSelection _unitSelection;
-
-    private void Awake()
+    public class UI_Tactics : UIScreen
     {
-        _screenButtons[0].ScreenButtonClicked += OnTactic1Clicked;
-        _screenButtons[1].ScreenButtonClicked += OnTactic2Clicked;
-        _screenButtons[2].ScreenButtonClicked += OnTactic3Clicked;
-    }
+        [SerializeField] private ScreenButton[] _screenButtons;
+        [SerializeField] private UnitSelection _unitSelection;
 
-    private void OnTactic1Clicked()
-    {
-        ///
-       /* foreach (var unit in _unitSelection.Pool.movingUnits)
+        private void Awake()
+        {
+            _screenButtons[0].ScreenButtonClicked += OnTactic1Clicked;
+            _screenButtons[1].ScreenButtonClicked += OnTactic2Clicked;
+            _screenButtons[2].ScreenButtonClicked += OnTactic3Clicked;
+        }
+
+        private void OnTactic1Clicked()
+        {
+            ///
+            /* foreach (var unit in _unitSelection.Pool.movingUnits)
             unit.SetStateBehaviorUnit(StateBehaviorUnitID.Attack);*/
 
-        Debug.Log("Set attack state");
-    }
+            Debug.Log("Set attack state");
+        }
 
-    private void OnTactic2Clicked()
-    {
+        private void OnTactic2Clicked()
+        {
 /*        foreach (var unit in _unitSelection.Pool.movingUnits)
             unit.SetStateBehaviorUnit(StateBehaviorUnitID.Deffense);*/
-        Debug.Log("Set deffense state");
-    }
+            Debug.Log("Set deffense state");
+        }
 
-    private void OnTactic3Clicked()
-    {
+        private void OnTactic3Clicked()
+        {
 /*        foreach (var unit in _unitSelection.Pool.movingUnits)
             unit.SetStateBehaviorUnit(StateBehaviorUnitID.Neutral);*/
-        Debug.Log("Set neutral state");
-    }
+            Debug.Log("Set neutral state");
+        }
 
+    }
 }

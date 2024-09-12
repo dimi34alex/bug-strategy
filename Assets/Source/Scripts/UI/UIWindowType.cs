@@ -1,15 +1,18 @@
-﻿public enum UIWindowType
+﻿namespace Source.Scripts.UI
 {
-    GameMain,
-    Game,
-    Building,
-    ConstructionMenu,
-    Tactics,
-    Settings,
-    GameWin,
-    GameLose,
-    Menu,
-    GameplayMenu,
-    Saves,
-    Back
+    public enum UIWindowType
+    {
+        GameMain,
+        Game,
+        Building,
+        ConstructionMenu,
+        Tactics,
+        Settings,
+        GameWin,
+        GameLose,
+        Menu,
+        GameplayMenu,
+        Saves,
+        Back
+    }
 }
