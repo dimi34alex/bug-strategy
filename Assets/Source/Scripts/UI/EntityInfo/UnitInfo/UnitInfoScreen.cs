@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Linq;
+using Source.Scripts.Unit;
 using UnityEngine;
 
-namespace Source.Scripts.UI.UnitIInformation
+namespace Source.Scripts.UI.EntityInfo.UnitInfo
 {
     public class UnitInfoScreen : EntityInfoScreen
     {
-        private UIRaceConfig _UIRaceConfig;
+        private UIUnitsConfig _uiUnitsConfig;
         private UnitActionsUIView _actionsUIView;
         private TacticsUIView _tacticsUIView;
         private BuldingsUIView _buldingsUIView;
@@ -22,7 +23,7 @@ namespace Source.Scripts.UI.UnitIInformation
                 Debug.LogError("Builder is null");
             
             OnAwake();
-            _UIRaceConfig = ConfigsRepository.FindConfig<UIRaceConfig>();
+            _uiUnitsConfig = ConfigsRepository.FindConfig<UIUnitsConfig>();
 
             _actionsUIView = UIScreenRepository.GetScreen<UnitActionsUIView>();
             _tacticsUIView = UIScreenRepository.GetScreen<TacticsUIView>();
@@ -52,7 +53,7 @@ namespace Source.Scripts.UI.UnitIInformation
 
             try
             {
-                UIUnitConfig unitUIConfig = _UIRaceConfig.UnitsUIConfigs[unitType];
+                UIUnitConfig unitUIConfig = _uiUnitsConfig.UnitsUIConfigs[unitType];
 
                 SetHealthPointsInfo(unitUIConfig.InfoSprite, _unit.HealthStorage);
                 _actionsUIView.TurnOffButtons();
@@ -97,14 +98,14 @@ namespace Source.Scripts.UI.UnitIInformation
             UpdateView();
         }
         
-        private void OnTacticsUse(UnitTacticsType unitTacticsType)
+        private void OnTacticsUse(UnitTacticType unitTacticType)
         {
-            switch (unitTacticsType)
+            switch (unitTacticType)
             {
-                case UnitTacticsType.Build:
+                case UnitTacticType.Build:
                
                     break;
-                case UnitTacticsType.Repair:
+                case UnitTacticType.Repair:
                     // _unitBase.AutoGiveOrder();
                     break;
             }

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace Source.Scripts.UI
+namespace Source.Scripts.UI.EntityInfo
 {
     public class ButtonPanelUIView<T> : UIScreen
     {

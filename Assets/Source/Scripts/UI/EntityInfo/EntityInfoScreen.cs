@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Source.Scripts.UI
+namespace Source.Scripts.UI.EntityInfo
 {
     public abstract class EntityInfoScreen : UIScreen
     {

@@ -3,7 +3,7 @@ using System.Linq;
 using UnitsRecruitingSystemCore;
 using UnityEngine;
 
-namespace Source.Scripts.UI.ConstructionInformation
+namespace Source.Scripts.UI.EntityInfo.ConstructionInfo
 {
     public class ConstructionCreationProductUIView : ButtonPanelUIView<UnitType>
     {

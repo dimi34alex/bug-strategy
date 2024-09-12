@@ -1,4 +1,4 @@
-namespace Source.Scripts.UI.UnitIInformation
+namespace Source.Scripts.UI.EntityInfo.UnitInfo
 {
     public class BuldingsUIView : ButtonPanelUIView<ConstructionID>
     {

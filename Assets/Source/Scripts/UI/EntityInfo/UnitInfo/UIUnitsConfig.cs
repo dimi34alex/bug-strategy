@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Source.Scripts.UI
+namespace Source.Scripts.UI.EntityInfo.UnitInfo
 {
-    [CreateAssetMenu(fileName = nameof(UIRaceConfig), menuName = "Configs/" + nameof(UIRaceConfig))]
-    public class UIRaceConfig : ScriptableObject, ISingleConfig
+    [CreateAssetMenu(fileName = nameof(UIUnitsConfig), menuName = "Configs/" + nameof(UIUnitsConfig))]
+    public class UIUnitsConfig : ScriptableObject, ISingleConfig
     {
         [SerializeField] private SerializableDictionary<UnitType, UIUnitConfig> _unitsUIConfigs;
 

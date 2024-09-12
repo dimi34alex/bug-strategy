@@ -1,7 +1,7 @@
-using Source.Scripts.UI.ConstructionInformation;
+using Source.Scripts.UI.EntityInfo.ConstructionInfo;
+using Source.Scripts.UI.EntityInfo.UnitInfo;
 using Source.Scripts.UI.UI_WindowsBlocksScripts;
 using Source.Scripts.UI.UI_WindowsBlocksScripts.UI_Gameplay;
-using Source.Scripts.UI.UnitIInformation;
 using UnityEngine;
 
 namespace Source.Scripts.UI
@@ -12,7 +12,7 @@ namespace Source.Scripts.UI
         private static GameObject UI_ActivScreen;
         private static UI_Gameplay UI_GameplayWindows;
 
-        private UIRaceConfig _UIRaceConfig;
+        private UIUnitsConfig _uiUnitsConfig;
 
         private static GameObject UI_PrevActivScreen;
 
@@ -29,7 +29,7 @@ namespace Source.Scripts.UI
                 Debug.LogError("Builder is null");
         
             UI_GameplayWindows = UIScreenRepository.GetScreen<UI_Gameplay>();
-            _UIRaceConfig = ConfigsRepository.FindConfig<UIRaceConfig>();
+            _uiUnitsConfig = ConfigsRepository.FindConfig<UIUnitsConfig>();
             //определяем, какое окно у нас активно при запуске.
             if (UIScreenRepository.GetScreen<UI_Gameplay>().isActiveAndEnabled)
                 UI_ActivScreen = UIScreenRepository.GetScreen<UI_Gameplay>().gameObject;

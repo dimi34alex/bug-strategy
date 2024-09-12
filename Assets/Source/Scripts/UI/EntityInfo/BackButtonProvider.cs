@@ -1,4 +1,4 @@
-namespace Source.Scripts.UI
+namespace Source.Scripts.UI.EntityInfo
 {
     public class BackButtonProvider : ButtonProvider
     {

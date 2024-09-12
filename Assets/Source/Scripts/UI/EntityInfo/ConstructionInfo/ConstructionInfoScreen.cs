@@ -5,19 +5,21 @@ using Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Source.Scripts.UI.ConstructionInformation
+namespace Source.Scripts.UI.EntityInfo.ConstructionInfo
 {
     public class ConstructionInfoScreen : EntityInfoScreen
     {
         [SerializeField] private Button _upgradeButton;
 
         private ConstructionBase _construction;
-        private UIConstructionsConfig _uiConstructionsConfig;
+        
+        private ConstructionActionsType _activeActionsType;
+        private ConstructionActionsUIView _actionsUIView;
         private ConstructionProductsUIView _productsUIView;
         private ConstructionRecruitingUIView _recruitingUIView;
-        private ConstructionActionsType _actionsType;
-        private ConstructionCreationProductUIView _сonstructionCreationProductUIView;
-        private ConstructionActionsUIView _actionsUIView;
+        
+        private ConstructionCreationProductUIView _creationProductUIView;
+        private UIConstructionsConfig _uiConstructionsConfig;
         
         private void Awake()
         {
@@ -29,15 +31,15 @@ namespace Source.Scripts.UI.ConstructionInformation
             _recruitingUIView = UIScreenRepository.GetScreen<ConstructionRecruitingUIView>();
             _productsUIView = UIScreenRepository.GetScreen<ConstructionProductsUIView>();
             
-            _actionsUIView.ButtonClicked += SetActiveAction;
-            _recruitingUIView.ButtonClicked += OnRecruiting;
-            _productsUIView.ButtonClicked += OnProduct;
+            _actionsUIView.ButtonClicked += SetActionsType;
+            _recruitingUIView.ButtonClicked += RecruitUnit;
+            _productsUIView.ButtonClicked += ProductResource;
         
-            _actionsUIView.BackButtonClicked += BackButtonsMenu;
-            _recruitingUIView.BackButtonClicked += BackButtonsMenu;
-            _productsUIView.BackButtonClicked += BackButtonsMenu;
+            _actionsUIView.BackButtonClicked += SetNonActionsType;
+            _recruitingUIView.BackButtonClicked += SetNonActionsType;
+            _productsUIView.BackButtonClicked += SetNonActionsType;
         
-            _сonstructionCreationProductUIView = UIScreenRepository.GetScreen<ConstructionCreationProductUIView>();
+            _creationProductUIView = UIScreenRepository.GetScreen<ConstructionCreationProductUIView>();
         }
 
         public void SetConstruction(ConstructionBase construction)
@@ -46,27 +48,29 @@ namespace Source.Scripts.UI.ConstructionInformation
                 return;
 
             _construction = construction;
-            SetActiveAction(ConstructionActionsType.None);
+            SetActionsType(ConstructionActionsType.None);
         }
     
         private void UpdateView()
         {
             var constructionUIConfig = _uiConstructionsConfig.ConstructionsUIConfigs[_construction.ConstructionID];
 
-            _сonstructionCreationProductUIView.CloseAll();
+            _creationProductUIView.CloseAll();
 
             SetHealthPointsInfo(constructionUIConfig.InfoSprite, _construction.HealthStorage);
 
             _actionsUIView.TurnOffButtons();
             _recruitingUIView.TurnOffButtons();
             _productsUIView.TurnOffButtons();
-
-            Debug.Log(_actionsType);
-            switch (_actionsType)
+            
+            Debug.Log(_activeActionsType);
+            switch (_activeActionsType)
             {
                 case ConstructionActionsType.None:
-                    _actionsUIView.SetButtons(constructionUIConfig.ConstructionActionsDictionary, constructionUIConfig.ConstructionActions
-                        .Select(x => x.Key).ToList());
+                    _actionsUIView.SetButtons(constructionUIConfig.ConstructionActionsDictionary, 
+                        constructionUIConfig.ConstructionActions
+                            .Select(x => x.Key).ToList());
+                    
                     break;
                 case ConstructionActionsType.RecruitUnits:
                     _recruitingUIView.SetButtons(constructionUIConfig.RecruitingDictionary, constructionUIConfig.Recruiting
@@ -83,28 +87,22 @@ namespace Source.Scripts.UI.ConstructionInformation
             if ((constructionUIConfig.ConstructionProducts != null &&  constructionUIConfig.ConstructionProducts.Count > 0)||
                 (constructionUIConfig.Recruiting != null && constructionUIConfig.Recruiting.Count > 0))
             {
-                _сonstructionCreationProductUIView.ActivatePanel();
+                _creationProductUIView.ActivatePanel();
             }
 
-            _сonstructionCreationProductUIView.ActivateBar();
+            _creationProductUIView.ActivateBar();
         }
     
-        private void BackButtonsMenu()
-            => SetActiveAction(ConstructionActionsType.None);
-    
-        private void OnUpgradeButtonClicked()
-        {
-            if (_construction.TryCast(out IEvolveConstruction evolveConstruction))
-                evolveConstruction.LevelSystem.TryLevelUp();
-        }
+        private void SetNonActionsType()
+            => SetActionsType(ConstructionActionsType.None);
 
-        private void SetActiveAction(ConstructionActionsType actionsType)
+        private void SetActionsType(ConstructionActionsType actionsType)
         {
-            _actionsType = actionsType;
+            _activeActionsType = actionsType;
             UpdateView();
         }
-
-        private void OnRecruiting(UnitType unitType)
+        
+        private void RecruitUnit(UnitType unitType)
         {
             if (!_construction.TryCast(out IRecruitingConstruction recruitingConstruction))
                 return;
@@ -112,9 +110,15 @@ namespace Source.Scripts.UI.ConstructionInformation
             recruitingConstruction.RecruitUnit(unitType);
         }
     
-        private void OnProduct(ConstructionProduct constructionProduct)
+        private void ProductResource(ConstructionProductType constructionProductType)
         {
 
+        }
+        
+        private void OnUpgradeButtonClicked()
+        {
+            if (_construction.TryCast(out IEvolveConstruction evolveConstruction))
+                evolveConstruction.LevelSystem.TryLevelUp();
         }
     }
 }
