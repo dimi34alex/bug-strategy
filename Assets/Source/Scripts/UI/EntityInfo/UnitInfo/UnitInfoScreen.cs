@@ -13,7 +13,8 @@ namespace Source.Scripts.UI.EntityInfo.UnitInfo
         private UnitActionsUIView _actionsUIView;
         private ConstructUIView _constructUIView;
         private TacticsUIView _tacticsUIView;
-        
+
+        private UIUnitConfig _uiUnitConfig;
         private UIUnitsConfig _uiUnitsConfig;
         
         private UserBuilder _builder;
@@ -46,59 +47,60 @@ namespace Source.Scripts.UI.EntityInfo.UnitInfo
         {
             if (_unit == newUnit)
                 return;
-
-            _unit = newUnit;
-            SetActionsType(UnitActionsType.None);
-        }
-    
-        private void UpdateView()
-        {
+            
             try
             {
-                var unitUIConfig = _uiUnitsConfig.UnitsUIConfigs[_unit.UnitType];
-
-                SetHealthPointsInfo(unitUIConfig.InfoSprite, _unit.HealthStorage);
-               
-                _actionsUIView.TurnOffButtons();
-                _tacticsUIView.TurnOffButtons();
-                _constructUIView.TurnOffButtons();
-
-                var onlyOneActionsType = unitUIConfig.Actions.Count == 1;
-                var showBackButton = !onlyOneActionsType;
-                if (onlyOneActionsType)
-                    _actionsType = unitUIConfig.Actions.First().Key;
-                
-                switch (_actionsType)
-                {
-                    case UnitActionsType.None:
-                        _actionsUIView.SetButtons(showBackButton, unitUIConfig.UnitSectionsDictionary,
-                            unitUIConfig.Actions
-                                .Select(x => x.Key).ToList());
-                        break;
-                    case UnitActionsType.Tactics:
-                        _tacticsUIView.SetButtons(showBackButton, unitUIConfig.UnitTacticsDictionary,
-                            unitUIConfig.UnitTactics
-                                .Select(x => x.Key).ToList());
-                        break;
-                    case UnitActionsType.Constructions:
-                        _constructUIView.SetButtons(showBackButton, unitUIConfig.UnitConstructionDictionary,
-                            unitUIConfig.UnitConstruction
-                                .Select(x => x.Key).ToList());
-                        break;
-                    case UnitActionsType.Abilities:
-
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+                _unit = newUnit;
+                _uiUnitConfig = _uiUnitsConfig.UnitsUIConfigs[_unit.UnitType];
             }
             catch (Exception exp)
             {
-                throw new Exception("Настоятельно рекомендую проверить есть ли конфиг (UIUnitConfig и добавлен ли он " +
-                                    "в UIRaceConfig)  " + exp.Message);
+                throw new Exception(
+                    $"Настоятельно рекомендую проверить есть ли конфиг ({nameof(UIUnitConfig)} " +
+                    $"и добавлен ли он в {nameof(UIUnitsConfig)}) | {exp.Message}");
+            }
+
+            SetActionsType(UnitActionsType.None);
+        }
+
+        private void UpdateView()
+        {
+            SetHealthPointsInfo(_uiUnitConfig.InfoSprite, _unit.HealthStorage);
+
+            _actionsUIView.TurnOffButtons();
+            _tacticsUIView.TurnOffButtons();
+            _constructUIView.TurnOffButtons();
+
+            var onlyOneActionsType = _uiUnitConfig.Actions.Count == 1;
+            var showBackButton = !onlyOneActionsType;
+            if (onlyOneActionsType)
+                _actionsType = _uiUnitConfig.Actions.First().Key;
+
+            switch (_actionsType)
+            {
+                case UnitActionsType.None:
+                    _actionsUIView.SetButtons(showBackButton, _uiUnitConfig.UnitSectionsDictionary,
+                        _uiUnitConfig.Actions
+                            .Select(x => x.Key).ToList());
+                    break;
+                case UnitActionsType.Tactics:
+                    _tacticsUIView.SetButtons(showBackButton, _uiUnitConfig.UnitTacticsDictionary,
+                        _uiUnitConfig.UnitTactics
+                            .Select(x => x.Key).ToList());
+                    break;
+                case UnitActionsType.Constructions:
+                    _constructUIView.SetButtons(showBackButton, _uiUnitConfig.UnitConstructionDictionary,
+                        _uiUnitConfig.UnitConstruction
+                            .Select(x => x.Key).ToList());
+                    break;
+                case UnitActionsType.Abilities:
+
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
-    
+
         private void SetNonActionsType()
             => SetActionsType(UnitActionsType.None);
     

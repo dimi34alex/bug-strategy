@@ -19,7 +19,8 @@ namespace Source.Scripts.UI.EntityInfo.ConstructionInfo
         private ConstructionRecruitingUIView _recruitingUIView;
         
         private ConstructionCreationProductUIView _creationProductUIView;
-        
+
+        private UIConstructionConfig _uiConstructionConfig;
         private UIConstructionsConfig _uiConstructionsConfig;
         
         private void Awake()
@@ -48,51 +49,60 @@ namespace Source.Scripts.UI.EntityInfo.ConstructionInfo
             if (_construction == newConstruction)
                 return;
 
-            _construction = newConstruction;
+            try
+            {
+                _construction = newConstruction;
+                _uiConstructionConfig = _uiConstructionsConfig.ConstructionsUIConfigs[_construction.ConstructionID];
+            }
+            catch (Exception exp)
+            {
+                throw new Exception(
+                    $"Настоятельно рекомендую проверить есть ли конфиг ({nameof(UIConstructionConfig)} " +
+                    $"и добавлен ли он в {nameof(UIConstructionConfig)}) | {exp.Message}");
+            }
+            
             SetActionsType(ConstructionActionsType.None);
         }
     
         private void UpdateView()
         {
-            var constructionUIConfig = _uiConstructionsConfig.ConstructionsUIConfigs[_construction.ConstructionID];
-
             _creationProductUIView.CloseAll();
 
-            SetHealthPointsInfo(constructionUIConfig.InfoSprite, _construction.HealthStorage);
+            SetHealthPointsInfo(_uiConstructionConfig.InfoSprite, _construction.HealthStorage);
 
             _actionsUIView.TurnOffButtons();
             _recruitingUIView.TurnOffButtons();
             _productsUIView.TurnOffButtons();
 
-            var onlyOneActionsType = constructionUIConfig.ConstructionActions.Count == 1;
+            var onlyOneActionsType = _uiConstructionConfig.ConstructionActions.Count == 1;
             var showBackButton = !onlyOneActionsType;
             if (onlyOneActionsType)
-                _actionsType = constructionUIConfig.ConstructionActions.First().Key;
+                _actionsType = _uiConstructionConfig.ConstructionActions.First().Key;
             
             Debug.Log(_actionsType);
             switch (_actionsType)
             {
                 case ConstructionActionsType.None:
-                    _actionsUIView.SetButtons(showBackButton, constructionUIConfig.ConstructionActionsDictionary, 
-                        constructionUIConfig.ConstructionActions
+                    _actionsUIView.SetButtons(showBackButton, _uiConstructionConfig.ConstructionActionsDictionary, 
+                        _uiConstructionConfig.ConstructionActions
                             .Select(x => x.Key).ToList());
                     break;
                 case ConstructionActionsType.RecruitUnits:
-                    _recruitingUIView.SetButtons(showBackButton, constructionUIConfig.RecruitingDictionary,
-                        constructionUIConfig.Recruiting
+                    _recruitingUIView.SetButtons(showBackButton, _uiConstructionConfig.RecruitingDictionary,
+                        _uiConstructionConfig.Recruiting
                             .Select(x => x.Key).ToList());
                     break;
                 case ConstructionActionsType.ProduceResources:
-                    _productsUIView.SetButtons(showBackButton, constructionUIConfig.ConstructionProductsDictionary,
-                        constructionUIConfig.ConstructionProducts
+                    _productsUIView.SetButtons(showBackButton, _uiConstructionConfig.ConstructionProductsDictionary,
+                        _uiConstructionConfig.ConstructionProducts
                             .Select(x => x.Key).ToList());
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         
-            if ((constructionUIConfig.ConstructionProducts != null &&  constructionUIConfig.ConstructionProducts.Count > 0)||
-                (constructionUIConfig.Recruiting != null && constructionUIConfig.Recruiting.Count > 0))
+            if ((_uiConstructionConfig.ConstructionProducts != null &&  _uiConstructionConfig.ConstructionProducts.Count > 0)||
+                (_uiConstructionConfig.Recruiting != null && _uiConstructionConfig.Recruiting.Count > 0))
             {
                 _creationProductUIView.ActivatePanel();
             }
