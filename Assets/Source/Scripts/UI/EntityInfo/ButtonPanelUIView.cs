@@ -49,7 +49,7 @@ namespace Source.Scripts.UI.EntityInfo
             ButtonClicked?.Invoke(type);
         }
 
-        public virtual void SetButtons(IReadOnlyDictionary<T, Sprite> images, List<T> orderedTypes)
+        public virtual void SetButtons(bool showBackButton, IReadOnlyDictionary<T, Sprite> images, List<T> orderedTypes)
         {
             _unitTacticsTypes = orderedTypes;
 
@@ -61,7 +61,7 @@ namespace Source.Scripts.UI.EntityInfo
                     _buttons[i].GetComponent<Image>().sprite = images[orderedTypes[i]];
             }
         
-            if (!_backButtonIsNull) 
+            if (showBackButton && !_backButtonIsNull) 
                 _backButton.gameObject.SetActive(true);
         }
 

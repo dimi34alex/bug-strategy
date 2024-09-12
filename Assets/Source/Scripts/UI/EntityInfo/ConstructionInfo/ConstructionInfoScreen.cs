@@ -62,23 +62,29 @@ namespace Source.Scripts.UI.EntityInfo.ConstructionInfo
             _actionsUIView.TurnOffButtons();
             _recruitingUIView.TurnOffButtons();
             _productsUIView.TurnOffButtons();
+
+            var onlyOneActionsType = constructionUIConfig.ConstructionActions.Count == 1;
+            var showBackButton = !onlyOneActionsType;
+            if (onlyOneActionsType)
+                _activeActionsType = constructionUIConfig.ConstructionActions.First().Key;
             
             Debug.Log(_activeActionsType);
             switch (_activeActionsType)
             {
                 case ConstructionActionsType.None:
-                    _actionsUIView.SetButtons(constructionUIConfig.ConstructionActionsDictionary, 
+                    _actionsUIView.SetButtons(showBackButton, constructionUIConfig.ConstructionActionsDictionary, 
                         constructionUIConfig.ConstructionActions
                             .Select(x => x.Key).ToList());
-                    
                     break;
                 case ConstructionActionsType.RecruitUnits:
-                    _recruitingUIView.SetButtons(constructionUIConfig.RecruitingDictionary, constructionUIConfig.Recruiting
-                        .Select(x => x.Key).ToList());
+                    _recruitingUIView.SetButtons(showBackButton, constructionUIConfig.RecruitingDictionary,
+                        constructionUIConfig.Recruiting
+                            .Select(x => x.Key).ToList());
                     break;
                 case ConstructionActionsType.ProduceResources:
-                    _productsUIView.SetButtons(constructionUIConfig.ConstructionProductsDictionary, constructionUIConfig.ConstructionProducts
-                        .Select(x => x.Key).ToList());
+                    _productsUIView.SetButtons(showBackButton, constructionUIConfig.ConstructionProductsDictionary,
+                        constructionUIConfig.ConstructionProducts
+                            .Select(x => x.Key).ToList());
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

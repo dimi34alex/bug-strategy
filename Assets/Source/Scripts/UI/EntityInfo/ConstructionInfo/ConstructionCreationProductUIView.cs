@@ -69,10 +69,5 @@ namespace Source.Scripts.UI.EntityInfo.ConstructionInfo
         {
             _dopPanel.SetActive(true);
         }
-
-        public override void SetButtons(IReadOnlyDictionary<UnitType, Sprite> images, List<UnitType> orderedTypes)
-        {
-            base.SetButtons(images, orderedTypes);
-        }
     }
 }

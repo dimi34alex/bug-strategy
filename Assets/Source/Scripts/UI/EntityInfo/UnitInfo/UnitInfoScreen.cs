@@ -60,20 +60,27 @@ namespace Source.Scripts.UI.EntityInfo.UnitInfo
                 _tacticsUIView.TurnOffButtons();
                 _buldingsUIView.TurnOffButtons();
 
+                var onlyOneActionsType = unitUIConfig.Actions.Count == 1;
+                var showBackButton = !onlyOneActionsType;
+                if (onlyOneActionsType)
+                    _actionsType = unitUIConfig.Actions.First().Key;
+                
                 switch (_actionsType)
                 {
                     case UnitActionsType.None:
-                        _actionsUIView.SetButtons(unitUIConfig.UnitSectionsDictionary, unitUIConfig.Actions
-                            .Select(x => x.Key).ToList());
+                        _actionsUIView.SetButtons(showBackButton, unitUIConfig.UnitSectionsDictionary,
+                            unitUIConfig.Actions
+                                .Select(x => x.Key).ToList());
                         break;
                     case UnitActionsType.Tactics:
-                        _tacticsUIView.SetButtons(unitUIConfig.UnitTacticsDictionary, unitUIConfig.UnitTactics
-                            .Select(x => x.Key).ToList());
+                        _tacticsUIView.SetButtons(showBackButton, unitUIConfig.UnitTacticsDictionary,
+                            unitUIConfig.UnitTactics
+                                .Select(x => x.Key).ToList());
                         break;
                     case UnitActionsType.Constructions:
-                        _buldingsUIView.SetButtons(unitUIConfig.UnitConstructionDictionary, unitUIConfig
-                            .UnitConstruction
-                            .Select(x => x.Key).ToList());
+                        _buldingsUIView.SetButtons(showBackButton, unitUIConfig.UnitConstructionDictionary,
+                            unitUIConfig.UnitConstruction
+                                .Select(x => x.Key).ToList());
                         break;
                     case UnitActionsType.Abilities:
 
