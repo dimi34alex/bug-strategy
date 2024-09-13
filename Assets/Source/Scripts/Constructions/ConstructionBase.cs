@@ -49,6 +49,7 @@ public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagabl
             IsActive = false;
             OnDeactivation?.Invoke();
             OnDestruction?.Invoke();
+            FrameworkCommander.GlobalData.ConstructionsRepository.GetConstruction(transform.position, true);
             Destroy(gameObject);
         }
     }
