@@ -1276,60 +1276,6 @@ MonoBehaviour:
       Value: {fileID: 5143360930569530163, guid: c904f7748dcade743baad384acd3406b, type: 3}
     - Key: 330
       Value: {fileID: 3519576925981362349, guid: e8b294432f378bb47a79b25e3fe144fb, type: 3}
---- !u!1 &863067494
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 863067496}
-  - component: {fileID: 863067495}
-  m_Layer: 0
-  m_Name: RGSv2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &863067495
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 863067494}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a24f049985aa47108a359507e40be646, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  config: {fileID: 11400000, guid: e71c5e066322ca24db46b1a72c6b7929, type: 2}
-  resourceConfigs:
-  - {fileID: 11400000, guid: 661f65eb25b0aea4f9cd436a09caa3b3, type: 2}
-  - {fileID: 11400000, guid: 44acca147432bfe4ebc927d4354b8a80, type: 2}
-  - {fileID: 11400000, guid: fc161b6f9d4e2814daadf2cdf2c19dd6, type: 2}
-  - {fileID: 11400000, guid: acb4e0291b430d74b94feb1507845c87, type: 2}
-  - {fileID: 11400000, guid: dbc65c809c937f048a0de2203fbf4691, type: 2}
-  - {fileID: 11400000, guid: 2349c2f89e090c148a7021ce5574d53a, type: 2}
-  - {fileID: 11400000, guid: 4e7992a59486d4a4eb00e12b84f2c568, type: 2}
-  - {fileID: 11400000, guid: d81e9e714bffcfb4c9ae3a1b92484de0, type: 2}
---- !u!4 &863067496
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 863067494}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 15
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &889771834
 GameObject:
   m_ObjectHideFlags: 0
@@ -2070,7 +2016,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6404a23868bd44e7b71a683ee959deee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBeforeAttackPlayerTownHall: 120
+  timeBeforeAttackPlayerTownHall: 30
   constructionAiConfigs:
   - {fileID: 11400000, guid: f3472c0fd86c7954887d2b7344231d8f, type: 2}
   - {fileID: 11400000, guid: f00800f010a7fab46a2d7b84f87052ac, type: 2}

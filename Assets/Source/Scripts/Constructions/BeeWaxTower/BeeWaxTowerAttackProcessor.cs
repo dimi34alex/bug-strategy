@@ -60,7 +60,8 @@ namespace Constructions
             {
                 if(_targets.Contains(target))
                     return;
-                
+
+                target.OnDeactivation += TryRemoveTarget;
                 _targets.Add(target);
                 
                 if(_cooldown.TimerIsEnd)
@@ -70,10 +71,19 @@ namespace Constructions
         
         private void OnTargetExit(ITriggerable triggerable)
         {
-            if (triggerable.TryCast(out IUnitTarget target) 
-                && Affiliation.CheckEnemies(target.Affiliation) 
+            if (triggerable.TryCast(out IUnitTarget target))
+                TryRemoveTarget(target);
+        }
+
+        private void TryRemoveTarget(IUnitTarget target)
+        {
+            target.OnDeactivation -= TryRemoveTarget;
+            
+            if (Affiliation.CheckEnemies(target.Affiliation) 
                 && target.CastPossible<IDamagable>())
+            {
                 _targets.Remove(target);
+            }
         }
         
         private void TryAttack()

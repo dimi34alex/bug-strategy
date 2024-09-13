@@ -31,19 +31,19 @@ namespace Source.Scripts.Ai.InternalAis
         
         public void SetOrderPriority(IUnitTarget target, AiUnitStateType aiUnitStateType)
         {
-            if (!GlobalAiOrderTarget.IsAnyNull())
+            if (!GlobalAiOrderTarget.IsAnyNull()) 
                 GlobalAiOrderTarget.OnDeactivation -= SetOrderPriority;
-    
+
             GlobalAiOrderTarget = target;
             AiState = aiUnitStateType;
 
-            if(!GlobalAiOrderTarget.IsAnyNull())
+            if (!GlobalAiOrderTarget.IsAnyNull()) 
                 GlobalAiOrderTarget.OnDeactivation += SetOrderPriority;
-            
+
             TryGiveOrder();
         }
 
-        private void SetOrderPriority()
+        private void SetOrderPriority(IUnitTarget _)
             => SetOrderPriority(null, AiState);
         
         protected void TryGiveOrder()
@@ -64,7 +64,7 @@ namespace Source.Scripts.Ai.InternalAis
             UnitTookDamage = false;
             if (evaluator == null)
             {
-                if (!GlobalAiOrderTarget.IsAnyNull())
+                if (!GlobalAiOrderTarget.IsAnyNull()) 
                     GlobalAiOrderTarget.OnDeactivation -= SetOrderPriority;
                 GlobalAiOrderTarget = null;
                 

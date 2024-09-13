@@ -34,6 +34,8 @@ public class UnitRepository : IUnitRepository
         unit.ElementReturnEvent += RemoveUnit;
 
         _units[unit.UnitType].Add(unit);
+        
+        OnUnitAdd?.Invoke(unit);
     }
 
     public TUnit TryGetUnit<TUnit>(UnitType unitType, Predicate<TUnit> predicate = null, bool remove = false) where TUnit : UnitBase
@@ -49,15 +51,18 @@ public class UnitRepository : IUnitRepository
         TUnit unit = units[index].Cast<TUnit>();
 
         if (remove)
+        {
             units.RemoveAt(index);
+            OnUnitRemove?.Invoke(unit);
+        }
 
         return unit;
     }
 
     public void RemoveUnit(UnitBase unit)
     {
-        if (_units.TryGetValue(unit.UnitType, out var units))
-            units.Remove(unit);
+        if (_units.TryGetValue(unit.UnitType, out var units) && units.Remove(unit))
+                OnUnitRemove?.Invoke(unit);
     }
 }
 

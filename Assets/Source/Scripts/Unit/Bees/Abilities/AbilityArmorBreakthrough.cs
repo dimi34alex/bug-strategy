@@ -12,7 +12,8 @@ namespace Unit.Bees
         private readonly MobileHive _mobileHive;
         private readonly float _explosionRadius;
         private readonly LayerMask _explosionLayers;
-        
+        private readonly RaycastHit[] _explosionBuffer = new RaycastHit[32];
+
         public float Damage { get; private set; }
         public AbilityType AbilityType => AbilityType.ArmorBreakthrough;
 
@@ -33,18 +34,17 @@ namespace Unit.Bees
             Explosion();
             SpawnUnits();
         }
-        
+
         private void Explosion()
         {
-            RaycastHit[] result = new RaycastHit[50];
             var size = Physics.SphereCastNonAlloc(_mobileHive.transform.position, _explosionRadius, Vector3.down,
-                result, 0, _explosionLayers);
+                _explosionBuffer, 0, _explosionLayers);
 
             for (int i = 0; i < size; i++)
             {
-                if (result[i].collider.gameObject.TryGetComponent(out IDamagable damageable)
-                    && _mobileHive.Affiliation.CheckEnemies(damageable.Affiliation))
-                {
+                if (_explosionBuffer[i].collider.gameObject.TryGetComponent(out IDamagable damageable)
+                    && damageable.IsAlive && _mobileHive.Affiliation.CheckEnemies(damageable.Affiliation))
+                { 
                     damageable.TakeDamage(_mobileHive, this);
                 }
             }  

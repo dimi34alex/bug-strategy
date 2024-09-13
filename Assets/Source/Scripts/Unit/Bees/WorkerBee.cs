@@ -2,6 +2,7 @@
 using Constructions.UnitsHideConstruction.Cells.BeesHiderCells;
 using Source.Scripts.Ai.InternalAis;
 using Source.Scripts.Ai.UnitAis;
+using Source.Scripts.Missions;
 using Source.Scripts.Unit.AbilitiesCore;
 using Unit.Bees.Configs;
 using Unit.OrderValidatorCore;
@@ -18,6 +19,7 @@ namespace Unit.Bees
         [SerializeField] private BeeWorkerConfig config;
         [SerializeField] private GameObject resourceSkin;
 
+        [Inject] private readonly MissionData _missionData;
         [Inject] private readonly IResourceGlobalStorage _resourceGlobalStorage;
         
         public override UnitType UnitType => UnitType.WorkerBee;
@@ -52,7 +54,7 @@ namespace Unit.Bees
             };
             _stateMachine = new EntityStateMachine(stateBases, EntityStateID.Idle);
 
-            InternalAi = new WorkerBeeInternalAi(this, stateBases);
+            InternalAi = new WorkerBeeInternalAi(this, stateBases, _missionData);
         }
 
         public override void HandleUpdate(float time)

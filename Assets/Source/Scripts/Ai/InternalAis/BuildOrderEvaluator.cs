@@ -25,7 +25,6 @@ namespace Source.Scripts.Ai.InternalAis
                     if (UnitInternalAi.GlobalAiOrderTarget.IsAnyNull())
                         throw new NullReferenceException($"Target is null");
                     return 1;
-                    break;
             }
 
             return float.MinValue;

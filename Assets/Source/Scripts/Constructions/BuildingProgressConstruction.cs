@@ -17,12 +17,7 @@ public class BuildingProgressConstruction : ConstructionBase
 
     private GameObject currentWorker;
     public bool WorkerArrived;
-
-    void Start()
-    {
-        GameObject controller = GameObject.FindGameObjectWithTag("GameController");
-    }
-
+    
     public void StartBuilding(int duration, ConstructionID constructionID)
     {
         if (BuildingProgressState != BuildingProgressState.Waiting)

@@ -23,7 +23,7 @@ public class SwitchAntProfessionCunstruction : MonoBehaviour, IUnitTarget, ITrig
 
     public event Action<ITriggerable> OnDisableITriggerableEvent;
 
-    public event Action OnDeactivation;
+    public event Action<IUnitTarget> OnDeactivation;
     
     void Update()
     {
@@ -48,4 +48,14 @@ public class SwitchAntProfessionCunstruction : MonoBehaviour, IUnitTarget, ITrig
 
     public bool TryTakeConfig(ProfessionType professionType, int professionRang, out AntProfessionConfigBase config)
         => antProfessionsConfigsRepository.TryTakeConfig(professionType, professionRang, out config);
+
+    private void OnDisable()
+    {
+        OnDisableITriggerableEvent?.Invoke(this);
+    }
+
+    private void OnDestroy()
+    {
+        OnDeactivation?.Invoke(this);
+    }
 }

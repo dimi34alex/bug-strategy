@@ -17,8 +17,8 @@ MonoBehaviour:
   <Cooldown>k__BackingField: 1
   <AttackRange>k__BackingField: 10
   <Damage>k__BackingField: 5
-  <ExplosionDamage>k__BackingField: 50
-  <ExplosionRadius>k__BackingField: 50
+  <ExplosionDamage>k__BackingField: 40
+  <ExplosionRadius>k__BackingField: 10
   <ExplosionLayers>k__BackingField:
     serializedVersion: 2
     m_Bits: 6144

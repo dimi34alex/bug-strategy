@@ -8,7 +8,7 @@ namespace Unit.ProcessorsCore
     {
         private readonly UnitInteractionZone _attackZone;
         private readonly IAffiliation _affiliation;
-        private readonly Dictionary<IUnitTarget, IDamagable> _targets = new Dictionary<IUnitTarget, IDamagable>();
+        private readonly Dictionary<IUnitTarget, IDamagable> _targets = new();
 
         public IReadOnlyDictionary<IUnitTarget, IDamagable> Targets => _targets;
         public int EnemiesCount => _targets.Keys.Count;
@@ -24,14 +24,14 @@ namespace Unit.ProcessorsCore
             
             _attackZone = unit.DynamicUnitZone;
             _attackZone.SetRadius(AttackRange);
-            _attackZone.EnterEvent += OnEnterTargetInZone;
-            _attackZone.ExitEvent += OnExitTargetFromZone;
+            _attackZone.EnterEvent += TryAddTarget;
+            _attackZone.ExitEvent += TryRemoveTarget;
             
             foreach (var target in _attackZone.UnitTargets)
-                OnEnterTargetInZone(target);
+                TryAddTarget(target);
         }
         
-        protected void OnEnterTargetInZone(IUnitTarget target)
+        private void TryAddTarget(IUnitTarget target)
         {
             if (target.IsAnyNull() ||
                 target.Affiliation == _affiliation.Affiliation ||
@@ -39,12 +39,15 @@ namespace Unit.ProcessorsCore
                 Targets.ContainsKey(target))
                 return;
 
+            target.OnDeactivation += TryRemoveTarget;
             _targets.Add(target, damageable);
             OnEnterEnemyInZone?.Invoke();
         }
 
-        protected void OnExitTargetFromZone(IUnitTarget target)
+        private void TryRemoveTarget(IUnitTarget target)
         {
+            target.OnDeactivation -= TryRemoveTarget;
+            
             if (_targets.Remove(target))
                 OnExitEnemyFromZone?.Invoke();
         }

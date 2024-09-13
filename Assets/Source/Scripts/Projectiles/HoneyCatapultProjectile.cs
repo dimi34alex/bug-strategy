@@ -44,6 +44,7 @@ namespace Projectiles
             for (int i = 0; i < size; i++)
             {
                 if (result[i].collider.gameObject.TryGetComponent(out IDamagable damageable) 
+                    && damageable.IsAlive
                     && Affiliation.CheckEnemies(damageable.Affiliation))
                 {
                     float damageScale = 1;

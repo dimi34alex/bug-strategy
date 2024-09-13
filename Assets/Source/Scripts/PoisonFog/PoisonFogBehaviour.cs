@@ -61,5 +61,10 @@ namespace PoisonFog
             if (triggerable.TryCast(out IEffectable effectable))
                 effectable.EffectsProcessor.RemoveFixedEnter(EffectType.Poison);
         }
+
+        private void OnDestroy()
+        {
+            ElementDestroyEvent?.Invoke(this);
+        }
     }
 }

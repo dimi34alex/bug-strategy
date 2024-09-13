@@ -13,9 +13,9 @@ public class ResourceRepository
 
     public ResourceRepository() { }
 
-    public ResourceRepository(ResourceConfig[] resourceConfigs)
+    public ResourceRepository(IReadOnlyList<ResourceConfig> resourceConfigs)
     {
-        _configs = new Dictionary<ResourceID, ResourceConfig>(resourceConfigs.Length);
+        _configs = new Dictionary<ResourceID, ResourceConfig>(resourceConfigs.Count);
         foreach (ResourceConfig config in resourceConfigs)
         {
             _configs.Add(config.ID, config);

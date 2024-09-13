@@ -16,6 +16,7 @@ public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagabl
 
     public bool IsSelected { get; private set; }
     public bool IsActive { get; protected set; } = true;
+    public bool IsAlive => IsActive && _healthStorage.CurrentValue > 0f;
     
     public abstract ConstructionID ConstructionID { get; }
     public UnitTargetType TargetType => UnitTargetType.Construction;
@@ -28,7 +29,7 @@ public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagabl
     public event Action<ITriggerable> OnDisableITriggerableEvent;
     public event Action OnSelect;
     public event Action OnDeselect;
-    public event Action OnDeactivation;
+    public event Action<IUnitTarget> OnDeactivation;
     public event Action OnDestruction;
     public event Action Initialized;
     
@@ -47,11 +48,17 @@ public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagabl
     
     public virtual void TakeDamage(IUnitTarget attacker, IDamageApplicator damageApplicator, float damageScale = 1)
     {
+        if (!IsAlive)
+        {
+            Debug.LogError($"You try damage construction that already destructed {attacker} | {damageApplicator} | {this}");
+            return;
+        }
+
         _healthStorage.ChangeValue(-damageApplicator.Damage * damageScale);
         if (_healthStorage.CurrentValue <= 0)
         {
             IsActive = false;
-            OnDeactivation?.Invoke();
+            OnDeactivation?.Invoke(this);
             MissionData.ConstructionsRepository.GetConstruction(transform.position, true);
             OnDestruction?.Invoke();
             Destroy(gameObject);
@@ -80,15 +87,18 @@ public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagabl
     }
 
     protected void SendDeactivateEvent() 
-        => OnDeactivation?.Invoke();
+        => OnDeactivation?.Invoke(this);
     
     private void OnDestroy()
     {
+        IsActive = false;
         _onDestroy?.Invoke();
+        OnDeactivation?.Invoke(this);
     }
 
     private void OnDisable()
     {
+        IsActive = false;
         OnDisableITriggerableEvent?.Invoke(this);
     }
 }

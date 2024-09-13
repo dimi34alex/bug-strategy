@@ -43,7 +43,7 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
     public AffiliationEnum Affiliation { get; private set; }
     public abstract InternalAiBase InternalAi { get; protected set; }
 
-    public bool IsDied => _healthStorage.CurrentValue < 1f;
+    public bool IsAlive => IsActive && _healthStorage.CurrentValue > 0f;
     public Transform Transform => transform;
     public UnitVisibleZone VisibleZone => _unitVisibleZone;
     public UnitInteractionZone UnitInteractionZone => unitInteractionZone;
@@ -85,7 +85,7 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
     public event Action<UnitBase> ElementReturnEvent;
     public event Action<UnitBase> ElementDestroyEvent;
     public event Action OnTargetMovePositionChange;
-    public event Action OnDeactivation;
+    public event Action<IUnitTarget> OnDeactivation;
     public event Action TookDamage;
     public event Action<IUnitTarget> TookDamageWithAttacker;
     public event Action PathTargetDeactivated;
@@ -143,12 +143,18 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
     
     public virtual void TakeDamage(IUnitTarget attacker, IDamageApplicator damageApplicator, float damageScale = 1)
     {
+        if (!IsAlive)
+        {
+            Debug.LogError($"You try damage unit that already dead: {attacker} | {damageApplicator} | {this}");
+            return;
+        }
+
         _healthStorage.ChangeValue(-damageApplicator.Damage * damageScale);
         OnDamaged();
         TookDamage?.Invoke();
         TookDamageWithAttacker?.Invoke(attacker);
 
-        if (IsDied)
+        if (!IsAlive)
         {
             OnUnitDied?.Invoke(this);
             OnUnitDiedEvent?.Invoke();
@@ -181,7 +187,7 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
     public virtual void OnElementReturn()
     {
         IsActive = false;
-        OnDeactivation?.Invoke();
+        OnDeactivation?.Invoke(this);
         gameObject.SetActive(false);
     }
 
@@ -233,7 +239,7 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
         CalculateNewState(targetMovePosition);
     }
 
-    private void OnPathTargetDeactivated() 
+    private void OnPathTargetDeactivated(IUnitTarget _) 
         => PathTargetDeactivated?.Invoke();
 
     public EntityStateID EntityStateID;
@@ -279,6 +285,11 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
     private void OnDisable()
     {
         OnDisableITriggerableEvent?.Invoke(this);
+    }
+
+    private void OnDestroy()
+    {
+        ElementDestroyEvent?.Invoke(this);
     }
 
     public void SwitchSticky(bool isSticky)

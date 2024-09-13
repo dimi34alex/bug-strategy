@@ -1,10 +1,10 @@
 ﻿using System;
-using Source.Scripts.Missions;
+using UnityEngine;
 
 [Serializable]
 public class GlobalData
 {
-    public MissionData ActiveMission { get; private set; }
+    public int ActiveMissionIndex { get; private set; }
     
     public GlobalData()
     {
@@ -13,11 +13,17 @@ public class GlobalData
     
     public GlobalData(GlobalData globalData)
     {
-        ActiveMission = globalData.ActiveMission;
+        ActiveMissionIndex = globalData.ActiveMissionIndex;
     }
 
-    public void SetActiveMission(MissionData newMission)
+    public void SetActiveMission(int newMissionIndex)
     {
-        ActiveMission = newMission;
+        if (newMissionIndex < 0)
+        {
+            Debug.LogError($"Mission Index cant be less then 0");
+            newMissionIndex = 0;
+        }
+        
+        ActiveMissionIndex = newMissionIndex;
     }
 }

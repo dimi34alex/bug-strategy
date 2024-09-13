@@ -42,7 +42,7 @@ namespace Unit.OrderValidatorCore
 
         public UnitPathData AutoGiveOrder(IUnitTarget target)
         {
-            if (!target.IsAnyNull() && !target.IsActive)
+            if (target.IsAnyNull() || !target.IsActive)
                 target = null;
             return ValidateAutoOrder(target);
         }
@@ -51,7 +51,7 @@ namespace Unit.OrderValidatorCore
         
         public UnitPathData HandleGiveOrder(IUnitTarget target, UnitPathType pathType)
         {
-            if (!target.IsAnyNull() && !target.IsActive)
+            if (target.IsAnyNull() || !target.IsActive)
                 target = null;
             return new UnitPathData(target, ValidateHandleOrder(target, pathType));
         }

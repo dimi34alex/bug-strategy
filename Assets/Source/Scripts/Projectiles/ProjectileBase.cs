@@ -34,7 +34,7 @@ namespace Projectiles
             Attacker = attacker;
             Damage = damage;
 
-            Attacker.OnDeactivation += () => Attacker = null;
+            Attacker.OnDeactivation += (_) => Attacker = null;
         }
 
         public void SetTarget(IUnitTarget target)
@@ -47,7 +47,7 @@ namespace Projectiles
 
         public virtual void OnElementExtract() => gameObject.SetActive(true);
 
-        private void OnTargetDeactivation()
+        private void OnTargetDeactivation(IUnitTarget _)
         {
             Target.OnDeactivation -= OnTargetDeactivation;
             ReturnInPool();

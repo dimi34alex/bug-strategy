@@ -6,13 +6,15 @@ namespace Source.Scripts.Ai.InternalAis
     public class ResourceCollectOrderEvaluator : UnitInternalEvaluator
     {
         private readonly IReadOnlyResourceExtractionProcessor _resourceExtractionProcessor;
+        private readonly MissionData _missionData;
         private ResourceSourceBase _hashedResourceSource;
         
         public ResourceCollectOrderEvaluator(UnitBase unit, InternalAiBase internalAi
-            , IReadOnlyResourceExtractionProcessor resourceExtractionProcessor) 
+            , IReadOnlyResourceExtractionProcessor resourceExtractionProcessor, MissionData missionData) 
             : base(unit, internalAi)
         {
             _resourceExtractionProcessor = resourceExtractionProcessor;
+            _missionData = missionData;
         }
         
         public override float Evaluate()
@@ -35,7 +37,6 @@ namespace Source.Scripts.Ai.InternalAis
                     break;
                 case AiUnitStateType.CollectResource:
                     return 5;
-                    break;
             }
             
             return float.MinValue;
@@ -47,7 +48,7 @@ namespace Source.Scripts.Ai.InternalAis
             {
                 case AiUnitStateType.CollectResource:
                     if(_hashedResourceSource == null || !_hashedResourceSource.CanBeCollected)
-                        _hashedResourceSource = GlobalDataHolder.GlobalData.ActiveMission.ResourceSourcesRepository
+                        _hashedResourceSource = _missionData.ResourceSourcesRepository
                             .GetNearest(Unit.transform.position, true);
                     break;
             }

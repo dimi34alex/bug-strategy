@@ -9,7 +9,7 @@ public interface IUnitTarget
     public bool IsActive { get; }
     
     /// <summary>
-    /// mean something like: unit die or construction destroyed
+    /// mean something like: unit die or construction destructed, also it invoke OnDestroy
     /// </summary>
-    public event Action OnDeactivation;
+    public event Action<IUnitTarget> OnDeactivation;
 }

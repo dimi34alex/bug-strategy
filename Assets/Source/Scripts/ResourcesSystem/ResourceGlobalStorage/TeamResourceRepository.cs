@@ -7,7 +7,7 @@ public class TeamResourceRepository
 
     public static event Action ResourceChanged;
 
-    public TeamResourceRepository(ResourceConfig[] resourceConfigs, IReadOnlyDictionary<ResourceID, ResourceInitialState> initialStates)
+    public TeamResourceRepository(IReadOnlyList<ResourceConfig> resourceConfigs, IReadOnlyDictionary<ResourceID, ResourceInitialState> initialStates)
     {
         ResourceRepository = new ResourceRepository(resourceConfigs);
             

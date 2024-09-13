@@ -11,19 +11,22 @@ namespace Unit.Bees
         private readonly float _explosionDamage;
         private readonly LayerMask _explosionLayers;
         private readonly IConstructionFactory _constructionFactory;
-        
+        private readonly MissionData _missionData;
+
         public float Damage => _explosionDamage;
         public AbilityType AbilityType => AbilityType.Accumulation;
         public AffiliationEnum Affiliation => _bumblebee.Affiliation;
         
-        public AbilityAccumulation(Bumblebee bumblebee, float explosionRadius, float explosionDamage, LayerMask explosionLayers, IConstructionFactory constructionFactory)
+        public AbilityAccumulation(Bumblebee bumblebee, float explosionRadius, float explosionDamage, 
+            LayerMask explosionLayers, IConstructionFactory constructionFactory, MissionData missionData)
         {
             _bumblebee = bumblebee;
             _explosionRadius = explosionRadius;
             _explosionDamage = explosionDamage;
             _explosionLayers = explosionLayers;
             _constructionFactory = constructionFactory;
-            
+            _missionData = missionData;
+
             _bumblebee.OnUnitDiedEvent += Explosion;
         }
 
@@ -52,15 +55,15 @@ namespace Unit.Bees
         private void TrySpawnStickyTile()
         {
             var roundedPosition = 
-                GlobalDataHolder.GlobalData.ActiveMission.ConstructionsRepository
+                _missionData.ConstructionsRepository
                     .RoundPositionToGrid(_bumblebee.transform.position);
             
-            if(GlobalDataHolder.GlobalData.ActiveMission.ConstructionsRepository.ConstructionExist(roundedPosition))
+            if(_missionData.ConstructionsRepository.ConstructionExist(roundedPosition))
                 return;
             
-            ConstructionBase construction = _constructionFactory.Create<ConstructionBase>(ConstructionID.BeeStickyTileConstruction, Affiliation);
+            var construction = _constructionFactory.Create<ConstructionBase>(ConstructionID.BeeStickyTileConstruction, Affiliation);
             construction.transform.position = roundedPosition;
-            GlobalDataHolder.GlobalData.ActiveMission.ConstructionsRepository.AddConstruction(roundedPosition, construction);
+            _missionData.ConstructionsRepository.AddConstruction(roundedPosition, construction);
         }
     }
 }

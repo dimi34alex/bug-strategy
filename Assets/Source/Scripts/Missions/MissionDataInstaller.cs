@@ -1,4 +1,3 @@
-using System.Linq;
 using Zenject;
 
 namespace Source.Scripts.Missions
@@ -7,15 +6,10 @@ namespace Source.Scripts.Missions
     {
         public override void InstallBindings()
         {
-            if (GlobalDataHolder.GlobalData.ActiveMission == null)
-            {
-                var missionConfig = ConfigsRepository.FindConfig<MissionsConfig>().MissionsConfigs.First();
-                var missionData = new MissionData(0, missionConfig);
-                GlobalDataHolder.GlobalData.SetActiveMission(missionData);
-            }
+            var missionIndex = GlobalDataHolder.GlobalData.ActiveMissionIndex;
+            var missionConfig = ConfigsRepository.FindConfig<MissionsConfig>().MissionsConfigs[missionIndex];
             
-            Container.BindInterfacesAndSelfTo<MissionData>().FromInstance(GlobalDataHolder.GlobalData.ActiveMission)
-                .AsSingle();
+            Container.BindInterfacesAndSelfTo<MissionData>().FromNew().AsSingle().WithArguments(0, missionConfig);
         }
     }
 }

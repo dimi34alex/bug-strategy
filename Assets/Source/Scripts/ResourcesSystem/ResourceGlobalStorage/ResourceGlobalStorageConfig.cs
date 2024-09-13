@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 
 [CreateAssetMenu (fileName = nameof(ResourceGlobalStorageConfig), menuName = "Configs/" + nameof(ResourceGlobalStorageConfig))]
-public class ResourceGlobalStorageConfig : ScriptableObject
+public class ResourceGlobalStorageConfig : ScriptableObject, ISingleConfig
 {
     [SerializeField]
     private SerializableDictionary<AffiliationEnum, SerializableDictionary<ResourceID, ResourceInitialState>> initialStates;

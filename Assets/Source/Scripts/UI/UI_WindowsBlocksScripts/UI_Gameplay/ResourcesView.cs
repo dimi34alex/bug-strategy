@@ -1,13 +1,17 @@
 using System;
 using System.Collections.Generic;
+using Source.Scripts.Missions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace Source.Scripts.UI.UI_WindowsBlocksScripts.UI_Gameplay
 {
     public class ResourcesView : UIScreen
     {
+        [Inject] private MissionData _missionData;
+        
         [Serializable]
         private struct SomeResourcePrint
         {
@@ -34,7 +38,7 @@ namespace Source.Scripts.UI.UI_WindowsBlocksScripts.UI_Gameplay
 
             foreach (var printResouce in _printResoucesWithType)
             {
-                ResourceBase resource = ResourceGlobalStorage.GetResource(printResouce.Key);
+                ResourceBase resource =  ResourceGlobalStorage.GetResource(printResouce.Key);
                 printResouce.Value.Icon.sprite = resource.Icon;
                 printResouce.Value.name.text = resource.ID.ToString();
             }

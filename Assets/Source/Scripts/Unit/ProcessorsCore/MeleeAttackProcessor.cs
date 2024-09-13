@@ -14,7 +14,7 @@ namespace Unit.ProcessorsCore
         
         protected override void Attack(IUnitTarget target)
         {
-            if (target.TryCast(out IDamagable damageable))
+            if (target.TryCast(out IDamagable damageable) && damageable.IsAlive)
             {
                 damageable.TakeDamage(Attacker, this);
                 Attacked?.Invoke();

@@ -11,7 +11,7 @@ namespace Projectiles
             if (target.TryCast(out IEffectable effectable))
                 effectable.EffectsProcessor.ApplyEffect(EffectType.MoveSpeedDown);
             
-            if (target.TryCast(out IDamagable damageable))
+            if (target.TryCast(out IDamagable damageable) && damageable.IsAlive)
                 damageable.TakeDamage(Attacker, this);
 
             ReturnInPool();

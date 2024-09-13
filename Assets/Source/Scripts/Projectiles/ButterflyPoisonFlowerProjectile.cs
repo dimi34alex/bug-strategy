@@ -17,7 +17,7 @@ namespace Projectiles
         
         protected override void CollideWithTarget(IUnitTarget target)
         {
-            if (target.TryCast(out IDamagable mainDamageable))
+            if (target.TryCast(out IDamagable mainDamageable) && mainDamageable.IsAlive)
                 mainDamageable.TakeDamage(Attacker, this);
 
             if (_damageRadius > 0)

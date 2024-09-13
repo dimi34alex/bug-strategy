@@ -24,6 +24,8 @@ namespace Projectiles
             projectile.ElementReturnEvent += RemoveProjectile;
             
             _projectiles[projectile.ProjectileType].Add(projectile);
+            
+            OnProjectileAdd?.Invoke(projectile);
         }
 
         public TProjectile TryGetProjectile<TProjectile>(ProjectileType projectileType, Predicate<TProjectile> predicate = null, bool remove = false) 
@@ -40,15 +42,18 @@ namespace Projectiles
             TProjectile projectile = projectiles[index].Cast<TProjectile>();
 
             if (remove)
+            {
                 projectiles.RemoveAt(index);
+                OnProjectileRemove?.Invoke(projectile);
+            }
 
             return projectile;
         }
 
         public void RemoveProjectile(ProjectileBase projectile)
         {
-            if (_projectiles.TryGetValue(projectile.ProjectileType, out var projectiles))
-                projectiles.Remove(projectile);
+            if (_projectiles.TryGetValue(projectile.ProjectileType, out var projectiles) && projectiles.Remove(projectile))
+                OnProjectileRemove?.Invoke(projectile);
         }
     }
 }

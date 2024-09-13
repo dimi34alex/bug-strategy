@@ -18,7 +18,7 @@ public abstract class ResourceSourceBase : MonoBehaviour, IMiniMapObject, ITrigg
     public Transform Transform => transform;
     
     public event Action<ITriggerable> OnDisableITriggerableEvent;
-    public event Action OnDeactivation;
+    public event Action<IUnitTarget> OnDeactivation;
 
     private void Awake()
     {
@@ -31,6 +31,12 @@ public abstract class ResourceSourceBase : MonoBehaviour, IMiniMapObject, ITrigg
     
     private void OnDisable()
     {
+        IsActive = false;
         OnDisableITriggerableEvent?.Invoke(this);
+    }
+
+    private void OnDestroy()
+    {
+        OnDeactivation?.Invoke(this);
     }
 }

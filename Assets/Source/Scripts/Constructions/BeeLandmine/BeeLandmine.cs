@@ -16,6 +16,7 @@ namespace Constructions
         [Inject] private readonly BuildingGridConfig _buildingGridConfig;
         
         private Timer _explosionTimer;
+        private readonly RaycastHit[] _explosionBuffer = new RaycastHit[32];
 
         public override FractionType Fraction => FractionType.Bees;
         public override ConstructionID ConstructionID => ConstructionID.BeeLandmine;
@@ -54,20 +55,21 @@ namespace Constructions
 
         private void Explosion()
         {
-            RaycastHit[] result = new RaycastHit[30];
             var size = Physics.SphereCastNonAlloc(transform.position, config.ExplosionRadius, Vector3.down,
-                result, 0, layerMask);
+                _explosionBuffer, 0, layerMask);
 
             for (int i = 0; i < size; i++)
             {
-                if (result[i].collider.gameObject.TryGetComponent(out IDamagable damageable) && 
-                    Affiliation.CheckEnemies(damageable.Affiliation));
+                if (_explosionBuffer[i].collider.gameObject.TryGetComponent(out IDamagable damageable) 
+                    && damageable.IsAlive
+                    && Affiliation.CheckEnemies(damageable.Affiliation));
                 {
                     damageable.TakeDamage(this, this);
                 }
             }
 
             MissionData.ConstructionsRepository.GetConstruction(transform.position, true);
+            SendDeactivateEvent();
             SpawnStickyTile();
             Destroy(gameObject);
         }

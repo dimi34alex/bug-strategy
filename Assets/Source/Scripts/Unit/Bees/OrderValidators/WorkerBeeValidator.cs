@@ -2,6 +2,7 @@ using Construction.TownHalls;
 using Unit.OrderValidatorCore;
 using Unit.ProcessorsCore;
 using UnitsHideCore;
+using UnityEngine;
 
 namespace Unit.Bees
 {
@@ -17,7 +18,7 @@ namespace Unit.Bees
 
         protected override UnitPathData ValidateAutoOrder(IUnitTarget target)
         {
-            if(target.IsAnyNull())
+            if(target.IsAnyNull() || !target.IsActive)
                 return new UnitPathData(null, UnitPathType.Move);
             
             switch (target.TargetType)
@@ -48,7 +49,7 @@ namespace Unit.Bees
         
         protected override UnitPathType ValidateHandleOrder(IUnitTarget target, UnitPathType pathType)
         {
-            if (target.IsAnyNull()) 
+            if (target.IsAnyNull() || !target.IsActive) 
                 return UnitPathType.Move;
             
             switch (pathType)

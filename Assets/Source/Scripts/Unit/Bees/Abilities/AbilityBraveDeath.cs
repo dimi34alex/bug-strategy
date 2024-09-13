@@ -22,7 +22,7 @@ namespace Unit.Bees
             truten.OnDeactivation += HealNearAllies;
         }
 
-        private void HealNearAllies()
+        private void HealNearAllies(IUnitTarget _)
         {
             RaycastHit[] result = new RaycastHit[100];
             var size = Physics.SphereCastNonAlloc(_truten.transform.position, _healRadius, Vector3.down,

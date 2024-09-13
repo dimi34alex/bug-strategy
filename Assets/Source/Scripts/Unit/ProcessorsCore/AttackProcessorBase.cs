@@ -37,7 +37,9 @@ namespace Unit.ProcessorsCore
 
         public bool TargetInZone(IUnitTarget someTarget)
         {
-            if(someTarget.IsAnyNull()) return false;
+            if(someTarget.IsAnyNull() || !someTarget.IsActive)
+                return false;
+            
             return _attackZoneProcessor.Targets.ContainsKey(someTarget);
         }
 
@@ -56,8 +58,8 @@ namespace Unit.ProcessorsCore
         {
             if (_cooldownProcessor.IsCooldown) return;
             
-            if (!target.IsAnyNull() && CheckAttackDistance(target) && target.CastPossible<IDamagable>() ||
-                TryGetNearestDamageableTarget(out target))
+            if (!target.IsAnyNull() && target.IsActive && CheckAttackDistance(target) && target.CastPossible<IDamagable>() 
+                || TryGetNearestDamageableTarget(out target))
             {
                 Attack(target);
                 _cooldownProcessor.StartCooldown();

@@ -1,22 +1,19 @@
 using System;
 using System.Collections.Generic;
+using Source.Scripts.ResourcesSystem.ResourceGlobalStorage;
 using UnityEngine;
+using Zenject;
 
-public class TeamsResourceGlobalStorage : MonoBehaviour, IResourceGlobalStorage
+public class TeamsResourceGlobalStorage : IResourceGlobalStorage
 {
-    [SerializeField] private ResourceGlobalStorageConfig config;
-    [SerializeField] private ResourceConfig[] resourceConfigs;
+    private List<ResourceGlobalStorageInspectorVisualisation> _visualisation = new();//dont make it readonly
+    private readonly Dictionary<AffiliationEnum, TeamResourceRepository> _resourceRepositories = new();
 
-    private List<ResourceGlobalStorageInspectorVisualisation> _visualisation = new List<ResourceGlobalStorageInspectorVisualisation>();
-    
-    private readonly Dictionary<AffiliationEnum, TeamResourceRepository> _resourceRepositories =
-        new Dictionary<AffiliationEnum, TeamResourceRepository>();
-        
-    private void Awake()
+    public TeamsResourceGlobalStorage(ResourceGlobalStorageConfig config, ResourcesConfig resourceConfigs)
     {
         foreach (var initialState in config.InitialStates)
         {
-            var newTeamResourceRepository = new TeamResourceRepository(resourceConfigs, initialState.Value);
+            var newTeamResourceRepository = new TeamResourceRepository(resourceConfigs.ResourceConfigs, initialState.Value);
             _resourceRepositories.Add(initialState.Key, newTeamResourceRepository);
             _visualisation.Add(new ResourceGlobalStorageInspectorVisualisation(initialState.Key, newTeamResourceRepository));
         }
@@ -32,13 +29,13 @@ public class TeamsResourceGlobalStorage : MonoBehaviour, IResourceGlobalStorage
         
     public void ChangeCapacity(AffiliationEnum affiliation, ResourceID resourceID, float capacity)
     {
-        ResourceBase resourceBase = _resourceRepositories[affiliation].GetResource(resourceID);
+        var resourceBase = _resourceRepositories[affiliation].GetResource(resourceID);
         resourceBase.SetCapacity(resourceBase.Capacity + capacity);
     }
 
     public void ChangeValue(AffiliationEnum affiliation, ResourceID resourceID, float value)
     {
-        ResourceBase resourceBase = _resourceRepositories[affiliation].GetResource(resourceID);
+        var resourceBase = _resourceRepositories[affiliation].GetResource(resourceID);
         resourceBase.ChangeValue(value);
     }
     
