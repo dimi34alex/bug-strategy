@@ -2,17 +2,16 @@ namespace Source.Scripts.Missions
 {
     public static class GlobalDataHolder
     {
-        private static GlobalData _globalData = new();
-        public static GlobalData GlobalData => _globalData;
+        public static GlobalData GlobalData { get; private set; } = new();
 
         public static void Load()
         {
-            _globalData = SerializeExtensions.Deserialize<GlobalData>() ?? new GlobalData();
+            GlobalData = SerializeExtensions.Deserialize<GlobalData>() ?? new GlobalData();
         }
 
         public static void Save()
         {
-            SerializeExtensions.Serialize(_globalData);
+            SerializeExtensions.Serialize(GlobalData);
         }
     }
 }
