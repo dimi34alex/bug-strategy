@@ -75,8 +75,7 @@ namespace Source.Scripts.UI.EntityInfo.ConstructionInfo
             for (int i = 0; i < recruitingInformation.Count && i < _orderedTypes.Count; i++)
                 if (!recruitingInformation[i].Empty)
                     dict[i] = _images[recruitingInformation[i].UnitId];
-
-            Debug.Log($"UpdateButtons: {dict.Keys.Count} {recruitingInformation.Count} {_orderedTypes.Count}");
+            
             SetButtons(false, dict, _orderedTypes);
         }
         

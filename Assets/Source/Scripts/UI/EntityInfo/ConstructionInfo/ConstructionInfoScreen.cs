@@ -84,7 +84,6 @@ namespace Source.Scripts.UI.EntityInfo.ConstructionInfo
             if (onlyOneActionsType)
                 _actionsType = _uiConstructionConfig.ConstructionActions.First().Key;
             
-            Debug.Log(_actionsType);
             switch (_actionsType)
             {
                 case ConstructionActionsType.None:

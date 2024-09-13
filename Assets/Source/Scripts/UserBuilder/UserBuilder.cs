@@ -51,7 +51,6 @@ public class UserBuilder : CycleInitializerBase
                 ConstructionBase selectedConstruction = FrameworkCommander.GlobalData.ConstructionSelector.SelectedConstruction;
                 selectedConstruction.Select();
                 UnitSelection.Instance.DeselectAllWithoutCheck();
-                Debug.Log(selectedConstruction.ConstructionID);
                 _UIController.SetWindow(selectedConstruction);
             }
             else if (!MouseCursorOverUI())
