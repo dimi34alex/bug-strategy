@@ -291,6 +291,8 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
 
     private void OnDestroy()
     {
+        CurrentPathData = null;//Rodion: need cus on game destroying target will be deactivated,
+                               //so it triggered this unit, that destroyed too
         ElementDestroyEvent?.Invoke(this);
     }
 
