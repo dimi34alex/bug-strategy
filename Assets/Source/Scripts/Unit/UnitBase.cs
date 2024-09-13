@@ -114,9 +114,6 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
         _stateMachine.OnUpdate();
       
         EffectsProcessor.HandleUpdate(time);
-
-        foreach (var ability in _abilites)
-            ability.OnUpdate(Time.deltaTime);
     }
 
     protected virtual void OnAwake() { }
@@ -135,9 +132,7 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
 
     public virtual void GiveOrder(GameObject target, Vector3 position)
         => AutoGiveOrder(target.GetComponent<IUnitTarget>(), position);
-
-    public void UseAbility(int abilityIndex)
-        => _abilites[abilityIndex].OnUse();
+    
     public void SetAffiliation(AffiliationEnum affiliation)
     {
         Affiliation = affiliation;
