@@ -29,15 +29,6 @@ namespace Constructions
         private void InitLevelSystem()
             => LevelSystem.Init(0);
         
-        //TODO: remove this temporary code, when new ui will be create
-        [ContextMenu(nameof(RecruitHoneyCatapult))]
-        private void RecruitHoneyCatapult()
-            => RecruitUnit(UnitType.HoneyCatapult);
-        
-        //TODO: remove this temporary code, when new ui will be create
-        [ContextMenu(nameof(RecruitMobileHive))]
-        private void RecruitMobileHive()
-            => RecruitUnit(UnitType.MobileHive);
         
         //TODO: remove this temporary code, when new ui will be create
         [ContextMenu(nameof(ExtractHidedUnit))]

@@ -53,10 +53,5 @@ namespace Constructions
             FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(transform.position, construction);
             construction.transform.position = transform.position;
         }
-        
-        //TODO: remove this temporary code, when ui will be create
-        [ContextMenu("Level up")]
-        private void LevelUp()
-            => LevelSystem.TryLevelUp();
     }
 }

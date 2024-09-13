@@ -31,36 +31,6 @@ namespace Constructions
         private void InitLevelSystem()
             => LevelSystem.Init(0);
         
-        //TODO: remove this legacy code, when new ui will be create; use BarrackBase.RecruitUnit(...)
-        public void RecruitBees(UnitType beeID)
-        {
-            int freeStackIndex = _recruiter.FindFreeStack();
-
-            if (freeStackIndex == -1)
-            {
-                UIController.ErrorCall("All stacks are busy");
-                return;
-            }
-
-            if (!_recruiter.CheckCosts(beeID))
-            {
-                UIController.ErrorCall("Need more resources");
-                return;
-            }
-
-            _recruiter.RecruitUnit(beeID, freeStackIndex);
-        }
-
-        //TODO: remove this temporary code, when new ui will be create
-        [ContextMenu(nameof(RecruitHornet))]
-        private void RecruitHornet()
-            => RecruitUnit(UnitType.Hornet);
-        
-        //TODO: remove this temporary code, when new ui will be create
-        [ContextMenu(nameof(RecruitTruten))]
-        private void RecruitTruten()
-            => RecruitUnit(UnitType.Truten);
-        
         //TODO: remove this temporary code, when new ui will be create
         [ContextMenu(nameof(ExtractHidedUnit))]
         public void ExtractHidedUnit()

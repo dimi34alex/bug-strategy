@@ -28,21 +28,6 @@ namespace Constructions
         
         private void InitLevelSystem()
             => LevelSystem.Init(0);
-
-        //TODO: remove this temporary code when new ui will be create
-        [ContextMenu(nameof(RecruitMurmur))]
-        private void RecruitMurmur()
-            => RecruitUnit(UnitType.Murmur);
-        
-        //TODO: remove this temporary code when new ui will be create
-        [ContextMenu(nameof(RecruitSawyer))]
-        private void RecruitSawyer()
-            => RecruitUnit(UnitType.Sawyer);
-        
-        //TODO: remove this temporary code when new ui will be create
-        [ContextMenu(nameof(RecruitHorntail))]
-        private void RecruitHorntail()
-            => RecruitUnit(UnitType.Horntail);
         
         //TODO: remove this temporary code, when new ui will be create
         [ContextMenu(nameof(ExtractHidedUnit))]

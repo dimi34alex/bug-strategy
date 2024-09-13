@@ -43,17 +43,7 @@ namespace Source.Scripts.UI.UI_WindowsBlocksScripts.UI_Gameplay
                 }
             }
         }
-    
-        public void _RecruitingWax()
-        {
-            _construction.RecruitBees(UnitType.Wasp);
-        }
-    
-        public void _RecruitingBumblebee()
-        {
-            _construction.RecruitBees(UnitType.Bumblebee);
-        }
-
+        
         private void OnDisable()
         {
             _recruiter.OnChange -= UpdateRecruitInfo;
