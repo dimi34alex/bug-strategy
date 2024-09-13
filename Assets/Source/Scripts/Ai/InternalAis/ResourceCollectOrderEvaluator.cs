@@ -1,3 +1,4 @@
+using Source.Scripts.Missions;
 using Unit.ProcessorsCore;
 
 namespace Source.Scripts.Ai.InternalAis
@@ -46,7 +47,7 @@ namespace Source.Scripts.Ai.InternalAis
             {
                 case AiUnitStateType.CollectResource:
                     if(_hashedResourceSource == null || !_hashedResourceSource.CanBeCollected)
-                        _hashedResourceSource = FrameworkCommander.GlobalData.ResourceSourcesRepository
+                        _hashedResourceSource = GlobalDataHolder.GlobalData.ActiveMission.ResourceSourcesRepository
                             .GetNearest(Unit.transform.position, true);
                     break;
             }

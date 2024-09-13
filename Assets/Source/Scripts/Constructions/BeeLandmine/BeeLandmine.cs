@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using CustomTimer;
+using Source.Scripts.Missions;
 using UnityEngine;
 using Zenject;
 
@@ -10,7 +11,7 @@ namespace Constructions
         [SerializeField] private BeeLandmineConfig config;
         [SerializeField] private TriggerBehaviour _triggerBehaviour;
         [SerializeField] private LayerMask layerMask;
-        
+
         [Inject] private readonly IConstructionFactory _constructionFactory;
         [Inject] private readonly BuildingGridConfig _buildingGridConfig;
         
@@ -66,7 +67,7 @@ namespace Constructions
                 }
             }
 
-            FrameworkCommander.GlobalData.ConstructionsRepository.GetConstruction(transform.position, true);
+            MissionData.ConstructionsRepository.GetConstruction(transform.position, true);
             SpawnStickyTile();
             Destroy(gameObject);
         }
@@ -122,11 +123,11 @@ namespace Constructions
 
         private void SpawnStickyTile(Vector3 position)
         {
-            if( FrameworkCommander.GlobalData.ConstructionsRepository.ConstructionExist(position))
+            if(MissionData.ConstructionsRepository.ConstructionExist(position))
                 return;
             
             BeeStickyTile construction = _constructionFactory.Create<BeeStickyTile>(ConstructionID.BeeStickyTileConstruction, Affiliation);
-            FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position, construction);
+            MissionData.ConstructionsRepository.AddConstruction(position, construction);
             construction.transform.position = position;
         }
     }

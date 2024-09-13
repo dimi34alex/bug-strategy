@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators.Configs;
 using Unit.Factory;
 
-namespace Source.Scripts.Ai
+namespace Source.Scripts.Ai.MainAis
 {
-    public class BeesGlobalAi
+    public class BeesGlobalAi : IGlobalAi
     {
         private readonly AffiliationEnum _affiliation;
         private readonly UnitsAiRepository _unitsAiRepository;

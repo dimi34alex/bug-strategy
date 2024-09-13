@@ -1,6 +1,6 @@
 using Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators.Configs;
 
-namespace Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators
+namespace Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators.RecruitingEvaluators
 {
     public class RecruitSawyerEvaluator : RecruitEvaluatorBase
     {

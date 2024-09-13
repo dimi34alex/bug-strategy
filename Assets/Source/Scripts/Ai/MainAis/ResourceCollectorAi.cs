@@ -1,9 +1,7 @@
 using System.Collections.Generic;
 using CustomTimer;
-using Source.Scripts.Ai.InternalAis;
-using Unit.Bees;
 
-namespace Source.Scripts.Ai
+namespace Source.Scripts.Ai.MainAis
 {
     public class ResourceCollectorAi
     {

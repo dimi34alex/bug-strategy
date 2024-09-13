@@ -1,10 +1,14 @@
 using System;
 using UnityEngine;
 using MiniMapSystem;
+using Source.Scripts.Missions;
+using Zenject;
 
 public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagable, IRepairable, IMiniMapObject,
     ITriggerable, IUnitTarget, SelectableSystem.ISelectable, IAffiliation
 {
+    [Inject] protected readonly MissionData MissionData;
+    
     public AffiliationEnum Affiliation { get; private set; }
     public abstract FractionType Fraction { get; }
 
@@ -48,8 +52,8 @@ public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagabl
         {
             IsActive = false;
             OnDeactivation?.Invoke();
+            MissionData.ConstructionsRepository.GetConstruction(transform.position, true);
             OnDestruction?.Invoke();
-            FrameworkCommander.GlobalData.ConstructionsRepository.GetConstruction(transform.position, true);
             Destroy(gameObject);
         }
     }
@@ -74,6 +78,9 @@ public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagabl
         IsSelected = false;
         OnDeselect?.Invoke();
     }
+
+    protected void SendDeactivateEvent() 
+        => OnDeactivation?.Invoke();
     
     private void OnDestroy()
     {

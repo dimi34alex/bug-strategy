@@ -1,5 +1,6 @@
 using Constructions.LevelSystemCore;
 using Projectiles.Factory;
+using Source.Scripts.Missions;
 using UnityEngine;
 using Zenject;
 
@@ -9,7 +10,7 @@ namespace Constructions
     {
         [SerializeField] private TriggerBehaviour attackZone;
         [SerializeField] private BeeWaxTowerConfig config;
-        
+
         [Inject] private readonly ProjectileFactory _projectileFactory;
         [Inject] private readonly IConstructionFactory _constructionFactory;
         [Inject] private readonly IResourceGlobalStorage _resourceGlobalStorage;
@@ -47,10 +48,8 @@ namespace Constructions
 
         private void SpawnStickyTile()
         {
-            FrameworkCommander.GlobalData.ConstructionsRepository.GetConstruction(transform.position, true);
-            
             ConstructionBase construction = _constructionFactory.Create<ConstructionBase>(ConstructionID.BeeStickyTileConstruction, Affiliation);
-            FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(transform.position, construction);
+            MissionData.ConstructionsRepository.AddConstruction(transform.position, construction);
             construction.transform.position = transform.position;
         }
     }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Source.Scripts.Missions;
 using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;
@@ -19,6 +20,7 @@ public class MapGeneration : MonoBehaviour
     [SerializeField] private GameObject grassPrefab;
     [SerializeField] private GameObject cloverPrefab;
 
+    [Inject] private MissionData _missionData;
     [Inject] private BuildingGridConfig _constructionConfig;
 
     private Vector3 _currentTilePosition;
@@ -33,8 +35,7 @@ public class MapGeneration : MonoBehaviour
         _currentTilePosition = centralPosition;
         _currentTilePosition.x -= width/2;
         _currentTilePosition.z += height/2;
-        _currentTilePosition =
-            FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(_currentTilePosition);
+        _currentTilePosition = _missionData.ConstructionsRepository.RoundPositionToGrid(_currentTilePosition);
         _currentTilePosition.z +=  _constructionConfig.HexagonsOffcets.y/2;
         
         GenerateMap();
@@ -47,7 +48,7 @@ public class MapGeneration : MonoBehaviour
         {
             int tileNum = (int)Random.Range(0, tilesPrefabs.Count);
 
-            Instantiate(tilesPrefabs[tileNum], FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(_currentTilePosition), Quaternion.Euler(0, 0, 0), this.transform);
+            Instantiate(tilesPrefabs[tileNum], _missionData.ConstructionsRepository.RoundPositionToGrid(_currentTilePosition), Quaternion.Euler(0, 0, 0), this.transform);
 
             int tryToSpawnFlower = (int)Random.Range(0, 100);
             int tryToSpawnBush = (int)Random.Range(0, 100);
@@ -58,22 +59,22 @@ public class MapGeneration : MonoBehaviour
             {
                 int flowerNum = (int)Random.Range(0, flowerPrefabs.Count);
 
-                var flowerPosition = FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(_currentTilePosition);
+                var flowerPosition = _missionData.ConstructionsRepository.RoundPositionToGrid(_currentTilePosition);
                 var flower = Instantiate(flowerPrefabs[flowerNum], flowerPosition, Quaternion.Euler(0, 0, 0), this.transform);
-                FrameworkCommander.GlobalData.ResourceSourcesRepository.Add(flowerPosition, flower);
-                FrameworkCommander.GlobalData.ConstructionsRepository.BlockCell(flowerPosition);
+                _missionData.ResourceSourcesRepository.Add(flowerPosition, flower);
+                _missionData.ConstructionsRepository.BlockCell(flowerPosition);
             }
             else if (tryToSpawnBush < bushGenChance)
             {
-                Instantiate(bushPrefab, FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(_currentTilePosition), Quaternion.Euler(0, 0, 0), this.transform);
+                Instantiate(bushPrefab, _missionData.ConstructionsRepository.RoundPositionToGrid(_currentTilePosition), Quaternion.Euler(0, 0, 0), this.transform);
             }
             else if (tryToSpawnGrass < grassGenChance)
             {
-                Instantiate(grassPrefab, FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(_currentTilePosition), Quaternion.Euler(0, 0, 0), this.transform);
+                Instantiate(grassPrefab, _missionData.ConstructionsRepository.RoundPositionToGrid(_currentTilePosition), Quaternion.Euler(0, 0, 0), this.transform);
             }
             else if (tryToSpawnClover < cloverGenChance)
             {
-                Instantiate(cloverPrefab, FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(_currentTilePosition), Quaternion.Euler(0, 0, 0), this.transform);
+                Instantiate(cloverPrefab, _missionData.ConstructionsRepository.RoundPositionToGrid(_currentTilePosition), Quaternion.Euler(0, 0, 0), this.transform);
             }
 
 

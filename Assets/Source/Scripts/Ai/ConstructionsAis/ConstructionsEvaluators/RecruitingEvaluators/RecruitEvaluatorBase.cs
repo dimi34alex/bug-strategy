@@ -3,7 +3,7 @@ using System.Linq;
 using Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators.Configs;
 using UnitsRecruitingSystemCore;
 
-namespace Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators
+namespace Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators.RecruitingEvaluators
 {
     public abstract class RecruitEvaluatorBase : ConstructionEvaluatorBase
     {

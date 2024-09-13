@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
-using Construction.TownHalls;
 using Constructions;
 using Source.Scripts.Ai.ConstructionsAis;
-using Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators;
 using Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators.Configs;
 
-namespace Source.Scripts.Ai
+namespace Source.Scripts.Ai.MainAis
 {
     public class ConstructionsAi
     {

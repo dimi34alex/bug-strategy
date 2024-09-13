@@ -1,4 +1,5 @@
 using System;
+using Source.Scripts.Missions;
 using UnityEngine;
 using Zenject;
 
@@ -8,6 +9,7 @@ namespace Constructions
     {
         [SerializeField] private SerializableDictionary<AffiliationEnum, InitPair[]> initUnits;
 
+        [Inject] private readonly MissionData _missionData;
         [Inject] private readonly IConstructionFactory _constructionFactory;
         
         private void Start()
@@ -16,7 +18,7 @@ namespace Constructions
             {
                 foreach (var initUnitPair in initUnitsArray.Value)
                 {
-                    Vector3 position = FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(initUnitPair.Transform.position);
+                    Vector3 position = _missionData.ConstructionsRepository.RoundPositionToGrid(initUnitPair.Transform.position);
                     CreateConstruction(initUnitPair.ID, position, initUnitsArray.Key);
                 }
             }
@@ -26,7 +28,7 @@ namespace Constructions
         {
             ConstructionBase construction = _constructionFactory.Create<ConstructionBase>(constructionID, affiliation);
             
-            FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position, construction);
+            _missionData.ConstructionsRepository.AddConstruction(position, construction);
             construction.transform.position = position;
         }
         

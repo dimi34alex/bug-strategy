@@ -1,26 +1,23 @@
 ﻿using System;
-using PoisonFog;
-using Projectiles;
+using Source.Scripts.Missions;
 
 [Serializable]
 public class GlobalData
 {
-    public readonly UnitRepository UnitRepository;
-    public readonly ProjectilesRepository ProjectilesRepository;
-    public readonly PoisonFogsRepository PoisonFogsRepository;
-    public readonly ResourceRepository ResourceRepository;
-    public readonly ConstructionsRepository ConstructionsRepository;
-    public readonly ConstructionSelector ConstructionSelector;
-    public readonly ResourceSourcesRepository ResourceSourcesRepository;
+    public MissionData ActiveMission { get; private set; }
     
     public GlobalData()
     {
-        UnitRepository = new UnitRepository();
-        ProjectilesRepository = new ProjectilesRepository();
-        PoisonFogsRepository = new PoisonFogsRepository();
-        ResourceRepository = new ResourceRepository();
-        ConstructionsRepository = new ConstructionsRepository();
-        ConstructionSelector = new ConstructionSelector(ConstructionsRepository);
-        ResourceSourcesRepository = new ResourceSourcesRepository();
+
+    }
+    
+    public GlobalData(GlobalData globalData)
+    {
+        ActiveMission = globalData.ActiveMission;
+    }
+
+    public void SetActiveMission(MissionData newMission)
+    {
+        ActiveMission = newMission;
     }
 }

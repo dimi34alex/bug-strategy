@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using Construction.TownHalls;
 using CustomTimer;
-using Source.Scripts.Ai.InternalAis;
 using UnityEngine;
 
-namespace Source.Scripts.Ai
+namespace Source.Scripts.Ai.MainAis
 {
     public class CombatAi
     {

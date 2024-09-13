@@ -1,6 +1,6 @@
 using UnitsRecruitingSystemCore;
 
-namespace Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators
+namespace Source.Scripts.Ai.ConstructionsAis
 {
     public interface IRecruitingConstruction
     {

@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using Constructions;
 using Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators.Configs;
+using Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators.RecruitingEvaluators;
 
-namespace Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators
+namespace Source.Scripts.Ai.ConstructionsAis
 {
     public class BeeSiegeWeaponsBarrackAi : ConstructionAiBase
     {

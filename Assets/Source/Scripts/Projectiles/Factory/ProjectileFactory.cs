@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using EnumValuesExtension;
+using Source.Scripts.Missions;
 using UnityEngine;
 using Zenject;
 
@@ -8,6 +9,7 @@ namespace Projectiles.Factory
 {
     public class ProjectileFactory : MonoBehaviour
     {
+        [Inject] private MissionData _missionData;
         [Inject] private ProjectilesPrefabsConfig _projectilesPrefabsConfig;
         [Inject] private DiContainer _container;
 
@@ -33,7 +35,7 @@ namespace Projectiles.Factory
         public ProjectileBase Create(ProjectileType projectileType)
         {
             var projectile = _pool.ExtractElement(projectileType);
-            FrameworkCommander.GlobalData.ProjectilesRepository.AddProjectile(projectile);
+            _missionData.ProjectilesRepository.AddProjectile(projectile);
             
             return projectile;
         }

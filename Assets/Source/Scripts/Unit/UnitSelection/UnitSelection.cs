@@ -1,10 +1,14 @@
 ﻿using System.Collections.Generic;
+using Source.Scripts.Missions;
 using Source.Scripts.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Zenject;
 
 public class UnitSelection : MonoBehaviour
 {
+    [Inject] MissionData _missionData;
+    
     private bool _isSelecting;
 
     private Vector3 _mouseStartSelectionPoint;
@@ -12,7 +16,7 @@ public class UnitSelection : MonoBehaviour
 
     private UIController _UIController;
 
-    private List<UnitBase> _unitsInScreen =>FrameworkCommander.GlobalData.UnitRepository.AllUnits;
+    private List<UnitBase> _unitsInScreen => _missionData.UnitRepository.AllUnits;
     private List<UnitBase> _selectedUnits = new List<UnitBase>();
 
     public Camera Camera => Camera.main;
@@ -47,7 +51,7 @@ public class UnitSelection : MonoBehaviour
             _mouseStartSelectionPoint = Input.mousePosition;
         }
 
-        if (Input.GetMouseButtonUp(0) && !FrameworkCommander.GlobalData.ConstructionSelector.TrySelect(ray))
+        if (Input.GetMouseButtonUp(0) && !_missionData.ConstructionSelector.TrySelect(ray))
         {
             _isSelecting = false;
             _mouseEndSelectionPoint = Input.mousePosition;

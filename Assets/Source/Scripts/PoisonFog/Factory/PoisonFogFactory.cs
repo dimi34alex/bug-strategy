@@ -1,3 +1,4 @@
+using Source.Scripts.Missions;
 using UnityEngine;
 using Zenject;
 
@@ -5,8 +6,9 @@ namespace PoisonFog.Factory
 {
     public class PoisonFogFactory : MonoBehaviour
     {
+        [Inject] private MissionData _missionData;
         [Inject] private PoisonFogFactoryConfig _poisonFogFactoryConfig;
-
+        
         private Pool<PoisonFogBehaviour> _pool;
 
         private void Awake()
@@ -21,7 +23,7 @@ namespace PoisonFog.Factory
         {
             var fog = _pool.ExtractElement();
             fog.transform.position = position;
-            FrameworkCommander.GlobalData.PoisonFogsRepository.Add(fog);
+            _missionData.PoisonFogsRepository.Add(fog);
             
             return fog;
         }

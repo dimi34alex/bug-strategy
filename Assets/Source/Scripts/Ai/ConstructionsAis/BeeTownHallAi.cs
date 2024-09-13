@@ -3,6 +3,7 @@ using Construction.TownHalls;
 using Constructions;
 using Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators;
 using Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators.Configs;
+using Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators.RecruitingEvaluators;
 
 namespace Source.Scripts.Ai.ConstructionsAis
 {

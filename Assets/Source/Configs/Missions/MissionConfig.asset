@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7241783d4b95481995407667dd8b9222, type: 3}
+  m_Name: MissionConfig
+  m_EditorClassIdentifier: 
+  <PlayerAffiliation>k__BackingField: 10
+  fractionByAffiliation:
+    _cells:
+    - Key: 10
+      Value: 10
+    - Key: 20
+      Value: 10
+  <TimeBeforeAttackPlayerTownHall>k__BackingField: 120

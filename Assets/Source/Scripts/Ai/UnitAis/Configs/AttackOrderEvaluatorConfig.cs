@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Source.Scripts.Ai.InternalAis.Configs
+namespace Source.Scripts.Ai.UnitAis.Configs
 {
     [Serializable]
     public class AttackOrderEvaluatorConfig

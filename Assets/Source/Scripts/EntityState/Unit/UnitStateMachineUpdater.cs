@@ -1,10 +1,15 @@
+using Source.Scripts.Missions;
+using Zenject;
+
 public class UnitStateMachineUpdater : CycleInitializerBase
 {
+    [Inject] private MissionData _missionData;
+    
     private UnitRepository _unitRepository;
 
     protected override void OnInit()
     {
-        _unitRepository = FrameworkCommander.GlobalData.UnitRepository;
+        _unitRepository = _missionData.UnitRepository;
     }
     protected override void OnUpdate()
     {

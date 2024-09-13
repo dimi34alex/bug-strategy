@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using CustomTimer;
 using Source.Scripts;
+using Source.Scripts.Missions;
 using Unit.Effects;
 using UnityEngine;
+using Zenject;
 
 namespace Constructions
 {
@@ -10,7 +12,7 @@ namespace Constructions
     {
         [SerializeField] private BeeStickyTileConfig config;
         [SerializeField] private TriggerBehaviour stickZone;
-
+        
         private readonly List<BufferBeforeApplyStick> _buffers = new List<BufferBeforeApplyStick>();
         private Timer _existsTimer;
         
@@ -91,8 +93,9 @@ namespace Constructions
 
         private void DestructStickyTile()
         {
-            var roundedPosition = FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(transform.position);
-            FrameworkCommander.GlobalData.ConstructionsRepository.GetConstruction(roundedPosition, true);
+            var roundedPosition = MissionData.ConstructionsRepository.RoundPositionToGrid(transform.position);
+            MissionData.ConstructionsRepository.GetConstruction(roundedPosition, true);
+            SendDeactivateEvent();
             Destroy(gameObject);
         }
         

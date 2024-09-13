@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using Source.Scripts.Ai.InternalAis;
 using Unit.Bees;
 
-namespace Source.Scripts.Ai.InternalAis
+namespace Source.Scripts.Ai.UnitAis
 {
     public class HorntailInternalAi : InternalAiBase
     {

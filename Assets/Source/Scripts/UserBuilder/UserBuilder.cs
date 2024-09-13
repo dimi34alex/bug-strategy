@@ -2,10 +2,12 @@ using UnityEngine;
 using Zenject;
 using UnityEngine.EventSystems;
 using Constructions;
+using Source.Scripts.Missions;
 using Source.Scripts.UI;
 
 public class UserBuilder : CycleInitializerBase
 {
+    [Inject] private readonly MissionData _missionData;
     [Inject] private readonly ConstructionsConfigsRepository _constructionsConfigsRepository;
     [Inject] private readonly IConstructionFactory _constructionFactory;
     [Inject] private readonly DiContainer _diContainer;
@@ -46,9 +48,9 @@ public class UserBuilder : CycleInitializerBase
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             
-            if(FrameworkCommander.GlobalData.ConstructionSelector.TrySelect(ray))
+            if(_missionData.ConstructionSelector.TrySelect(ray))
             {
-                ConstructionBase selectedConstruction = FrameworkCommander.GlobalData.ConstructionSelector.SelectedConstruction;
+                ConstructionBase selectedConstruction = _missionData.ConstructionSelector.SelectedConstruction;
                 selectedConstruction.Select();
                 UnitSelection.Instance.DeselectAllWithoutCheck();
                 _UIController.SetWindow(selectedConstruction);
@@ -72,7 +74,7 @@ public class UserBuilder : CycleInitializerBase
 
         if (!MouseCursorOverUI() && Physics.Raycast(ray, out hit, 100F, CustomLayerID.Construction_Ground.Cast<int>(), QueryTriggerInteraction.Ignore)) //если рэйкаст сталкиваеться с чем нибудь, задаем зданию позицию точки столкновения рэйкаста
         {
-            _currentConstructionMovableModel.transform.position = FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(ray.GetPoint(hit.distance));
+            _currentConstructionMovableModel.transform.position = _missionData.ConstructionsRepository.RoundPositionToGrid(ray.GetPoint(hit.distance));
 
             if (Input.GetButtonDown("Fire1"))//подтверждение строительства здания
             {
@@ -86,7 +88,7 @@ public class UserBuilder : CycleInitializerBase
                     }
                 }
                 
-                foreach (UnitBase unit in FrameworkCommander.GlobalData.UnitRepository.AllUnits)
+                foreach (UnitBase unit in _missionData.UnitRepository.AllUnits)
                 {
                     if (unit.IsSelected && unit.gameObject.CompareTag("Worker") && CanBuyConstruction(unit.Affiliation, _currentConstructionID))
                     {
@@ -138,8 +140,8 @@ public class UserBuilder : CycleInitializerBase
         if (index <= -1) 
             return false;
         
-        Vector3 position = FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(raycastHits[index].point);
-        if (FrameworkCommander.GlobalData.ConstructionsRepository.ConstructionExist(position, false))
+        Vector3 position = _missionData.ConstructionsRepository.RoundPositionToGrid(raycastHits[index].point);
+        if (_missionData.ConstructionsRepository.ConstructionExist(position, false))
             return false;
 
         if (id == ConstructionID.BeeTownHall)
@@ -154,7 +156,7 @@ public class UserBuilder : CycleInitializerBase
     {
         BuildingProgressConstruction progressConstruction = _constructionFactory.Create<BuildingProgressConstruction>(ConstructionID.BuildingProgressConstruction, affiliation);
         progressConstruction.transform.position = position;
-        FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position, progressConstruction);
+        _missionData.ConstructionsRepository.AddConstruction(position, progressConstruction);
                 
         progressConstruction.OnTimerEnd += c => CreateConstruction(affiliation, c, position);
 
@@ -167,11 +169,11 @@ public class UserBuilder : CycleInitializerBase
     {
         ConstructionBase construction = _constructionFactory.Create<ConstructionBase>(buildingProgressConstruction.BuildingConstructionID, affiliation);
         
-        FrameworkCommander.GlobalData.ConstructionsRepository.GetConstruction(position, true);
+        _missionData.ConstructionsRepository.GetConstruction(position, true);
 
         Destroy(buildingProgressConstruction.gameObject);
 
-        FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position, construction);
+        _missionData.ConstructionsRepository.AddConstruction(position, construction);
         construction.transform.position = position;
     }
 

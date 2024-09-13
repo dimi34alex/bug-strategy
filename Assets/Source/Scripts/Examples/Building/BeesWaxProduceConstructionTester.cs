@@ -1,4 +1,5 @@
 ﻿using Constructions;
+using Source.Scripts.Missions;
 using UnityEngine;
 using Zenject;
 
@@ -15,15 +16,15 @@ public class BeesWaxProduceConstructionTester : CycleInitializerBase
 
             if (index > -1)
             {
-                Vector3 position = FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(raycastHits[index].point);
+                Vector3 position = GlobalDataHolder.GlobalData.ActiveMission.ConstructionsRepository.RoundPositionToGrid(raycastHits[index].point);
 
-                if (FrameworkCommander.GlobalData.ConstructionsRepository.ConstructionExist(position.ToInt(), false))
+                if (GlobalDataHolder.GlobalData.ActiveMission.ConstructionsRepository.ConstructionExist(position.ToInt(), false))
                     return;
 
                 BeesWaxProduceConstruction construction =
                     _constructionFactory.Create<BeesWaxProduceConstruction>(ConstructionID.BeeWaxProduceConstruction, AffiliationEnum.None);
                 construction.transform.position = position;
-                FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(position.ToInt(), construction);
+                GlobalDataHolder.GlobalData.ActiveMission.ConstructionsRepository.AddConstruction(position.ToInt(), construction);
             }
         }
     }

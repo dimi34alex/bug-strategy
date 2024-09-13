@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using EnumValuesExtension;
+using Source.Scripts.Missions;
 using UnityEngine;
 using Zenject;
 
@@ -8,6 +9,7 @@ namespace Unit.Factory
 {
     public class UnitFactory : MonoBehaviour
     {
+        [Inject] private MissionData _missionData;
         [Inject] private UnitsPrefabsConfig _prefabsConfig;
         [Inject] private DiContainer _container;
 
@@ -37,7 +39,7 @@ namespace Unit.Factory
             var unit = _pool.ExtractElement(unitType);
             unit.Transform.position = position;
             unit.SetAffiliation(affiliation);
-            FrameworkCommander.GlobalData.UnitRepository.AddUnit(unit);
+            _missionData.UnitRepository.AddUnit(unit);
             UnitCreated?.Invoke(unit);
             
             return unit;

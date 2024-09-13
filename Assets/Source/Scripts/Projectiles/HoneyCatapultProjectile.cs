@@ -1,4 +1,5 @@
 using Source.Scripts;
+using Source.Scripts.Missions;
 using Unit.Effects;
 using UnityEngine;
 using Zenject;
@@ -9,6 +10,7 @@ namespace Projectiles
     {
         [SerializeField] private LayerMask layerMask;
 
+        [Inject] private readonly MissionData _missionData;
         [Inject] private readonly StickConfig _stickConfig;
         [Inject] private readonly IConstructionFactory _constructionFactory;
         
@@ -65,12 +67,12 @@ namespace Projectiles
         
         private void TrySpawnStickyTile()
         {
-            var roundedPos = FrameworkCommander.GlobalData.ConstructionsRepository.RoundPositionToGrid(transform.position);
-            if(FrameworkCommander.GlobalData.ConstructionsRepository.ConstructionExist(roundedPos))
+            var roundedPos = _missionData.ConstructionsRepository.RoundPositionToGrid(transform.position);
+            if(_missionData.ConstructionsRepository.ConstructionExist(roundedPos))
                 return;
             
             ConstructionBase construction = _constructionFactory.Create<ConstructionBase>(ConstructionID.BeeStickyTileConstruction, Affiliation);
-            FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(roundedPos, construction);
+            _missionData.ConstructionsRepository.AddConstruction(roundedPos, construction);
             construction.transform.position = roundedPos;
         }
     }

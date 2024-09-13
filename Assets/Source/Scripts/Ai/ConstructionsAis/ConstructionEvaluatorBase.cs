@@ -1,4 +1,4 @@
-namespace Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators
+namespace Source.Scripts.Ai.ConstructionsAis
 {
     public abstract class ConstructionEvaluatorBase : EvaluatorBase
     {

@@ -1,3 +1,4 @@
+using Source.Scripts.Missions;
 using Source.Scripts.Unit.AbilitiesCore;
 using UnityEngine;
 
@@ -51,15 +52,15 @@ namespace Unit.Bees
         private void TrySpawnStickyTile()
         {
             var roundedPosition = 
-                FrameworkCommander.GlobalData.ConstructionsRepository
+                GlobalDataHolder.GlobalData.ActiveMission.ConstructionsRepository
                     .RoundPositionToGrid(_bumblebee.transform.position);
             
-            if(FrameworkCommander.GlobalData.ConstructionsRepository.ConstructionExist(roundedPosition))
+            if(GlobalDataHolder.GlobalData.ActiveMission.ConstructionsRepository.ConstructionExist(roundedPosition))
                 return;
             
             ConstructionBase construction = _constructionFactory.Create<ConstructionBase>(ConstructionID.BeeStickyTileConstruction, Affiliation);
             construction.transform.position = roundedPosition;
-            FrameworkCommander.GlobalData.ConstructionsRepository.AddConstruction(roundedPosition, construction);
+            GlobalDataHolder.GlobalData.ActiveMission.ConstructionsRepository.AddConstruction(roundedPosition, construction);
         }
     }
 }
