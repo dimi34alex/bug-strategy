@@ -1,63 +1,94 @@
 using System;
 using System.Collections.Generic;
 
-public class ResourceRepository
+namespace Source.Scripts.ResourcesSystem
 {
-    private Dictionary<ResourceID, ResourceConfig> _configs;
-    private Dictionary<ResourceID, ResourceBase> _resources;
-
-    public Dictionary<ResourceID, ResourceBase> Resources => _resources;
-    public Dictionary<ResourceID, ResourceConfig> Configs => _configs;
-
-    public event Action<ResourceBase> OnResourceAdd;
-
-    public ResourceRepository() { }
-
-    public ResourceRepository(IReadOnlyList<ResourceConfig> resourceConfigs)
+    public class ResourceRepository
     {
-        _configs = new Dictionary<ResourceID, ResourceConfig>(resourceConfigs.Count);
-        foreach (ResourceConfig config in resourceConfigs)
-        {
-            _configs.Add(config.ID, config);
-        }
-        _resources = new Dictionary<ResourceID, ResourceBase>(3);
-    }
+        private readonly Dictionary<ResourceID, ResourceConfig> _configs;
+        private readonly Dictionary<ResourceID, ResourceBase> _resources;
 
-    public void CreateResource(ResourceID id, float currentValue, float capacity)
-    {
-        if (!_resources.ContainsKey(id))
-        {
-            ResourceBase resource = new ResourceBase(_configs[id], currentValue, capacity);
-            _resources.Add(id, resource);
-            OnResourceAdd?.Invoke(resource);
-        }
-        else
-        {
-            throw new Exception($"Such a resource already exists: {id}");
-        }
-    }
+        public IReadOnlyDictionary<ResourceID, ResourceBase> Resources => _resources;
+        public IReadOnlyDictionary<ResourceID, ResourceConfig> Configs => _configs;
 
-    public void ChangeCapacity(ResourceID id, float changeValue)
-    {
-        if (_resources.TryGetValue(id, out ResourceBase resource)) 
-            resource.SetCapacity(resource.Capacity + changeValue);
-        else
-            throw new Exception($"No resource: {id}");
-    }
+        public event Action<ResourceBase> OnResourceAdd;
+        public event Action ResourceChanged;
     
-    public void ChangeValue(ResourceID id, float changeValue)
-    {
-        if (_resources.TryGetValue(id, out ResourceBase resource)) 
-            resource.ChangeValue(changeValue);
-        else
-            throw new Exception($"No resource: {id}");
-    }
+        public ResourceRepository(IReadOnlyList<ResourceConfig> resourceConfigs)
+        {
+            _configs = new Dictionary<ResourceID, ResourceConfig>(resourceConfigs.Count);
+            foreach (var config in resourceConfigs) 
+                _configs.Add(config.ID, config);
+        
+            _resources = new Dictionary<ResourceID, ResourceBase>(4);
+        }
     
-    public ResourceBase GetResource(ResourceID resourceType)
-    {
-        if (_resources.TryGetValue(resourceType, out ResourceBase resource))
-            return resource;
-        else
-            throw new Exception($"No resource: {resourceType}");
+        public ResourceRepository(IReadOnlyList<ResourceConfig> resourceConfigs, 
+            IReadOnlyDictionary<ResourceID, ResourceInitialState> initialStates)
+        {
+            _configs = new Dictionary<ResourceID, ResourceConfig>(resourceConfigs.Count);
+            foreach (var config in resourceConfigs) 
+                _configs.Add(config.ID, config);
+
+            _resources = new Dictionary<ResourceID, ResourceBase>(initialStates.Count);
+            foreach (var resourcePair in initialStates)
+                CreateResource(resourcePair.Key, resourcePair.Value.Value, resourcePair.Value.Capacity);
+        }
+
+        public void CreateResource(ResourceID id, float currentValue, float capacity)
+        {
+            if (!_resources.ContainsKey(id))
+            {
+                var resource = new ResourceBase(_configs[id], currentValue, capacity);
+                _resources.Add(id, resource);
+                OnResourceAdd?.Invoke(resource);
+                ResourceChanged?.Invoke();
+            }
+            else
+            {
+                throw new Exception($"Such a resource already exists: {id}");
+            }
+        }
+    
+        public void SetCapacity(ResourceID id, float newCapacity)
+        {
+            if (_resources.TryGetValue(id, out var resource))
+            {
+                resource.SetCapacity(newCapacity);
+                ResourceChanged?.Invoke();
+            }
+            else
+                throw new Exception($"No resource: {id}");
+        }
+    
+        public void ChangeCapacity(ResourceID id, float changeValue)
+        {
+            if (_resources.TryGetValue(id, out var resource))
+            {
+                resource.SetCapacity(resource.Capacity + changeValue);
+                ResourceChanged?.Invoke();
+            }
+            else
+                throw new Exception($"No resource: {id}");
+        }
+    
+        public void ChangeValue(ResourceID id, float changeValue)
+        {
+            if (_resources.TryGetValue(id, out var resource))
+            {
+                resource.ChangeValue(changeValue);
+                ResourceChanged?.Invoke();
+            }
+            else
+                throw new Exception($"No resource: {id}");
+        }
+    
+        public IReadOnlyResource GetResource(ResourceID resourceType)
+        {
+            if (_resources.TryGetValue(resourceType, out var resource))
+                return resource;
+            else
+                throw new Exception($"No resource: {resourceType}");
+        }
     }
 }

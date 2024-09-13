@@ -1,5 +1,7 @@
 ﻿using System;
 using CustomTimer;
+using Source.Scripts.ResourcesSystem;
+using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
 using UnityEngine;
 
 namespace Unit.ProcessorsCore
@@ -9,7 +11,7 @@ namespace Unit.ProcessorsCore
         private readonly IAffiliation _affiliation;
         private readonly Timer _extractionTimer;
         private readonly GameObject _resourceSkin;
-        private readonly IResourceGlobalStorage _resourceGlobalStorage;
+        private readonly ITeamsResourcesGlobalStorage _teamsResourcesGlobalStorage;
         private ResourceSourceBase _prevResourceSource;
         
         public ResourceID ExtractedResourceID { get; private set; }
@@ -21,13 +23,13 @@ namespace Unit.ProcessorsCore
         public event Action OnResourceExtracted;
         public event Action OnStorageResources;
         
-        public ResourceExtractionProcessor(IAffiliation affiliation, int gatheringCapacity, float extractionTime, IResourceGlobalStorage resourceGlobalStorage, GameObject resourceSkin)
+        public ResourceExtractionProcessor(IAffiliation affiliation, int gatheringCapacity, float extractionTime, ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage, GameObject resourceSkin)
         {
             _affiliation = affiliation;
             ExtractionCapacity = gatheringCapacity;
             _extractionTimer = new Timer(extractionTime, 0, true);
             _extractionTimer.OnTimerEnd += ExtractResource;
-            _resourceGlobalStorage = resourceGlobalStorage;
+            _teamsResourcesGlobalStorage = teamsResourcesGlobalStorage;
             _resourceSkin = resourceSkin;
             HideResource();
         }
@@ -74,7 +76,7 @@ namespace Unit.ProcessorsCore
         {
             if(!GotResource) return;
             
-            _resourceGlobalStorage.ChangeValue(_affiliation.Affiliation, ExtractedResourceID, ExtractionCapacity);
+            _teamsResourcesGlobalStorage.ChangeValue(_affiliation.Affiliation, ExtractedResourceID, ExtractionCapacity);
             GotResource = false;
             HideResource();
             

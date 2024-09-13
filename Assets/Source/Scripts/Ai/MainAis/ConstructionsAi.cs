@@ -3,20 +3,21 @@ using System.Collections.Generic;
 using Constructions;
 using Source.Scripts.Ai.ConstructionsAis;
 using Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators.Configs;
+using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
 
 namespace Source.Scripts.Ai.MainAis
 {
     public class ConstructionsAi
     {
         private readonly UnitsAiRepository _unitsAiRepository;
-        private readonly TeamsResourceGlobalStorage _teamsResourceGlobalStorage;
+        private readonly ITeamsResourcesGlobalStorage _teamsResourcesGlobalStorage;
         private readonly List<ConstructionAiBase> _constructionAis = new List<ConstructionAiBase>();
         private readonly Dictionary<Type, ConstructionAiConfigBase> _configs = new Dictionary<Type, ConstructionAiConfigBase>();
         
-        public ConstructionsAi(TeamsResourceGlobalStorage teamsResourceGlobalStorage, 
+        public ConstructionsAi(ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage, 
             UnitsAiRepository unitsAiRepository, IEnumerable<ConstructionAiConfigBase> configs)
         {
-            _teamsResourceGlobalStorage = teamsResourceGlobalStorage;
+            _teamsResourcesGlobalStorage = teamsResourcesGlobalStorage;
             _unitsAiRepository = unitsAiRepository;
 
             foreach (var config in configs)
@@ -34,7 +35,7 @@ namespace Source.Scripts.Ai.MainAis
             if (construction.TryCast(out BeeBarrack beeBarrack))
             {
                 var config = _configs[typeof(BeeBarrackAiConfig)];
-                var newAi = new BeeBarrackAi(_unitsAiRepository, beeBarrack, config as BeeBarrackAiConfig, _teamsResourceGlobalStorage);
+                var newAi = new BeeBarrackAi(_unitsAiRepository, beeBarrack, config as BeeBarrackAiConfig, _teamsResourcesGlobalStorage);
                 newAi.ConstructionDestructed += RemoveConstructionAi;
                 _constructionAis.Add(newAi);
             }
@@ -42,7 +43,7 @@ namespace Source.Scripts.Ai.MainAis
             if (construction.TryCast(out BeeMercenaryBarrack mercenaryBarrack))
             {
                 var config = _configs[typeof(BeeMercenaryBarrackAiConfig)];
-                var newAi = new BeeMercenaryBarrackAi(_unitsAiRepository, mercenaryBarrack, config as BeeMercenaryBarrackAiConfig, _teamsResourceGlobalStorage);
+                var newAi = new BeeMercenaryBarrackAi(_unitsAiRepository, mercenaryBarrack, config as BeeMercenaryBarrackAiConfig, _teamsResourcesGlobalStorage);
                 newAi.ConstructionDestructed += RemoveConstructionAi;
                 _constructionAis.Add(newAi);
             }
@@ -50,7 +51,7 @@ namespace Source.Scripts.Ai.MainAis
             if (construction.TryCast(out BeeSiegeWeaponsBarrack beeSiegeWeaponsBarrack))
             {
                 var config = _configs[typeof(BeeSiegeWeaponsBarrackAiConfig)];
-                var newAi = new BeeSiegeWeaponsBarrackAi(_unitsAiRepository, beeSiegeWeaponsBarrack, config as BeeSiegeWeaponsBarrackAiConfig, _teamsResourceGlobalStorage);
+                var newAi = new BeeSiegeWeaponsBarrackAi(_unitsAiRepository, beeSiegeWeaponsBarrack, config as BeeSiegeWeaponsBarrackAiConfig, _teamsResourcesGlobalStorage);
                 newAi.ConstructionDestructed += RemoveConstructionAi;
                 _constructionAis.Add(newAi);
             }
@@ -58,7 +59,7 @@ namespace Source.Scripts.Ai.MainAis
             if (construction.TryCast(out BeeTownHall townHall))
             {
                 var config = _configs[typeof(BeeTownHallAiConfig)];
-                var newAi = new BeeTownHallAi(_unitsAiRepository, townHall, config as BeeTownHallAiConfig, _teamsResourceGlobalStorage);
+                var newAi = new BeeTownHallAi(_unitsAiRepository, townHall, config as BeeTownHallAiConfig, _teamsResourcesGlobalStorage);
                 newAi.ConstructionDestructed += RemoveConstructionAi;
                 _constructionAis.Add(newAi);
             }

@@ -1,7 +1,9 @@
 using System;
 using UnityEngine;
 using MiniMapSystem;
+using Source.Scripts;
 using Source.Scripts.Missions;
+using Source.Scripts.ResourcesSystem;
 using Zenject;
 
 public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagable, IRepairable, IMiniMapObject,
@@ -12,7 +14,7 @@ public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagabl
     public AffiliationEnum Affiliation { get; private set; }
     public abstract FractionType Fraction { get; }
 
-    protected ResourceStorage _healthStorage = new ResourceStorage(0,0);
+    protected FloatStorage _healthStorage = new FloatStorage(0,0);
 
     public bool IsSelected { get; private set; }
     public bool IsActive { get; protected set; } = true;
@@ -22,7 +24,7 @@ public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagabl
     public UnitTargetType TargetType => UnitTargetType.Construction;
     public MiniMapObjectType MiniMapObjectType => MiniMapObjectType.Construction;
     public Transform Transform => transform;
-    public IReadOnlyResourceStorage HealthStorage => _healthStorage;
+    public IReadOnlyFloatStorage HealthStorage => _healthStorage;
     
     protected event Action _updateEvent;
     protected event Action _onDestroy;

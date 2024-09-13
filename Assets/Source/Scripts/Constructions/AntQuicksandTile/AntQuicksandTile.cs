@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Source.Scripts;
+using Source.Scripts.ResourcesSystem;
+using UnityEngine;
 
 namespace Constructions
 {
@@ -14,7 +16,7 @@ namespace Constructions
         {
             base.OnAwake();
             
-            _healthStorage = new ResourceStorage(config.HealthPoints, config.HealthPoints);
+            _healthStorage = new FloatStorage(config.HealthPoints, config.HealthPoints);
         }
 
         protected override void OnStart()

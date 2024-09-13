@@ -1,6 +1,9 @@
 using System.Collections.Generic;
+using Source.Scripts;
 using Source.Scripts.Ai.InternalAis;
 using Source.Scripts.Ai.UnitAis;
+using Source.Scripts.ResourcesSystem;
+using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
 using Source.Scripts.Unit.AbilitiesCore;
 using Unit.Bees.Configs;
 using Unit.Effects.InnerProcessors;
@@ -19,7 +22,7 @@ namespace Unit.Bees
         [SerializeField] private MurmurConfig config;
         [SerializeField] private GameObject resourceSkin;
 
-        [Inject] private readonly IResourceGlobalStorage _resourceGlobalStorage;
+        [Inject] private readonly ITeamsResourcesGlobalStorage _teamsResourcesGlobalStorage;
         
         public override UnitType UnitType => UnitType.Murmur;
         protected override OrderValidatorBase OrderValidator => _orderValidator;
@@ -40,10 +43,10 @@ namespace Unit.Bees
         {
             base.OnAwake();
 
-            _healthStorage = new ResourceStorage(config.HealthPoints, config.HealthPoints);
+            _healthStorage = new FloatStorage(config.HealthPoints, config.HealthPoints);
             
             _resourceExtractionProcessor = new ResourceExtractionProcessor(this, config.GatheringCapacity, config.GatheringTime,
-                _resourceGlobalStorage, resourceSkin);
+                _teamsResourcesGlobalStorage, resourceSkin);
             _cooldownProcessor = new CooldownProcessor(config.AttackCooldown);
             _attackProcessor = new MeleeAttackProcessor(this, config.AttackRange, config.AttackDamage, _cooldownProcessor);
             _orderValidator = new MurmurOrderValidator(this, config.InteractionRange, _attackProcessor, _resourceExtractionProcessor);

@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using DG.Tweening;
+using Source.Scripts;
+using Source.Scripts.ResourcesSystem;
 using UnityEngine.UI;
 
 public class BarView : MonoBehaviour
@@ -10,9 +12,9 @@ public class BarView : MonoBehaviour
     private float _updateValueDuration = 0.2f;
     private float _updateValueDynamicRatio =4;
 
-    private IReadOnlyResourceStorage _storage;
+    private IReadOnlyFloatStorage _storage;
 
-    public void Init(IReadOnlyResourceStorage storage)
+    public void Init(IReadOnlyFloatStorage storage)
     {
         if (storage == _storage)
             return;

@@ -1,5 +1,8 @@
 using System;
 using Constructions.LevelSystemCore;
+using Source.Scripts;
+using Source.Scripts.ResourcesSystem;
+using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
 using Unit.Factory;
 using UnitsHideCore;
 using UnityEngine;
@@ -12,9 +15,9 @@ namespace Constructions
         private readonly UnitsHider _hider;
 
         public BeeHouseLevelSystem(ConstructionBase construction, BeeHouseConfig config, Transform hiderSpawnPosition,
-            UnitFactory unitFactory, IResourceGlobalStorage resourceGlobalStorage, ResourceStorage healthStorage, 
+            UnitFactory unitFactory, ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage, FloatStorage healthStorage, 
             ref UnitsHider hider)
-            : base(construction, config.Levels,  resourceGlobalStorage, healthStorage)
+            : base(construction, config.Levels,  teamsResourcesGlobalStorage, healthStorage)
         {
             _hider = hider = new UnitsHider(construction, CurrentLevel.HiderCapacity ,unitFactory , hiderSpawnPosition, config.HiderAccess);
         }

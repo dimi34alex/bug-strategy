@@ -1,12 +1,14 @@
 using UnityEngine;
 using System;
 using MiniMapSystem;
+using Source.Scripts;
+using Source.Scripts.ResourcesSystem;
 
 public abstract class ResourceSourceBase : MonoBehaviour, IMiniMapObject, ITriggerable, IUnitTarget
 {
     [SerializeField] private int resourceCapacity;
     
-    protected ResourceStorage ResourceStorage;
+    protected FloatStorage ResourceStorage;
     
     public abstract ResourceID ResourceID { get; }
     public bool IsActive { get; protected set; } = true;
@@ -22,7 +24,7 @@ public abstract class ResourceSourceBase : MonoBehaviour, IMiniMapObject, ITrigg
 
     private void Awake()
     {
-        ResourceStorage = new ResourceStorage(resourceCapacity, resourceCapacity);
+        ResourceStorage = new FloatStorage(resourceCapacity, resourceCapacity);
     }
 
     protected virtual void OnAwake(){}

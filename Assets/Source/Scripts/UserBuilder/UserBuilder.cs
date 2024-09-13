@@ -11,7 +11,6 @@ public class UserBuilder : CycleInitializerBase
     [Inject] private readonly ConstructionsConfigsRepository _constructionsConfigsRepository;
     [Inject] private readonly IConstructionFactory _constructionFactory;
     [Inject] private readonly DiContainer _diContainer;
-    [Inject] private readonly IResourceGlobalStorage _resourceGlobalStorage;
     
     [SerializeField] private SerializableDictionary<ConstructionID, GameObject> constructionMovableModels;
 
@@ -116,7 +115,7 @@ public class UserBuilder : CycleInitializerBase
         bool flagCanBuy = true;
 
         foreach (var element in _constructionsConfigsRepository.TakeBuyCost(id).ResourceCost)
-             if (element.Value > _resourceGlobalStorage.GetResource(affiliation, element.Key).CurrentValue)
+             if (element.Value > _missionData.TeamsResourcesGlobalStorage.GetResource(affiliation, element.Key).CurrentValue)
                  flagCanBuy = false;
 
         return flagCanBuy;
@@ -125,7 +124,7 @@ public class UserBuilder : CycleInitializerBase
     private void BuyConstruction(AffiliationEnum affiliation, ConstructionID id)
     {
         foreach (var element in _constructionsConfigsRepository.TakeBuyCost(id).ResourceCost)
-            _resourceGlobalStorage.GetResource(affiliation, element.Key).SetValue(_resourceGlobalStorage.GetResource(affiliation, element.Key).CurrentValue - element.Value);
+            _missionData.TeamsResourcesGlobalStorage.ChangeValue(affiliation, element.Key, element.Value);
     }
     
     private bool TrySpawnConstruction(AffiliationEnum affiliation, ConstructionID id, out BuildingProgressConstruction construction)

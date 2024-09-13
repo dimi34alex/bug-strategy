@@ -1,4 +1,5 @@
 using Constructions.LevelSystemCore;
+using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
 using Unit.Factory;
 using UnitsHideCore;
 using UnityEngine;
@@ -12,7 +13,7 @@ namespace Constructions
         [SerializeField] private Transform hiderExtractPosition;
 
         [Inject] private readonly UnitFactory _unitFactory;
-        [Inject] private readonly IResourceGlobalStorage _resourceGlobalStorage;
+        [Inject] private readonly ITeamsResourcesGlobalStorage _teamsResourcesGlobalStorage;
 
         private UnitsHider _hider;
 
@@ -26,7 +27,7 @@ namespace Constructions
         {
             base.OnAwake();
 
-            LevelSystem = new BeeHouseLevelSystem(this, config, hiderExtractPosition, _unitFactory, _resourceGlobalStorage,
+            LevelSystem = new BeeHouseLevelSystem(this, config, hiderExtractPosition, _unitFactory, _teamsResourcesGlobalStorage,
                 _healthStorage, ref _hider);
             Initialized += InitLevelSystem;
         }

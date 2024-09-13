@@ -1,5 +1,8 @@
 using System;
 using Constructions.LevelSystemCore;
+using Source.Scripts;
+using Source.Scripts.ResourcesSystem;
+using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
 using UnitsHideCore;
 using UnitsRecruitingSystemCore;
 
@@ -12,9 +15,9 @@ namespace Constructions
         private readonly UnitsHider _hider;
 
         public BeeSiegeWeaponsBarrackLevelSystem(ConstructionBase construction, BeeSiegeWeaponsBarrackConfig config, 
-            IResourceGlobalStorage resourceGlobalStorage, ResourceStorage healthStorage, 
+            ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage, FloatStorage healthStorage, 
             UnitsRecruiter recruiter, UnitsHider hider) 
-            : base(construction, config.Levels,  resourceGlobalStorage, healthStorage)
+            : base(construction, config.Levels,  teamsResourcesGlobalStorage, healthStorage)
         {
             _recruiter = recruiter;
             _hider = hider;

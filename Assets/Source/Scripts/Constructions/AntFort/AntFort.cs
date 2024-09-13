@@ -1,4 +1,5 @@
 using Constructions.LevelSystemCore;
+using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
 using UnityEngine;
 using Zenject;
 
@@ -8,7 +9,7 @@ namespace Constructions
     {
         [SerializeField] private AntFortConfig config;
 
-        [Inject] private readonly IResourceGlobalStorage _resourceGlobalStorage;
+        [Inject] private readonly ITeamsResourcesGlobalStorage _teamsResourcesGlobalStorage;
 
         public override FractionType Fraction => FractionType.Ants;
         public override ConstructionID ConstructionID => ConstructionID.AntFort;
@@ -19,7 +20,7 @@ namespace Constructions
         {
             base.OnAwake();
 
-            LevelSystem = new AntFortLevelSystem(this, config, _resourceGlobalStorage,  _healthStorage);
+            LevelSystem = new AntFortLevelSystem(this, config, _teamsResourcesGlobalStorage,  _healthStorage);
             Initialized += InitLevelSystem;
         }
 

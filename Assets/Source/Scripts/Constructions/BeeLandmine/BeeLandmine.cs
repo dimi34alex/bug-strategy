@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using CustomTimer;
+using Source.Scripts;
 using Source.Scripts.Missions;
+using Source.Scripts.ResourcesSystem;
 using UnityEngine;
 using Zenject;
 
@@ -25,7 +27,7 @@ namespace Constructions
         
         protected override void OnAwake()
         {
-            _healthStorage = new ResourceStorage(config.HealthPoints, config.HealthPoints);
+            _healthStorage = new FloatStorage(config.HealthPoints, config.HealthPoints);
             Damage = config.Damage;
             _explosionTimer = new Timer(config.ExplosionDelay, 0, true);
             _explosionTimer.OnTimerEnd += Explosion;

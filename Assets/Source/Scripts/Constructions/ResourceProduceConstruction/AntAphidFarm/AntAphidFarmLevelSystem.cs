@@ -1,5 +1,8 @@
 using System;
 using Constructions.LevelSystemCore;
+using Source.Scripts;
+using Source.Scripts.ResourcesSystem;
+using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
 
 namespace Constructions
 {
@@ -9,9 +12,9 @@ namespace Constructions
         private readonly ResourceProduceCore _resourceProduceCore;
         
         public AntAphidFarmLevelSystem(ConstructionBase construction, AntAphidFarmConfig config,
-            IResourceGlobalStorage resourceGlobalStorage, ref ResourceProduceCore resourceProduceCore, 
-            ResourceStorage healthStorage) 
-            : base(construction, config.Levels,  resourceGlobalStorage, healthStorage)
+            ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage, ref ResourceProduceCore resourceProduceCore, 
+            FloatStorage healthStorage) 
+            : base(construction, config.Levels,  teamsResourcesGlobalStorage, healthStorage)
         {
             _resourceProduceCore = resourceProduceCore = new ResourceProduceCore(CurrentLevel.ResourceProduceProcessInfo);
         }

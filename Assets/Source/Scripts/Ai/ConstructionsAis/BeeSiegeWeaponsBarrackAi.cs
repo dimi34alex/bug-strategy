@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Constructions;
 using Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators.Configs;
 using Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators.RecruitingEvaluators;
+using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
 
 namespace Source.Scripts.Ai.ConstructionsAis
 {
@@ -10,13 +11,13 @@ namespace Source.Scripts.Ai.ConstructionsAis
         protected override List<ConstructionEvaluatorBase> Evaluators { get; }
 
         public BeeSiegeWeaponsBarrackAi(UnitsAiRepository unitsAiRepository, BeeSiegeWeaponsBarrack barrack, 
-            BeeSiegeWeaponsBarrackAiConfig config, TeamsResourceGlobalStorage teamsResourceGlobalStorage) 
+            BeeSiegeWeaponsBarrackAiConfig config, ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage) 
             : base(barrack)
         {
             Evaluators = new List<ConstructionEvaluatorBase>()
             {
-                new RecruitMobileHiveEvaluator(unitsAiRepository, barrack, config.MobileHive, teamsResourceGlobalStorage),
-                new RecruitHoneyCatapultEvaluator(unitsAiRepository, barrack, config.HoneyCatapult, teamsResourceGlobalStorage)
+                new RecruitMobileHiveEvaluator(unitsAiRepository, barrack, config.MobileHive, teamsResourcesGlobalStorage),
+                new RecruitHoneyCatapultEvaluator(unitsAiRepository, barrack, config.HoneyCatapult, teamsResourcesGlobalStorage)
             };
         }
     }

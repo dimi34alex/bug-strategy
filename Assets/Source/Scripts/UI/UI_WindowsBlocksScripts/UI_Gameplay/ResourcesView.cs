@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Source.Scripts.Missions;
+using Source.Scripts.ResourcesSystem;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -29,32 +30,37 @@ namespace Source.Scripts.UI.UI_WindowsBlocksScripts.UI_Gameplay
 
         private void Start()
         {
+            var resourceRepository = _missionData.TeamsResourcesGlobalStorage
+                    .GetAffiliationResourceRepository(_missionData.PlayerAffiliation);
+            
             _printResoucesWithType = new Dictionary<ResourceID, SomeResourcePrint>();
 
             _printResoucesWithType.Add(ResourceID.Pollen, _pollen);
-            _printResoucesWithType.Add(ResourceID.Bees_Wax, _wax);
+            _printResoucesWithType.Add(ResourceID.BeesWax, _wax);
             _printResoucesWithType.Add(ResourceID.Housing, _housing);
             _printResoucesWithType.Add(ResourceID.Honey, _honey);
 
-            foreach (var printResouce in _printResoucesWithType)
+            foreach (var printResource in _printResoucesWithType)
             {
-                ResourceBase resource =  ResourceGlobalStorage.GetResource(printResouce.Key);
-                printResouce.Value.Icon.sprite = resource.Icon;
-                printResouce.Value.name.text = resource.ID.ToString();
+                var resource =  resourceRepository.GetResource(printResource.Key);
+                printResource.Value.Icon.sprite = resource.Icon;
+                printResource.Value.name.text = resource.ID.ToString();
             }
 
-            ResourceGlobalStorage.ResourceChanged += UpdateResourceInformation;
+            resourceRepository.ResourceChanged += UpdateResourceInformation;
+            UpdateResourceInformation();
         }
     
         private void UpdateResourceInformation()
         {
-            if (_printResoucesWithType!= null) 
-                foreach (var printResouce in _printResoucesWithType)
-                {
-                    ResourceBase resource = ResourceGlobalStorage.GetResource(printResouce.Key);
-                    printResouce.Value.value.text = resource.CurrentValue.ToString() + "/" +
-                                                    resource.Capacity.ToString();
-                }
+            var resourceRepository = _missionData.TeamsResourcesGlobalStorage
+                    .GetAffiliationResourceRepository(_missionData.PlayerAffiliation);
+            
+            foreach (var printResource in _printResoucesWithType)
+            {
+                var resource = resourceRepository.GetResource(printResource.Key);
+                printResource.Value.value.text = $"{resource.CurrentValue} / {resource.Capacity}";
+            }
         }
     }
 }

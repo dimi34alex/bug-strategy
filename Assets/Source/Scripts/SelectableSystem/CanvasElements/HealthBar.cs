@@ -1,4 +1,6 @@
 using System.Collections;
+using Source.Scripts;
+using Source.Scripts.ResourcesSystem;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,12 +15,12 @@ namespace SelectableSystem
     public class  HealthBar : MonoBehaviour, OnSelectionUI
     {
         [SerializeField] private Slider healthPointsSlider;
-        private IReadOnlyResourceStorage _healthStorage;
+        private IReadOnlyFloatStorage _healthStorage;
 
         private bool _coroutineIsActive;
         private float _targetValue;
         
-        public void Init(IReadOnlyResourceStorage healthStorage)
+        public void Init(IReadOnlyFloatStorage healthStorage)
         {
             _healthStorage = healthStorage;
             SetHealthBarValue();

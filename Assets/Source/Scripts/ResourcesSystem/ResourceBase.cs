@@ -1,16 +1,16 @@
 ﻿using UnityEngine;
 
-public class ResourceBase : ResourceStorage
+namespace Source.Scripts.ResourcesSystem
 {
-    private ResourceID _id;
-    private Sprite _icon;
-
-    public ResourceID ID => _id;
-    public Sprite Icon => _icon;
-
-    public ResourceBase(ResourceConfig config, float currentValue, float capacity):base(currentValue, capacity) 
+    public class ResourceBase : FloatStorage, IReadOnlyResource
     {
-        _id = config.ID;
-        _icon = config.Icon;
+        public ResourceID ID { get; }
+        public Sprite Icon { get; }
+
+        public ResourceBase(ResourceConfig config, float currentValue, float capacity):base(currentValue, capacity) 
+        {
+            ID = config.ID;
+            Icon = config.Icon;
+        }
     }
 }

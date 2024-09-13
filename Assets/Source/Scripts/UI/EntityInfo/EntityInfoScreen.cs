@@ -1,3 +1,4 @@
+using Source.Scripts.ResourcesSystem;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +9,7 @@ namespace Source.Scripts.UI.EntityInfo
         [SerializeField] private Image _infoImage;
         private HealthView _healthView;
 
-        private IReadOnlyResourceStorage _health;
+        private IReadOnlyFloatStorage _health;
 
         private void Awake()
         {
@@ -20,7 +21,7 @@ namespace Source.Scripts.UI.EntityInfo
             _healthView = gameObject.GetComponentInChildren<HealthView>(true);
         }
 
-        public void SetHealthPointsInfo(Sprite sprite, IReadOnlyResourceStorage storage)
+        public void SetHealthPointsInfo(Sprite sprite, IReadOnlyFloatStorage storage)
         {
             _healthView.Init(storage);
 

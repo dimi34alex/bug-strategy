@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators.Configs;
 using Source.Scripts.Ai.MainAis;
 using Source.Scripts.Missions;
+using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
 using Unit.Factory;
 
 namespace Source.Scripts.Ai
@@ -12,8 +13,7 @@ namespace Source.Scripts.Ai
         private readonly List<IGlobalAi> _globalAis;
         
         public AisProvider(MissionData missionData, UnitFactory unitFactory, IConstructionFactory constructionFactory,
-            TeamsResourceGlobalStorage teamsResourceGlobalStorage, 
-            float timeBeforeAttackPlayerTownHall,
+            ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage, float timeBeforeAttackPlayerTownHall,
             IReadOnlyCollection<ConstructionAiConfigBase> constructionAiConfigs)
         {
             _globalAis = new List<IGlobalAi>(missionData.FractionTypes.Count - 1);
@@ -29,7 +29,7 @@ namespace Source.Scripts.Ai
                         case FractionType.Bees:
                             _globalAis.Add(new BeesGlobalAi(fractionByAffiliation.Key, unitFactory, 
                                 constructionFactory, timeBeforeAttackPlayerTownHall, 
-                                teamsResourceGlobalStorage, constructionAiConfigs));
+                                teamsResourcesGlobalStorage, constructionAiConfigs));
                             break;
                         case FractionType.Ants:
                             break;

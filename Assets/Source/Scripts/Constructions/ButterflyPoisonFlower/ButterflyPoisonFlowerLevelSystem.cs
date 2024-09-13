@@ -1,5 +1,8 @@
 using System;
 using Constructions.LevelSystemCore;
+using Source.Scripts;
+using Source.Scripts.ResourcesSystem;
+using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
 using UnityEngine;
 
 namespace Constructions
@@ -12,10 +15,10 @@ namespace Constructions
         private readonly SphereCollider _attackZoneCollider;
         
         public ButterflyPoisonFlowerLevelSystem(ConstructionBase construction, ButterflyPoisonFlowerConfig config, 
-            IResourceGlobalStorage resourceGlobalStorage, ResourceStorage healthStorage, 
+            ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage, FloatStorage healthStorage, 
             ref SphereCollider attackZoneCollider, ref ButterflyPoisonFlowerAttackProcessor attackProcessor,
             ref ButterflyPoisonFlowerPoisonFogProcessor poisonFogProcessor) 
-            : base(construction, config.Levels,  resourceGlobalStorage, healthStorage)
+            : base(construction, config.Levels,  teamsResourcesGlobalStorage, healthStorage)
         {
             _attackZoneCollider = attackZoneCollider;
             _attackProcessor = attackProcessor;

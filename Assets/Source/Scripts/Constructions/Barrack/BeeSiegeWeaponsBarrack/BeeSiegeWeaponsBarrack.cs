@@ -19,9 +19,9 @@ namespace Constructions
         {
             base.OnAwake();
             
-            _recruiter = new UnitsRecruiter(this, 0, unitsSpawnPosition, _unitFactory, _resourceGlobalStorage);
+            _recruiter = new UnitsRecruiter(this, 0, unitsSpawnPosition, _unitFactory, TeamsResourcesGlobalStorage);
             _hider = new UnitsHider(this, 0, _unitFactory, unitsSpawnPosition, config.HiderAccess);
-            LevelSystem = new BeeSiegeWeaponsBarrackLevelSystem(this, config, _resourceGlobalStorage, 
+            LevelSystem = new BeeSiegeWeaponsBarrackLevelSystem(this, config, TeamsResourcesGlobalStorage, 
                 _healthStorage, _recruiter, _hider);
             InitLevelSystem();
         }

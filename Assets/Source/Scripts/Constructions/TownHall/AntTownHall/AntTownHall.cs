@@ -1,5 +1,6 @@
 using Construction.TownHalls;
 using Constructions.LevelSystemCore;
+using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
 using UnitsRecruitingSystemCore;
 using UnityEngine;
 using Zenject;
@@ -10,7 +11,7 @@ namespace Constructions
     {
         [SerializeField] private AntTownHallConfig config;
 
-        [Inject] private readonly IResourceGlobalStorage _resourceGlobalStorage;
+        [Inject] private readonly ITeamsResourcesGlobalStorage _teamsResourcesGlobalStorage;
 
         public override FractionType Fraction => FractionType.Ants;
         public override ConstructionID ConstructionID => ConstructionID.AntTownHall;
@@ -21,8 +22,8 @@ namespace Constructions
         {
             base.OnAwake();
             
-            _recruiter = new UnitsRecruiter(this, 0, workerBeesSpawnPosition, _unitFactory, _resourceGlobalStorage);
-            LevelSystem = new AntTownHallLevelSystem(this, config, _resourceGlobalStorage, _healthStorage, _recruiter);
+            _recruiter = new UnitsRecruiter(this, 0, workerBeesSpawnPosition, _unitFactory, _teamsResourcesGlobalStorage);
+            LevelSystem = new AntTownHallLevelSystem(this, config, _teamsResourcesGlobalStorage, _healthStorage, _recruiter);
             
             Initialized += InitLevelSystem;
         }

@@ -1,4 +1,7 @@
 using Constructions.LevelSystemCore;
+using Source.Scripts;
+using Source.Scripts.ResourcesSystem;
+using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
 using Unit.Factory;
 using UnitsHideCore;
 using UnitsRecruitingSystemCore;
@@ -12,9 +15,9 @@ namespace Constructions
         private readonly UnitsHider _hider;
         
         public BeeTownHallLevelSystem(ConstructionBase construction, BeeTownHallConfig config, Transform spawnPosition, 
-            UnitFactory unitFactory, IResourceGlobalStorage resourceGlobalStorage, ResourceStorage healthStorage, 
+            UnitFactory unitFactory, ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage, FloatStorage healthStorage, 
             ref UnitsRecruiter recruiter, ref UnitsHider hider) 
-            : base(construction, config.Levels,  resourceGlobalStorage, healthStorage)
+            : base(construction, config.Levels,  teamsResourcesGlobalStorage, healthStorage)
         {
             _recruiter = recruiter;
 

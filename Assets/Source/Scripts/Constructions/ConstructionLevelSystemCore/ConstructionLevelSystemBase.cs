@@ -1,5 +1,8 @@
 using System.Collections.Generic;
 using System;
+using Source.Scripts;
+using Source.Scripts.ResourcesSystem;
+using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
 
 namespace Constructions.LevelSystemCore
 {
@@ -7,8 +10,8 @@ namespace Constructions.LevelSystemCore
         where TConstructionLevel : ConstructionLevelBase
     {
         protected readonly IReadOnlyList<TConstructionLevel> Levels;
-        protected readonly ResourceStorage HealthStorage;
-        private readonly IResourceGlobalStorage _resourceGlobalStorage;
+        protected readonly FloatStorage HealthStorage;
+        private readonly ITeamsResourcesGlobalStorage _teamsResourcesGlobalStorage;
         private readonly ConstructionBase _construction;
         
         public int CurrentLevelIndex { get; private set; }
@@ -19,13 +22,13 @@ namespace Constructions.LevelSystemCore
         public event Action OnLevelUp;
         
         protected ConstructionLevelSystemBase(ConstructionBase construction, IReadOnlyList<TConstructionLevel> levels,
-            IResourceGlobalStorage resourceGlobalStorage, ResourceStorage healthStorage)
+            ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage, FloatStorage healthStorage)
         {
             _construction = construction;
             Levels = levels;
             CurrentLevelIndex = 0;
 
-            _resourceGlobalStorage = resourceGlobalStorage;
+            _teamsResourcesGlobalStorage = teamsResourcesGlobalStorage;
             HealthStorage = healthStorage;
 
             _construction.OnDestruction += OnConstructionDestruction;
@@ -40,10 +43,10 @@ namespace Constructions.LevelSystemCore
             
             foreach (var resource in CurrentLevel.ResourceCapacity)
             {
-                _resourceGlobalStorage.ChangeCapacity(Affiliation, resource.Key, resource.Value);
+                _teamsResourcesGlobalStorage.ChangeCapacity(Affiliation, resource.Key, resource.Value);
 
                 if (resource.Key == ResourceID.Housing)
-                    _resourceGlobalStorage.ChangeValue(Affiliation, ResourceID.Housing, resource.Value);
+                    _teamsResourcesGlobalStorage.ChangeValue(Affiliation, ResourceID.Housing, resource.Value);
             }
         }
         
@@ -52,7 +55,7 @@ namespace Constructions.LevelSystemCore
         public bool LevelUpPriceCheck()
         {
             foreach (var resourceCost in CurrentLevel.LevelUpCost)
-                if (_resourceGlobalStorage.GetResource(Affiliation, resourceCost.Key).CurrentValue < resourceCost.Value)
+                if (_teamsResourcesGlobalStorage.GetResource(Affiliation, resourceCost.Key).CurrentValue < resourceCost.Value)
                     return false;
 
             return true;
@@ -89,7 +92,7 @@ namespace Constructions.LevelSystemCore
         protected void SpendResources()
         {
             foreach (var resourceCost in CurrentLevel.LevelUpCost)
-                _resourceGlobalStorage.ChangeValue(Affiliation, resourceCost.Key, -resourceCost.Value);
+                _teamsResourcesGlobalStorage.ChangeValue(Affiliation, resourceCost.Key, -resourceCost.Value);
         }
 
         protected void ReCalculateHealthPoints()
@@ -112,18 +115,18 @@ namespace Constructions.LevelSystemCore
             {
                 if (CurrentLevel.ResourceCapacity.ContainsKey(prevResource.Key))
                 {
-                    _resourceGlobalStorage.ChangeCapacity(Affiliation, prevResource.Key,
+                    _teamsResourcesGlobalStorage.ChangeCapacity(Affiliation, prevResource.Key,
                         CurrentLevel.ResourceCapacity[prevResource.Key] - prevResource.Value);
 
                     if (prevResource.Key == ResourceID.Housing)
                     {
-                        _resourceGlobalStorage.ChangeValue(Affiliation, ResourceID.Housing,
+                        _teamsResourcesGlobalStorage.ChangeValue(Affiliation, ResourceID.Housing,
                             (CurrentLevel.ResourceCapacity[prevResource.Key] - prevResource.Value));
                     }
                 }
                 else
                 {
-                    _resourceGlobalStorage.ChangeCapacity(Affiliation, prevResource.Key, -prevResource.Value);
+                    _teamsResourcesGlobalStorage.ChangeCapacity(Affiliation, prevResource.Key, -prevResource.Value);
                 }
 
                 checkedResources.Add(prevResource.Key);
@@ -132,10 +135,10 @@ namespace Constructions.LevelSystemCore
             foreach (var resource in CurrentLevel.ResourceCapacity)
                 if (!checkedResources.Contains(resource.Key))
                 {
-                    _resourceGlobalStorage.ChangeCapacity(Affiliation, resource.Key, resource.Value);
+                    _teamsResourcesGlobalStorage.ChangeCapacity(Affiliation, resource.Key, resource.Value);
 
                     if (resource.Key == ResourceID.Housing)
-                        _resourceGlobalStorage.ChangeValue(Affiliation, ResourceID.Housing, resource.Value);
+                        _teamsResourcesGlobalStorage.ChangeValue(Affiliation, ResourceID.Housing, resource.Value);
                 }
         }
 
@@ -152,9 +155,9 @@ namespace Constructions.LevelSystemCore
             foreach (var resource in CurrentLevel.ResourceCapacity)
             {
                 if (resource.Key == ResourceID.Housing)
-                    _resourceGlobalStorage.ChangeValue(Affiliation, ResourceID.Housing, -resource.Value); 
+                    _teamsResourcesGlobalStorage.ChangeValue(Affiliation, ResourceID.Housing, -resource.Value); 
                 
-                _resourceGlobalStorage.ChangeCapacity(Affiliation, resource.Key, -resource.Value);
+                _teamsResourcesGlobalStorage.ChangeCapacity(Affiliation, resource.Key, -resource.Value);
             }
         }
     }

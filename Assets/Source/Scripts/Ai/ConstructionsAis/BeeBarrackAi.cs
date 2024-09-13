@@ -3,6 +3,7 @@ using Constructions;
 using Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators;
 using Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators.Configs;
 using Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators.RecruitingEvaluators;
+using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
 
 namespace Source.Scripts.Ai.ConstructionsAis
 {
@@ -11,15 +12,15 @@ namespace Source.Scripts.Ai.ConstructionsAis
         protected override List<ConstructionEvaluatorBase> Evaluators { get; }
 
         public BeeBarrackAi(UnitsAiRepository unitsAiRepository, BeeBarrack barrack, 
-            BeeBarrackAiConfig config, TeamsResourceGlobalStorage teamsResourceGlobalStorage) 
+            BeeBarrackAiConfig config, ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage) 
             : base(barrack)
         {
             Evaluators = new List<ConstructionEvaluatorBase>()
             {
-                new RecruitWaspEvaluator(unitsAiRepository, barrack, config.Wasps, teamsResourceGlobalStorage),
-                new RecruitBumblebeeEvaluator(unitsAiRepository, barrack, config.Bumblebees, teamsResourceGlobalStorage),
-                new RecruitHornetEvaluator(unitsAiRepository, barrack, config.Hornets, teamsResourceGlobalStorage),
-                new RecruitTrutenEvaluator(unitsAiRepository, barrack, config.Trutens, teamsResourceGlobalStorage)
+                new RecruitWaspEvaluator(unitsAiRepository, barrack, config.Wasps, teamsResourcesGlobalStorage),
+                new RecruitBumblebeeEvaluator(unitsAiRepository, barrack, config.Bumblebees, teamsResourcesGlobalStorage),
+                new RecruitHornetEvaluator(unitsAiRepository, barrack, config.Hornets, teamsResourcesGlobalStorage),
+                new RecruitTrutenEvaluator(unitsAiRepository, barrack, config.Trutens, teamsResourcesGlobalStorage)
             };
         }
     }

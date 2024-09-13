@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using MiniMapSystem;
+using Source.Scripts;
 using Source.Scripts.Ai.InternalAis;
+using Source.Scripts.ResourcesSystem;
 using Unit;
 using Unit.Effects;
 using Unit.Effects.InnerProcessors;
@@ -29,7 +31,7 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
     [SerializeField] private UnitInteractionZone unitInteractionZone;
     [SerializeField] private UnitInteractionZone dynamicUnitZone;
 
-    protected ResourceStorage _healthStorage { get; set; } = new ResourceStorage(100, 100);
+    protected FloatStorage _healthStorage { get; set; } = new FloatStorage(100, 100);
     protected EntityStateMachine _stateMachine;
     protected List<AbilityBase> _abilites = new List<AbilityBase>();
 
@@ -50,7 +52,7 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
     public UnitInteractionZone DynamicUnitZone => dynamicUnitZone;
     public UnitTargetType TargetType => UnitTargetType.Other_Unit;
     public MiniMapObjectType MiniMapObjectType => MiniMapObjectType.Unit;
-    public IReadOnlyResourceStorage HealthStorage => _healthStorage;
+    public IReadOnlyFloatStorage HealthStorage => _healthStorage;
     public IReadOnlyList<AbilityBase> Abilities => _abilites;
     public EntityStateMachine StateMachine => _stateMachine;
     public UnitType Identifier => UnitType;

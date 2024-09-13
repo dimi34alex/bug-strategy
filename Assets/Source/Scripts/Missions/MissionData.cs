@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using PoisonFog;
 using Projectiles;
+using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
 
 namespace Source.Scripts.Missions
 {
@@ -12,23 +13,22 @@ namespace Source.Scripts.Missions
         public readonly IReadOnlyDictionary<AffiliationEnum, FractionType> FractionTypes;
 
         public readonly UnitRepository UnitRepository = new();
-        public readonly ResourceRepository ResourceRepository = new();
         public readonly ProjectilesRepository ProjectilesRepository = new();
         public readonly PoisonFogsRepository PoisonFogsRepository = new();
         public readonly ResourceSourcesRepository ResourceSourcesRepository = new();
         public readonly ConstructionsRepository ConstructionsRepository = new();
         
-        public readonly TeamsResourceGlobalStorage TeamsResourceGlobalStorage;
+        public readonly ITeamsResourcesGlobalStorage TeamsResourcesGlobalStorage;
         public readonly ConstructionSelector ConstructionSelector;
 
         public FractionType PlayerFraction => FractionTypes[PlayerAffiliation];
         
-        public MissionData(int missionIndex, MissionConfig missionConfig, TeamsResourceGlobalStorage teamsResourceGlobalStorage) 
+        public MissionData(int missionIndex, MissionConfig missionConfig, ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage) 
         {
             MissionIndex = missionIndex;
             PlayerAffiliation = missionConfig.PlayerAffiliation;
             FractionTypes = missionConfig.FractionByAffiliation;
-            TeamsResourceGlobalStorage = teamsResourceGlobalStorage;
+            TeamsResourcesGlobalStorage = teamsResourcesGlobalStorage;
             ConstructionSelector = new ConstructionSelector(ConstructionsRepository);
         }
     }

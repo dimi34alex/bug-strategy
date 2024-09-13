@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Source.Scripts.ResourcesSystem;
 
 public class Cost
 {

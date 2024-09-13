@@ -1,4 +1,7 @@
 using Constructions.LevelSystemCore;
+using Source.Scripts;
+using Source.Scripts.ResourcesSystem;
+using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
 
 namespace Constructions
 {
@@ -7,9 +10,9 @@ namespace Constructions
         private readonly BeeWaxTowerAttackProcessor _attackProcessor; 
         
         public BeeWaxTowerLevelSystem(ConstructionBase construction, BeeWaxTowerConfig config, 
-            IResourceGlobalStorage resourceGlobalStorage, ResourceStorage healthStorage, 
+            ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage, FloatStorage healthStorage, 
             BeeWaxTowerAttackProcessor attackProcessor) 
-            : base(construction, config.Levels,  resourceGlobalStorage, healthStorage)
+            : base(construction, config.Levels,  teamsResourcesGlobalStorage, healthStorage)
         {
             _attackProcessor = attackProcessor;
         }

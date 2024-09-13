@@ -1,5 +1,8 @@
 using System;
 using Constructions.LevelSystemCore;
+using Source.Scripts;
+using Source.Scripts.ResourcesSystem;
+using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
 
 namespace Constructions
 {
@@ -7,8 +10,8 @@ namespace Constructions
     public class ButterflyHouseLevelSystem : ConstructionLevelSystemBase<ButterflyHouseLevel>
     {
         public ButterflyHouseLevelSystem(ConstructionBase construction, ButterflyHouseConfig config,
-            IResourceGlobalStorage resourceGlobalStorage, ResourceStorage healthStorage) 
-            : base(construction, config.Levels,  resourceGlobalStorage, healthStorage)
+            ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage, FloatStorage healthStorage) 
+            : base(construction, config.Levels,  teamsResourcesGlobalStorage, healthStorage)
         { }
     }
 }

@@ -1,4 +1,7 @@
 using Constructions.LevelSystemCore;
+using Source.Scripts;
+using Source.Scripts.ResourcesSystem;
+using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
 using Unit.Factory;
 using UnitsHideCore;
 using UnityEngine;
@@ -12,7 +15,7 @@ namespace Constructions
         [SerializeField] private Transform hiderExtractPosition;
 
         [Inject] private readonly UnitFactory _unitFactory;
-        [Inject] private readonly IResourceGlobalStorage _resourceGlobalStorage;
+        [Inject] private readonly ITeamsResourcesGlobalStorage _teamsResourcesGlobalStorage;
         
         private UnitsHider _hider;
         
@@ -31,7 +34,7 @@ namespace Constructions
         {
             base.OnAwake();
 
-            LevelSystem = new BeesWaxProduceLevelSystem(this, config, _unitFactory, hiderExtractPosition, _resourceGlobalStorage,
+            LevelSystem = new BeesWaxProduceLevelSystem(this, config, _unitFactory, hiderExtractPosition, _teamsResourcesGlobalStorage,
                 _healthStorage, ref _resourceConversionCore, ref _hider);
 
             _updateEvent += OnUpdate;
@@ -63,21 +66,21 @@ namespace Constructions
 
         public void AddSpendableResource(int addPollen)
         {
-            ResourceBase pollen = _resourceGlobalStorage.GetResource(Affiliation, ResourceID.Pollen);
-            IReadOnlyResourceStorage spendableResource = _resourceConversionCore.SpendableResource;
+            var pollen = _teamsResourcesGlobalStorage.GetResource(Affiliation, ResourceID.Pollen);
+            IReadOnlyFloatStorage spendableResource = _resourceConversionCore.SpendableResource;
 
             if (pollen.CurrentValue > 0 && spendableResource.CurrentValue < spendableResource.Capacity)
             {
                 addPollen = (int)Mathf.Clamp(addPollen, 0, pollen.Capacity - pollen.CurrentValue);
                 addPollen = (int)Mathf.Clamp(addPollen, 0, spendableResource.Capacity - spendableResource.CurrentValue);
                 _resourceConversionCore.AddSpendableResource(addPollen);
-                _resourceGlobalStorage.ChangeValue(Affiliation, ResourceID.Pollen, -addPollen);
+                _teamsResourcesGlobalStorage.ChangeValue(Affiliation, ResourceID.Pollen, -addPollen);
             }
 
             if (_resourceConversionCore.ConversionIsAvailable)
                 _produceConstructionState = ResourceProduceConstructionState.Proccessing;
 
-            IReadOnlyResourceStorage produceResource = _resourceConversionCore.ProducedResource;
+            IReadOnlyFloatStorage produceResource = _resourceConversionCore.ProducedResource;
             if (spendableResource.CurrentValue > 0 && produceResource.CurrentValue < produceResource.Capacity)
                 SetConversionPauseState(false);
             else
@@ -86,33 +89,33 @@ namespace Constructions
 
         public void ExtractProduceResource()
         {
-            ResourceBase beesWax = _resourceGlobalStorage.GetResource(Affiliation, ResourceID.Bees_Wax);
-            IReadOnlyResourceStorage produceResource = _resourceConversionCore.ProducedResource;
+            var beesWax = _teamsResourcesGlobalStorage.GetResource(Affiliation, ResourceID.BeesWax);
+            IReadOnlyFloatStorage produceResource = _resourceConversionCore.ProducedResource;
 
             if (produceResource.CurrentValue > 0 && beesWax.CurrentValue < beesWax.Capacity)
             {
                 int extractValue = (int)produceResource.CurrentValue;
                 extractValue = (int)Mathf.Clamp(extractValue, 0, (beesWax.Capacity - beesWax.CurrentValue));
                 int addBeesWax = _resourceConversionCore.ExtractProducedResources(extractValue);
-                _resourceGlobalStorage.ChangeValue(Affiliation, ResourceID.Bees_Wax, addBeesWax);
+                _teamsResourcesGlobalStorage.ChangeValue(Affiliation, ResourceID.BeesWax, addBeesWax);
             }
 
             if (_resourceConversionCore.ConversionIsAvailable)
                 _produceConstructionState = ResourceProduceConstructionState.Proccessing;
 
-            IReadOnlyResourceStorage spendableResource = _resourceConversionCore.SpendableResource;
+            IReadOnlyFloatStorage spendableResource = _resourceConversionCore.SpendableResource;
             if (spendableResource.CurrentValue > 0 && produceResource.CurrentValue < produceResource.Capacity)
                 SetConversionPauseState(false);
             else
                 SetConversionPauseState(true);
         }
 
-        public IReadOnlyResourceStorage TakeSpendableResourceInformation()
+        public IReadOnlyFloatStorage TakeSpendableResourceInformation()
         {
             return _resourceConversionCore.SpendableResource;
         }
 
-        public IReadOnlyResourceStorage TakeProduceResourceInformation()
+        public IReadOnlyFloatStorage TakeProduceResourceInformation()
         {
             return _resourceConversionCore.ProducedResource;
         }

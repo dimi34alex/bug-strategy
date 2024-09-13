@@ -1,4 +1,7 @@
 using Constructions.LevelSystemCore;
+using Source.Scripts;
+using Source.Scripts.ResourcesSystem;
+using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
 using UnitsRecruitingSystemCore;
 
 namespace Constructions
@@ -8,8 +11,8 @@ namespace Constructions
         private readonly UnitsRecruiter _recruiter;
 
         public AntTownHallLevelSystem(ConstructionBase construction, AntTownHallConfig config, 
-            IResourceGlobalStorage resourceGlobalStorage, ResourceStorage healthStorage, UnitsRecruiter recruiter) 
-            : base(construction, config.Levels,  resourceGlobalStorage, healthStorage)
+            ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage, FloatStorage healthStorage, UnitsRecruiter recruiter) 
+            : base(construction, config.Levels,  teamsResourcesGlobalStorage, healthStorage)
         {
             _recruiter = recruiter;
         }

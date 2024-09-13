@@ -1,5 +1,6 @@
 using System;
 using Constructions;
+using Source.Scripts.ResourcesSystem;
 using TMPro;
 using UnityEngine;
 using Image = UnityEngine.UI.Image;
@@ -40,33 +41,33 @@ namespace Source.Scripts.UI.UI_WindowsBlocksScripts.UI_Gameplay
         {
             [field: SerializeField] public Image ImageFill { get; private set; }
             [field: SerializeField] public TextMeshProUGUI Text { get; private set; }
-            private IReadOnlyResourceStorage _resourceStorage = new ResourceStorage(0,0);
+            private IReadOnlyFloatStorage _fillProgressStorage = new FloatStorage(0,0);
 
-            public void SetResourceStorage(IReadOnlyResourceStorage newIReadOnlyResourceStorage)
+            public void SetResourceStorage(IReadOnlyFloatStorage newIReadOnlyResourceStorage)
             {
-                _resourceStorage.Changed -= UpdateInfo;
+                _fillProgressStorage.Changed -= UpdateInfo;
             
-                _resourceStorage = newIReadOnlyResourceStorage;
-                _resourceStorage.Changed += UpdateInfo;
+                _fillProgressStorage = newIReadOnlyResourceStorage;
+                _fillProgressStorage.Changed += UpdateInfo;
 
                 UpdateInfo();
             }
 
             public void Reset()
             {
-                _resourceStorage.Changed -= UpdateInfo;
+                _fillProgressStorage.Changed -= UpdateInfo;
             }
         
             private void UpdateInfo()
             {
-                ImageFill.fillAmount = _resourceStorage.CurrentValue / _resourceStorage.Capacity;
-                Text.text = _resourceStorage.CurrentValue + "/" + _resourceStorage.Capacity;
+                ImageFill.fillAmount = _fillProgressStorage.CurrentValue / _fillProgressStorage.Capacity;
+                Text.text = _fillProgressStorage.CurrentValue + "/" + _fillProgressStorage.Capacity;
             }
 
             ~FillBar()
             {
-                if (_resourceStorage != null)
-                    _resourceStorage.Changed -= UpdateInfo;
+                if (_fillProgressStorage != null)
+                    _fillProgressStorage.Changed -= UpdateInfo;
             }
         }
     }

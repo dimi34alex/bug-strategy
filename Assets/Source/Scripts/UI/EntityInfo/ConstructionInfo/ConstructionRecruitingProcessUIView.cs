@@ -2,6 +2,7 @@
 using System.Linq;
 using Source.Scripts.Ai.ConstructionsAis;
 using Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators;
+using Source.Scripts.ResourcesSystem;
 using Source.Scripts.UI.EntityInfo.UnitInfo;
 using UnityEngine;
 
@@ -13,7 +14,7 @@ namespace Source.Scripts.UI.EntityInfo.ConstructionInfo
 
         private IRecruitingConstruction _recruiter;
         private UIUnitsConfig _uiUnitsConfig;
-        private ResourceStorage _resourceStorage;
+        private FloatStorage _progressStorage;
 
         private readonly Dictionary<UnitType, Sprite> _images = new();
         private readonly List<int> _orderedTypes = new() { 0, 1, 2, 3, 4, 5 };
@@ -21,8 +22,8 @@ namespace Source.Scripts.UI.EntityInfo.ConstructionInfo
         private void Start()
         {
             _uiUnitsConfig = ConfigsRepository.FindConfig<UIUnitsConfig>();
-            _resourceStorage = new ResourceStorage(1, 1);
-            InitBar(_resourceStorage);
+            _progressStorage = new FloatStorage(1, 1);
+            InitBar(_progressStorage);
 
             ButtonClicked += TryCancelRecruiting;
 
@@ -30,7 +31,7 @@ namespace Source.Scripts.UI.EntityInfo.ConstructionInfo
                 _images.Add(pair.Key, pair.Value.InfoSprite);
         }
 
-        private void InitBar(IReadOnlyResourceStorage storage)
+        private void InitBar(IReadOnlyFloatStorage storage)
         {
             _barView.Init(storage);
         }
@@ -62,7 +63,7 @@ namespace Source.Scripts.UI.EntityInfo.ConstructionInfo
             if (recruitingStack != null && !recruitingStack.Empty)
             {
                 var processPercentage = recruitingStack.RecruitingTimer / recruitingStack.RecruitingTime;
-                _resourceStorage.SetValue(processPercentage);
+                _progressStorage.SetValue(processPercentage);
             }
         }
 

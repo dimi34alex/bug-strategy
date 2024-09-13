@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators.Configs;
+using Source.Scripts.ResourcesSystem;
+using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
 using UnitsRecruitingSystemCore;
 
 namespace Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators.RecruitingEvaluators
@@ -17,8 +19,8 @@ namespace Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators.RecruitingE
         private readonly Dictionary<ResourceID, int> _resourceThreshold;
         
         protected RecruitEvaluatorBase(UnitsAiRepository unitsAiRepository, IRecruitingConstruction recruitingConstruction, 
-             RecruitingEvaluationConfig recruitingEvaluationConfig, TeamsResourceGlobalStorage teamsResourceGlobalStorage) 
-            : base(teamsResourceGlobalStorage)
+             RecruitingEvaluationConfig recruitingEvaluationConfig, ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage) 
+            : base(teamsResourcesGlobalStorage)
         {
             _unitsAiRepository = unitsAiRepository;
             _recruitingConstruction = recruitingConstruction;
@@ -59,7 +61,7 @@ namespace Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators.RecruitingE
             var result = new Dictionary<ResourceID, int>();
             foreach (var cost in unitCost)
             {
-                var resourcesInStorage = TeamsResourceGlobalStorage.GetResource(_recruitingConstruction.Affiliation, cost.Key);
+                var resourcesInStorage = TeamsResourcesGlobalStorage.GetResource(_recruitingConstruction.Affiliation, cost.Key);
                 result.Add(cost.Key, (int)resourcesInStorage.CurrentValue - cost.Value);
             }
 

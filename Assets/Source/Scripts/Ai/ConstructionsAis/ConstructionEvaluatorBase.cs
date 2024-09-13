@@ -1,12 +1,14 @@
+using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
+
 namespace Source.Scripts.Ai.ConstructionsAis
 {
     public abstract class ConstructionEvaluatorBase : EvaluatorBase
     {
-        protected readonly TeamsResourceGlobalStorage TeamsResourceGlobalStorage;
+        protected readonly ITeamsResourcesGlobalStorage TeamsResourcesGlobalStorage;
 
-        protected ConstructionEvaluatorBase(TeamsResourceGlobalStorage teamsResourceGlobalStorage)
+        protected ConstructionEvaluatorBase(ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage)
         {
-            TeamsResourceGlobalStorage = teamsResourceGlobalStorage;
+            TeamsResourcesGlobalStorage = teamsResourcesGlobalStorage;
         }
     }
 }

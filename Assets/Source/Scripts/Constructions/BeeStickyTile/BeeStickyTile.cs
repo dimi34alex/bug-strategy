@@ -2,6 +2,7 @@
 using CustomTimer;
 using Source.Scripts;
 using Source.Scripts.Missions;
+using Source.Scripts.ResourcesSystem;
 using Unit.Effects;
 using UnityEngine;
 using Zenject;
@@ -21,7 +22,7 @@ namespace Constructions
 
         protected override void OnAwake()
         {
-            _healthStorage = new ResourceStorage(config.HealthPoints, config.HealthPoints);
+            _healthStorage = new FloatStorage(config.HealthPoints, config.HealthPoints);
             _existsTimer = new Timer(config.ExistTime);
             _existsTimer.OnTimerEnd += DestructStickyTile;
             

@@ -1,6 +1,7 @@
 using Constructions.LevelSystemCore;
 using Projectiles.Factory;
 using Source.Scripts.Missions;
+using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
 using UnityEngine;
 using Zenject;
 
@@ -13,7 +14,7 @@ namespace Constructions
 
         [Inject] private readonly ProjectileFactory _projectileFactory;
         [Inject] private readonly IConstructionFactory _constructionFactory;
-        [Inject] private readonly IResourceGlobalStorage _resourceGlobalStorage;
+        [Inject] private readonly ITeamsResourcesGlobalStorage _teamsResourcesGlobalStorage;
         
         public override FractionType Fraction => FractionType.Bees;
         public override ConstructionID ConstructionID => ConstructionID.BeeWaxTower;
@@ -29,7 +30,7 @@ namespace Constructions
 
             _attackProcessor = new BeeWaxTowerAttackProcessor(this, _projectileFactory, attackZone, transform, this);
 
-            _levelSystem = new BeeWaxTowerLevelSystem(this, config, _resourceGlobalStorage,
+            _levelSystem = new BeeWaxTowerLevelSystem(this, config, _teamsResourcesGlobalStorage,
                 _healthStorage, _attackProcessor);
             
             _updateEvent += UpdateAttackProcessor;

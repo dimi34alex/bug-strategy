@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using Projectiles.Factory;
+using Source.Scripts;
 using Source.Scripts.Ai.InternalAis;
+using Source.Scripts.ResourcesSystem;
+using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
 using Unit.Ants.Configs;
 using Unit.Ants.Configs.Professions;
 using Unit.Ants.Professions;
@@ -20,7 +23,7 @@ namespace Unit.Ants
         [SerializeField] private Animator animator;
 
         [Inject] private readonly ProjectileFactory _projectileFactory;
-        [Inject] private readonly IResourceGlobalStorage _resourceGlobalStorage;
+        [Inject] private readonly ITeamsResourcesGlobalStorage _teamsResourcesGlobalStorage;
         
         public ProfessionType CurProfessionType => CurrentProfession.ProfessionType;
         public int CurProfessionRang => CurrentProfession.ProfessionRang;
@@ -37,7 +40,7 @@ namespace Unit.Ants
         {
             base.OnAwake();
             
-            _healthStorage = new ResourceStorage(config.HealthPoints, config.HealthPoints);
+            _healthStorage = new FloatStorage(config.HealthPoints, config.HealthPoints);
         }
 
         public override void HandleUpdate(float time)
@@ -121,7 +124,7 @@ namespace Unit.Ants
             switch (newProfession.ProfessionType)
             {
                 case (ProfessionType.Worker):
-                    CurrentProfession = new AntWorkerProfession(this, newProfession as AntWorkerConfig, _resourceGlobalStorage,
+                    CurrentProfession = new AntWorkerProfession(this, newProfession as AntWorkerConfig, _teamsResourcesGlobalStorage,
                         resource);
                     break;
                 case (ProfessionType.MeleeWarrior):

@@ -1,17 +1,19 @@
-﻿using UnityEngine;
+﻿using Source.Scripts;
+using Source.Scripts.ResourcesSystem;
+using UnityEngine;
 
 public abstract class ResourceProduceCoreBase
 {
     protected abstract ResourceProduceProccessInfoBase _produceProccessInfo { get; }
-    protected ResourceStorage _producedResource;
+    protected FloatStorage _producedResource;
 
     public bool ProduceResourceIsFull => _producedResource.CurrentValue >= _producedResource.Capacity;
-    public IReadOnlyResourceStorage ProducedResource => _producedResource;
+    public IReadOnlyFloatStorage ProducedResource => _producedResource;
     public ResourceID TargetResourceID => _produceProccessInfo.TargetResourceID;
 
     public ResourceProduceCoreBase(ResourceProduceProccessInfoBase produceProccessInfo)
     {
-        _producedResource = new ResourceStorage(0, produceProccessInfo.ProducedResourceCapacity);
+        _producedResource = new FloatStorage(0, produceProccessInfo.ProducedResourceCapacity);
     }
 
     public void SetResourceProduceProccessInfo(ResourceProduceProccessInfoBase produceProccessInfo)

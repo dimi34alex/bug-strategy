@@ -1,5 +1,6 @@
 using Construction.TownHalls;
 using Constructions.LevelSystemCore;
+using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
 using UnitsHideCore;
 using UnitsRecruitingSystemCore;
 using UnityEngine;
@@ -11,7 +12,7 @@ namespace Constructions
     {
         [SerializeField] private BeeTownHallConfig config;
 
-        [Inject] private readonly IResourceGlobalStorage _resourceGlobalStorage;
+        [Inject] private readonly ITeamsResourcesGlobalStorage _teamsResourcesGlobalStorage;
         
         private UnitsHider _hider;
 
@@ -27,10 +28,10 @@ namespace Constructions
             
             gameObject.name = "TownHall";
 
-            _recruiter = new UnitsRecruiter(this, 0, workerBeesSpawnPosition, _unitFactory, _resourceGlobalStorage);
+            _recruiter = new UnitsRecruiter(this, 0, workerBeesSpawnPosition, _unitFactory, _teamsResourcesGlobalStorage);
             _hider = new UnitsHider(this, 0, _unitFactory, workerBeesSpawnPosition, config.HiderAccess);
             LevelSystem = new BeeTownHallLevelSystem(this, config, workerBeesSpawnPosition, _unitFactory, 
-                _resourceGlobalStorage, _healthStorage, ref _recruiter, ref _hider);
+                _teamsResourcesGlobalStorage, _healthStorage, ref _recruiter, ref _hider);
             Initialized += InitLevelSystem;
         }
 

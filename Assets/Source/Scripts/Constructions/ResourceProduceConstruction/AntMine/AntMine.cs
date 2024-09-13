@@ -1,3 +1,6 @@
+using Source.Scripts;
+using Source.Scripts.ResourcesSystem;
+using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
 using UnityEngine;
 using Zenject;
 
@@ -7,7 +10,7 @@ namespace Constructions
     {
         [SerializeField] private AntMineConfig config;
 
-        [Inject] private readonly IResourceGlobalStorage _resourceGlobalStorage;
+        [Inject] private readonly ITeamsResourcesGlobalStorage _teamsResourcesGlobalStorage;
         
         public override FractionType Fraction => FractionType.Ants;
         public override ConstructionID ConstructionID => ConstructionID.AntMine;
@@ -21,7 +24,7 @@ namespace Constructions
         {
             base.OnAwake();
 
-            _healthStorage = new ResourceStorage(config.HealthPoints, config.HealthPoints);
+            _healthStorage = new FloatStorage(config.HealthPoints, config.HealthPoints);
             
             _resourceProduceCore = new ResourceProduceCore(config.ResourceProduceProcessInfo);
             _resourceProduceConstructionState = ResourceProduceConstructionState.Paused;
@@ -42,7 +45,7 @@ namespace Constructions
 
         public void ExtractResource()
         {
-            ResourceBase resource = _resourceGlobalStorage.GetResource(Affiliation, _resourceProduceCore.TargetResourceID);
+            var resource = _teamsResourcesGlobalStorage.GetResource(Affiliation, _resourceProduceCore.TargetResourceID);
             var produceResource = _resourceProduceCore.ProducedResource;
             
             if (produceResource.CurrentValue > 0 && resource.CurrentValue < resource.Capacity)
@@ -50,7 +53,7 @@ namespace Constructions
                 int extractValue = (int)produceResource.CurrentValue;
                 extractValue = (int)Mathf.Clamp(extractValue, 0, (resource.Capacity - resource.CurrentValue));
                 int addResource = _resourceProduceCore.ExtractProducedResources(extractValue);
-                _resourceGlobalStorage.ChangeValue(Affiliation, _resourceProduceCore.TargetResourceID, addResource);
+                _teamsResourcesGlobalStorage.ChangeValue(Affiliation, _resourceProduceCore.TargetResourceID, addResource);
             }
         }
 

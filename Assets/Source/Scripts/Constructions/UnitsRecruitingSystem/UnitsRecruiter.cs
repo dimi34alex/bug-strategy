@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Source.Scripts.ResourcesSystem;
+using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
 using Unit.Factory;
 using UnityEngine;
 
@@ -11,7 +13,7 @@ namespace UnitsRecruitingSystemCore
         private readonly Transform _spawnTransform;
         private readonly UnitFactory _unitFactory;
         private readonly List<UnitRecruitingStack> _stacks;
-        private readonly IResourceGlobalStorage _resourceGlobalStorage;
+        private readonly ITeamsResourcesGlobalStorage _teamsResourcesGlobalStorage;
         private List<UnitRecruitingData> _recruitingDatas;
 
         public IReadOnlyList<UnitRecruitingData> UnitRecruitingData => _recruitingDatas;
@@ -23,12 +25,12 @@ namespace UnitsRecruitingSystemCore
         public event Action OnCancelRecruit;
 
         public UnitsRecruiter(IAffiliation affiliation, int size, Transform spawnTransform, UnitFactory unitFactory, 
-            IResourceGlobalStorage resourceGlobalStorage)
+            ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage)
         {
             _affiliation = affiliation;
             _spawnTransform = spawnTransform;
             _unitFactory = unitFactory;
-            _resourceGlobalStorage = resourceGlobalStorage;
+            _teamsResourcesGlobalStorage = teamsResourcesGlobalStorage;
             _stacks = new List<UnitRecruitingStack>();
             _recruitingDatas = new List<UnitRecruitingData>();
 
@@ -74,7 +76,7 @@ namespace UnitsRecruitingSystemCore
         public bool CheckCosts(IReadOnlyDictionary<ResourceID, int>  costs)
         {
             foreach (var cost in costs)
-                if (cost.Value > _resourceGlobalStorage.GetResource(_affiliation.Affiliation, cost.Key).CurrentValue)
+                if (cost.Value > _teamsResourcesGlobalStorage.GetResource(_affiliation.Affiliation, cost.Key).CurrentValue)
                     return false;
             
             return true;
@@ -111,7 +113,7 @@ namespace UnitsRecruitingSystemCore
                 throw new Exception("Need more resources");
             
             foreach (var cost in recruitingData.Costs)
-                _resourceGlobalStorage.ChangeValue(_affiliation.Affiliation, cost.Key, -cost.Value);
+                _teamsResourcesGlobalStorage.ChangeValue(_affiliation.Affiliation, cost.Key, -cost.Value);
 
             _stacks[stackIndex].RecruitUnit(recruitingData);
             
@@ -162,7 +164,7 @@ namespace UnitsRecruitingSystemCore
                 return false;
 
             foreach (var cost in stack.CurrentData.Costs)
-                _resourceGlobalStorage.ChangeValue(_affiliation.Affiliation, cost.Key, cost.Value);
+                _teamsResourcesGlobalStorage.ChangeValue(_affiliation.Affiliation, cost.Key, cost.Value);
             
             OnCancelRecruit?.Invoke();
             OnChange?.Invoke();

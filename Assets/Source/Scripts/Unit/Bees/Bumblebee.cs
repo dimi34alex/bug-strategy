@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using Source.Scripts;
 using Source.Scripts.Ai.InternalAis;
 using Source.Scripts.Ai.UnitAis;
 using Source.Scripts.Missions;
+using Source.Scripts.ResourcesSystem;
 using Source.Scripts.Unit.AbilitiesCore;
 using Unit.Bees.Configs;
 using Unit.Effects.InnerProcessors;
@@ -43,7 +45,7 @@ namespace Unit.Bees
         {
             base.OnAwake();
 
-            _healthStorage = new ResourceStorage(config.HealthPoints, config.HealthPoints);
+            _healthStorage = new FloatStorage(config.HealthPoints, config.HealthPoints);
             _cooldownProcessor = new CooldownProcessor(config.Cooldown);
             _attackProcessor = new MeleeAttackProcessor(this, config.AttackRange, config.Damage, _cooldownProcessor);
             _orderValidator = new HidableWarriorOrderValidator(this, config.InteractionRange, _cooldownProcessor, _attackProcessor);

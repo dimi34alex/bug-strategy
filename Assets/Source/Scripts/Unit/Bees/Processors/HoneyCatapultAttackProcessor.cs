@@ -1,5 +1,7 @@
 using Projectiles;
 using Projectiles.Factory;
+using Source.Scripts;
+using Source.Scripts.ResourcesSystem;
 using Unit.ProcessorsCore;
 
 namespace Unit.Bees
@@ -7,7 +9,7 @@ namespace Unit.Bees
     public sealed class HoneyCatapultAttackProcessor : RangeAttackProcessor
     {
         private readonly float _damageRadius;
-        private readonly ResourceStorage _projectileCounter;
+        private readonly FloatStorage _projectileCounter;
         
         private float _constructionDamageScale = 1;
         
@@ -15,7 +17,7 @@ namespace Unit.Bees
             : base(unit, attackRange, damage, cooldownProcessor, ProjectileType.HoneyCatapultProjectile, projectilesFactory)
         {
             _damageRadius = damageRadius;
-            _projectileCounter = new ResourceStorage(0, 0);
+            _projectileCounter = new FloatStorage(0, 0);
         }
 
         public void SetConstructionDamageScale(float newScale)

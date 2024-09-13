@@ -1,16 +1,18 @@
-﻿using UnityEngine;
+﻿using Source.Scripts;
+using Source.Scripts.ResourcesSystem;
+using UnityEngine;
 
 public class ResourceConversionCore : ResourceProduceCoreBase
 {
     private ResourceConversionProccessInfo _resourceConversionProccessInfo;
-    private ResourceStorage _spendableResouce;
+    private FloatStorage _spendableResouce;
     private float _fractionalProducedResources;
     private float _fractionalSpendableResources;
 
     protected override ResourceProduceProccessInfoBase _produceProccessInfo => _resourceConversionProccessInfo;
 
     public ResourceID SpendableResourceID => _resourceConversionProccessInfo.SpendableResourceID;
-    public IReadOnlyResourceStorage SpendableResource => _spendableResouce;
+    public IReadOnlyFloatStorage SpendableResource => _spendableResouce;
     public bool ConversionIsAvailable => MaxPotentialProduceResource >= 1f;
     public float MaxPotentialProduceResource => _fractionalProducedResources + 
         _spendableResouce.CurrentValue * _resourceConversionProccessInfo.SpendRatio;
@@ -18,7 +20,7 @@ public class ResourceConversionCore : ResourceProduceCoreBase
     public ResourceConversionCore(ResourceConversionProccessInfo conversionProccessInfo) : base(conversionProccessInfo)
     {
         _resourceConversionProccessInfo = conversionProccessInfo;
-        _spendableResouce = new ResourceStorage(0, conversionProccessInfo.SpendableResourceCapacity);
+        _spendableResouce = new FloatStorage(0, conversionProccessInfo.SpendableResourceCapacity);
     }
 
     protected override int CalculateProducedResourceCount(float time)

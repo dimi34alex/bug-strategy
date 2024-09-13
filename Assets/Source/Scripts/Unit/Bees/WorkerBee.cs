@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
 using Constructions.UnitsHideConstruction.Cells.BeesHiderCells;
+using Source.Scripts;
 using Source.Scripts.Ai.InternalAis;
 using Source.Scripts.Ai.UnitAis;
 using Source.Scripts.Missions;
+using Source.Scripts.ResourcesSystem;
+using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
 using Source.Scripts.Unit.AbilitiesCore;
 using Unit.Bees.Configs;
 using Unit.OrderValidatorCore;
@@ -20,7 +23,7 @@ namespace Unit.Bees
         [SerializeField] private GameObject resourceSkin;
 
         [Inject] private readonly MissionData _missionData;
-        [Inject] private readonly IResourceGlobalStorage _resourceGlobalStorage;
+        [Inject] private readonly ITeamsResourcesGlobalStorage _teamsResourcesGlobalStorage;
         
         public override UnitType UnitType => UnitType.WorkerBee;
         protected override OrderValidatorBase OrderValidator => _orderValidator;
@@ -37,10 +40,10 @@ namespace Unit.Bees
         {
             base.OnAwake();
 
-            _healthStorage = new ResourceStorage(config.HealthPoints, config.HealthPoints);
+            _healthStorage = new FloatStorage(config.HealthPoints, config.HealthPoints);
            
             _resourceExtractionProcessor = new ResourceExtractionProcessor(this, config.GatheringCapacity, config.GatheringTime,
-                _resourceGlobalStorage, resourceSkin);
+                _teamsResourcesGlobalStorage, resourceSkin);
             _orderValidator = new WorkerBeeValidator(this, config.InteractionRange, _resourceExtractionProcessor);
             
             var stateBases = new List<EntityStateBase>()

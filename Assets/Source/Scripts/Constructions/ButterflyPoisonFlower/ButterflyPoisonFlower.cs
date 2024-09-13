@@ -1,6 +1,7 @@
 ﻿using Constructions.LevelSystemCore;
 using PoisonFog.Factory;
 using Projectiles.Factory;
+using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
 using UnityEngine;
 using Zenject;
 
@@ -14,7 +15,7 @@ namespace Constructions
 
         [Inject] private readonly ProjectileFactory _projectileFactory;
         [Inject] private readonly PoisonFogFactory _poisonFogFactory;
-        [Inject] private readonly IResourceGlobalStorage _resourceGlobalStorage;
+        [Inject] private readonly ITeamsResourcesGlobalStorage _teamsResourcesGlobalStorage;
 
         private ButterflyPoisonFlowerAttackProcessor _attackProcessor;
         private ButterflyPoisonFlowerPoisonFogProcessor _poisonFogProcessor;
@@ -30,7 +31,7 @@ namespace Constructions
                 triggerBehaviour, this);
             _poisonFogProcessor = new ButterflyPoisonFlowerPoisonFogProcessor(transform, _poisonFogFactory);
             
-            LevelSystem = new ButterflyPoisonFlowerLevelSystem(this, config, _resourceGlobalStorage, _healthStorage, 
+            LevelSystem = new ButterflyPoisonFlowerLevelSystem(this, config, _teamsResourcesGlobalStorage, _healthStorage, 
                 ref attackZoneCollider, ref _attackProcessor, ref _poisonFogProcessor);
             
             OnDestruction += _attackProcessor.KillCooldownTimer;

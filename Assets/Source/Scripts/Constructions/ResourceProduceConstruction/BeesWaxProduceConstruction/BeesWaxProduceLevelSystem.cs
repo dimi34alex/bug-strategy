@@ -1,5 +1,8 @@
 using System;
 using Constructions.LevelSystemCore;
+using Source.Scripts;
+using Source.Scripts.ResourcesSystem;
+using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
 using Unit.Factory;
 using UnitsHideCore;
 using UnityEngine;
@@ -13,9 +16,9 @@ namespace Constructions
         private readonly UnitsHider _hider;
 
         public BeesWaxProduceLevelSystem(ConstructionBase construction, BeesWaxProduceConfig config, 
-            UnitFactory unitFactory, Transform hiderSpawnPosition, IResourceGlobalStorage resourceGlobalStorage, 
-            ResourceStorage healthStorage, ref ResourceConversionCore resourceConversionCore, ref UnitsHider hider)
-            : base(construction, config.Levels,  resourceGlobalStorage, healthStorage)
+            UnitFactory unitFactory, Transform hiderSpawnPosition, ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage, 
+            FloatStorage healthStorage, ref ResourceConversionCore resourceConversionCore, ref UnitsHider hider)
+            : base(construction, config.Levels,  teamsResourcesGlobalStorage, healthStorage)
         {
             _resourceConversionCore = resourceConversionCore =
                 new ResourceConversionCore(CurrentLevel.ResourceConversionProccessInfo);

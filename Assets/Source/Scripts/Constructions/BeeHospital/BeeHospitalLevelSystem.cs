@@ -1,4 +1,7 @@
 using Constructions.LevelSystemCore;
+using Source.Scripts;
+using Source.Scripts.ResourcesSystem;
+using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
 using UnitsHideCore;
 
 namespace Constructions.BeeHospital
@@ -9,9 +12,9 @@ namespace Constructions.BeeHospital
         private readonly HealProcessor _healProcessor;
 
         public BeeHospitalLevelSystem(ConstructionBase construction, BeeHospitalConfig config, 
-            IResourceGlobalStorage resourceGlobalStorage, ResourceStorage healthStorage, UnitsHider hider, 
+            ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage, FloatStorage healthStorage, UnitsHider hider, 
             HealProcessor healProcessor) 
-            : base(construction, config.Levels,  resourceGlobalStorage, healthStorage)
+            : base(construction, config.Levels,  teamsResourcesGlobalStorage, healthStorage)
         {
             _hider = hider;
             _healProcessor = healProcessor;

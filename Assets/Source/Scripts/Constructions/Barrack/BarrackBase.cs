@@ -1,6 +1,7 @@
 using Constructions.LevelSystemCore;
 using Source.Scripts.Ai.ConstructionsAis;
 using Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators;
+using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
 using Unit.Factory;
 using UnitsRecruitingSystemCore;
 using UnityEngine;
@@ -13,7 +14,7 @@ namespace Constructions
         [SerializeField] protected Transform unitsSpawnPosition;
 
         [Inject] protected readonly UnitFactory _unitFactory;
-        [Inject] protected readonly IResourceGlobalStorage _resourceGlobalStorage;
+        [Inject] protected readonly ITeamsResourcesGlobalStorage TeamsResourcesGlobalStorage;
 
         public IReadOnlyUnitsRecruiter Recruiter => _recruiter;
 

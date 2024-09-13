@@ -1,4 +1,7 @@
 using Constructions.LevelSystemCore;
+using Source.Scripts;
+using Source.Scripts.ResourcesSystem;
+using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
 using UnityEngine;
 using Zenject;
 
@@ -8,7 +11,7 @@ namespace Constructions
     {
         [SerializeField] private BeeStorageConfig config;
        
-        [Inject] private readonly IResourceGlobalStorage _resourceGlobalStorage;
+        [Inject] private readonly ITeamsResourcesGlobalStorage _teamsResourcesGlobalStorage;
 
         public override FractionType Fraction => FractionType.Bees;
         public override ConstructionID ConstructionID => ConstructionID.BeeStorage;
@@ -19,8 +22,8 @@ namespace Constructions
         {
             base.OnAwake();
 
-            _healthStorage = new ResourceStorage(0, 0);
-            LevelSystem = new BeeStorageLevelSystem(this, config, _resourceGlobalStorage, _healthStorage);
+            _healthStorage = new FloatStorage(0, 0);
+            LevelSystem = new BeeStorageLevelSystem(this, config, _teamsResourcesGlobalStorage, _healthStorage);
             Initialized += InitLevelSystem;
         }
 

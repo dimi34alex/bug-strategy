@@ -1,4 +1,5 @@
 using Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators.Configs;
+using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
 
 namespace Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators.RecruitingEvaluators
 {
@@ -7,8 +8,8 @@ namespace Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators.RecruitingE
         protected override UnitType RecruitUnitType => UnitType.Horntail;
     
         public RecruitHorntailEvaluator(UnitsAiRepository unitsAiRepository, IRecruitingConstruction recruitingConstruction, 
-            RecruitingEvaluationConfig recruitingEvaluationConfig, TeamsResourceGlobalStorage teamsResourceGlobalStorage)
-            : base(unitsAiRepository, recruitingConstruction, recruitingEvaluationConfig, teamsResourceGlobalStorage)
+            RecruitingEvaluationConfig recruitingEvaluationConfig, ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage)
+            : base(unitsAiRepository, recruitingConstruction, recruitingEvaluationConfig, teamsResourcesGlobalStorage)
         {
             
         }

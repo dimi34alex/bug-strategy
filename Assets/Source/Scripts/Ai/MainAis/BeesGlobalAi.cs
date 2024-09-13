@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators.Configs;
+using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
 using Unit.Factory;
 
 namespace Source.Scripts.Ai.MainAis
@@ -14,14 +15,14 @@ namespace Source.Scripts.Ai.MainAis
         private readonly IConstructionFactory _constructionFactory;
 
         public BeesGlobalAi(AffiliationEnum affiliation, UnitFactory unitFactory, IConstructionFactory constructionFactory, 
-            float timeBeforeAttackPlayerTownHall, TeamsResourceGlobalStorage teamsResourceGlobalStorage, 
+            float timeBeforeAttackPlayerTownHall, ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage, 
             IEnumerable<ConstructionAiConfigBase> constructionsConfigs)
         {
             _affiliation = affiliation;
             _unitsAiRepository = new UnitsAiRepository(_affiliation, unitFactory);
             _combatAi = new CombatAi(_affiliation, timeBeforeAttackPlayerTownHall, _unitsAiRepository);
             _resourceCollectorAi = new ResourceCollectorAi(_unitsAiRepository);
-            _constructionsAi = new ConstructionsAi(teamsResourceGlobalStorage, _unitsAiRepository, constructionsConfigs);
+            _constructionsAi = new ConstructionsAi(teamsResourcesGlobalStorage, _unitsAiRepository, constructionsConfigs);
             _constructionFactory = constructionFactory;
             
             _constructionFactory.Created += TryAddConstruction;
