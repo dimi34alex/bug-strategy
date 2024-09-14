@@ -1,11 +1,7 @@
 ﻿using System.Collections.Generic;
 using CustomTimer;
-using Source.Scripts;
-using Source.Scripts.Missions;
-using Source.Scripts.ResourcesSystem;
 using Unit.Effects;
 using UnityEngine;
-using Zenject;
 
 namespace Constructions
 {
@@ -14,7 +10,7 @@ namespace Constructions
         [SerializeField] private BeeStickyTileConfig config;
         [SerializeField] private TriggerBehaviour stickZone;
         
-        private readonly List<BufferBeforeApplyStick> _buffers = new List<BufferBeforeApplyStick>();
+        private readonly List<BufferBeforeApplyStick> _buffers = new();
         private Timer _existsTimer;
         
         public override FractionType Fraction => FractionType.Bees;
@@ -22,7 +18,9 @@ namespace Constructions
 
         protected override void OnAwake()
         {
-            _healthStorage = new FloatStorage(config.HealthPoints, config.HealthPoints);
+            _healthStorage.SetCapacity(config.HealthPoints);
+            _healthStorage.SetValue(config.HealthPoints);
+            
             _existsTimer = new Timer(config.ExistTime);
             _existsTimer.OnTimerEnd += DestructStickyTile;
             

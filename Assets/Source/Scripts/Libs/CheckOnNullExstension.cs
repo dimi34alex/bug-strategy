@@ -1,7 +1,7 @@
 public static class CheckOnNullExstension
 {
     /// <summary>
-    /// Method primarily for checking interfaces for null
+    /// Method for checking interfaces, that can be realized in class that inherited from UnityEngine.Object, for null
     /// </summary>
     /// <returns>
     /// return true if value is c# null or Unity null, else return false

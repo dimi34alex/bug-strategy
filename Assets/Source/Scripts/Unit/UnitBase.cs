@@ -1,10 +1,8 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 using MiniMapSystem;
 using Source.Scripts;
 using Source.Scripts.Ai.InternalAis;
-using Source.Scripts.ResourcesSystem;
 using Unit;
 using Unit.Effects;
 using Unit.Effects.InnerProcessors;
@@ -14,26 +12,22 @@ using UnityEngine.AI;
 using Zenject;
 
 public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable, IUnitTarget, IMiniMapObject,
-    SelectableSystem.ISelectable, IPoolable<UnitBase, UnitType>, IPoolEventListener,
-    IHealable, IAffiliation,
+    SelectableSystem.ISelectable, IPoolable<UnitBase, UnitType>, IPoolEventListener, IHealable, IAffiliation,
     IEffectable, IPoisonEffectable, IStickyHoneyEffectable, IMoveSpeedChangeEffectable
 {
-    //
-    private NavMeshAgent _navMeshAgent;
-
-    [Inject] private readonly EffectsFactory _effectsFactory;
-    private float _startMaxSpeed;
-
-    public Vector3 Velocity => _navMeshAgent.velocity;
-    //
-
     [SerializeField] private UnitVisibleZone _unitVisibleZone;
     [SerializeField] private UnitInteractionZone unitInteractionZone;
     [SerializeField] private UnitInteractionZone dynamicUnitZone;
 
+    [Inject] private readonly EffectsFactory _effectsFactory;
+    
+    private NavMeshAgent _navMeshAgent;
+    private float _startMaxSpeed;
+    
     protected FloatStorage _healthStorage { get; set; } = new FloatStorage(100, 100);
     protected EntityStateMachine _stateMachine;
 
+    public Vector3 Velocity => _navMeshAgent.velocity;
     public bool IsSticky { get; private set; }
     public bool IsSelected { get; private set; }
     public bool IsActive { get; protected set; }
@@ -88,6 +82,7 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
     public event Action OnTargetMovePositionChange;
     public event Action<IUnitTarget> OnDeactivation;
     public event Action TookDamage;
+    /// <summary> return value can be null </summary>
     public event Action<IUnitTarget> TookDamageWithAttacker;
     public event Action PathTargetDeactivated;
 
@@ -110,79 +105,28 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
         OnStart();
     }
 
+    protected virtual void OnAwake() { }
+
+    protected virtual void OnStart() { }
+    
     public virtual void HandleUpdate(float time)
     {
         _stateMachine.OnUpdate();
       
         EffectsProcessor.HandleUpdate(time);
     }
-
-    protected virtual void OnAwake() { }
-
-    protected virtual void OnStart() { }
-
-    public void SetDestination(Vector3 position)
-    {
-        _navMeshAgent.SetDestination(position);
-    }
-
-    public void Warp(Vector3 position)
-    {
-        _navMeshAgent.Warp(position);
-    }
-
-    public virtual void GiveOrder(GameObject target, Vector3 position)
-        => AutoGiveOrder(target.GetComponent<IUnitTarget>(), position);
     
-    public void SetAffiliation(AffiliationEnum affiliation)
+    private void OnDisable()
     {
-        Affiliation = affiliation;
+        OnDisableITriggerableEvent?.Invoke(this);
     }
 
-    public void TakeDamage(IDamageApplicator damageApplicator, float damageScale)
-        => TakeDamage(null, damageApplicator, damageScale);
-    
-    public virtual void TakeDamage(IUnitTarget attacker, IDamageApplicator damageApplicator, float damageScale = 1)
+    private void OnDestroy()
     {
-        if (!IsAlive)
-        {
-            Debug.LogError($"You try damage unit that already dead: {attacker} | {damageApplicator} | {this}");
-            return;
-        }
-
-        _healthStorage.ChangeValue(-damageApplicator.Damage * damageScale);
-        OnDamaged();
-        TookDamage?.Invoke();
-        TookDamageWithAttacker?.Invoke(attacker);
-
-        if (!IsAlive)
-        {
-            OnUnitDied?.Invoke(this);
-            OnUnitDiedEvent?.Invoke();
-            ReturnInPool();
-            return;
-        }
-    }
-
-    public void TakeHeal(float value)
-        => _healthStorage.ChangeValue(value);
-
-    protected virtual void OnDamaged() { }
-
-    public void Select()
-    {
-        if (IsSelected) return;
-
-        IsSelected = true;
-        OnSelect?.Invoke();
-    }
-
-    public void Deselect()
-    {
-        if (!IsSelected) return;
-
-        IsSelected = false;
-        OnDeselect?.Invoke();
+        CurrentPathData = null;//Rodion: need cus on game destroying target will be deactivated,
+                                //so it triggered this unit, that destroyed too
+        OnDeactivation?.Invoke(this);                        
+        ElementDestroyEvent?.Invoke(this);
     }
 
     public virtual void OnElementReturn()
@@ -200,6 +144,67 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
         MoveSpeedChangerProcessor.Reset();
 
         SwitchSticky(false);
+    }
+    
+    protected void ReturnInPool()
+        => ElementReturnEvent?.Invoke(this);
+    
+    public void SetDestination(Vector3 position)
+    {
+        _navMeshAgent.SetDestination(position);
+    }
+
+    public void Warp(Vector3 position)
+    {
+        _navMeshAgent.Warp(position);
+    }
+
+    private void OnPathTargetDeactivated(IUnitTarget _) 
+        => PathTargetDeactivated?.Invoke();
+    
+    public void SetAffiliation(AffiliationEnum affiliation) 
+        => Affiliation = affiliation;
+
+    public void TakeDamage(IDamageApplicator damageApplicator, float damageScale)
+        => TakeDamage(null, damageApplicator, damageScale);
+    
+    public virtual void TakeDamage(IUnitTarget attacker, IDamageApplicator damageApplicator, float damageScale = 1)
+    {
+        if (!IsAlive)
+        {
+            Debug.LogError($"You try damage unit that already dead: {attacker} | {damageApplicator} | {this}");
+            return;
+        }
+
+        _healthStorage.ChangeValue(-damageApplicator.Damage * damageScale);
+        TookDamage?.Invoke();
+        TookDamageWithAttacker?.Invoke(attacker);
+
+        if (!IsAlive)
+        {
+            OnUnitDied?.Invoke(this);
+            OnUnitDiedEvent?.Invoke();
+            ReturnInPool();
+        }
+    }
+
+    public void TakeHeal(float value)
+        => _healthStorage.ChangeValue(value);
+
+    public void Select()
+    {
+        if (IsSelected) return;
+
+        IsSelected = true;
+        OnSelect?.Invoke();
+    }
+
+    public void Deselect()
+    {
+        if (!IsSelected) return;
+
+        IsSelected = false;
+        OnDeselect?.Invoke();
     }
 
     public void AutoGiveOrder(IUnitTarget unitTarget)
@@ -240,10 +245,7 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
         CalculateNewState(targetMovePosition);
     }
 
-    private void OnPathTargetDeactivated(IUnitTarget _) 
-        => PathTargetDeactivated?.Invoke();
-
-    public EntityStateID EntityStateID;
+    public EntityStateID EntityStateID { get; private set; } //Rodion: dont use it in code. This variable use to look state via inspector
     private void CalculateNewState(Vector3 newTargetMovePosition)
     {
         newTargetMovePosition.y = 0;
@@ -278,21 +280,6 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
         }
 
         EntityStateID = _stateMachine.ActiveState;
-    }
-
-    protected void ReturnInPool()
-        => ElementReturnEvent?.Invoke(this);
-
-    private void OnDisable()
-    {
-        OnDisableITriggerableEvent?.Invoke(this);
-    }
-
-    private void OnDestroy()
-    {
-        CurrentPathData = null;//Rodion: need cus on game destroying target will be deactivated,
-                               //so it triggered this unit, that destroyed too
-        ElementDestroyEvent?.Invoke(this);
     }
 
     public void SwitchSticky(bool isSticky)

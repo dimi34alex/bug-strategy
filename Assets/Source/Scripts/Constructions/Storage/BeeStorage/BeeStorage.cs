@@ -1,6 +1,4 @@
 using Constructions.LevelSystemCore;
-using Source.Scripts;
-using Source.Scripts.ResourcesSystem;
 using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
 using UnityEngine;
 using Zenject;
@@ -22,7 +20,6 @@ namespace Constructions
         {
             base.OnAwake();
 
-            _healthStorage = new FloatStorage(0, 0);
             LevelSystem = new BeeStorageLevelSystem(this, config, _teamsResourcesGlobalStorage, _healthStorage);
             Initialized += InitLevelSystem;
         }

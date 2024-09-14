@@ -10,15 +10,12 @@ public class UserBuilder : CycleInitializerBase
     [Inject] private readonly MissionData _missionData;
     [Inject] private readonly ConstructionsConfigsRepository _constructionsConfigsRepository;
     [Inject] private readonly IConstructionFactory _constructionFactory;
-    [Inject] private readonly DiContainer _diContainer;
-    
+     
     [SerializeField] private SerializableDictionary<ConstructionID, GameObject> constructionMovableModels;
 
     private GameObject _currentConstructionMovableModel;
     private ConstructionID _currentConstructionID;
-
     private UIController _UIController;
-
     private bool _spawnConstruction;
     private float _numberTownHall;
     private UnitPool _pool;
@@ -26,26 +23,21 @@ public class UserBuilder : CycleInitializerBase
     protected override void OnInit()
     {
         _UIController = UIScreenRepository.GetScreen<UIController>();
-        GameObject controller = GameObject.FindGameObjectWithTag("GameController");
     }
 
     protected override void OnUpdate()
     {
         if (_spawnConstruction)
-        {
             MoveConstructionMovableModel();
-        }
         else
-        {
-            Main();
-        }
+            ObjectSelection();
     }
 
-    private void Main()
+    private void ObjectSelection()
     {
         if (Input.GetButtonDown("Fire1"))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             var prevSelectedConstruction = _missionData.ConstructionSelector.SelectedConstruction;
             if (prevSelectedConstruction != null) 
@@ -53,7 +45,7 @@ public class UserBuilder : CycleInitializerBase
             
             if(_missionData.ConstructionSelector.TrySelect(ray))
             {
-                ConstructionBase selectedConstruction = _missionData.ConstructionSelector.SelectedConstruction;
+                var selectedConstruction = _missionData.ConstructionSelector.SelectedConstruction;
                 selectedConstruction.Select();
                 UnitSelection.Instance.DeselectAllWithoutCheck();
                 _UIController.SetWindow(selectedConstruction);
@@ -65,10 +57,8 @@ public class UserBuilder : CycleInitializerBase
         }
     }
 
-    private bool MouseCursorOverUI()
-    {
-        return EventSystem.current.IsPointerOverGameObject();
-    }
+    private static bool MouseCursorOverUI() 
+        => EventSystem.current.IsPointerOverGameObject();
 
     private void MoveConstructionMovableModel()
     {

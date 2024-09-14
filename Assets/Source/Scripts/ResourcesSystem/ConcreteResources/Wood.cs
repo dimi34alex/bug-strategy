@@ -1,4 +1,4 @@
-namespace Source.Scripts.ResourcesSystem.Resources
+namespace Source.Scripts.ResourcesSystem
 {
     public class Wood : ResourceBase
     {

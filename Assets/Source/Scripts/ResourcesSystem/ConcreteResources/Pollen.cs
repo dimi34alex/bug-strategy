@@ -1,6 +1,6 @@
 using System;
 
-namespace Source.Scripts.ResourcesSystem.Resources
+namespace Source.Scripts.ResourcesSystem
 {
     [Serializable]
     public class Pollen : ResourceBase

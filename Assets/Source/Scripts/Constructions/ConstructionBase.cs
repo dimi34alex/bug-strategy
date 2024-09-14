@@ -3,7 +3,6 @@ using UnityEngine;
 using MiniMapSystem;
 using Source.Scripts;
 using Source.Scripts.Missions;
-using Source.Scripts.ResourcesSystem;
 using Zenject;
 
 public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagable, IRepairable, IMiniMapObject,
@@ -14,7 +13,7 @@ public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagabl
     public AffiliationEnum Affiliation { get; private set; }
     public abstract FractionType Fraction { get; }
 
-    protected FloatStorage _healthStorage = new FloatStorage(0,0);
+    protected readonly FloatStorage _healthStorage = new(0,0);
 
     public bool IsSelected { get; private set; }
     public bool IsActive { get; protected set; } = true;
@@ -28,12 +27,12 @@ public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagabl
     
     protected event Action _updateEvent;
     protected event Action _onDestroy;
+    public event Action Initialized;
+    public event Action OnDestruction;
+    public event Action<IUnitTarget> OnDeactivation;
     public event Action<ITriggerable> OnDisableITriggerableEvent;
     public event Action OnSelect;
     public event Action OnDeselect;
-    public event Action<IUnitTarget> OnDeactivation;
-    public event Action OnDestruction;
-    public event Action Initialized;
     
     protected void Awake() => OnAwake();
     protected void Start() => OnStart();
@@ -46,6 +45,19 @@ public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagabl
     {
         Affiliation = newAffiliation;
         Initialized?.Invoke();
+    }
+    
+    private void OnDisable()
+    {
+        IsActive = false;
+        OnDisableITriggerableEvent?.Invoke(this);
+    }
+    
+    private void OnDestroy()
+    {
+        IsActive = false;
+        _onDestroy?.Invoke();
+        OnDeactivation?.Invoke(this);
     }
     
     public virtual void TakeDamage(IUnitTarget attacker, IDamageApplicator damageApplicator, float damageScale = 1)
@@ -90,17 +102,4 @@ public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagabl
 
     protected void SendDeactivateEvent() 
         => OnDeactivation?.Invoke(this);
-    
-    private void OnDestroy()
-    {
-        IsActive = false;
-        _onDestroy?.Invoke();
-        OnDeactivation?.Invoke(this);
-    }
-
-    private void OnDisable()
-    {
-        IsActive = false;
-        OnDisableITriggerableEvent?.Invoke(this);
-    }
 }

@@ -17,10 +17,8 @@ public class CameraMover : MonoBehaviour
         _bounds[1] = new Vector3(field.transform.localScale.x * 5f, 100f, field.transform.localScale.z * 5f);
     }
 
-    private void LateUpdate()
-    {
-        Move();
-    }
+    private void LateUpdate() 
+        => Move();
 
     private void Move()
     {

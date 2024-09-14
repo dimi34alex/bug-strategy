@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraScroll : MonoBehaviour
@@ -7,21 +6,26 @@ public class CameraScroll : MonoBehaviour
     [SerializeField] private bool useScroll;
     [SerializeField] private float scrollPower;
     [SerializeField] private float cameraSizeOffset;
+    
     private Camera _camera;
     private float _startCameraSize;
     private bool _coroutineIsActive;
     private float _targetSize;
-    
-    void Awake()
+
+    private void Awake()
     {
         _camera = GetComponent<Camera>();
         _startCameraSize = _camera.orthographicSize;
         _targetSize = _startCameraSize;
     }
-    
-    void Update()
+
+    private void Update() 
+        => CameraScrolling();
+
+    private void OnDisable()
     {
-        CameraScrolling();
+        StopCoroutine(ScrollLerp());
+        _camera.orthographicSize = _targetSize;
     }
     
     private void CameraScrolling()
@@ -39,8 +43,8 @@ public class CameraScroll : MonoBehaviour
         if(!_coroutineIsActive)
             StartCoroutine(ScrollLerp());
     }
-    
-    IEnumerator ScrollLerp()
+
+    private IEnumerator ScrollLerp()
     {
         _coroutineIsActive = true;
         
@@ -53,11 +57,5 @@ public class CameraScroll : MonoBehaviour
         
         _camera.orthographicSize = _targetSize;
         _coroutineIsActive = false;
-    }
-    
-    private void OnDisable()
-    {
-        StopCoroutine(ScrollLerp());
-        _camera.orthographicSize = _targetSize;
     }
 }

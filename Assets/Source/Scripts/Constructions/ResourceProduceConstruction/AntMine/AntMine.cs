@@ -1,5 +1,3 @@
-using Source.Scripts;
-using Source.Scripts.ResourcesSystem;
 using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
 using UnityEngine;
 using Zenject;
@@ -24,7 +22,8 @@ namespace Constructions
         {
             base.OnAwake();
 
-            _healthStorage = new FloatStorage(config.HealthPoints, config.HealthPoints);
+            _healthStorage.SetCapacity(config.HealthPoints);
+            _healthStorage.SetValue(config.HealthPoints);
             
             _resourceProduceCore = new ResourceProduceCore(config.ResourceProduceProcessInfo);
             _resourceProduceConstructionState = ResourceProduceConstructionState.Paused;
