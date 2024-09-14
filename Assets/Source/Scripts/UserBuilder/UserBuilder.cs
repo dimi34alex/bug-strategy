@@ -46,6 +46,10 @@ public class UserBuilder : CycleInitializerBase
         if (Input.GetButtonDown("Fire1"))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            var prevSelectedConstruction = _missionData.ConstructionSelector.SelectedConstruction;
+            if (prevSelectedConstruction != null) 
+                prevSelectedConstruction.Deselect();
             
             if(_missionData.ConstructionSelector.TrySelect(ray))
             {
