@@ -1846,7 +1846,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6404a23868bd44e7b71a683ee959deee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBeforeAttackPlayerTownHall: 30
+  timeBeforeAttackPlayerTownHall: 180
   constructionAiConfigs:
   - {fileID: 11400000, guid: f3472c0fd86c7954887d2b7344231d8f, type: 2}
   - {fileID: 11400000, guid: f00800f010a7fab46a2d7b84f87052ac, type: 2}
