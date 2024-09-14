@@ -9,6 +9,8 @@ namespace BugStrategy.Unit.UnitSelection
 {
     public class UnitSelection : MonoBehaviour
     {
+        [SerializeField] private LayerMask targetsLayers;
+        
         [Inject] private readonly UIController _uiController;
         [Inject] private readonly MissionData _missionData;
     
@@ -66,20 +68,26 @@ namespace BugStrategy.Unit.UnitSelection
         {
             if (Input.GetMouseButtonDown(1) && _selectedUnits.Count > 0 && !_isSelecting)
             {
-                Vector3 targetPosition = Input.mousePosition;
-
-                targetPosition = Camera.ScreenToWorldPoint(targetPosition);
-
-                List<Vector3> newUnitpositions =
-                    RingStepPositionGenerator.TakeRingsPositions(targetPosition, _selectedUnits.Count);
-
-                int n = 0;
-                foreach (var unit in _selectedUnits)
+                var ray = Camera.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out var hit, 100F, targetsLayers, QueryTriggerInteraction.Ignore) 
+                    && hit.collider.TryGetComponent(out ITarget target))
                 {
-                    unit.AutoGiveOrder(null, newUnitpositions[n]);
+                    for (int i = 0; i < _selectedUnits.Count; i++)
+                        _selectedUnits[i].AutoGiveOrder(target);
                 }
+                else
+                {
+                    Vector3 targetPosition = Input.mousePosition;
+                    targetPosition = Camera.ScreenToWorldPoint(targetPosition);
 
-                UnitsTargetPositionMarkerFactory.Instance.Create(targetPosition);
+                    var unitPositions =
+                        RingStepPositionGenerator.TakeRingsPositions(targetPosition, _selectedUnits.Count);
+
+                    for (int i = 0; i < _selectedUnits.Count; i++)
+                        _selectedUnits[i].AutoGiveOrder(null, unitPositions[i]);
+
+                    UnitsTargetPositionMarkerFactory.Instance.Create(targetPosition);
+                }
             }
         }
 
@@ -161,7 +169,7 @@ namespace BugStrategy.Unit.UnitSelection
     }
 
 
-    public class RingStepPositionGenerator
+    public static class RingStepPositionGenerator
     {
         private static float _ringStep = 2;
         private static int _unitsCountRingStep = 8;
