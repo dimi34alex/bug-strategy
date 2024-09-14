@@ -17,8 +17,8 @@ namespace BugStrategy.Projectiles
         public ProjectileType Identifier => ProjectileType;
         public AffiliationEnum Affiliation { get; private set; }
         
-        protected IUnitTarget Target;
-        protected IUnitTarget Attacker;
+        protected ITarget Target;
+        protected ITarget Attacker;
 
         public event Action<ProjectileBase> ElementReturnEvent;
         public event Action<ProjectileBase> ElementDestroyEvent;
@@ -29,10 +29,10 @@ namespace BugStrategy.Projectiles
             Move(time);
         }
 
-        public void Init(AffiliationEnum affiliation, IUnitTarget attacker, IDamageApplicator damageApplicator)
+        public void Init(AffiliationEnum affiliation, ITarget attacker, IDamageApplicator damageApplicator)
             => Init(affiliation, attacker, damageApplicator.Damage);
         
-        public void Init(AffiliationEnum affiliation, IUnitTarget attacker, float damage)
+        public void Init(AffiliationEnum affiliation, ITarget attacker, float damage)
         {
             Affiliation = affiliation;
             Attacker = attacker;
@@ -41,7 +41,7 @@ namespace BugStrategy.Projectiles
             Attacker.OnDeactivation += (_) => Attacker = null;
         }
 
-        public void SetTarget(IUnitTarget target)
+        public void SetTarget(ITarget target)
         {
             Target = target;
             Target.OnDeactivation += OnTargetDeactivation;
@@ -51,7 +51,7 @@ namespace BugStrategy.Projectiles
 
         public virtual void OnElementExtract() => gameObject.SetActive(true);
 
-        private void OnTargetDeactivation(IUnitTarget _)
+        private void OnTargetDeactivation(ITarget _)
         {
             Target.OnDeactivation -= OnTargetDeactivation;
             ReturnInPool();
@@ -63,7 +63,7 @@ namespace BugStrategy.Projectiles
                 ReturnInPool();
         }
         
-        protected virtual void CollideWithTarget(IUnitTarget target)
+        protected virtual void CollideWithTarget(ITarget target)
         {
             if (target.TryCast(out IDamagable damagable))
                 damagable.TakeDamage(Attacker, this);
@@ -81,7 +81,7 @@ namespace BugStrategy.Projectiles
 
         private void OnTriggerEnter(Collider someCollider)
         {
-            if (someCollider.TryGetComponent(out IUnitTarget target) && target == Target)
+            if (someCollider.TryGetComponent(out ITarget target) && target == Target)
                 CollideWithTarget(target);
         }
         

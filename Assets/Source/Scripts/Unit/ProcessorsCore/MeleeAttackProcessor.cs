@@ -7,13 +7,13 @@ namespace BugStrategy.Unit.ProcessorsCore
     public class MeleeAttackProcessor : AttackProcessorBase
     {
         public override event Action Attacked;
-        public override event Action<IUnitTarget> TargetAttacked;
+        public override event Action<ITarget> TargetAttacked;
 
         public MeleeAttackProcessor(UnitBase unit, float attackRange, float damage, CooldownProcessor cooldownProcessor) 
             : base(unit, attackRange, damage, cooldownProcessor)
         { }
         
-        protected override void Attack(IUnitTarget target)
+        protected override void Attack(ITarget target)
         {
             if (target.TryCast(out IDamagable damageable) && damageable.IsAlive)
             {

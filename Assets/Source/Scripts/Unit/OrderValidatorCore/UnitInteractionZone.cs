@@ -12,26 +12,26 @@ namespace BugStrategy.Unit.OrderValidatorCore
         [SerializeField] private SphereCollider sphereCollider;
         
         protected override bool _refreshEnteredComponentsAfterExit => false;
-        protected override Func<ITriggerable, bool> EnteredComponentIsSuitable => t => t.CastPossible<IUnitTarget>(); 
+        protected override Func<ITriggerable, bool> EnteredComponentIsSuitable => t => t.CastPossible<ITarget>(); 
 
-        private readonly List<IUnitTarget> _unitTargets = new List<IUnitTarget>();
+        private readonly List<ITarget> _unitTargets = new List<ITarget>();
         
 
-        public IReadOnlyList<IUnitTarget> UnitTargets => _unitTargets;
+        public IReadOnlyList<ITarget> UnitTargets => _unitTargets;
         
-        public new event Action<IUnitTarget> EnterEvent;
-        public new event Action<IUnitTarget> ExitEvent;
+        public new event Action<ITarget> EnterEvent;
+        public new event Action<ITarget> ExitEvent;
         
         protected override void OnEnter(ITriggerable component)
         {
-            var target = component.Cast<IUnitTarget>();
+            var target = component.Cast<ITarget>();
             _unitTargets.Add(target);
             EnterEvent?.Invoke(target);
         }
 
         protected override void OnExit(ITriggerable component)
         {
-            var target = component.Cast<IUnitTarget>();
+            var target = component.Cast<ITarget>();
             _unitTargets.Remove(target);
             ExitEvent?.Invoke(target);
         }

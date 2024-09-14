@@ -23,7 +23,7 @@ namespace BugStrategy.Unit
         
         public override void OnStateEnter()
         {
-            if (_unit.CurrentPathData.TargetType != UnitTargetType.Construction ||
+            if (_unit.CurrentPathData.TargetType != TargetType.Construction ||
                 _unit.CurrentPathData.Target.IsAnyNull() ||
                 !_unit.CurrentPathData.Target.TryCast(out _buildingProgressConstruction))
             {

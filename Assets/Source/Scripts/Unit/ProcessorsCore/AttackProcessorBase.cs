@@ -11,7 +11,7 @@ namespace BugStrategy.Unit.ProcessorsCore
         private readonly AttackZoneProcessor _attackZoneProcessor;
         private readonly IAffiliation _affiliation;
         protected readonly Transform Transform;
-        protected readonly IUnitTarget Attacker;
+        protected readonly ITarget Attacker;
         
         public int EnemiesCount => _attackZoneProcessor.EnemiesCount;
         public float AttackRange => _attackZoneProcessor.AttackRange;
@@ -19,7 +19,7 @@ namespace BugStrategy.Unit.ProcessorsCore
         public float Damage { get; }
 
         public abstract event Action Attacked;
-        public abstract event Action<IUnitTarget> TargetAttacked;
+        public abstract event Action<ITarget> TargetAttacked;
         public event Action OnEnterEnemyInZone;
         public event Action OnExitEnemyFromZone;
 
@@ -37,7 +37,7 @@ namespace BugStrategy.Unit.ProcessorsCore
             _attackZoneProcessor.OnExitEnemyFromZone += ExitEnemyFromZone;
         }
 
-        public bool TargetInZone(IUnitTarget someTarget)
+        public bool TargetInZone(ITarget someTarget)
         {
             if(someTarget.IsAnyNull() || !someTarget.IsActive)
                 return false;
@@ -48,7 +48,7 @@ namespace BugStrategy.Unit.ProcessorsCore
         /// <returns>
         /// return true if distance between unit and someTarget less or equal attack range, else return false
         /// </returns>
-        public bool CheckAttackDistance(IUnitTarget someTarget) => _attackZoneProcessor.Targets.ContainsKey(someTarget);
+        public bool CheckAttackDistance(ITarget someTarget) => _attackZoneProcessor.Targets.ContainsKey(someTarget);
 
         /// <returns> return tru if some IDamageable stay in attack zone, else return false</returns>
         public bool CheckEnemiesInAttackZone() => EnemiesCount > 0;
@@ -56,7 +56,7 @@ namespace BugStrategy.Unit.ProcessorsCore
         /// <summary>
         /// Attack target, if target can't be attacked, then attack nearest enemy
         /// </summary>
-        public void TryAttack(IUnitTarget target)
+        public void TryAttack(ITarget target)
         {
             if (_cooldownProcessor.IsCooldown) return;
             
@@ -68,9 +68,9 @@ namespace BugStrategy.Unit.ProcessorsCore
             }
         }
         
-        protected abstract void Attack(IUnitTarget target);
+        protected abstract void Attack(ITarget target);
 
-        private bool TryGetNearestDamageableTarget(out IUnitTarget nearestTarget)
+        private bool TryGetNearestDamageableTarget(out ITarget nearestTarget)
         {
             nearestTarget = null;
             float currentDistance = float.MaxValue;
@@ -88,7 +88,7 @@ namespace BugStrategy.Unit.ProcessorsCore
             return !(nearestTarget is null);
         }
         
-        private float Distance(IUnitTarget someTarget) => Vector3.Distance(Transform.position, someTarget.Transform.position);
+        private float Distance(ITarget someTarget) => Vector3.Distance(Transform.position, someTarget.Transform.position);
 
         private void EnterEnemyInZone() => OnEnterEnemyInZone?.Invoke();
 

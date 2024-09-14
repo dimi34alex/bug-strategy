@@ -38,7 +38,7 @@ namespace BugStrategy.Projectiles
             _isSticky = false;
         }
 
-        protected override void CollideWithTarget(IUnitTarget target)
+        protected override void CollideWithTarget(ITarget target)
         {
             RaycastHit[] result = new RaycastHit[50];
             var size = Physics.SphereCastNonAlloc(transform.position, _damageRadius, Vector3.down,

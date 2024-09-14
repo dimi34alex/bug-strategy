@@ -24,7 +24,7 @@ namespace BugStrategy.Unit.Ants
         public override void OnStateEnter()
         {
             if (_ant.CurProfessionType != ProfessionType.Worker ||
-                _ant.CurrentPathData.TargetType != UnitTargetType.Construction ||
+                _ant.CurrentPathData.TargetType != TargetType.Construction ||
                 _ant.CurrentPathData.Target.IsAnyNull() ||
                 !_ant.CurrentPathData.Target.TryCast(out _buildingProgressConstruction))
             {

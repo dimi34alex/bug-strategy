@@ -67,24 +67,24 @@ namespace BugStrategy.Unit.Ants
             _stateMachine = new EntityStateMachine(stateBases, EntityStateID.Idle);
         }
 
-        public void GiveOrderSwitchProfession(IUnitTarget unitTarget, AntProfessionConfigBase config) 
-            => GiveOrderSwitchProfession(unitTarget, config.ProfessionType, config.AntProfessionRang);
+        public void GiveOrderSwitchProfession(ITarget target, AntProfessionConfigBase config) 
+            => GiveOrderSwitchProfession(target, config.ProfessionType, config.AntProfessionRang);
         
-        public void GiveOrderSwitchProfession(IUnitTarget unitTarget,
+        public void GiveOrderSwitchProfession(ITarget target,
             ProfessionType newProfessionType, AntProfessionRang newProfessionRang)
         {
             if(newProfessionType == CurProfessionType && newProfessionRang.Rang == CurProfessionRang || 
-               unitTarget.IsAnyNull())
+               target.IsAnyNull())
             {
-                Debug.LogWarning($"You try give order to set profession that already set ({newProfessionType == CurProfessionType}, {newProfessionRang.Rang == CurProfessionRang}) or Target is null ({unitTarget})");
-                AutoGiveOrder(unitTarget);
+                Debug.LogWarning($"You try give order to set profession that already set ({newProfessionType == CurProfessionType}, {newProfessionRang.Rang == CurProfessionRang}) or Target is null ({target})");
+                AutoGiveOrder(target);
                 return;
             }
 
             TargetProfessionType = newProfessionType;
             TargetProfessionRang = newProfessionRang.Rang;
             
-            HandleGiveOrder(unitTarget, UnitPathType.Switch_Profession);
+            HandleGiveOrder(target, UnitPathType.Switch_Profession);
         }
 
         public void SwitchProfession(AntProfessionConfigBase newProfession)

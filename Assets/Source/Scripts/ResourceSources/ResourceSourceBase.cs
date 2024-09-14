@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace BugStrategy.ResourceSources
 {
-    public abstract class ResourceSourceBase : MonoBehaviour, IMiniMapObject, ITriggerable, IUnitTarget
+    public abstract class ResourceSourceBase : MonoBehaviour, IMiniMapObject, ITriggerable, ITarget
     {
         [SerializeField] private int resourceCapacity;
     
@@ -19,11 +19,11 @@ namespace BugStrategy.ResourceSources
     
         public AffiliationEnum Affiliation => AffiliationEnum.None;
         public MiniMapObjectType MiniMapObjectType => MiniMapObjectType.ResourceSource;
-        public UnitTargetType TargetType => UnitTargetType.ResourceSource;
+        public TargetType TargetType => TargetType.ResourceSource;
         public Transform Transform => transform;
     
         public event Action<ITriggerable> OnDisableITriggerableEvent;
-        public event Action<IUnitTarget> OnDeactivation;
+        public event Action<ITarget> OnDeactivation;
 
         private void Awake()
         {

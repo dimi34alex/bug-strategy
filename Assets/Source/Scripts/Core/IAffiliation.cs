@@ -1,4 +1,3 @@
-using BugStrategy.Unit;
 
 namespace BugStrategy
 {

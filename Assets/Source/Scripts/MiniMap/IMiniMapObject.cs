@@ -1,5 +1,3 @@
-using BugStrategy.Unit;
-
 namespace BugStrategy.MiniMap
 {
     public interface IMiniMapObject

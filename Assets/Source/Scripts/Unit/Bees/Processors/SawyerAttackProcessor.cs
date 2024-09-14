@@ -20,7 +20,7 @@ namespace BugStrategy.Unit.Bees
             _exitDamageScale = exitDamageScale;
         }
         
-        protected override void InitProjectileData(ProjectileBase projectile, IUnitTarget target)
+        protected override void InitProjectileData(ProjectileBase projectile, ITarget target)
         {
             projectile.Init(Affiliation, Attacker, Damage * _exitDamageScale);
             projectile.SetTarget(target);

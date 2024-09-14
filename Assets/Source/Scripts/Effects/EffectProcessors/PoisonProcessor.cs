@@ -1,5 +1,3 @@
-using BugStrategy.Unit;
-
 namespace BugStrategy.Effects
 {
     public sealed class PoisonProcessor : EffectProcessorBase, IDamageApplicator

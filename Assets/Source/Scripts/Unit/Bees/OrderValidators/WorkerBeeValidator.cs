@@ -18,19 +18,19 @@ namespace BugStrategy.Unit.Bees
             _resourceExtractionProcessor = resourceExtractionProcessor;
         }
 
-        protected override UnitPathData ValidateAutoOrder(IUnitTarget target)
+        protected override UnitPathData ValidateAutoOrder(ITarget target)
         {
             if(target.IsAnyNull() || !target.IsActive)
                 return new UnitPathData(null, UnitPathType.Move);
             
             switch (target.TargetType)
             {
-                case UnitTargetType.ResourceSource:
+                case TargetType.ResourceSource:
                     if(!_resourceExtractionProcessor.GotResource && 
                        target.Cast<ResourceSourceBase>().CanBeCollected)
                         return new UnitPathData(target, UnitPathType.Collect_Resource);
                     break;
-                case UnitTargetType.Construction:
+                case TargetType.Construction:
                     if (target.CastPossible<BuildingProgressConstruction>())
                         return new UnitPathData(target, UnitPathType.Build_Construction);
                 
@@ -49,7 +49,7 @@ namespace BugStrategy.Unit.Bees
             return new UnitPathData(null, UnitPathType.Move);
         }
         
-        protected override UnitPathType ValidateHandleOrder(IUnitTarget target, UnitPathType pathType)
+        protected override UnitPathType ValidateHandleOrder(ITarget target, UnitPathType pathType)
         {
             if (target.IsAnyNull() || !target.IsActive) 
                 return UnitPathType.Move;
@@ -57,26 +57,26 @@ namespace BugStrategy.Unit.Bees
             switch (pathType)
             {
                 case UnitPathType.Build_Construction:
-                    if (target.TargetType == UnitTargetType.Construction &&
+                    if (target.TargetType == TargetType.Construction &&
                         //TODO: create ants constructions and start check affiliations
                         // unitTarget.Affiliation == Affiliation &&
                         target.CastPossible<BuildingProgressConstruction>())
                         return UnitPathType.Build_Construction;
                     break;
                 case UnitPathType.Repair_Construction:
-                    if (target.TargetType == UnitTargetType.Construction &&
+                    if (target.TargetType == TargetType.Construction &&
                         target.Affiliation == Affiliation &&
                         target.CastPossible<ConstructionBase>())
                         return UnitPathType.Repair_Construction;
                     break;
                 case UnitPathType.Collect_Resource:
-                    if (target.TargetType == UnitTargetType.ResourceSource &&
+                    if (target.TargetType == TargetType.ResourceSource &&
                         target.Cast<ResourceSourceBase>().CanBeCollected &&
                         !_resourceExtractionProcessor.GotResource)
                         return UnitPathType.Collect_Resource;
                     break;
                 case UnitPathType.Storage_Resource:
-                    if (target.TargetType == UnitTargetType.Construction &&
+                    if (target.TargetType == TargetType.Construction &&
                         target.Affiliation == Affiliation &&
                         target.CastPossible<TownHallBase>() &&
                         _resourceExtractionProcessor.GotResource)
@@ -84,7 +84,7 @@ namespace BugStrategy.Unit.Bees
                     break;
                 case UnitPathType.Switch_Profession:
                     if (Unit.Fraction == FractionType.Ants &&
-                        target.TargetType == UnitTargetType.Construction)
+                        target.TargetType == TargetType.Construction)
                         // TODO: create construction for switching ants professions
                         return UnitPathType.Switch_Profession;
                     break;

@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using BugStrategy.MiniMap.Factories;
-using BugStrategy.MiniMap.MiniMapIcons;
+using BugStrategy.MiniMap.MiniMapIcons.Factories;
 using BugStrategy.Pool;
 using UnityEngine;
 using Zenject;

@@ -8,7 +8,7 @@ namespace BugStrategy.Projectiles
     {
         public override ProjectileType ProjectileType => ProjectileType.BeeWaxTowerProjectile;
         
-        protected override void CollideWithTarget(IUnitTarget target)
+        protected override void CollideWithTarget(ITarget target)
         {
             if (target.TryCast(out IEffectable effectable))
                 effectable.EffectsProcessor.ApplyEffect(EffectType.MoveSpeedDown);

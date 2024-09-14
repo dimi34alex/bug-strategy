@@ -11,10 +11,10 @@ namespace BugStrategy.Ai.InternalAis
         protected readonly UnitBase Unit; 
         
         protected abstract List<UnitInternalEvaluator> InternalEvaluators { get; }
-        public IUnitTarget GlobalAiOrderTarget { get; protected set; }
+        public ITarget GlobalAiOrderTarget { get; protected set; }
         public AiUnitStateType AiState { get; protected set; }
         public bool UnitTookDamage { get; protected set; }
-        public IUnitTarget Attacker { get; protected set; }
+        public ITarget Attacker { get; protected set; }
         
         protected InternalAiBase(UnitBase unit, IEnumerable<EntityStateBase> states)
         {
@@ -32,7 +32,7 @@ namespace BugStrategy.Ai.InternalAis
                 stateBase.StateExecuted += TryGiveOrder;
         }
         
-        public void SetOrderPriority(IUnitTarget target, AiUnitStateType aiUnitStateType)
+        public void SetOrderPriority(ITarget target, AiUnitStateType aiUnitStateType)
         {
             if (!GlobalAiOrderTarget.IsAnyNull()) 
                 GlobalAiOrderTarget.OnDeactivation -= SetOrderPriority;
@@ -46,7 +46,7 @@ namespace BugStrategy.Ai.InternalAis
             TryGiveOrder();
         }
 
-        private void SetOrderPriority(IUnitTarget _)
+        private void SetOrderPriority(ITarget _)
             => SetOrderPriority(null, AiState);
         
         protected void TryGiveOrder()

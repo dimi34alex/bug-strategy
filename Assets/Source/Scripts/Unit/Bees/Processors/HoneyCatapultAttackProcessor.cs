@@ -25,7 +25,7 @@ namespace BugStrategy.Unit.Bees
         public void SetProjectileCounterCapacity(int newProjectileCounterCapacity)
             => _projectileCounter.SetCapacity(newProjectileCounterCapacity);
         
-        protected override void InitProjectileData(ProjectileBase projectile, IUnitTarget target)
+        protected override void InitProjectileData(ProjectileBase projectile, ITarget target)
         {
             base.InitProjectileData(projectile, target);
             

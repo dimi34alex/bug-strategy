@@ -14,7 +14,7 @@ namespace BugStrategy.Projectiles
         public void SetDamageRadius(float radius)
             => _damageRadius = radius;
         
-        protected override void CollideWithTarget(IUnitTarget target)
+        protected override void CollideWithTarget(ITarget target)
         {
             RaycastHit[] result = new RaycastHit[30];
             var size = Physics.SphereCastNonAlloc(transform.position, _damageRadius, Vector3.down,

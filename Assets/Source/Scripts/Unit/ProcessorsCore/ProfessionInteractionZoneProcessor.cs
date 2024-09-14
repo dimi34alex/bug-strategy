@@ -10,7 +10,7 @@ namespace BugStrategy.Unit.ProcessorsCore
     {
         private readonly UnitInteractionZone _interactionZone;
         
-        private IReadOnlyList<IUnitTarget> Targets => _interactionZone.UnitTargets;
+        private IReadOnlyList<ITarget> Targets => _interactionZone.UnitTargets;
 
         public float InteractionRange { get; }
         
@@ -30,11 +30,11 @@ namespace BugStrategy.Unit.ProcessorsCore
                 OnEnterTargetInZone(target);
         }
 
-        public bool Contains(IUnitTarget unitTarget) 
-            => !unitTarget.IsAnyNull() && Targets.Contains(t => t == unitTarget);
+        public bool Contains(ITarget target) 
+            => !target.IsAnyNull() && Targets.Contains(t => t == target);
         
-        private void OnEnterTargetInZone(IUnitTarget target) => OnEnterInZone?.Invoke();
+        private void OnEnterTargetInZone(ITarget target) => OnEnterInZone?.Invoke();
         
-        private void OnExitTargetFromZone(IUnitTarget target) => OnExitFromZone?.Invoke();
+        private void OnExitTargetFromZone(ITarget target) => OnExitFromZone?.Invoke();
     }
 }

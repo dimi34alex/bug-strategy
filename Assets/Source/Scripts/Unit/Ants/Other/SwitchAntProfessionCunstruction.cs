@@ -6,7 +6,7 @@ using Zenject;
 
 namespace BugStrategy.Unit.Ants
 {
-    public class SwitchAntProfessionCunstruction : MonoBehaviour, IUnitTarget, ITriggerable
+    public class SwitchAntProfessionCunstruction : MonoBehaviour, ITarget, ITriggerable
     {
         //TODO: remove this script and create construction for switch professions
         [SerializeField] private AntBase ant;
@@ -17,13 +17,13 @@ namespace BugStrategy.Unit.Ants
         [Inject] private UnitFactory _unitFactory;
     
         public Transform Transform => transform;
-        public UnitTargetType TargetType => UnitTargetType.Construction;
+        public TargetType TargetType => TargetType.Construction;
         public AffiliationEnum Affiliation => affiliationEnum;
         public bool IsActive { get; protected set; } = true;
 
         public event Action<ITriggerable> OnDisableITriggerableEvent;
 
-        public event Action<IUnitTarget> OnDeactivation;
+        public event Action<ITarget> OnDeactivation;
     
         void Update()
         {

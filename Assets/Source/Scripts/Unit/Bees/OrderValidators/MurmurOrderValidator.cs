@@ -36,19 +36,19 @@ namespace BugStrategy.Unit.Bees
             }
         }
 
-        protected override UnitPathData ValidateAutoOrder(IUnitTarget target)
+        protected override UnitPathData ValidateAutoOrder(ITarget target)
         {
             if(target.IsAnyNull())
                 return new UnitPathData(null, UnitPathType.Move);
             
             switch (target.TargetType)
             {
-                case UnitTargetType.ResourceSource:
+                case TargetType.ResourceSource:
                     if (!_resourceExtractionProcessor.GotResource &&
                         target.Cast<ResourceSourceBase>().CanBeCollected)
                         return new UnitPathData(target, UnitPathType.Collect_Resource);
                     break;
-                case UnitTargetType.Construction:
+                case TargetType.Construction:
                     if(target.Affiliation != Affiliation)
                         return new UnitPathData(target, UnitPathType.Attack);
 
@@ -61,27 +61,27 @@ namespace BugStrategy.Unit.Bees
                                                           && hiderConstruction.Hider.CheckAccess(Unit.UnitType))
                         return new UnitPathData(target, UnitPathType.HideInConstruction);
                     break;      
-                case (UnitTargetType.Other_Unit):
+                case (TargetType.Unit):
                     return new UnitPathData(target, UnitPathType.Attack);
             }
             
             return new UnitPathData(null, UnitPathType.Move);
         }
 
-        protected override UnitPathType ValidateHandleOrder(IUnitTarget target, UnitPathType pathType)
+        protected override UnitPathType ValidateHandleOrder(ITarget target, UnitPathType pathType)
         {
             switch (pathType)
             {
                 case UnitPathType.Collect_Resource:
                     if (!target.IsAnyNull() &&
-                        target.TargetType == UnitTargetType.ResourceSource &&
+                        target.TargetType == TargetType.ResourceSource &&
                         target.Cast<ResourceSourceBase>().CanBeCollected &&
                         !_resourceExtractionProcessor.GotResource)
                         return UnitPathType.Collect_Resource;
                     break;
                 case UnitPathType.Storage_Resource:
                     if (!target.IsAnyNull() &&
-                        target.TargetType == UnitTargetType.Construction &&
+                        target.TargetType == TargetType.Construction &&
                         target.Affiliation == Affiliation &&
                         target.CastPossible<TownHallBase>() &&
                         _resourceExtractionProcessor.GotResource)

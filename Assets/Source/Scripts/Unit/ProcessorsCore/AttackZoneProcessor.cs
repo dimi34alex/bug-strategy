@@ -10,9 +10,9 @@ namespace BugStrategy.Unit.ProcessorsCore
     {
         private readonly UnitInteractionZone _attackZone;
         private readonly IAffiliation _affiliation;
-        private readonly Dictionary<IUnitTarget, IDamagable> _targets = new();
+        private readonly Dictionary<ITarget, IDamagable> _targets = new();
 
-        public IReadOnlyDictionary<IUnitTarget, IDamagable> Targets => _targets;
+        public IReadOnlyDictionary<ITarget, IDamagable> Targets => _targets;
         public int EnemiesCount => _targets.Keys.Count;
         public float AttackRange { get; }
         
@@ -33,7 +33,7 @@ namespace BugStrategy.Unit.ProcessorsCore
                 TryAddTarget(target);
         }
         
-        private void TryAddTarget(IUnitTarget target)
+        private void TryAddTarget(ITarget target)
         {
             if (target.IsAnyNull() ||
                 target.Affiliation == _affiliation.Affiliation ||
@@ -46,7 +46,7 @@ namespace BugStrategy.Unit.ProcessorsCore
             OnEnterEnemyInZone?.Invoke();
         }
 
-        private void TryRemoveTarget(IUnitTarget target)
+        private void TryRemoveTarget(ITarget target)
         {
             target.OnDeactivation -= TryRemoveTarget;
             

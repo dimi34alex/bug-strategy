@@ -9,7 +9,7 @@ namespace BugStrategy.Ai.InternalAis
     public class AttackOrderEvaluator : UnitInternalEvaluator
     {
         private readonly IReadOnlyAttackProcessor _attackProcessor;
-        private IUnitTarget _hashedTarget;
+        private ITarget _hashedTarget;
 
         public AttackOrderEvaluator(UnitBase unit, InternalAiBase internalAi, IReadOnlyAttackProcessor attackProcessor)
             : base(unit, internalAi)

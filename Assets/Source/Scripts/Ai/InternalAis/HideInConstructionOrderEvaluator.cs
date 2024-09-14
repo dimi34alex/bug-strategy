@@ -6,7 +6,7 @@ namespace BugStrategy.Ai.InternalAis
 {
     public class HideInConstructionOrderEvaluator : UnitInternalEvaluator
     {
-        private IUnitTarget _hashedTarget;
+        private ITarget _hashedTarget;
         
         public HideInConstructionOrderEvaluator(UnitBase unit, InternalAiBase internalAi) 
             : base(unit, internalAi)

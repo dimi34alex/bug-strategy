@@ -11,7 +11,7 @@ namespace BugStrategy.Unit.Bees
         private bool _isCriticalAttack;
         
         public override event Action Attacked;
-        public override event Action<IUnitTarget> TargetAttacked;
+        public override event Action<ITarget> TargetAttacked;
 
         public HornetAttackProcessor(UnitBase unit, float attackRange, float damage, CooldownProcessor cooldownProcessor) 
             : base(unit, attackRange, damage, cooldownProcessor)
@@ -25,7 +25,7 @@ namespace BugStrategy.Unit.Bees
         public void SetCriticalDamageScale(float newScale)
             => _criticalDamageScale = newScale;
         
-        protected override void Attack(IUnitTarget target)
+        protected override void Attack(ITarget target)
         {
             if (target.TryCast(out IDamagable damageable))
             {

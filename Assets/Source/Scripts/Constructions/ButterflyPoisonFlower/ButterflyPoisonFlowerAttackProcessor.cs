@@ -11,7 +11,7 @@ namespace BugStrategy.Constructions.ButterflyPoisonFlower
 {
     public class ButterflyPoisonFlowerAttackProcessor
     {
-        private readonly IUnitTarget _shooter;
+        private readonly ITarget _shooter;
         private readonly IAffiliation _affiliation;
         private readonly List<UnitBase> _enemies = new List<UnitBase>();
         private readonly ProjectileFactory _projectileFactory;
@@ -26,7 +26,7 @@ namespace BugStrategy.Constructions.ButterflyPoisonFlower
         public AffiliationEnum Affiliation => _affiliation.Affiliation;
         
         public ButterflyPoisonFlowerAttackProcessor(IAffiliation affiliation, Transform flowerPosition, 
-            ProjectileFactory projectileFactory, TriggerBehaviour triggerBehaviour, IUnitTarget shooter)
+            ProjectileFactory projectileFactory, TriggerBehaviour triggerBehaviour, ITarget shooter)
         {
             _affiliation = affiliation;
             _flowerPosition = flowerPosition;

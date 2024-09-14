@@ -16,7 +16,7 @@ namespace BugStrategy.Constructions.BeeWaxTower
         private readonly IAffiliation _affiliation;
         private readonly SpawnProcessor _spawnProcessor;
         private readonly TriggerBehaviour _attackZone;
-        private readonly List<IUnitTarget> _targets;
+        private readonly List<ITarget> _targets;
         private readonly Transform _spawnTransform;
         private readonly Timer _cooldown;
         
@@ -25,12 +25,12 @@ namespace BugStrategy.Constructions.BeeWaxTower
         public AffiliationEnum Affiliation => _affiliation.Affiliation;
         
         public BeeWaxTowerAttackProcessor(IAffiliation affiliation, ProjectileFactory projectileFactory, 
-            TriggerBehaviour attackZone, Transform spawnTransform, IUnitTarget shooter)
+            TriggerBehaviour attackZone, Transform spawnTransform, ITarget shooter)
         {
             _affiliation = affiliation;
             _attackZone = attackZone;
             _spawnTransform = spawnTransform;
-            _targets = new List<IUnitTarget>();
+            _targets = new List<ITarget>();
 
             _spawnProcessor = new SpawnProcessor(_affiliation, projectileFactory, spawnTransform, shooter);
             _spawnProcessor.OnEndSpawn += ResetCooldown;
@@ -58,7 +58,7 @@ namespace BugStrategy.Constructions.BeeWaxTower
 
         private void OnTargetEnter(ITriggerable triggerable)
         {
-            if (triggerable.TryCast(out IUnitTarget target) 
+            if (triggerable.TryCast(out ITarget target) 
                 && Affiliation.CheckEnemies(target.Affiliation) 
                 && target.CastPossible<IDamagable>())
             {
@@ -75,11 +75,11 @@ namespace BugStrategy.Constructions.BeeWaxTower
         
         private void OnTargetExit(ITriggerable triggerable)
         {
-            if (triggerable.TryCast(out IUnitTarget target))
+            if (triggerable.TryCast(out ITarget target))
                 TryRemoveTarget(target);
         }
 
-        private void TryRemoveTarget(IUnitTarget target)
+        private void TryRemoveTarget(ITarget target)
         {
             target.OnDeactivation -= TryRemoveTarget;
             
@@ -95,7 +95,7 @@ namespace BugStrategy.Constructions.BeeWaxTower
             if(_targets.Count <= 0)
                 return;
 
-            List<(IUnitTarget, float)> targetsWithDistance = new List<(IUnitTarget, float)>();
+            List<(ITarget, float)> targetsWithDistance = new List<(ITarget, float)>();
 
             foreach (var target in _targets)
                 targetsWithDistance.Add((target, Vector3.Distance(target.Transform.position, _spawnTransform.position)));
@@ -110,7 +110,7 @@ namespace BugStrategy.Constructions.BeeWaxTower
                 }
             );
 
-            List<IUnitTarget> tars = new List<IUnitTarget>(); 
+            List<ITarget> tars = new List<ITarget>(); 
             int targetIndex = 0;
             for (int i = 0; i < _projectilesCount; i++)
             {
@@ -128,7 +128,7 @@ namespace BugStrategy.Constructions.BeeWaxTower
         
         private class SpawnProcessor
         {
-            private readonly IUnitTarget _shooter;
+            private readonly ITarget _shooter;
             private readonly IAffiliation _affiliation;
             private readonly ProjectileFactory _projectileFactory;
             private readonly TriggerBehaviour _attackZone;
@@ -136,7 +136,7 @@ namespace BugStrategy.Constructions.BeeWaxTower
             private readonly Timer _spawnPauseTimer;
             
             private ProjectileType _projectileType;
-            private List<IUnitTarget> _targets;
+            private List<ITarget> _targets;
             private float _damage;
 
             public AffiliationEnum Affiliation => _affiliation.Affiliation;
@@ -144,7 +144,7 @@ namespace BugStrategy.Constructions.BeeWaxTower
             public event Action OnEndSpawn;
             
             public SpawnProcessor(IAffiliation affiliation, ProjectileFactory projectileFactory, Transform spawnTransform, 
-                IUnitTarget shooter)
+                ITarget shooter)
             {
                 _affiliation = affiliation;
                 _projectileFactory = projectileFactory;
@@ -164,7 +164,7 @@ namespace BugStrategy.Constructions.BeeWaxTower
                 _damage = damage;
             }
             
-            public void InvokeAttack(List<IUnitTarget> targets)
+            public void InvokeAttack(List<ITarget> targets)
             {
                 _targets = targets;
                 SpawnProjectile();

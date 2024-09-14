@@ -29,34 +29,34 @@ namespace BugStrategy.Unit.OrderValidatorCore
         /// <returns>
         /// return distance between unit and someTarget
         /// </returns>
-        protected float Distance(IUnitTarget someTarget) => Vector3.Distance(Transform.position, someTarget.Transform.position);
+        protected float Distance(ITarget someTarget) => Vector3.Distance(Transform.position, someTarget.Transform.position);
     
         /// <returns>
         /// return true if someTarget stay in interaction zone, else return false
         /// </returns>
-        protected bool CheckInteraction(IUnitTarget someTarget) => ProfessionInteractionZoneProcessor.Contains(someTarget);
+        protected bool CheckInteraction(ITarget someTarget) => ProfessionInteractionZoneProcessor.Contains(someTarget);
 
         /// <returns>
         /// return true if unit can doing something with target in pathData on current distance, else return false
         /// </returns>
         public virtual bool CheckDistance(UnitPathData pathData) => CheckInteraction(pathData.Target);
 
-        public UnitPathData AutoGiveOrder(IUnitTarget target)
+        public UnitPathData AutoGiveOrder(ITarget target)
         {
             if (target.IsAnyNull() || !target.IsActive)
                 target = null;
             return ValidateAutoOrder(target);
         }
         
-        protected abstract UnitPathData ValidateAutoOrder(IUnitTarget target);
+        protected abstract UnitPathData ValidateAutoOrder(ITarget target);
         
-        public UnitPathData HandleGiveOrder(IUnitTarget target, UnitPathType pathType)
+        public UnitPathData HandleGiveOrder(ITarget target, UnitPathType pathType)
         {
             if (target.IsAnyNull() || !target.IsActive)
                 target = null;
             return new UnitPathData(target, ValidateHandleOrder(target, pathType));
         }
 
-        protected abstract UnitPathType ValidateHandleOrder(IUnitTarget target, UnitPathType pathType);
+        protected abstract UnitPathType ValidateHandleOrder(ITarget target, UnitPathType pathType);
     } 
 }

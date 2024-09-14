@@ -9,7 +9,7 @@ using Zenject;
 namespace BugStrategy.Constructions
 {
     public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagable, IRepairable, IMiniMapObject,
-        ITriggerable, IUnitTarget, SelectableSystem.ISelectable, IAffiliation
+        ITriggerable, ITarget, SelectableSystem.ISelectable, IAffiliation
     {
         [Inject] protected readonly MissionData MissionData;
     
@@ -23,7 +23,7 @@ namespace BugStrategy.Constructions
         public bool IsAlive => IsActive && _healthStorage.CurrentValue > 0f;
     
         public abstract ConstructionID ConstructionID { get; }
-        public UnitTargetType TargetType => UnitTargetType.Construction;
+        public TargetType TargetType => TargetType.Construction;
         public MiniMapObjectType MiniMapObjectType => MiniMapObjectType.Construction;
         public Transform Transform => transform;
         public IReadOnlyFloatStorage HealthStorage => _healthStorage;
@@ -32,7 +32,7 @@ namespace BugStrategy.Constructions
         protected event Action _onDestroy;
         public event Action Initialized;
         public event Action OnDestruction;
-        public event Action<IUnitTarget> OnDeactivation;
+        public event Action<ITarget> OnDeactivation;
         public event Action<ITriggerable> OnDisableITriggerableEvent;
         public event Action OnSelect;
         public event Action OnDeselect;
@@ -63,7 +63,7 @@ namespace BugStrategy.Constructions
             OnDeactivation?.Invoke(this);
         }
     
-        public virtual void TakeDamage(IUnitTarget attacker, IDamageApplicator damageApplicator, float damageScale = 1)
+        public virtual void TakeDamage(ITarget attacker, IDamageApplicator damageApplicator, float damageScale = 1)
         {
             if (!IsAlive)
             {

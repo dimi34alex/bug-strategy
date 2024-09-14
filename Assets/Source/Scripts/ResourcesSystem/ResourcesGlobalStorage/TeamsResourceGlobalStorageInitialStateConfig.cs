@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using BugStrategy.ConfigsRepository;
 using BugStrategy.Libs;
-using BugStrategy.Unit;
 using UnityEngine;
 
 namespace BugStrategy.ResourcesSystem.ResourcesGlobalStorage

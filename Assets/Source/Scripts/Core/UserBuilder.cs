@@ -27,7 +27,6 @@ namespace BugStrategy
         private ConstructionID _currentConstructionID;
         private bool _spawnConstruction;
         private float _numberTownHall;
-        private UnitPool _pool;
     
         protected override void OnUpdate()
         {

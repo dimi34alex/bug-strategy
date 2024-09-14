@@ -1,5 +1,3 @@
-using BugStrategy.Unit;
-
 namespace BugStrategy
 {
     public static class AffiliationChecker

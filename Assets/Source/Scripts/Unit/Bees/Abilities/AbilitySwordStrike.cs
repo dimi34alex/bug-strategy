@@ -38,7 +38,7 @@ namespace BugStrategy.Unit.Bees
             _cooldown.Reset();
         }
         
-        private void TryActivateAbility(IUnitTarget target)
+        private void TryActivateAbility(ITarget target)
         {
             if (!_cooldown.TimerIsEnd) 
                 return;
@@ -47,7 +47,7 @@ namespace BugStrategy.Unit.Bees
             Reset();
         }
 
-        private void ActivateAbility(IUnitTarget target)
+        private void ActivateAbility(ITarget target)
         {
             var swordStrikeDirection = (_unitBase.Transform.position - target.Transform.position).normalized;
             

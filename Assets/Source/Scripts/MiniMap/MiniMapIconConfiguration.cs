@@ -1,5 +1,4 @@
 using System;
-using BugStrategy.MiniMap.MiniMapIcons;
 using UnityEngine;
 
 namespace BugStrategy.MiniMap

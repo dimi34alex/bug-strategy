@@ -8,41 +8,41 @@ namespace BugStrategy.Unit
 {
     public class UnitVisibleZone : TriggerZone
     {
-        [SerializeField] private List<IUnitTarget> _targets = new List<IUnitTarget>();
-        private Func<IUnitTarget, bool> _filter = t => true;
+        [SerializeField] private List<ITarget> _targets = new List<ITarget>();
+        private Func<ITarget, bool> _filter = t => true;
 
         protected override bool _refreshEnteredComponentsAfterExit { get; } = false;
 
-        public new IReadOnlyList<IUnitTarget> ContainsComponents => _targets;
+        public new IReadOnlyList<ITarget> ContainsComponents => _targets;
 
-        public new event Action<IUnitTarget> EnterEvent;
-        public new event Action<IUnitTarget> ExitEvent;
+        public new event Action<ITarget> EnterEvent;
+        public new event Action<ITarget> ExitEvent;
 
         protected override Func<ITriggerable, bool> EnteredComponentIsSuitable 
-            => t => t is IUnitTarget && _filter(t.Cast<IUnitTarget>());
+            => t => t is ITarget && _filter(t.Cast<ITarget>());
 
-        public bool Contains(IUnitTarget target) => _targets.Contains(target);
-        public bool Contains(Predicate<IUnitTarget> predicate) => _targets.Exists(predicate);
+        public bool Contains(ITarget target) => _targets.Contains(target);
+        public bool Contains(Predicate<ITarget> predicate) => _targets.Exists(predicate);
 
-        public void SetFilter(Func<IUnitTarget, bool> filter)
+        public void SetFilter(Func<ITarget, bool> filter)
         {
             _filter = filter;
         }
 
         protected override void OnEnter(ITriggerable component)
         {
-            IUnitTarget unitTarget = component.Cast<IUnitTarget>();
+            ITarget target = component.Cast<ITarget>();
 
-            _targets.Add(unitTarget);
-            EnterEvent?.Invoke(unitTarget);
+            _targets.Add(target);
+            EnterEvent?.Invoke(target);
         }
 
         protected override void OnExit(ITriggerable component)
         {
-            IUnitTarget unitTarget = component.Cast<IUnitTarget>();
+            ITarget target = component.Cast<ITarget>();
 
-            _targets.Remove(unitTarget);
-            ExitEvent?.Invoke(unitTarget);
+            _targets.Remove(target);
+            ExitEvent?.Invoke(target);
         }
     }
 }

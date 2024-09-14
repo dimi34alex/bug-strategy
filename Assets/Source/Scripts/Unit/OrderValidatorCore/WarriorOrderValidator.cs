@@ -36,7 +36,7 @@ namespace BugStrategy.Unit.OrderValidatorCore
             }
         }
         
-        protected override UnitPathData ValidateAutoOrder(IUnitTarget target)
+        protected override UnitPathData ValidateAutoOrder(ITarget target)
         {
             if (target.IsAnyNull() ||
                 !target.CastPossible<IDamagable>() ||
@@ -45,16 +45,16 @@ namespace BugStrategy.Unit.OrderValidatorCore
 
             switch (target.TargetType)
             {
-                case (UnitTargetType.Other_Unit):
+                case (TargetType.Unit):
                     return new UnitPathData(target, UnitPathType.Attack);
-                case (UnitTargetType.Construction):
+                case (TargetType.Construction):
                     return new UnitPathData(target, UnitPathType.Attack);
                 default:
                     return new UnitPathData(null, UnitPathType.Move);
             }
         }
         
-        protected override UnitPathType ValidateHandleOrder(IUnitTarget target, UnitPathType pathType)
+        protected override UnitPathType ValidateHandleOrder(ITarget target, UnitPathType pathType)
         {
             switch (pathType)
             {
@@ -68,7 +68,7 @@ namespace BugStrategy.Unit.OrderValidatorCore
                 case UnitPathType.Switch_Profession:
                     if (!target.IsAnyNull() && 
                         Unit.Fraction == FractionType.Ants &&
-                        target.TargetType == UnitTargetType.Construction)
+                        target.TargetType == TargetType.Construction)
                         // TODO: create construction for switching professions
                         return UnitPathType.Switch_Profession;
                     break;

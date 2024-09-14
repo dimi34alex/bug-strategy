@@ -14,7 +14,7 @@ using Zenject;
 
 namespace BugStrategy.Unit
 {
-    public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable, IUnitTarget, IMiniMapObject,
+    public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable, ITarget, IMiniMapObject,
         SelectableSystem.ISelectable, BugStrategy.Pool.IPoolable<UnitBase, UnitType>, IPoolEventListener, IHealable, IAffiliation,
         IEffectable, IPoisonEffectable, IStickyHoneyEffectable, IMoveSpeedChangeEffectable
     {
@@ -46,7 +46,7 @@ namespace BugStrategy.Unit
         public UnitVisibleZone VisibleZone => _unitVisibleZone;
         public UnitInteractionZone UnitInteractionZone => unitInteractionZone;
         public UnitInteractionZone DynamicUnitZone => dynamicUnitZone;
-        public UnitTargetType TargetType => UnitTargetType.Other_Unit;
+        public TargetType TargetType => TargetType.Unit;
         public MiniMapObjectType MiniMapObjectType => MiniMapObjectType.Unit;
         public IReadOnlyFloatStorage HealthStorage => _healthStorage;
         public EntityStateMachine StateMachine => _stateMachine;
@@ -83,10 +83,10 @@ namespace BugStrategy.Unit
         public event Action<UnitBase> ElementReturnEvent;
         public event Action<UnitBase> ElementDestroyEvent;
         public event Action OnTargetMovePositionChange;
-        public event Action<IUnitTarget> OnDeactivation;
+        public event Action<ITarget> OnDeactivation;
         public event Action TookDamage;
         /// <summary> return value can be null </summary>
-        public event Action<IUnitTarget> TookDamageWithAttacker;
+        public event Action<ITarget> TookDamageWithAttacker;
         public event Action PathTargetDeactivated;
 
         private void Awake()
@@ -162,7 +162,7 @@ namespace BugStrategy.Unit
             _navMeshAgent.Warp(position);
         }
 
-        private void OnPathTargetDeactivated(IUnitTarget _) 
+        private void OnPathTargetDeactivated(ITarget _) 
             => PathTargetDeactivated?.Invoke();
     
         public void SetAffiliation(AffiliationEnum affiliation) 
@@ -171,7 +171,7 @@ namespace BugStrategy.Unit
         public void TakeDamage(IDamageApplicator damageApplicator, float damageScale)
             => TakeDamage(null, damageApplicator, damageScale);
     
-        public virtual void TakeDamage(IUnitTarget attacker, IDamageApplicator damageApplicator, float damageScale = 1)
+        public virtual void TakeDamage(ITarget attacker, IDamageApplicator damageApplicator, float damageScale = 1)
         {
             if (!IsAlive)
             {
@@ -210,39 +210,39 @@ namespace BugStrategy.Unit
             OnDeselect?.Invoke();
         }
 
-        public void AutoGiveOrder(IUnitTarget unitTarget)
-            => AutoGiveOrder(unitTarget, transform.position);
+        public void AutoGiveOrder(ITarget target)
+            => AutoGiveOrder(target, transform.position);
 
         /// <param name="targetMovePosition"> move position that used if unitTarget is null</param>
-        public void AutoGiveOrder(IUnitTarget unitTarget, Vector3 targetMovePosition)
+        public void AutoGiveOrder(ITarget target, Vector3 targetMovePosition)
         {
             targetMovePosition.y = 0;
 
-            CurrentPathData = OrderValidator.AutoGiveOrder(unitTarget);
+            CurrentPathData = OrderValidator.AutoGiveOrder(target);
             if (!CurrentPathData.Target.IsAnyNull())
             {
                 targetMovePosition = OrderValidator.CheckDistance(CurrentPathData)
                     ? transform.position
-                    : unitTarget.Transform.position;
+                    : target.Transform.position;
             }
 
             CalculateNewState(targetMovePosition);
         }
 
-        public void HandleGiveOrder(IUnitTarget unitTarget, UnitPathType unitPathType)
-            => HandleGiveOrder(unitTarget, unitPathType, transform.position);
+        public void HandleGiveOrder(ITarget target, UnitPathType unitPathType)
+            => HandleGiveOrder(target, unitPathType, transform.position);
 
         /// <param name="targetMovePosition"> move position that used if unitTarget is null</param>
-        public void HandleGiveOrder(IUnitTarget unitTarget, UnitPathType unitPathType, Vector3 targetMovePosition)
+        public void HandleGiveOrder(ITarget target, UnitPathType unitPathType, Vector3 targetMovePosition)
         {
             targetMovePosition.y = 0;
 
-            CurrentPathData = OrderValidator.HandleGiveOrder(unitTarget, unitPathType);
+            CurrentPathData = OrderValidator.HandleGiveOrder(target, unitPathType);
             if (!CurrentPathData.Target.IsAnyNull())
             {
                 targetMovePosition = OrderValidator.CheckDistance(CurrentPathData)
                     ? transform.position
-                    : unitTarget.Transform.position;
+                    : target.Transform.position;
             }
 
             CalculateNewState(targetMovePosition);

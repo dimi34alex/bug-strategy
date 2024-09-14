@@ -11,9 +11,9 @@ namespace BugStrategy.Unit.ProcessorsCore
         public event Action OnEnterEnemyInZone;
         public event Action OnExitEnemyFromZone;
 
-        public bool TargetInZone(IUnitTarget someTarget);
+        public bool TargetInZone(ITarget someTarget);
         
-        public bool CheckAttackDistance(IUnitTarget someTarget);
+        public bool CheckAttackDistance(ITarget someTarget);
 
         public bool CheckEnemiesInAttackZone();
     }

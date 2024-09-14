@@ -15,7 +15,7 @@ namespace BugStrategy.Unit.Bees
             _damageRadius = damageRadius;
         }
 
-        protected override void InitProjectileData(ProjectileBase projectile, IUnitTarget target)
+        protected override void InitProjectileData(ProjectileBase projectile, ITarget target)
         {
             base.InitProjectileData(projectile, target);
             

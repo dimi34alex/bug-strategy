@@ -91,7 +91,7 @@ namespace BugStrategy.Unit.Bees
         public void SetEnterDamageScale(float enterDamageScale)
             => _enterDamageScale = enterDamageScale;
         
-        public override void TakeDamage(IUnitTarget attacker, IDamageApplicator damageApplicator, float damageScale = 1)
+        public override void TakeDamage(ITarget attacker, IDamageApplicator damageApplicator, float damageScale = 1)
         {
             damageScale *= _enterDamageScale;
             

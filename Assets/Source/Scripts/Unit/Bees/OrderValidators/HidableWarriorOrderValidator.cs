@@ -30,18 +30,18 @@ namespace BugStrategy.Unit.Bees
             }
         }
         
-        protected override UnitPathData ValidateAutoOrder(IUnitTarget target)
+        protected override UnitPathData ValidateAutoOrder(ITarget target)
         {
             if (target.IsAnyNull())
                 return new UnitPathData(null, UnitPathType.Move);
 
             switch (target.TargetType)
             {
-                case (UnitTargetType.Other_Unit):
+                case (TargetType.Unit):
                     if (target.Affiliation != Affiliation && target.CastPossible<IDamagable>())
                         return new UnitPathData(target, UnitPathType.Attack);
                     break;
-                case (UnitTargetType.Construction):
+                case (TargetType.Construction):
                     if (target.Affiliation != Affiliation && target.CastPossible<IDamagable>())
                         return new UnitPathData(target, UnitPathType.Attack);
                     if (target.Affiliation == Affiliation && target.TryCast(out IHiderConstruction hiderConstruction) 
@@ -53,7 +53,7 @@ namespace BugStrategy.Unit.Bees
             return new UnitPathData(null, UnitPathType.Move);
         }
         
-        protected override UnitPathType ValidateHandleOrder(IUnitTarget target, UnitPathType pathType)
+        protected override UnitPathType ValidateHandleOrder(ITarget target, UnitPathType pathType)
         {
             switch (pathType)
             {
@@ -67,7 +67,7 @@ namespace BugStrategy.Unit.Bees
                 case UnitPathType.Switch_Profession:
                     if (!target.IsAnyNull() && 
                         Unit.Fraction == FractionType.Ants && 
-                        target.TargetType == UnitTargetType.Construction)
+                        target.TargetType == TargetType.Construction)
                         return UnitPathType.Switch_Profession;
                     break;
                 case UnitPathType.HideInConstruction:

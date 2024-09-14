@@ -12,7 +12,7 @@ namespace BugStrategy.Unit.ProcessorsCore
         private readonly ProjectileFactory _projectilesFactory;
         
         public override event Action Attacked;
-        public override event Action<IUnitTarget> TargetAttacked;
+        public override event Action<ITarget> TargetAttacked;
         public event Action<ProjectileBase> ProjectileSpawned; 
         
         public RangeAttackProcessor(UnitBase unit, float attackRange, float damage, CooldownProcessor cooldownProcessor, 
@@ -23,7 +23,7 @@ namespace BugStrategy.Unit.ProcessorsCore
             _projectilesFactory = projectilesFactory;
         }
         
-        protected sealed override void Attack(IUnitTarget target)
+        protected sealed override void Attack(ITarget target)
         {
             if (!target.CastPossible<IDamagable>())
             {
@@ -41,7 +41,7 @@ namespace BugStrategy.Unit.ProcessorsCore
             TargetAttacked?.Invoke(target);
         }
 
-        protected virtual void InitProjectileData(ProjectileBase projectile, IUnitTarget target)
+        protected virtual void InitProjectileData(ProjectileBase projectile, ITarget target)
         {
             projectile.Init(Affiliation, Attacker, this);
             projectile.SetTarget(target);

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using BugStrategy.Libs;
-using BugStrategy.Unit;
 using UnityEngine;
 
 namespace BugStrategy.Missions

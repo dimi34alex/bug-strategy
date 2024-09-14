@@ -17,7 +17,7 @@ namespace BugStrategy.Projectiles
             _damageRadius = damageRadius;
         }
         
-        protected override void CollideWithTarget(IUnitTarget target)
+        protected override void CollideWithTarget(ITarget target)
         {
             if (target.TryCast(out IDamagable mainDamageable) && mainDamageable.IsAlive)
                 mainDamageable.TakeDamage(Attacker, this);

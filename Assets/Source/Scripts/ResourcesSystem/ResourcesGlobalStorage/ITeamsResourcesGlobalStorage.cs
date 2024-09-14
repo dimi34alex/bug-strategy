@@ -1,5 +1,3 @@
-using BugStrategy.Unit;
-
 namespace BugStrategy.ResourcesSystem.ResourcesGlobalStorage
 {
     public interface ITeamsResourcesGlobalStorage
