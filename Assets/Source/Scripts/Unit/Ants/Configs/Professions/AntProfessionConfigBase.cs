@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
 
 namespace BugStrategy.Unit.Ants
@@ -9,7 +8,7 @@ namespace BugStrategy.Unit.Ants
         public abstract ProfessionType ProfessionType { get; }
 
         [field: SerializeField] public AntProfessionRang AntProfessionRang { get; private set; }
-        [field: SerializeField] public AnimatorController AnimatorController { get; private set; }
+        [field: SerializeField] public RuntimeAnimatorController AnimatorController { get; private set; }
         [field: SerializeField] public float InteractionRange { get; private set; }
         [field: SerializeField] private List<UnitType> access { get; set; }
 
