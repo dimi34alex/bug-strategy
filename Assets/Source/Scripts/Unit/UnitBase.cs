@@ -65,13 +65,14 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
         get => _currentPathData;
         protected set
         {
-            if (value == _currentPathData) return;
+            if (value == _currentPathData) 
+                return;
 
-            if (!_currentPathData.Target.IsAnyNull())
+            if (_currentPathData != null && !_currentPathData.Target.IsAnyNull())
                 _currentPathData.Target.OnDeactivation -= OnPathTargetDeactivated;
                 
             _currentPathData = value;
-            if (!_currentPathData.Target.IsAnyNull())
+            if (_currentPathData != null && !_currentPathData.Target.IsAnyNull())
                 _currentPathData.Target.OnDeactivation += OnPathTargetDeactivated;
 
             OnUnitPathChange?.Invoke(this);
