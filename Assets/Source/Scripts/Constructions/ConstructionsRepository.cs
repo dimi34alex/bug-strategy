@@ -7,7 +7,7 @@ namespace BugStrategy.Constructions
 {
     public class ConstructionsRepository : IConstructionGrid
     {
-        private readonly BuildingGridConfig _constructionConfig;
+        private readonly GridConfig _constructionConfig;
         private readonly Dictionary<GridKey3, ConstructionCellData> _constructions;
         private readonly HashSet<GridKey3> _blockedCells;
 
@@ -15,7 +15,7 @@ namespace BugStrategy.Constructions
 
         public ConstructionsRepository()
         {
-            _constructionConfig = ConfigsRepository.ConfigsRepository.FindConfig<BuildingGridConfig>() ??
+            _constructionConfig = ConfigsRepository.ConfigsRepository.FindConfig<GridConfig>() ??
                                   throw new NullReferenceException();
 
             _constructions = new Dictionary<GridKey3, ConstructionCellData>();
@@ -54,21 +54,7 @@ namespace BugStrategy.Constructions
         }
 
         public Vector3 RoundPositionToGrid(Vector3 position)
-        {
-            float xPosition = position.x.Round(_constructionConfig.HexagonsOffcets.x / 2);
-
-            int horizontalLineIndex =
-                Convert.ToInt32(xPosition / (_constructionConfig.HexagonsOffcets.x / 2f));
-
-            float zPosition = (position.z - _constructionConfig.HexagonsOffcets.y / 2f).Round(_constructionConfig.HexagonsOffcets.y);
-
-            int verticalLineIndex = Convert.ToInt32(zPosition / _constructionConfig.HexagonsOffcets.y);
-
-            if (horizontalLineIndex % 2 == 0 && verticalLineIndex % 2 != 0 || horizontalLineIndex % 2 != 0 && verticalLineIndex % 2 == 0)
-                zPosition += _constructionConfig.HexagonsOffcets.y;
-
-            return new Vector3(xPosition, 0f, zPosition);
-        }
+            => _constructionConfig.HexagonsOffsets;
 
         public void BlockCell(Vector3 position)
         {

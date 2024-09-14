@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using BugStrategy.Constructions;
 using BugStrategy.Missions;
 using BugStrategy.ResourceSources;
 using UnityEngine;
@@ -23,7 +22,7 @@ namespace BugStrategy
         [SerializeField] private GameObject cloverPrefab;
 
         [Inject] private MissionData _missionData;
-        [Inject] private BuildingGridConfig _constructionConfig;
+        [Inject] private GridConfig _constructionConfig;
 
         private Vector3 _currentTilePosition;
 
@@ -32,13 +31,13 @@ namespace BugStrategy
         public int grassGenChance;
         public int cloverGenChance;
 
-        void Start()
+        private void Start()
         {
             _currentTilePosition = centralPosition;
             _currentTilePosition.x -= width/2;
             _currentTilePosition.z += height/2;
-            _currentTilePosition = _missionData.ConstructionsRepository.RoundPositionToGrid(_currentTilePosition);
-            _currentTilePosition.z +=  _constructionConfig.HexagonsOffcets.y/2;
+            _currentTilePosition = _constructionConfig.RoundPositionToGrid(_currentTilePosition);
+            _currentTilePosition.z +=  _constructionConfig.HexagonsOffsets.y/2;
         
             GenerateMap();
         }
@@ -50,7 +49,7 @@ namespace BugStrategy
             {
                 int tileNum = (int)Random.Range(0, tilesPrefabs.Count);
 
-                Instantiate(tilesPrefabs[tileNum], _missionData.ConstructionsRepository.RoundPositionToGrid(_currentTilePosition), Quaternion.Euler(0, 0, 0), this.transform);
+                Instantiate(tilesPrefabs[tileNum], _constructionConfig.RoundPositionToGrid(_currentTilePosition), Quaternion.Euler(0, 0, 0), this.transform);
 
                 int tryToSpawnFlower = (int)Random.Range(0, 100);
                 int tryToSpawnBush = (int)Random.Range(0, 100);
@@ -61,31 +60,31 @@ namespace BugStrategy
                 {
                     int flowerNum = (int)Random.Range(0, flowerPrefabs.Count);
 
-                    var flowerPosition = _missionData.ConstructionsRepository.RoundPositionToGrid(_currentTilePosition);
+                    var flowerPosition = _constructionConfig.RoundPositionToGrid(_currentTilePosition);
                     var flower = Instantiate(flowerPrefabs[flowerNum], flowerPosition, Quaternion.Euler(0, 0, 0), this.transform);
                     _missionData.ResourceSourcesRepository.Add(flowerPosition, flower);
                     _missionData.ConstructionsRepository.BlockCell(flowerPosition);
                 }
                 else if (tryToSpawnBush < bushGenChance)
                 {
-                    Instantiate(bushPrefab, _missionData.ConstructionsRepository.RoundPositionToGrid(_currentTilePosition), Quaternion.Euler(0, 0, 0), this.transform);
+                    Instantiate(bushPrefab, _constructionConfig.RoundPositionToGrid(_currentTilePosition), Quaternion.Euler(0, 0, 0), this.transform);
                 }
                 else if (tryToSpawnGrass < grassGenChance)
                 {
-                    Instantiate(grassPrefab, _missionData.ConstructionsRepository.RoundPositionToGrid(_currentTilePosition), Quaternion.Euler(0, 0, 0), this.transform);
+                    Instantiate(grassPrefab, _constructionConfig.RoundPositionToGrid(_currentTilePosition), Quaternion.Euler(0, 0, 0), this.transform);
                 }
                 else if (tryToSpawnClover < cloverGenChance)
                 {
-                    Instantiate(cloverPrefab, _missionData.ConstructionsRepository.RoundPositionToGrid(_currentTilePosition), Quaternion.Euler(0, 0, 0), this.transform);
+                    Instantiate(cloverPrefab, _constructionConfig.RoundPositionToGrid(_currentTilePosition), Quaternion.Euler(0, 0, 0), this.transform);
                 }
 
 
-                _currentTilePosition.x += _constructionConfig.HexagonsOffcets.x/2;
+                _currentTilePosition.x += _constructionConfig.HexagonsOffsets.x/2;
 
                 if (_currentTilePosition.x > centralPosition.x + width/2)
                 {
                     _currentTilePosition.x = centralPosition.x - width/2;
-                    _currentTilePosition.z -= _constructionConfig.HexagonsOffcets.y * 2;
+                    _currentTilePosition.z -= _constructionConfig.HexagonsOffsets.y * 2;
                     if (_currentTilePosition.z < centralPosition.z - height/2)
                     {
                         stopGenerate = true;

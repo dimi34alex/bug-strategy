@@ -7,13 +7,13 @@ namespace BugStrategy.ResourceSources
 {
     public class ResourceSourcesRepository
     {
-        private readonly BuildingGridConfig _constructionConfig;
+        private readonly GridConfig _constructionConfig;
         private readonly Dictionary<GridKey3, ResourceSourceBase> _resourceSources;
         private readonly HashSet<GridKey3> _blockedCells;
         
         public ResourceSourcesRepository()
         {
-            _constructionConfig = ConfigsRepository.ConfigsRepository.FindConfig<BuildingGridConfig>() ??
+            _constructionConfig = ConfigsRepository.ConfigsRepository.FindConfig<GridConfig>() ??
                                   throw new NullReferenceException();
 
             _resourceSources = new Dictionary<GridKey3, ResourceSourceBase>();

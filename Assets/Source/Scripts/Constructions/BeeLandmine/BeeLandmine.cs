@@ -16,7 +16,7 @@ namespace BugStrategy.Constructions.BeeLandmine
         [SerializeField] private LayerMask layerMask;
 
         [Inject] private readonly IConstructionFactory _constructionFactory;
-        [Inject] private readonly BuildingGridConfig _buildingGridConfig;
+        [Inject] private readonly GridConfig _gridConfig;
         
         private Timer _explosionTimer;
         private readonly RaycastHit[] _explosionBuffer = new RaycastHit[32];
@@ -96,7 +96,7 @@ namespace BugStrategy.Constructions.BeeLandmine
                 for (int j = 0; j < prevSpawnedTiles.Count; j++)
                 {
                     var tilePos = prevSpawnedTiles[j];
-                    Vector3 hexOffsets = new Vector3(_buildingGridConfig.HexagonsOffcets.x / 2, _buildingGridConfig.HexagonsOffcets.y);
+                    Vector3 hexOffsets = new Vector3(_gridConfig.HexagonsOffsets.x / 2, _gridConfig.HexagonsOffsets.y);
 
                     var posY = tilePos + new Vector3(0, 0, hexOffsets.y * 2);
                     var posNegativeY = tilePos + new Vector3(0, 0, -hexOffsets.y * 2);
