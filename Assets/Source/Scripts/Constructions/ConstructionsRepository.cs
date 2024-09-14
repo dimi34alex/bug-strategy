@@ -54,7 +54,7 @@ namespace BugStrategy.Constructions
         }
 
         public Vector3 RoundPositionToGrid(Vector3 position)
-            => _constructionConfig.HexagonsOffsets;
+            => _constructionConfig.RoundPositionToGrid(position);
 
         public void BlockCell(Vector3 position)
         {
