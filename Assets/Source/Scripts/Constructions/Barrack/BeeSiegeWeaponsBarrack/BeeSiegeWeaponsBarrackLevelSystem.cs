@@ -1,12 +1,10 @@
 using System;
-using Constructions.LevelSystemCore;
-using Source.Scripts;
-using Source.Scripts.ResourcesSystem;
-using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
-using UnitsHideCore;
-using UnitsRecruitingSystemCore;
+using BugStrategy.Constructions.ConstructionLevelSystemCore;
+using BugStrategy.Constructions.UnitsRecruitingSystem;
+using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.UnitsHideCore;
 
-namespace Constructions
+namespace BugStrategy.Constructions.BeeSiegeWeaponsBarrack
 {
     [Serializable]
     public class BeeSiegeWeaponsBarrackLevelSystem : ConstructionLevelSystemBase<BeeSiegeWeaponsBarrackLevel>

@@ -1,40 +1,44 @@
-﻿using UnityEngine;
+﻿using BugStrategy.Pool;
+using UnityEngine;
 
-public class UnitsTargetPositionMarkerFactory : MonoBehaviour
+namespace BugStrategy.Unit.UnitSelection
 {
-	[SerializeField] private UnitsTargetPositionMarker _markerPrefab;
-
-	public static UnitsTargetPositionMarkerFactory Instance { get; private set; }
-
-	private Pool<UnitsTargetPositionMarker> _markersPool;
-
-	private void Awake()
+	public class UnitsTargetPositionMarkerFactory : MonoBehaviour
 	{
-		if (Instance != null)
+		[SerializeField] private UnitsTargetPositionMarker _markerPrefab;
+
+		public static UnitsTargetPositionMarkerFactory Instance { get; private set; }
+
+		private Pool<UnitsTargetPositionMarker> _markersPool;
+
+		private void Awake()
 		{
-			Destroy(this);
-			return;
+			if (Instance != null)
+			{
+				Destroy(this);
+				return;
+			}
+
+			Instance = this;
+
+			_markersPool = new Pool<UnitsTargetPositionMarker>(CreateNewMarker, 3, false);
 		}
 
-		Instance = this;
+		private UnitsTargetPositionMarker CreateNewMarker()
+		{
+			UnitsTargetPositionMarker targetPositionMarker =
+				Instantiate<UnitsTargetPositionMarker>(_markerPrefab, transform);
 
-		_markersPool = new Pool<UnitsTargetPositionMarker>(CreateNewMarker, 3, false);
-	}
+			return targetPositionMarker;
+		}
 
-	private UnitsTargetPositionMarker CreateNewMarker()
-    {
-		UnitsTargetPositionMarker targetPositionMarker =
-			Instantiate<UnitsTargetPositionMarker>(_markerPrefab, transform);
+		public UnitsTargetPositionMarker Create(Vector2 targetPosition)
+		{
+			UnitsTargetPositionMarker marker = _markersPool.ExtractElement();
 
-		return targetPositionMarker;
-	}
+			marker.SetPosition(targetPosition);
 
-	public UnitsTargetPositionMarker Create(Vector2 targetPosition)
-	{
-		UnitsTargetPositionMarker marker = _markersPool.ExtractElement();
-
-		marker.SetPosition(targetPosition);
-
-		return marker;
+			return marker;
+		}
 	}
 }

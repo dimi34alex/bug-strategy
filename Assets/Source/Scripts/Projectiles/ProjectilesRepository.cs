@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
+using CycleFramework.Extensions;
 
-namespace Projectiles
+namespace BugStrategy.Projectiles
 {
     public class ProjectilesRepository
     {

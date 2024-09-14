@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using CustomTimer;
-using Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators;
+using BugStrategy.Constructions;
+using BugStrategy.CustomTimer;
 
-namespace Source.Scripts.Ai.ConstructionsAis
+namespace BugStrategy.Ai.ConstructionsAis
 {
     public abstract class ConstructionAiBase
     {

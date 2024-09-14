@@ -1,6 +1,6 @@
-using System;
+using BugStrategy.Unit;
 
-namespace MiniMapSystem
+namespace BugStrategy.MiniMap
 {
     public interface IMiniMapObject
     {

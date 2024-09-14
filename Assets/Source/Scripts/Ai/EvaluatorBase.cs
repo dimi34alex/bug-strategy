@@ -1,4 +1,4 @@
-namespace Source.Scripts.Ai
+namespace BugStrategy.Ai
 {
     public abstract class EvaluatorBase
     {

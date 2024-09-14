@@ -1,5 +1,8 @@
 ﻿
-public interface IConstruction
+namespace BugStrategy.Constructions
 {
+    public interface IConstruction
+    {
 
+    }
 }

@@ -1,6 +1,9 @@
-using MiniMapSystem;
+using BugStrategy.MiniMap.MiniMapIcons;
 
-public interface IMiniMapIconFactory
+namespace BugStrategy.MiniMap.Factories
 {
-    public TMiniMapIcon Create<TMiniMapIcon>(MiniMapIconID miniMapIconID) where TMiniMapIcon: MiniMapIconBase;
+    public interface IMiniMapIconFactory
+    {
+        public TMiniMapIcon Create<TMiniMapIcon>(MiniMapIconID miniMapIconID) where TMiniMapIcon: MiniMapIconBase;
+    }
 }

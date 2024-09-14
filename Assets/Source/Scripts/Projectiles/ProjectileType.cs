@@ -1,4 +1,4 @@
-namespace Projectiles
+namespace BugStrategy.Projectiles
 {
     public enum ProjectileType
     {

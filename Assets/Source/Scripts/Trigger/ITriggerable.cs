@@ -1,7 +1,9 @@
 ﻿using System;
-using UnityEngine;
 
-public interface ITriggerable
+namespace BugStrategy.Trigger
 {
-    public event Action<ITriggerable> OnDisableITriggerableEvent;
+    public interface ITriggerable
+    {
+        public event Action<ITriggerable> OnDisableITriggerableEvent;
+    }
 }

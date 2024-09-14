@@ -1,4 +1,4 @@
-namespace Unit.Effects
+namespace BugStrategy.Effects
 {
     public abstract class EffectCreatorBase
     {

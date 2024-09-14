@@ -1,11 +1,13 @@
 using Zenject;
-using MiniMapSystem;
 
-public class MiniMapTriggerZoneInstaller : MonoInstaller
+namespace BugStrategy.MiniMap
 {
-    public override void InstallBindings()
+    public class MiniMapTriggerZoneInstaller : MonoInstaller
     {
-        IMiniMapTriggerZone miniMapTriggerZone = FindObjectOfType<MiniMapTriggerZone>(true);
-        Container.BindInstance(miniMapTriggerZone).AsSingle();
+        public override void InstallBindings()
+        {
+            IMiniMapTriggerZone miniMapTriggerZone = FindObjectOfType<MiniMapTriggerZone>(true);
+            Container.BindInstance(miniMapTriggerZone).AsSingle();
+        }
     }
 }

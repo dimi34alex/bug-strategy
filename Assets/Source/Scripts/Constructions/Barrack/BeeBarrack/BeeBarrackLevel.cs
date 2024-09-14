@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using Constructions.LevelSystemCore;
+using BugStrategy.Constructions.ConstructionLevelSystemCore;
+using BugStrategy.Constructions.UnitsRecruitingSystem;
 using UnityEngine;
-using UnitsRecruitingSystemCore;
 
-namespace Constructions
+namespace BugStrategy.Constructions.BeeBarrack
 {
     [Serializable]
     public class BeeBarrackLevel : ConstructionLevelBase

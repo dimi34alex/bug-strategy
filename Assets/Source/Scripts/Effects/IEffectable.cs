@@ -1,4 +1,6 @@
-namespace Unit.Effects
+using BugStrategy.Unit;
+
+namespace BugStrategy.Effects
 {
     public interface IEffectable
     {

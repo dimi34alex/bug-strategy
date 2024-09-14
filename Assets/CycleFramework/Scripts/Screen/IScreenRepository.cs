@@ -1,6 +1,6 @@
 using System;
 
-namespace BugStrategy.CycleFramework.Scripts.Screen
+namespace CycleFramework.Screen
 {
     public interface IScreenRepository
     {

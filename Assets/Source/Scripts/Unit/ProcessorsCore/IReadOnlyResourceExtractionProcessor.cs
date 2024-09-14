@@ -1,7 +1,8 @@
 using System;
-using Source.Scripts.ResourcesSystem;
+using BugStrategy.ResourceSources;
+using BugStrategy.ResourcesSystem;
 
-namespace Unit.ProcessorsCore
+namespace BugStrategy.Unit.ProcessorsCore
 {
     public interface IReadOnlyResourceExtractionProcessor
     {

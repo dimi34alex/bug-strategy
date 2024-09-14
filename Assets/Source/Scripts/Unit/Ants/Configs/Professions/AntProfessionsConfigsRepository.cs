@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
-using Unit.Ants.Professions;
+using BugStrategy.ConfigsRepository;
+using BugStrategy.Libs;
 using UnityEngine;
 
-namespace Unit.Ants.Configs.Professions
+namespace BugStrategy.Unit.Ants
 {
     [CreateAssetMenu(fileName = nameof(AntProfessionsConfigsRepository), menuName = "Configs/Units/Ants/" + nameof(AntProfessionsConfigsRepository))]
     public class AntProfessionsConfigsRepository : ScriptableObject, ISingleConfig

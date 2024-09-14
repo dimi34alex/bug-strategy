@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Source.Scripts.ResourcesSystem
+namespace BugStrategy.ResourcesSystem
 {
     public class ResourceRepository
     {

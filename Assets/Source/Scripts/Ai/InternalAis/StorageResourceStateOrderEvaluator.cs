@@ -1,8 +1,11 @@
-using Construction.TownHalls;
-using Unit.ProcessorsCore;
+using BugStrategy.Constructions;
+using BugStrategy.Libs;
+using BugStrategy.Unit;
+using BugStrategy.Unit.ProcessorsCore;
+using CycleFramework.Extensions;
 using Object = UnityEngine.Object;
 
-namespace Source.Scripts.Ai.InternalAis
+namespace BugStrategy.Ai.InternalAis
 {
     public class StorageResourceStateOrderEvaluator : UnitInternalEvaluator
     {

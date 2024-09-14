@@ -1,35 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
+using CycleFramework.Bootload;
 using UnityEngine;
 
-[DefaultExecutionOrder(1000)]
-public class CycleEventsTransmitter : MonoBehaviour
+namespace CycleFramework.Execute
 {
-    private CycleStateMachine _cycleStateMachine;
-    private CycleEventsProcessor _cycleEventsProcessor;
-
-    public void Init(CycleStateMachine cycleStateMachine, CycleEventsProcessor cycleEventsProcessor)
+    [DefaultExecutionOrder(1000)]
+    public class CycleEventsTransmitter : MonoBehaviour
     {
-        _cycleStateMachine = cycleStateMachine;
-        _cycleEventsProcessor = cycleEventsProcessor;
-    }
+        private CycleStateMachine _cycleStateMachine;
+        private CycleEventsProcessor _cycleEventsProcessor;
 
-    private void Start()
-    {
-        if (_cycleEventsProcessor is null)
-            throw new NullReferenceException($"{typeof(CycleEventsProcessor)} cannot be null");
+        public void Init(CycleStateMachine cycleStateMachine, CycleEventsProcessor cycleEventsProcessor)
+        {
+            _cycleStateMachine = cycleStateMachine;
+            _cycleEventsProcessor = cycleEventsProcessor;
+        }
 
-        foreach (CycleState cycleState in (IEnumerable<CycleState>)Enum.GetValues(typeof(CycleState)))
-            _cycleEventsProcessor.Execute(cycleState, CycleMethodType.OnInit);
-    }
+        private void Start()
+        {
+            if (_cycleEventsProcessor is null)
+                throw new NullReferenceException($"{typeof(CycleEventsProcessor)} cannot be null");
 
-    private void Update()
-    {
-        _cycleEventsProcessor.Execute(_cycleStateMachine.CurrentCycleState, CycleMethodType.OnUpdate);
-    }
+            foreach (CycleState cycleState in (IEnumerable<CycleState>)Enum.GetValues(typeof(CycleState)))
+                _cycleEventsProcessor.Execute(cycleState, CycleMethodType.OnInit);
+        }
 
-    private void FixedUpdate()
-    {
-        _cycleEventsProcessor.Execute(_cycleStateMachine.CurrentCycleState, CycleMethodType.OnFixedUpdate);
+        private void Update()
+        {
+            _cycleEventsProcessor.Execute(_cycleStateMachine.CurrentCycleState, CycleMethodType.OnUpdate);
+        }
+
+        private void FixedUpdate()
+        {
+            _cycleEventsProcessor.Execute(_cycleStateMachine.CurrentCycleState, CycleMethodType.OnFixedUpdate);
+        }
     }
 }

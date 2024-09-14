@@ -1,67 +1,67 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 
-public class DayChanger : MonoBehaviour
+namespace BugStrategy.DayChanger
 {
-    [SerializeField] private float _cycleDuration;
-    [SerializeField] private PostProcessVolume _volume;
-    [SerializeField] private AnimationCurve _dayCurve;
-
-    private const float MAX_VIGNETTE_INTENSITY = 0.6F;
-    private const float MIN_POST_EXPOSURE = -1.8F;
-
-    private Vignette _vignette;
-    private ColorGrading _colorGrading;
-
-    private float _currentDayTime = 0.5f; // [0; 1)
-
-    public DayChanger Instance { get; private set; }
-
-    private void OnValidate()
+    public class DayChanger : MonoBehaviour
     {
-        if (!_volume)
-            _volume = GetComponent<PostProcessVolume>();
-    }
+        [SerializeField] private float _cycleDuration;
+        [SerializeField] private PostProcessVolume _volume;
+        [SerializeField] private AnimationCurve _dayCurve;
 
-    private void Awake()
-    {
-        Instance = this;
-        _vignette = _volume.profile.GetSetting<Vignette>();
-        _colorGrading = _volume.profile.GetSetting<ColorGrading>();
-    }
+        private const float MAX_VIGNETTE_INTENSITY = 0.6F;
+        private const float MIN_POST_EXPOSURE = -1.8F;
 
-    private void Update()
-    {
-        IncreaseDayTime();
+        private Vignette _vignette;
+        private ColorGrading _colorGrading;
 
-        float nightIntensity = (Mathf.Abs(1f - _dayCurve.Evaluate(_currentDayTime)));
+        private float _currentDayTime = 0.5f; // [0; 1)
 
-        _vignette.intensity.Override(nightIntensity * MAX_VIGNETTE_INTENSITY);
-        _colorGrading.postExposure.Override(nightIntensity * MIN_POST_EXPOSURE);
-    }
+        public DayChanger Instance { get; private set; }
 
-    private void IncreaseDayTime()
-    {
-        _currentDayTime = Mathf.Sin((Time.time * (Mathf.PI * 2f)) / (_cycleDuration * 2f));
-        _currentDayTime = _currentDayTime / 2f + 0.5f;
-    }
+        private void OnValidate()
+        {
+            if (!_volume)
+                _volume = GetComponent<PostProcessVolume>();
+        }
 
-    public TimeSpan GetTime()
-    {
-        float remainingTime = _currentDayTime;
+        private void Awake()
+        {
+            Instance = this;
+            _vignette = _volume.profile.GetSetting<Vignette>();
+            _colorGrading = _volume.profile.GetSetting<ColorGrading>();
+        }
 
-        int hours = (int)(remainingTime * 24f);
-        remainingTime -= hours;
+        private void Update()
+        {
+            IncreaseDayTime();
 
-        int minutes = (int)(remainingTime * 60f);
-        remainingTime -= minutes;
+            float nightIntensity = (Mathf.Abs(1f - _dayCurve.Evaluate(_currentDayTime)));
 
-        int seconds = (int)(remainingTime * 60f);
+            _vignette.intensity.Override(nightIntensity * MAX_VIGNETTE_INTENSITY);
+            _colorGrading.postExposure.Override(nightIntensity * MIN_POST_EXPOSURE);
+        }
 
-        return new TimeSpan(hours, minutes, seconds);
+        private void IncreaseDayTime()
+        {
+            _currentDayTime = Mathf.Sin((Time.time * (Mathf.PI * 2f)) / (_cycleDuration * 2f));
+            _currentDayTime = _currentDayTime / 2f + 0.5f;
+        }
+
+        public TimeSpan GetTime()
+        {
+            float remainingTime = _currentDayTime;
+
+            int hours = (int)(remainingTime * 24f);
+            remainingTime -= hours;
+
+            int minutes = (int)(remainingTime * 60f);
+            remainingTime -= minutes;
+
+            int seconds = (int)(remainingTime * 60f);
+
+            return new TimeSpan(hours, minutes, seconds);
+        }
     }
 }

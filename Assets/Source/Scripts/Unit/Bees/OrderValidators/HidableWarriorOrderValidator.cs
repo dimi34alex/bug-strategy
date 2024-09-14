@@ -1,8 +1,10 @@
-using Unit.OrderValidatorCore;
-using Unit.ProcessorsCore;
-using UnitsHideCore;
+using BugStrategy.Libs;
+using BugStrategy.Unit.OrderValidatorCore;
+using BugStrategy.Unit.ProcessorsCore;
+using BugStrategy.UnitsHideCore;
+using CycleFramework.Extensions;
 
-namespace Unit.Bees
+namespace BugStrategy.Unit.Bees
 {
     public class HidableWarriorOrderValidator : OrderValidatorBase
     {

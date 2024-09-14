@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
-using Unit.OrderValidatorCore;
+using BugStrategy.Libs;
+using BugStrategy.Unit.OrderValidatorCore;
+using CycleFramework.Extensions;
 
-namespace Unit.ProcessorsCore
+namespace BugStrategy.Unit.ProcessorsCore
 {
     public class AttackZoneProcessor
     {

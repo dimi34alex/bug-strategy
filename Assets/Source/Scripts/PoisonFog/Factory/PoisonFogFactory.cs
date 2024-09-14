@@ -1,8 +1,9 @@
-using Source.Scripts.Missions;
+using BugStrategy.Missions;
+using BugStrategy.Pool;
 using UnityEngine;
 using Zenject;
 
-namespace PoisonFog.Factory
+namespace BugStrategy.PoisonFog.Factory
 {
     public class PoisonFogFactory : MonoBehaviour
     {

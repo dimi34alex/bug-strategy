@@ -1,3 +1,6 @@
 ﻿using UnityEngine;
 
-public abstract class UIScreen : MonoBehaviour { }
+namespace CycleFramework.Screen
+{
+    public abstract class UIScreen : MonoBehaviour { }
+}

@@ -1,10 +1,13 @@
 using Zenject;
 
-public class MiniMapIconFactoryInstaller : MonoInstaller
+namespace BugStrategy.MiniMap.Factories
 {
-    public override void InstallBindings()
+    public class MiniMapIconFactoryInstaller : MonoInstaller
     {
-        IMiniMapIconFactory miniMapIconFactory = FindObjectOfType<MiniMapIconFactory>(true);
-        Container.BindInstance(miniMapIconFactory).AsSingle();
+        public override void InstallBindings()
+        {
+            IMiniMapIconFactory miniMapIconFactory = FindObjectOfType<MiniMapIconFactory>(true);
+            Container.BindInstance(miniMapIconFactory).AsSingle();
+        }
     }
 }

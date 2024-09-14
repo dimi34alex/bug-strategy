@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using BugStrategy.Trigger;
+using BugStrategy.Unit;
+using CycleFramework.Extensions;
 using UnityEngine;
 
-namespace MiniMapSystem
+namespace BugStrategy.MiniMap
 {
     public class MiniMapTriggerZone : TriggerZone, IMiniMapTriggerZone
     {

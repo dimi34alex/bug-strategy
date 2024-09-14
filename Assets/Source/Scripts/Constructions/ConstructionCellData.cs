@@ -1,9 +1,12 @@
-﻿public class ConstructionCellData
+﻿namespace BugStrategy.Constructions
 {
-    public readonly ConstructionBase Construction;
-
-    public ConstructionCellData(ConstructionBase construction)
+    public class ConstructionCellData
     {
-        Construction = construction;
+        public readonly ConstructionBase Construction;
+
+        public ConstructionCellData(ConstructionBase construction)
+        {
+            Construction = construction;
+        }
     }
 }

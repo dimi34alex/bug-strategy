@@ -1,20 +1,23 @@
-using Constructions;
+using BugStrategy.Constructions.AntMeleeWorkshop;
 using Zenject;
 
-public class AntMeleeWorkshopFactoryBehaviour : ConstructionFactoryBehaviourBase
+namespace BugStrategy.Constructions.Factory.Behaviours
 {
-    [Inject] private readonly AntMeleeWorkshopSpawnConfig _config;
-    
-    public override ConstructionType ConstructionType => ConstructionType.AntMeleeWorkshop;
-
-    public override TConstruction Create<TConstruction>(ConstructionID constructionID)
+    public class AntMeleeWorkshopFactoryBehaviour : ConstructionFactoryBehaviourBase
     {
-        ConstructionSpawnConfiguration<AntMeleeWorkshop> configuration = _config.Configuration;
+        [Inject] private readonly AntMeleeWorkshopSpawnConfig _config;
+    
+        public override ConstructionType ConstructionType => ConstructionType.AntMeleeWorkshop;
 
-        TConstruction construction = DiContainer.InstantiatePrefab(configuration.ConstructionPrefab,
-                configuration.ConstructionPrefab.transform.position, configuration.Rotation, null)
-            .GetComponent<TConstruction>();
+        public override TConstruction Create<TConstruction>(ConstructionID constructionID)
+        {
+            ConstructionSpawnConfiguration<AntMeleeWorkshop.AntMeleeWorkshop> configuration = _config.Configuration;
+
+            TConstruction construction = DiContainer.InstantiatePrefab(configuration.ConstructionPrefab,
+                    configuration.ConstructionPrefab.transform.position, configuration.Rotation, null)
+                .GetComponent<TConstruction>();
         
-        return construction;
+            return construction;
+        }
     }
 }

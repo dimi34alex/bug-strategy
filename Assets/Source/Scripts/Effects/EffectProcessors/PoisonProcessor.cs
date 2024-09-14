@@ -1,6 +1,6 @@
-using Unit.Effects.Interfaces;
+using BugStrategy.Unit;
 
-namespace Unit.Effects.EffectProcessors
+namespace BugStrategy.Effects
 {
     public sealed class PoisonProcessor : EffectProcessorBase, IDamageApplicator
     {

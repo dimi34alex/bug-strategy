@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Source.Scripts.ResourcesSystem
+namespace BugStrategy.ResourcesSystem
 {
     [CreateAssetMenu(fileName = "ResourceConfig", menuName = "Config/ResourceConfig")]
     public class ResourceConfig : ScriptableObject

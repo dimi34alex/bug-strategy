@@ -1,9 +1,10 @@
 using System.Linq;
-using Source.Scripts.Missions;
+using BugStrategy.Missions;
+using CycleFramework.Execute;
 using UnityEngine;
 using Zenject;
 
-namespace Unit
+namespace BugStrategy.Unit
 {
     public class UnitsUpdater : CycleInitializerBase
     {

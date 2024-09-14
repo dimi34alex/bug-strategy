@@ -1,8 +1,10 @@
 using System;
-using Unit.OrderValidatorCore;
+using BugStrategy.EntityState;
+using BugStrategy.Libs;
+using BugStrategy.Unit.OrderValidatorCore;
 using UnityEngine;
 
-namespace Unit.States
+namespace BugStrategy.Unit
 {
     public class MoveState : EntityStateBase
     {

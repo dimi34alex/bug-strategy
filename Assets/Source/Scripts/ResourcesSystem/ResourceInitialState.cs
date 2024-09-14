@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Source.Scripts.ResourcesSystem
+namespace BugStrategy.ResourcesSystem
 {
     [Serializable]
     public class ResourceInitialState

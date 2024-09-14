@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
-using CustomTimer;
-using Unit.Effects;
+using BugStrategy.CustomTimer;
+using BugStrategy.Effects;
+using BugStrategy.Trigger;
+using CycleFramework.Extensions;
 using UnityEngine;
 
-namespace Constructions
+namespace BugStrategy.Constructions.BeeStickyTile
 {
     public class BeeStickyTile : ConstructionBase
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Unit.Bees.Configs
+namespace BugStrategy.Unit.Bees
 {
     [CreateAssetMenu(fileName = nameof(BeeMeleeWarriorConfig), menuName = "Configs/Units/Bees/" + nameof(BeeMeleeWarriorConfig))]
     public class BeeMeleeWarriorConfig : ScriptableObject

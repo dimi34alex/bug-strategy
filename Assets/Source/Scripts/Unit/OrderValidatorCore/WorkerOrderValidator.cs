@@ -1,7 +1,10 @@
-﻿using Construction.TownHalls;
-using Unit.ProcessorsCore;
+﻿using BugStrategy.Constructions;
+using BugStrategy.Libs;
+using BugStrategy.ResourceSources;
+using BugStrategy.Unit.ProcessorsCore;
+using CycleFramework.Extensions;
 
-namespace Unit.OrderValidatorCore
+namespace BugStrategy.Unit.OrderValidatorCore
 {
     public sealed class WorkerOrderValidator : OrderValidatorBase
     {

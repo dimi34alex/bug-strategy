@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
+using CycleFramework.Extensions;
 
-namespace PoisonFog
+namespace BugStrategy.PoisonFog
 {
     public class PoisonFogsRepository
     {

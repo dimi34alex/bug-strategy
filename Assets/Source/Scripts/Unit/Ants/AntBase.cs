@@ -1,20 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Projectiles.Factory;
-using Source.Scripts;
-using Source.Scripts.Ai.InternalAis;
-using Source.Scripts.ResourcesSystem;
-using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
-using Unit.Ants.Configs;
-using Unit.Ants.Configs.Professions;
-using Unit.Ants.Professions;
-using Unit.Ants.States;
-using Unit.OrderValidatorCore;
+using BugStrategy.Ai.InternalAis;
+using BugStrategy.EntityState;
+using BugStrategy.Libs;
+using BugStrategy.Projectiles.Factory;
+using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.Unit.OrderValidatorCore;
 using UnityEngine;
 using Zenject;
 
-namespace Unit.Ants
+namespace BugStrategy.Unit.Ants
 {
     public abstract class AntBase : AntUnit
     {

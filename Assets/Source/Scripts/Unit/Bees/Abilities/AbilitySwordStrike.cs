@@ -1,8 +1,8 @@
-using CustomTimer;
-using Source.Scripts.Unit.AbilitiesCore;
+using BugStrategy.CustomTimer;
+using BugStrategy.Unit.AbilitiesCore;
 using UnityEngine;
 
-namespace Unit.Bees
+namespace BugStrategy.Unit.Bees
 {
     public sealed class AbilitySwordStrike : IDamageApplicator, IPassiveAbility
     {

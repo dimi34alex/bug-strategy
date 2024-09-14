@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Linq;
-using Constructions.LevelSystemCore;
-using Source.Scripts.Ai.ConstructionsAis;
+using BugStrategy.Constructions;
+using BugStrategy.Constructions.ConstructionLevelSystemCore;
+using BugStrategy.Constructions.UnitsRecruitingSystem;
+using BugStrategy.Unit;
+using CycleFramework.Extensions;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,7 +31,7 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
         {
             OnAwake();
             _upgradeButton.onClick.AddListener(OnUpgradeButtonClicked);
-            _uiConstructionsConfig = ConfigsRepository.FindConfig<UIConstructionsConfig>();
+            _uiConstructionsConfig = ConfigsRepository.ConfigsRepository.FindConfig<UIConstructionsConfig>();
 
             _actionsUIView = GetComponentInChildren<ConstructionActionsUIView>();
             _recruitingUIView = GetComponentInChildren<ConstructionRecruitingUIView>();

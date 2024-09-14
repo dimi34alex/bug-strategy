@@ -1,10 +1,8 @@
-using Constructions.LevelSystemCore;
-using Source.Scripts;
-using Source.Scripts.ResourcesSystem;
-using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
-using UnitsRecruitingSystemCore;
+using BugStrategy.Constructions.ConstructionLevelSystemCore;
+using BugStrategy.Constructions.UnitsRecruitingSystem;
+using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
 
-namespace Constructions
+namespace BugStrategy.Constructions.AntTownHall
 {
     public class AntTownHallLevelSystem : ConstructionLevelSystemBase<AntTownHallLevel>
     {

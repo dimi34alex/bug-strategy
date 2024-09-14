@@ -1,10 +1,8 @@
-using Constructions.LevelSystemCore;
-using Source.Scripts;
-using Source.Scripts.ResourcesSystem;
-using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
-using UnitsHideCore;
+using BugStrategy.Constructions.ConstructionLevelSystemCore;
+using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.UnitsHideCore;
 
-namespace Constructions.BeeHospital
+namespace BugStrategy.Constructions.BeeHospital
 {
     public class BeeHospitalLevelSystem : ConstructionLevelSystemBase<BeeHospitalLevel>
     {

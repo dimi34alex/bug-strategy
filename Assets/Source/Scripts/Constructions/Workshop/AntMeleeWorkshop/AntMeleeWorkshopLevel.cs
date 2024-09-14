@@ -1,6 +1,6 @@
 using System;
 
-namespace Constructions
+namespace BugStrategy.Constructions.AntMeleeWorkshop
 {
     [Serializable]
     public class AntMeleeWorkshopLevel : AntWorkshopLevelBase

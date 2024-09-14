@@ -1,6 +1,7 @@
+using BugStrategy.ConfigsRepository;
 using UnityEngine;
 
-namespace Unit.Effects.Configs
+namespace BugStrategy.Effects
 {
     [CreateAssetMenu(fileName = nameof(AttackCooldownDecreaseConfig), menuName = "Configs/Effects/" + nameof(AttackCooldownDecreaseConfig))]
     public class AttackCooldownDecreaseConfig : ScriptableObject, ISingleConfig

@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using BugStrategy.ConfigsRepository;
+using UnityEngine;
 
-namespace Constructions
+namespace BugStrategy.Constructions.BeeStickyTile
 {
     [CreateAssetMenu(fileName = nameof(BeeStickyTileSpawnConfig), menuName = "Configs/Constructions/SpawnConfigs/" + nameof(BeeStickyTileSpawnConfig))]
     public class BeeStickyTileSpawnConfig : ScriptableObject, ISingleConfig

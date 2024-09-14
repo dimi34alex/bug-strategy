@@ -1,4 +1,4 @@
-﻿namespace Unit.Ants.Professions
+﻿namespace BugStrategy.Unit.Ants
 {
     public enum ProfessionType
     {

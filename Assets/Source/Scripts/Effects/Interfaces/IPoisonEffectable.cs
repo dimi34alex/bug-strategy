@@ -1,4 +1,6 @@
-namespace Unit.Effects.Interfaces
+using BugStrategy.Unit;
+
+namespace BugStrategy.Effects
 {
     public interface IPoisonEffectable
     {

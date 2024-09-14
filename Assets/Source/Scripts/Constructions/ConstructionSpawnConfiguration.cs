@@ -1,17 +1,20 @@
 ﻿using System;
 using UnityEngine;
 
-[Serializable]
-public struct ConstructionSpawnConfiguration<TConstruction> where TConstruction : IConstruction
+namespace BugStrategy.Constructions
 {
-    [field: SerializeField] public TConstruction ConstructionPrefab { get; private set; }
-    [field: SerializeField] public ConstructionSkinBase SkinPrefab { get; private set; }
-    [field: SerializeField] public Quaternion Rotation { get; private set; }
-
-    public ConstructionSpawnConfiguration(TConstruction constructionPrefab, ConstructionSkinBase skinPrefab, Quaternion rotation) : this()
+    [Serializable]
+    public struct ConstructionSpawnConfiguration<TConstruction> where TConstruction : IConstruction
     {
-        ConstructionPrefab = constructionPrefab;
-        SkinPrefab = skinPrefab;
-        Rotation = rotation;
+        [field: SerializeField] public TConstruction ConstructionPrefab { get; private set; }
+        [field: SerializeField] public ConstructionSkinBase SkinPrefab { get; private set; }
+        [field: SerializeField] public Quaternion Rotation { get; private set; }
+
+        public ConstructionSpawnConfiguration(TConstruction constructionPrefab, ConstructionSkinBase skinPrefab, Quaternion rotation) : this()
+        {
+            ConstructionPrefab = constructionPrefab;
+            SkinPrefab = skinPrefab;
+            Rotation = rotation;
+        }
     }
 }

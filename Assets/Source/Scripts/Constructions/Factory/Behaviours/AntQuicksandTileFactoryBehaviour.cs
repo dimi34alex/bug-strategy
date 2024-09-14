@@ -1,20 +1,23 @@
-﻿using Constructions;
+﻿using BugStrategy.Constructions.AntQuicksandTile;
 using Zenject;
 
-public class AntQuicksandTileFactoryBehaviour : ConstructionFactoryBehaviourBase
+namespace BugStrategy.Constructions.Factory.Behaviours
 {
-    [Inject] private readonly AntQuicksandTileSpawnConfig _config;
-
-    public override ConstructionType ConstructionType => ConstructionType.AntQuicksandTile;
-
-    public override TConstruction Create<TConstruction>(ConstructionID constructionID)
+    public class AntQuicksandTileFactoryBehaviour : ConstructionFactoryBehaviourBase
     {
-        ConstructionSpawnConfiguration<AntQuicksandTile> configuration = _config.Configuration;
+        [Inject] private readonly AntQuicksandTileSpawnConfig _config;
 
-        TConstruction construction = DiContainer.InstantiatePrefab(configuration.ConstructionPrefab,
-                configuration.ConstructionPrefab.transform.position, configuration.Rotation, null)
-            .GetComponent<TConstruction>();
+        public override ConstructionType ConstructionType => ConstructionType.AntQuicksandTile;
+
+        public override TConstruction Create<TConstruction>(ConstructionID constructionID)
+        {
+            ConstructionSpawnConfiguration<AntQuicksandTile.AntQuicksandTile> configuration = _config.Configuration;
+
+            TConstruction construction = DiContainer.InstantiatePrefab(configuration.ConstructionPrefab,
+                    configuration.ConstructionPrefab.transform.position, configuration.Rotation, null)
+                .GetComponent<TConstruction>();
         
-        return construction;
+            return construction;
+        }
     }
 }

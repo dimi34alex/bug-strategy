@@ -1,10 +1,13 @@
 ﻿using Zenject;
 
-public class FactoriesInstaller : MonoInstaller
+namespace BugStrategy.Constructions.Factory
 {
-    public override void InstallBindings()
+    public class FactoriesInstaller : MonoInstaller
     {
-        IConstructionFactory constructionFactory = FindObjectOfType<ConstructionFactory>(true);
-        Container.BindInstance(constructionFactory).AsSingle();
+        public override void InstallBindings()
+        {
+            IConstructionFactory constructionFactory = FindObjectOfType<ConstructionFactory>(true);
+            Container.BindInstance(constructionFactory).AsSingle();
+        }
     }
 }

@@ -1,21 +1,24 @@
-using Constructions;
+using BugStrategy.Constructions.BeeMercenaryBarrack;
 using Zenject;
 
-public class BeeMercenaryBarrackFactoryBehaviour : ConstructionFactoryBehaviourBase
+namespace BugStrategy.Constructions.Factory.Behaviours
 {
-    [Inject] private readonly BeeMercenaryBarrackSpawnConfig _config;
-
-    public override ConstructionType ConstructionType => ConstructionType.BeeMercenaryBarrack;
-
-    public override TConstruction Create<TConstruction>(ConstructionID constructionID)
+    public class BeeMercenaryBarrackFactoryBehaviour : ConstructionFactoryBehaviourBase
     {
-        ConstructionSpawnConfiguration<BeeMercenaryBarrack> configuration = _config.Configuration;
+        [Inject] private readonly BeeMercenaryBarrackSpawnConfig _config;
 
-        TConstruction construction = DiContainer.InstantiatePrefab(configuration.ConstructionPrefab,
-                configuration.ConstructionPrefab.transform.position, configuration.Rotation, null)
-            .GetComponent<TConstruction>();
+        public override ConstructionType ConstructionType => ConstructionType.BeeMercenaryBarrack;
+
+        public override TConstruction Create<TConstruction>(ConstructionID constructionID)
+        {
+            ConstructionSpawnConfiguration<BeeMercenaryBarrack.BeeMercenaryBarrack> configuration = _config.Configuration;
+
+            TConstruction construction = DiContainer.InstantiatePrefab(configuration.ConstructionPrefab,
+                    configuration.ConstructionPrefab.transform.position, configuration.Rotation, null)
+                .GetComponent<TConstruction>();
         
-        return construction;
+            return construction;
+        }
     }
 }
 

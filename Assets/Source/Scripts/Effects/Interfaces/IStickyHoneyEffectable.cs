@@ -1,4 +1,4 @@
-namespace Unit.Effects.Interfaces
+namespace BugStrategy.Effects
 {
     public interface IStickyHoneyEffectable
     {

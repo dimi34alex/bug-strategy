@@ -1,9 +1,10 @@
 using System;
-using Unit.Ants.Professions;
-using Unit.OrderValidatorCore;
+using BugStrategy.EntityState;
+using BugStrategy.ResourceSources;
+using CycleFramework.Extensions;
 using UnityEngine;
 
-namespace Unit.Ants.States
+namespace BugStrategy.Unit.Ants
 {
     public class AntResourceExtractionState : EntityStateBase
     {

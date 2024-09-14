@@ -1,4 +1,4 @@
-namespace MiniMapSystem
+namespace BugStrategy.MiniMap
 {
     public enum MiniMapObjectType
     {

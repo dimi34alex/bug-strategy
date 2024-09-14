@@ -1,8 +1,10 @@
-using Source.Scripts.Unit.AbilitiesCore;
+using BugStrategy.Unit;
+using BugStrategy.Unit.AbilitiesCore;
+using CycleFramework.Extensions;
 using UnityEngine;
 using Zenject;
 
-namespace SelectableSystem
+namespace BugStrategy.SelectableSystem
 {
     public class UnitUI : SelectableObjectUIBase<UnitBase>
     {

@@ -1,11 +1,15 @@
 using System;
 using System.Collections.Generic;
-using CustomTimer;
-using Projectiles;
-using Projectiles.Factory;
+using BugStrategy.CustomTimer;
+using BugStrategy.Libs;
+using BugStrategy.Projectiles;
+using BugStrategy.Projectiles.Factory;
+using BugStrategy.Trigger;
+using BugStrategy.Unit;
+using CycleFramework.Extensions;
 using UnityEngine;
 
-namespace Constructions
+namespace BugStrategy.Constructions.BeeWaxTower
 {
     public class BeeWaxTowerAttackProcessor
     {

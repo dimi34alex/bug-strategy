@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MiniMapSystem
+namespace BugStrategy.MiniMap
 {
     public interface IMiniMapTriggerZone
     {

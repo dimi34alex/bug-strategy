@@ -1,6 +1,7 @@
+using BugStrategy.Constructions;
 using UnityEngine;
 
-namespace SelectableSystem
+namespace BugStrategy.SelectableSystem
 {
     public class ConstructionUI : SelectableObjectUIBase<ConstructionBase>
     {

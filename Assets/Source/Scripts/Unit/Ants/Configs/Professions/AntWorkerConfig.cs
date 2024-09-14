@@ -1,7 +1,6 @@
-using Unit.Ants.Professions;
 using UnityEngine;
 
-namespace Unit.Ants.Configs.Professions
+namespace BugStrategy.Unit.Ants
 {
     [CreateAssetMenu(fileName = nameof(AntWorkerConfig), menuName = "Configs/Units/Ants/" + nameof(AntWorkerConfig))]
     public class AntWorkerConfig : AntProfessionConfigBase

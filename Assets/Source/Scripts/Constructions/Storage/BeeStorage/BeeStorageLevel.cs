@@ -1,7 +1,7 @@
 using System;
-using Constructions.LevelSystemCore;
+using BugStrategy.Constructions.ConstructionLevelSystemCore;
 
-namespace Constructions
+namespace BugStrategy.Constructions.BeeStorage
 {
     [Serializable]
     public class BeeStorageLevel : ConstructionLevelBase

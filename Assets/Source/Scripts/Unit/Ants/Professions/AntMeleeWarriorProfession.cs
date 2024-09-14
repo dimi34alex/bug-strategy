@@ -1,9 +1,8 @@
 ﻿using System;
-using Unit.Ants.Configs.Professions;
-using Unit.OrderValidatorCore;
-using Unit.ProcessorsCore;
+using BugStrategy.Unit.OrderValidatorCore;
+using BugStrategy.Unit.ProcessorsCore;
 
-namespace Unit.Ants.Professions
+namespace BugStrategy.Unit.Ants
 {
     [Serializable]
     public sealed class AntMeleeWarriorProfession : AntWarriorProfessionBase

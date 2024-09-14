@@ -1,9 +1,11 @@
 using System.Collections.Generic;
-using CustomTimer;
-using Source.Scripts.Unit.AbilitiesCore;
-using Unit.Effects;
+using BugStrategy.CustomTimer;
+using BugStrategy.Effects;
+using BugStrategy.Trigger;
+using BugStrategy.Unit.AbilitiesCore;
+using CycleFramework.Extensions;
 
-namespace Unit.Bees
+namespace BugStrategy.Unit.Bees
 {
     public sealed class AbilityStandardBearer : IPassiveAbility
     {

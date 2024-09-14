@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using BugStrategy.ConfigsRepository;
+using UnityEngine;
 
-namespace Constructions
+namespace BugStrategy.Constructions.BeeWaxTower
 {
     [CreateAssetMenu(fileName = nameof(BeeWaxTowerSpawnConfig), menuName = "Configs/Constructions/SpawnConfigs/" + nameof(BeeWaxTowerSpawnConfig))]
     public class BeeWaxTowerSpawnConfig : ScriptableObject, ISingleConfig

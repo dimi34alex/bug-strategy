@@ -1,25 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
+using CycleFramework.Execute;
 using UnityEngine;
 
-[ExecuteAlways]
-[DefaultExecutionOrder(-1000)]
-public class CycleInitializersParent : MonoBehaviour
+namespace CycleFramework.Bootload
 {
-    private Dictionary<CycleState, CycleInitializersHandler> _initializerHandlers;
-
-    public IReadOnlyDictionary<CycleState, CycleInitializersHandler> CycleInitializersHandlers { get; private set; }
-
-    private void Awake()
+    [ExecuteAlways]
+    [DefaultExecutionOrder(-1000)]
+    public class CycleInitializersParent : MonoBehaviour
     {
-        InitInitializers();
-    }
+        private Dictionary<CycleState, CycleInitializersHandler> _initializerHandlers;
 
-    private void InitInitializers()
-    {
-        CycleInitializersHandlers = GetComponentsInChildren<CycleInitializersHandler>(true)
-            .ToDictionary(handler => handler.CycleState, handler => handler);
+        public IReadOnlyDictionary<CycleState, CycleInitializersHandler> CycleInitializersHandlers { get; private set; }
+
+        private void Awake()
+        {
+            InitInitializers();
+        }
+
+        private void InitInitializers()
+        {
+            CycleInitializersHandlers = GetComponentsInChildren<CycleInitializersHandler>(true)
+                .ToDictionary(handler => handler.CycleState, handler => handler);
+        }
     }
 }

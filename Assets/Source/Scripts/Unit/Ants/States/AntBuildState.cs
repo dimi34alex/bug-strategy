@@ -1,8 +1,11 @@
 using System;
-using Unit.Ants.Professions;
+using BugStrategy.Constructions;
+using BugStrategy.EntityState;
+using BugStrategy.Libs;
+using CycleFramework.Extensions;
 using UnityEngine;
 
-namespace Unit.Ants.States
+namespace BugStrategy.Unit.Ants
 {
     public class AntBuildState : EntityStateBase
     {

@@ -1,8 +1,8 @@
 using System;
-using Constructions.LevelSystemCore;
+using BugStrategy.Constructions.ConstructionLevelSystemCore;
 using UnityEngine;
 
-namespace Constructions
+namespace BugStrategy.Constructions.BeeHouse
 {
     [Serializable]
     public class BeeHouseLevel : ConstructionLevelBase

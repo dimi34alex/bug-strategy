@@ -1,11 +1,9 @@
 using System;
-using Constructions.LevelSystemCore;
-using Source.Scripts;
-using Source.Scripts.ResourcesSystem;
-using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.Constructions.ConstructionLevelSystemCore;
+using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
 using UnityEngine;
 
-namespace Constructions
+namespace BugStrategy.Constructions.ButterflyPoisonFlower
 {
     [Serializable]
     public class ButterflyPoisonFlowerLevelSystem : ConstructionLevelSystemBase<ButterflyPoisonFlowerLevel>

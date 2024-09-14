@@ -1,30 +1,30 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
-public class UnitMoveState : EntityStateBase
+namespace BugStrategy.EntityState.Unit
 {
-    private EntityStateID _entityStateID = EntityStateID.Move;
-    public override event Action StateExecuted;
-
-    public override EntityStateID EntityStateID => _entityStateID;
-    //get object unit
-
-    public override void OnStateEnter()
+    public class UnitMoveState : EntityStateBase
     {
-        //choose animation
-        //add some events
-    }
+        private EntityStateID _entityStateID = EntityStateID.Move;
+        public override event Action StateExecuted;
 
-    public override void OnUpdate()
-    {
-        //update animation 
-        //update move
-        //SetDestination to goal 
-    }
-    public override void OnStateExit()
-    {
-        //minus some events
+        public override EntityStateID EntityStateID => _entityStateID;
+        //get object unit
+
+        public override void OnStateEnter()
+        {
+            //choose animation
+            //add some events
+        }
+
+        public override void OnUpdate()
+        {
+            //update animation 
+            //update move
+            //SetDestination to goal 
+        }
+        public override void OnStateExit()
+        {
+            //minus some events
+        }
     }
 }

@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using BugStrategy.ConfigsRepository;
+using UnityEngine;
 
-namespace Constructions
+namespace BugStrategy.Constructions.ResourceProduceConstruction.BeesWaxProduceConstruction
 {
     [CreateAssetMenu(fileName = nameof(BeesWaxProduceConstructionSpawnConfig),
         menuName = "Configs/Constructions/SpawnConfigs/" + nameof(BeesWaxProduceConstructionSpawnConfig))]

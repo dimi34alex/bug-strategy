@@ -1,7 +1,10 @@
 using System.Collections.Generic;
+using BugStrategy.EntityState;
+using BugStrategy.Libs;
+using BugStrategy.Unit;
 using UnityEngine;
 
-namespace Source.Scripts.Ai.InternalAis
+namespace BugStrategy.Ai.InternalAis
 {
     public abstract class InternalAiBase
     {

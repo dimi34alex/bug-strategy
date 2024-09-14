@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using BugStrategy.ConfigsRepository;
+using UnityEngine;
 
-namespace Constructions
+namespace BugStrategy.Constructions.ButterflyPoisonFlower
 {
     [CreateAssetMenu(fileName = nameof(ButterflyPoisonFlowerSpawnConfig), menuName = "Configs/Constructions/SpawnConfigs/" + nameof(ButterflyPoisonFlowerSpawnConfig))]
     public class ButterflyPoisonFlowerSpawnConfig : ScriptableObject, ISingleConfig

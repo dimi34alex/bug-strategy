@@ -1,8 +1,8 @@
-using UnityEngine;
 using System;
-using Constructions.LevelSystemCore;
+using BugStrategy.Constructions.ConstructionLevelSystemCore;
+using UnityEngine;
 
-namespace Constructions
+namespace BugStrategy.Constructions.ResourceProduceConstruction.BeesWaxProduceConstruction
 {
     [Serializable]
     public class BeesWaxProduceLevel : ConstructionLevelBase

@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using BugStrategy.ConfigsRepository;
+using BugStrategy.Libs;
 using UnityEngine;
 
-namespace Source.Scripts.Unit.AbilitiesCore
+namespace BugStrategy.Unit.AbilitiesCore
 {
     [CreateAssetMenu(fileName = nameof(AbilitiesUiConfig), menuName = "Configs/" + nameof(AbilitiesUiConfig))]
     public class AbilitiesUiConfig : ScriptableObject, ISingleConfig

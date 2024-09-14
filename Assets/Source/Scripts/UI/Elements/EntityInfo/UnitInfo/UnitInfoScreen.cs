@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
-using Source.Scripts.Unit;
-using Source.Scripts.Unit.AbilitiesCore;
+using BugStrategy.Constructions;
+using BugStrategy.Unit;
+using BugStrategy.Unit.AbilitiesCore;
+using CycleFramework.Extensions;
 using UnityEngine;
 
 namespace BugStrategy.UI.Elements.EntityInfo.UnitInfo
@@ -31,8 +33,8 @@ namespace BugStrategy.UI.Elements.EntityInfo.UnitInfo
             
             OnAwake();
             
-            _uiUnitsConfig = ConfigsRepository.FindConfig<UIUnitsConfig>();
-            _abilitiesUiConfig = ConfigsRepository.FindConfig<AbilitiesUiConfig>();
+            _uiUnitsConfig = ConfigsRepository.ConfigsRepository.FindConfig<UIUnitsConfig>();
+            _abilitiesUiConfig = ConfigsRepository.ConfigsRepository.FindConfig<AbilitiesUiConfig>();
 
             _actionsUIView = GetComponentInChildren<UnitActionsUIView>();
             _tacticsUIView = GetComponentInChildren<TacticsUIView>();

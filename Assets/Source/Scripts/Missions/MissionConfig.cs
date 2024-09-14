@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using BugStrategy.Libs;
+using BugStrategy.Unit;
 using UnityEngine;
 
-namespace Source.Scripts.Missions
+namespace BugStrategy.Missions
 {
     [CreateAssetMenu(fileName = nameof(MissionConfig), menuName = "Configs/Missions/" + nameof(MissionConfig))]
     public class MissionConfig : ScriptableObject

@@ -1,10 +1,10 @@
 using System;
-using Construction.TownHalls;
-using Unit.Ants.Professions;
-using Unit.OrderValidatorCore;
+using BugStrategy.Constructions;
+using BugStrategy.EntityState;
+using CycleFramework.Extensions;
 using UnityEngine;
 
-namespace Unit.Ants.States
+namespace BugStrategy.Unit.Ants
 {
     public class AntStorageResourceState : EntityStateBase
     {

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
+using BugStrategy.Unit;
 
-namespace Source.Scripts.ResourcesSystem.ResourcesGlobalStorage
+namespace BugStrategy.ResourcesSystem.ResourcesGlobalStorage
 {
     public class TeamsResourcesGlobalStorage : ITeamsResourcesGlobalStorage
     {

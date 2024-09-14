@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using BugStrategy.Unit;
 using UnityEngine;
 
-namespace UnitsHideCore
+namespace BugStrategy.UnitsHideCore
 {
     public interface IHider
     {

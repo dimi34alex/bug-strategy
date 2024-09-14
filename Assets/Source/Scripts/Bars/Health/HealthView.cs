@@ -1,10 +1,10 @@
-﻿using Source.Scripts;
-using Source.Scripts.ResourcesSystem;
-
-public class HealthView : BarView
+﻿namespace BugStrategy.Bars.Health
 {
-    public new void Init(IReadOnlyFloatStorage storage)
+    public class HealthView : BarView
     {
-        base.Init(storage);
+        public new void Init(IReadOnlyFloatStorage storage)
+        {
+            base.Init(storage);
+        }
     }
 }

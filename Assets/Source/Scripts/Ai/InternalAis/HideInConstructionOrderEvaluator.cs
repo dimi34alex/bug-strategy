@@ -1,6 +1,8 @@
-using UnitsHideCore;
+using BugStrategy.Unit;
+using BugStrategy.UnitsHideCore;
+using CycleFramework.Extensions;
 
-namespace Source.Scripts.Ai.InternalAis
+namespace BugStrategy.Ai.InternalAis
 {
     public class HideInConstructionOrderEvaluator : UnitInternalEvaluator
     {

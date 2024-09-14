@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Source.Scripts.Missions;
-using Source.Scripts.ResourcesSystem;
+using BugStrategy.Missions;
+using BugStrategy.ResourcesSystem;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

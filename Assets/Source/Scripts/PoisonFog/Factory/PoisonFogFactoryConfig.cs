@@ -1,6 +1,7 @@
+using BugStrategy.ConfigsRepository;
 using UnityEngine;
 
-namespace PoisonFog.Factory
+namespace BugStrategy.PoisonFog.Factory
 {
     [CreateAssetMenu(fileName = nameof(PoisonFogFactoryConfig), menuName = "Configs/" + nameof(PoisonFogFactoryConfig))]
     public class PoisonFogFactoryConfig : ScriptableObject, ISingleConfig

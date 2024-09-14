@@ -1,11 +1,15 @@
 using System;
 using System.Collections.Generic;
-using Constructions;
-using Source.Scripts.Ai.ConstructionsAis;
-using Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators.Configs;
-using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.Ai.ConstructionsAis;
+using BugStrategy.Constructions;
+using BugStrategy.Constructions.BeeBarrack;
+using BugStrategy.Constructions.BeeMercenaryBarrack;
+using BugStrategy.Constructions.BeeSiegeWeaponsBarrack;
+using BugStrategy.Constructions.BeeTownHall;
+using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
+using CycleFramework.Extensions;
 
-namespace Source.Scripts.Ai.MainAis
+namespace BugStrategy.Ai.MainAis
 {
     public class ConstructionsAi
     {

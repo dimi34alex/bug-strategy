@@ -1,13 +1,18 @@
 ﻿using System;
 using System.Reflection;
+using CycleFramework.Bootload;
+using CycleFramework.Execute;
 
-public static class CycleEventsExtractor
+namespace CycleFramework.Extensions
 {
-    private static readonly BindingFlags _methodFlag = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
-    private static readonly Type _initializerType = typeof(CycleInitializerBase);
-
-    public static MethodInfo ExtractSpecificEventInfo(CycleMethodType cycleMethodType)
+    public static class CycleEventsExtractor
     {
-        return _initializerType.GetMethod(cycleMethodType.ToString(), _methodFlag);
+        private static readonly BindingFlags _methodFlag = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+        private static readonly Type _initializerType = typeof(CycleInitializerBase);
+
+        public static MethodInfo ExtractSpecificEventInfo(CycleMethodType cycleMethodType)
+        {
+            return _initializerType.GetMethod(cycleMethodType.ToString(), _methodFlag);
+        }
     }
 }

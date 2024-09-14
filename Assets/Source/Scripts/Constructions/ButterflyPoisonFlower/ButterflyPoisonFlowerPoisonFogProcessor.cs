@@ -1,8 +1,8 @@
-using PoisonFog;
-using PoisonFog.Factory;
+using BugStrategy.PoisonFog;
+using BugStrategy.PoisonFog.Factory;
 using UnityEngine;
 
-namespace Constructions
+namespace BugStrategy.Constructions.ButterflyPoisonFlower
 {
     public class ButterflyPoisonFlowerPoisonFogProcessor
     {

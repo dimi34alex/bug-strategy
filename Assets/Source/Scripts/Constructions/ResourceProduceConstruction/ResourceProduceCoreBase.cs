@@ -1,50 +1,52 @@
-﻿using Source.Scripts;
-using Source.Scripts.ResourcesSystem;
+﻿using BugStrategy.ResourcesSystem;
 using UnityEngine;
 
-public abstract class ResourceProduceCoreBase
+namespace BugStrategy.Constructions.ResourceProduceConstruction
 {
-    protected abstract ResourceProduceProccessInfoBase _produceProccessInfo { get; }
-    protected FloatStorage _producedResource;
-
-    public bool ProduceResourceIsFull => _producedResource.CurrentValue >= _producedResource.Capacity;
-    public IReadOnlyFloatStorage ProducedResource => _producedResource;
-    public ResourceID TargetResourceID => _produceProccessInfo.TargetResourceID;
-
-    public ResourceProduceCoreBase(ResourceProduceProccessInfoBase produceProccessInfo)
+    public abstract class ResourceProduceCoreBase
     {
-        _producedResource = new FloatStorage(0, produceProccessInfo.ProducedResourceCapacity);
+        protected abstract ResourceProduceProccessInfoBase _produceProccessInfo { get; }
+        protected FloatStorage _producedResource;
+
+        public bool ProduceResourceIsFull => _producedResource.CurrentValue >= _producedResource.Capacity;
+        public IReadOnlyFloatStorage ProducedResource => _producedResource;
+        public ResourceID TargetResourceID => _produceProccessInfo.TargetResourceID;
+
+        public ResourceProduceCoreBase(ResourceProduceProccessInfoBase produceProccessInfo)
+        {
+            _producedResource = new FloatStorage(0, produceProccessInfo.ProducedResourceCapacity);
+        }
+
+        public void SetResourceProduceProccessInfo(ResourceProduceProccessInfoBase produceProccessInfo)
+        {
+            SetResourceProduceProccessInfoCallback(produceProccessInfo);
+            _producedResource.SetCapacity(produceProccessInfo.ProducedResourceCapacity);
+        }
+
+        protected abstract void SetResourceProduceProccessInfoCallback(ResourceProduceProccessInfoBase produceProccessInfo);
+
+        public void Tick(float time)
+        {
+            if (_producedResource.Capacity <= _producedResource.CurrentValue)
+                return;
+
+            int producedCount = CalculateProducedResourceCount(time);
+
+            if (producedCount is 0)
+                return;
+
+            _producedResource.ChangeValue(producedCount);
+        }
+
+        protected abstract int CalculateProducedResourceCount(float time);
+
+        public int ExtractProducedResources(int count)
+        {
+            int extractedCount = Mathf.Min(count, _producedResource.CurrentValueInt);
+            _producedResource.ChangeValue(-extractedCount);
+            return extractedCount;
+        }
+
+        public int ExtractAllProducedResources() => ExtractProducedResources(_producedResource.CurrentValueInt);
     }
-
-    public void SetResourceProduceProccessInfo(ResourceProduceProccessInfoBase produceProccessInfo)
-    {
-        SetResourceProduceProccessInfoCallback(produceProccessInfo);
-        _producedResource.SetCapacity(produceProccessInfo.ProducedResourceCapacity);
-    }
-
-    protected abstract void SetResourceProduceProccessInfoCallback(ResourceProduceProccessInfoBase produceProccessInfo);
-
-    public void Tick(float time)
-    {
-        if (_producedResource.Capacity <= _producedResource.CurrentValue)
-            return;
-
-        int producedCount = CalculateProducedResourceCount(time);
-
-        if (producedCount is 0)
-            return;
-
-        _producedResource.ChangeValue(producedCount);
-    }
-
-    protected abstract int CalculateProducedResourceCount(float time);
-
-    public int ExtractProducedResources(int count)
-    {
-        int extractedCount = Mathf.Min(count, _producedResource.CurrentValueInt);
-        _producedResource.ChangeValue(-extractedCount);
-        return extractedCount;
-    }
-
-    public int ExtractAllProducedResources() => ExtractProducedResources(_producedResource.CurrentValueInt);
 }

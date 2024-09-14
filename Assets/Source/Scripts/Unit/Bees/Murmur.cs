@@ -1,21 +1,18 @@
 using System.Collections.Generic;
-using Source.Scripts;
-using Source.Scripts.Ai.InternalAis;
-using Source.Scripts.Ai.UnitAis;
-using Source.Scripts.ResourcesSystem;
-using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
-using Source.Scripts.Unit.AbilitiesCore;
-using Unit.Bees.Configs;
-using Unit.Effects.InnerProcessors;
-using Unit.Effects.Interfaces;
-using Unit.OrderValidatorCore;
-using Unit.ProcessorsCore;
-using Unit.States;
-using UnitsHideCore;
+using BugStrategy.Ai.InternalAis;
+using BugStrategy.Ai.UnitAis;
+using BugStrategy.Effects;
+using BugStrategy.EntityState;
+using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.Unit.AbilitiesCore;
+using BugStrategy.Unit.OrderValidatorCore;
+using BugStrategy.Unit.ProcessorsCore;
+using BugStrategy.UnitsHideCore;
+using CycleFramework.Extensions;
 using UnityEngine;
 using Zenject;
 
-namespace Unit.Bees
+namespace BugStrategy.Unit.Bees
 {
     public sealed class Murmur : BeeUnit, IAttackCooldownChangerEffectable, IHidableUnit
     {

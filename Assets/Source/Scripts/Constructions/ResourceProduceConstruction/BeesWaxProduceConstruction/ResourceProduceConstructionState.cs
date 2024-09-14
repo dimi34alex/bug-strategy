@@ -1,6 +1,9 @@
-﻿public enum ResourceProduceConstructionState
+﻿namespace BugStrategy.Constructions.ResourceProduceConstruction.BeesWaxProduceConstruction
 {
-    Paused,
-    Proccessing,
-    Completed,
+    public enum ResourceProduceConstructionState
+    {
+        Paused,
+        Proccessing,
+        Completed,
+    }
 }

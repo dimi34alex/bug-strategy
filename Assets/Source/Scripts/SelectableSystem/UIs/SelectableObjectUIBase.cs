@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace SelectableSystem
+namespace BugStrategy.SelectableSystem
 {
     public abstract class SelectableObjectUIBase<TSelectable> : MonoBehaviour
         where TSelectable : ISelectable

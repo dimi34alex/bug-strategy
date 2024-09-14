@@ -1,15 +1,18 @@
 ﻿using UnityEngine;
 using Zenject;
 
-public class ConfigsInstaller : MonoInstaller
+namespace BugStrategy.ConfigsRepository
 {
-    [SerializeField] private ConfigsRepository _configsRepository;
-
-    public override void InstallBindings()
+    public class ConfigsInstaller : MonoInstaller
     {
-        Container.BindInstance(_configsRepository).AsSingle();
+        [SerializeField] private ConfigsRepository _configsRepository;
 
-        foreach (ISingleConfig config in _configsRepository.Configs)
-            Container.Bind(config.GetType()).FromInstance(config).AsSingle();
+        public override void InstallBindings()
+        {
+            Container.BindInstance(_configsRepository).AsSingle();
+
+            foreach (ISingleConfig config in _configsRepository.Configs)
+                Container.Bind(config.GetType()).FromInstance(config).AsSingle();
+        }
     }
 }

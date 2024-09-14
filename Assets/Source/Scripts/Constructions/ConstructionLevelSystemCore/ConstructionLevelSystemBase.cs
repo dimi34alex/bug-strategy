@@ -1,10 +1,10 @@
-using System.Collections.Generic;
 using System;
-using Source.Scripts;
-using Source.Scripts.ResourcesSystem;
-using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
+using System.Collections.Generic;
+using BugStrategy.ResourcesSystem;
+using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.Unit;
 
-namespace Constructions.LevelSystemCore
+namespace BugStrategy.Constructions.ConstructionLevelSystemCore
 {
     public abstract class ConstructionLevelSystemBase<TConstructionLevel> : IConstructionLevelSystem
         where TConstructionLevel : ConstructionLevelBase

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Unit.Effects
+namespace BugStrategy.Effects
 {
     public class EffectsProcessor
     {

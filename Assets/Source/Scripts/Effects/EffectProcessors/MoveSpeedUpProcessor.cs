@@ -1,6 +1,4 @@
-using Unit.Effects.Interfaces;
-
-namespace Unit.Effects.EffectProcessors
+namespace BugStrategy.Effects
 {
     public sealed class MoveSpeedUpProcessor : EffectProcessorBase
     {

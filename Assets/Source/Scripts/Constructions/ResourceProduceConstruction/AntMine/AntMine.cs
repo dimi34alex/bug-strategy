@@ -1,8 +1,9 @@
-using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.Constructions.ResourceProduceConstruction.BeesWaxProduceConstruction;
+using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
 using UnityEngine;
 using Zenject;
 
-namespace Constructions
+namespace BugStrategy.Constructions.ResourceProduceConstruction.AntMine
 {
     public class AntMine : ResourceProduceConstructionBase
     {

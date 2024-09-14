@@ -1,61 +1,64 @@
 ﻿using UnityEngine;
 
-public class UnitSelectionView : MonoBehaviour
+namespace BugStrategy.Unit.UnitSelection
 {
-    [SerializeField] private Texture _texture;
-
-    private bool _isSelecting;
-
-    private Vector2 _mouseStartSelectionPoint;
-    private Vector2 _mouseEndSelectionPoint;
-
-    private SelectionGUI _selectionGUI;
-
-    private void Awake()
+    public class UnitSelectionView : MonoBehaviour
     {
-        _selectionGUI = new SelectionGUI();
-    }
+        [SerializeField] private Texture _texture;
 
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
+        private bool _isSelecting;
+
+        private Vector2 _mouseStartSelectionPoint;
+        private Vector2 _mouseEndSelectionPoint;
+
+        private SelectionGUI _selectionGUI;
+
+        private void Awake()
         {
-            _isSelecting = true;
-            _mouseStartSelectionPoint = Input.mousePosition;
+            _selectionGUI = new SelectionGUI();
         }
 
-        CalculateSelectionParamenters();
-
-        if (Input.GetMouseButtonUp(0))
+        private void Update()
         {
-            _isSelecting = false;
-            _mouseEndSelectionPoint = Input.mousePosition;
+            if (Input.GetMouseButtonDown(0))
+            {
+                _isSelecting = true;
+                _mouseStartSelectionPoint = Input.mousePosition;
+            }
 
+            CalculateSelectionParamenters();
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                _isSelecting = false;
+                _mouseEndSelectionPoint = Input.mousePosition;
+
+            }
         }
-    }
 
-    private void CalculateSelectionParamenters()
-    {
-        _selectionGUI.StartPoint = new Vector2(Input.mousePosition.x,
-            Screen.height - Input.mousePosition.y);
-        _selectionGUI.Size = new Vector2(_mouseStartSelectionPoint.x - Input.mousePosition.x,
-            Input.mousePosition.y - _mouseStartSelectionPoint.y);
-    }
-
-
-    private void OnGUI()
-    {
-        if (_isSelecting)
+        private void CalculateSelectionParamenters()
         {
-            GUI.DrawTexture(new Rect(_selectionGUI.StartPoint.x, _selectionGUI.StartPoint.y,
-                _selectionGUI.Size.x, _selectionGUI.Size.y), _texture);
+            _selectionGUI.StartPoint = new Vector2(Input.mousePosition.x,
+                Screen.height - Input.mousePosition.y);
+            _selectionGUI.Size = new Vector2(_mouseStartSelectionPoint.x - Input.mousePosition.x,
+                Input.mousePosition.y - _mouseStartSelectionPoint.y);
         }
-    }
 
 
-    public class SelectionGUI
-    {
-        public Vector2 StartPoint;
-        public Vector2 Size;
+        private void OnGUI()
+        {
+            if (_isSelecting)
+            {
+                GUI.DrawTexture(new Rect(_selectionGUI.StartPoint.x, _selectionGUI.StartPoint.y,
+                    _selectionGUI.Size.x, _selectionGUI.Size.y), _texture);
+            }
+        }
+
+
+        public class SelectionGUI
+        {
+            public Vector2 StartPoint;
+            public Vector2 Size;
+        }
     }
 }

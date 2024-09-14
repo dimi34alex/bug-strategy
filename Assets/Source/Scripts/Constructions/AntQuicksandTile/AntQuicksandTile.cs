@@ -1,6 +1,9 @@
-﻿using UnityEngine;
+﻿using BugStrategy.Trigger;
+using BugStrategy.Unit;
+using CycleFramework.Extensions;
+using UnityEngine;
 
-namespace Constructions
+namespace BugStrategy.Constructions.AntQuicksandTile
 {
     public class AntQuicksandTile : ConstructionBase
     {

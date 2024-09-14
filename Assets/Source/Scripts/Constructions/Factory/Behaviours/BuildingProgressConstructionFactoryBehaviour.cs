@@ -1,20 +1,24 @@
-﻿using Zenject;
+﻿using BugStrategy.Constructions.DefaultConstruction;
+using Zenject;
 
-public class BuildingProgressConstructionFactoryBehaviour : ConstructionFactoryBehaviourBase
+namespace BugStrategy.Constructions.Factory.Behaviours
 {
-    [Inject] private readonly BuildingProgressConstructionConfig _constructionConfig;
-
-    public override ConstructionType ConstructionType => ConstructionType.BuildingProgressConstruction;
-
-    public override TConstruction Create<TConstruction>(ConstructionID constructionID)
+    public class BuildingProgressConstructionFactoryBehaviour : ConstructionFactoryBehaviourBase
     {
-        ConstructionSpawnConfiguration<BuildingProgressConstruction> configuration = _constructionConfig.GetConfiguration();
+        [Inject] private readonly BuildingProgressConstructionConfig _constructionConfig;
 
-        TConstruction construction = DiContainer.InstantiatePrefab(configuration.ConstructionPrefab,
-                configuration.ConstructionPrefab.transform.position, configuration.Rotation, null)
-            .GetComponent<TConstruction>();
+        public override ConstructionType ConstructionType => ConstructionType.BuildingProgressConstruction;
+
+        public override TConstruction Create<TConstruction>(ConstructionID constructionID)
+        {
+            ConstructionSpawnConfiguration<BuildingProgressConstruction> configuration = _constructionConfig.GetConfiguration();
+
+            TConstruction construction = DiContainer.InstantiatePrefab(configuration.ConstructionPrefab,
+                    configuration.ConstructionPrefab.transform.position, configuration.Rotation, null)
+                .GetComponent<TConstruction>();
         
-        return construction;
+            return construction;
+        }
     }
 }
  

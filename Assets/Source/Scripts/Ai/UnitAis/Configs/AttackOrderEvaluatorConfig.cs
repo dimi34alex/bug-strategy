@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Source.Scripts.Ai.UnitAis.Configs
+namespace BugStrategy.Ai.UnitAis.Configs
 {
     [Serializable]
     public class AttackOrderEvaluatorConfig

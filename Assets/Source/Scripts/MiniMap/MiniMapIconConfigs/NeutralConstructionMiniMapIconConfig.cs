@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using BugStrategy.MiniMap.MiniMapIcons;
+using UnityEngine;
 
-namespace MiniMapSystem
+namespace BugStrategy.MiniMap.MiniMapIconConfigs
 {
     [CreateAssetMenu(fileName = "NeutralConstructionMiniMapIconConfig", menuName = "Config/MiniMapIcons/NeutralConstruction")]
     public sealed class NeutralConstructionMiniMapIconConfig : MiniMapIconConfigBase<NeutralConstructionMiniMapIcon>

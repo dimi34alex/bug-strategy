@@ -1,7 +1,8 @@
+using CycleFramework.Execute;
 using UnityEngine;
 using Zenject;
 
-namespace Source.Scripts.Ai
+namespace BugStrategy.Ai
 {
     public class AiUpdater : CycleInitializerBase
     {

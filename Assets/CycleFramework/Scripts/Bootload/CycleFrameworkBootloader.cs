@@ -1,46 +1,51 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using CycleFramework.Execute;
+using CycleFramework.Extensions;
 using UnityEngine;
 
-[ExecuteAlways]
-[DefaultExecutionOrder(-500)]
-public class CycleFrameworkBootloader : MonoBehaviour
+namespace CycleFramework.Bootload
 {
-    [SerializeField] private CycleState _startState;
-
-    private CycleInitializersParent _initializersParent;
-    private CycleStateMachine _cycleStateMachine;
-    private CycleEventsRepository _cycleEventsRepository;
-    private CycleEventsProcessor _cycleEventsProcessor;
-
-    private void Awake()
+    [ExecuteAlways]
+    [DefaultExecutionOrder(-500)]
+    public class CycleFrameworkBootloader : MonoBehaviour
     {
-        if (Application.isPlaying)
-            InitFramework();
-    }
+        [SerializeField] private CycleState _startState;
 
-    private void InitFramework()
-    {
-        _initializersParent = GetComponentInChildren<CycleInitializersParent>(true);
+        private CycleInitializersParent _initializersParent;
+        private CycleStateMachine _cycleStateMachine;
+        private CycleEventsRepository _cycleEventsRepository;
+        private CycleEventsProcessor _cycleEventsProcessor;
 
-        _cycleStateMachine = new CycleStateMachine(_startState);
-        Dictionary<CycleMethodType, MethodInfo> methods = new Dictionary<CycleMethodType, MethodInfo>();
+        private void Awake()
+        {
+            if (Application.isPlaying)
+                InitFramework();
+        }
 
-        foreach (CycleMethodType cycleMethodType in (IEnumerable<CycleMethodType>)Enum.GetValues(typeof(CycleMethodType)))
-            methods.Add(cycleMethodType, CycleEventsExtractor.ExtractSpecificEventInfo(cycleMethodType));
+        private void InitFramework()
+        {
+            _initializersParent = GetComponentInChildren<CycleInitializersParent>(true);
 
-        _cycleEventsRepository = new CycleEventsRepository(methods, _initializersParent.CycleInitializersHandlers.Values);
-        _cycleEventsProcessor = new CycleEventsProcessor(_cycleEventsRepository);
+            _cycleStateMachine = new CycleStateMachine(_startState);
+            Dictionary<CycleMethodType, MethodInfo> methods = new Dictionary<CycleMethodType, MethodInfo>();
 
-        CycleEventsTransmitter cycleEventsTransmitter = 
-            new GameObject($"[Framework] {nameof(CycleEventsTransmitter)}").AddComponent<CycleEventsTransmitter>();
+            foreach (CycleMethodType cycleMethodType in (IEnumerable<CycleMethodType>)Enum.GetValues(typeof(CycleMethodType)))
+                methods.Add(cycleMethodType, CycleEventsExtractor.ExtractSpecificEventInfo(cycleMethodType));
 
-        cycleEventsTransmitter.transform.parent = transform;
-        cycleEventsTransmitter.transform.SetSiblingIndex(0);
+            _cycleEventsRepository = new CycleEventsRepository(methods, _initializersParent.CycleInitializersHandlers.Values);
+            _cycleEventsProcessor = new CycleEventsProcessor(_cycleEventsRepository);
 
-        cycleEventsTransmitter.Init(_cycleStateMachine, _cycleEventsProcessor);
+            CycleEventsTransmitter cycleEventsTransmitter = 
+                new GameObject($"[Framework] {nameof(CycleEventsTransmitter)}").AddComponent<CycleEventsTransmitter>();
 
-        new FrameworkCommander(_cycleStateMachine);
+            cycleEventsTransmitter.transform.parent = transform;
+            cycleEventsTransmitter.transform.SetSiblingIndex(0);
+
+            cycleEventsTransmitter.Init(_cycleStateMachine, _cycleEventsProcessor);
+
+            new FrameworkCommander(_cycleStateMachine);
+        }
     }
 }

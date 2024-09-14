@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
-using Source.Scripts.ResourcesSystem;
+using BugStrategy.Libs;
+using BugStrategy.ResourcesSystem;
 using UnityEngine;
 
-namespace Constructions.LevelSystemCore
+namespace BugStrategy.Constructions.ConstructionLevelSystemCore
 {
     [Serializable]
     public class ConstructionLevelBase

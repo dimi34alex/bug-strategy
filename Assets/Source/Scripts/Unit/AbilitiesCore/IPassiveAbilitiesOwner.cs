@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Source.Scripts.Unit.AbilitiesCore
+namespace BugStrategy.Unit.AbilitiesCore
 {
     public interface IPassiveAbilitiesOwner
     {

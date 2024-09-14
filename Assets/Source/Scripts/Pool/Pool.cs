@@ -1,184 +1,187 @@
 ﻿using System;
 using System.Collections.Generic;
 
-public class Pool<TElement> where TElement : IPoolable<TElement>
+namespace BugStrategy.Pool
 {
-    private readonly bool _expandable;
-    private readonly Queue<TElement> _freeElements;
-    private readonly LinkedList<TElement> _extractedElements;
-    private readonly Func<TElement> _elementInstantiateDelegate;
-
-    public Pool(Func<TElement> elementInstantiateDelegate, int capacity = 0, bool expandable = true)
+    public class Pool<TElement> where TElement : IPoolable<TElement>
     {
-        if (capacity is 0 && !expandable)
-            throw new ArgumentException("Non-expandable pool cannot have a capacity of 0");
+        private readonly bool _expandable;
+        private readonly Queue<TElement> _freeElements;
+        private readonly LinkedList<TElement> _extractedElements;
+        private readonly Func<TElement> _elementInstantiateDelegate;
 
-        _expandable = expandable;
-        _freeElements = new Queue<TElement>(capacity);
-        _elementInstantiateDelegate = elementInstantiateDelegate;
-
-        if(!expandable)
-            _extractedElements = new LinkedList<TElement>();
-
-        for (int i = 0; i < capacity; i++)
-            InstantiateElement();
-    }
-
-    public TElement ExtractElement()
-    {
-        TElement element;
-
-        if (_freeElements.Count is 0)
+        public Pool(Func<TElement> elementInstantiateDelegate, int capacity = 0, bool expandable = true)
         {
-            if (_expandable)
-            {
+            if (capacity is 0 && !expandable)
+                throw new ArgumentException("Non-expandable pool cannot have a capacity of 0");
+
+            _expandable = expandable;
+            _freeElements = new Queue<TElement>(capacity);
+            _elementInstantiateDelegate = elementInstantiateDelegate;
+
+            if(!expandable)
+                _extractedElements = new LinkedList<TElement>();
+
+            for (int i = 0; i < capacity; i++)
                 InstantiateElement();
-            }
-            else
+        }
+
+        public TElement ExtractElement()
+        {
+            TElement element;
+
+            if (_freeElements.Count is 0)
             {
-                element = _extractedElements.First.Value;
-                _extractedElements.RemoveFirst();
+                if (_expandable)
+                {
+                    InstantiateElement();
+                }
+                else
+                {
+                    element = _extractedElements.First.Value;
+                    _extractedElements.RemoveFirst();
+                    _extractedElements.AddLast(element);
+
+                    return element;
+                }
+            }
+
+            element = _freeElements.Dequeue();
+            element.ElementReturnEvent += ReturnElement;
+            element.ElementDestroyEvent += ElementDestroy;
+
+            if(!_expandable)
                 _extractedElements.AddLast(element);
 
-                return element;
-            }
+            TryCallElementExtractEvent(element);
+
+            return element;
         }
 
-        element = _freeElements.Dequeue();
-        element.ElementReturnEvent += ReturnElement;
-        element.ElementDestroyEvent += ElementDestroy;
+        private void InstantiateElement()
+        {
+            TElement element = _elementInstantiateDelegate();
+            _freeElements.Enqueue(element);
+            TryCallElementReturnEvent(element);
+        }
 
-        if(!_expandable)
-            _extractedElements.AddLast(element);
+        private void TryCallElementReturnEvent(TElement element) => (element as IPoolEventListener)?.OnElementReturn();
+        private void TryCallElementExtractEvent(TElement element) => (element as IPoolEventListener)?.OnElementExtract();
 
-        TryCallElementExtractEvent(element);
+        private void ReturnElement(TElement element)
+        {
+            element.ElementReturnEvent -= ReturnElement;
+            element.ElementDestroyEvent -= ElementDestroy;
 
-        return element;
+            if (!_expandable)
+                _extractedElements.Remove(element);
+
+            _freeElements.Enqueue(element);
+            TryCallElementReturnEvent(element);
+        }
+
+        private void ElementDestroy(TElement element)
+        {
+            element.ElementReturnEvent -= ReturnElement;
+            element.ElementDestroyEvent -= ElementDestroy;
+
+            if (!_expandable)
+                _extractedElements.Remove(element);
+        }
     }
 
-    private void InstantiateElement()
+
+    public class Pool<TElement, TID> where TElement : IPoolable<TElement, TID>
     {
-        TElement element = _elementInstantiateDelegate();
-        _freeElements.Enqueue(element);
-        TryCallElementReturnEvent(element);
-    }
+        private readonly bool _expandable;
+        private readonly Dictionary<TID, Queue<TElement>> _freeElements;
+        private readonly Dictionary<TID, LinkedList<TElement>> _extractedElements;
+        private readonly Func<TID, TElement> _elementInstantiateDelegate;
 
-    private void TryCallElementReturnEvent(TElement element) => (element as IPoolEventListener)?.OnElementReturn();
-    private void TryCallElementExtractEvent(TElement element) => (element as IPoolEventListener)?.OnElementExtract();
+        public Pool(Func<TID, TElement> elementInstantiateDelegate, IReadOnlyCollection<(TID, int)> startCapacity = null, bool expandable = true)
+        {
+            _expandable = expandable;
+            _freeElements = new Dictionary<TID, Queue<TElement>>();
+            _elementInstantiateDelegate = elementInstantiateDelegate;
+            _extractedElements = new Dictionary<TID, LinkedList<TElement>>();
 
-    private void ReturnElement(TElement element)
-    {
-        element.ElementReturnEvent -= ReturnElement;
-        element.ElementDestroyEvent -= ElementDestroy;
+            if(startCapacity != null)
+                foreach ((TID, int) id in startCapacity)
+                    for (int i = 0; i < id.Item2; i++)
+                        InstantiateElement(id.Item1);
 
-        if (!_expandable)
-            _extractedElements.Remove(element);
-
-        _freeElements.Enqueue(element);
-        TryCallElementReturnEvent(element);
-    }
-
-    private void ElementDestroy(TElement element)
-    {
-        element.ElementReturnEvent -= ReturnElement;
-        element.ElementDestroyEvent -= ElementDestroy;
-
-        if (!_expandable)
-            _extractedElements.Remove(element);
-    }
-}
-
-
-public class Pool<TElement, TID> where TElement : IPoolable<TElement, TID>
-{
-    private readonly bool _expandable;
-    private readonly Dictionary<TID, Queue<TElement>> _freeElements;
-    private readonly Dictionary<TID, LinkedList<TElement>> _extractedElements;
-    private readonly Func<TID, TElement> _elementInstantiateDelegate;
-
-    public Pool(Func<TID, TElement> elementInstantiateDelegate, IReadOnlyCollection<(TID, int)> startCapacity = null, bool expandable = true)
-    {
-        _expandable = expandable;
-        _freeElements = new Dictionary<TID, Queue<TElement>>();
-        _elementInstantiateDelegate = elementInstantiateDelegate;
-        _extractedElements = new Dictionary<TID, LinkedList<TElement>>();
-
-        if(startCapacity != null)
-            foreach ((TID, int) id in startCapacity)
-                for (int i = 0; i < id.Item2; i++)
-                    InstantiateElement(id.Item1);
-
-        foreach (var elements in _extractedElements)
+            foreach (var elements in _extractedElements)
             foreach (var element in elements.Value)
                 TryCallElementExtractEvent(element);
-    }
-
-    public TElement ExtractElement(TID id)
-    {
-        TElement element;
-
-        if (!_freeElements.ContainsKey(id))
-            _freeElements.Add(id, new Queue<TElement>());
-
-        if (_freeElements[id].Count is 0)
-        {
-            if (_expandable)
-            {
-                InstantiateElement(id);
-            }
-            else
-            {
-                element = _extractedElements[id].First.Value;
-                _extractedElements[id].RemoveFirst();
-                _extractedElements[id].AddLast(element);
-
-                return element;
-            }
         }
 
-        element = _freeElements[id].Dequeue();
-        element.ElementReturnEvent += ReturnElement;
-        element.ElementDestroyEvent += ElementDestroy;
+        public TElement ExtractElement(TID id)
+        {
+            TElement element;
 
-        if (!_expandable)
-            _extractedElements[id].AddLast(element);
+            if (!_freeElements.ContainsKey(id))
+                _freeElements.Add(id, new Queue<TElement>());
 
-        TryCallElementExtractEvent(element);
+            if (_freeElements[id].Count is 0)
+            {
+                if (_expandable)
+                {
+                    InstantiateElement(id);
+                }
+                else
+                {
+                    element = _extractedElements[id].First.Value;
+                    _extractedElements[id].RemoveFirst();
+                    _extractedElements[id].AddLast(element);
 
-        return element;
-    }
+                    return element;
+                }
+            }
 
-    private void InstantiateElement(TID id)
-    {
-        TElement element = _elementInstantiateDelegate(id);
+            element = _freeElements[id].Dequeue();
+            element.ElementReturnEvent += ReturnElement;
+            element.ElementDestroyEvent += ElementDestroy;
 
-        if (!_freeElements.ContainsKey(id))
-            _freeElements.Add(id, new Queue<TElement>());
+            if (!_expandable)
+                _extractedElements[id].AddLast(element);
 
-        _freeElements[id].Enqueue(element);
-    }
+            TryCallElementExtractEvent(element);
 
-    private void TryCallElementReturnEvent(TElement element) => (element as IPoolEventListener)?.OnElementReturn();
-    private void TryCallElementExtractEvent(TElement element) => (element as IPoolEventListener)?.OnElementExtract();
+            return element;
+        }
 
-    private void ReturnElement(TElement element)
-    {
-        element.ElementReturnEvent -= ReturnElement;
-        element.ElementDestroyEvent -= ElementDestroy;
+        private void InstantiateElement(TID id)
+        {
+            TElement element = _elementInstantiateDelegate(id);
 
-        if (!_expandable)
-            _extractedElements.Remove(element.Identifier);
+            if (!_freeElements.ContainsKey(id))
+                _freeElements.Add(id, new Queue<TElement>());
 
-        _freeElements[element.Identifier].Enqueue(element);
-        TryCallElementReturnEvent(element);
-    }
+            _freeElements[id].Enqueue(element);
+        }
 
-    private void ElementDestroy(TElement element)
-    {
-        element.ElementReturnEvent -= ReturnElement;
-        element.ElementDestroyEvent -= ElementDestroy;
+        private void TryCallElementReturnEvent(TElement element) => (element as IPoolEventListener)?.OnElementReturn();
+        private void TryCallElementExtractEvent(TElement element) => (element as IPoolEventListener)?.OnElementExtract();
 
-        if (!_expandable)
-            _extractedElements[element.Identifier].Remove(element);
+        private void ReturnElement(TElement element)
+        {
+            element.ElementReturnEvent -= ReturnElement;
+            element.ElementDestroyEvent -= ElementDestroy;
+
+            if (!_expandable)
+                _extractedElements.Remove(element.Identifier);
+
+            _freeElements[element.Identifier].Enqueue(element);
+            TryCallElementReturnEvent(element);
+        }
+
+        private void ElementDestroy(TElement element)
+        {
+            element.ElementReturnEvent -= ReturnElement;
+            element.ElementDestroyEvent -= ElementDestroy;
+
+            if (!_expandable)
+                _extractedElements[element.Identifier].Remove(element);
+        }
     }
 }

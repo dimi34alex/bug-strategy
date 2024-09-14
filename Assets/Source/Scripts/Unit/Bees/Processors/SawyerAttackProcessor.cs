@@ -1,8 +1,8 @@
-using Projectiles;
-using Projectiles.Factory;
-using Unit.ProcessorsCore;
+using BugStrategy.Projectiles;
+using BugStrategy.Projectiles.Factory;
+using BugStrategy.Unit.ProcessorsCore;
 
-namespace Unit.Bees
+namespace BugStrategy.Unit.Bees
 {
     public sealed class SawyerAttackProcessor : RangeAttackProcessor
     {

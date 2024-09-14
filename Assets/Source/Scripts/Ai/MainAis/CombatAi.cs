@@ -1,9 +1,10 @@
 using System.Collections.Generic;
-using Construction.TownHalls;
-using CustomTimer;
+using BugStrategy.Constructions;
+using BugStrategy.CustomTimer;
+using BugStrategy.Unit;
 using UnityEngine;
 
-namespace Source.Scripts.Ai.MainAis
+namespace BugStrategy.Ai.MainAis
 {
     public class CombatAi
     {

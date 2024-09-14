@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators.Configs
+namespace BugStrategy.Ai.ConstructionsAis
 {
     [CreateAssetMenu(fileName = nameof(BeeBarrackAiConfig), menuName = "Configs/Ai/Constructions/" + nameof(BeeBarrackAiConfig))]
     public class BeeBarrackAiConfig : ConstructionAiConfigBase

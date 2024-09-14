@@ -1,6 +1,6 @@
 using Zenject;
 
-namespace Projectiles.Factory
+namespace BugStrategy.Projectiles.Factory
 {
     public class ProjectileFactoryInstaller : MonoInstaller
     {

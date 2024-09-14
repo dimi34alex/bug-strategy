@@ -1,6 +1,7 @@
+using BugStrategy.ConfigsRepository;
 using UnityEngine;
 
-namespace Constructions
+namespace BugStrategy.Constructions.AntHouse
 {
     [CreateAssetMenu(fileName = nameof(AntHouseSpawnConfig), menuName = "Configs/Constructions/SpawnConfigs/" + nameof(AntHouseSpawnConfig))]
     public class AntHouseSpawnConfig : ScriptableObject, ISingleConfig

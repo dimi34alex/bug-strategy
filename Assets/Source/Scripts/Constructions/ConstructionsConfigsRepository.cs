@@ -1,6 +1,8 @@
+using BugStrategy.ConfigsRepository;
+using BugStrategy.Libs;
 using UnityEngine;
 
-namespace Constructions
+namespace BugStrategy.Constructions
 {
     [CreateAssetMenu(fileName = nameof(ConstructionsConfigsRepository), menuName = "Configs/Constructions/" + nameof(ConstructionsConfigsRepository))]
     public class ConstructionsConfigsRepository : ScriptableObject, ISingleConfig

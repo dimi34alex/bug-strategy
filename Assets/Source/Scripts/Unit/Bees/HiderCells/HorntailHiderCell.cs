@@ -1,7 +1,7 @@
-using CustomTimer;
-using UnitsHideCore;
+using BugStrategy.CustomTimer;
+using BugStrategy.UnitsHideCore;
 
-namespace Unit.Bees
+namespace BugStrategy.Unit.Bees
 {
     public class HorntailHiderCell : HiderCellBase
     {

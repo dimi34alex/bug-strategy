@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using BugStrategy.ConfigsRepository;
+using BugStrategy.Libs;
 using UnityEngine;
 
-namespace Unit.Factory
+namespace BugStrategy.Unit.Factory
 {
     [CreateAssetMenu(fileName = nameof(UnitsPrefabsConfig), menuName = "Configs/Units/" + nameof(UnitsPrefabsConfig))]
     public class UnitsPrefabsConfig : ScriptableObject, ISingleConfig

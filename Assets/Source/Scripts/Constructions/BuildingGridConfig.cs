@@ -1,10 +1,14 @@
-﻿using UnityEngine;
+﻿using BugStrategy.ConfigsRepository;
+using UnityEngine;
 
-[CreateAssetMenu(fileName = "BuildingGridConfig", menuName = "Config/BuildingGridConfig")]
-public class BuildingGridConfig : ScriptableObject, ISingleConfig
+namespace BugStrategy.Constructions
 {
-    [SerializeField] private Vector2 _hexagonsOffcets;
+    [CreateAssetMenu(fileName = "BuildingGridConfig", menuName = "Config/BuildingGridConfig")]
+    public class BuildingGridConfig : ScriptableObject, ISingleConfig
+    {
+        [SerializeField] private Vector2 _hexagonsOffcets;
 
-    public Vector2 HexagonsOffcets => _hexagonsOffcets;
+        public Vector2 HexagonsOffcets => _hexagonsOffcets;
+    }
 }
 

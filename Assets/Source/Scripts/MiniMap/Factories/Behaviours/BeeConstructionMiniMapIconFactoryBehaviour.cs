@@ -1,6 +1,10 @@
-﻿using MiniMapSystem;
+﻿using BugStrategy.MiniMap.MiniMapIconConfigs;
+using BugStrategy.MiniMap.MiniMapIcons;
 
-public class BeeConstructionMiniMapIconFactoryBehaviour : MiniMapIconFactoryBehaviourBase<BeeConstructionMiniMapIcon, BeeConstructionMiniMapIconConfig>
+namespace BugStrategy.MiniMap.Factories
 {
-    public override MiniMapIconID MiniMapIconID => MiniMapIconID.BeeConstruction;
+    public class BeeConstructionMiniMapIconFactoryBehaviour : MiniMapIconFactoryBehaviourBase<BeeConstructionMiniMapIcon, BeeConstructionMiniMapIconConfig>
+    {
+        public override MiniMapIconID MiniMapIconID => MiniMapIconID.BeeConstruction;
+    }
 }

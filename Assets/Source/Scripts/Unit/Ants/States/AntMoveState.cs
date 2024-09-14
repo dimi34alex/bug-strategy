@@ -1,7 +1,9 @@
 using System;
+using BugStrategy.EntityState;
+using BugStrategy.Libs;
 using UnityEngine;
 
-namespace Unit.Ants.States
+namespace BugStrategy.Unit.Ants
 {
     public class AntMoveState : EntityStateBase
     {

@@ -1,10 +1,11 @@
 ﻿using System;
-using CustomTimer;
-using Source.Scripts.ResourcesSystem;
-using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.CustomTimer;
+using BugStrategy.ResourceSources;
+using BugStrategy.ResourcesSystem;
+using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
 using UnityEngine;
 
-namespace Unit.ProcessorsCore
+namespace BugStrategy.Unit.ProcessorsCore
 {
     public class ResourceExtractionProcessor : IReadOnlyResourceExtractionProcessor
     {

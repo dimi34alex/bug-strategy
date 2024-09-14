@@ -1,19 +1,22 @@
-public static class CastExtensions
+namespace CycleFramework.Extensions
 {
-    public static bool CastPossible<T>(this object value) => value is T;
-    public static T Cast<T>(this object value) => (T)value;
-    public static T UnSafeCast<T>(this object value) where T : class => value as T;
-    public static bool TryCast<T>(this object value, out T castedValue)
+    public static class CastExtensions
     {
-        if (value.CastPossible<T>())
+        public static bool CastPossible<T>(this object value) => value is T;
+        public static T Cast<T>(this object value) => (T)value;
+        public static T UnSafeCast<T>(this object value) where T : class => value as T;
+        public static bool TryCast<T>(this object value, out T castedValue)
         {
-            castedValue = (T)value;
-            return true;
-        }
-        else
-        {
-            castedValue = default;
-            return false;
+            if (value.CastPossible<T>())
+            {
+                castedValue = (T)value;
+                return true;
+            }
+            else
+            {
+                castedValue = default;
+                return false;
+            }
         }
     }
 }

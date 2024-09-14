@@ -1,7 +1,8 @@
 ﻿using System;
+using CycleFramework.Extensions;
 using UnityEngine;
 
-namespace Unit.ProcessorsCore
+namespace BugStrategy.Unit.ProcessorsCore
 {
     public class MeleeAttackProcessor : AttackProcessorBase
     {

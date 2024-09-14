@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-namespace Unit.Effects
+namespace BugStrategy.Effects
 {
     public class EffectsFactoryInstaller : MonoInstaller
     {

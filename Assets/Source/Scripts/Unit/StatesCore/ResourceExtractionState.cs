@@ -1,8 +1,11 @@
 using System;
-using Unit.ProcessorsCore;
+using BugStrategy.EntityState;
+using BugStrategy.ResourceSources;
+using BugStrategy.Unit.ProcessorsCore;
+using CycleFramework.Extensions;
 using UnityEngine;
 
-namespace Unit.States
+namespace BugStrategy.Unit
 {
     public class ResourceExtractionState : EntityStateBase
     {

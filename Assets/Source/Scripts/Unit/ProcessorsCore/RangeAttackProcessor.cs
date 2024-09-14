@@ -1,9 +1,10 @@
 ﻿using System;
-using Projectiles;
-using Projectiles.Factory;
+using BugStrategy.Projectiles;
+using BugStrategy.Projectiles.Factory;
+using CycleFramework.Extensions;
 using UnityEngine;
 
-namespace Unit.ProcessorsCore
+namespace BugStrategy.Unit.ProcessorsCore
 {
     public class RangeAttackProcessor : AttackProcessorBase
     {

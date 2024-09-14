@@ -1,22 +1,18 @@
 using System.Collections.Generic;
-using Projectiles;
-using Projectiles.Factory;
-using Source.Scripts;
-using Source.Scripts.Ai.InternalAis;
-using Source.Scripts.Ai.UnitAis;
-using Source.Scripts.ResourcesSystem;
-using Source.Scripts.Unit.AbilitiesCore;
-using Unit.Bees.Configs;
-using Unit.Effects.InnerProcessors;
-using Unit.Effects.Interfaces;
-using Unit.Factory;
-using Unit.OrderValidatorCore;
-using Unit.ProcessorsCore;
-using Unit.States;
+using BugStrategy.Ai.InternalAis;
+using BugStrategy.Ai.UnitAis;
+using BugStrategy.Effects;
+using BugStrategy.EntityState;
+using BugStrategy.Projectiles;
+using BugStrategy.Projectiles.Factory;
+using BugStrategy.Unit.AbilitiesCore;
+using BugStrategy.Unit.Factory;
+using BugStrategy.Unit.OrderValidatorCore;
+using BugStrategy.Unit.ProcessorsCore;
 using UnityEngine;
 using Zenject;
 
-namespace Unit.Bees
+namespace BugStrategy.Unit.Bees
 {
     public class MobileHive : BeeUnit, IAttackCooldownChangerEffectable
     {

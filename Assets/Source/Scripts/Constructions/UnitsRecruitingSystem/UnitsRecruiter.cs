@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
-using Source.Scripts.ResourcesSystem;
-using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
-using Unit.Factory;
+using BugStrategy.ResourcesSystem;
+using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.Unit;
+using BugStrategy.Unit.Factory;
+using CycleFramework.Extensions;
 using UnityEngine;
 
-namespace UnitsRecruitingSystemCore
+namespace BugStrategy.Constructions.UnitsRecruitingSystem
 {
     public class UnitsRecruiter : IReadOnlyUnitsRecruiter
     {

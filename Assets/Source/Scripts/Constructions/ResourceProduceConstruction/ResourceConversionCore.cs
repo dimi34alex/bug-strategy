@@ -1,61 +1,64 @@
-﻿using Source.Scripts;
-using Source.Scripts.ResourcesSystem;
+﻿using BugStrategy.ResourcesSystem;
+using CycleFramework.Extensions;
 using UnityEngine;
 
-public class ResourceConversionCore : ResourceProduceCoreBase
+namespace BugStrategy.Constructions.ResourceProduceConstruction
 {
-    private ResourceConversionProccessInfo _resourceConversionProccessInfo;
-    private FloatStorage _spendableResouce;
-    private float _fractionalProducedResources;
-    private float _fractionalSpendableResources;
-
-    protected override ResourceProduceProccessInfoBase _produceProccessInfo => _resourceConversionProccessInfo;
-
-    public ResourceID SpendableResourceID => _resourceConversionProccessInfo.SpendableResourceID;
-    public IReadOnlyFloatStorage SpendableResource => _spendableResouce;
-    public bool ConversionIsAvailable => MaxPotentialProduceResource >= 1f;
-    public float MaxPotentialProduceResource => _fractionalProducedResources + 
-        _spendableResouce.CurrentValue * _resourceConversionProccessInfo.SpendRatio;
-
-    public ResourceConversionCore(ResourceConversionProccessInfo conversionProccessInfo) : base(conversionProccessInfo)
+    public class ResourceConversionCore : ResourceProduceCoreBase
     {
-        _resourceConversionProccessInfo = conversionProccessInfo;
-        _spendableResouce = new FloatStorage(0, conversionProccessInfo.SpendableResourceCapacity);
-    }
+        private ResourceConversionProccessInfo _resourceConversionProccessInfo;
+        private FloatStorage _spendableResouce;
+        private float _fractionalProducedResources;
+        private float _fractionalSpendableResources;
 
-    protected override int CalculateProducedResourceCount(float time)
-    {
-        if (!ConversionIsAvailable)
-            return 0;
+        protected override ResourceProduceProccessInfoBase _produceProccessInfo => _resourceConversionProccessInfo;
 
-        float targetProduce = time * _resourceConversionProccessInfo.ProducePerSecond;
-        float realProduce = Mathf.Min(targetProduce, MaxPotentialProduceResource);
-        float realSpend = realProduce / _resourceConversionProccessInfo.SpendRatio;
+        public ResourceID SpendableResourceID => _resourceConversionProccessInfo.SpendableResourceID;
+        public IReadOnlyFloatStorage SpendableResource => _spendableResouce;
+        public bool ConversionIsAvailable => MaxPotentialProduceResource >= 1f;
+        public float MaxPotentialProduceResource => _fractionalProducedResources + 
+                                                    _spendableResouce.CurrentValue * _resourceConversionProccessInfo.SpendRatio;
 
-        _fractionalSpendableResources += realSpend;
-        int wholeSpendablePart = (int)_fractionalSpendableResources;
-        _fractionalSpendableResources -= wholeSpendablePart;
-        _spendableResouce.ChangeValue(-wholeSpendablePart);
+        public ResourceConversionCore(ResourceConversionProccessInfo conversionProccessInfo) : base(conversionProccessInfo)
+        {
+            _resourceConversionProccessInfo = conversionProccessInfo;
+            _spendableResouce = new FloatStorage(0, conversionProccessInfo.SpendableResourceCapacity);
+        }
 
-        _fractionalProducedResources += realProduce;
-        int wholePart = (int)_fractionalProducedResources;
-        _fractionalProducedResources -= wholePart;
-        return wholePart;
-    }
+        protected override int CalculateProducedResourceCount(float time)
+        {
+            if (!ConversionIsAvailable)
+                return 0;
 
-    public void AddSpendableResource(int count)
-    {
-        _spendableResouce.ChangeValue(count);
-    }
+            float targetProduce = time * _resourceConversionProccessInfo.ProducePerSecond;
+            float realProduce = Mathf.Min(targetProduce, MaxPotentialProduceResource);
+            float realSpend = realProduce / _resourceConversionProccessInfo.SpendRatio;
 
-    protected override void SetResourceProduceProccessInfoCallback(ResourceProduceProccessInfoBase produceProccessInfo)
-    {
-        _resourceConversionProccessInfo = produceProccessInfo.Cast<ResourceConversionProccessInfo>();
-        SetSpendableResouceProccessInfo(_resourceConversionProccessInfo);
-    }
+            _fractionalSpendableResources += realSpend;
+            int wholeSpendablePart = (int)_fractionalSpendableResources;
+            _fractionalSpendableResources -= wholeSpendablePart;
+            _spendableResouce.ChangeValue(-wholeSpendablePart);
 
-    protected void SetSpendableResouceProccessInfo(ResourceConversionProccessInfo resourceConversionProccessInfo)
-    {
-        _spendableResouce.SetCapacity(resourceConversionProccessInfo.SpendableResourceCapacity);
+            _fractionalProducedResources += realProduce;
+            int wholePart = (int)_fractionalProducedResources;
+            _fractionalProducedResources -= wholePart;
+            return wholePart;
+        }
+
+        public void AddSpendableResource(int count)
+        {
+            _spendableResouce.ChangeValue(count);
+        }
+
+        protected override void SetResourceProduceProccessInfoCallback(ResourceProduceProccessInfoBase produceProccessInfo)
+        {
+            _resourceConversionProccessInfo = produceProccessInfo.Cast<ResourceConversionProccessInfo>();
+            SetSpendableResouceProccessInfo(_resourceConversionProccessInfo);
+        }
+
+        protected void SetSpendableResouceProccessInfo(ResourceConversionProccessInfo resourceConversionProccessInfo)
+        {
+            _spendableResouce.SetCapacity(resourceConversionProccessInfo.SpendableResourceCapacity);
+        }
     }
 }

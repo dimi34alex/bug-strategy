@@ -1,7 +1,9 @@
 ﻿using System;
-using Unit.ProcessorsCore;
+using BugStrategy.Libs;
+using BugStrategy.Unit.ProcessorsCore;
+using CycleFramework.Extensions;
 
-namespace Unit.OrderValidatorCore
+namespace BugStrategy.Unit.OrderValidatorCore
 {
     [Serializable]
     public class WarriorOrderValidator : OrderValidatorBase

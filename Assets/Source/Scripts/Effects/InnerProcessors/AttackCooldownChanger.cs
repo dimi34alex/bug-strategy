@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Unit.Effects.InnerProcessors
+namespace BugStrategy.Effects
 {
     public class AttackCooldownChanger
     {

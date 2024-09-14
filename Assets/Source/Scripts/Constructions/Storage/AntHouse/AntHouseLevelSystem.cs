@@ -1,10 +1,8 @@
 using System;
-using Constructions.LevelSystemCore;
-using Source.Scripts;
-using Source.Scripts.ResourcesSystem;
-using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.Constructions.ConstructionLevelSystemCore;
+using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
 
-namespace Constructions
+namespace BugStrategy.Constructions.AntHouse
 {
     [Serializable]
     public class AntHouseLevelSystem : ConstructionLevelSystemBase<AntHouseLevel>

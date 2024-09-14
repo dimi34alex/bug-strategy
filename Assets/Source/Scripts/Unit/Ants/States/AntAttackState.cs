@@ -1,9 +1,9 @@
 using System;
-using Unit.Ants.Professions;
-using Unit.OrderValidatorCore;
+using BugStrategy.EntityState;
+using CycleFramework.Extensions;
 using UnityEngine;
 
-namespace Unit.Ants.States
+namespace BugStrategy.Unit.Ants
 {
     public class AntAttackState : EntityStateBase
     {

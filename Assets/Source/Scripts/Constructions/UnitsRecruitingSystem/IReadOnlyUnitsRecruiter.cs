@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace UnitsRecruitingSystemCore
+namespace BugStrategy.Constructions.UnitsRecruitingSystem
 {
     public interface IReadOnlyUnitsRecruiter
     {

@@ -1,11 +1,11 @@
-using Constructions.LevelSystemCore;
-using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
-using Unit.Factory;
-using UnitsHideCore;
+using BugStrategy.Constructions.ConstructionLevelSystemCore;
+using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.Unit.Factory;
+using BugStrategy.UnitsHideCore;
 using UnityEngine;
 using Zenject;
 
-namespace Constructions.BeeHospital
+namespace BugStrategy.Constructions.BeeHospital
 {
     public class BeeHospital : ConstructionBase, IEvolveConstruction, IHiderConstruction
     {

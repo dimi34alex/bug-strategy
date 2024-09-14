@@ -1,13 +1,11 @@
 using System;
-using Constructions.LevelSystemCore;
-using Source.Scripts;
-using Source.Scripts.ResourcesSystem;
-using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
-using Unit.Factory;
-using UnitsHideCore;
+using BugStrategy.Constructions.ConstructionLevelSystemCore;
+using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.Unit.Factory;
+using BugStrategy.UnitsHideCore;
 using UnityEngine;
 
-namespace Constructions
+namespace BugStrategy.Constructions.BeeHouse
 {
     [Serializable]
     public class BeeHouseLevelSystem : ConstructionLevelSystemBase<BeeHouseLevel>

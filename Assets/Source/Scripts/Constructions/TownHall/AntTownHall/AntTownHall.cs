@@ -1,11 +1,11 @@
-using Construction.TownHalls;
-using Constructions.LevelSystemCore;
-using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
-using UnitsRecruitingSystemCore;
+using BugStrategy.Constructions.ConstructionLevelSystemCore;
+using BugStrategy.Constructions.UnitsRecruitingSystem;
+using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.Unit;
 using UnityEngine;
 using Zenject;
 
-namespace Constructions
+namespace BugStrategy.Constructions.AntTownHall
 {
     public class AntTownHall : TownHallBase
     {

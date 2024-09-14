@@ -1,8 +1,8 @@
-using System.Collections.Generic;
-using UnityEngine;
-
-public class DefaultConstruction : ConstructionBase
+namespace BugStrategy.Constructions.DefaultConstruction
 {
-    public override FractionType Fraction => FractionType.None;
-    public override ConstructionID ConstructionID => ConstructionID.TestConstruction;
+    public class DefaultConstruction : ConstructionBase
+    {
+        public override FractionType Fraction => FractionType.None;
+        public override ConstructionID ConstructionID => ConstructionID.TestConstruction;
+    }
 }

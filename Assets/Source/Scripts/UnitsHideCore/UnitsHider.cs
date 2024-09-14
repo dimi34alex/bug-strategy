@@ -1,8 +1,10 @@
 using System.Collections.Generic;
-using Unit.Factory;
+using BugStrategy.Unit;
+using BugStrategy.Unit.Factory;
+using CycleFramework.Extensions;
 using UnityEngine;
 
-namespace UnitsHideCore
+namespace BugStrategy.UnitsHideCore
 {
     public class UnitsHider : IHider
     {

@@ -1,6 +1,6 @@
-using Constructions.LevelSystemCore;
+using BugStrategy.Constructions.ConstructionLevelSystemCore;
 
-namespace Constructions
+namespace BugStrategy.Constructions
 {
     public abstract class AntWorkshopBase : ConstructionBase, IEvolveConstruction
     {

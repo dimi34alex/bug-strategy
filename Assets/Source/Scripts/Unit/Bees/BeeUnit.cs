@@ -1,7 +1,8 @@
 using System.Collections.Generic;
-using Source.Scripts.Unit.AbilitiesCore;
+using BugStrategy.Unit.AbilitiesCore;
+using CycleFramework.Extensions;
 
-namespace Unit.Bees
+namespace BugStrategy.Unit.Bees
 {
     public abstract class BeeUnit : UnitBase, IAbilitiesOwner
     {

@@ -1,7 +1,6 @@
-using Unit.Ants.Professions;
-using UnitsHideCore;
+using BugStrategy.UnitsHideCore;
 
-namespace Unit.Ants
+namespace BugStrategy.Unit.Ants
 {
     public class AntHiderCell : HiderCellBase
     {

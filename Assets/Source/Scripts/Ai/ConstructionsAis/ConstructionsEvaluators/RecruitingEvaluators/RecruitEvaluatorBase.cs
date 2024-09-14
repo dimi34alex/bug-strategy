@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
-using Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators.Configs;
-using Source.Scripts.ResourcesSystem;
-using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
-using UnitsRecruitingSystemCore;
+using BugStrategy.Constructions.UnitsRecruitingSystem;
+using BugStrategy.ResourcesSystem;
+using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.Unit;
 
-namespace Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators.RecruitingEvaluators
+namespace BugStrategy.Ai.ConstructionsAis
 {
     public abstract class RecruitEvaluatorBase : ConstructionEvaluatorBase
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators.Configs
+namespace BugStrategy.Ai.ConstructionsAis
 {
     public class ConstructionAiConfigBase : ScriptableObject
     {

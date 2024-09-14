@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Source.Scripts.ResourcesSystem
+namespace BugStrategy.ResourcesSystem
 {
     public class ResourceBase : FloatStorage, IReadOnlyResource
     {

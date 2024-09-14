@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using BugStrategy.Trigger;
+using CycleFramework.Extensions;
 using UnityEngine;
 
-namespace Unit.OrderValidatorCore
+namespace BugStrategy.Unit.OrderValidatorCore
 {
     [RequireComponent(typeof(SphereCollider))]
     public class UnitInteractionZone : TriggerZone

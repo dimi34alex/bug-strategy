@@ -1,9 +1,9 @@
 using System;
-using Constructions.LevelSystemCore;
-using Projectiles;
+using BugStrategy.Constructions.ConstructionLevelSystemCore;
+using BugStrategy.Projectiles;
 using UnityEngine;
 
-namespace Constructions
+namespace BugStrategy.Constructions.BeeWaxTower
 {
     [Serializable]
     public class BeeWaxTowerLevel : ConstructionLevelBase

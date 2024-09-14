@@ -1,8 +1,8 @@
 using System;
-using Unit.Ants.Professions;
-using Unit.OrderValidatorCore;
+using BugStrategy.EntityState;
+using CycleFramework.Extensions;
 
-namespace Unit.Ants.States
+namespace BugStrategy.Unit.Ants
 {
     public class AntIdleState : EntityStateBase
     {

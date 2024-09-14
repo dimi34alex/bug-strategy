@@ -1,6 +1,7 @@
+using BugStrategy.MiniMap.MiniMapIcons;
 using UnityEngine;
 
-namespace MiniMapSystem
+namespace BugStrategy.MiniMap.MiniMapIconConfigs
 {
     [CreateAssetMenu(fileName = "BeeConstructionMiniMapIconConfig", menuName = "Config/MiniMapIcons/BeeConstruction")]
     public sealed class BeeConstructionMiniMapIconConfig : MiniMapIconConfigBase<BeeConstructionMiniMapIcon>

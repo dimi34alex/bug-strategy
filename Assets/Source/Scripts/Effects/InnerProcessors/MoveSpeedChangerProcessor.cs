@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine.AI;
 
-namespace Unit.Effects.InnerProcessors
+namespace BugStrategy.Effects
 {
     public class MoveSpeedChangerProcessor
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace SelectableSystem
+namespace BugStrategy.SelectableSystem
 {
     public class SelectionField : MonoBehaviour, OnSelectionUI
     {

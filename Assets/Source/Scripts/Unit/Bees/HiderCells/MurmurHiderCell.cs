@@ -1,9 +1,9 @@
-using CustomTimer;
-using Source.Scripts.ResourcesSystem;
-using Unit.ProcessorsCore;
-using UnitsHideCore;
+using BugStrategy.CustomTimer;
+using BugStrategy.ResourcesSystem;
+using BugStrategy.Unit.ProcessorsCore;
+using BugStrategy.UnitsHideCore;
 
-namespace Unit.Bees
+namespace BugStrategy.Unit.Bees
 {
     public class MurmurHiderCell : HiderCellBase
     {

@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators.Configs;
+using BugStrategy.Ai.ConstructionsAis;
 using UnityEngine;
 using Zenject;
 
-namespace Source.Scripts.Ai
+namespace BugStrategy.Ai
 {
     public class AiInstaller : MonoInstaller
     {

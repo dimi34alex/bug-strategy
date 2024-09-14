@@ -1,6 +1,10 @@
-using MiniMapSystem;
+using BugStrategy.MiniMap.MiniMapIconConfigs;
+using BugStrategy.MiniMap.MiniMapIcons;
 
-public class AntUnitMiniMapIconFactoryBehaviour : MiniMapIconFactoryBehaviourBase<AntUnitMiniMapIcon, AntUnitMiniMapIconConfig>
+namespace BugStrategy.MiniMap.Factories
 {
-    public override MiniMapIconID MiniMapIconID => MiniMapIconID.AntUnit;
+    public class AntUnitMiniMapIconFactoryBehaviour : MiniMapIconFactoryBehaviourBase<AntUnitMiniMapIcon, AntUnitMiniMapIconConfig>
+    {
+        public override MiniMapIconID MiniMapIconID => MiniMapIconID.AntUnit;
+    }
 }

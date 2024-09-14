@@ -1,6 +1,6 @@
 using System;
 
-namespace Constructions.LevelSystemCore
+namespace BugStrategy.Constructions.ConstructionLevelSystemCore
 {
     public interface IConstructionLevelSystem
     {

@@ -1,8 +1,8 @@
 using System;
-using Unit.OrderValidatorCore;
-using Unit.ProcessorsCore;
+using BugStrategy.EntityState;
+using BugStrategy.Unit.ProcessorsCore;
 
-namespace Unit.States
+namespace BugStrategy.Unit
 {
     public class WarriorIdleState : EntityStateBase
     {

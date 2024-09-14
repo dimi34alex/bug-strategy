@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
-using Source.Scripts.ResourcesSystem;
+using BugStrategy.Libs;
+using BugStrategy.ResourcesSystem;
 using UnityEngine;
 
-namespace Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators.Configs
+namespace BugStrategy.Ai.ConstructionsAis
 {
     [Serializable]
     public class RecruitingEvaluationConfig

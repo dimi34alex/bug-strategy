@@ -1,20 +1,23 @@
-using Constructions;
+using BugStrategy.Constructions.ResourceProduceConstruction.AntMine;
 using Zenject;
 
-public class AntMineFactoryBehaviour : ConstructionFactoryBehaviourBase
+namespace BugStrategy.Constructions.Factory.Behaviours
 {
-    [Inject] private readonly AntMineSpawnConfig _config;
-    
-    public override ConstructionType ConstructionType => ConstructionType.AntMine;
-
-    public override TConstruction Create<TConstruction>(ConstructionID constructionID)
+    public class AntMineFactoryBehaviour : ConstructionFactoryBehaviourBase
     {
-        ConstructionSpawnConfiguration<AntMine> configuration = _config.Configuration;
+        [Inject] private readonly AntMineSpawnConfig _config;
+    
+        public override ConstructionType ConstructionType => ConstructionType.AntMine;
 
-        TConstruction construction = DiContainer.InstantiatePrefab(configuration.ConstructionPrefab,
-                configuration.ConstructionPrefab.transform.position, configuration.Rotation, null)
-            .GetComponent<TConstruction>();
+        public override TConstruction Create<TConstruction>(ConstructionID constructionID)
+        {
+            ConstructionSpawnConfiguration<AntMine> configuration = _config.Configuration;
+
+            TConstruction construction = DiContainer.InstantiatePrefab(configuration.ConstructionPrefab,
+                    configuration.ConstructionPrefab.transform.position, configuration.Rotation, null)
+                .GetComponent<TConstruction>();
         
-        return construction;
+            return construction;
+        }
     }
 }

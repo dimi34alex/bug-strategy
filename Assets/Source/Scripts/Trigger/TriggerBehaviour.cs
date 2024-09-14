@@ -1,2 +1,5 @@
 ﻿
-public class TriggerBehaviour : TriggerZone { }
+namespace BugStrategy.Trigger
+{
+    public class TriggerBehaviour : TriggerZone { }
+}

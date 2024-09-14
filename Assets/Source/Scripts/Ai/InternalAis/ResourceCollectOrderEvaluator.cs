@@ -1,7 +1,10 @@
-using Source.Scripts.Missions;
-using Unit.ProcessorsCore;
+using BugStrategy.Missions;
+using BugStrategy.ResourceSources;
+using BugStrategy.Unit;
+using BugStrategy.Unit.ProcessorsCore;
+using CycleFramework.Extensions;
 
-namespace Source.Scripts.Ai.InternalAis
+namespace BugStrategy.Ai.InternalAis
 {
     public class ResourceCollectOrderEvaluator : UnitInternalEvaluator
     {

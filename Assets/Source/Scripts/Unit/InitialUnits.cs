@@ -1,9 +1,10 @@
 using System;
-using Unit.Factory;
+using BugStrategy.Libs;
+using BugStrategy.Unit.Factory;
 using UnityEngine;
 using Zenject;
 
-namespace Unit
+namespace BugStrategy.Unit
 {
     public class InitialUnits : MonoBehaviour
     {

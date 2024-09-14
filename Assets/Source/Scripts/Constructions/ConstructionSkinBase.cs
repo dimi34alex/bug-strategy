@@ -1,12 +1,15 @@
 ﻿using UnityEngine;
 
-public abstract class ConstructionSkinBase : MonoBehaviour
+namespace BugStrategy.Constructions
 {
-    [SerializeField] private Pose _localPose;
-
-    private void Awake()
+    public abstract class ConstructionSkinBase : MonoBehaviour
     {
-        transform.localPosition = _localPose.position;
-        transform.localRotation = _localPose.rotation;
+        [SerializeField] private Pose _localPose;
+
+        private void Awake()
+        {
+            transform.localPosition = _localPose.position;
+            transform.localRotation = _localPose.rotation;
+        }
     }
 }

@@ -1,4 +1,4 @@
-namespace Constructions.LevelSystemCore
+namespace BugStrategy.Constructions.ConstructionLevelSystemCore
 {
     public interface IEvolveConstruction 
     {

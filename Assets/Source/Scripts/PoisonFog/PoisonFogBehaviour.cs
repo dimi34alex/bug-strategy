@@ -1,9 +1,12 @@
 using System;
-using CustomTimer;
-using Unit.Effects;
+using BugStrategy.CustomTimer;
+using BugStrategy.Effects;
+using BugStrategy.Pool;
+using BugStrategy.Trigger;
+using CycleFramework.Extensions;
 using UnityEngine;
 
-namespace PoisonFog
+namespace BugStrategy.PoisonFog
 {
     public class PoisonFogBehaviour : MonoBehaviour, IPoolable<PoisonFogBehaviour>, IPoolEventListener
     {

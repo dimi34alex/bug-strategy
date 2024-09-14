@@ -1,6 +1,6 @@
 using System;
 
-namespace Constructions
+namespace BugStrategy.Constructions.AntRangeWorkshop
 {
     [Serializable]
     public class AntRangeWorkshopLevel : AntWorkshopLevelBase

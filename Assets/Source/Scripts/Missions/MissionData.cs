@@ -1,9 +1,12 @@
 using System.Collections.Generic;
-using PoisonFog;
-using Projectiles;
-using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.Constructions;
+using BugStrategy.PoisonFog;
+using BugStrategy.Projectiles;
+using BugStrategy.ResourceSources;
+using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.Unit;
 
-namespace Source.Scripts.Missions
+namespace BugStrategy.Missions
 {
     public class MissionData
     {

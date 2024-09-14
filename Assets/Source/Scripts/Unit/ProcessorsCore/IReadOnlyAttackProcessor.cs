@@ -1,6 +1,6 @@
 using System;
 
-namespace Unit.ProcessorsCore
+namespace BugStrategy.Unit.ProcessorsCore
 {
     public interface IReadOnlyAttackProcessor
     {

@@ -1,20 +1,23 @@
 ﻿using UnityEngine;
 
-public static class SerializeExtensions
+namespace CycleFramework.Extensions
 {
-    public static void Serialize<T>(T element)
+    public static class SerializeExtensions
     {
-        string json = JsonUtility.ToJson(element);
-        PlayerPrefs.SetString(element.GetType().FullName, json);
-    }
+        public static void Serialize<T>(T element)
+        {
+            string json = JsonUtility.ToJson(element);
+            PlayerPrefs.SetString(element.GetType().FullName, json);
+        }
 
-    public static T Deserialize<T>()
-    {
-        string json = PlayerPrefs.GetString(typeof(T).FullName);
+        public static T Deserialize<T>()
+        {
+            string json = PlayerPrefs.GetString(typeof(T).FullName);
 
-        if (string.IsNullOrEmpty(json))
-            return default;
+            if (string.IsNullOrEmpty(json))
+                return default;
 
-        return JsonUtility.FromJson<T>(json);
+            return JsonUtility.FromJson<T>(json);
+        }
     }
 }

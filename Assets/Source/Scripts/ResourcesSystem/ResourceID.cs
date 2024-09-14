@@ -1,4 +1,4 @@
-namespace Source.Scripts.ResourcesSystem
+namespace BugStrategy.ResourcesSystem
 {
     public enum ResourceID
     {

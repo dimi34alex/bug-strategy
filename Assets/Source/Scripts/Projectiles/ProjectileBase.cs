@@ -1,7 +1,11 @@
 using System;
+using BugStrategy.Libs;
+using BugStrategy.Pool;
+using BugStrategy.Unit;
+using CycleFramework.Extensions;
 using UnityEngine;
 
-namespace Projectiles
+namespace BugStrategy.Projectiles
 {
     public abstract class ProjectileBase : MonoBehaviour, IDamageApplicator, IPoolable<ProjectileBase, ProjectileType>,
         IPoolEventListener

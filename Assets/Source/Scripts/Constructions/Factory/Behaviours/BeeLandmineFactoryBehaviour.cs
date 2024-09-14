@@ -1,20 +1,23 @@
-﻿using Constructions;
+﻿using BugStrategy.Constructions.BeeLandmine;
 using Zenject;
 
-public class BeeLandmineFactoryBehaviour : ConstructionFactoryBehaviourBase
+namespace BugStrategy.Constructions.Factory.Behaviours
 {
-    [Inject] private readonly BeeLandmineSpawnConfig _config;
-
-    public override ConstructionType ConstructionType => ConstructionType.BeeLandmine;
-
-    public override TConstruction Create<TConstruction>(ConstructionID constructionID)
+    public class BeeLandmineFactoryBehaviour : ConstructionFactoryBehaviourBase
     {
-        ConstructionSpawnConfiguration<BeeLandmine> configuration = _config.Configuration;
+        [Inject] private readonly BeeLandmineSpawnConfig _config;
 
-        TConstruction construction = DiContainer.InstantiatePrefab(configuration.ConstructionPrefab,
-                configuration.ConstructionPrefab.transform.position, configuration.Rotation, null)
-            .GetComponent<TConstruction>();
+        public override ConstructionType ConstructionType => ConstructionType.BeeLandmine;
+
+        public override TConstruction Create<TConstruction>(ConstructionID constructionID)
+        {
+            ConstructionSpawnConfiguration<BeeLandmine.BeeLandmine> configuration = _config.Configuration;
+
+            TConstruction construction = DiContainer.InstantiatePrefab(configuration.ConstructionPrefab,
+                    configuration.ConstructionPrefab.transform.position, configuration.Rotation, null)
+                .GetComponent<TConstruction>();
         
-        return construction;
+            return construction;
+        }
     }
 }

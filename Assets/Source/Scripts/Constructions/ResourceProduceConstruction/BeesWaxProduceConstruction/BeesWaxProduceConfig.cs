@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using BugStrategy.Unit;
 using UnityEngine;
 
-namespace Constructions
+namespace BugStrategy.Constructions.ResourceProduceConstruction.BeesWaxProduceConstruction
 {
     [CreateAssetMenu(fileName = nameof(BeesWaxProduceConfig), menuName = "Configs/Constructions/Main/" + nameof(BeesWaxProduceConfig))]
 

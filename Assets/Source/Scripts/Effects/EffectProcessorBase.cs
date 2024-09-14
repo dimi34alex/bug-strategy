@@ -1,8 +1,8 @@
 using System;
-using CustomTimer;
+using BugStrategy.CustomTimer;
 using UnityEngine;
 
-namespace Unit.Effects
+namespace BugStrategy.Effects
 {
     public abstract class EffectProcessorBase
     {

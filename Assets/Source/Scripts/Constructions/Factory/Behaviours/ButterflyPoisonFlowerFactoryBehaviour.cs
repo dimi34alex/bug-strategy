@@ -1,20 +1,23 @@
-using Constructions;
+using BugStrategy.Constructions.ButterflyPoisonFlower;
 using Zenject;
 
-public class ButterflyPoisonFlowerFactoryBehaviour : ConstructionFactoryBehaviourBase
+namespace BugStrategy.Constructions.Factory.Behaviours
 {
-    [Inject] private readonly ButterflyPoisonFlowerSpawnConfig _config;
-
-    public override ConstructionType ConstructionType => ConstructionType.ButterflyPoisonFlower;
-
-    public override TConstruction Create<TConstruction>(ConstructionID constructionID)
+    public class ButterflyPoisonFlowerFactoryBehaviour : ConstructionFactoryBehaviourBase
     {
-        ConstructionSpawnConfiguration<ButterflyPoisonFlower> configuration = _config.Configuration;
+        [Inject] private readonly ButterflyPoisonFlowerSpawnConfig _config;
 
-        TConstruction construction = DiContainer.InstantiatePrefab(configuration.ConstructionPrefab,
-                configuration.ConstructionPrefab.transform.position, configuration.Rotation, null)
-            .GetComponent<TConstruction>();
+        public override ConstructionType ConstructionType => ConstructionType.ButterflyPoisonFlower;
+
+        public override TConstruction Create<TConstruction>(ConstructionID constructionID)
+        {
+            ConstructionSpawnConfiguration<ButterflyPoisonFlower.ButterflyPoisonFlower> configuration = _config.Configuration;
+
+            TConstruction construction = DiContainer.InstantiatePrefab(configuration.ConstructionPrefab,
+                    configuration.ConstructionPrefab.transform.position, configuration.Rotation, null)
+                .GetComponent<TConstruction>();
         
-        return construction;
+            return construction;
+        }
     }
 }

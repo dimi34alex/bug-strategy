@@ -1,20 +1,23 @@
-using Constructions;
+using BugStrategy.Constructions.BeeStorage;
 using Zenject;
 
-public class BeeStorageFactoryBehaviour : ConstructionFactoryBehaviourBase
+namespace BugStrategy.Constructions.Factory.Behaviours
 {
-    [Inject] private readonly BeeStorageSpawnConfig _config;
-    
-    public override ConstructionType ConstructionType => ConstructionType.BeeStorage;
-
-    public override TConstruction Create<TConstruction>(ConstructionID constructionID)
+    public class BeeStorageFactoryBehaviour : ConstructionFactoryBehaviourBase
     {
-        ConstructionSpawnConfiguration<BeeStorage> configuration = _config.Configuration;
+        [Inject] private readonly BeeStorageSpawnConfig _config;
+    
+        public override ConstructionType ConstructionType => ConstructionType.BeeStorage;
 
-        TConstruction construction = DiContainer.InstantiatePrefab(configuration.ConstructionPrefab,
-                configuration.ConstructionPrefab.transform.position, configuration.Rotation, null)
-            .GetComponent<TConstruction>();
+        public override TConstruction Create<TConstruction>(ConstructionID constructionID)
+        {
+            ConstructionSpawnConfiguration<BeeStorage.BeeStorage> configuration = _config.Configuration;
+
+            TConstruction construction = DiContainer.InstantiatePrefab(configuration.ConstructionPrefab,
+                    configuration.ConstructionPrefab.transform.position, configuration.Rotation, null)
+                .GetComponent<TConstruction>();
         
-        return construction;
+            return construction;
+        }
     }
 }

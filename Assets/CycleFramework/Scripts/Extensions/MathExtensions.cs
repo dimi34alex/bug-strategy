@@ -1,31 +1,34 @@
 ﻿
-public static class MathExtensions
+namespace CycleFramework.Extensions
 {
-    public static float Round(this float value, float step)
+    public static class MathExtensions
     {
-        bool isNegative = value < 0;
+        public static float Round(this float value, float step)
+        {
+            bool isNegative = value < 0;
 
-        if (isNegative)
-            value = -value;
+            if (isNegative)
+                value = -value;
 
-        float remains = value % step;
+            float remains = value % step;
 
-        float result = remains >= step / 2f ? value + (step - remains) : value - remains;
+            float result = remains >= step / 2f ? value + (step - remains) : value - remains;
 
-        return isNegative ? -result : result;
-    }
+            return isNegative ? -result : result;
+        }
 
-    public static int Round(this int value, int step)
-    {
-        bool isNegative = value < 0;
+        public static int Round(this int value, int step)
+        {
+            bool isNegative = value < 0;
 
-        if (isNegative)
-            value = -value; 
+            if (isNegative)
+                value = -value; 
 
-        int remains = value % step;
+            int remains = value % step;
 
-        int result = remains >= step / 2f ? value + (step - remains) : value - remains;
+            int result = remains >= step / 2f ? value + (step - remains) : value - remains;
 
-        return isNegative ? -result : result;
+            return isNegative ? -result : result;
+        }
     }
 }

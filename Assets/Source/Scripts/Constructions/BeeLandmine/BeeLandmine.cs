@@ -1,9 +1,13 @@
 ﻿using System.Collections.Generic;
-using CustomTimer;
+using BugStrategy.Constructions.Factory;
+using BugStrategy.CustomTimer;
+using BugStrategy.Trigger;
+using BugStrategy.Unit;
+using CycleFramework.Extensions;
 using UnityEngine;
 using Zenject;
 
-namespace Constructions
+namespace BugStrategy.Constructions.BeeLandmine
 {
     public class BeeLandmine : ConstructionBase, IDamageApplicator
     {
@@ -129,7 +133,7 @@ namespace Constructions
             if(MissionData.ConstructionsRepository.ConstructionExist(position))
                 return;
             
-            BeeStickyTile construction = _constructionFactory.Create<BeeStickyTile>(ConstructionID.BeeStickyTileConstruction, Affiliation);
+            BeeStickyTile.BeeStickyTile construction = _constructionFactory.Create<BeeStickyTile.BeeStickyTile>(ConstructionID.BeeStickyTileConstruction, Affiliation);
             MissionData.ConstructionsRepository.AddConstruction(position, construction);
             construction.transform.position = position;
         }

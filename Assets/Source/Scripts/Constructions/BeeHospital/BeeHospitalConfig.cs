@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using BugStrategy.Unit;
 using UnityEngine;
 
-namespace Constructions.BeeHospital
+namespace BugStrategy.Constructions.BeeHospital
 {
     [CreateAssetMenu(fileName = nameof(BeeHospitalConfig), menuName = "Configs/Constructions/Main/" + nameof(BeeHospitalConfig))]
     public class BeeHospitalConfig : EvolveConstructionConfigBase<BeeHospitalLevel>

@@ -1,8 +1,8 @@
-using Source.Scripts.ResourcesSystem;
-using Unit.ProcessorsCore;
-using UnitsHideCore;
+using BugStrategy.ResourcesSystem;
+using BugStrategy.Unit.ProcessorsCore;
+using BugStrategy.UnitsHideCore;
 
-namespace Constructions.UnitsHideConstruction.Cells.BeesHiderCells
+namespace BugStrategy.Unit.Bees
 {
     public class WorkerBeeHiderCell : HiderCellBase
     {

@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using BugStrategy.ConfigsRepository;
+using UnityEngine;
 
-namespace Constructions
+namespace BugStrategy.Constructions.BeeLandmine
 {
     [CreateAssetMenu(fileName = nameof(BeeLandmineSpawnConfig), menuName = "Configs/Constructions/SpawnConfigs/" + nameof(BeeLandmineSpawnConfig))]
     public class BeeLandmineSpawnConfig : ScriptableObject, ISingleConfig

@@ -1,8 +1,10 @@
 using System;
-using UnitsHideCore;
+using BugStrategy.EntityState;
+using BugStrategy.UnitsHideCore;
+using CycleFramework.Extensions;
 using UnityEngine;
 
-namespace Unit.States
+namespace BugStrategy.Unit
 {
     public class HideInConstructionState : EntityStateBase
     {

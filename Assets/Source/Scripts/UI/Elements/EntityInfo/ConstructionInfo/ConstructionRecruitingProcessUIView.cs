@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using BugStrategy.Bars;
+using BugStrategy.Constructions.UnitsRecruitingSystem;
+using BugStrategy.Libs;
 using BugStrategy.UI.Elements.EntityInfo.UnitInfo;
-using Source.Scripts;
-using Source.Scripts.Ai.ConstructionsAis;
+using BugStrategy.Unit;
 using UnityEngine;
 
 namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
@@ -20,7 +22,7 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
         
         private void Start()
         {
-            _uiUnitsConfig = ConfigsRepository.FindConfig<UIUnitsConfig>();
+            _uiUnitsConfig = ConfigsRepository.ConfigsRepository.FindConfig<UIUnitsConfig>();
             _progressStorage = new FloatStorage(1, 1);
             InitBar(_progressStorage);
 

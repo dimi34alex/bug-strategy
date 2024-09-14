@@ -1,20 +1,23 @@
-﻿using Constructions;
+﻿using BugStrategy.Constructions.ResourceProduceConstruction.BeesWaxProduceConstruction;
 using Zenject;
 
-public class BeesWaxProduceConstructionFactoryBehaviour : ConstructionFactoryBehaviourBase
+namespace BugStrategy.Constructions.Factory.Behaviours
 {
-    [Inject] private readonly BeesWaxProduceConstructionSpawnConfig _beesWaxProduceConstructionConfig;
-
-    public override ConstructionType ConstructionType => ConstructionType.BeeWaxProduceConstruction;
-
-    public override TConstruction Create<TConstruction>(ConstructionID constructionID)
+    public class BeesWaxProduceConstructionFactoryBehaviour : ConstructionFactoryBehaviourBase
     {
-        ConstructionSpawnConfiguration<BeesWaxProduceConstruction> configuration = _beesWaxProduceConstructionConfig.GetConfiguration();
+        [Inject] private readonly BeesWaxProduceConstructionSpawnConfig _beesWaxProduceConstructionConfig;
 
-        TConstruction construction = DiContainer.InstantiatePrefab(configuration.ConstructionPrefab,
-                configuration.ConstructionPrefab.transform.position, configuration.Rotation, null)
-            .GetComponent<TConstruction>();
+        public override ConstructionType ConstructionType => ConstructionType.BeeWaxProduceConstruction;
+
+        public override TConstruction Create<TConstruction>(ConstructionID constructionID)
+        {
+            ConstructionSpawnConfiguration<BeesWaxProduceConstruction> configuration = _beesWaxProduceConstructionConfig.GetConfiguration();
+
+            TConstruction construction = DiContainer.InstantiatePrefab(configuration.ConstructionPrefab,
+                    configuration.ConstructionPrefab.transform.position, configuration.Rotation, null)
+                .GetComponent<TConstruction>();
         
-        return construction;
+            return construction;
+        }
     }
 }

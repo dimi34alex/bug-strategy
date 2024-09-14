@@ -1,30 +1,32 @@
-﻿using System;
-using UnityEngine;
+﻿using CycleFramework.Extensions;
 
-public class ResourceProduceCore : ResourceProduceCoreBase
+namespace BugStrategy.Constructions.ResourceProduceConstruction
 {
-    private ResourceProduceProccessInfo _resourceProduceProccessInfo;
-    private float _fractionalProducedResources;
-
-    protected override ResourceProduceProccessInfoBase _produceProccessInfo => _resourceProduceProccessInfo;
-
-    public ResourceProduceCore(ResourceProduceProccessInfo produceProccessInfo) : base(produceProccessInfo)
+    public class ResourceProduceCore : ResourceProduceCoreBase
     {
-        _resourceProduceProccessInfo = produceProccessInfo;
-    }
+        private ResourceProduceProccessInfo _resourceProduceProccessInfo;
+        private float _fractionalProducedResources;
 
-    protected override int CalculateProducedResourceCount(float time)
-    {
-        _fractionalProducedResources += time * _resourceProduceProccessInfo.ProducePerSecond;
-        int wholePart = (int)_fractionalProducedResources;
+        protected override ResourceProduceProccessInfoBase _produceProccessInfo => _resourceProduceProccessInfo;
 
-        _fractionalProducedResources -= wholePart;
+        public ResourceProduceCore(ResourceProduceProccessInfo produceProccessInfo) : base(produceProccessInfo)
+        {
+            _resourceProduceProccessInfo = produceProccessInfo;
+        }
 
-        return wholePart;
-    }
+        protected override int CalculateProducedResourceCount(float time)
+        {
+            _fractionalProducedResources += time * _resourceProduceProccessInfo.ProducePerSecond;
+            int wholePart = (int)_fractionalProducedResources;
 
-    protected override void SetResourceProduceProccessInfoCallback(ResourceProduceProccessInfoBase produceProccessInfo)
-    {
-        _resourceProduceProccessInfo = produceProccessInfo.Cast<ResourceProduceProccessInfo>();
+            _fractionalProducedResources -= wholePart;
+
+            return wholePart;
+        }
+
+        protected override void SetResourceProduceProccessInfoCallback(ResourceProduceProccessInfoBase produceProccessInfo)
+        {
+            _resourceProduceProccessInfo = produceProccessInfo.Cast<ResourceProduceProccessInfo>();
+        }
     }
 }

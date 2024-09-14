@@ -1,8 +1,7 @@
 using System;
-using Unit.Ants.Configs.Professions;
-using Unit.OrderValidatorCore;
+using BugStrategy.Unit.OrderValidatorCore;
 
-namespace Unit.Ants.Professions
+namespace BugStrategy.Unit.Ants
 {
     public abstract class AntProfessionBase
     {

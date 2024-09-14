@@ -1,10 +1,8 @@
 using System.Collections.Generic;
-using Unit.Effects.Configs;
-using Unit.Effects.EffectsCreators;
 using UnityEngine;
 using Zenject;
 
-namespace Unit.Effects
+namespace BugStrategy.Effects
 {
     public class EffectsFactory : MonoBehaviour
     {

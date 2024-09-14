@@ -1,4 +1,4 @@
-namespace SelectableSystem
+namespace BugStrategy.SelectableSystem
 {
     public interface ISelectable
     {

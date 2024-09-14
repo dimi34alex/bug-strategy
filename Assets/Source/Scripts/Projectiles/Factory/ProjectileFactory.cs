@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
-using EnumValuesExtension;
-using Source.Scripts.Missions;
+using BugStrategy.Libs;
+using BugStrategy.Missions;
+using BugStrategy.Pool;
 using UnityEngine;
 using Zenject;
 
-namespace Projectiles.Factory
+namespace BugStrategy.Projectiles.Factory
 {
     public class ProjectileFactory : MonoBehaviour
     {

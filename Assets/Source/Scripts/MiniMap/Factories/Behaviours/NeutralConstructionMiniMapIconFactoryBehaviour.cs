@@ -1,6 +1,10 @@
-﻿using MiniMapSystem;
+﻿using BugStrategy.MiniMap.MiniMapIconConfigs;
+using BugStrategy.MiniMap.MiniMapIcons;
 
-public class NeutralConstructionMiniMapIconFactoryBehaviour: MiniMapIconFactoryBehaviourBase<NeutralConstructionMiniMapIcon, NeutralConstructionMiniMapIconConfig>
+namespace BugStrategy.MiniMap.Factories
 {
-    public override MiniMapIconID MiniMapIconID => MiniMapIconID.NeutralConstruction;
+    public class NeutralConstructionMiniMapIconFactoryBehaviour: MiniMapIconFactoryBehaviourBase<NeutralConstructionMiniMapIcon, NeutralConstructionMiniMapIconConfig>
+    {
+        public override MiniMapIconID MiniMapIconID => MiniMapIconID.NeutralConstruction;
+    }
 }

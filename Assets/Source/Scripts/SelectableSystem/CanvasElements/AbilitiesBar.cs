@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Source.Scripts.Unit.AbilitiesCore;
+using BugStrategy.Unit.AbilitiesCore;
 using UnityEngine;
 
-namespace SelectableSystem
+namespace BugStrategy.SelectableSystem
 {
     [Serializable]
     public class AbilitiesBar : MonoBehaviour, OnSelectionUI

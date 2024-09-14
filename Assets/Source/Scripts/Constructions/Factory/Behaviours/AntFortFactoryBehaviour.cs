@@ -1,20 +1,23 @@
-using Constructions;
+using BugStrategy.Constructions.AntFort;
 using Zenject;
 
-public class AntFortFactoryBehaviour : ConstructionFactoryBehaviourBase
+namespace BugStrategy.Constructions.Factory.Behaviours
 {
-    [Inject] private readonly AntFortSpawnConfig _config;
-    
-    public override ConstructionType ConstructionType => ConstructionType.AntFort;
-
-    public override TConstruction Create<TConstruction>(ConstructionID constructionID)
+    public class AntFortFactoryBehaviour : ConstructionFactoryBehaviourBase
     {
-        ConstructionSpawnConfiguration<AntFort> configuration = _config.Configuration;
+        [Inject] private readonly AntFortSpawnConfig _config;
+    
+        public override ConstructionType ConstructionType => ConstructionType.AntFort;
 
-        TConstruction construction = DiContainer.InstantiatePrefab(configuration.ConstructionPrefab,
-                configuration.ConstructionPrefab.transform.position, configuration.Rotation, null)
-            .GetComponent<TConstruction>();
+        public override TConstruction Create<TConstruction>(ConstructionID constructionID)
+        {
+            ConstructionSpawnConfiguration<AntFort.AntFort> configuration = _config.Configuration;
+
+            TConstruction construction = DiContainer.InstantiatePrefab(configuration.ConstructionPrefab,
+                    configuration.ConstructionPrefab.transform.position, configuration.Rotation, null)
+                .GetComponent<TConstruction>();
         
-        return construction;
+            return construction;
+        }
     }
 }

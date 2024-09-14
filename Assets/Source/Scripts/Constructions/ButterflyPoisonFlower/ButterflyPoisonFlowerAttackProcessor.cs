@@ -1,10 +1,13 @@
 using System.Collections.Generic;
+using BugStrategy.Projectiles;
+using BugStrategy.Projectiles.Factory;
+using BugStrategy.Trigger;
+using BugStrategy.Unit;
+using CycleFramework.Extensions;
 using DG.Tweening;
-using Projectiles;
-using Projectiles.Factory;
 using UnityEngine;
 
-namespace Constructions
+namespace BugStrategy.Constructions.ButterflyPoisonFlower
 {
     public class ButterflyPoisonFlowerAttackProcessor
     {

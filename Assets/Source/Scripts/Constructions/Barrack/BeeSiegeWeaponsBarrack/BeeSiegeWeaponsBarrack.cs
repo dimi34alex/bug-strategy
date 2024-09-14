@@ -1,9 +1,8 @@
-using UnitsHideCore;
-using UnitsRecruitingSystemCore;
+using BugStrategy.Constructions.UnitsRecruitingSystem;
+using BugStrategy.UnitsHideCore;
 using UnityEngine;
-using Zenject;
 
-namespace Constructions
+namespace BugStrategy.Constructions.BeeSiegeWeaponsBarrack
 {
     public class BeeSiegeWeaponsBarrack : BarrackBase, IHiderConstruction
     {

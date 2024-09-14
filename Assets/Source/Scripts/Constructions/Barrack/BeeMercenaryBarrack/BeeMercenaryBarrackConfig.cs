@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using BugStrategy.Unit;
 using UnityEngine;
 
-namespace Constructions
+namespace BugStrategy.Constructions.BeeMercenaryBarrack
 {
     [CreateAssetMenu(fileName = nameof(BeeMercenaryBarrackConfig), menuName = "Configs/Constructions/Main/" + nameof(BeeMercenaryBarrackConfig))]
     public class BeeMercenaryBarrackConfig : EvolveConstructionConfigBase<BeeMercenaryBarrackLevel>

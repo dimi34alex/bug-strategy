@@ -1,19 +1,23 @@
-﻿using Zenject;
+﻿using BugStrategy.Constructions.DefaultConstruction;
+using Zenject;
 
-public class DefaultConstructionFactoryBehaviour : ConstructionFactoryBehaviourBase
+namespace BugStrategy.Constructions.Factory.Behaviours
 {
-    [Inject] private readonly DefaultConstructionConfig _defaultConstructionConfig;
-
-    public override ConstructionType ConstructionType => ConstructionType.TestConstruction;
-
-    public override TConstruction Create<TConstruction>(ConstructionID constructionID)
+    public class DefaultConstructionFactoryBehaviour : ConstructionFactoryBehaviourBase
     {
-        ConstructionSpawnConfiguration<DefaultConstruction> configuration = _defaultConstructionConfig.GetConfiguration();
+        [Inject] private readonly DefaultConstructionConfig _defaultConstructionConfig;
 
-        TConstruction construction = DiContainer.InstantiatePrefab(configuration.ConstructionPrefab,
-                configuration.ConstructionPrefab.transform.position, configuration.Rotation, null)
-            .GetComponent<TConstruction>();
+        public override ConstructionType ConstructionType => ConstructionType.TestConstruction;
+
+        public override TConstruction Create<TConstruction>(ConstructionID constructionID)
+        {
+            ConstructionSpawnConfiguration<DefaultConstruction.DefaultConstruction> configuration = _defaultConstructionConfig.GetConfiguration();
+
+            TConstruction construction = DiContainer.InstantiatePrefab(configuration.ConstructionPrefab,
+                    configuration.ConstructionPrefab.transform.position, configuration.Rotation, null)
+                .GetComponent<TConstruction>();
         
-        return construction;
+            return construction;
+        }
     }
 }

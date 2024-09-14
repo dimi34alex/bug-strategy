@@ -1,19 +1,20 @@
-﻿using System;
-
-public class CycleStateMachine
+﻿namespace CycleFramework.Bootload
 {
-    public CycleState CurrentCycleState { get; private set; }
-
-    public CycleStateMachine(CycleState startState)
+    public class CycleStateMachine
     {
-        CurrentCycleState = startState;
-    }
+        public CycleState CurrentCycleState { get; private set; }
 
-    public void SetState(CycleState cycleState)
-    {
-        if (CurrentCycleState == cycleState)
-            return;
+        public CycleStateMachine(CycleState startState)
+        {
+            CurrentCycleState = startState;
+        }
 
-        CurrentCycleState = cycleState;
+        public void SetState(CycleState cycleState)
+        {
+            if (CurrentCycleState == cycleState)
+                return;
+
+            CurrentCycleState = cycleState;
+        }
     }
 }

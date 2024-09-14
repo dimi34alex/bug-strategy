@@ -1,8 +1,9 @@
 using System;
+using BugStrategy.Pool;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace MiniMapSystem
+namespace BugStrategy.MiniMap.MiniMapIcons
 {
     public abstract class MiniMapIconBase : MonoBehaviour, IPoolable<MiniMapIconBase, MiniMapIconID>
     {

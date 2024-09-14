@@ -1,6 +1,6 @@
-using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
 
-namespace Source.Scripts.Ai.ConstructionsAis
+namespace BugStrategy.Ai.ConstructionsAis
 {
     public abstract class ConstructionEvaluatorBase : EvaluatorBase
     {

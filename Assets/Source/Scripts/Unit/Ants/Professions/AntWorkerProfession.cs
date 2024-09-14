@@ -1,10 +1,9 @@
-﻿using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
-using Unit.Ants.Configs.Professions;
-using Unit.OrderValidatorCore;
-using Unit.ProcessorsCore;
+﻿using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.Unit.OrderValidatorCore;
+using BugStrategy.Unit.ProcessorsCore;
 using UnityEngine;
 
-namespace Unit.Ants.Professions
+namespace BugStrategy.Unit.Ants
 {
     public sealed class AntWorkerProfession : AntProfessionBase
     {

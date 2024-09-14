@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
-using CustomTimer;
-using DG.Tweening;
-using Source.Scripts.ResourcesSystem;
-using UnityEngine;
+using BugStrategy.CustomTimer;
+using BugStrategy.ResourcesSystem;
+using BugStrategy.Unit;
 
-namespace UnitsRecruitingSystemCore
+namespace BugStrategy.Constructions.UnitsRecruitingSystem
 {
     public class UnitRecruitingStack : IReadOnlyUnitRecruitingStack
     {

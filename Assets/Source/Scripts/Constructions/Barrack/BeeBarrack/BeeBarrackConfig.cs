@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using BugStrategy.Unit;
 using UnityEngine;
 
-namespace Constructions
+namespace BugStrategy.Constructions.BeeBarrack
 {
     [CreateAssetMenu(fileName = nameof(BeeBarrackConfig), menuName = "Configs/Constructions/Main/" + nameof(BeeBarrackConfig))]
     public class BeeBarrackConfig : EvolveConstructionConfigBase<BeeBarrackLevel>

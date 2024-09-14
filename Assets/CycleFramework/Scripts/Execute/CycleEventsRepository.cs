@@ -1,37 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using UnityEngine;
+using CycleFramework.Bootload;
 
-public class CycleEventsRepository
+namespace CycleFramework.Execute
 {
-    private readonly Dictionary<CycleState, Dictionary<CycleMethodType, Action>> _events;
-
-    public CycleEventsRepository(IReadOnlyDictionary<CycleMethodType, MethodInfo> methods, 
-        IEnumerable<CycleInitializersHandler> initializers)
+    public class CycleEventsRepository
     {
-        _events = new Dictionary<CycleState, Dictionary<CycleMethodType, Action>>();
+        private readonly Dictionary<CycleState, Dictionary<CycleMethodType, Action>> _events;
 
-        foreach (CycleInitializersHandler initializersHandler in initializers)
+        public CycleEventsRepository(IReadOnlyDictionary<CycleMethodType, MethodInfo> methods, 
+            IEnumerable<CycleInitializersHandler> initializers)
         {
-            _events.Add(initializersHandler.CycleState, new Dictionary<CycleMethodType, Action>());
+            _events = new Dictionary<CycleState, Dictionary<CycleMethodType, Action>>();
 
-            foreach (CycleMethodType cycleMethod in methods.Keys)
+            foreach (CycleInitializersHandler initializersHandler in initializers)
             {
-                _events[initializersHandler.CycleState].Add(cycleMethod, null);
+                _events.Add(initializersHandler.CycleState, new Dictionary<CycleMethodType, Action>());
 
-                foreach (CycleInitializerBase cycleInitializerBase in initializersHandler.Initializers)
+                foreach (CycleMethodType cycleMethod in methods.Keys)
                 {
-                    _events[initializersHandler.CycleState][cycleMethod] +=
-                        (Action)methods[cycleMethod].CreateDelegate(typeof(Action), cycleInitializerBase);
+                    _events[initializersHandler.CycleState].Add(cycleMethod, null);
+
+                    foreach (CycleInitializerBase cycleInitializerBase in initializersHandler.Initializers)
+                    {
+                        _events[initializersHandler.CycleState][cycleMethod] +=
+                            (Action)methods[cycleMethod].CreateDelegate(typeof(Action), cycleInitializerBase);
+                    }
                 }
             }
         }
-    }
 
-    public Action GetAction(CycleState cycleState, CycleMethodType cycleMethodType)
-    {
-        return _events[cycleState][cycleMethodType];
+        public Action GetAction(CycleState cycleState, CycleMethodType cycleMethodType)
+        {
+            return _events[cycleState][cycleMethodType];
+        }
     }
 }

@@ -1,2 +1,5 @@
 ﻿
-public interface ISingleConfig { }
+namespace BugStrategy.ConfigsRepository
+{
+    public interface ISingleConfig { }
+}

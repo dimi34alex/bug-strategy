@@ -1,7 +1,8 @@
 using System;
+using BugStrategy.MiniMap.MiniMapIcons;
 using UnityEngine;
 
-namespace MiniMapSystem
+namespace BugStrategy.MiniMap
 {
     [Serializable]
     public struct MiniMapIconConfiguration<TMiniMapIcon> 

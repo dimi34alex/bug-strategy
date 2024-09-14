@@ -1,4 +1,6 @@
-namespace Source.Scripts.Ai.InternalAis
+using BugStrategy.Unit;
+
+namespace BugStrategy.Ai.InternalAis
 {
     public abstract class UnitInternalEvaluator : EvaluatorBase
     {

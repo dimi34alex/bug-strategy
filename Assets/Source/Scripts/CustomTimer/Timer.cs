@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace CustomTimer
+namespace BugStrategy.CustomTimer
 {
     public class Timer : IReadOnlyTimer
     {

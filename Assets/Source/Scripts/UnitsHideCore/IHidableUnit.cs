@@ -1,4 +1,4 @@
-namespace UnitsHideCore
+namespace BugStrategy.UnitsHideCore
 {
     public interface IHidableUnit
     {

@@ -1,6 +1,9 @@
-﻿public enum BuildingProgressState
+﻿namespace BugStrategy.Constructions
 {
-    Waiting,
-    Started,
-    Completed,
+    public enum BuildingProgressState
+    {
+        Waiting,
+        Started,
+        Completed,
+    }
 }

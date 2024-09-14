@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using BugStrategy.MiniMap.MiniMapIcons;
+using UnityEngine;
 
-namespace MiniMapSystem
+namespace BugStrategy.MiniMap.MiniMapIconConfigs
 {
     [CreateAssetMenu(fileName = "ResourceSourceMiniMapIconConfig", menuName = "Config/MiniMapIcons/ResourceSource")]
     public sealed class ResourceSourceMiniMapIconConfig : MiniMapIconConfigBase<ResourceSourceMiniMapIcon>

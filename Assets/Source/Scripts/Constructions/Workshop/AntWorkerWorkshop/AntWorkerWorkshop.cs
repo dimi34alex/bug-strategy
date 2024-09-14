@@ -1,9 +1,9 @@
-using Constructions.LevelSystemCore;
-using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.Constructions.ConstructionLevelSystemCore;
+using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
 using UnityEngine;
 using Zenject;
 
-namespace Constructions
+namespace BugStrategy.Constructions.AntWorkerWorkshop
 {
     public class AntWorkerWorkshop : AntWorkshopBase
     {

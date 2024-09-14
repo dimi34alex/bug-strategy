@@ -1,6 +1,6 @@
-using UnitsHideCore;
+using BugStrategy.UnitsHideCore;
 
-namespace Constructions.BeeHospital
+namespace BugStrategy.Constructions.BeeHospital
 {
     public class HealProcessor
     {

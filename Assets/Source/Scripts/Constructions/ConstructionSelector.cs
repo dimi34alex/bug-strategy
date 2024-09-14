@@ -1,40 +1,44 @@
 ﻿using System;
+using CycleFramework.Extensions;
 using UnityEngine;
 
-public class ConstructionSelector
+namespace BugStrategy.Constructions
 {
-    private readonly IConstructionGrid _constructionGrid;
-
-    public ConstructionBase LastSelectedConstruction { get; private set; }
-    public ConstructionBase SelectedConstruction { get; private set; }
-
-    public event Action OnSelectionChange;
-
-    public ConstructionSelector(IConstructionGrid constructionGrid)
+    public class ConstructionSelector
     {
-        _constructionGrid = constructionGrid;
-    }
+        private readonly IConstructionGrid _constructionGrid;
 
-    public bool TrySelect(Ray ray)
-    {
-        if (Physics.Raycast(ray, out RaycastHit hitInfo, 50f, CustomLayerID.Construction_Ground.Cast<int>()))
+        public ConstructionBase LastSelectedConstruction { get; private set; }
+        public ConstructionBase SelectedConstruction { get; private set; }
+
+        public event Action OnSelectionChange;
+
+        public ConstructionSelector(IConstructionGrid constructionGrid)
         {
-            Vector3 position = _constructionGrid.RoundPositionToGrid(hitInfo.point);
-
-            if (_constructionGrid.ConstructionExist(position))
-            {
-                LastSelectedConstruction = SelectedConstruction;
-                SelectedConstruction = _constructionGrid.GetConstruction(position);
-                OnSelectionChange?.Invoke();
-
-                return true;
-            }
+            _constructionGrid = constructionGrid;
         }
 
-        LastSelectedConstruction = SelectedConstruction;
-        SelectedConstruction = null;
-        OnSelectionChange?.Invoke();
+        public bool TrySelect(Ray ray)
+        {
+            if (Physics.Raycast(ray, out RaycastHit hitInfo, 50f, CustomLayerID.Construction_Ground.Cast<int>()))
+            {
+                Vector3 position = _constructionGrid.RoundPositionToGrid(hitInfo.point);
 
-        return false;
+                if (_constructionGrid.ConstructionExist(position))
+                {
+                    LastSelectedConstruction = SelectedConstruction;
+                    SelectedConstruction = _constructionGrid.GetConstruction(position);
+                    OnSelectionChange?.Invoke();
+
+                    return true;
+                }
+            }
+
+            LastSelectedConstruction = SelectedConstruction;
+            SelectedConstruction = null;
+            OnSelectionChange?.Invoke();
+
+            return false;
+        }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using System;
+using BugStrategy.Libs;
+using CycleFramework.Extensions;
 using UnityEngine;
 
-namespace Unit.ProcessorsCore
+namespace BugStrategy.Unit.ProcessorsCore
 {
     public abstract class AttackProcessorBase : IReadOnlyAttackProcessor, IDamageApplicator
     {

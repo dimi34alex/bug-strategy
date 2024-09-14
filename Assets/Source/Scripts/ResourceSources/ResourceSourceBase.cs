@@ -1,44 +1,48 @@
-using UnityEngine;
 using System;
-using MiniMapSystem;
-using Source.Scripts;
-using Source.Scripts.ResourcesSystem;
+using BugStrategy.MiniMap;
+using BugStrategy.ResourcesSystem;
+using BugStrategy.Trigger;
+using BugStrategy.Unit;
+using UnityEngine;
 
-public abstract class ResourceSourceBase : MonoBehaviour, IMiniMapObject, ITriggerable, IUnitTarget
+namespace BugStrategy.ResourceSources
 {
-    [SerializeField] private int resourceCapacity;
-    
-    protected FloatStorage ResourceStorage;
-    
-    public abstract ResourceID ResourceID { get; }
-    public bool IsActive { get; protected set; } = true;
-    public bool CanBeCollected { get; protected set; } = true;
-    
-    public AffiliationEnum Affiliation => AffiliationEnum.None;
-    public MiniMapObjectType MiniMapObjectType => MiniMapObjectType.ResourceSource;
-    public UnitTargetType TargetType => UnitTargetType.ResourceSource;
-    public Transform Transform => transform;
-    
-    public event Action<ITriggerable> OnDisableITriggerableEvent;
-    public event Action<IUnitTarget> OnDeactivation;
-
-    private void Awake()
+    public abstract class ResourceSourceBase : MonoBehaviour, IMiniMapObject, ITriggerable, IUnitTarget
     {
-        ResourceStorage = new FloatStorage(resourceCapacity, resourceCapacity);
-    }
-
-    protected virtual void OnAwake(){}
+        [SerializeField] private int resourceCapacity;
     
-    public abstract void ExtractResource(int extracted);
+        protected FloatStorage ResourceStorage;
     
-    private void OnDisable()
-    {
-        IsActive = false;
-        OnDisableITriggerableEvent?.Invoke(this);
-    }
+        public abstract ResourceID ResourceID { get; }
+        public bool IsActive { get; protected set; } = true;
+        public bool CanBeCollected { get; protected set; } = true;
+    
+        public AffiliationEnum Affiliation => AffiliationEnum.None;
+        public MiniMapObjectType MiniMapObjectType => MiniMapObjectType.ResourceSource;
+        public UnitTargetType TargetType => UnitTargetType.ResourceSource;
+        public Transform Transform => transform;
+    
+        public event Action<ITriggerable> OnDisableITriggerableEvent;
+        public event Action<IUnitTarget> OnDeactivation;
 
-    private void OnDestroy()
-    {
-        OnDeactivation?.Invoke(this);
+        private void Awake()
+        {
+            ResourceStorage = new FloatStorage(resourceCapacity, resourceCapacity);
+        }
+
+        protected virtual void OnAwake(){}
+    
+        public abstract void ExtractResource(int extracted);
+    
+        private void OnDisable()
+        {
+            IsActive = false;
+            OnDisableITriggerableEvent?.Invoke(this);
+        }
+
+        private void OnDestroy()
+        {
+            OnDeactivation?.Invoke(this);
+        }
     }
 }

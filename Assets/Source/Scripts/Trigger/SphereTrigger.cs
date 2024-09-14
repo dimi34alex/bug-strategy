@@ -1,9 +1,12 @@
 using UnityEngine;
 
-public class SphereTrigger : TriggerZone
+namespace BugStrategy.Trigger
 {
-    [SerializeField] private SphereCollider sphereCollider;
+    public class SphereTrigger : TriggerZone
+    {
+        [SerializeField] private SphereCollider sphereCollider;
 
-    public void SetRadius(float newRadius)
-        => sphereCollider.radius = newRadius;
+        public void SetRadius(float newRadius)
+            => sphereCollider.radius = newRadius;
+    }
 }

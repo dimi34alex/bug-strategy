@@ -1,4 +1,4 @@
-﻿namespace Source.Scripts.Unit
+﻿namespace BugStrategy.Unit
 {
     public enum UnitTacticType
     {

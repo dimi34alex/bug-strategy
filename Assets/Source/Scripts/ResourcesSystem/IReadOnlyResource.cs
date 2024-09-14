@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Source.Scripts.ResourcesSystem
+namespace BugStrategy.ResourcesSystem
 {
     public interface IReadOnlyResource : IReadOnlyFloatStorage
     {

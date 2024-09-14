@@ -1,7 +1,8 @@
-using Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators.Configs;
-using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.Constructions.UnitsRecruitingSystem;
+using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.Unit;
 
-namespace Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators.RecruitingEvaluators
+namespace BugStrategy.Ai.ConstructionsAis
 {
     public class RecruitWorkerBeeEvaluator : RecruitEvaluatorBase
     {

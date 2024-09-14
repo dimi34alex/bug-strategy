@@ -1,7 +1,7 @@
-using Projectiles;
+using BugStrategy.Projectiles;
 using UnityEngine;
 
-namespace Unit.Bees.Configs
+namespace BugStrategy.Unit.Bees
 {
     [CreateAssetMenu(fileName = nameof(BeeRangeWarriorConfig), menuName = "Configs/Units/Bees/" + nameof(BeeRangeWarriorConfig))]
     public class BeeRangeWarriorConfig : ScriptableObject

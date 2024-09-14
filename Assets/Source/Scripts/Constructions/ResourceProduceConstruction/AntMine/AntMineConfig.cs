@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Constructions
+namespace BugStrategy.Constructions.ResourceProduceConstruction.AntMine
 {
     [CreateAssetMenu(fileName = nameof(AntMineConfig), menuName = "Configs/Constructions/Main/" + nameof(AntMineConfig))]
     public class AntMineConfig : ConstructionBuyCostConfig

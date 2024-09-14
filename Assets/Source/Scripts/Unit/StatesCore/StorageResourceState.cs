@@ -1,9 +1,11 @@
 using System;
-using Construction.TownHalls;
-using Unit.ProcessorsCore;
+using BugStrategy.Constructions;
+using BugStrategy.EntityState;
+using BugStrategy.Unit.ProcessorsCore;
+using CycleFramework.Extensions;
 using UnityEngine;
 
-namespace Unit.States
+namespace BugStrategy.Unit
 {
     public class StorageResourceState : EntityStateBase
     {

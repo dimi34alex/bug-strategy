@@ -1,20 +1,23 @@
-using Constructions;
+using BugStrategy.Constructions.ButterflyStorage;
 using Zenject;
 
-public class ButterflyStorageFactoryBehaviour : ConstructionFactoryBehaviourBase
+namespace BugStrategy.Constructions.Factory.Behaviours
 {
-    [Inject] private readonly ButterflyStorageSpawnConfig _config;
-    
-    public override ConstructionType ConstructionType => ConstructionType.ButterflyStorage;
-
-    public override TConstruction Create<TConstruction>(ConstructionID constructionID)
+    public class ButterflyStorageFactoryBehaviour : ConstructionFactoryBehaviourBase
     {
-        ConstructionSpawnConfiguration<ButterflyStorage> configuration = _config.Configuration;
+        [Inject] private readonly ButterflyStorageSpawnConfig _config;
+    
+        public override ConstructionType ConstructionType => ConstructionType.ButterflyStorage;
 
-        TConstruction construction = DiContainer.InstantiatePrefab(configuration.ConstructionPrefab,
-                configuration.ConstructionPrefab.transform.position, configuration.Rotation, null)
-            .GetComponent<TConstruction>();
+        public override TConstruction Create<TConstruction>(ConstructionID constructionID)
+        {
+            ConstructionSpawnConfiguration<ButterflyStorage.ButterflyStorage> configuration = _config.Configuration;
+
+            TConstruction construction = DiContainer.InstantiatePrefab(configuration.ConstructionPrefab,
+                    configuration.ConstructionPrefab.transform.position, configuration.Rotation, null)
+                .GetComponent<TConstruction>();
         
-        return construction;
+            return construction;
+        }
     }
 }

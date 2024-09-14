@@ -1,6 +1,9 @@
 ﻿
-public interface IPoolEventListener
+namespace BugStrategy.Pool
 {
-    public void OnElementReturn();
-    public void OnElementExtract();
+    public interface IPoolEventListener
+    {
+        public void OnElementReturn();
+        public void OnElementExtract();
+    }
 }

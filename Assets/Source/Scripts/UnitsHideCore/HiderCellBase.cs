@@ -1,7 +1,6 @@
-using Source.Scripts;
-using Source.Scripts.ResourcesSystem;
+using BugStrategy.Unit;
 
-namespace UnitsHideCore
+namespace BugStrategy.UnitsHideCore
 {
     public abstract class HiderCellBase
     {

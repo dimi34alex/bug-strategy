@@ -1,6 +1,6 @@
 using Zenject;
 
-namespace PoisonFog.Factory
+namespace BugStrategy.PoisonFog.Factory
 {
     public class PoisonFogFactoryInstaller : MonoInstaller
     {

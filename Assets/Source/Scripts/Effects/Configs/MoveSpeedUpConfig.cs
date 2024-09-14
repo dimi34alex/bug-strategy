@@ -1,6 +1,7 @@
+using BugStrategy.ConfigsRepository;
 using UnityEngine;
 
-namespace Unit.Effects.Configs
+namespace BugStrategy.Effects
 {
     [CreateAssetMenu(fileName = nameof(MoveSpeedUpConfig), menuName = "Configs/Effects/" + nameof(MoveSpeedUpConfig))]
     public sealed class MoveSpeedUpConfig : ScriptableObject, ISingleConfig

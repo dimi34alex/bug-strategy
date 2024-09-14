@@ -1,6 +1,7 @@
+using BugStrategy.ConfigsRepository;
 using UnityEngine;
 
-namespace Constructions
+namespace BugStrategy.Constructions.BeeTownHall
 {
     [CreateAssetMenu(fileName = nameof(BeeTownHallSpawnConfig), menuName = "Configs/Constructions/SpawnConfigs/" + nameof(BeeTownHallSpawnConfig))]
     public class BeeTownHallSpawnConfig : ScriptableObject, ISingleConfig

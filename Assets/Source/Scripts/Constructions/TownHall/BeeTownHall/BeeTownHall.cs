@@ -1,12 +1,11 @@
-using Construction.TownHalls;
-using Constructions.LevelSystemCore;
-using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
-using UnitsHideCore;
-using UnitsRecruitingSystemCore;
+using BugStrategy.Constructions.ConstructionLevelSystemCore;
+using BugStrategy.Constructions.UnitsRecruitingSystem;
+using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.UnitsHideCore;
 using UnityEngine;
 using Zenject;
 
-namespace Constructions
+namespace BugStrategy.Constructions.BeeTownHall
 {
     public class BeeTownHall : TownHallBase, IHiderConstruction
     {

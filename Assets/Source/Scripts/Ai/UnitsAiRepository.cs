@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
-using Source.Scripts.Ai.InternalAis;
-using Unit.Factory;
+using BugStrategy.Ai.InternalAis;
+using BugStrategy.Unit;
+using BugStrategy.Unit.Factory;
 
-namespace Source.Scripts.Ai
+namespace BugStrategy.Ai
 {
     public class UnitsAiRepository
     {

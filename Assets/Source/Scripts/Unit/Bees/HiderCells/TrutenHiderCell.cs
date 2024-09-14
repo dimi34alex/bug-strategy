@@ -1,7 +1,7 @@
-using CustomTimer;
-using UnitsHideCore;
+using BugStrategy.CustomTimer;
+using BugStrategy.UnitsHideCore;
 
-namespace Source.Scripts.Unit.Bees.HiderCells
+namespace BugStrategy.Unit.Bees
 {
     public class TrutenHiderCell : HiderCellBase
     {

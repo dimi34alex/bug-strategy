@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Unit.Ants.Configs.Professions
+namespace BugStrategy.Unit.Ants
 {
     [Serializable]
     public struct AntProfessionRang

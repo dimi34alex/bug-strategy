@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
-using Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators.Configs;
-using Source.Scripts.Ai.MainAis;
-using Source.Scripts.Missions;
-using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
-using Unit.Factory;
+using BugStrategy.Ai.ConstructionsAis;
+using BugStrategy.Ai.MainAis;
+using BugStrategy.Constructions.Factory;
+using BugStrategy.Missions;
+using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.Unit.Factory;
 
-namespace Source.Scripts.Ai
+namespace BugStrategy.Ai
 {
     public class AisProvider
     {

@@ -1,6 +1,9 @@
-﻿public enum UnitTargetType
+﻿namespace BugStrategy.Unit
 {
-    Other_Unit = 0,
-    Construction = 10,
-    ResourceSource = 20,
+    public enum UnitTargetType
+    {
+        Other_Unit = 0,
+        Construction = 10,
+        ResourceSource = 20,
+    }
 }

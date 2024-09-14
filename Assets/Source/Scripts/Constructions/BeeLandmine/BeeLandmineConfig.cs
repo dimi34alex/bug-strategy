@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Constructions
+namespace BugStrategy.Constructions.BeeLandmine
 {
     [CreateAssetMenu(fileName = nameof(BeeLandmineConfig), menuName = "Configs/Constructions/Main/" + nameof(BeeLandmineConfig))]
     public class BeeLandmineConfig : ConstructionBuyCostConfig

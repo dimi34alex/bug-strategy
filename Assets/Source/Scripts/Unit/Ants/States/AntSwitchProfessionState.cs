@@ -1,7 +1,10 @@
 using System;
+using BugStrategy.EntityState;
+using BugStrategy.Libs;
+using CycleFramework.Extensions;
 using UnityEngine;
 
-namespace Unit.Ants.States
+namespace BugStrategy.Unit.Ants
 {
     public class AntSwitchProfessionState : EntityStateBase
     {

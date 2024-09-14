@@ -1,9 +1,8 @@
-﻿using Projectiles.Factory;
-using Unit.Ants.Configs.Professions;
-using Unit.OrderValidatorCore;
-using Unit.ProcessorsCore;
+﻿using BugStrategy.Projectiles.Factory;
+using BugStrategy.Unit.OrderValidatorCore;
+using BugStrategy.Unit.ProcessorsCore;
 
-namespace Unit.Ants.Professions
+namespace BugStrategy.Unit.Ants
 {
     public sealed class AntRangeWarriorOrderValidator : AntWarriorProfessionBase
     {

@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
-using Source.Scripts.ResourcesSystem;
+using BugStrategy.Libs;
+using BugStrategy.ResourcesSystem;
+using BugStrategy.Unit;
 using UnityEngine;
 
-namespace UnitsRecruitingSystemCore
+namespace BugStrategy.Constructions.UnitsRecruitingSystem
 {
     [Serializable]
     public class UnitRecruitingData

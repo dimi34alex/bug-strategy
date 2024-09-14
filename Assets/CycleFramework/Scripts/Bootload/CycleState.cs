@@ -1,5 +1,8 @@
 ﻿
-public enum CycleState
+namespace CycleFramework.Bootload
 {
-    Game = 10,
+    public enum CycleState
+    {
+        Game = 10,
+    }
 }

@@ -1,6 +1,10 @@
 using System;
+using BugStrategy.Constructions;
+using BugStrategy.Libs;
+using BugStrategy.Unit;
+using CycleFramework.Extensions;
 
-namespace Source.Scripts.Ai.InternalAis
+namespace BugStrategy.Ai.InternalAis
 {
     public class BuildOrderEvaluator : UnitInternalEvaluator
     {

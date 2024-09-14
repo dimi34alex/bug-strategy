@@ -1,8 +1,9 @@
-using Projectiles;
-using Projectiles.Factory;
-using Unit.ProcessorsCore;
+using BugStrategy.Projectiles;
+using BugStrategy.Projectiles.Factory;
+using BugStrategy.Unit.ProcessorsCore;
+using CycleFramework.Extensions;
 
-namespace Unit.Bees
+namespace BugStrategy.Unit.Bees
 {
     public sealed class HorntailAttackProcessor : RangeAttackProcessor
     {

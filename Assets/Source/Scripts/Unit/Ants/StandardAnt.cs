@@ -1,6 +1,4 @@
-using Source.Scripts.Ai.InternalAis;
-
-namespace Unit.Ants
+namespace BugStrategy.Unit.Ants
 {
     public class StandardAnt : AntBase
     {

@@ -1,11 +1,12 @@
-﻿using Constructions.LevelSystemCore;
-using PoisonFog.Factory;
-using Projectiles.Factory;
-using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
+﻿using BugStrategy.Constructions.ConstructionLevelSystemCore;
+using BugStrategy.PoisonFog.Factory;
+using BugStrategy.Projectiles.Factory;
+using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.Trigger;
 using UnityEngine;
 using Zenject;
 
-namespace Constructions
+namespace BugStrategy.Constructions.ButterflyPoisonFlower
 {
     public class ButterflyPoisonFlower : ConstructionBase, IEvolveConstruction
     {

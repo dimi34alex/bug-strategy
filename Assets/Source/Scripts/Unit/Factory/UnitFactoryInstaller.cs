@@ -1,6 +1,6 @@
 using Zenject;
 
-namespace Unit.Factory
+namespace BugStrategy.Unit.Factory
 {
     public class UnitFactoryInstaller : MonoInstaller
     {

@@ -1,8 +1,9 @@
 using System;
-using Unit.ProcessorsCore;
+using BugStrategy.Unit.ProcessorsCore;
+using CycleFramework.Extensions;
 using UnityEngine;
 
-namespace Unit.Bees
+namespace BugStrategy.Unit.Bees
 {
     public sealed class HornetAttackProcessor : AttackProcessorBase
     {

@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using Constructions.LevelSystemCore;
+using BugStrategy.Constructions.ConstructionLevelSystemCore;
 using UnityEngine;
 
-namespace Constructions
+namespace BugStrategy.Constructions
 {
     public class EvolveConstructionConfigBase<T> : ConstructionBuyCostConfig
         where T : ConstructionLevelBase

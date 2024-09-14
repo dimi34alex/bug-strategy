@@ -1,40 +1,41 @@
-﻿using UnityEngine;
-using DG.Tweening;
-using Source.Scripts;
-using Source.Scripts.ResourcesSystem;
+﻿using DG.Tweening;
+using UnityEngine;
 using UnityEngine.UI;
 
-public class BarView : MonoBehaviour
+namespace BugStrategy.Bars
 {
-    [SerializeField] private Image _bar;
-    [SerializeField] private Image _dynamicBar;
-
-    private float _updateValueDuration = 0.2f;
-    private float _updateValueDynamicRatio =4;
-
-    private IReadOnlyFloatStorage _storage;
-
-    public void Init(IReadOnlyFloatStorage storage)
+    public class BarView : MonoBehaviour
     {
-        if (storage == _storage)
-            return;
+        [SerializeField] private Image _bar;
+        [SerializeField] private Image _dynamicBar;
 
-        if (_storage != null)
+        private float _updateValueDuration = 0.2f;
+        private float _updateValueDynamicRatio =4;
+
+        private IReadOnlyFloatStorage _storage;
+
+        public void Init(IReadOnlyFloatStorage storage)
         {
-            _storage.Changed -= UpdateBar;
-        }
-        _storage = storage;
-        _storage.Changed += UpdateBar;
-        UpdateBar();
-    }
+            if (storage == _storage)
+                return;
 
-    public virtual void UpdateBar()
-    {
-        if (_storage.Capacity == 0)
-            return;
-        float storageRatio = _storage.CurrentValue / _storage.Capacity;
-        _bar.transform.DOScaleX(_storage.CurrentValue / _storage.Capacity, _updateValueDuration);
-        if (_dynamicBar!=null)
-            _dynamicBar.transform.DOScaleX(_storage.CurrentValue / _storage.Capacity, _updateValueDuration* _updateValueDynamicRatio);
+            if (_storage != null)
+            {
+                _storage.Changed -= UpdateBar;
+            }
+            _storage = storage;
+            _storage.Changed += UpdateBar;
+            UpdateBar();
+        }
+
+        public virtual void UpdateBar()
+        {
+            if (_storage.Capacity == 0)
+                return;
+            float storageRatio = _storage.CurrentValue / _storage.Capacity;
+            _bar.transform.DOScaleX(_storage.CurrentValue / _storage.Capacity, _updateValueDuration);
+            if (_dynamicBar!=null)
+                _dynamicBar.transform.DOScaleX(_storage.CurrentValue / _storage.Capacity, _updateValueDuration* _updateValueDynamicRatio);
+        }
     }
 }

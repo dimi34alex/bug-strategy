@@ -1,8 +1,9 @@
 ﻿using System;
-using Unit.ProcessorsCore;
+using BugStrategy.Libs;
+using BugStrategy.Unit.ProcessorsCore;
 using UnityEngine;
 
-namespace Unit.OrderValidatorCore
+namespace BugStrategy.Unit.OrderValidatorCore
 {
     [Serializable]
     public abstract class OrderValidatorBase

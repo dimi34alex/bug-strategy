@@ -1,9 +1,12 @@
 using System.Collections.Generic;
-using Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators.Configs;
-using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
-using Unit.Factory;
+using BugStrategy.Ai.ConstructionsAis;
+using BugStrategy.Constructions;
+using BugStrategy.Constructions.Factory;
+using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.Unit;
+using BugStrategy.Unit.Factory;
 
-namespace Source.Scripts.Ai.MainAis
+namespace BugStrategy.Ai.MainAis
 {
     public class BeesGlobalAi : IGlobalAi
     {

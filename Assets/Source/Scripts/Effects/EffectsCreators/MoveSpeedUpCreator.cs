@@ -1,8 +1,6 @@
-using Unit.Effects.Configs;
-using Unit.Effects.EffectProcessors;
-using Unit.Effects.Interfaces;
+using CycleFramework.Extensions;
 
-namespace Unit.Effects.EffectsCreators
+namespace BugStrategy.Effects
 {
     public class MoveSpeedUpCreator : EffectCreatorBase
     {

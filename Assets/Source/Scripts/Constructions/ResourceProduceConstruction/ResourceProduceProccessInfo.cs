@@ -1,4 +1,7 @@
 ﻿using System;
 
-[Serializable]
-public class ResourceProduceProccessInfo : ResourceProduceProccessInfoBase { }
+namespace BugStrategy.Constructions.ResourceProduceConstruction
+{
+    [Serializable]
+    public class ResourceProduceProccessInfo : ResourceProduceProccessInfoBase { }
+}

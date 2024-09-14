@@ -1,9 +1,10 @@
-using Constructions.LevelSystemCore;
-using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.Constructions.ConstructionLevelSystemCore;
+using BugStrategy.Constructions.ResourceProduceConstruction.BeesWaxProduceConstruction;
+using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
 using UnityEngine;
 using Zenject;
 
-namespace Constructions
+namespace BugStrategy.Constructions.ResourceProduceConstruction.AntAphidFarm
 {
     public class AntAphidFarm : ResourceProduceConstructionBase, IEvolveConstruction
     {

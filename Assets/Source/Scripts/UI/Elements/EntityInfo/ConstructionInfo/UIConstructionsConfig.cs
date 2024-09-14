@@ -1,4 +1,7 @@
 ﻿using System.Collections.Generic;
+using BugStrategy.ConfigsRepository;
+using BugStrategy.Constructions;
+using BugStrategy.Libs;
 using UnityEngine;
 
 namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo

@@ -1,69 +1,72 @@
 ﻿using System;
 
-public class BarStorage
+namespace BugStrategy.Bars
 {
-    private float _value;
-    private float _maxValue;
-
-    public float Value => _value;
-    public float MaxValue => _maxValue;
-
-    public event Action ChangeValue;
-    public event Action StorageEmpty;
-    public event Action<float> StorageOverfilled;
-
-    public BarStorage(float value, float maxValue)
+    public class BarStorage
     {
-        _maxValue = maxValue;
-        _value = value;
-    }
+        private float _value;
+        private float _maxValue;
 
-    public virtual void SetMaxValue(float maxValue)
-    {
-        if (maxValue <= 0)
-            throw new Exception("Storage max value cant be negative");
-        _maxValue = maxValue;
-    }
+        public float Value => _value;
+        public float MaxValue => _maxValue;
 
-    public void Add(float value)
-    {
-        if (value < 0)
-            throw new Exception("Value cant be negative");
+        public event Action ChangeValue;
+        public event Action StorageEmpty;
+        public event Action<float> StorageOverfilled;
 
-        _value += value;
-
-        if (_value > _maxValue)
+        public BarStorage(float value, float maxValue)
         {
-            StorageOverfilled?.Invoke(_maxValue - _value);
-            OnStorageOverfilled();
+            _maxValue = maxValue;
+            _value = value;
         }
 
-        ChangeValue?.Invoke();
-    }
+        public virtual void SetMaxValue(float maxValue)
+        {
+            if (maxValue <= 0)
+                throw new Exception("Storage max value cant be negative");
+            _maxValue = maxValue;
+        }
 
-    public void Clear()
-    {
-        _value = 0;
-    }
+        public void Add(float value)
+        {
+            if (value < 0)
+                throw new Exception("Value cant be negative");
 
-    protected virtual void OnStorageOverfilled()
-    {
-        _value = _maxValue;
-    }
+            _value += value;
 
-    public void Take(float value)
-    {
-        if (value < 0)
-            throw new Exception("Take value cant be negative");
+            if (_value > _maxValue)
+            {
+                StorageOverfilled?.Invoke(_maxValue - _value);
+                OnStorageOverfilled();
+            }
 
-        _value -= value;
+            ChangeValue?.Invoke();
+        }
 
-        if (_value <= 0)
+        public void Clear()
         {
             _value = 0;
-            StorageEmpty?.Invoke();
         }
 
-        ChangeValue?.Invoke();
+        protected virtual void OnStorageOverfilled()
+        {
+            _value = _maxValue;
+        }
+
+        public void Take(float value)
+        {
+            if (value < 0)
+                throw new Exception("Take value cant be negative");
+
+            _value -= value;
+
+            if (_value <= 0)
+            {
+                _value = 0;
+                StorageEmpty?.Invoke();
+            }
+
+            ChangeValue?.Invoke();
+        }
     }
 }

@@ -1,7 +1,6 @@
-using Unit.Ants.Configs.Professions;
 using UnityEngine;
 
-namespace Unit.Ants.Configs
+namespace BugStrategy.Unit.Ants
 {
     [CreateAssetMenu(fileName = nameof(AntUnitConfig), menuName = "Configs/Units/Ants/" + nameof(AntUnitConfig))]
     public class AntUnitConfig : ScriptableObject

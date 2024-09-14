@@ -1,7 +1,11 @@
 using System;
+using BugStrategy.Constructions;
+using BugStrategy.EntityState;
+using BugStrategy.Libs;
+using CycleFramework.Extensions;
 using UnityEngine;
 
-namespace Unit.States
+namespace BugStrategy.Unit
 {
     public class BuildState : EntityStateBase
     {

@@ -1,6 +1,6 @@
 using Zenject;
 
-namespace Source.Scripts.ResourcesSystem.ResourcesGlobalStorage
+namespace BugStrategy.ResourcesSystem.ResourcesGlobalStorage
 {
     public class TeamsResourceGlobalStorageInstaller : MonoInstaller
     {

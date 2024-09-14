@@ -1,13 +1,12 @@
-using Constructions.LevelSystemCore;
-using Source.Scripts;
-using Source.Scripts.ResourcesSystem;
-using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
-using Unit.Factory;
-using UnitsHideCore;
+using BugStrategy.Constructions.ConstructionLevelSystemCore;
+using BugStrategy.ResourcesSystem;
+using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.Unit.Factory;
+using BugStrategy.UnitsHideCore;
 using UnityEngine;
 using Zenject;
 
-namespace Constructions
+namespace BugStrategy.Constructions.ResourceProduceConstruction.BeesWaxProduceConstruction
 {
     public class BeesWaxProduceConstruction : ResourceConversionConstructionBase, IEvolveConstruction, IHiderConstruction
     {

@@ -1,10 +1,8 @@
 using System.Collections;
-using Source.Scripts;
-using Source.Scripts.ResourcesSystem;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace SelectableSystem
+namespace BugStrategy.SelectableSystem
 {
     public interface OnSelectionUI
     {

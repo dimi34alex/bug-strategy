@@ -1,5 +1,8 @@
-﻿public abstract class ResourceConversionConstructionBase : ResourceProduceConstructionBase
+﻿namespace BugStrategy.Constructions.ResourceProduceConstruction
 {
-    public abstract ResourceConversionCore ResourceConversionCore { get; }
-    public override ResourceProduceCoreBase ResourceProduceCoreBase => ResourceConversionCore;
+    public abstract class ResourceConversionConstructionBase : ResourceProduceConstructionBase
+    {
+        public abstract ResourceConversionCore ResourceConversionCore { get; }
+        public override ResourceProduceCoreBase ResourceProduceCoreBase => ResourceConversionCore;
+    }
 }

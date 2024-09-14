@@ -1,9 +1,10 @@
 using System.Linq;
-using Source.Scripts.Missions;
+using BugStrategy.Missions;
+using CycleFramework.Execute;
 using UnityEngine;
 using Zenject;
 
-namespace PoisonFog
+namespace BugStrategy.PoisonFog
 {
     public class PoisonFogsUpdater : CycleInitializerBase
     {

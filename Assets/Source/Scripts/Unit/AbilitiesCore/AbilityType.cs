@@ -1,4 +1,4 @@
-namespace Source.Scripts.Unit.AbilitiesCore
+namespace BugStrategy.Unit.AbilitiesCore
 {
     public enum AbilityType
     {

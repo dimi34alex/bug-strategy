@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using BugStrategy.MiniMap.Factories;
+using BugStrategy.MiniMap.MiniMapIcons;
+using BugStrategy.Pool;
 using UnityEngine;
 using Zenject;
-using System.Linq;
 
-namespace MiniMapSystem
+namespace BugStrategy.MiniMap
 {
     public class MiniMap : MonoBehaviour
     {

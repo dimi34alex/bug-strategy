@@ -1,8 +1,9 @@
-using Source.Scripts.Missions;
+using BugStrategy.Missions;
+using CycleFramework.Execute;
 using UnityEngine;
 using Zenject;
 
-namespace Projectiles
+namespace BugStrategy.Projectiles
 {
     public class ProjectilesUpdater : CycleInitializerBase
     {

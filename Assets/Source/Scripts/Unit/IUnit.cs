@@ -1,5 +1,8 @@
 ﻿
-public interface IUnit
+namespace BugStrategy.Unit
 {
+    public interface IUnit
+    {
 
+    }
 }

@@ -1,23 +1,28 @@
-using Source.Scripts.Missions;
+using BugStrategy.Missions;
+using BugStrategy.Unit;
+using CycleFramework.Execute;
 using Zenject;
 
-public class UnitStateMachineUpdater : CycleInitializerBase
+namespace BugStrategy.EntityState.Unit
 {
-    [Inject] private MissionData _missionData;
+    public class UnitStateMachineUpdater : CycleInitializerBase
+    {
+        [Inject] private MissionData _missionData;
     
-    private UnitRepository _unitRepository;
+        private UnitRepository _unitRepository;
 
-    protected override void OnInit()
-    {
-        _unitRepository = _missionData.UnitRepository;
-    }
-    protected override void OnUpdate()
-    {
-        foreach (var unitList in _unitRepository.Units)
+        protected override void OnInit()
         {
-            foreach (var unit in unitList.Value)
+            _unitRepository = _missionData.UnitRepository;
+        }
+        protected override void OnUpdate()
+        {
+            foreach (var unitList in _unitRepository.Units)
             {
-                unit.StateMachine.OnUpdate();
+                foreach (var unit in unitList.Value)
+                {
+                    unit.StateMachine.OnUpdate();
+                }
             }
         }
     }

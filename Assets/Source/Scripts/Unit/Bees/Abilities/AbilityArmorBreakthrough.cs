@@ -1,11 +1,10 @@
 using System.Collections.Generic;
-using CustomTimer;
-using Source.Scripts;
-using Source.Scripts.Unit.AbilitiesCore;
-using Unit.Factory;
+using BugStrategy.CustomTimer;
+using BugStrategy.Unit.AbilitiesCore;
+using BugStrategy.Unit.Factory;
 using UnityEngine;
 
-namespace Unit.Bees
+namespace BugStrategy.Unit.Bees
 {
     public sealed class AbilityArmorBreakthrough : IDamageApplicator, IPassiveAbility
     {

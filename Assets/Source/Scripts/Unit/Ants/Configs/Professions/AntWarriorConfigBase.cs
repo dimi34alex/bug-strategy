@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Unit.Ants.Configs.Professions
+namespace BugStrategy.Unit.Ants
 {
     public abstract class AntWarriorConfigBase : AntProfessionConfigBase
     {

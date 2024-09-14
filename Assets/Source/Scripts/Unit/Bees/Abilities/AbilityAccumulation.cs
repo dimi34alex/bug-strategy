@@ -1,10 +1,11 @@
-using CustomTimer;
-using Source.Scripts;
-using Source.Scripts.Missions;
-using Source.Scripts.Unit.AbilitiesCore;
+using BugStrategy.Constructions;
+using BugStrategy.Constructions.Factory;
+using BugStrategy.CustomTimer;
+using BugStrategy.Missions;
+using BugStrategy.Unit.AbilitiesCore;
 using UnityEngine;
 
-namespace Unit.Bees
+namespace BugStrategy.Unit.Bees
 {
     public sealed class AbilityAccumulation : IDamageApplicator, IPassiveAbility
     {

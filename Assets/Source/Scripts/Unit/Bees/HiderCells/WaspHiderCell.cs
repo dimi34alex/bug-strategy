@@ -1,7 +1,7 @@
-using CustomTimer;
-using UnitsHideCore;
+using BugStrategy.CustomTimer;
+using BugStrategy.UnitsHideCore;
 
-namespace Constructions.UnitsHideConstruction.Cells.BeesHiderCells
+namespace BugStrategy.Unit.Bees
 {
     public class WaspHiderCell : HiderCellBase
     {

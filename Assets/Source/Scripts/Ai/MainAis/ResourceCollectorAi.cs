@@ -1,7 +1,8 @@
 using System.Collections.Generic;
-using CustomTimer;
+using BugStrategy.CustomTimer;
+using BugStrategy.Unit;
 
-namespace Source.Scripts.Ai.MainAis
+namespace BugStrategy.Ai.MainAis
 {
     public class ResourceCollectorAi
     {

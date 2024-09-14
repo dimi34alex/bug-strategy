@@ -1,8 +1,9 @@
 using System.Collections.Generic;
-using Source.Scripts.ResourcesSystem;
+using BugStrategy.Libs;
+using BugStrategy.ResourcesSystem;
 using UnityEngine;
 
-namespace Constructions
+namespace BugStrategy.Constructions
 {
     public class ConstructionBuyCostConfig : ScriptableObject
     {

@@ -1,6 +1,10 @@
-using MiniMapSystem;
+using BugStrategy.MiniMap.MiniMapIconConfigs;
+using BugStrategy.MiniMap.MiniMapIcons;
 
-public class ButterflyConstructionMiniMapIconFactoryBehaviour : MiniMapIconFactoryBehaviourBase<ButterflyConstructionMiniMapIcon, ButterflyConstructionMiniMapIconConfig>
+namespace BugStrategy.MiniMap.Factories
 {
-    public override MiniMapIconID MiniMapIconID => MiniMapIconID.ButterflyConstruction;
+    public class ButterflyConstructionMiniMapIconFactoryBehaviour : MiniMapIconFactoryBehaviourBase<ButterflyConstructionMiniMapIcon, ButterflyConstructionMiniMapIconConfig>
+    {
+        public override MiniMapIconID MiniMapIconID => MiniMapIconID.ButterflyConstruction;
+    }
 }

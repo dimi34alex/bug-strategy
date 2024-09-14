@@ -1,20 +1,23 @@
-﻿using Constructions;
+﻿using BugStrategy.Constructions.BeeStickyTile;
 using Zenject;
 
-public class BeeStickyTileFactoryBehaviour : ConstructionFactoryBehaviourBase
+namespace BugStrategy.Constructions.Factory.Behaviours
 {
-    [Inject] private readonly BeeStickyTileSpawnConfig _config;
-
-    public override ConstructionType ConstructionType => ConstructionType.BeeStickyTileConstruction;
-
-    public override TConstruction Create<TConstruction>(ConstructionID constructionID)
+    public class BeeStickyTileFactoryBehaviour : ConstructionFactoryBehaviourBase
     {
-        ConstructionSpawnConfiguration<BeeStickyTile> configuration = _config.GetConfiguration();
+        [Inject] private readonly BeeStickyTileSpawnConfig _config;
 
-        TConstruction construction = DiContainer.InstantiatePrefab(configuration.ConstructionPrefab,
-                configuration.ConstructionPrefab.transform.position, configuration.Rotation, null)
-            .GetComponent<TConstruction>();
+        public override ConstructionType ConstructionType => ConstructionType.BeeStickyTileConstruction;
+
+        public override TConstruction Create<TConstruction>(ConstructionID constructionID)
+        {
+            ConstructionSpawnConfiguration<BeeStickyTile.BeeStickyTile> configuration = _config.GetConfiguration();
+
+            TConstruction construction = DiContainer.InstantiatePrefab(configuration.ConstructionPrefab,
+                    configuration.ConstructionPrefab.transform.position, configuration.Rotation, null)
+                .GetComponent<TConstruction>();
         
-        return construction;
+            return construction;
+        }
     }
 }

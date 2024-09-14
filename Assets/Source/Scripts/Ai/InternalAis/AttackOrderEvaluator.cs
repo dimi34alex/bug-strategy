@@ -1,7 +1,10 @@
 using System;
-using Unit.ProcessorsCore;
+using BugStrategy.Libs;
+using BugStrategy.Unit;
+using BugStrategy.Unit.ProcessorsCore;
+using CycleFramework.Extensions;
 
-namespace Source.Scripts.Ai.InternalAis
+namespace BugStrategy.Ai.InternalAis
 {
     public class AttackOrderEvaluator : UnitInternalEvaluator
     {

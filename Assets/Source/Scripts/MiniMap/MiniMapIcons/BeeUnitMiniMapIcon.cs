@@ -1,4 +1,4 @@
-namespace MiniMapSystem
+namespace BugStrategy.MiniMap.MiniMapIcons
 {
     public class BeeUnitMiniMapIcon : MiniMapIconBase
     {

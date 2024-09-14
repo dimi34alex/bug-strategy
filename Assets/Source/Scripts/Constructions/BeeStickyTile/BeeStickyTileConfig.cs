@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Constructions
+namespace BugStrategy.Constructions.BeeStickyTile
 {
     [CreateAssetMenu(fileName = nameof(BeeStickyTileConfig), menuName = "Configs/Constructions/Main/" + nameof(BeeStickyTileConfig))]
     public class BeeStickyTileConfig : ConstructionBuyCostConfig

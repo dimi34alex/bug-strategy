@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using Unit.Ants.Professions;
 using UnityEditor.Animations;
 using UnityEngine;
 
-namespace Unit.Ants.Configs.Professions
+namespace BugStrategy.Unit.Ants
 {
     public abstract class AntProfessionConfigBase : ScriptableObject
     {

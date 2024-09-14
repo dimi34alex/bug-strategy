@@ -1,6 +1,6 @@
 using System;
 
-namespace CustomTimer
+namespace BugStrategy.CustomTimer
 {
     public interface IReadOnlyTimer
     {

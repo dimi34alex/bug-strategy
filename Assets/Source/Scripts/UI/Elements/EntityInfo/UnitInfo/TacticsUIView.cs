@@ -1,4 +1,4 @@
-using Source.Scripts.Unit;
+using BugStrategy.Unit;
 
 namespace BugStrategy.UI.Elements.EntityInfo.UnitInfo
 {

@@ -1,9 +1,9 @@
 using System;
-using Unit.OrderValidatorCore;
-using Unit.ProcessorsCore;
-using UnityEngine;
+using BugStrategy.EntityState;
+using BugStrategy.Unit.OrderValidatorCore;
+using BugStrategy.Unit.ProcessorsCore;
 
-namespace Unit.States
+namespace BugStrategy.Unit
 {
     public class AttackState : EntityStateBase
     {

@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using BugStrategy.ConfigsRepository;
+using BugStrategy.Libs;
 using UnityEngine;
 
-namespace Projectiles.Factory
+namespace BugStrategy.Projectiles.Factory
 {
     [CreateAssetMenu(fileName = nameof(ProjectilesPrefabsConfig), menuName = "Configs/" + nameof(ProjectilesPrefabsConfig))]
     public class ProjectilesPrefabsConfig : ScriptableObject, ISingleConfig

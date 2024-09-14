@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using Constructions.LevelSystemCore;
-using UnitsRecruitingSystemCore;
+using BugStrategy.Constructions.ConstructionLevelSystemCore;
+using BugStrategy.Constructions.UnitsRecruitingSystem;
 using UnityEngine;
 
-namespace Constructions
+namespace BugStrategy.Constructions.AntTownHall
 {
     [Serializable]
     public class AntTownHallLevel : ConstructionLevelBase

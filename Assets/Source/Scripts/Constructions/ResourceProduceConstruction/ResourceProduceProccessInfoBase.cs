@@ -1,15 +1,18 @@
 ﻿using System;
-using Source.Scripts.ResourcesSystem;
+using BugStrategy.ResourcesSystem;
 using UnityEngine;
 
-[Serializable]
-public abstract class ResourceProduceProccessInfoBase
+namespace BugStrategy.Constructions.ResourceProduceConstruction
 {
-    [SerializeField] private ResourceID _targetResourceID;
-    [SerializeField] private float _producePerSecond;
-    [SerializeField] private int _producedResourceCapacity;
+    [Serializable]
+    public abstract class ResourceProduceProccessInfoBase
+    {
+        [SerializeField] private ResourceID _targetResourceID;
+        [SerializeField] private float _producePerSecond;
+        [SerializeField] private int _producedResourceCapacity;
 
-    public ResourceID TargetResourceID => _targetResourceID;
-    public float ProducePerSecond => _producePerSecond;
-    public int ProducedResourceCapacity => _producedResourceCapacity;
+        public ResourceID TargetResourceID => _targetResourceID;
+        public float ProducePerSecond => _producePerSecond;
+        public int ProducedResourceCapacity => _producedResourceCapacity;
+    }
 }

@@ -1,41 +1,44 @@
-using Source.Scripts.Unit.AbilitiesCore;
+using BugStrategy.Unit.AbilitiesCore;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AbilityBlock : MonoBehaviour
+namespace BugStrategy.SelectableSystem
 {
-    [SerializeField] private Image fill;
-    [SerializeField] private Image icon;
-
-    private IAbility _abilityBase;
-
-    public void SetData(Sprite iconSprite, IAbility abilityBase)
+    public class AbilityBlock : MonoBehaviour
     {
-        _abilityBase = abilityBase;
-        icon.sprite = iconSprite;
+        [SerializeField] private Image fill;
+        [SerializeField] private Image icon;
 
-        _abilityBase.Cooldown.OnTick += UpdateFill;
-        UpdateFill();
-    }
+        private IAbility _abilityBase;
 
-    private void UpdateFill()
-    {
-        fill.fillAmount = 1 - _abilityBase.Cooldown.FillPercentage;
-    }
+        public void SetData(Sprite iconSprite, IAbility abilityBase)
+        {
+            _abilityBase = abilityBase;
+            icon.sprite = iconSprite;
+
+            _abilityBase.Cooldown.OnTick += UpdateFill;
+            UpdateFill();
+        }
+
+        private void UpdateFill()
+        {
+            fill.fillAmount = 1 - _abilityBase.Cooldown.FillPercentage;
+        }
     
-    public void Subscribe()
-    {
-        _abilityBase.Cooldown.OnTick += UpdateFill;
-        UpdateFill();
-    }
+        public void Subscribe()
+        {
+            _abilityBase.Cooldown.OnTick += UpdateFill;
+            UpdateFill();
+        }
     
-    public void UnSubscribe()
-    {
-        _abilityBase.Cooldown.OnTick -= UpdateFill;
-    }
+        public void UnSubscribe()
+        {
+            _abilityBase.Cooldown.OnTick -= UpdateFill;
+        }
     
-    private void OnDestroy()
-    {
-        UnSubscribe();
+        private void OnDestroy()
+        {
+            UnSubscribe();
+        }
     }
 }

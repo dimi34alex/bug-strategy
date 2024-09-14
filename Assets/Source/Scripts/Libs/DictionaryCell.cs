@@ -1,15 +1,18 @@
 ﻿using System;
 using UnityEngine;
 
-[Serializable]
-public class DictionaryCell<TKey, TValue>
+namespace BugStrategy.Libs
 {
-    [SerializeField] public TKey Key;
-    [SerializeField] public TValue Value;
-
-    public DictionaryCell(TKey key, TValue value)
+    [Serializable]
+    public class DictionaryCell<TKey, TValue>
     {
-        Key = key;
-        Value = value;
+        [SerializeField] public TKey Key;
+        [SerializeField] public TValue Value;
+
+        public DictionaryCell(TKey key, TValue value)
+        {
+            Key = key;
+            Value = value;
+        }
     }
 }

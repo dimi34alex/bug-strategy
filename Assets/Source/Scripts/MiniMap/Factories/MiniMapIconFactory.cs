@@ -1,28 +1,31 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using BugStrategy.MiniMap.MiniMapIcons;
 using UnityEngine;
-using MiniMapSystem;
 
-public class MiniMapIconFactory : MonoBehaviour, IMiniMapIconFactory
+namespace BugStrategy.MiniMap.Factories
 {
-    private IReadOnlyDictionary<MiniMapIconID, IMiniMapIconFactoryBehaviour> _behaviours;
-
-    private void Awake()
+    public class MiniMapIconFactory : MonoBehaviour, IMiniMapIconFactory
     {
-        _behaviours = GetComponentsInChildren<IMiniMapIconFactoryBehaviour>(true)
-            .ToDictionary(behaviour => behaviour.MiniMapIconID, behaviour => behaviour);
+        private IReadOnlyDictionary<MiniMapIconID, IMiniMapIconFactoryBehaviour> _behaviours;
 
-        foreach (IMiniMapIconFactoryBehaviour behaviour in _behaviours.Values)
-            Debug.Log($"Factory behaviour {behaviour.GetType()} has been registered");
-    }
+        private void Awake()
+        {
+            _behaviours = GetComponentsInChildren<IMiniMapIconFactoryBehaviour>(true)
+                .ToDictionary(behaviour => behaviour.MiniMapIconID, behaviour => behaviour);
 
-    public TMiniMapIcon Create<TMiniMapIcon>(MiniMapIconID miniMapIconID) where TMiniMapIcon : MiniMapIconBase
-    {
-        if (!_behaviours.ContainsKey(miniMapIconID))
-            throw new InvalidOperationException($"{miniMapIconID} cannot be created, " +
-                                                $"because factory for this mini map icon not found. Create new factory behaviour for this mini map icon");
+            foreach (IMiniMapIconFactoryBehaviour behaviour in _behaviours.Values)
+                Debug.Log($"Factory behaviour {behaviour.GetType()} has been registered");
+        }
 
-        return _behaviours[miniMapIconID].Create<TMiniMapIcon>();
+        public TMiniMapIcon Create<TMiniMapIcon>(MiniMapIconID miniMapIconID) where TMiniMapIcon : MiniMapIconBase
+        {
+            if (!_behaviours.ContainsKey(miniMapIconID))
+                throw new InvalidOperationException($"{miniMapIconID} cannot be created, " +
+                                                    $"because factory for this mini map icon not found. Create new factory behaviour for this mini map icon");
+
+            return _behaviours[miniMapIconID].Create<TMiniMapIcon>();
+        }
     }
 }

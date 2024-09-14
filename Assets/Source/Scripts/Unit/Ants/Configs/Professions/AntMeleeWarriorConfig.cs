@@ -1,8 +1,6 @@
-using Unit.Ants.Professions;
-using Unit.OrderValidatorCore;
 using UnityEngine;
 
-namespace Unit.Ants.Configs.Professions
+namespace BugStrategy.Unit.Ants
 {
     [CreateAssetMenu(fileName = nameof(AntMeleeWarriorConfig), menuName = "Configs/Units/Ants/" + nameof(AntMeleeWarriorConfig))]
     public class AntMeleeWarriorConfig : AntWarriorConfigBase

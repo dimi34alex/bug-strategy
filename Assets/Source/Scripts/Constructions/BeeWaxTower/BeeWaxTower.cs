@@ -1,11 +1,12 @@
-using Constructions.LevelSystemCore;
-using Projectiles.Factory;
-using Source.Scripts.Missions;
-using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.Constructions.ConstructionLevelSystemCore;
+using BugStrategy.Constructions.Factory;
+using BugStrategy.Projectiles.Factory;
+using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.Trigger;
 using UnityEngine;
 using Zenject;
 
-namespace Constructions
+namespace BugStrategy.Constructions.BeeWaxTower
 {
     public class BeeWaxTower : ConstructionBase, IEvolveConstruction
     {

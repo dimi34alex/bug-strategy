@@ -1,4 +1,4 @@
-namespace Unit.Ants
+namespace BugStrategy.Unit.Ants
 {
     public abstract class AntUnit : UnitBase
     {

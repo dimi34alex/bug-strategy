@@ -1,7 +1,7 @@
-using CustomTimer;
-using Source.Scripts.Unit.AbilitiesCore;
+using BugStrategy.CustomTimer;
+using BugStrategy.Unit.AbilitiesCore;
 
-namespace Unit.Bees
+namespace BugStrategy.Unit.Bees
 {
     public sealed class AbilityVerifiedBites : IPassiveAbility
     {

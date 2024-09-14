@@ -1,13 +1,12 @@
-using Constructions.LevelSystemCore;
-using Source.Scripts.Ai.ConstructionsAis;
-using Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators;
-using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
-using Unit.Factory;
-using UnitsRecruitingSystemCore;
+using BugStrategy.Constructions.ConstructionLevelSystemCore;
+using BugStrategy.Constructions.UnitsRecruitingSystem;
+using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.Unit;
+using BugStrategy.Unit.Factory;
 using UnityEngine;
 using Zenject;
 
-namespace Constructions
+namespace BugStrategy.Constructions
 {
     public abstract class BarrackBase : ConstructionBase, IEvolveConstruction, IRecruitingConstruction
     {

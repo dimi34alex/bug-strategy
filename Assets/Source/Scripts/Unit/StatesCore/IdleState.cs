@@ -1,6 +1,7 @@
 using System;
+using BugStrategy.EntityState;
 
-namespace Unit.States
+namespace BugStrategy.Unit
 {
     public class IdleState : EntityStateBase
     {

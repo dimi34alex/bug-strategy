@@ -1,6 +1,7 @@
+using BugStrategy.ConfigsRepository;
 using UnityEngine;
 
-namespace Unit.Effects.Configs
+namespace BugStrategy.Effects
 {
     [CreateAssetMenu(fileName = nameof(StickyHoneyConfig), menuName = "Configs/Effects/" + nameof(StickyHoneyConfig))]
     public sealed class StickyHoneyConfig : ScriptableObject, ISingleConfig

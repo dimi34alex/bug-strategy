@@ -1,12 +1,8 @@
 using System.Collections.Generic;
-using Construction.TownHalls;
-using Constructions;
-using Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators;
-using Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators.Configs;
-using Source.Scripts.Ai.ConstructionsAis.ConstructionsEvaluators.RecruitingEvaluators;
-using Source.Scripts.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.Constructions.BeeTownHall;
+using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
 
-namespace Source.Scripts.Ai.ConstructionsAis
+namespace BugStrategy.Ai.ConstructionsAis
 {
     public class BeeTownHallAi : ConstructionAiBase
     {

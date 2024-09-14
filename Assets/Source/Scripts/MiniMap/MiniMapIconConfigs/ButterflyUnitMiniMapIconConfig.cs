@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using BugStrategy.MiniMap.MiniMapIcons;
+using UnityEngine;
 
-namespace MiniMapSystem
+namespace BugStrategy.MiniMap.MiniMapIconConfigs
 {
     [CreateAssetMenu(fileName = "ButterflyUnitMiniMapIconConfig", menuName = "Config/MiniMapIcons/ButterflyUnit")]
     public sealed class ButterflyUnitMiniMapIconConfig : MiniMapIconConfigBase<ButterflyUnitMiniMapIcon>

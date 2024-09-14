@@ -1,9 +1,10 @@
 using System.Collections.Generic;
-using Source.Scripts.Ai.InternalAis;
-using Source.Scripts.Missions;
-using Unit.Bees;
+using BugStrategy.Ai.InternalAis;
+using BugStrategy.EntityState;
+using BugStrategy.Missions;
+using BugStrategy.Unit.Bees;
 
-namespace Source.Scripts.Ai.UnitAis
+namespace BugStrategy.Ai.UnitAis
 {
     public class WorkerBeeInternalAi : InternalAiBase
     {
