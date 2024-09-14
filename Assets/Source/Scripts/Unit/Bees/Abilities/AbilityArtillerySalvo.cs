@@ -1,3 +1,5 @@
+using CustomTimer;
+using Source.Scripts;
 using Source.Scripts.Unit.AbilitiesCore;
 
 namespace Unit.Bees
@@ -7,6 +9,7 @@ namespace Unit.Bees
         private readonly HoneyCatapultAttackProcessor _attackProcessor;
         private readonly float _constructionDamageScale;
         
+        public IReadOnlyTimer Cooldown { get; } = new Timer(1, 1);
         public AbilityType AbilityType => AbilityType.ArtillerySalvo;
 
         public AbilityArtillerySalvo(HoneyCatapultAttackProcessor honeyCatapultAttackProcessor, float constructionDamageScale)

@@ -32,7 +32,8 @@ namespace Unit.Bees
         private ResourceExtractionProcessor _resourceExtractionProcessor;
         public IReadOnlyResourceExtractionProcessor ResourceExtractionProcessor => _resourceExtractionProcessor;
         public override InternalAiBase InternalAi { get; protected set; }
-        
+
+        public override IReadOnlyList<IAbility> Abilities => ActiveAbilities;
         public override IReadOnlyList<IActiveAbility> ActiveAbilities { get; } = new List<IActiveAbility>();
         public override IReadOnlyList<IPassiveAbility> PassiveAbilities { get; } = new List<IPassiveAbility>();
         

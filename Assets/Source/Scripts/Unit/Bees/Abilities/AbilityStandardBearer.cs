@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CustomTimer;
 using Source.Scripts.Unit.AbilitiesCore;
 using Unit.Effects;
 
@@ -10,6 +11,7 @@ namespace Unit.Bees
         private readonly SphereTrigger _abilityZone;
         private readonly List<IEffectable> _enters = new List<IEffectable>();
 
+        public IReadOnlyTimer Cooldown { get; } = new Timer(1, 1);
         public AffiliationEnum Affiliation => _affiliation.Affiliation;
         public AbilityType AbilityType => AbilityType.StandardBearer;
         

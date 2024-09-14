@@ -33,7 +33,6 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
 
     protected FloatStorage _healthStorage { get; set; } = new FloatStorage(100, 100);
     protected EntityStateMachine _stateMachine;
-    protected List<AbilityBase> _abilites = new List<AbilityBase>();
 
     public bool IsSticky { get; private set; }
     public bool IsSelected { get; private set; }
@@ -53,7 +52,6 @@ public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable,
     public UnitTargetType TargetType => UnitTargetType.Other_Unit;
     public MiniMapObjectType MiniMapObjectType => MiniMapObjectType.Unit;
     public IReadOnlyFloatStorage HealthStorage => _healthStorage;
-    public IReadOnlyList<AbilityBase> Abilities => _abilites;
     public EntityStateMachine StateMachine => _stateMachine;
     public UnitType Identifier => UnitType;
     public abstract FractionType Fraction { get; }

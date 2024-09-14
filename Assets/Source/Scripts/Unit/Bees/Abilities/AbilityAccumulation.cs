@@ -1,3 +1,5 @@
+using CustomTimer;
+using Source.Scripts;
 using Source.Scripts.Missions;
 using Source.Scripts.Unit.AbilitiesCore;
 using UnityEngine;
@@ -13,6 +15,7 @@ namespace Unit.Bees
         private readonly IConstructionFactory _constructionFactory;
         private readonly MissionData _missionData;
 
+        public IReadOnlyTimer Cooldown { get; } = new Timer(1, 1);
         public float Damage => _explosionDamage;
         public AbilityType AbilityType => AbilityType.Accumulation;
         public AffiliationEnum Affiliation => _bumblebee.Affiliation;

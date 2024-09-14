@@ -35,6 +35,7 @@ namespace Unit.Bees
         public AttackCooldownChanger AttackCooldownChanger { get; private set; }
         public IReadOnlyAttackProcessor AttackProcessor => _attackProcessor;
 
+        public override IReadOnlyList<IAbility> Abilities => ActiveAbilities;
         public override IReadOnlyList<IActiveAbility> ActiveAbilities { get; } = new List<IActiveAbility>();
         public override IReadOnlyList<IPassiveAbility> PassiveAbilities { get; } = new List<IPassiveAbility>();
         

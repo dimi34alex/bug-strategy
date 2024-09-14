@@ -1,4 +1,6 @@
+using Source.Scripts.Unit.AbilitiesCore;
 using UnityEngine;
+using Zenject;
 
 namespace SelectableSystem
 {
@@ -8,6 +10,8 @@ namespace SelectableSystem
         [SerializeField] private SelectionField selectionField;
         [SerializeField] private AbilitiesBar abilitiesBar;
 
+        [Inject] private AbilitiesUiConfig _abilitiesUiConfig;
+        
         protected override void OnStart()
         {
             base.OnStart();
@@ -15,8 +19,10 @@ namespace SelectableSystem
             OnSelectionUI[] onSelectionUIs = { healthBar, selectionField, abilitiesBar };
 
             healthBar.Init(selectable.HealthStorage);
-            abilitiesBar.Init(selectable.Abilities);
             selectionField.Init(selectable.IsSelected);
+
+            if (selectable.TryCast(out IAbilitiesOwner abilitiesOwner)) 
+                abilitiesBar.Init(abilitiesOwner.Abilities, _abilitiesUiConfig);
 
             foreach (var OoSelectionUI in onSelectionUIs)
             {

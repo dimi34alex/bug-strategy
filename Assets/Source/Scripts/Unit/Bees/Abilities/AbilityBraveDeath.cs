@@ -1,3 +1,5 @@
+using CustomTimer;
+using Source.Scripts;
 using Source.Scripts.Unit.AbilitiesCore;
 using UnityEngine;
 
@@ -10,6 +12,7 @@ namespace Unit.Bees
         private readonly float _healRadius;
         private readonly LayerMask _healLayers;
         
+        public IReadOnlyTimer Cooldown { get; } = new Timer(1, 1);
         public AbilityType AbilityType => AbilityType.BraveDeath;
 
         public AbilityBraveDeath(Truten truten, float healValue, float healRadius, LayerMask healLayers)

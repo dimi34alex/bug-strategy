@@ -1,9 +1,7 @@
 namespace Source.Scripts.Unit.AbilitiesCore
 {
-    public interface IActiveAbility
+    public interface IActiveAbility : IAbility
     {
-        public AbilityType AbilityType { get; }
-
         public void TryActivate();
     }
 }

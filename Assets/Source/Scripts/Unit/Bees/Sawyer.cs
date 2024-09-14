@@ -35,6 +35,7 @@ namespace Unit.Bees
         private float _enterDamageScale = 1;
 
         private readonly List<IActiveAbility> _activeAbilities = new(1);
+        public override IReadOnlyList<IAbility> Abilities => _activeAbilities;
         public override IReadOnlyList<IActiveAbility> ActiveAbilities => _activeAbilities;
         public override IReadOnlyList<IPassiveAbility> PassiveAbilities { get; } = new List<IPassiveAbility>();
         

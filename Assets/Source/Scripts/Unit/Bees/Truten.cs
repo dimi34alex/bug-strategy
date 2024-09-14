@@ -36,6 +36,7 @@ namespace Unit.Bees
         private AbilityBraveDeath _abilityBraveDeath;
         
         private readonly List<IPassiveAbility> _passiveAbilities = new(2);
+        public override IReadOnlyList<IAbility> Abilities => _passiveAbilities;
         public override IReadOnlyList<IActiveAbility> ActiveAbilities { get; } = new List<IActiveAbility>();
         public override IReadOnlyList<IPassiveAbility> PassiveAbilities => _passiveAbilities;
         

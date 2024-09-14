@@ -1,5 +1,5 @@
+using Source.Scripts.Unit.AbilitiesCore;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 
 public class AbilityBlock : MonoBehaviour
@@ -7,31 +7,31 @@ public class AbilityBlock : MonoBehaviour
     [SerializeField] private Image fill;
     [SerializeField] private Image icon;
 
-    private AbilityBase _abilityBase;
+    private IAbility _abilityBase;
 
-    public void SetData(Sprite iconSprite, AbilityBase abilityBase)
+    public void SetData(Sprite iconSprite, IAbility abilityBase)
     {
         _abilityBase = abilityBase;
         icon.sprite = iconSprite;
 
-        _abilityBase.ReloadTimer.Changed += UpdateFill;
+        _abilityBase.Cooldown.OnTick += UpdateFill;
         UpdateFill();
     }
 
     private void UpdateFill()
     {
-        fill.fillAmount = 1 - _abilityBase.CurrentTime / _abilityBase.ReloadTime;
+        fill.fillAmount = 1 - _abilityBase.Cooldown.FillPercentage;
     }
     
     public void Subscribe()
     {
-        _abilityBase.ReloadTimer.Changed += UpdateFill;
+        _abilityBase.Cooldown.OnTick += UpdateFill;
         UpdateFill();
     }
     
     public void UnSubscribe()
     {
-        _abilityBase.ReloadTimer.Changed -= UpdateFill;
+        _abilityBase.Cooldown.OnTick -= UpdateFill;
     }
     
     private void OnDestroy()

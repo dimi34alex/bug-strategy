@@ -39,6 +39,7 @@ namespace Unit.Bees
         private AbilityArmorBreakthrough _abilityArmorBreakthrough;
         
         private readonly List<IPassiveAbility> _passiveAbilities = new(1);
+        public override IReadOnlyList<IAbility> Abilities => _passiveAbilities;
         public override IReadOnlyList<IActiveAbility> ActiveAbilities { get; } = new List<IActiveAbility>();
         public override IReadOnlyList<IPassiveAbility> PassiveAbilities => _passiveAbilities;
         

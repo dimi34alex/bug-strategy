@@ -7,6 +7,7 @@ namespace Unit.Bees
     {
         public override FractionType Fraction => FractionType.Bees;
 
+        public abstract IReadOnlyList<IAbility> Abilities { get; }
         public abstract IReadOnlyList<IActiveAbility> ActiveAbilities { get; }
         public abstract IReadOnlyList<IPassiveAbility> PassiveAbilities { get; }
         

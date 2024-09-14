@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using CustomTimer;
+using Source.Scripts;
 using Source.Scripts.Unit.AbilitiesCore;
 using Unit.Factory;
 using UnityEngine;
@@ -14,6 +16,7 @@ namespace Unit.Bees
         private readonly LayerMask _explosionLayers;
         private readonly RaycastHit[] _explosionBuffer = new RaycastHit[32];
 
+        public IReadOnlyTimer Cooldown { get; } = new Timer(1, 1);
         public float Damage { get; private set; }
         public AbilityType AbilityType => AbilityType.ArmorBreakthrough;
 

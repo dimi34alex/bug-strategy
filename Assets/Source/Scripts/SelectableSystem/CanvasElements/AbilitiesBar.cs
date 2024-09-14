@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Source.Scripts.Unit.AbilitiesCore;
 using UnityEngine;
-using UnityEngine.Rendering.PostProcessing;
 
 namespace SelectableSystem
 {
@@ -12,20 +12,19 @@ namespace SelectableSystem
         [SerializeField] private Transform firstIconTransform;
         [SerializeField] private float distanceBetweenIcons;
 
-        private List<AbilityBlock> _abilityBlocks = new List<AbilityBlock>();
+        private List<AbilityBlock> _abilityBlocks = new();
 
-        public void Init(IReadOnlyList<AbilityBase> abilities)
+        public void Init(IReadOnlyList<IAbility> abilities, AbilitiesUiConfig abilitiesUiConfig)
         {
-            Vector3 firstIconPosition = firstIconTransform.position;
+            var firstIconPosition = firstIconTransform.position;
             for (int n = 0; n < abilities.Count; n++)
             {
-                GameObject abilityBlockObj = UnityEngine.Object.Instantiate(abilityBlockPrefab,
+                var abilityBlockObj = Instantiate(abilityBlockPrefab,
                     new Vector3(firstIconPosition.x + distanceBetweenIcons * n, firstIconPosition.y,
-                        firstIconPosition.z),
-                    firstIconTransform.rotation, firstIconTransform);
+                        firstIconPosition.z), firstIconTransform.rotation, firstIconTransform);
 
-                AbilityBlock abilityBlock = abilityBlockObj.GetComponent<AbilityBlock>();
-                abilityBlock.SetData(abilities[n].AbilityIcon, abilities[n]);
+                var abilityBlock = abilityBlockObj.GetComponent<AbilityBlock>();
+                abilityBlock.SetData(abilitiesUiConfig.AbilitiesUiIcons[abilities[n].AbilityType], abilities[n]);
                 _abilityBlocks.Add(abilityBlock);
             }
         }

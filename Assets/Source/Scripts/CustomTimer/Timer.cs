@@ -10,7 +10,8 @@ namespace CustomTimer
         
         public bool TimerIsEnd { get; private set; }
         public bool Paused { get; private set; }
-        
+
+        public event Action OnTick;
         public event Action OnTimerEnd;
         
         public Timer(float maxValue, float startValue = 0, bool paused = false)
@@ -64,6 +65,7 @@ namespace CustomTimer
             if(TimerIsEnd || Paused) return;
             
             UpdateTimer(time);
+            OnTick?.Invoke();
         }
 
         private void UpdateTimer(float time)

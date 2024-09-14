@@ -32,7 +32,8 @@ namespace Unit.Bees
         private MurmurOrderValidator _orderValidator;
         private AttackProcessorBase _attackProcessor;
         private CooldownProcessor _cooldownProcessor;
-        
+
+        public override IReadOnlyList<IAbility> Abilities => ActiveAbilities;
         public override IReadOnlyList<IActiveAbility> ActiveAbilities { get; } = new List<IActiveAbility>();
         public override IReadOnlyList<IPassiveAbility> PassiveAbilities { get; } = new List<IPassiveAbility>();
         

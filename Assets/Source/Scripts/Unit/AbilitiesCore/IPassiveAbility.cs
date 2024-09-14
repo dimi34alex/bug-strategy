@@ -1,7 +1,6 @@
 namespace Source.Scripts.Unit.AbilitiesCore
 {
-    public interface IPassiveAbility
+    public interface IPassiveAbility : IAbility
     {
-        public AbilityType AbilityType { get; }
     }
 }
