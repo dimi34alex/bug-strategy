@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 390e5f12f12f851419f034490070839d, type: 3}
+  m_Name: ConstructionTypeMatchConfig
+  m_EditorClassIdentifier: 
+  _constructionTypePairs:
+  - ConstructionType: 0
+    ConstructionsID: 00000000
+  - ConstructionType: 1
+    ConstructionsID: 01000000
+  - ConstructionType: 2
+    ConstructionsID: 05000000
+  - ConstructionType: 3
+    ConstructionsID: 0a000000
+  - ConstructionType: 4
+    ConstructionsID: 0f000000
+  - ConstructionType: 16
+    ConstructionsID: 1e000000
+  - ConstructionType: 5
+    ConstructionsID: 14000000
+  - ConstructionType: 10
+    ConstructionsID: 19000000
+  - ConstructionType: 40
+    ConstructionsID: 28000000
+  - ConstructionType: 50
+    ConstructionsID: 32000000
+  - ConstructionType: 60
+    ConstructionsID: 3c000000
+  - ConstructionType: 70
+    ConstructionsID: 46000000
+  - ConstructionType: 80
+    ConstructionsID: 50000000
+  - ConstructionType: 200
+    ConstructionsID: c8000000
+  - ConstructionType: 210
+    ConstructionsID: d2000000
+  - ConstructionType: 220
+    ConstructionsID: dc000000
+  - ConstructionType: 230
+    ConstructionsID: e6000000
+  - ConstructionType: 240
+    ConstructionsID: f0000000
+  - ConstructionType: 250
+    ConstructionsID: fa000000
+  - ConstructionType: 260
+    ConstructionsID: 04010000
+  - ConstructionType: 270
+    ConstructionsID: 0e010000
+  - ConstructionType: 280
+    ConstructionsID: 18010000
+  - ConstructionType: 290
+    ConstructionsID: 22010000
+  - ConstructionType: 300
+    ConstructionsID: 2c010000
+  - ConstructionType: 310
+    ConstructionsID: 36010000
+  - ConstructionType: 320
+    ConstructionsID: 40010000
+  - ConstructionType: 330
+    ConstructionsID: 4a010000

@@ -3,23 +3,29 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Building
+  - Unit
+  - Worker
+  - PollenSource
+  - Base
+  - BuildMark
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - ConstructionGround
   - Water
   - UI
   - 
+  - TriggerZone
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Units
+  - Buildings
+  - ResourceSources
+  - PostProcessing
   - 
   - 
   - 

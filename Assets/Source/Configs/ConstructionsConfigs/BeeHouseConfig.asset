@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62dd7f0cf075407195d448ddef116a2c, type: 3}
+  m_Name: BeeHouseConfig
+  m_EditorClassIdentifier: 
+  buyCost:
+    _cells:
+    - Key: 0
+      Value: 10
+  levels:
+  - maxHealPoints: 1000
+    levelUpCost:
+      _cells: []
+    resourceCapacity:
+      _cells:
+      - Key: 1
+        Value: 10
+    <HiderCapacity>k__BackingField: 1
+  - maxHealPoints: 2000
+    levelUpCost:
+      _cells: []
+    resourceCapacity:
+      _cells:
+      - Key: 1
+        Value: 20
+    <HiderCapacity>k__BackingField: 2
+  hiderAccess: 00000000010000001e00000028000000320000003c0000004600000050000000

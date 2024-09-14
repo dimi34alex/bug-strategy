@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64c35bb2cbe647fd96dce4a6074d868b, type: 3}
+  m_Name: ButterflyUnitMiniMapIconConfig
+  m_EditorClassIdentifier: 
+  configuration:
+    iconPrefab: {fileID: 7485768178694941192, guid: b5208a521b16cb54ba99aeec2aaa2e8b, type: 3}
+    rotation: {x: 0.70710677, y: 0, z: 0, w: 0.70710677}

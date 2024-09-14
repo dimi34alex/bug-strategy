@@ -1,0 +1,93 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd1b54050d0480e98e6016a88bfdd3b, type: 3}
+  m_Name: ResourceGlobalStorageConfig
+  m_EditorClassIdentifier: 
+  initialStates:
+    _cells:
+    - Key: 10
+      Value:
+        _cells:
+        - Key: 0
+          Value:
+            <Capacity>k__BackingField: 10
+            <Value>k__BackingField: 10
+        - Key: 5
+          Value:
+            <Capacity>k__BackingField: 10
+            <Value>k__BackingField: 10
+        - Key: 1
+          Value:
+            <Capacity>k__BackingField: 10
+            <Value>k__BackingField: 10
+        - Key: 2
+          Value:
+            <Capacity>k__BackingField: 10
+            <Value>k__BackingField: 10
+        - Key: 10
+          Value:
+            <Capacity>k__BackingField: 10
+            <Value>k__BackingField: 10
+        - Key: 30
+          Value:
+            <Capacity>k__BackingField: 10
+            <Value>k__BackingField: 10
+    - Key: 20
+      Value:
+        _cells:
+        - Key: 0
+          Value:
+            <Capacity>k__BackingField: 10
+            <Value>k__BackingField: 10
+        - Key: 5
+          Value:
+            <Capacity>k__BackingField: 10
+            <Value>k__BackingField: 10
+        - Key: 1
+          Value:
+            <Capacity>k__BackingField: 10
+            <Value>k__BackingField: 10
+        - Key: 2
+          Value:
+            <Capacity>k__BackingField: 10
+            <Value>k__BackingField: 10
+        - Key: 10
+          Value:
+            <Capacity>k__BackingField: 10
+            <Value>k__BackingField: 10
+        - Key: 30
+          Value:
+            <Capacity>k__BackingField: 10
+            <Value>k__BackingField: 10
+    - Key: 30
+      Value:
+        _cells:
+        - Key: 40
+          Value:
+            <Capacity>k__BackingField: 10
+            <Value>k__BackingField: 10
+        - Key: 1
+          Value:
+            <Capacity>k__BackingField: 10
+            <Value>k__BackingField: 10
+        - Key: 0
+          Value:
+            <Capacity>k__BackingField: 10
+            <Value>k__BackingField: 10
+        - Key: 10
+          Value:
+            <Capacity>k__BackingField: 10
+            <Value>k__BackingField: 10
+        - Key: 30
+          Value:
+            <Capacity>k__BackingField: 10
+            <Value>k__BackingField: 10
