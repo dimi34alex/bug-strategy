@@ -1,146 +1,137 @@
-using Source.Scripts.UI.EntityInfo.ConstructionInfo;
-using Source.Scripts.UI.EntityInfo.UnitInfo;
-using Source.Scripts.UI.UI_WindowsBlocksScripts;
-using Source.Scripts.UI.UI_WindowsBlocksScripts.UI_Gameplay;
+using System;
+using BugStrategy.UI.Elements.EntityInfo.ConstructionInfo;
+using BugStrategy.UI.Elements.EntityInfo.UnitInfo;
+using BugStrategy.UI.Screens;
 using UnityEngine;
 
-namespace Source.Scripts.UI
+namespace BugStrategy.UI
 {
-    public class UIController : UIScreen
+    [DisallowMultipleComponent]
+    [RequireComponent(typeof(UIScreenRepository))]
+    public class UIController : MonoBehaviour
     {
-        private static UserBuilder builder;
-        private static GameObject UI_ActivScreen;
-        private static UI_Gameplay UI_GameplayWindows;
-
-        private UIUnitsConfig _uiUnitsConfig;
-
-        private static GameObject UI_PrevActivScreen;
+        private GameObject _uiActiveScreen;
+        private GameObject _uiPrevActiveScreen;
+        private UIScreenRepository _screenRepository;
 
         private static UI_ERROR _uiError;
     
         private UnitInfoScreen _unitInfoScreen;
-
         private ConstructionInfoScreen _constructionInfoScreen;
-    
-        private void Start()
+
+        private void Awake()
         {
-            builder = GameObject.Find("Builder").GetComponent<UserBuilder>();
-            if(builder == null)
-                Debug.LogError("Builder is null");
-        
-            UI_GameplayWindows = UIScreenRepository.GetScreen<UI_Gameplay>();
-            _uiUnitsConfig = ConfigsRepository.FindConfig<UIUnitsConfig>();
-            //определяем, какое окно у нас активно при запуске.
-            if (UIScreenRepository.GetScreen<UI_Gameplay>().isActiveAndEnabled)
-                UI_ActivScreen = UIScreenRepository.GetScreen<UI_Gameplay>().gameObject;
-            else
-            if (UIScreenRepository.GetScreen<UI_Buildings>().isActiveAndEnabled)
-                UI_ActivScreen = UIScreenRepository.GetScreen<UI_Buildings>().gameObject;
-            else
-            if (UIScreenRepository.GetScreen<UI_Tactics>().isActiveAndEnabled)
-                UI_ActivScreen = UIScreenRepository.GetScreen<UI_Tactics>().gameObject;
-            else
-            if (UIScreenRepository.GetScreen<UI_GameplayMenu>().isActiveAndEnabled)
-                UI_ActivScreen = UIScreenRepository.GetScreen<UI_GameplayMenu>().gameObject;
-            else
-            if (UIScreenRepository.GetScreen<UI_Settings>().isActiveAndEnabled)
-                UI_ActivScreen = UIScreenRepository.GetScreen<UI_Settings>().gameObject;
-            else
-            if (UIScreenRepository.GetScreen<UI_Win>().isActiveAndEnabled)
-                UI_ActivScreen = UIScreenRepository.GetScreen<UI_Win>().gameObject;
-            else
-            if (UIScreenRepository.GetScreen<UI_Lose>().isActiveAndEnabled)
-                UI_ActivScreen = UIScreenRepository.GetScreen<UI_Lose>().gameObject;
-            else
-            if (UIScreenRepository.GetScreen<UI_MainMenu>().isActiveAndEnabled)
-                UI_ActivScreen = UIScreenRepository.GetScreen<UI_MainMenu>().gameObject;
-            else
-            if (UIScreenRepository.GetScreen<UI_Saves>().isActiveAndEnabled)
-                UI_ActivScreen = UIScreenRepository.GetScreen<UI_Saves>().gameObject;
-
-            UI_PrevActivScreen = UI_ActivScreen;
-
-            _uiError =  UIScreenRepository.GetScreen<UI_ERROR>();
-        
-            _unitInfoScreen = UIScreenRepository.GetScreen<UnitInfoScreen>();
-
-            _constructionInfoScreen = UIScreenRepository.GetScreen<ConstructionInfoScreen>();
+            _screenRepository = GetComponent<UIScreenRepository>();
+            _screenRepository.Initialize();
         }
 
-        private void OnBuldingInstance(ConstructionID constructionID) 
-            => builder.SpawnConstructionMovableModel(constructionID);
-    
-        private void CloseUnitInfoWindow() 
-            => _unitInfoScreen.Hide();
-
-        private void CloseConstructionInfoWindow() 
-            => _constructionInfoScreen.Hide();
-
-        public void SetWindow(UnitBase unitBase)
+        private void Start()
         {
-            CloseUnitInfoWindow();
+            var screenTypes = new Type[]
+            {
+                typeof(UI_Gameplay),
+                typeof(UI_GameplayMenu),
+                typeof(UI_Settings),
+                typeof(UI_GameplayWin),
+                typeof(UI_GameplayLose),
+                typeof(UI_MainMenu),
+                typeof(UI_Saves),
+            };
+
+            //определяем, какое окно у нас активно при запуске.
+            foreach (var screenType in screenTypes)
+                if (IsActive(screenType, out _uiActiveScreen))
+                    break;
+
+            if (_uiActiveScreen == null)
+                throw new NullReferenceException("Cant find any active screen");
+
+            _uiPrevActiveScreen = _uiActiveScreen;
+
+            _uiError =  _screenRepository.GetScreen<UI_ERROR>();
+        
+            _unitInfoScreen = _screenRepository.GetScreen<UnitInfoScreen>();
+            _constructionInfoScreen = _screenRepository.GetScreen<ConstructionInfoScreen>();
+        }
+        
+        /// <param name="screenObj"> equal to null, if screen un active</param>
+        private bool IsActive(Type screenType, out GameObject screenObj)
+        {
+            screenObj = null;
+            var screen = _screenRepository.GetScreen(screenType);
+
+            if (screen != null && screen.isActiveAndEnabled)
+            {
+                screenObj = screen.gameObject;
+                return true;
+            }
+            
+            return false;
+        }
+
+        public void SetScreen(UnitBase unitBase)
+        {
+            _constructionInfoScreen.Hide();
             _unitInfoScreen.Show();
             _unitInfoScreen.SetUnit(unitBase);
         }
 
-        public void SetWindow(ConstructionBase construction)
+        public void SetScreen(ConstructionBase construction)
         {
-            CloseUnitInfoWindow();
+            _unitInfoScreen.Hide();
             _constructionInfoScreen.Show();
             _constructionInfoScreen.SetConstruction(construction);
         }
-
-        public void SetWindow(UIWindowType type)
+        
+        public void SetScreen(string screenTypeName)
         {
-            GameObject screenBuffer = UI_ActivScreen;
-            UI_ActivScreen.SetActive(false);
+            if (Enum.TryParse(screenTypeName, out UIScreenType screenType)) 
+                SetScreen(screenType);
+        }
+
+        public void SetScreen(UIScreenType type)
+        {
+            var screenBuffer = _uiActiveScreen;
+            _uiActiveScreen.SetActive(false);
 
             switch (type)
             {
-                case UIWindowType.Game:
+                case UIScreenType.Gameplay:
                     UnitSelection.Instance.DeselectAll();
-                    CloseUnitInfoWindow();
-                    CloseConstructionInfoWindow();
-                    UI_ActivScreen = UIScreenRepository.GetScreen<UI_Gameplay>().gameObject; 
+                    _unitInfoScreen.Hide();
+                    _constructionInfoScreen.Hide();
+                    _uiActiveScreen = _screenRepository.GetScreen<UI_Gameplay>().gameObject; 
                     break;
-                case UIWindowType.GameMain:
-                    UI_GameplayWindows.SetGameplayWindow(UIWindowType.GameMain, null); 
+                case UIScreenType.GameplayMenu:
+                    _uiActiveScreen = _screenRepository.GetScreen<UI_GameplayMenu>().gameObject; 
                     break;
-                case UIWindowType.GameplayMenu:
-                    UI_ActivScreen = UIScreenRepository.GetScreen<UI_GameplayMenu>().gameObject; 
+                case UIScreenType.Settings:
+                    _uiActiveScreen = _screenRepository.GetScreen<UI_Settings>().gameObject; 
                     break;
-                case UIWindowType.Settings:
-                    UI_ActivScreen = UIScreenRepository.GetScreen<UI_Settings>().gameObject; 
+                case UIScreenType.GameplayWin:
+                    _uiActiveScreen = _screenRepository.GetScreen<UI_GameplayWin>().gameObject; 
                     break;
-                case UIWindowType.GameWin:
-                    UI_ActivScreen = UIScreenRepository.GetScreen<UI_Win>().gameObject; 
+                case UIScreenType.GameplayLose:
+                    _uiActiveScreen = _screenRepository.GetScreen<UI_GameplayLose>().gameObject; 
                     break;
-                case UIWindowType.GameLose:
-                    UI_ActivScreen = UIScreenRepository.GetScreen<UI_Lose>().gameObject; 
+                case UIScreenType.MainMenu:
+                    _uiActiveScreen = _screenRepository.GetScreen<UI_MainMenu>().gameObject;
                     break;
-                case UIWindowType.Menu:
-                    UI_ActivScreen = UIScreenRepository.GetScreen<UI_MainMenu>().gameObject;
+                case UIScreenType.Saves:
+                    _uiActiveScreen = _screenRepository.GetScreen<UI_Saves>().gameObject; 
                     break;
-                case UIWindowType.Saves:
-                    UI_ActivScreen = UIScreenRepository.GetScreen<UI_Saves>().gameObject; 
+                case UIScreenType.Back:
+                    _uiActiveScreen = _uiPrevActiveScreen; 
                     break;
-                case UIWindowType.Back:
-                    UI_ActivScreen = UI_PrevActivScreen; 
-                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }
 
-            UI_PrevActivScreen = screenBuffer;
-            UI_ActivScreen.SetActive(true);
+            _uiPrevActiveScreen = screenBuffer;
+            _uiActiveScreen.SetActive(true);
         }
 
-        public static void ErrorCall(string error)
-        {
-            _uiError.ErrorCall(error);
-        }
-    
-        public static void Quite()
-        {
-            Application.Quit();
-        }
+        public static void ErrorCall(string error) 
+            => _uiError.ErrorCall(error);
     }
 }

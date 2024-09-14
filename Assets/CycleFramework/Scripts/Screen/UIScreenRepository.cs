@@ -1,36 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
+using BugStrategy.CycleFramework.Scripts.Screen;
 using UnityEngine;
 
-[DefaultExecutionOrder(-100)]
-public class UIScreenRepository : MonoBehaviour
+[DisallowMultipleComponent]
+public class UIScreenRepository : MonoBehaviour, IScreenRepository
 {
     private Dictionary<Type, UIScreen> _screens;
-
-    private static UIScreenRepository _instance;
-
-    private void Awake()
+    
+    public void Initialize()
     {
-        if (_instance != null )
-        {
-            Destroy(this);
-            return;
-        }
-
-        _instance = this;
-        _screens = new Dictionary<Type, UIScreen>();
-
-        foreach(UIScreen screen in FindObjectsOfType<UIScreen>(true))
+        var screens = GetComponentsInChildren<UIScreen>(true);
+        _screens = new Dictionary<Type, UIScreen>(screens.Length);
+        
+        foreach(var screen in screens)
             _screens.Add(screen.GetType(), screen);
     }
 
-    public static TScreen GetScreen<TScreen>() where TScreen : UIScreen
+    public TScreen GetScreen<TScreen>() where TScreen : UIScreen
     {
-        if (_instance is null)
-            throw new NullReferenceException($"Instance is null");
-
-        if (_instance._screens.TryGetValue(typeof(TScreen), out UIScreen screen))
+        if (_screens.TryGetValue(typeof(TScreen), out var screen))
             return (TScreen)screen;
+
+        return default;
+    }
+    
+    public UIScreen GetScreen(Type screenType)
+    {
+        if (_screens.TryGetValue(screenType, out var screen))
+            return screen;
 
         return default;
     }

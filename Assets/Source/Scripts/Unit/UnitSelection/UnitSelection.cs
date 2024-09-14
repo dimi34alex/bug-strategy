@@ -1,25 +1,24 @@
 ﻿using System.Collections.Generic;
+using BugStrategy.UI;
 using Source.Scripts.Missions;
-using Source.Scripts.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Zenject;
 
 public class UnitSelection : MonoBehaviour
 {
-    [Inject] MissionData _missionData;
+    [Inject] private readonly UIController _uiController;
+    [Inject] private readonly MissionData _missionData;
     
     private bool _isSelecting;
 
     private Vector3 _mouseStartSelectionPoint;
     private Vector3 _mouseEndSelectionPoint;
 
-    private UIController _UIController;
+    private List<UnitBase> UnitsInScreen => _missionData.UnitRepository.AllUnits;
+    private readonly List<UnitBase> _selectedUnits = new List<UnitBase>();
 
-    private List<UnitBase> _unitsInScreen => _missionData.UnitRepository.AllUnits;
-    private List<UnitBase> _selectedUnits = new List<UnitBase>();
-
-    public Camera Camera => Camera.main;
+    public static Camera Camera => Camera.main;
 
     public static UnitSelection Instance { get; private set; }
 
@@ -31,8 +30,6 @@ public class UnitSelection : MonoBehaviour
             return;
         }
         Instance = this;
-
-        _UIController = UIScreenRepository.GetScreen<UIController>();
     }
 
     private void Update()
@@ -97,7 +94,7 @@ public class UnitSelection : MonoBehaviour
             endPoint = oldStartPoint + offsetSelection;
         }
 
-        foreach (UnitBase unit in _unitsInScreen)
+        foreach (UnitBase unit in UnitsInScreen)
         {
             Vector2 unitCoordinate = new Vector2(unit.transform.position.x, unit.transform.position.z);
           
@@ -131,12 +128,12 @@ public class UnitSelection : MonoBehaviour
     {
         if (_selectedUnits != null && _selectedUnits.Count != 0)
         {
-            _UIController.SetWindow(_selectedUnits[0]);
+            _uiController.SetScreen(_selectedUnits[0]);
         }
         else
         {
             if (!EventSystem.current.IsPointerOverGameObject())
-                _UIController.SetWindow(UIWindowType.Game);
+                _uiController.SetScreen(UIScreenType.Gameplay);
         }
     }
     public void DeselectAllWithoutCheck()

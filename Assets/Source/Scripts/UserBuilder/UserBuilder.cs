@@ -1,12 +1,13 @@
+using BugStrategy.UI;
 using UnityEngine;
 using Zenject;
 using UnityEngine.EventSystems;
 using Constructions;
 using Source.Scripts.Missions;
-using Source.Scripts.UI;
 
 public class UserBuilder : CycleInitializerBase
 {
+    [Inject] private readonly UIController _uiController;
     [Inject] private readonly MissionData _missionData;
     [Inject] private readonly ConstructionsConfigsRepository _constructionsConfigsRepository;
     [Inject] private readonly IConstructionFactory _constructionFactory;
@@ -15,16 +16,10 @@ public class UserBuilder : CycleInitializerBase
 
     private GameObject _currentConstructionMovableModel;
     private ConstructionID _currentConstructionID;
-    private UIController _UIController;
     private bool _spawnConstruction;
     private float _numberTownHall;
     private UnitPool _pool;
     
-    protected override void OnInit()
-    {
-        _UIController = UIScreenRepository.GetScreen<UIController>();
-    }
-
     protected override void OnUpdate()
     {
         if (_spawnConstruction)
@@ -48,11 +43,11 @@ public class UserBuilder : CycleInitializerBase
                 var selectedConstruction = _missionData.ConstructionSelector.SelectedConstruction;
                 selectedConstruction.Select();
                 UnitSelection.Instance.DeselectAllWithoutCheck();
-                _UIController.SetWindow(selectedConstruction);
+                _uiController.SetScreen(selectedConstruction);
             }
             else if (!MouseCursorOverUI())
             {
-                _UIController.SetWindow(UIWindowType.GameMain);
+                _uiController.SetScreen(UIScreenType.Gameplay);
             }
         }
     }
