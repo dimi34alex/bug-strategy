@@ -3,6 +3,7 @@ namespace CycleFramework.Bootload
 {
     public enum CycleState
     {
-        Game = 10,
+        Initialize = 0,
+        Gameplay = 10,
     }
 }
