@@ -1,5 +1,5 @@
 using System;
-using System.Collections;
+using BugStrategy.CustomTimer;
 using BugStrategy.Trigger;
 using UnityEngine;
 
@@ -11,12 +11,27 @@ namespace BugStrategy.Tiles
         [SerializeField] private GameObject startFog;
 
         private bool _showStartWarFog = true;
-        private Coroutine _invisibleTimer;
         private int _watchersCount;
+        private Timer _invisibleTimer;
 
         public bool Visible { get; private set; }
         public event Action<ITriggerable> OnDisableITriggerableEvent;
-    
+        public event Action<Tile> OnDestroyed;
+
+        private void Awake()
+        {
+            _invisibleTimer = new Timer(5, 0, true);
+            _invisibleTimer.OnTimerEnd += HideTile;
+        }
+
+        private void OnDestroy()
+        {
+            OnDestroyed?.Invoke(this);
+        }
+
+        public void HandleUpdate(float deltaTime) 
+            => _invisibleTimer.Tick(deltaTime);
+
         public void AddWatcher()
         {
             _watchersCount++;
@@ -31,9 +46,8 @@ namespace BugStrategy.Tiles
             {
                 warFog.SetActive(false);
                 Visible = true;
-            
-                if(_invisibleTimer != null)
-                    StopCoroutine(_invisibleTimer);
+
+                _invisibleTimer.SetPause();
             }
         }
 
@@ -42,18 +56,16 @@ namespace BugStrategy.Tiles
             _watchersCount--;
 
 #if UNITY_EDITOR
-            if(_watchersCount < 0) Debug.LogError("_watchersCount is " + _watchersCount);
+            if(_watchersCount < 0) 
+                Debug.LogError("_watchersCount is " + _watchersCount);
 #endif
         
-            if (_watchersCount == 0 && gameObject.activeInHierarchy)
-            {
-                _invisibleTimer = StartCoroutine(MakeTileInvisibleCoroutine());
-            }
+            if (_watchersCount == 0 && gameObject.activeInHierarchy) 
+                _invisibleTimer.Reset();
         }
-    
-        IEnumerator MakeTileInvisibleCoroutine()
+        
+        private void HideTile()
         {
-            yield return new WaitForSeconds(5f);
             warFog.SetActive(true);
             Visible = false;
         }

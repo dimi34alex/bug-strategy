@@ -24,18 +24,16 @@ namespace BugStrategy.Missions
         public readonly ConstructionsRepository ConstructionsRepository = new();
         
         public readonly ITeamsResourcesGlobalStorage TeamsResourcesGlobalStorage;
-        public readonly TilesPositionsRepository TilesPositionsRepository;
         public readonly ConstructionSelector ConstructionSelector;
 
         public FractionType PlayerFraction => FractionTypes[PlayerAffiliation];
         
-        public MissionData(int missionIndex, MissionConfig missionConfig, ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage, TilesPositionsRepository tilesPositionsRepository) 
+        public MissionData(int missionIndex, MissionConfig missionConfig, ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage) 
         {
             MissionIndex = missionIndex;
             PlayerAffiliation = missionConfig.PlayerAffiliation;
             FractionTypes = missionConfig.FractionByAffiliation;
             TeamsResourcesGlobalStorage = teamsResourcesGlobalStorage;
-            TilesPositionsRepository = tilesPositionsRepository;
             ConstructionSelector = new ConstructionSelector(ConstructionsRepository);
         }
     }

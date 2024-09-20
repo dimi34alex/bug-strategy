@@ -1,6 +1,6 @@
-using System.Collections.Generic;
 using BugStrategy.Missions;
 using BugStrategy.ResourceSources;
+using BugStrategy.Tiles;
 using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;
@@ -12,24 +12,14 @@ namespace BugStrategy
         [SerializeField] private Vector3 centralPosition;
         [SerializeField] private float height;
         [SerializeField] private float width;
-
-        [SerializeField] private List<GameObject> tilesPrefabs;
-
-        [SerializeField] private List<ResourceSourceBase> flowerPrefabs;
-    
-        [SerializeField] private GameObject bushPrefab;
-        [SerializeField] private GameObject grassPrefab;
-        [SerializeField] private GameObject cloverPrefab;
+        [SerializeField] private int flowerGenChance;
 
         [Inject] private MissionData _missionData;
         [Inject] private GridConfig _constructionConfig;
+        [Inject] private TilesFactory _tilesFactory;
+        [Inject] private ResourceSourceFactory _resourceSourceFactory;
 
         private Vector3 _currentTilePosition;
-
-        public int flowerGenChance;
-        public int bushGenChance;
-        public int grassGenChance;
-        public int cloverGenChance;
 
         private void Start()
         {
@@ -44,40 +34,20 @@ namespace BugStrategy
 
         private void GenerateMap()
         {
-            bool stopGenerate = false;
-            while (!stopGenerate)
+            while (true)
             {
-                int tileNum = (int)Random.Range(0, tilesPrefabs.Count);
+                var tilePosition = _constructionConfig.RoundPositionToGrid(_currentTilePosition);
+                _tilesFactory.Create(tilePosition, Quaternion.identity);
 
-                Instantiate(tilesPrefabs[tileNum], _constructionConfig.RoundPositionToGrid(_currentTilePosition), Quaternion.Euler(0, 0, 0), this.transform);
-
-                int tryToSpawnFlower = (int)Random.Range(0, 100);
-                int tryToSpawnBush = (int)Random.Range(0, 100);
-                int tryToSpawnGrass = (int)Random.Range(0, 100);
-                int tryToSpawnClover = (int)Random.Range(0, 100);
-
+                var tryToSpawnFlower = Random.Range(0, 100);
                 if (tryToSpawnFlower < flowerGenChance)
                 {
-                    int flowerNum = (int)Random.Range(0, flowerPrefabs.Count);
-
                     var flowerPosition = _constructionConfig.RoundPositionToGrid(_currentTilePosition);
-                    var flower = Instantiate(flowerPrefabs[flowerNum], flowerPosition, Quaternion.Euler(0, 0, 0), this.transform);
+                    var flower = _resourceSourceFactory.Create(flowerPosition, Quaternion.identity);
+                    
                     _missionData.ResourceSourcesRepository.Add(flowerPosition, flower);
                     _missionData.ConstructionsRepository.BlockCell(flowerPosition);
                 }
-                else if (tryToSpawnBush < bushGenChance)
-                {
-                    Instantiate(bushPrefab, _constructionConfig.RoundPositionToGrid(_currentTilePosition), Quaternion.Euler(0, 0, 0), this.transform);
-                }
-                else if (tryToSpawnGrass < grassGenChance)
-                {
-                    Instantiate(grassPrefab, _constructionConfig.RoundPositionToGrid(_currentTilePosition), Quaternion.Euler(0, 0, 0), this.transform);
-                }
-                else if (tryToSpawnClover < cloverGenChance)
-                {
-                    Instantiate(cloverPrefab, _constructionConfig.RoundPositionToGrid(_currentTilePosition), Quaternion.Euler(0, 0, 0), this.transform);
-                }
-
 
                 _currentTilePosition.x += _constructionConfig.HexagonsOffsets.x/2;
 
@@ -85,10 +55,8 @@ namespace BugStrategy
                 {
                     _currentTilePosition.x = centralPosition.x - width/2;
                     _currentTilePosition.z -= _constructionConfig.HexagonsOffsets.y * 2;
-                    if (_currentTilePosition.z < centralPosition.z - height/2)
-                    {
-                        stopGenerate = true;
-                    }
+                    if (_currentTilePosition.z < centralPosition.z - height/2) 
+                        break;
                 }  
             }
         }
