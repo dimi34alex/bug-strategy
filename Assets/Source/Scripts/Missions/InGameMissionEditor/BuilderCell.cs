@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
@@ -17,9 +16,9 @@ namespace BugStrategy.Missions.InGameMissionEditor
     
     public class BuilderCell<T> : IBuilderCell where T : MonoBehaviour
     {
-        private readonly IReadOnlyList<T> _config;
-        private readonly GridConfig _gridConfig;
-        private readonly GridRepository<T> _gridRepository;
+        protected readonly IReadOnlyList<T> Config;
+        protected readonly GridConfig GridConfig;
+        protected readonly GridRepository<T> GridRepository;
 
         private bool _isActive;
         private T _activePrefab;
@@ -27,9 +26,9 @@ namespace BugStrategy.Missions.InGameMissionEditor
         
         public BuilderCell(GridConfig gridConfig, IReadOnlyList<T> config, GridRepository<T> gridRepository)
         {
-            _gridConfig = gridConfig;
-            _config = config;
-            _gridRepository = gridRepository;
+            GridConfig = gridConfig;
+            Config = config;
+            GridRepository = gridRepository;
         }
         
         private void PrepareTile(int index)
@@ -37,7 +36,7 @@ namespace BugStrategy.Missions.InGameMissionEditor
             if (_activeTile != null) 
                 Object.Destroy(_activeTile.gameObject);
 
-            _activePrefab = _config[index];
+            _activePrefab = Config[index];
             _activeTile = Object.Instantiate(_activePrefab);
         }
 
@@ -73,13 +72,13 @@ namespace BugStrategy.Missions.InGameMissionEditor
             var worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             worldPoint.y = 0;
             
-            _activeTile.transform.position = _gridConfig.RoundPositionToGrid(worldPoint);
+            _activeTile.transform.position = GridConfig.RoundPositionToGrid(worldPoint);
 
             if (Input.GetButtonDown("Fire1"))
             {
                 if (_activeTile != null)
                 {
-                    if (_gridRepository.TryAdd(_activeTile.transform.position, _activeTile))
+                    if (GridRepository.TryAdd(_activeTile.transform.position, _activeTile))
                     {
                         _activeTile = Object.Instantiate(_activePrefab);
                     }
@@ -91,15 +90,15 @@ namespace BugStrategy.Missions.InGameMissionEditor
 
         public void Clear()
         {
-            var pos = _gridRepository.Positions;
+            var pos = GridRepository.Positions;
             foreach (var position in pos) 
-                _gridRepository.Get(position, true);
+                GridRepository.Get(position, true);
         }
 
-        public void ManualRandomSpawn(Vector3 point)
+        public virtual void ManualRandomSpawn(Vector3 point)
         {
-            var randomIndex = Random.Range(0, _config.Count);
-            Object.Instantiate(_config[randomIndex], _gridConfig.RoundPositionToGrid(point), quaternion.identity);
+            var randomIndex = Random.Range(0, Config.Count);
+            Object.Instantiate(Config[randomIndex], GridConfig.RoundPositionToGrid(point), quaternion.identity);
         }
     }
 }
