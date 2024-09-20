@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using BugStrategy.Constructions;
+using BugStrategy.Missions.InGameMissionEditor;
 using BugStrategy.PoisonFog;
 using BugStrategy.Projectiles;
 using BugStrategy.ResourceSources;
 using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
 using BugStrategy.Unit;
+using ConstructionsRepository = BugStrategy.Constructions.ConstructionsRepository;
 
 namespace BugStrategy.Missions
 {
@@ -22,16 +24,18 @@ namespace BugStrategy.Missions
         public readonly ConstructionsRepository ConstructionsRepository = new();
         
         public readonly ITeamsResourcesGlobalStorage TeamsResourcesGlobalStorage;
+        public readonly TilesPositionsRepository TilesPositionsRepository;
         public readonly ConstructionSelector ConstructionSelector;
 
         public FractionType PlayerFraction => FractionTypes[PlayerAffiliation];
         
-        public MissionData(int missionIndex, MissionConfig missionConfig, ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage) 
+        public MissionData(int missionIndex, MissionConfig missionConfig, ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage, TilesPositionsRepository tilesPositionsRepository) 
         {
             MissionIndex = missionIndex;
             PlayerAffiliation = missionConfig.PlayerAffiliation;
             FractionTypes = missionConfig.FractionByAffiliation;
             TeamsResourcesGlobalStorage = teamsResourcesGlobalStorage;
+            TilesPositionsRepository = tilesPositionsRepository;
             ConstructionSelector = new ConstructionSelector(ConstructionsRepository);
         }
     }
