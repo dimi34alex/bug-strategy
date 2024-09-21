@@ -8,18 +8,17 @@ using Random = UnityEngine.Random;
 
 namespace BugStrategy.Factory
 {
-    public abstract class ObjectsFactoryBase<TId, TResult, TConfig>
-        where TConfig : IFactoryConfig<TId, TResult>
+    public abstract class ObjectsFactoryBase<TId, TResult>
         where TResult : Object
     {
         private readonly DiContainer _diContainer;
-        private readonly TConfig _config;
+        private readonly IFactoryConfig<TId, TResult> _config;
         private readonly Transform _parent;
         private readonly List<TId> _keys;
         
         public event Action<TResult> OnCreate;
 
-        protected ObjectsFactoryBase(DiContainer diContainer, TConfig config, string parentName)
+        protected ObjectsFactoryBase(DiContainer diContainer, IFactoryConfig<TId, TResult> config, string parentName)
         {
             _diContainer = diContainer;
             _config = config;

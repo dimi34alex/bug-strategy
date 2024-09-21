@@ -10,6 +10,7 @@ namespace BugStrategy.Missions.InGameMissionEditor
     [CreateAssetMenu(fileName = nameof(MissionEditorConfig), menuName = "Configs/Missions/Editor/" + nameof(MissionEditorConfig))]
     public class MissionEditorConfig : ScriptableObject, ISingleConfig
     {
+        [field: SerializeField] public Vector2Int DefaultGridSize { get; private set; } = new(33, 33);
         [SerializeField] private List<Tile> tiles;
         [SerializeField] private List<ConstructionBase> constructions;
         [SerializeField] private List<ResourceSourceBase> resourceSources;

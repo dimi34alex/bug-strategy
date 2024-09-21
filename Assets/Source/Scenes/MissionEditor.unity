@@ -1865,7 +1865,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initSize: {x: 3, y: 3}
   config: {fileID: 11400000, guid: 50c0702374a8fc84abab43697a9571f3, type: 2}
-  gridConfig: {fileID: 11400000, guid: 11aca8086f208c9439d3fa1ce2dccd00, type: 2}
 --- !u!4 &1006594893
 Transform:
   m_ObjectHideFlags: 0

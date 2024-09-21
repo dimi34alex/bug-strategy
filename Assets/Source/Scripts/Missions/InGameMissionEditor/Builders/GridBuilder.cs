@@ -1,5 +1,6 @@
-using System.Collections.Generic;
 using System.Linq;
+using BugStrategy.Factory;
+using BugStrategy.Missions.InGameMissionEditor.Commands;
 using BugStrategy.Missions.InGameMissionEditor.GridRepositories;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -11,16 +12,19 @@ namespace BugStrategy.Missions.InGameMissionEditor
         where  TTile : MonoBehaviour
     {
         protected readonly GridConfig GridConfig;
-        protected readonly GridRepository< TTile> GridRepository;
+        protected readonly GridRepository<TTile> GridRepository;
+        protected readonly ObjectsFactoryBase<TId, TTile> Factory;
 
         private bool _isActive;
         private TId _activeId;
         private TTile _activeTile;
 
-        protected GridBuilder(GridConfig gridConfig, GridRepository< TTile> gridRepository)
+        protected GridBuilder(GridConfig gridConfig, GridRepository< TTile> gridRepository, 
+            ObjectsFactoryBase<TId, TTile> factory)
         {
             GridConfig = gridConfig;
             GridRepository = gridRepository;
+            Factory = factory;
         }
         
         public void Activate(TId index)
@@ -48,15 +52,18 @@ namespace BugStrategy.Missions.InGameMissionEditor
             }
         }
 
-        protected abstract TTile Create(TId id, Vector3 point = default);
+        protected abstract ICommand CreateCommand(TId id, Vector3 point);
         
+        protected TTile CreateMovableModel(TId id, Vector3 point = default) 
+            => Factory.Create(id, point);
+
         private void PrepareTile(TId id)
         {
             if (_activeTile != null) 
                 Object.Destroy(_activeTile.gameObject);
 
             _activeId = id;
-            _activeTile = Create(_activeId);
+            _activeTile = CreateMovableModel(_activeId);
         }
         
         private void Update()
@@ -71,7 +78,7 @@ namespace BugStrategy.Missions.InGameMissionEditor
                 return;
 
             var worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            worldPoint.y = 0;
+            worldPoint.y = 0;   
             
             _activeTile.transform.position = GridConfig.RoundPositionToGrid(worldPoint);
 
@@ -79,11 +86,14 @@ namespace BugStrategy.Missions.InGameMissionEditor
             {
                 if (_activeTile != null)
                 {
-                    if (GridRepository.TryAdd(_activeTile.transform.position, _activeTile))
-                        _activeTile = Create(_activeId);
+                    if (!GridRepository.Exist(_activeTile.transform.position))
+                    {
+                        var command = CreateCommand(_activeId, _activeTile.transform.position);
+                        command.Execute();
+                    }
                 }
                 else
-                    _activeTile = Create(_activeId);
+                    _activeTile = CreateMovableModel(_activeId);
             }
         }
         

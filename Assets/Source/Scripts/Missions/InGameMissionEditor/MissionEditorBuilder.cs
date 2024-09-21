@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using BugStrategy.Constructions;
+using BugStrategy.Missions.InGameMissionEditor.Commands;
 using BugStrategy.Missions.InGameMissionEditor.EditorConstructions;
 using BugStrategy.Missions.InGameMissionEditor.GridRepositories;
 using BugStrategy.Missions.InGameMissionEditor.UI;
@@ -15,49 +16,50 @@ namespace BugStrategy.Missions.InGameMissionEditor
     {
         [SerializeField] private Vector2Int initSize;
         [SerializeField] private MissionEditorConfig config;
-        [SerializeField] private GridConfig gridConfig;
 
+        [Inject] private GridConfig _gridConfig;
         [Inject] private TilesFactory _tilesFactory;
         [Inject] private EditorConstructionsFactory _editorConstructionsFactory;
         [Inject] private ResourceSourceFactory _resourceSourceFactory;
         
         private MissionEditorUI _missionEditorUI;
         
-        private TilesPositionsRepository _tilesPositionsRepository;
-        private EditorConstructionsRepository _editorConstructionsRepository;
-        
-        private GameObject _activePrefab;
-        private GameObject _activeTile;
-
         private TilesBuilder _tilesBuilder;
         private EditorConstructionsBuilder _editorConstructionsBuilder;
         private ResourceSourcesBuilder _resourceSourceBuilder;
 
         private IGridBuilder _activeBuilder;
+
+        private CommandsFactory _commandsFactory;
+        private CommandsRepository _commandsRepository;
         
         private void Awake()
         {
             _missionEditorUI = FindObjectOfType<MissionEditorUI>();
 
-            var tilesRep = new TilesPositionsRepository(gridConfig);
-            var constrRep = new EditorConstructionsRepository(gridConfig);
-            var resRep = new ResourceSourceRepository(gridConfig);
+            var tilesRep = new TilesPositionsRepository(_gridConfig);
+            var constrRep = new EditorConstructionsRepository(_gridConfig);
+            var resRep = new ResourceSourceRepository(_gridConfig);
 
             var blockerForConstr = new GridBlockChecker(resRep);
             var blockerForRes = new GridBlockChecker(constrRep);
             
             constrRep.SetGridBlocker(blockerForConstr);
             resRep.SetGridBlocker(blockerForRes);
+
+            _commandsFactory = new CommandsFactory(_tilesFactory, tilesRep, _editorConstructionsFactory, constrRep,
+                _resourceSourceFactory, resRep);
+            _commandsRepository = new CommandsRepository(_commandsFactory);
             
-            _tilesBuilder = new TilesBuilder(gridConfig, tilesRep, _tilesFactory);
-            _editorConstructionsBuilder = new EditorConstructionsBuilder(gridConfig, constrRep, _editorConstructionsFactory);
-            _resourceSourceBuilder = new ResourceSourcesBuilder(gridConfig, resRep, _resourceSourceFactory);
+            _tilesBuilder = new TilesBuilder(_gridConfig, tilesRep, _tilesFactory, _commandsFactory);
+            _editorConstructionsBuilder = new EditorConstructionsBuilder(_gridConfig, constrRep, _editorConstructionsFactory, _commandsFactory);
+            _resourceSourceBuilder = new ResourceSourcesBuilder(_gridConfig, resRep, _resourceSourceFactory, _commandsFactory);
             
             _missionEditorUI.OnTilePressed += TilePrep;
             _missionEditorUI.OnConstructionPressed += ConstrPrep;
             _missionEditorUI.OnResourceSourcePressed += ResourceSourcePrep;
 
-            InitialGenerate(initSize.x, initSize.y);
+            InitialGenerate(config.DefaultGridSize);
         }
 
         private void ResourceSourcePrep(int index)
@@ -87,12 +89,23 @@ namespace BugStrategy.Missions.InGameMissionEditor
             _resourceSourceBuilder.DeActivate();
         }
 
+        [ContextMenu("UndoLastCommand")]
+        private void Undo() 
+            => _commandsRepository.UndoLastCommand();
+
+        [ContextMenu("ExecuteLastUndoCommand")]
+        private void Ex() 
+            => _commandsRepository.ExecuteLastUndoCommand();
+        
         [ContextMenu("Respawn")]
         private void Respawn()
         {
             _tilesBuilder.Clear();
             InitialGenerate(initSize.x, initSize.y);
         }
+        
+        private void InitialGenerate(Vector2Int size) 
+            => InitialGenerate(size.x, size.y);
         
         private async void InitialGenerate(int x, int y)
         {
@@ -109,31 +122,31 @@ namespace BugStrategy.Missions.InGameMissionEditor
                 shortColumnsCount = (int)Math.Floor((float)x / 2);
             var longColumnsCount = x - shortColumnsCount;
             
-            var center = gridConfig.RoundPositionToGrid(new Vector2(0, 0));
+            var center = _gridConfig.RoundPositionToGrid(new Vector2(0, 0));
             
-            var sxStartPoint = center.x - gridConfig.HexagonsOffsets.x * (int)Math.Floor((float)shortColumnsCount / 2);
-            var syStartPoint = center.y + gridConfig.HexagonsOffsets.y * (y - 1);
+            var sxStartPoint = center.x - _gridConfig.HexagonsOffsets.x * (int)Math.Floor((float)shortColumnsCount / 2);
+            var syStartPoint = center.y + _gridConfig.HexagonsOffsets.y * (y - 1);
             var shortColumnsStart = new Vector2(sxStartPoint, syStartPoint);
 
-            var lxStartPoint = center.x - gridConfig.HexagonsOffsets.x / 2 - gridConfig.HexagonsOffsets.x * (int)Math.Floor((float)(longColumnsCount - 1) / 2);
-            var lyStartPoint = center.y + gridConfig.HexagonsOffsets.y + gridConfig.HexagonsOffsets.y * (y - 1);
+            var lxStartPoint = center.x - _gridConfig.HexagonsOffsets.x / 2 - _gridConfig.HexagonsOffsets.x * (int)Math.Floor((float)(longColumnsCount - 1) / 2);
+            var lyStartPoint = center.y + _gridConfig.HexagonsOffsets.y + _gridConfig.HexagonsOffsets.y * (y - 1);
             var longColumnsStart = new Vector2(lxStartPoint, lyStartPoint);
             
-            shortColumnsStart = gridConfig.RoundPositionToGrid(shortColumnsStart);
-            longColumnsStart = gridConfig.RoundPositionToGrid(longColumnsStart);
+            shortColumnsStart = _gridConfig.RoundPositionToGrid(shortColumnsStart);
+            longColumnsStart = _gridConfig.RoundPositionToGrid(longColumnsStart);
             
             var columnStartPoint = shortColumnsStart;
             for (int i = 0; i < shortColumnsCount; i++)
             {
                 await SpawnColumn(columnStartPoint, y);
-                columnStartPoint += Vector2.right * gridConfig.HexagonsOffsets.x;
+                columnStartPoint += Vector2.right * _gridConfig.HexagonsOffsets.x;
             }
 
             columnStartPoint = longColumnsStart;
             for (int i = 0; i < longColumnsCount; i++)
             {
                 await SpawnColumn(columnStartPoint, y + 1);
-                columnStartPoint += Vector2.right * gridConfig.HexagonsOffsets.x;
+                columnStartPoint += Vector2.right * _gridConfig.HexagonsOffsets.x;
             }
         }
         
@@ -144,8 +157,8 @@ namespace BugStrategy.Missions.InGameMissionEditor
             {
                 var spawnPoint = new Vector3(curPoint.x, 0, curPoint.y);
                 _tilesBuilder.ManualRandomSpawn(spawnPoint);
-                curPoint += Vector2.down * gridConfig.HexagonsOffsets.y * 2;
-                await Task.Delay(100);
+                curPoint += Vector2.down * _gridConfig.HexagonsOffsets.y * 2;
+                // await Task.Delay(100);
             }
         }
     }
