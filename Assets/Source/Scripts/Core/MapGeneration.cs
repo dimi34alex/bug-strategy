@@ -37,13 +37,13 @@ namespace BugStrategy
             while (true)
             {
                 var tilePosition = _constructionConfig.RoundPositionToGrid(_currentTilePosition);
-                _tilesFactory.Create(tilePosition, Quaternion.identity);
+                _tilesFactory.Create(tilePosition);
 
                 var tryToSpawnFlower = Random.Range(0, 100);
                 if (tryToSpawnFlower < flowerGenChance)
                 {
                     var flowerPosition = _constructionConfig.RoundPositionToGrid(_currentTilePosition);
-                    var flower = _resourceSourceFactory.Create(flowerPosition, Quaternion.identity);
+                    var flower = _resourceSourceFactory.Create(flowerPosition);
                     
                     _missionData.ResourceSourcesRepository.Add(flowerPosition, flower);
                     _missionData.ConstructionsRepository.BlockCell(flowerPosition);
