@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using BugStrategy.Constructions;
 using UnityEngine;
 
-namespace BugStrategy.Missions.InGameMissionEditor
+namespace BugStrategy.Missions.InGameMissionEditor.GridRepositories
 {
     public abstract class GridRepository<TValue>
     {
