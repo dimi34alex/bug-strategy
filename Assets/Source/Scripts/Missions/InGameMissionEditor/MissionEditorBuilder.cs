@@ -42,6 +42,12 @@ namespace BugStrategy.Missions.InGameMissionEditor
             var tilesRep = new TilesPositionsRepository(gridConfig);
             var constrRep = new EditorConstructionsRepository(gridConfig);
             var resRep = new ResourceSourceRepository(gridConfig);
+
+            var blockerForConstr = new GridBlockChecker(resRep);
+            var blockerForRes = new GridBlockChecker(constrRep);
+            
+            constrRep.SetGridBlocker(blockerForConstr);
+            resRep.SetGridBlocker(blockerForRes);
             
             _tilesBuilder = new TilesBuilder(gridConfig, tilesRep, _tilesFactory);
             _editorConstructionsBuilder = new EditorConstructionsBuilder(gridConfig, constrRep, _editorConstructionsFactory);

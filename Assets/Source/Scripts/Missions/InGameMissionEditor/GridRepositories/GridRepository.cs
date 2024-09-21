@@ -5,11 +5,13 @@ using UnityEngine;
 
 namespace BugStrategy.Missions.InGameMissionEditor.GridRepositories
 {
-    public abstract class GridRepository<TValue>
+    public abstract class GridRepository<TValue> : IGridRepository
     {
         private readonly GridConfig _gridConfig;
         private readonly Dictionary<GridKey3, TValue> _tiles;
         private readonly HashSet<GridKey3> _blockedCells;
+
+        private GridBlockChecker _gridBlockChecker;
 
         public IReadOnlyCollection<GridKey3> Positions => _tiles.Keys;
 
@@ -21,8 +23,12 @@ namespace BugStrategy.Missions.InGameMissionEditor.GridRepositories
             _blockedCells = new HashSet<GridKey3>();
         }
 
-        public bool Exist(Vector3 position, bool blockIgnore = true) 
-            => _tiles.ContainsKey(position) || !blockIgnore && _blockedCells.Contains(position);
+        public void SetGridBlocker(GridBlockChecker gridBlocker) 
+            => _gridBlockChecker = gridBlocker; 
+
+        public bool Exist(Vector3 position, bool blockIgnore = true, bool includeGridBlocker = true) 
+            => _tiles.ContainsKey(position) || !blockIgnore && _blockedCells.Contains(position) ||
+               includeGridBlocker && _gridBlockChecker != null && _gridBlockChecker.Blocked(position);
 
         public bool Exist<TType>(Vector3 position, bool blockIgnore = true) where TType : IConstruction 
             => Exist(position, blockIgnore) && Get(position) is TType;
