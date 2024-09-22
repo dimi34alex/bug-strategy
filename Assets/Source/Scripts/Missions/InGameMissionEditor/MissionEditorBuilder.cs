@@ -35,9 +35,9 @@ namespace BugStrategy.Missions.InGameMissionEditor
         {
             _missionEditorUI = FindObjectOfType<MissionEditorUI>();
 
-            var tilesRep = new TilesPositionsRepository(_gridConfig);
-            var constrRep = new EditorConstructionsRepository(_gridConfig);
-            var resRep = new ResourceSourceRepository(_gridConfig);
+            var tilesRep = new TilesPositionsRepository();
+            var constrRep = new EditorConstructionsRepository();
+            var resRep = new ResourceSourceRepository();
 
             var blockerForConstr = new GridBlockChecker(resRep);
             var blockerForRes = new GridBlockChecker(constrRep);

@@ -86,7 +86,7 @@ namespace BugStrategy.Missions.InGameMissionEditor
             {
                 if (_activeTile != null)
                 {
-                    if (!GridRepository.Exist(_activeTile.transform.position))
+                    if (GridRepository.FreeInOtherGrids(_activeTile.transform.position))
                     {
                         var command = CreateCommand(_activeId, _activeTile.transform.position);
                         command.Execute();

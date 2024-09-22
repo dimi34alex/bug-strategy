@@ -4,6 +4,5 @@ namespace BugStrategy.Missions.InGameMissionEditor.GridRepositories
 {
     public class ResourceSourceRepository : GridRepository<ResourceSourceBase>
     {
-        public ResourceSourceRepository(GridConfig gridConfig) : base(gridConfig) { }
     }
 }
