@@ -39,11 +39,8 @@ namespace BugStrategy.Missions.InGameMissionEditor
             var constrRep = new EditorConstructionsRepository();
             var resRep = new ResourceSourceRepository();
 
-            var blockerForConstr = new GridBlockChecker(resRep);
-            var blockerForRes = new GridBlockChecker(constrRep);
-            
-            constrRep.SetGridBlocker(blockerForConstr);
-            resRep.SetGridBlocker(blockerForRes);
+            constrRep.SetGridBlocker(new IGridRepository[] { resRep });
+            resRep.SetGridBlocker(new IGridRepository[] { constrRep });
 
             _commandsFactory = new CommandsFactory(_tilesFactory, tilesRep, _editorConstructionsFactory, constrRep,
                 _resourceSourceFactory, resRep);

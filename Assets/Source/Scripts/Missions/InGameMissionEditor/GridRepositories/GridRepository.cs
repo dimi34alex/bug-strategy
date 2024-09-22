@@ -10,22 +10,31 @@ namespace BugStrategy.Missions.InGameMissionEditor.GridRepositories
         private readonly Dictionary<GridKey3, TValue> _tiles = new();
         private readonly HashSet<GridKey3> _blockedCells = new();
 
-        private GridBlockChecker _gridBlockChecker;
+        private IGridRepository[] _gridRepositories;
 
         public IReadOnlyDictionary<GridKey3, TValue> Tiles => _tiles;
         public IReadOnlyCollection<GridKey3> Positions => _tiles.Keys;
 
-        public void SetGridBlocker(GridBlockChecker gridBlocker) 
-            => _gridBlockChecker = gridBlocker; 
+        public void SetGridBlocker(IGridRepository[] gridRepositories) 
+            => _gridRepositories = gridRepositories; 
 
-        public bool FreeInOtherGrids(Vector3 position) 
-            => _gridBlockChecker == null || !_gridBlockChecker.Blocked(position);
-        
-        public bool Exist(Vector3 position, bool blockIgnore = true, bool includeGridBlocker = true) 
+        public bool FreeInExternalGrids(Vector3 position)
+        {
+            if (_gridRepositories == null || _gridRepositories.Length <= 0)
+                return true;
+
+            foreach (var gridRepository in _gridRepositories)
+                if (gridRepository.Exist(position, false, false))
+                    return false;
+
+            return true;
+        }
+
+        public bool Exist(Vector3 position, bool blockIgnore = true, bool includeExternalGrids = true) 
             => _tiles.ContainsKey(position) || !blockIgnore && _blockedCells.Contains(position) ||
-               includeGridBlocker && !FreeInOtherGrids(position);
+               includeExternalGrids && !FreeInExternalGrids(position);
 
-        public bool Exist<TType>(Vector3 position, bool blockIgnore = true, bool includeGridBlocker = true) 
+        public bool Exist<TType>(Vector3 position, bool blockIgnore = true, bool includeExternalGrids = true) 
             where TType : IConstruction 
             => Exist(position, blockIgnore) && Get(position) is TType;
 
