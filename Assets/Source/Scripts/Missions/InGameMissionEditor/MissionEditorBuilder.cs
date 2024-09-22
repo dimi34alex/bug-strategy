@@ -19,6 +19,13 @@ namespace BugStrategy.Missions.InGameMissionEditor
         [Inject] private TilesFactory _tilesFactory;
         [Inject] private EditorConstructionsFactory _editorConstructionsFactory;
         [Inject] private ResourceSourceFactory _resourceSourceFactory;
+
+        [Inject] private TilesPositionsRepository _tilesPositionsRepository;
+        [Inject] private EditorConstructionsRepository _editorConstructionsRepository;
+        [Inject] private ResourceSourceRepository _resourceSourceRepository;
+        
+        [Inject] private CommandsRepository _commandsRepository;
+        [Inject] private CommandsFactory _commandsFactory;
         
         private MissionEditorUI _missionEditorUI;
         
@@ -27,28 +34,17 @@ namespace BugStrategy.Missions.InGameMissionEditor
         private ResourceSourcesBuilder _resourceSourceBuilder;
 
         private IGridBuilder _activeBuilder;
-
-        private CommandsFactory _commandsFactory;
-        private CommandsRepository _commandsRepository;
         
         private void Awake()
         {
             _missionEditorUI = FindObjectOfType<MissionEditorUI>();
 
-            var tilesRep = new TilesPositionsRepository();
-            var constrRep = new EditorConstructionsRepository();
-            var resRep = new ResourceSourceRepository();
-
-            constrRep.SetGridBlocker(new IGridRepository[] { resRep });
-            resRep.SetGridBlocker(new IGridRepository[] { constrRep });
-
-            _commandsFactory = new CommandsFactory(_tilesFactory, tilesRep, _editorConstructionsFactory, constrRep,
-                _resourceSourceFactory, resRep);
-            _commandsRepository = new CommandsRepository(_commandsFactory);
+            _editorConstructionsRepository.SetGridBlocker(new IGridRepository[] { _resourceSourceRepository });
+            _resourceSourceRepository.SetGridBlocker(new IGridRepository[] { _editorConstructionsRepository });
             
-            _tilesBuilder = new TilesBuilder(_gridConfig, tilesRep, _tilesFactory, _commandsFactory);
-            _editorConstructionsBuilder = new EditorConstructionsBuilder(_gridConfig, constrRep, _editorConstructionsFactory, _commandsFactory);
-            _resourceSourceBuilder = new ResourceSourcesBuilder(_gridConfig, resRep, _resourceSourceFactory, _commandsFactory);
+            _tilesBuilder = new TilesBuilder(_gridConfig, _tilesPositionsRepository, _tilesFactory, _commandsFactory);
+            _editorConstructionsBuilder = new EditorConstructionsBuilder(_gridConfig, _editorConstructionsRepository, _editorConstructionsFactory, _commandsFactory);
+            _resourceSourceBuilder = new ResourceSourcesBuilder(_gridConfig, _resourceSourceRepository, _resourceSourceFactory, _commandsFactory);
             
             _missionEditorUI.OnTilePressed += TilePrep;
             _missionEditorUI.OnConstructionPressed += ConstrPrep;

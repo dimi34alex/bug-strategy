@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace BugStrategy.Missions.InGameMissionEditor.Commands
@@ -9,6 +10,11 @@ namespace BugStrategy.Missions.InGameMissionEditor.Commands
 
         private readonly Stack<ICommand> _executedCommands = new(32);
         private readonly Stack<ICommand> _undoCommands = new(32);
+
+        public int ExecutedCommandsCount => _executedCommands.Count;
+        public int UndoCommandsCount => _undoCommands.Count;
+
+        public Action OnChange;
         
         public CommandsRepository(CommandsFactory commandsFactory)
         {
@@ -24,6 +30,7 @@ namespace BugStrategy.Missions.InGameMissionEditor.Commands
             var command = _executedCommands.Pop();
             command.Undo();
             _undoCommands.Push(command);
+            OnChange?.Invoke();
         }
         
         public void RedoCommand()
@@ -33,12 +40,14 @@ namespace BugStrategy.Missions.InGameMissionEditor.Commands
             
             var command = _undoCommands.Pop();
             command.Execute();
+            OnChange?.Invoke();
         }
 
         public void Clear()
         {
             _executedCommands.Clear();
             _undoCommands.Clear();
+            OnChange?.Invoke();
         }
         
         private void AddCommand(ICommand command)
@@ -46,12 +55,14 @@ namespace BugStrategy.Missions.InGameMissionEditor.Commands
             command.OnExecuted += OnCommandExecuted;
             _commands.Add(command);
             _undoCommands.Clear();
+            OnChange?.Invoke();
         }
 
         private void OnCommandExecuted(ICommand command)
         {
             _commands.Remove(command);
             _executedCommands.Push(command);
+            OnChange?.Invoke();
         }
     }
 }
