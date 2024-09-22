@@ -16,7 +16,7 @@ namespace BugStrategy.Missions.InGameMissionEditor.Commands
             _commandsFactory.OnCommandCreated += AddCommand;
         }
         
-        public void UndoLastCommand()
+        public void UndoCommand()
         {
             if (_executedCommands.Count <= 0)
                 return;
@@ -26,7 +26,7 @@ namespace BugStrategy.Missions.InGameMissionEditor.Commands
             _undoCommands.Push(command);
         }
         
-        public void ExecuteLastUndoCommand()
+        public void RedoCommand()
         {
             if (_undoCommands.Count <= 0)
                 return;

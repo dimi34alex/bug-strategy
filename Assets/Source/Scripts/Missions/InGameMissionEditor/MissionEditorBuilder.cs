@@ -87,11 +87,11 @@ namespace BugStrategy.Missions.InGameMissionEditor
 
         [ContextMenu("UndoLastCommand")]
         private void Undo() 
-            => _commandsRepository.UndoLastCommand();
+            => _commandsRepository.UndoCommand();
 
         [ContextMenu("ExecuteLastUndoCommand")]
         private void Ex() 
-            => _commandsRepository.ExecuteLastUndoCommand();
+            => _commandsRepository.RedoCommand();
         
         public void Generate(Vector2Int size)
             => _tilesBuilder.Generate(size);
