@@ -93,8 +93,7 @@ namespace BugStrategy.Missions.InGameMissionEditor
         private void Ex() 
             => _commandsRepository.ExecuteLastUndoCommand();
         
-        [ContextMenu("Generate")]
-        private void Generate() 
-            => _tilesBuilder.Generate(initSize);
+        public void Generate(Vector2Int size)
+            => _tilesBuilder.Generate(size);
     }
 }
