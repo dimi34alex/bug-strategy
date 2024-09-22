@@ -34,6 +34,12 @@ namespace BugStrategy.Missions.InGameMissionEditor.Commands
             var command = _undoCommands.Pop();
             command.Execute();
         }
+
+        public void Clear()
+        {
+            _executedCommands.Clear();
+            _undoCommands.Clear();
+        }
         
         private void AddCommand(ICommand command)
         {

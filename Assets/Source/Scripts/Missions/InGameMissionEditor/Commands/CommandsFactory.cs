@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using BugStrategy.Constructions;
 using BugStrategy.Missions.InGameMissionEditor.EditorConstructions;
 using BugStrategy.Missions.InGameMissionEditor.GridRepositories;
@@ -50,6 +51,13 @@ namespace BugStrategy.Missions.InGameMissionEditor.Commands
         public BuildResourceSourceCommand BuildResourceSourceCommand(int id, Vector3 point)
         {
             var command = new BuildResourceSourceCommand(id, point, _resourceSourceFactory, _resourceSourceRepository);
+            OnCommandCreated?.Invoke(command);
+            return command;
+        }
+
+        public GenerateGroundTilesCommand GenerateGroundTilesCommand(IReadOnlyDictionary<Vector3, int> newTiles)
+        {
+            var command = new GenerateGroundTilesCommand(newTiles, _tilesFactory, _tilesPositionsRepository);
             OnCommandCreated?.Invoke(command);
             return command;
         }

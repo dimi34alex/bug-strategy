@@ -13,6 +13,7 @@ namespace BugStrategy.Missions.InGameMissionEditor.GridRepositories
 
         private GridBlockChecker _gridBlockChecker;
 
+        public IReadOnlyDictionary<GridKey3, TValue> Tiles => _tiles;
         public IReadOnlyCollection<GridKey3> Positions => _tiles.Keys;
 
         public GridRepository(GridConfig gridConfig)

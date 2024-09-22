@@ -1,5 +1,3 @@
-using System;
-using System.Threading.Tasks;
 using BugStrategy.Constructions;
 using BugStrategy.Missions.InGameMissionEditor.Commands;
 using BugStrategy.Missions.InGameMissionEditor.EditorConstructions;
@@ -59,9 +57,13 @@ namespace BugStrategy.Missions.InGameMissionEditor
             _missionEditorUI.OnConstructionPressed += ConstrPrep;
             _missionEditorUI.OnResourceSourcePressed += ResourceSourcePrep;
 
-            InitialGenerate(config.DefaultGridSize);
+            _tilesBuilder.Generate(config.DefaultGridSize);
+            _commandsRepository.Clear();
         }
 
+        private void Update() 
+            => _activeBuilder?.ManualUpdate();
+        
         private void ResourceSourcePrep(int index)
         {
             _activeBuilder = _resourceSourceBuilder;
@@ -69,9 +71,6 @@ namespace BugStrategy.Missions.InGameMissionEditor
             _editorConstructionsBuilder.DeActivate();
             _resourceSourceBuilder.Activate(index);
         }
-
-        private void Update() 
-            => _activeBuilder?.ManualUpdate();
 
         private void TilePrep(int ind)
         {
@@ -97,69 +96,8 @@ namespace BugStrategy.Missions.InGameMissionEditor
         private void Ex() 
             => _commandsRepository.ExecuteLastUndoCommand();
         
-        [ContextMenu("Respawn")]
-        private void Respawn()
-        {
-            _tilesBuilder.Clear();
-            InitialGenerate(initSize.x, initSize.y);
-        }
-        
-        private void InitialGenerate(Vector2Int size) 
-            => InitialGenerate(size.x, size.y);
-        
-        private async void InitialGenerate(int x, int y)
-        {
-            if (x % 2 == 0)
-                x += 1;
-
-            if (y % 2 == 0)
-                y += 1;
-            
-            var shortColumnsCount = 0;
-            if ((x + 1) % 4 != 0) 
-                shortColumnsCount = (int)Math.Ceiling((float)x / 2);
-            else
-                shortColumnsCount = (int)Math.Floor((float)x / 2);
-            var longColumnsCount = x - shortColumnsCount;
-            
-            var center = _gridConfig.RoundPositionToGrid(new Vector2(0, 0));
-            
-            var sxStartPoint = center.x - _gridConfig.HexagonsOffsets.x * (int)Math.Floor((float)shortColumnsCount / 2);
-            var syStartPoint = center.y + _gridConfig.HexagonsOffsets.y * (y - 1);
-            var shortColumnsStart = new Vector2(sxStartPoint, syStartPoint);
-
-            var lxStartPoint = center.x - _gridConfig.HexagonsOffsets.x / 2 - _gridConfig.HexagonsOffsets.x * (int)Math.Floor((float)(longColumnsCount - 1) / 2);
-            var lyStartPoint = center.y + _gridConfig.HexagonsOffsets.y + _gridConfig.HexagonsOffsets.y * (y - 1);
-            var longColumnsStart = new Vector2(lxStartPoint, lyStartPoint);
-            
-            shortColumnsStart = _gridConfig.RoundPositionToGrid(shortColumnsStart);
-            longColumnsStart = _gridConfig.RoundPositionToGrid(longColumnsStart);
-            
-            var columnStartPoint = shortColumnsStart;
-            for (int i = 0; i < shortColumnsCount; i++)
-            {
-                await SpawnColumn(columnStartPoint, y);
-                columnStartPoint += Vector2.right * _gridConfig.HexagonsOffsets.x;
-            }
-
-            columnStartPoint = longColumnsStart;
-            for (int i = 0; i < longColumnsCount; i++)
-            {
-                await SpawnColumn(columnStartPoint, y + 1);
-                columnStartPoint += Vector2.right * _gridConfig.HexagonsOffsets.x;
-            }
-        }
-        
-        private async Task SpawnColumn(Vector2 startPoint, int y)
-        {
-            var curPoint = startPoint;
-            for (int i = 0; i < y; i++)
-            {
-                var spawnPoint = new Vector3(curPoint.x, 0, curPoint.y);
-                _tilesBuilder.ManualRandomSpawn(spawnPoint);
-                curPoint += Vector2.down * _gridConfig.HexagonsOffsets.y * 2;
-                // await Task.Delay(100);
-            }
-        }
+        [ContextMenu("Generate")]
+        private void Generate() 
+            => _tilesBuilder.Generate(initSize);
     }
 }
