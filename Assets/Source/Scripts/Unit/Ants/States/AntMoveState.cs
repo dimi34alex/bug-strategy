@@ -23,8 +23,11 @@ namespace BugStrategy.Unit.Ants
         
         public override void OnStateEnter()
         {
-            _ant.SetDestination(_ant.TargetMovePosition);
-            _ant.OnTargetMovePositionChange += UpdateDestinationPosition;
+            if(_ant != null)
+            {
+                _ant.SetDestination(_ant.TargetMovePosition);
+                _ant.OnTargetMovePositionChange += UpdateDestinationPosition;
+            }
 
             if (_ant.CurrentPathData.Target.IsAnyNull())
                 UpdateEvent += ManualCheckDistance;
