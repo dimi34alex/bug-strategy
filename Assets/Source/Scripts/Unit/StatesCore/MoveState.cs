@@ -26,37 +26,46 @@ namespace BugStrategy.Unit
         
         public override void OnStateEnter()
         {
-            _unit.SetDestination(_unit.TargetMovePosition);
-            _unit.OnTargetMovePositionChange += UpdateDestinationPosition;
+            if(_unit != null)
+            {
+                _unit.SetDestination(_unit.TargetMovePosition);
+                _unit.OnTargetMovePositionChange += UpdateDestinationPosition;
 
-            if (_unit.CurrentPathData.Target.IsAnyNull())
-                UpdateEvent += ManualCheckDistance;
-            else
-                _orderValidator.OnEnterInZone += CheckTargetDistance;
+                if(_unit.CurrentPathData.Target.IsAnyNull())
+                    UpdateEvent += ManualCheckDistance;
+                else
+                    _orderValidator.OnEnterInZone += CheckTargetDistance;
+            }
         }
 
         public override void OnStateExit()
         {
-            _unit.SetDestination(_unit.Transform.position);
-            _unit.OnTargetMovePositionChange -= UpdateDestinationPosition;
-            
-            UpdateEvent -= ManualCheckDistance;
-            _orderValidator.OnEnterInZone -= CheckTargetDistance;
+            if(_unit != null)
+            {
+                _unit.SetDestination(_unit.Transform.position);
+                _unit.OnTargetMovePositionChange -= UpdateDestinationPosition;
+
+                UpdateEvent -= ManualCheckDistance;
+                _orderValidator.OnEnterInZone -= CheckTargetDistance;
+            }
         }
 
         public override void OnUpdate() => UpdateEvent?.Invoke();
 
         private void UpdateDestinationPosition()
         {
-            _unit.SetDestination(_unit.TargetMovePosition);
-            
-            UpdateEvent -= ManualCheckDistance;
-            _orderValidator.OnEnterInZone -= CheckTargetDistance;
+            if(_unit != null)
+            {
+                _unit.SetDestination(_unit.TargetMovePosition);
 
-            if (_unit.CurrentPathData.Target.IsAnyNull())
-                UpdateEvent += ManualCheckDistance;
-            else
-                _orderValidator.OnEnterInZone += CheckTargetDistance;
+                UpdateEvent -= ManualCheckDistance;
+                _orderValidator.OnEnterInZone -= CheckTargetDistance;
+
+                if(_unit.CurrentPathData.Target.IsAnyNull())
+                    UpdateEvent += ManualCheckDistance;
+                else
+                    _orderValidator.OnEnterInZone += CheckTargetDistance;
+            }
         }
 
         private void ManualCheckDistance()
