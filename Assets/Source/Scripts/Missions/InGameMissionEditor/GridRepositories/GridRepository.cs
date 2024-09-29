@@ -4,25 +4,25 @@ using UnityEngine;
 
 namespace BugStrategy.Missions.InGameMissionEditor.GridRepositories
 {
-    public abstract class GridRepository<TValue> : IGridRepository
+    public abstract class GridRepository<TValue> : IGridRepository<TValue>
     {
         private readonly Dictionary<GridKey3, TValue> _tiles = new();
         private readonly HashSet<GridKey3> _blockedCells = new();
 
-        private IGridRepository[] _gridRepositories;
+        private IGridRepository[] _externalGrids;
 
         public IReadOnlyDictionary<GridKey3, TValue> Tiles => _tiles;
         public IReadOnlyCollection<GridKey3> Positions => _tiles.Keys;
 
-        public void SetGridBlocker(IGridRepository[] gridRepositories) 
-            => _gridRepositories = gridRepositories; 
+        public void SetExternalGrids(IGridRepository[] externalGrids) 
+            => _externalGrids = externalGrids; 
 
         public bool FreeInExternalGrids(Vector3 position)
         {
-            if (_gridRepositories == null || _gridRepositories.Length <= 0)
+            if (_externalGrids == null || _externalGrids.Length <= 0)
                 return true;
 
-            foreach (var gridRepository in _gridRepositories)
+            foreach (var gridRepository in _externalGrids)
                 if (gridRepository.Exist(position, false, false))
                     return false;
 

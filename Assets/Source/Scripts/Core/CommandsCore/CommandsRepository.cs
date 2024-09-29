@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 
-namespace BugStrategy.Missions.InGameMissionEditor.Commands
+namespace BugStrategy.CommandsCore
 {
     public class CommandsRepository
     {
         private readonly List<ICommand> _commands = new(32);
-        private readonly CommandsFactory _commandsFactory;
+        private readonly ICommandsFactory _commandsFactory;
 
         private readonly Stack<ICommand> _executedCommands = new(32);
         private readonly Stack<ICommand> _undoCommands = new(32);
@@ -16,7 +16,7 @@ namespace BugStrategy.Missions.InGameMissionEditor.Commands
 
         public Action OnChange;
         
-        public CommandsRepository(CommandsFactory commandsFactory)
+        public CommandsRepository(ICommandsFactory commandsFactory)
         {
             _commandsFactory = commandsFactory;
             _commandsFactory.OnCommandCreated += AddCommand;

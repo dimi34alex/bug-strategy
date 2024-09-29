@@ -23,7 +23,7 @@ namespace BugStrategy.Missions.InGameMissionEditor.Saving
             groundTiles = new List<TilePair>(newTiles.Count);
             foreach (var tile in newTiles)
             {
-                var d = tile.Value.GetComponent<EditorTileId>();
+                var d = tile.Value.GetComponent<MissionEditorTileId>();
                 groundTiles.Add(new TilePair(d.ID, tile.Key));
             }
         }
@@ -33,7 +33,7 @@ namespace BugStrategy.Missions.InGameMissionEditor.Saving
             resourceSources = new List<ResourceSourcePair>(newTiles.Count);
             foreach (var tile in newTiles)
             {
-                var d = tile.Value.GetComponent<EditorTileId>();
+                var d = tile.Value.GetComponent<MissionEditorTileId>();
                 resourceSources.Add(new ResourceSourcePair(d.ID, tile.Key));
             }
         }

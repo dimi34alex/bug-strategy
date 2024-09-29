@@ -13,7 +13,6 @@ namespace BugStrategy.Missions
 {
     public static class MapLoader
     {
-        private const int FlowerGenChance = 10;
         private const int TaskDelay = 5;
 
         public static async Task LoadMap(CancellationToken cancellationToken, GridConfig gridConfig, 
@@ -39,8 +38,6 @@ namespace BugStrategy.Missions
                     cancellationToken.ThrowIfCancellationRequested();
 
                 tilesFactory.Create(groundTiles[i].Id, groundTiles[i].Position);
-                // TrySpawnResourceSource(missionSave.GroundTiles[i].Position, gridConfig, resourceSourceFactory,
-                //     resourceSourcesRepository, constructionsRepository);
             }
         }
 
@@ -60,21 +57,6 @@ namespace BugStrategy.Missions
                 var flower = resourceSourceFactory.Create(resourceSources[i].Id, resourceSources[i].Position);
                 resourceSourcesRepository.Add(resourceSources[i].Position, flower);
                 constructionsRepository.BlockCell(resourceSources[i].Position);
-            }
-        }
-        
-        private static void TrySpawnResourceSource(Vector3 position, GridConfig gridConfig, 
-            ResourceSourceFactory resourceSourceFactory, ResourceSourcesRepository resourceSourcesRepository,
-            ConstructionsRepository constructionsRepository)
-        {
-            var tryToSpawnFlower = Random.Range(0, 100);
-            if (tryToSpawnFlower < FlowerGenChance)
-            {
-                var flowerPosition = gridConfig.RoundPositionToGrid(position);
-                var flower = resourceSourceFactory.Create(flowerPosition);
-                    
-                resourceSourcesRepository.Add(flowerPosition, flower);
-                constructionsRepository.BlockCell(flowerPosition);
             }
         }
     }

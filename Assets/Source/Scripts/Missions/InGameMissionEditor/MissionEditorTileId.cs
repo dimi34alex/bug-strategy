@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace BugStrategy.Missions.InGameMissionEditor
 {
-    public class EditorTileId : MonoBehaviour
+    public class MissionEditorTileId : MonoBehaviour
     {
         public int ID { get; private set; }
 

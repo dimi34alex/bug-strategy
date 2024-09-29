@@ -15,12 +15,12 @@ namespace BugStrategy.Missions.InGameMissionEditor.Commands
         protected override Tile Create(int id, Vector3 point)
         {
             var tile = base.Create(id, point);
-            tile.gameObject.AddComponent<EditorTileId>().Initialize(id);
+            tile.gameObject.AddComponent<MissionEditorTileId>().Initialize(id);
             return tile;
         }
 
         protected override int GetId(Tile tile) 
-            => tile.GetComponent<EditorTileId>().ID;
+            => tile.GetComponent<MissionEditorTileId>().ID;
 
         protected override bool ReplacedIdIsValid(int replacedId) 
             => replacedId >= 0;

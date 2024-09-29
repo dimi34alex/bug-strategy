@@ -1,8 +1,9 @@
+using BugStrategy.CommandsCore;
 using Zenject;
 
 namespace BugStrategy.Missions.InGameMissionEditor.Commands
 {
-    public class CommandsInstaller : MonoInstaller
+    public class MissionEditorCommandsInstaller : MonoInstaller
     {
         public override void InstallBindings()
         {
@@ -12,7 +13,7 @@ namespace BugStrategy.Missions.InGameMissionEditor.Commands
 
         private void BindFactory()
         {
-            Container.BindInterfacesAndSelfTo<CommandsFactory>().FromNew().AsSingle();
+            Container.BindInterfacesAndSelfTo<MissionEditorCommandsFactory>().FromNew().AsSingle();
         }
 
         private void BindRepository()

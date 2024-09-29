@@ -1,10 +1,11 @@
 using System.IO;
+using BugStrategy.Missions.InGameMissionEditor.Saving;
 using CycleFramework.Screen;
 using UnityEngine;
 
 namespace BugStrategy.Missions.InGameMissionEditor.UI
 {
-    public class UI_MissionsSaves : UIScreen
+    public class UI_MissionEditorSaves : UIScreen
     {
         [SerializeField] private MissionEditorBuilder missionEditorBuilder;
         [SerializeField] private MissionSaveLine missionSaveLinePrefab;
@@ -12,23 +13,12 @@ namespace BugStrategy.Missions.InGameMissionEditor.UI
 
         private void Awake()
         {
-#if UNITY_EDITOR
-            var directoryPath = Application.dataPath + "/Source/MissionsSaves";
-#else
-            var directoryPath = Application.dataPath + "/CustomMissions";
-#endif
-            
-            if (!Directory.Exists(directoryPath)) 
-                Directory.CreateDirectory(directoryPath);
-            
-            var info = new DirectoryInfo(directoryPath);
-            var fileInfo = info.GetFiles();
-
-            foreach(var file in fileInfo)
-                if (!file.Name.Contains(".meta"))
+            var filesNames = MissionSaveAndLoader.GetAllMissionsNames();
+            foreach(var fileName in filesNames)
+                if (!fileName.Contains(".meta"))
                 {
                     var line = Instantiate(missionSaveLinePrefab, missionSaveLinesHolder);
-                    line.Initialize(file.Name);
+                    line.Initialize(fileName);
                     line.OnLoad += TryLoad;
                 }
         }

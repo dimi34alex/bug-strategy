@@ -1,6 +1,6 @@
 using System;
 
-namespace BugStrategy.Missions.InGameMissionEditor.Commands
+namespace BugStrategy.CommandsCore
 {
     public interface ICommand
     {

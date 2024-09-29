@@ -1,4 +1,5 @@
 using System.Linq;
+using BugStrategy.CommandsCore;
 using BugStrategy.Factory;
 using BugStrategy.Missions.InGameMissionEditor.Commands;
 using BugStrategy.Missions.InGameMissionEditor.GridRepositories;
@@ -17,7 +18,7 @@ namespace BugStrategy.Missions.InGameMissionEditor
 
         private bool _isActive;
         private TId _activeId;
-        private TTile _activeTile;
+        private TTile _movableModel;
 
         protected GridBuilder(GridConfig gridConfig, GridRepository<TTile> gridRepository, 
             ObjectsFactoryBase<TId, TTile> factory)
@@ -36,58 +37,13 @@ namespace BugStrategy.Missions.InGameMissionEditor
         public void DeActivate()
         {
             _isActive = false;
-            Object.Destroy(_activeTile);
+            Object.Destroy(_movableModel);
         }
 
         public void ManualUpdate() 
             => Update();
-
-        protected abstract ICommand CreateCommand(TId id, Vector3 point);
         
-        protected TTile CreateMovableModel(TId id, Vector3 point = default) 
-            => Factory.Create(id, point);
-
-        private void PrepareTile(TId id)
-        {
-            if (_activeTile != null) 
-                Object.Destroy(_activeTile.gameObject);
-
-            _activeId = id;
-            _activeTile = CreateMovableModel(_activeId);
-        }
-        
-        private void Update()
-        {
-            if (!_isActive || _activeTile == null)
-                return;
-         
-            if (Input.GetButtonDown("Fire2"))
-                Object.Destroy(_activeTile.gameObject);
-            
-            if (MouseCursorOverUI())
-                return;
-
-            var worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            worldPoint.y = 0;   
-            
-            _activeTile.transform.position = GridConfig.RoundPositionToGrid(worldPoint);
-
-            if (Input.GetButtonDown("Fire1"))
-            {
-                if (_activeTile != null)
-                {
-                    if (GridRepository.FreeInExternalGrids(_activeTile.transform.position))
-                    {
-                        var command = CreateCommand(_activeId, _activeTile.transform.position);
-                        command.Execute();
-                    }
-                }
-                else
-                    _activeTile = CreateMovableModel(_activeId);
-            }
-        }
-        
-        public virtual void Clear()
+        public void Clear()
         {
             var pos = GridRepository.Positions.ToList();
             foreach (var position in pos)
@@ -96,14 +52,53 @@ namespace BugStrategy.Missions.InGameMissionEditor
                 Object.Destroy(tile.gameObject);
             }
         }
+
+        protected abstract ICommand CreateBuildCommand(TId id, Vector3 point);
+        
+        protected TTile CreateMovableModel(TId id, Vector3 point = default) 
+            => Factory.Create(id, point);
+
+        private void PrepareTile(TId id)
+        {
+            if (_movableModel != null) 
+                Object.Destroy(_movableModel.gameObject);
+
+            _activeId = id;
+            _movableModel = CreateMovableModel(_activeId);
+        }
+        
+        private void Update()
+        {
+            if (!_isActive || _movableModel == null)
+                return;
+         
+            if (Input.GetButtonDown("Fire2"))
+                Object.Destroy(_movableModel.gameObject);
+            
+            if (MouseCursorOverUI())
+                return;
+
+            var worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            worldPoint.y = 0;   
+            
+            _movableModel.transform.position = GridConfig.RoundPositionToGrid(worldPoint);
+
+            if (Input.GetButtonDown("Fire1"))
+            {
+                if (_movableModel != null)
+                {
+                    if (GridRepository.FreeInExternalGrids(_movableModel.transform.position))
+                    {
+                        var command = CreateBuildCommand(_activeId, _movableModel.transform.position);
+                        command.Execute();
+                    }
+                }
+                else
+                    _movableModel = CreateMovableModel(_activeId);
+            }
+        }
         
         private static bool MouseCursorOverUI() 
             => EventSystem.current.IsPointerOverGameObject();
-    }
-    
-    public interface IGridBuilder
-    {
-        public void DeActivate();
-        public void ManualUpdate();
     }
 }

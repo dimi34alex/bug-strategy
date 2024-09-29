@@ -1,6 +1,6 @@
 using System;
-using System.IO;
 using System.Threading;
+using BugStrategy.CommandsCore;
 using BugStrategy.Constructions;
 using BugStrategy.Missions.InGameMissionEditor.Commands;
 using BugStrategy.Missions.InGameMissionEditor.EditorConstructions;
@@ -28,7 +28,7 @@ namespace BugStrategy.Missions.InGameMissionEditor
         [Inject] private ResourceSourceRepository _resourceSourceRepository;
         
         [Inject] private CommandsRepository _commandsRepository;
-        [Inject] private CommandsFactory _commandsFactory;
+        [Inject] private MissionEditorCommandsFactory _commandsFactory;
         
         private UI_MissionEditor _uiMissionEditor;
         
@@ -42,8 +42,8 @@ namespace BugStrategy.Missions.InGameMissionEditor
         {
             _uiMissionEditor = FindObjectOfType<UI_MissionEditor>(true);
 
-            _editorConstructionsRepository.SetGridBlocker(new IGridRepository[] { _resourceSourceRepository });
-            _resourceSourceRepository.SetGridBlocker(new IGridRepository[] { _editorConstructionsRepository });
+            _editorConstructionsRepository.SetExternalGrids(new IGridRepository[] { _resourceSourceRepository });
+            _resourceSourceRepository.SetExternalGrids(new IGridRepository[] { _editorConstructionsRepository });
             
             _groundBuilder = new GroundBuilder(_gridConfig, _groundPositionsRepository, _tilesFactory, _commandsFactory);
             _editorConstructionsBuilder = new EditorConstructionsBuilder(_gridConfig, _editorConstructionsRepository, _editorConstructionsFactory, _commandsFactory);
@@ -88,107 +88,30 @@ namespace BugStrategy.Missions.InGameMissionEditor
             => _groundBuilder.Generate(size);
 
         [ContextMenu("SAVE")]
-        public void Save()
-        {
-            var missionSave = new Mission();
-            missionSave.SetGroundTiles(_groundPositionsRepository.Tiles);
-            missionSave.SetResourceSources(_resourceSourceRepository.Tiles);
-            var json = JsonUtility.ToJson(missionSave);
+        public void Save() 
+            => MissionSaveAndLoader.Save(_groundPositionsRepository.Tiles, _resourceSourceRepository.Tiles);
 
-#if UNITY_EDITOR
-            var directoryPath = Application.dataPath + "/Source/MissionsSaves";
-#else
-            var directoryPath = Application.dataPath + "/CustomMissions";
-#endif
-            const string fileName = "MissionSave";
-            
-            var index = "";
-            int i = 1;
-            while (File.Exists($"{directoryPath}/{fileName}{index}.json"))
-            {
-                index = $"_{i}";
-                i++;
-            }
-
-            if (!Directory.Exists(directoryPath)) 
-                Directory.CreateDirectory(directoryPath);
-
-            var file = File.Create($"{directoryPath}/{fileName}{index}.json");
-            file.Close();
-            File.WriteAllText($"{directoryPath}/{fileName}{index}.json", json);
-        }
-
-        public void Save(string fileName)
-        {
-            var missionSave = new Mission();
-            missionSave.SetGroundTiles(_groundPositionsRepository.Tiles);
-            missionSave.SetResourceSources(_resourceSourceRepository.Tiles);
-            var json = JsonUtility.ToJson(missionSave);
-
-#if UNITY_EDITOR
-            var directoryPath = Application.dataPath + "/Source/MissionsSaves";
-#else
-            var directoryPath = Application.dataPath + "/CustomMissions";
-#endif
-            if (!Directory.Exists(directoryPath)) 
-                Directory.CreateDirectory(directoryPath);
-            
-            if (File.Exists($"{directoryPath}/{fileName}.json"))
-            {
-                var file = File.Create($"{directoryPath}/{fileName}.json");
-                file.Close();
-            }
-
-            File.WriteAllText($"{directoryPath}/{fileName}.json", json);
-        }
+        public void Save(string fileName) 
+            => MissionSaveAndLoader.Save(fileName, _groundPositionsRepository.Tiles, _resourceSourceRepository.Tiles);
 
         private CancellationTokenSource _mapLoadingCancelToken;
         public async void Load(string fileName)
         {
-#if UNITY_EDITOR
-            var directoryPath = Application.dataPath + "/Source/MissionsSaves";
-#else
-            var directoryPath = Application.dataPath + "/CustomMissions";
-#endif
-
-            if (!Directory.Exists(directoryPath))
-            {
-                Directory.CreateDirectory(directoryPath);
-                Debug.LogError($"Cant find directory, so file doesnt exist: {directoryPath}");
-                return;
-            }
-
-            if (!fileName.Contains(".json")) 
-                fileName += ".json";
-            
-            if (!File.Exists($"{directoryPath}/{fileName}"))
-            {
-                Debug.LogError($"File doesnt exist: {directoryPath}/{fileName}");
-                return;
-            }
-
-            var json = await File.ReadAllTextAsync($"{directoryPath}/{fileName}");
-            var missionSave = JsonUtility.FromJson<Mission>(json);
-            
-            using (_mapLoadingCancelToken = new CancellationTokenSource())
-            {
-                try
-                {
-                    _groundBuilder.Clear();
-                    _resourceSourceBuilder.Clear();
-                    _editorConstructionsBuilder.Clear();
-
-                    await _groundBuilder.LoadGroundTiles(_mapLoadingCancelToken.Token, missionSave.GroundTiles);
-                    await _resourceSourceBuilder.LoadResourceSources(_mapLoadingCancelToken.Token, missionSave.ResourceSources);
-                }
-                catch (OperationCanceledException e)
-                {
-                    Debug.Log($"Loading of map was canceled: {e}");
-                }
-                
-                _mapLoadingCancelToken.Dispose();
-                _mapLoadingCancelToken = null;
-            }            
+             using (_mapLoadingCancelToken = new CancellationTokenSource())
+             {
+                 try
+                 {
+                     await MissionSaveAndLoader.Load(_mapLoadingCancelToken.Token, fileName, _groundBuilder,
+                         _editorConstructionsBuilder, _resourceSourceBuilder);
+                 }
+                 catch (OperationCanceledException e)
+                 {
+                     Debug.Log($"Loading of map was canceled: {e}");
+                 }
+                 
+                 _mapLoadingCancelToken.Dispose();
+                 _mapLoadingCancelToken = null;
+             }   
         }
 
         private void OnDestroy()

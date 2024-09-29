@@ -12,6 +12,6 @@
         Back,
         
         MissionEditor = 100,
-        MissionsSaves = 110
+        MissionEditorSaves = 110
     }
 }

@@ -43,7 +43,7 @@ namespace BugStrategy.UI
                 typeof(UI_Saves),
                 
                 typeof(UI_MissionEditor),
-                typeof(UI_MissionsSaves),
+                typeof(UI_MissionEditorSaves),
             };
 
             //определяем, какое окно у нас активно при запуске.
@@ -134,8 +134,8 @@ namespace BugStrategy.UI
                 case UIScreenType.MissionEditor:
                     _uiActiveScreen = _screenRepository.GetScreen<UI_MissionEditor>().gameObject; 
                     break;
-                case UIScreenType.MissionsSaves:
-                    _uiActiveScreen = _screenRepository.GetScreen<UI_MissionsSaves>().gameObject; 
+                case UIScreenType.MissionEditorSaves:
+                    _uiActiveScreen = _screenRepository.GetScreen<UI_MissionEditorSaves>().gameObject; 
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);

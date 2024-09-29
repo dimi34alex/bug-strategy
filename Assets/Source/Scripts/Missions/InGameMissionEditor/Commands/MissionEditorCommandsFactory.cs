@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BugStrategy.CommandsCore;
 using BugStrategy.Constructions;
 using BugStrategy.Missions.InGameMissionEditor.EditorConstructions;
 using BugStrategy.Missions.InGameMissionEditor.GridRepositories;
@@ -9,7 +10,7 @@ using UnityEngine;
 
 namespace BugStrategy.Missions.InGameMissionEditor.Commands
 {
-    public class CommandsFactory
+    public class MissionEditorCommandsFactory : ICommandsFactory
     {
         private readonly TilesFactory _tilesFactory;
         private readonly GroundPositionsRepository _groundPositionsRepository;
@@ -22,7 +23,7 @@ namespace BugStrategy.Missions.InGameMissionEditor.Commands
 
         public event Action<ICommand> OnCommandCreated;
         
-        public CommandsFactory(TilesFactory tilesFactory, GroundPositionsRepository groundPositionsRepository, 
+        public MissionEditorCommandsFactory(TilesFactory tilesFactory, GroundPositionsRepository groundPositionsRepository, 
             EditorConstructionsFactory editorConstructionsFactory, EditorConstructionsRepository editorConstructionsRepository, 
             ResourceSourceFactory resourceSourceFactory, ResourceSourceRepository resourceSourceRepository)
         {

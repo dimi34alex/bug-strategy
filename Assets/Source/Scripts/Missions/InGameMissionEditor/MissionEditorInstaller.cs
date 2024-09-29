@@ -3,7 +3,7 @@ using Zenject;
 
 namespace BugStrategy.Missions.InGameMissionEditor
 {
-    public class EditorInstaller : MonoInstaller
+    public class MissionEditorInstaller : MonoInstaller
     {
         public override void InstallBindings()
         {
