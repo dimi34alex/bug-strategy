@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace BugStrategy.Missions.InGameMissionEditor.EditorConstructions
 {
-    [CreateAssetMenu(fileName = nameof(EditorConstructionsConfig), menuName = "Configs/Constructions/" + nameof(EditorConstructionsConfig))]
+    [CreateAssetMenu(fileName = nameof(EditorConstructionsConfig), menuName = "Configs/Missions/Editor/" + nameof(EditorConstructionsConfig))]
     public class EditorConstructionsConfig : ScriptableObject, IFactoryConfig<ConstructionID, EditorConstruction>, ISingleConfig
     {
         [SerializeField] private List<EditorConstruction> constructions;

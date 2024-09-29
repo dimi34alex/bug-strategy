@@ -1,7 +1,10 @@
+using System.IO;
+using System.Linq;
 using BugStrategy.Constructions;
 using BugStrategy.Missions.InGameMissionEditor.Commands;
 using BugStrategy.Missions.InGameMissionEditor.EditorConstructions;
 using BugStrategy.Missions.InGameMissionEditor.GridRepositories;
+using BugStrategy.Missions.InGameMissionEditor.Saving;
 using BugStrategy.Missions.InGameMissionEditor.UI;
 using BugStrategy.ResourceSources;
 using BugStrategy.Tiles;
@@ -12,7 +15,6 @@ namespace BugStrategy.Missions.InGameMissionEditor
 {
     public class MissionEditorBuilder : MonoBehaviour
     {
-        [SerializeField] private Vector2Int initSize;
         [SerializeField] private MissionEditorConfig config;
 
         [Inject] private GridConfig _gridConfig;
@@ -91,5 +93,60 @@ namespace BugStrategy.Missions.InGameMissionEditor
         
         public void Generate(Vector2Int size)
             => _tilesBuilder.Generate(size);
+
+        [ContextMenu("SAVE")]
+        public void Save()
+        {
+            var missionSave = new Mission();
+            missionSave.SetGroundTiles(_tilesPositionsRepository.Tiles);
+            missionSave.SetResourceSources(_resourceSourceRepository.Tiles);
+            var json = JsonUtility.ToJson(missionSave);
+
+#if UNITY_EDITOR
+            var directoryPath = Application.dataPath + "/Source/MissionsSaves";
+#else
+            var directoryPath = Application.dataPath + "/CustomMissions";
+#endif
+            const string fileName = "MissionSave";
+            
+            var index = "";
+            int i = 1;
+            while (File.Exists($"{directoryPath}/{fileName}{index}.json"))
+            {
+                index = $"_{i}";
+                i++;
+            }
+
+            if (!Directory.Exists(directoryPath)) 
+                Directory.CreateDirectory(directoryPath);
+
+            var file = File.Create($"{directoryPath}/{fileName}{index}.json");
+            file.Close();
+            File.WriteAllText($"{directoryPath}/{fileName}{index}.json", json);
+        }
+
+        public void Save(string fileName)
+        {
+            var missionSave = new Mission();
+            missionSave.SetGroundTiles(_tilesPositionsRepository.Tiles);
+            missionSave.SetResourceSources(_resourceSourceRepository.Tiles);
+            var json = JsonUtility.ToJson(missionSave);
+
+#if UNITY_EDITOR
+            var directoryPath = Application.dataPath + "/Source/MissionsSaves";
+#else
+            var directoryPath = Application.dataPath + "/CustomMissions";
+#endif
+            if (!Directory.Exists(directoryPath)) 
+                Directory.CreateDirectory(directoryPath);
+            
+            if (File.Exists($"{directoryPath}/{fileName}.json"))
+            {
+                var file = File.Create($"{directoryPath}/{fileName}.json");
+                file.Close();
+            }
+
+            File.WriteAllText($"{directoryPath}/{fileName}.json", json);
+        }
     }
 }

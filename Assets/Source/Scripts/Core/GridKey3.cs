@@ -3,9 +3,10 @@ using UnityEngine;
 
 namespace BugStrategy
 {
+    [Serializable]
     public struct GridKey3
     {
-        public readonly Vector3 Position;
+        [field: SerializeField] public Vector3 Position { get; private set; }
 
         private const int _digits = 3;
 

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using BugStrategy.Constructions;
-using BugStrategy.Missions.InGameMissionEditor;
 using BugStrategy.PoisonFog;
 using BugStrategy.Projectiles;
 using BugStrategy.ResourceSources;
@@ -13,7 +12,8 @@ namespace BugStrategy.Missions
     public class MissionData
     {
         public readonly int MissionIndex;
-        
+        public readonly MissionConfig MissionConfig;
+
         public readonly AffiliationEnum PlayerAffiliation;
         public readonly IReadOnlyDictionary<AffiliationEnum, FractionType> FractionTypes;
 
@@ -31,6 +31,7 @@ namespace BugStrategy.Missions
         public MissionData(int missionIndex, MissionConfig missionConfig, ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage) 
         {
             MissionIndex = missionIndex;
+            MissionConfig = missionConfig;
             PlayerAffiliation = missionConfig.PlayerAffiliation;
             FractionTypes = missionConfig.FractionByAffiliation;
             TeamsResourcesGlobalStorage = teamsResourcesGlobalStorage;
