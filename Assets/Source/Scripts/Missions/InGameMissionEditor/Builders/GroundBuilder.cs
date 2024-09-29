@@ -1,20 +1,24 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using BugStrategy.Missions.InGameMissionEditor.Commands;
 using BugStrategy.Missions.InGameMissionEditor.GridRepositories;
+using BugStrategy.Missions.InGameMissionEditor.Saving;
 using BugStrategy.Tiles;
 using UnityEngine;
+using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 namespace BugStrategy.Missions.InGameMissionEditor
 {
-    public class TilesBuilder : GridBuilder<int, Tile>
+    public class GroundBuilder : GridBuilder<int, Tile>
     {
         private readonly CommandsFactory _commandsFactory;
         private readonly IReadOnlyList<int> _keys;
 
-        public TilesBuilder(GridConfig gridConfig, GridRepository<Tile> gridRepository, TilesFactory factory, 
+        public GroundBuilder(GridConfig gridConfig, GridRepository<Tile> gridRepository, TilesFactory factory, 
             CommandsFactory commandsFactory) 
             : base(gridConfig, gridRepository, factory)
         {
@@ -23,12 +27,12 @@ namespace BugStrategy.Missions.InGameMissionEditor
         }
 
         protected override ICommand CreateCommand(int id, Vector3 point) 
-            => _commandsFactory.BuildTileCommand(id, point);
+            => _commandsFactory.BuildGroundCommand(id, point);
 
         public void Generate(Vector2Int size) 
             => Generate(size.x, size.y);
         
-        public async void Generate(int x, int y)
+        public void Generate(int x, int y)
         {
             if (x % 2 == 0)
                 x += 1;
@@ -61,22 +65,24 @@ namespace BugStrategy.Missions.InGameMissionEditor
             var columnStartPoint = shortColumnsStart;
             for (int i = 0; i < shortColumnsCount; i++)
             {
-                await SpawnColumn(columnStartPoint, y, newTiles);
+                CalculateColumn(columnStartPoint, y, newTiles);
                 columnStartPoint += Vector2.right * GridConfig.HexagonsOffsets.x;
             }
 
             columnStartPoint = longColumnsStart;
             for (int i = 0; i < longColumnsCount; i++)
             {
-                await SpawnColumn(columnStartPoint, y + 1, newTiles);
+                CalculateColumn(columnStartPoint, y + 1, newTiles);
                 columnStartPoint += Vector2.right * GridConfig.HexagonsOffsets.x;
             }
 
-            var command = _commandsFactory.GenerateGroundTilesCommand(newTiles);
+            var oldsTiles = GridRepository.Tiles
+                .ToDictionary(pair => pair.Key, pair => pair.Value.GetComponent<EditorTileId>().ID);
+            var command = _commandsFactory.GenerateGroundTilesCommand(this, newTiles, oldsTiles);
             command.Execute();
         }
         
-        private async Task SpawnColumn(Vector2 startPoint, int y, Dictionary<Vector3, int> newTiles)
+        private void CalculateColumn(Vector2 startPoint, int y, IDictionary<Vector3, int> newTiles)
         {
             var curPoint = startPoint;
             for (int i = 0; i < y; i++)
@@ -84,7 +90,6 @@ namespace BugStrategy.Missions.InGameMissionEditor
                 var spawnPoint = new Vector3(curPoint.x, 0, curPoint.y);
                 newTiles.Add(spawnPoint, GetRandomTileId());
                 curPoint += Vector2.down * GridConfig.HexagonsOffsets.y * 2;
-                // await Task.Delay(100);
             }
         }
         
@@ -92,6 +97,43 @@ namespace BugStrategy.Missions.InGameMissionEditor
         {
             var randomIndex = Random.Range(0, _keys.Count);
             return _keys[randomIndex];
+        }
+        
+        public void Generate(IReadOnlyDictionary<GridKey3, int> tiles)
+        {
+            Clear();
+            foreach (var tileData in tiles)
+            {
+                var tile = Factory.Create(tileData.Value, tileData.Key);
+                tile.gameObject.AddComponent<EditorTileId>().Initialize(tileData.Value);
+                GridRepository.Add(tileData.Key, tile);
+            }
+        }
+
+        public void Generate(IReadOnlyDictionary<Vector3, int> tiles)
+        {
+            Clear();
+            foreach (var tileData in tiles)
+            {
+                var tile = Factory.Create(tileData.Value, tileData.Key);
+                tile.gameObject.AddComponent<EditorTileId>().Initialize(tileData.Value);
+                GridRepository.Add(tileData.Key, tile);
+            }
+        }
+        
+        public async Task LoadGroundTiles(CancellationToken cancellationToken, IReadOnlyList<Mission.TilePair> groundTiles)
+        {
+            for (int i = 0; i < groundTiles.Count; i++)
+            {
+                if (i % 10 == 0) 
+                    await Task.Delay(5, cancellationToken);
+                
+                if (cancellationToken.IsCancellationRequested)
+                    cancellationToken.ThrowIfCancellationRequested();
+
+                var groundTile = Factory.Create(groundTiles[i].Id, groundTiles[i].Position);
+                GridRepository.Add(groundTiles[i].Position, groundTile);
+            }
         }
     }
 }

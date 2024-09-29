@@ -9,6 +9,9 @@
         MainMenu,
         GameplayMenu,
         Saves,
-        Back
+        Back,
+        
+        MissionEditor = 100,
+        MissionsSaves = 110
     }
 }

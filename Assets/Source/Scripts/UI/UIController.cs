@@ -1,5 +1,6 @@
 using System;
 using BugStrategy.Constructions;
+using BugStrategy.Missions.InGameMissionEditor.UI;
 using BugStrategy.UI.Elements.EntityInfo.ConstructionInfo;
 using BugStrategy.UI.Elements.EntityInfo.UnitInfo;
 using BugStrategy.UI.Screens;
@@ -40,6 +41,9 @@ namespace BugStrategy.UI
                 typeof(UI_GameplayLose),
                 typeof(UI_MainMenu),
                 typeof(UI_Saves),
+                
+                typeof(UI_MissionEditor),
+                typeof(UI_MissionsSaves),
             };
 
             //определяем, какое окно у нас активно при запуске.
@@ -126,6 +130,12 @@ namespace BugStrategy.UI
                     break;
                 case UIScreenType.Back:
                     _uiActiveScreen = _uiPrevActiveScreen; 
+                    break;
+                case UIScreenType.MissionEditor:
+                    _uiActiveScreen = _screenRepository.GetScreen<UI_MissionEditor>().gameObject; 
+                    break;
+                case UIScreenType.MissionsSaves:
+                    _uiActiveScreen = _screenRepository.GetScreen<UI_MissionsSaves>().gameObject; 
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);

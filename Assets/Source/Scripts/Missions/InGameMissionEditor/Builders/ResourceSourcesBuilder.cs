@@ -1,6 +1,9 @@
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using BugStrategy.Missions.InGameMissionEditor.Commands;
 using BugStrategy.Missions.InGameMissionEditor.GridRepositories;
+using BugStrategy.Missions.InGameMissionEditor.Saving;
 using BugStrategy.ResourceSources;
 using UnityEngine;
 using ResourceSourceFactory = BugStrategy.ResourceSources.ResourceSourceFactory;
@@ -32,5 +35,21 @@ namespace BugStrategy.Missions.InGameMissionEditor
 
         protected override ICommand CreateCommand(int id, Vector3 point) 
             => _commandsFactory.BuildResourceSourceCommand(id, point);
+        
+        public async Task LoadResourceSources(CancellationToken cancellationToken, 
+            IReadOnlyList<Mission.ResourceSourcePair> resourceSources)
+        {
+            for (int i = 0; i < resourceSources.Count; i++)
+            {
+                if (i % 10 == 0) 
+                    await Task.Delay(5, cancellationToken);
+                
+                if (cancellationToken.IsCancellationRequested)
+                    cancellationToken.ThrowIfCancellationRequested();
+
+                var flower = Factory.Create(resourceSources[i].Id, resourceSources[i].Position);
+                GridRepository.Add(resourceSources[i].Position, flower);
+            }
+        }
     }
 }

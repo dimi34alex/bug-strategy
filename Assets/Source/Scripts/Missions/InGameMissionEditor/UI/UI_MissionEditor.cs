@@ -1,15 +1,15 @@
 using System;
 using BugStrategy.Constructions;
-using BugStrategy.Constructions.Factory;
 using BugStrategy.Missions.InGameMissionEditor.EditorConstructions;
 using BugStrategy.ResourceSources;
 using BugStrategy.Tiles;
+using CycleFramework.Screen;
 using UnityEngine;
 using Zenject;
 
 namespace BugStrategy.Missions.InGameMissionEditor.UI
 {
-    public class MissionEditorUI : MonoBehaviour
+    public class UI_MissionEditor : UIScreen
     {
         [SerializeField] private ButtonsInitializer<int> tiles;
         [SerializeField] private ButtonsInitializer<ConstructionID> constructions;

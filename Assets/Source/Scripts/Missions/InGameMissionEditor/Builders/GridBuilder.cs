@@ -19,7 +19,7 @@ namespace BugStrategy.Missions.InGameMissionEditor
         private TId _activeId;
         private TTile _activeTile;
 
-        protected GridBuilder(GridConfig gridConfig, GridRepository< TTile> gridRepository, 
+        protected GridBuilder(GridConfig gridConfig, GridRepository<TTile> gridRepository, 
             ObjectsFactoryBase<TId, TTile> factory)
         {
             GridConfig = gridConfig;
@@ -41,16 +41,6 @@ namespace BugStrategy.Missions.InGameMissionEditor
 
         public void ManualUpdate() 
             => Update();
-
-        public void Clear()
-        {
-            var pos = GridRepository.Positions.ToList();
-            foreach (var position in pos)
-            {
-                var tile = GridRepository.Get(position, true);
-                Object.Destroy(tile.gameObject);
-            }
-        }
 
         protected abstract ICommand CreateCommand(TId id, Vector3 point);
         
@@ -97,6 +87,16 @@ namespace BugStrategy.Missions.InGameMissionEditor
             }
         }
         
+        public virtual void Clear()
+        {
+            var pos = GridRepository.Positions.ToList();
+            foreach (var position in pos)
+            {
+                var tile = GridRepository.Get(position, true);
+                Object.Destroy(tile.gameObject);
+            }
+        }
+        
         private static bool MouseCursorOverUI() 
             => EventSystem.current.IsPointerOverGameObject();
     }
@@ -105,6 +105,5 @@ namespace BugStrategy.Missions.InGameMissionEditor
     {
         public void DeActivate();
         public void ManualUpdate();
-        public void Clear();
     }
 }

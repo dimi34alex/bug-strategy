@@ -1,5 +1,6 @@
+using System;
 using System.IO;
-using System.Linq;
+using System.Threading;
 using BugStrategy.Constructions;
 using BugStrategy.Missions.InGameMissionEditor.Commands;
 using BugStrategy.Missions.InGameMissionEditor.EditorConstructions;
@@ -22,16 +23,16 @@ namespace BugStrategy.Missions.InGameMissionEditor
         [Inject] private EditorConstructionsFactory _editorConstructionsFactory;
         [Inject] private ResourceSourceFactory _resourceSourceFactory;
 
-        [Inject] private TilesPositionsRepository _tilesPositionsRepository;
+        [Inject] private GroundPositionsRepository _groundPositionsRepository;
         [Inject] private EditorConstructionsRepository _editorConstructionsRepository;
         [Inject] private ResourceSourceRepository _resourceSourceRepository;
         
         [Inject] private CommandsRepository _commandsRepository;
         [Inject] private CommandsFactory _commandsFactory;
         
-        private MissionEditorUI _missionEditorUI;
+        private UI_MissionEditor _uiMissionEditor;
         
-        private TilesBuilder _tilesBuilder;
+        private GroundBuilder _groundBuilder;
         private EditorConstructionsBuilder _editorConstructionsBuilder;
         private ResourceSourcesBuilder _resourceSourceBuilder;
 
@@ -39,20 +40,20 @@ namespace BugStrategy.Missions.InGameMissionEditor
         
         private void Awake()
         {
-            _missionEditorUI = FindObjectOfType<MissionEditorUI>();
+            _uiMissionEditor = FindObjectOfType<UI_MissionEditor>(true);
 
             _editorConstructionsRepository.SetGridBlocker(new IGridRepository[] { _resourceSourceRepository });
             _resourceSourceRepository.SetGridBlocker(new IGridRepository[] { _editorConstructionsRepository });
             
-            _tilesBuilder = new TilesBuilder(_gridConfig, _tilesPositionsRepository, _tilesFactory, _commandsFactory);
+            _groundBuilder = new GroundBuilder(_gridConfig, _groundPositionsRepository, _tilesFactory, _commandsFactory);
             _editorConstructionsBuilder = new EditorConstructionsBuilder(_gridConfig, _editorConstructionsRepository, _editorConstructionsFactory, _commandsFactory);
             _resourceSourceBuilder = new ResourceSourcesBuilder(_gridConfig, _resourceSourceRepository, _resourceSourceFactory, _commandsFactory);
             
-            _missionEditorUI.OnTilePressed += TilePrep;
-            _missionEditorUI.OnConstructionPressed += ConstrPrep;
-            _missionEditorUI.OnResourceSourcePressed += ResourceSourcePrep;
+            _uiMissionEditor.OnTilePressed += TilePrep;
+            _uiMissionEditor.OnConstructionPressed += ConstrPrep;
+            _uiMissionEditor.OnResourceSourcePressed += ResourceSourcePrep;
 
-            _tilesBuilder.Generate(config.DefaultGridSize);
+            _groundBuilder.Generate(config.DefaultGridSize);
             _commandsRepository.Clear();
         }
 
@@ -62,15 +63,15 @@ namespace BugStrategy.Missions.InGameMissionEditor
         private void ResourceSourcePrep(int index)
         {
             _activeBuilder = _resourceSourceBuilder;
-            _tilesBuilder.DeActivate();
+            _groundBuilder.DeActivate();
             _editorConstructionsBuilder.DeActivate();
             _resourceSourceBuilder.Activate(index);
         }
 
         private void TilePrep(int ind)
         {
-            _activeBuilder = _tilesBuilder;
-            _tilesBuilder.Activate(ind);
+            _activeBuilder = _groundBuilder;
+            _groundBuilder.Activate(ind);
             _editorConstructionsBuilder.DeActivate();
             _resourceSourceBuilder.DeActivate();
         }
@@ -78,27 +79,19 @@ namespace BugStrategy.Missions.InGameMissionEditor
         private void ConstrPrep(ConstructionID id)
         {
             _activeBuilder = _editorConstructionsBuilder;
-            _tilesBuilder.DeActivate();
+            _groundBuilder.DeActivate();
             _editorConstructionsBuilder.Activate(id);
             _resourceSourceBuilder.DeActivate();
         }
-
-        [ContextMenu("UndoLastCommand")]
-        private void Undo() 
-            => _commandsRepository.UndoCommand();
-
-        [ContextMenu("ExecuteLastUndoCommand")]
-        private void Ex() 
-            => _commandsRepository.RedoCommand();
         
         public void Generate(Vector2Int size)
-            => _tilesBuilder.Generate(size);
+            => _groundBuilder.Generate(size);
 
         [ContextMenu("SAVE")]
         public void Save()
         {
             var missionSave = new Mission();
-            missionSave.SetGroundTiles(_tilesPositionsRepository.Tiles);
+            missionSave.SetGroundTiles(_groundPositionsRepository.Tiles);
             missionSave.SetResourceSources(_resourceSourceRepository.Tiles);
             var json = JsonUtility.ToJson(missionSave);
 
@@ -128,7 +121,7 @@ namespace BugStrategy.Missions.InGameMissionEditor
         public void Save(string fileName)
         {
             var missionSave = new Mission();
-            missionSave.SetGroundTiles(_tilesPositionsRepository.Tiles);
+            missionSave.SetGroundTiles(_groundPositionsRepository.Tiles);
             missionSave.SetResourceSources(_resourceSourceRepository.Tiles);
             var json = JsonUtility.ToJson(missionSave);
 
@@ -147,6 +140,60 @@ namespace BugStrategy.Missions.InGameMissionEditor
             }
 
             File.WriteAllText($"{directoryPath}/{fileName}.json", json);
+        }
+
+        private CancellationTokenSource _mapLoadingCancelToken;
+        public async void Load(string fileName)
+        {
+#if UNITY_EDITOR
+            var directoryPath = Application.dataPath + "/Source/MissionsSaves";
+#else
+            var directoryPath = Application.dataPath + "/CustomMissions";
+#endif
+
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+                Debug.LogError($"Cant find directory, so file doesnt exist: {directoryPath}");
+                return;
+            }
+
+            if (!fileName.Contains(".json")) 
+                fileName += ".json";
+            
+            if (!File.Exists($"{directoryPath}/{fileName}"))
+            {
+                Debug.LogError($"File doesnt exist: {directoryPath}/{fileName}");
+                return;
+            }
+
+            var json = await File.ReadAllTextAsync($"{directoryPath}/{fileName}");
+            var missionSave = JsonUtility.FromJson<Mission>(json);
+            
+            using (_mapLoadingCancelToken = new CancellationTokenSource())
+            {
+                try
+                {
+                    _groundBuilder.Clear();
+                    _resourceSourceBuilder.Clear();
+                    _editorConstructionsBuilder.Clear();
+
+                    await _groundBuilder.LoadGroundTiles(_mapLoadingCancelToken.Token, missionSave.GroundTiles);
+                    await _resourceSourceBuilder.LoadResourceSources(_mapLoadingCancelToken.Token, missionSave.ResourceSources);
+                }
+                catch (OperationCanceledException e)
+                {
+                    Debug.Log($"Loading of map was canceled: {e}");
+                }
+                
+                _mapLoadingCancelToken.Dispose();
+                _mapLoadingCancelToken = null;
+            }            
+        }
+
+        private void OnDestroy()
+        {
+            _mapLoadingCancelToken?.Cancel();
         }
     }
 }

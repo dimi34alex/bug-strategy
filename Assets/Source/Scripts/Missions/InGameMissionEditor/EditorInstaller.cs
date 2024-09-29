@@ -7,7 +7,7 @@ namespace BugStrategy.Missions.InGameMissionEditor
     {
         public override void InstallBindings()
         {
-            BindPosRepository<TilesPositionsRepository>();
+            BindPosRepository<GroundPositionsRepository>();
             BindPosRepository<EditorConstructionsRepository>();
             BindPosRepository<ResourceSourceRepository>();
         }

@@ -12,7 +12,7 @@ namespace BugStrategy.Missions.InGameMissionEditor.Commands
     public class CommandsFactory
     {
         private readonly TilesFactory _tilesFactory;
-        private readonly TilesPositionsRepository _tilesPositionsRepository;
+        private readonly GroundPositionsRepository _groundPositionsRepository;
 
         private readonly EditorConstructionsFactory _editorConstructionsFactory;
         private readonly EditorConstructionsRepository _editorConstructionsRepository;
@@ -22,21 +22,21 @@ namespace BugStrategy.Missions.InGameMissionEditor.Commands
 
         public event Action<ICommand> OnCommandCreated;
         
-        public CommandsFactory(TilesFactory tilesFactory, TilesPositionsRepository tilesPositionsRepository, 
+        public CommandsFactory(TilesFactory tilesFactory, GroundPositionsRepository groundPositionsRepository, 
             EditorConstructionsFactory editorConstructionsFactory, EditorConstructionsRepository editorConstructionsRepository, 
             ResourceSourceFactory resourceSourceFactory, ResourceSourceRepository resourceSourceRepository)
         {
             _tilesFactory = tilesFactory;
-            _tilesPositionsRepository = tilesPositionsRepository;
+            _groundPositionsRepository = groundPositionsRepository;
             _editorConstructionsFactory = editorConstructionsFactory;
             _editorConstructionsRepository = editorConstructionsRepository;
             _resourceSourceFactory = resourceSourceFactory;
             _resourceSourceRepository = resourceSourceRepository;
         }
         
-        public BuildTileCommand BuildTileCommand(int id, Vector3 point)
+        public BuildGroundCommand BuildGroundCommand(int id, Vector3 point)
         {
-            var command = new BuildTileCommand(id, point, _tilesFactory, _tilesPositionsRepository);
+            var command = new BuildGroundCommand(id, point, _tilesFactory, _groundPositionsRepository);
             OnCommandCreated?.Invoke(command);
             return command;
         }
@@ -55,9 +55,10 @@ namespace BugStrategy.Missions.InGameMissionEditor.Commands
             return command;
         }
 
-        public GenerateGroundTilesCommand GenerateGroundTilesCommand(IReadOnlyDictionary<Vector3, int> newTiles)
+        public GenerateGroundTilesCommand GenerateGroundTilesCommand(GroundBuilder groundBuilder,
+            IReadOnlyDictionary<Vector3, int> newTiles, IReadOnlyDictionary<GridKey3, int> oldTiles)
         {
-            var command = new GenerateGroundTilesCommand(newTiles, _tilesFactory, _tilesPositionsRepository);
+            var command = new GenerateGroundTilesCommand(groundBuilder, newTiles, oldTiles);
             OnCommandCreated?.Invoke(command);
             return command;
         }

@@ -12,20 +12,18 @@ namespace BugStrategy.Missions.InGameMissionEditor.Commands
     {
         public bool IsExecuted { get; private set; }
 
-        private readonly TilesFactory _factory;
+        private readonly GroundBuilder _editorGroundGenerator;
         private readonly IReadOnlyDictionary<Vector3, int> _newTiles;
         private readonly IReadOnlyDictionary<GridKey3, int> _oldTiles;
-        private readonly TilesPositionsRepository _tilesPositionsRepository;
         
         public event Action<ICommand> OnExecuted;
         
-        public GenerateGroundTilesCommand(IReadOnlyDictionary<Vector3, int> newTiles, TilesFactory factory,
-            TilesPositionsRepository tilesPositionsRepository)
+        public GenerateGroundTilesCommand(GroundBuilder editorGroundGenerator, 
+            IReadOnlyDictionary<Vector3, int> newTiles, IReadOnlyDictionary<GridKey3, int> oldTiles)
         {
+            _editorGroundGenerator = editorGroundGenerator;
             _newTiles = newTiles;
-            _factory = factory;
-            _tilesPositionsRepository = tilesPositionsRepository;
-            _oldTiles = _tilesPositionsRepository.Tiles.ToDictionary(pair => pair.Key, pair => pair.Value.GetComponent<EditorTileId>().ID);
+            _oldTiles = oldTiles.ToDictionary(k => k.Key, k => k.Value);
         }
         
         public void Execute()
@@ -33,9 +31,7 @@ namespace BugStrategy.Missions.InGameMissionEditor.Commands
             if (IsExecuted)
                 return;
 
-            Clear();
-            if (_newTiles.Count > 0)
-                Generate(_newTiles);
+            _editorGroundGenerator.Generate(_newTiles);
 
             IsExecuted = true;
             OnExecuted?.Invoke(this);
@@ -46,41 +42,9 @@ namespace BugStrategy.Missions.InGameMissionEditor.Commands
             if (!IsExecuted)
                 return;
 
-            Clear();
-            if (_oldTiles.Count > 0)
-                Generate(_oldTiles);
+            _editorGroundGenerator.Generate(_oldTiles);
             
             IsExecuted = false;
-        }
-
-        private void Clear()
-        {
-            var pos = _tilesPositionsRepository.Positions.ToList();
-            foreach (var position in pos)
-            {
-                var tile = _tilesPositionsRepository.Get(position, true);
-                Object.Destroy(tile.gameObject);
-            }
-        }
-
-        private void Generate(IReadOnlyDictionary<GridKey3, int> tiles)
-        {
-            foreach (var tileData in tiles)
-            {
-                var tile = _factory.Create(tileData.Value, tileData.Key);
-                tile.gameObject.AddComponent<EditorTileId>().Initialize(tileData.Value);
-                _tilesPositionsRepository.Add(tileData.Key, tile);
-            }
-        }
-
-        private void Generate(IReadOnlyDictionary<Vector3, int> tiles)
-        {
-            foreach (var tileData in tiles)
-            {
-                var tile = _factory.Create(tileData.Value, tileData.Key);
-                tile.gameObject.AddComponent<EditorTileId>().Initialize(tileData.Value);
-                _tilesPositionsRepository.Add(tileData.Key, tile);
-            }
         }
     }
 }

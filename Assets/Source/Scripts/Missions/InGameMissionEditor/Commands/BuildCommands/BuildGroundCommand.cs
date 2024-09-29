@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace BugStrategy.Missions.InGameMissionEditor.Commands
 {
-    public class BuildTileCommand : BuildCommand<int, Tile>
+    public class BuildGroundCommand : BuildCommand<int, Tile>
     {
-        public BuildTileCommand(int tileId, Vector3 point, TilesFactory factory, 
-            TilesPositionsRepository positionsRepository) 
+        public BuildGroundCommand(int tileId, Vector3 point, TilesFactory factory, 
+            GroundPositionsRepository positionsRepository) 
             : base(-1, tileId, point, factory, positionsRepository)
         {
         }

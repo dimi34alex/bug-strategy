@@ -35,7 +35,7 @@ namespace BugStrategy.Missions.InGameMissionEditor.Commands
             if (IsExecuted)
                 return;
 
-            if (_positionsRepository.Exist(_point, false, false))
+            if (_positionsRepository.Exist(_point, true, false))
             {
                 var oldTile = _positionsRepository.Get(_point, true);
                 _tileIdReplaced = GetId(oldTile);
@@ -55,7 +55,7 @@ namespace BugStrategy.Missions.InGameMissionEditor.Commands
             if (!IsExecuted)
                 return;
 
-            if (_positionsRepository.Exist(_point, false, false))
+            if (_positionsRepository.Exist(_point, true, false))
             {
                 var newTile = _positionsRepository.Get(_point, true);
                 Object.Destroy(newTile.gameObject);
