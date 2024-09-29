@@ -23,8 +23,6 @@ namespace BugStrategy.Unit.Ants
 
         public override void OnStateEnter ()
         {
-            if(_ant != null)
-            {
                 _ant.SetDestination(_ant.TargetMovePosition);
                 _ant.OnTargetMovePositionChange += UpdateDestinationPosition;
 
@@ -33,27 +31,21 @@ namespace BugStrategy.Unit.Ants
                     UpdateEvent += ManualCheckDistance;
                 else
                     _ant.CurrentProfession.OnEnterInZone += CheckTargetDistance;
-            }
         }
 
         public override void OnStateExit ()
         {
-            if(_ant != null)
-            {
                 _ant.SetDestination(_ant.Transform.position);
                 _ant.OnTargetMovePositionChange -= UpdateDestinationPosition;
 
                 UpdateEvent -= ManualCheckDistance;
                 _ant.CurrentProfession.OnEnterInZone -= CheckTargetDistance;
-            }
         }
 
         public override void OnUpdate () => UpdateEvent?.Invoke();
 
         private void UpdateDestinationPosition ()
         {
-            if(_ant != null)
-            {
                 _ant.SetDestination(_ant.TargetMovePosition);
 
                 UpdateEvent -= ManualCheckDistance;
@@ -63,7 +55,6 @@ namespace BugStrategy.Unit.Ants
                     UpdateEvent += ManualCheckDistance;
                 else
                     _ant.CurrentProfession.OnEnterInZone += CheckTargetDistance;
-            }
         }
 
         private void ManualCheckDistance ()

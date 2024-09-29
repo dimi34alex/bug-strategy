@@ -78,8 +78,8 @@ namespace BugStrategy.Ai.InternalAis
                 return;
             }
             
-            if(Unit.UnitType == UnitType.Murmur)
-                Debug.Log($"{nameof(GetType)} || {evaluator.GetType()} || {evaluator}");
+            //if(Unit.UnitType == UnitType.Murmur)
+            //    Debug.Log($"{nameof(GetType)} || {evaluator.GetType()} || {evaluator}");
             evaluator.Apply();
         }
         
