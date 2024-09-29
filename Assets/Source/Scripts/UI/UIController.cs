@@ -1,6 +1,6 @@
 using System;
 using BugStrategy.Constructions;
-using BugStrategy.Missions.InGameMissionEditor.UI;
+using BugStrategy.Missions.MissionEditor.UI;
 using BugStrategy.UI.Elements.EntityInfo.ConstructionInfo;
 using BugStrategy.UI.Elements.EntityInfo.UnitInfo;
 using BugStrategy.UI.Screens;
