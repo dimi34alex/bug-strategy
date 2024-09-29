@@ -35,9 +35,9 @@ namespace BugStrategy.Missions.MissionEditor
         private GroundBuilder _groundBuilder;
         private EditorConstructionsBuilder _editorConstructionsBuilder;
         private ResourceSourcesBuilder _resourceSourceBuilder;
-
         private IGridBuilder _activeBuilder;
-        
+        private CancellationTokenSource _mapLoadingCancelToken;
+
         private void Awake()
         {
             _uiMissionEditor = FindObjectOfType<UI_MissionEditor>(true);
@@ -94,24 +94,29 @@ namespace BugStrategy.Missions.MissionEditor
         public void Save(string fileName) 
             => MissionSaveAndLoader.Save(fileName, _groundPositionsRepository.Tiles, _resourceSourceRepository.Tiles);
 
-        private CancellationTokenSource _mapLoadingCancelToken;
         public async void Load(string fileName)
         {
-             using (_mapLoadingCancelToken = new CancellationTokenSource())
-             {
-                 try
-                 {
-                     await MissionSaveAndLoader.Load(_mapLoadingCancelToken.Token, fileName, _groundBuilder,
-                         _editorConstructionsBuilder, _resourceSourceBuilder);
-                 }
-                 catch (OperationCanceledException e)
-                 {
-                     Debug.Log($"Loading of map was canceled: {e}");
-                 }
+            if (_mapLoadingCancelToken != null)
+            {
+                Debug.LogError("You cant start loading of mission while you load mission");
+                return;
+            }
+
+            using (_mapLoadingCancelToken = new CancellationTokenSource())
+            {
+                try
+                {
+                    await MissionSaveAndLoader.Load(_mapLoadingCancelToken.Token, fileName, _groundBuilder,
+                        _editorConstructionsBuilder, _resourceSourceBuilder);
+                }
+                catch (OperationCanceledException e)
+                {
+                    Debug.Log($"Loading of map was canceled: {e}");
+                }
                  
-                 _mapLoadingCancelToken.Dispose();
-                 _mapLoadingCancelToken = null;
-             }   
+                _mapLoadingCancelToken.Dispose();
+                _mapLoadingCancelToken = null;
+            }   
         }
 
         private void OnDestroy()
