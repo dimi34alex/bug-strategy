@@ -5,13 +5,15 @@ using BugStrategy.Projectiles;
 using BugStrategy.ResourceSources;
 using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
 using BugStrategy.Unit;
+using ConstructionsRepository = BugStrategy.Constructions.ConstructionsRepository;
 
 namespace BugStrategy.Missions
 {
     public class MissionData
     {
         public readonly int MissionIndex;
-        
+        public readonly MissionConfig MissionConfig;
+
         public readonly AffiliationEnum PlayerAffiliation;
         public readonly IReadOnlyDictionary<AffiliationEnum, FractionType> FractionTypes;
 
@@ -29,6 +31,7 @@ namespace BugStrategy.Missions
         public MissionData(int missionIndex, MissionConfig missionConfig, ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage) 
         {
             MissionIndex = missionIndex;
+            MissionConfig = missionConfig;
             PlayerAffiliation = missionConfig.PlayerAffiliation;
             FractionTypes = missionConfig.FractionByAffiliation;
             TeamsResourcesGlobalStorage = teamsResourcesGlobalStorage;
