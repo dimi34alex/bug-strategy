@@ -26,7 +26,7 @@ namespace BugStrategy.Unit
         
         public override void OnStateEnter()
         {
-            if(_unit.IsActive)
+            //if(_unit.IsActive)
             {
                 _unit.SetDestination(_unit.TargetMovePosition);
                 _unit.OnTargetMovePositionChange += UpdateDestinationPosition;
@@ -40,7 +40,7 @@ namespace BugStrategy.Unit
 
         public override void OnStateExit()
         {
-            if(_unit.IsActive)
+            //if(_unit.IsActive)
             {
                 _unit.SetDestination(_unit.Transform.position);
                 _unit.OnTargetMovePositionChange -= UpdateDestinationPosition;
@@ -54,7 +54,7 @@ namespace BugStrategy.Unit
 
         private void UpdateDestinationPosition()
         {
-            if(_unit.IsActive)
+            //if(_unit.IsActive)
             {
                 _unit.SetDestination(_unit.TargetMovePosition);
 
