@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using BugStrategy.Constructions;
+using BugStrategy.Missions.MissionEditor.EditorConstructions;
 using BugStrategy.ResourceSources;
 using BugStrategy.Tiles;
 using UnityEngine;
@@ -26,6 +27,13 @@ namespace BugStrategy.Missions.MissionEditor.Saving
                 var d = tile.Value.GetComponent<MissionEditorTileId>();
                 groundTiles.Add(new TilePair(d.ID, tile.Key));
             }
+        }
+
+        public void SetConstructions(IReadOnlyDictionary<GridKey3, EditorConstruction> newTiles)
+        {
+            constructions = new List<ConstructionPair>(newTiles.Count);
+            foreach (var tile in newTiles)
+                constructions.Add(new ConstructionPair(tile.Value.constructionID, tile.Value.Affiliation, tile.Key));
         }
         
         public void SetResourceSources(IReadOnlyDictionary<GridKey3, ResourceSourceBase> newTiles)
@@ -57,6 +65,13 @@ namespace BugStrategy.Missions.MissionEditor.Saving
             public ConstructionID Id;
             public AffiliationEnum Affiliation;
             public GridKey3 Position;
+            
+            public ConstructionPair(ConstructionID id, AffiliationEnum affiliation, GridKey3 position)
+            {
+                Id = id;
+                Affiliation = affiliation;
+                Position = position;
+            }
         }
 
         [Serializable]

@@ -13,18 +13,15 @@ namespace BugStrategy.Missions.MissionEditor
     {
         protected readonly GridConfig GridConfig;
         protected readonly GridRepository<TTile> GridRepository;
-        protected readonly ObjectsFactoryBase<TId, TTile> Factory;
 
         private bool _isActive;
         private TId _activeId;
         private TTile _movableModel;
 
-        protected GridBuilder(GridConfig gridConfig, GridRepository<TTile> gridRepository, 
-            ObjectsFactoryBase<TId, TTile> factory)
+        protected GridBuilder(GridConfig gridConfig, GridRepository<TTile> gridRepository)
         {
             GridConfig = gridConfig;
             GridRepository = gridRepository;
-            Factory = factory;
         }
         
         public void Activate(TId index)
@@ -53,9 +50,8 @@ namespace BugStrategy.Missions.MissionEditor
         }
 
         protected abstract ICommand CreateBuildCommand(TId id, Vector3 point);
-        
-        protected TTile CreateMovableModel(TId id, Vector3 point = default) 
-            => Factory.Create(id, point);
+
+        protected abstract TTile CreateMovableModel(TId id, Vector3 point = default);
 
         private void PrepareTile(TId id)
         {

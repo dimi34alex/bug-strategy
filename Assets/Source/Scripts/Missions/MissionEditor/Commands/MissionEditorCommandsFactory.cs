@@ -42,9 +42,9 @@ namespace BugStrategy.Missions.MissionEditor.Commands
             return command;
         }
 
-        public BuildConstructionCommand BuildConstructionCommand(ConstructionID id, Vector3 point)
+        public BuildConstructionCommand BuildConstructionCommand(ConstructionID id, AffiliationEnum affiliation, Vector3 point)
         {
-            var command = new BuildConstructionCommand(id, point, _editorConstructionsFactory, _editorConstructionsRepository);
+            var command = new BuildConstructionCommand(id, affiliation, point, _editorConstructionsFactory, _editorConstructionsRepository);
             OnCommandCreated?.Invoke(command);
             return command;
         }

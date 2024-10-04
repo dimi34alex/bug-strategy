@@ -20,7 +20,7 @@ namespace BugStrategy.Missions.MissionEditor.UI
         [Inject] private ResourceSourceFactory _resourceSourceFactory;
         
         public event Action<int> OnTilePressed;
-        public event Action<ConstructionID> OnConstructionPressed;
+        public event Action<(ConstructionID, AffiliationEnum)> OnConstructionPressed;
         public event Action<int> OnResourceSourcePressed;
         
         private void Start()
@@ -44,7 +44,7 @@ namespace BugStrategy.Missions.MissionEditor.UI
             => OnTilePressed?.Invoke(index);
 
         private void BuildConstruction(ConstructionID index) 
-            => OnConstructionPressed?.Invoke(index);
+            => OnConstructionPressed?.Invoke((index, AffiliationEnum.Neutral));
 
         private void BuildResourceSource(int index) 
             => OnResourceSourcePressed?.Invoke(index);

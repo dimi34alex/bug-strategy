@@ -15,13 +15,15 @@ namespace BugStrategy.Missions.MissionEditor
 {
     public class GroundBuilder : GridBuilder<int, Tile>
     {
+        private TilesFactory _factory;
         private readonly MissionEditorCommandsFactory _commandsFactory;
         private readonly IReadOnlyList<int> _keys;
 
         public GroundBuilder(GridConfig gridConfig, GridRepository<Tile> gridRepository, TilesFactory factory, 
             MissionEditorCommandsFactory commandsFactory) 
-            : base(gridConfig, gridRepository, factory)
+            : base(gridConfig, gridRepository)
         {
+            _factory = factory;
             _commandsFactory = commandsFactory;
             _keys = factory.GetKeys();
         }
@@ -29,12 +31,15 @@ namespace BugStrategy.Missions.MissionEditor
         protected override ICommand CreateBuildCommand(int id, Vector3 point) 
             => _commandsFactory.BuildGroundCommand(id, point);
 
+        protected override Tile CreateMovableModel(int id, Vector3 point = default) 
+            => _factory.Create(id);
+
         public void Generate(IReadOnlyDictionary<GridKey3, int> tiles)
         {
             Clear();
             foreach (var tileData in tiles)
             {
-                var tile = Factory.Create(tileData.Value, tileData.Key);
+                var tile = _factory.Create(tileData.Value, tileData.Key);
                 tile.gameObject.AddComponent<MissionEditorTileId>().Initialize(tileData.Value);
                 GridRepository.Add(tileData.Key, tile);
             }
@@ -45,7 +50,7 @@ namespace BugStrategy.Missions.MissionEditor
             Clear();
             foreach (var tileData in tiles)
             {
-                var tile = Factory.Create(tileData.Value, tileData.Key);
+                var tile = _factory.Create(tileData.Value, tileData.Key);
                 tile.gameObject.AddComponent<MissionEditorTileId>().Initialize(tileData.Value);
                 GridRepository.Add(tileData.Key, tile);
             }
@@ -114,7 +119,7 @@ namespace BugStrategy.Missions.MissionEditor
                 if (cancellationToken.IsCancellationRequested)
                     cancellationToken.ThrowIfCancellationRequested();
 
-                var groundTile = Factory.Create(groundTiles[i].Id, groundTiles[i].Position);
+                var groundTile = _factory.Create(groundTiles[i].Id, groundTiles[i].Position);
                 groundTile.gameObject.AddComponent<MissionEditorTileId>().Initialize(groundTiles[i].Id);
                 
                 GridRepository.Add(groundTiles[i].Position, groundTile);

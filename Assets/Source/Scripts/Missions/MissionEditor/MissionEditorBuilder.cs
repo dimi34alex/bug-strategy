@@ -76,7 +76,7 @@ namespace BugStrategy.Missions.MissionEditor
             _resourceSourceBuilder.DeActivate();
         }
 
-        private void ConstrPrep(ConstructionID id)
+        private void ConstrPrep((ConstructionID, AffiliationEnum) id)
         {
             _activeBuilder = _editorConstructionsBuilder;
             _groundBuilder.DeActivate();
@@ -89,10 +89,10 @@ namespace BugStrategy.Missions.MissionEditor
 
         [ContextMenu("SAVE")]
         public void Save() 
-            => MissionSaveAndLoader.Save(_groundPositionsRepository.Tiles, _resourceSourceRepository.Tiles);
+            => MissionSaveAndLoader.Save(_groundPositionsRepository.Tiles, _editorConstructionsRepository.Tiles,  _resourceSourceRepository.Tiles);
 
         public void Save(string fileName) 
-            => MissionSaveAndLoader.Save(fileName, _groundPositionsRepository.Tiles, _resourceSourceRepository.Tiles);
+            => MissionSaveAndLoader.Save(fileName, _groundPositionsRepository.Tiles, _editorConstructionsRepository.Tiles, _resourceSourceRepository.Tiles);
 
         public async void Load(string fileName)
         {

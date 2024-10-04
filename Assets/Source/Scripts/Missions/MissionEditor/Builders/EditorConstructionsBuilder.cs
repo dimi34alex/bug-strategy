@@ -1,24 +1,50 @@
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using BugStrategy.CommandsCore;
 using BugStrategy.Constructions;
 using BugStrategy.Missions.MissionEditor.Commands;
 using BugStrategy.Missions.MissionEditor.EditorConstructions;
 using BugStrategy.Missions.MissionEditor.GridRepositories;
+using BugStrategy.Missions.MissionEditor.Saving;
 using UnityEngine;
 
 namespace BugStrategy.Missions.MissionEditor
 {
-    public class EditorConstructionsBuilder : GridBuilder<ConstructionID, EditorConstruction>
+    public class EditorConstructionsBuilder : GridBuilder<(ConstructionID, AffiliationEnum), EditorConstruction>
     {
         private readonly MissionEditorCommandsFactory _missionEditorCommandsFactory;
+        private readonly EditorConstructionsFactory _factory;
 
         public EditorConstructionsBuilder(GridConfig gridConfig, GridRepository<EditorConstruction> gridRepository, 
             EditorConstructionsFactory factory, MissionEditorCommandsFactory missionEditorCommandsFactory) 
-            : base(gridConfig, gridRepository, factory)
+            : base(gridConfig, gridRepository)
         {
             _missionEditorCommandsFactory = missionEditorCommandsFactory;
+            _factory = factory;
         }
 
-        protected override ICommand CreateBuildCommand(ConstructionID id, Vector3 point) 
-            => _missionEditorCommandsFactory.BuildConstructionCommand(id, point);
+        protected override EditorConstruction CreateMovableModel((ConstructionID, AffiliationEnum) id, Vector3 point = default) 
+            => _factory.Create(id.Item1);
+
+        protected override ICommand CreateBuildCommand((ConstructionID, AffiliationEnum) id, Vector3 point)
+            => _missionEditorCommandsFactory.BuildConstructionCommand(id.Item1, id.Item2, point);
+        
+        public async Task LoadGroundTiles(CancellationToken cancellationToken, IReadOnlyList<Mission.ConstructionPair> groundTiles)
+        {
+            for (int i = 0; i < groundTiles.Count; i++)
+            {
+                if (i % 10 == 0) 
+                    await Task.Delay(5, cancellationToken);
+                
+                if (cancellationToken.IsCancellationRequested)
+                    cancellationToken.ThrowIfCancellationRequested();
+
+                var tile = _factory.Create(groundTiles[i].Id, groundTiles[i].Position);
+                tile.Initialize(groundTiles[i].Affiliation);
+                
+                GridRepository.Add(groundTiles[i].Position, tile);
+            }
+        }
     }
 }
