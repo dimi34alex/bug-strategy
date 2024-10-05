@@ -15,7 +15,65 @@ MonoBehaviour:
   buyCost:
     _cells: []
   levels:
-  - maxHealPoints: 1000
+  - maxHealPoints: 6000
+    levelUpCost:
+      _cells:
+      - Key: 0
+        Value: 400
+      - Key: 10
+        Value: 500
+      - Key: 20
+        Value: 500
+      - Key: 30
+        Value: 600
+    resourceCapacity:
+      _cells:
+      - Key: 0
+        Value: 1000
+      - Key: 10
+        Value: 500
+      - Key: 30
+        Value: 500
+    recruitingSize: 6
+    recruitingData:
+    - currentId: 100
+      recruitingTime: 7
+      stackSize: 1
+      spawnPauseTime: 0
+      costs:
+        _cells:
+        - Key: 0
+          Value: 100
+  - maxHealPoints: 8500
+    levelUpCost:
+      _cells:
+      - Key: 0
+        Value: 1000
+      - Key: 10
+        Value: 600
+      - Key: 20
+        Value: 600
+      - Key: 30
+        Value: 1900
+    resourceCapacity:
+      _cells:
+      - Key: 0
+        Value: 1000
+      - Key: 10
+        Value: 500
+      - Key: 30
+        Value: 500
+    recruitingSize: 6
+    recruitingData:
+    - currentId: 100
+      recruitingTime: 7
+      stackSize: 1
+      spawnPauseTime: 0
+      costs:
+        _cells:
+        - Key: 0
+          Value: 100
+  - maxHealPoints: 11000
     levelUpCost:
       _cells: []
     resourceCapacity:
@@ -26,23 +84,13 @@ MonoBehaviour:
         Value: 500
       - Key: 30
         Value: 500
-    recruitingSize: 2
+    recruitingSize: 6
     recruitingData:
     - currentId: 100
-      recruitingTime: 1
+      recruitingTime: 7
       stackSize: 1
       spawnPauseTime: 0
       costs:
-        _cells: []
-    - currentId: 110
-      recruitingTime: 1
-      stackSize: 1
-      spawnPauseTime: 0
-      costs:
-        _cells: []
-    - currentId: 120
-      recruitingTime: 1
-      stackSize: 1
-      spawnPauseTime: 0
-      costs:
-        _cells: []
+        _cells:
+        - Key: 0
+          Value: 100

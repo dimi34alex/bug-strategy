@@ -13,13 +13,28 @@ MonoBehaviour:
   m_Name: BeeHospitalConfig
   m_EditorClassIdentifier: 
   buyCost:
-    _cells: []
+    _cells:
+    - Key: 10
+      Value: 200
+    - Key: 20
+      Value: 350
   levels:
-  - maxHealPoints: 1000
+  - maxHealPoints: 2000
+    levelUpCost:
+      _cells:
+      - Key: 20
+        Value: 600
+      - Key: 10
+        Value: 400
+    resourceCapacity:
+      _cells: []
+    HealPerSecond: 40
+    <HiderCapacity>k__BackingField: 4
+  - maxHealPoints: 2750
     levelUpCost:
       _cells: []
     resourceCapacity:
       _cells: []
-    HealPerSecond: 5
-    <HiderCapacity>k__BackingField: 4
+    HealPerSecond: 40
+    <HiderCapacity>k__BackingField: 8
   hiderAccess: 00000000010000001e00000028000000320000003c0000004600000050000000

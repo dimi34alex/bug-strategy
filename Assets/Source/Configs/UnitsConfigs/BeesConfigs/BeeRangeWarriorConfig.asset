@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1929935f662d460a8d5030a4959e420a, type: 3}
   m_Name: BeeRangeWarriorConfig
   m_EditorClassIdentifier: 
-  <HealthPoints>k__BackingField: 100
+  <HealthPoints>k__BackingField: 500
   <InteractionRange>k__BackingField: 4
   <Cooldown>k__BackingField: 1
-  <AttackRange>k__BackingField: 10
-  <Damage>k__BackingField: 10
+  <AttackRange>k__BackingField: 5
+  <Damage>k__BackingField: 100
   <ProjectileType>k__BackingField: 0

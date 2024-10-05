@@ -13,49 +13,83 @@ MonoBehaviour:
   m_Name: BeeBarrackConfig
   m_EditorClassIdentifier: 
   buyCost:
-    _cells: []
+    _cells:
+    - Key: 0
+      Value: 150
+    - Key: 10
+      Value: 250
+    - Key: 20
+      Value: 250
   levels:
-  - maxHealPoints: 1000
+  - maxHealPoints: 3500
     levelUpCost:
-      _cells: []
+      _cells:
+      - Key: 10
+        Value: 200
+      - Key: 20
+        Value: 400
     resourceCapacity:
       _cells: []
-    recruitingSize: 3
+    recruitingSize: 6
     beesRecruitingData:
     - currentId: 30
-      recruitingTime: 5
-      stackSize: 2
+      recruitingTime: 15
+      stackSize: 1
       spawnPauseTime: 0.5
       costs:
         _cells:
-        - Key: 1
-          Value: 2
+        - Key: 0
+          Value: 350
     - currentId: 1
-      recruitingTime: 10
+      recruitingTime: 20
+      stackSize: 1
+      spawnPauseTime: 0.5
+      costs:
+        _cells:
+        - Key: 0
+          Value: 600
+    <HiderCapacity>k__BackingField: 4
+  - maxHealPoints: 4000
+    levelUpCost:
+      _cells:
+      - Key: 10
+        Value: 350
+      - Key: 20
+        Value: 100
+      - Key: 5
+        Value: 50
+    resourceCapacity:
+      _cells: []
+    recruitingSize: 6
+    beesRecruitingData:
+    - currentId: 30
+      recruitingTime: 15
+      stackSize: 1
+      spawnPauseTime: 0.5
+      costs:
+        _cells:
+        - Key: 0
+          Value: 350
+    - currentId: 1
+      recruitingTime: 20
       stackSize: 1
       spawnPauseTime: 0
       costs:
         _cells:
-        - Key: 1
-          Value: 4
-    - currentId: 50
-      recruitingTime: 10
-      stackSize: 1
-      spawnPauseTime: 0
-      costs:
-        _cells:
-        - Key: 1
-          Value: 1
+        - Key: 0
+          Value: 600
     - currentId: 80
-      recruitingTime: 10
+      recruitingTime: 15
       stackSize: 1
       spawnPauseTime: 0
       costs:
         _cells:
-        - Key: 1
-          Value: 1
-    <HiderCapacity>k__BackingField: 1
-  - maxHealPoints: 200
+        - Key: 0
+          Value: 250
+        - Key: 20
+          Value: 150
+    <HiderCapacity>k__BackingField: 2
+  - maxHealPoints: 4500
     levelUpCost:
       _cells: []
     resourceCapacity:
@@ -63,36 +97,42 @@ MonoBehaviour:
     recruitingSize: 6
     beesRecruitingData:
     - currentId: 30
-      recruitingTime: 4
-      stackSize: 2
+      recruitingTime: 15
+      stackSize: 1
       spawnPauseTime: 0.5
       costs:
         _cells:
-        - Key: 1
-          Value: 2
+        - Key: 0
+          Value: 350
     - currentId: 1
-      recruitingTime: 7
+      recruitingTime: 20
       stackSize: 1
       spawnPauseTime: 0
       costs:
         _cells:
-        - Key: 1
-          Value: 4
-    - currentId: 50
-      recruitingTime: 5
-      stackSize: 1
-      spawnPauseTime: 0
-      costs:
-        _cells:
-        - Key: 1
-          Value: 4
+        - Key: 0
+          Value: 600
     - currentId: 80
-      recruitingTime: 5
+      recruitingTime: 15
       stackSize: 1
-      spawnPauseTime: 0
+      spawnPauseTime: 0.5
       costs:
         _cells:
-        - Key: 1
-          Value: 4
+        - Key: 0
+          Value: 250
+        - Key: 20
+          Value: 150
+    - currentId: 50
+      recruitingTime: 30
+      stackSize: 1
+      spawnPauseTime: 0.5
+      costs:
+        _cells:
+        - Key: 0
+          Value: 500
+        - Key: 10
+          Value: 150
+        - Key: 20
+          Value: 150
     <HiderCapacity>k__BackingField: 2
   hiderAccess: 00000000010000001e00000028000000320000003c0000004600000050000000

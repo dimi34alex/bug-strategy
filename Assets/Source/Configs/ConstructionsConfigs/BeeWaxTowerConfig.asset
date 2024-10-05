@@ -13,22 +13,35 @@ MonoBehaviour:
   m_Name: BeeWaxTowerConfig
   m_EditorClassIdentifier: 
   buyCost:
-    _cells: []
+    _cells:
+    - Key: 5
+      Value: 100
   levels:
-  - maxHealPoints: 10
+  - maxHealPoints: 3000
     levelUpCost:
-      _cells: []
+      _cells:
+      - Key: 5
+        Value: 100
     resourceCapacity:
       _cells: []
     <ProjectilesType>k__BackingField: 30
     <ProjectilesCount>k__BackingField: 1
     <SpawnPause>k__BackingField: 0.5
-    <Damage>k__BackingField: 5
+    <Damage>k__BackingField: 50
     <Cooldown>k__BackingField: 2
-    <MoveSpeedChangerConfig>k__BackingField:
-      <Power>k__BackingField: -25
-      <Time>k__BackingField: 5
-  - maxHealPoints: 750
+  - maxHealPoints: 4000
+    levelUpCost:
+      _cells:
+      - Key: 5
+        Value: 120
+    resourceCapacity:
+      _cells: []
+    <ProjectilesType>k__BackingField: 30
+    <ProjectilesCount>k__BackingField: 2
+    <SpawnPause>k__BackingField: 0.5
+    <Damage>k__BackingField: 65
+    <Cooldown>k__BackingField: 2
+  - maxHealPoints: 5000
     levelUpCost:
       _cells: []
     resourceCapacity:
@@ -36,21 +49,5 @@ MonoBehaviour:
     <ProjectilesType>k__BackingField: 30
     <ProjectilesCount>k__BackingField: 2
     <SpawnPause>k__BackingField: 0.5
-    <Damage>k__BackingField: 5
+    <Damage>k__BackingField: 80
     <Cooldown>k__BackingField: 2
-    <MoveSpeedChangerConfig>k__BackingField:
-      <Power>k__BackingField: -25
-      <Time>k__BackingField: 5
-  - maxHealPoints: 1000
-    levelUpCost:
-      _cells: []
-    resourceCapacity:
-      _cells: []
-    <ProjectilesType>k__BackingField: 30
-    <ProjectilesCount>k__BackingField: 2
-    <SpawnPause>k__BackingField: 0.5
-    <Damage>k__BackingField: 5
-    <Cooldown>k__BackingField: 2
-    <MoveSpeedChangerConfig>k__BackingField:
-      <Power>k__BackingField: -50
-      <Time>k__BackingField: 5

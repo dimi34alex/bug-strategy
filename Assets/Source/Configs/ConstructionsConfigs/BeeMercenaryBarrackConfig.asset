@@ -13,9 +13,67 @@ MonoBehaviour:
   m_Name: BeeMercenaryBarrackConfig
   m_EditorClassIdentifier: 
   buyCost:
-    _cells: []
+    _cells:
+    - Key: 0
+      Value: 150
+    - Key: 10
+      Value: 250
+    - Key: 20
+      Value: 250
   levels:
-  - maxHealPoints: 1000
+  - maxHealPoints: 3500
+    levelUpCost:
+      _cells:
+      - Key: 10
+        Value: 300
+      - Key: 20
+        Value: 200
+    resourceCapacity:
+      _cells: []
+    recruitingSize: 1
+    recruitingData:
+    - currentId: 70
+      recruitingTime: 12
+      stackSize: 1
+      spawnPauseTime: 1
+      costs:
+        _cells:
+        - Key: 0
+          Value: 175
+    <HiderCapacity>k__BackingField: 1
+  - maxHealPoints: 4000
+    levelUpCost:
+      _cells:
+      - Key: 10
+        Value: 300
+      - Key: 20
+        Value: 200
+      - Key: 5
+        Value: 50
+    resourceCapacity:
+      _cells: []
+    recruitingSize: 1
+    recruitingData:
+    - currentId: 70
+      recruitingTime: 12
+      stackSize: 1
+      spawnPauseTime: 1
+      costs:
+        _cells:
+        - Key: 0
+          Value: 175
+    - currentId: 40
+      recruitingTime: 25
+      stackSize: 1
+      spawnPauseTime: 1
+      costs:
+        _cells:
+        - Key: 0
+          Value: 400
+        - Key: 10
+          Value: 150
+    <HiderCapacity>k__BackingField: 1
+  - maxHealPoints: 4500
     levelUpCost:
       _cells: []
     resourceCapacity:
@@ -23,28 +81,34 @@ MonoBehaviour:
     recruitingSize: 1
     recruitingData:
     - currentId: 70
-      recruitingTime: 1
+      recruitingTime: 12
       stackSize: 1
       spawnPauseTime: 1
       costs:
         _cells:
-        - Key: 1
-          Value: 1
+        - Key: 0
+          Value: 175
     - currentId: 40
-      recruitingTime: 1
+      recruitingTime: 25
       stackSize: 1
       spawnPauseTime: 1
       costs:
         _cells:
-        - Key: 1
-          Value: 1
+        - Key: 0
+          Value: 400
+        - Key: 10
+          Value: 150
     - currentId: 60
-      recruitingTime: 1
+      recruitingTime: 30
       stackSize: 1
       spawnPauseTime: 1
       costs:
         _cells:
-        - Key: 1
-          Value: 1
+        - Key: 0
+          Value: 500
+        - Key: 10
+          Value: 200
+        - Key: 20
+          Value: 200
     <HiderCapacity>k__BackingField: 1
   hiderAccess: 00000000010000001e00000028000000320000003c0000004600000050000000
