@@ -6,7 +6,6 @@ using BugStrategy.Missions.MissionEditor.Commands;
 using BugStrategy.Missions.MissionEditor.EditorConstructions;
 using BugStrategy.Missions.MissionEditor.GridRepositories;
 using BugStrategy.Missions.MissionEditor.Saving;
-using BugStrategy.Missions.MissionEditor.UI;
 using BugStrategy.ResourceSources;
 using BugStrategy.Tiles;
 using UnityEngine;
@@ -30,8 +29,6 @@ namespace BugStrategy.Missions.MissionEditor
         [Inject] private CommandsRepository _commandsRepository;
         [Inject] private MissionEditorCommandsFactory _commandsFactory;
         
-        private UI_MissionEditor _uiMissionEditor;
-        
         private GroundBuilder _groundBuilder;
         private EditorConstructionsBuilder _editorConstructionsBuilder;
         private ResourceSourcesBuilder _resourceSourceBuilder;
@@ -40,8 +37,6 @@ namespace BugStrategy.Missions.MissionEditor
 
         private void Awake()
         {
-            _uiMissionEditor = FindObjectOfType<UI_MissionEditor>(true);
-
             _editorConstructionsRepository.SetExternalGrids(new IGridRepository[] { _resourceSourceRepository });
             _resourceSourceRepository.SetExternalGrids(new IGridRepository[] { _editorConstructionsRepository });
             
@@ -49,10 +44,6 @@ namespace BugStrategy.Missions.MissionEditor
             _editorConstructionsBuilder = new EditorConstructionsBuilder(_gridConfig, _editorConstructionsRepository, _editorConstructionsFactory, _commandsFactory);
             _resourceSourceBuilder = new ResourceSourcesBuilder(_gridConfig, _resourceSourceRepository, _resourceSourceFactory, _commandsFactory);
             
-            _uiMissionEditor.OnTilePressed += TilePrep;
-            _uiMissionEditor.OnConstructionPressed += ConstrPrep;
-            _uiMissionEditor.OnResourceSourcePressed += ResourceSourcePrep;
-
             _groundBuilder.Generate(config.DefaultGridSize);
             _commandsRepository.Clear();
         }
@@ -60,15 +51,7 @@ namespace BugStrategy.Missions.MissionEditor
         private void Update() 
             => _activeBuilder?.ManualUpdate();
         
-        private void ResourceSourcePrep(int index)
-        {
-            _activeBuilder = _resourceSourceBuilder;
-            _groundBuilder.DeActivate();
-            _editorConstructionsBuilder.DeActivate();
-            _resourceSourceBuilder.Activate(index);
-        }
-
-        private void TilePrep(int ind)
+        public void TilePrep(int ind)
         {
             _activeBuilder = _groundBuilder;
             _groundBuilder.Activate(ind);
@@ -76,12 +59,20 @@ namespace BugStrategy.Missions.MissionEditor
             _resourceSourceBuilder.DeActivate();
         }
 
-        private void ConstrPrep((ConstructionID, AffiliationEnum) id)
+        public void ConstrPrep((ConstructionID, AffiliationEnum) id)
         {
             _activeBuilder = _editorConstructionsBuilder;
             _groundBuilder.DeActivate();
             _editorConstructionsBuilder.Activate(id);
             _resourceSourceBuilder.DeActivate();
+        }
+        
+        public void ResourceSourcePrep(int index)
+        {
+            _activeBuilder = _resourceSourceBuilder;
+            _groundBuilder.DeActivate();
+            _editorConstructionsBuilder.DeActivate();
+            _resourceSourceBuilder.Activate(index);
         }
         
         public void Generate(Vector2Int size)
