@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using BugStrategy.CommandsCore;
 using BugStrategy.Constructions;
+using BugStrategy.Missions.MissionEditor.Affiliation;
 using BugStrategy.Missions.MissionEditor.Commands;
 using BugStrategy.Missions.MissionEditor.EditorConstructions;
 using BugStrategy.Missions.MissionEditor.GridRepositories;
@@ -25,7 +26,8 @@ namespace BugStrategy.Missions.MissionEditor
         [Inject] private GroundPositionsRepository _groundPositionsRepository;
         [Inject] private EditorConstructionsRepository _editorConstructionsRepository;
         [Inject] private ResourceSourceRepository _resourceSourceRepository;
-        
+
+        [Inject] private AffiliationHolder _affiliationHolder;
         [Inject] private CommandsRepository _commandsRepository;
         [Inject] private MissionEditorCommandsFactory _commandsFactory;
         
@@ -59,11 +61,11 @@ namespace BugStrategy.Missions.MissionEditor
             _resourceSourceBuilder.DeActivate();
         }
 
-        public void ConstrPrep((ConstructionID, AffiliationEnum) id)
+        public void ConstrPrep(ConstructionID id)
         {
             _activeBuilder = _editorConstructionsBuilder;
             _groundBuilder.DeActivate();
-            _editorConstructionsBuilder.Activate(id);
+            _editorConstructionsBuilder.Activate((id, _affiliationHolder.PlayerAffiliation));
             _resourceSourceBuilder.DeActivate();
         }
         

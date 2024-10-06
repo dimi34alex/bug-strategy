@@ -25,6 +25,6 @@ namespace BugStrategy.Missions.MissionEditor.UI.NewDirectory1
         }
 
         private void Build(ConstructionID id)
-            => _builder.ConstrPrep((id, AffiliationEnum.None));
+            => _builder.ConstrPrep(id);
     }
 }
