@@ -60,7 +60,6 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
             }
             catch (Exception exp)
             {
-                Debug.Log(_uiConstructionsConfig);
                 throw new Exception(
                     $"Настоятельно рекомендую проверить есть ли конфиг ({nameof(UIConstructionConfig)} " +
                     $"и добавлен ли он в {nameof(UIConstructionConfig)}) | {exp.Message}");

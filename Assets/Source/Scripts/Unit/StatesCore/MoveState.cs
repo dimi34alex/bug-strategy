@@ -3,13 +3,11 @@ using BugStrategy.EntityState;
 using BugStrategy.Libs;
 using BugStrategy.Unit.OrderValidatorCore;
 using UnityEngine;
-
 namespace BugStrategy.Unit
 {
     public class MoveState : EntityStateBase
     {
         public override EntityStateID EntityStateID => EntityStateID.Move;
-
         private const float DistanceBuffer = 0.1f;
         
         private readonly UnitBase _unit;
@@ -23,49 +21,40 @@ namespace BugStrategy.Unit
             _unit = unit;
             _orderValidator = orderValidator;
         }
-        
+
         public override void OnStateEnter()
         {
-            //if(_unit.IsActive)
-            {
-                _unit.SetDestination(_unit.TargetMovePosition);
-                _unit.OnTargetMovePositionChange += UpdateDestinationPosition;
+            _unit.SetDestination(_unit.TargetMovePosition);
+            _unit.OnTargetMovePositionChange += UpdateDestinationPosition;
 
-                if(_unit.CurrentPathData.Target.IsAnyNull())
-                    UpdateEvent += ManualCheckDistance;
-                else
-                    _orderValidator.OnEnterInZone += CheckTargetDistance;
-            }
+            if (_unit.CurrentPathData.Target.IsAnyNull())
+                UpdateEvent += ManualCheckDistance;
+            else
+                _orderValidator.OnEnterInZone += CheckTargetDistance;
         }
 
         public override void OnStateExit()
         {
-            //if(_unit.IsActive)
-            {
-                _unit.SetDestination(_unit.Transform.position);
-                _unit.OnTargetMovePositionChange -= UpdateDestinationPosition;
+            _unit.SetDestination(_unit.Transform.position);
+            _unit.OnTargetMovePositionChange -= UpdateDestinationPosition;
 
-                UpdateEvent -= ManualCheckDistance;
-                _orderValidator.OnEnterInZone -= CheckTargetDistance;
-            }
+            UpdateEvent -= ManualCheckDistance;
+            _orderValidator.OnEnterInZone -= CheckTargetDistance;
         }
 
         public override void OnUpdate() => UpdateEvent?.Invoke();
 
         private void UpdateDestinationPosition()
         {
-            //if(_unit.IsActive)
-            {
-                _unit.SetDestination(_unit.TargetMovePosition);
+            _unit.SetDestination(_unit.TargetMovePosition);
 
-                UpdateEvent -= ManualCheckDistance;
-                _orderValidator.OnEnterInZone -= CheckTargetDistance;
+            UpdateEvent -= ManualCheckDistance;
+            _orderValidator.OnEnterInZone -= CheckTargetDistance;
 
-                if(_unit.CurrentPathData.Target.IsAnyNull())
-                    UpdateEvent += ManualCheckDistance;
-                else
-                    _orderValidator.OnEnterInZone += CheckTargetDistance;
-            }
+            if (_unit.CurrentPathData.Target.IsAnyNull())
+                UpdateEvent += ManualCheckDistance;
+            else
+                _orderValidator.OnEnterInZone += CheckTargetDistance;
         }
 
         private void ManualCheckDistance()
@@ -78,7 +67,6 @@ namespace BugStrategy.Unit
         private void CheckTargetDistance()
         {
             StateExecuted?.Invoke();
-
             //if (_orderValidator.CheckDistance(_unit.CurrentPathData))
                 // _unit.HandleGiveOrder(_unit.CurrentPathData.Target, _unit.CurrentPathData.PathType);
         }
