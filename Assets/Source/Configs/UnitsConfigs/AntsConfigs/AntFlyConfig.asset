@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fdead838b72406ea60d62591e0988b9, type: 3}
   m_Name: AntFlyConfig
   m_EditorClassIdentifier: 
-  <HealthPoints>k__BackingField: 100
+  <HealthPoints>k__BackingField: 500
   <DefaultProfession>k__BackingField: {fileID: 11400000, guid: 0dbd011f66658db41bef9bbd3d13231c, type: 2}

@@ -13,15 +13,27 @@ MonoBehaviour:
   m_Name: AntAphidFarmConfig
   m_EditorClassIdentifier: 
   buyCost:
-    _cells: []
+    _cells:
+    - Key: 0
+      Value: 300
+    - Key: 10
+      Value: 300
+    - Key: 20
+      Value: 300
+    - Key: 30
+      Value: 300
   levels:
-  - maxHealPoints: 1000
+  - maxHealPoints: 4000
     levelUpCost:
-      _cells: []
+      _cells:
+      - Key: 0
+        Value: 0
     resourceCapacity:
-      _cells: []
-    <UnitsCount>k__BackingField: 10
+      _cells:
+      - Key: 0
+        Value: 0
+    <UnitsCount>k__BackingField: 3
     <ResourceProduceProcessInfo>k__BackingField:
       _targetResourceID: 30
-      _producePerSecond: 0
-      _producedResourceCapacity: 100
+      _producePerSecond: 0.5
+      _producedResourceCapacity: 1000

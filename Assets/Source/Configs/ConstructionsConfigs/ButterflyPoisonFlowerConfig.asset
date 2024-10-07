@@ -13,41 +13,59 @@ MonoBehaviour:
   m_Name: ButterflyPoisonFlowerConfig
   m_EditorClassIdentifier: 
   buyCost:
-    _cells: []
+    _cells:
+    - Key: 0
+      Value: 250
+    - Key: 20
+      Value: 400
+    - Key: 40
+      Value: 300
   levels:
-  - maxHealPoints: 500
+  - maxHealPoints: 3000
     levelUpCost:
-      _cells: []
+      _cells:
+      - Key: 0
+        Value: 200
+      - Key: 20
+        Value: 200
+      - Key: 40
+        Value: 150
     resourceCapacity:
       _cells: []
-    <AttackDamage>k__BackingField: 5
+    <AttackDamage>k__BackingField: 50
     <AttackCooldown>k__BackingField: 1
     <AttackRadius>k__BackingField: 10
     <DamageRadius>k__BackingField: 0
-    <FogRadius>k__BackingField: 10
+    <FogRadius>k__BackingField: 8
     <FogExistTime>k__BackingField: 3
     <StaticFogRadius>k__BackingField: 0
-  - maxHealPoints: 750
+  - maxHealPoints: 4000
     levelUpCost:
-      _cells: []
+      _cells:
+      - Key: 0
+        Value: 350
+      - Key: 20
+        Value: 300
+      - Key: 40
+        Value: 250
     resourceCapacity:
       _cells: []
-    <AttackDamage>k__BackingField: 7.5
+    <AttackDamage>k__BackingField: 65
     <AttackCooldown>k__BackingField: 1
     <AttackRadius>k__BackingField: 10
     <DamageRadius>k__BackingField: 5
-    <FogRadius>k__BackingField: 10
+    <FogRadius>k__BackingField: 8
     <FogExistTime>k__BackingField: 3
     <StaticFogRadius>k__BackingField: 0
-  - maxHealPoints: 1000
+  - maxHealPoints: 5000
     levelUpCost:
       _cells: []
     resourceCapacity:
       _cells: []
-    <AttackDamage>k__BackingField: 10
+    <AttackDamage>k__BackingField: 80
     <AttackCooldown>k__BackingField: 0.45
-    <AttackRadius>k__BackingField: 10
+    <AttackRadius>k__BackingField: 5
     <DamageRadius>k__BackingField: 2.5
-    <FogRadius>k__BackingField: 10
+    <FogRadius>k__BackingField: 8
     <FogExistTime>k__BackingField: 3
     <StaticFogRadius>k__BackingField: 4
