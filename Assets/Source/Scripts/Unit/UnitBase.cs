@@ -252,7 +252,7 @@ namespace BugStrategy.Unit
         private void CalculateNewState(Vector3 newTargetMovePosition)
         {
             newTargetMovePosition.y = 0;
-            if (TargetMovePosition != newTargetMovePosition)
+            if (TargetMovePosition != newTargetMovePosition )
             {
                 TargetMovePosition = newTargetMovePosition;
                 OnTargetMovePositionChange?.Invoke();

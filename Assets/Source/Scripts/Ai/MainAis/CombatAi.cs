@@ -74,7 +74,7 @@ namespace BugStrategy.Ai.MainAis
                 }
             }
 
-            if (enemyTownHall == null)
+            if (enemyTownHall == null || enemyTownHall.IsActive == false)
                 return;
 
             foreach (var combatUnitType in _combatUnits)
