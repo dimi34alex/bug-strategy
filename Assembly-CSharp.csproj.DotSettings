@@ -29,6 +29,8 @@
 	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=assets_005Csource_005Cscripts_005Cmissions_005Cmissioneditor_005Cbuilders_005Cspecificbuilders/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=assets_005Csource_005Cscripts_005Cmissions_005Cmissioneditor_005Ccommands_005Cspecificcommands_005Cbuildcommands/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=assets_005Csource_005Cscripts_005Cmissions_005Cmissioneditor_005Ccommands_005Cspecificcommands/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=assets_005Csource_005Cscripts_005Cmissions_005Cmissioneditor_005Ccommands_005Cspecificcommands_005Cdelete/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=assets_005Csource_005Cscripts_005Cmissions_005Cmissioneditor_005Ccommands_005Cspecificcommands_005Cdeletecommands/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=assets_005Csource_005Cscripts_005Cmissions_005Cmissioneditor_005Cgridrepositories_005Cspecificgrids/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=assets_005Csource_005Cscripts_005Cprojectiles_005Cspecificprojectiles/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=assets_005Csource_005Cscripts_005Cresourcessystem_005Cconcreteresources/@EntryIndexedValue">True</s:Boolean>

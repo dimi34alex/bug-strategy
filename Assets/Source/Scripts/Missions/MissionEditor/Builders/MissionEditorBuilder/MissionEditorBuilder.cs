@@ -10,6 +10,7 @@ using BugStrategy.Missions.MissionEditor.Saving;
 using BugStrategy.ResourceSources;
 using BugStrategy.Tiles;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Zenject;
 
 namespace BugStrategy.Missions.MissionEditor
@@ -49,38 +50,64 @@ namespace BugStrategy.Missions.MissionEditor
             _groundBuilder.Generate(config.DefaultGridSize);
             _commandsRepository.Clear();
         }
-
-        private void Update() 
-            => _activeBuilder?.ManualUpdate();
         
-        public void TilePrep(int ind)
+        private void OnDestroy()
         {
+            _mapLoadingCancelToken?.Cancel();
+        }
+
+        private void Update()
+        {
+            if (Input.GetButtonDown("Fire2"))
+            {
+                if (_activeBuilder == null || !_activeBuilder.IsActive)
+                {
+                    var point = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    point.y = 0;
+                    
+                    _editorConstructionsBuilder.Clear(point);
+                    _resourceSourceBuilder.Clear(point);
+                }
+                else
+                    _activeBuilder?.DeActivate();
+            }
+            
+            if (MouseCursorOverUI())
+                return;
+
+            var worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            worldPoint.y = 0;   
+            _activeBuilder?.Move(worldPoint);
+            
+            
+            if (Input.GetButtonDown("Fire1"))
+                _activeBuilder?.ApplyBuild();
+        }
+
+        public void ActivateGroundTile(int ind)
+        {
+            _activeBuilder?.DeActivate();
             _activeBuilder = _groundBuilder;
             _groundBuilder.Activate(ind);
-            _editorConstructionsBuilder.DeActivate();
-            _resourceSourceBuilder.DeActivate();
         }
 
-        public void ConstrPrep(ConstructionID id)
+        public void ActivateConstructions(ConstructionID id)
         {
+            _activeBuilder?.DeActivate();
             _activeBuilder = _editorConstructionsBuilder;
-            _groundBuilder.DeActivate();
             _editorConstructionsBuilder.Activate((id, _affiliationHolder.PlayerAffiliation));
-            _resourceSourceBuilder.DeActivate();
         }
         
-        public void ResourceSourcePrep(int index)
+        public void ActivateResourceSource(int index)
         {
+            _activeBuilder?.DeActivate();
             _activeBuilder = _resourceSourceBuilder;
-            _groundBuilder.DeActivate();
-            _editorConstructionsBuilder.DeActivate();
             _resourceSourceBuilder.Activate(index);
         }
-        
+
         public void Generate(Vector2Int size)
             => _groundBuilder.Generate(size);
 
-        [ContextMenu("SAVE")]
         public void Save() 
             => MissionSaveAndLoader.Save(_groundPositionsRepository.Tiles, _editorConstructionsRepository.Tiles,  _resourceSourceRepository.Tiles);
 
@@ -111,10 +138,8 @@ namespace BugStrategy.Missions.MissionEditor
                 _mapLoadingCancelToken = null;
             }   
         }
-
-        private void OnDestroy()
-        {
-            _mapLoadingCancelToken?.Cancel();
-        }
+        
+        private static bool MouseCursorOverUI() 
+            => EventSystem.current.IsPointerOverGameObject();
     }
 }

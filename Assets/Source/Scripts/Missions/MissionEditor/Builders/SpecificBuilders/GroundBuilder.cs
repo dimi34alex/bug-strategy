@@ -31,7 +31,10 @@ namespace BugStrategy.Missions.MissionEditor
         protected override ICommand CreateBuildCommand(int id, Vector3 point) 
             => _commandsFactory.BuildGroundCommand(id, point);
 
-        protected override Tile CreateMovableModel(int id, Vector3 point = default) 
+        protected override ICommand CreateDeleteCommand(GridKey3 point)
+            => _commandsFactory.DeleteGround(point);
+        
+        protected override Tile CreateMovableModel(int id) 
             => _factory.Create(id);
 
         public void Generate(IReadOnlyDictionary<GridKey3, int> tiles)

@@ -63,5 +63,26 @@ namespace BugStrategy.Missions.MissionEditor.Commands
             OnCommandCreated?.Invoke(command);
             return command;
         }
+
+        public DeleteGroundCommand DeleteGround(GridKey3 point)
+        {
+            var command = new DeleteGroundCommand(point, _tilesFactory, _groundPositionsRepository);
+            OnCommandCreated?.Invoke(command);
+            return command;
+        }
+        
+        public DeleteConstructionCommand DeleteConstruction(GridKey3 point)
+        {
+            var command = new DeleteConstructionCommand(point, _editorConstructionsFactory, _editorConstructionsRepository);
+            OnCommandCreated?.Invoke(command);
+            return command;
+        }
+        
+        public DeleteResourceSourceCommand DeleteResourceSource(GridKey3 point)
+        {
+            var command = new DeleteResourceSourceCommand(point, _resourceSourceFactory, _resourceSourceRepository);
+            OnCommandCreated?.Invoke(command);
+            return command;
+        }
     }
 }

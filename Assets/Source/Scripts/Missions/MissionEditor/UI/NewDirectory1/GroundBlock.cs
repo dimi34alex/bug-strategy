@@ -20,6 +20,6 @@ namespace BugStrategy.Missions.MissionEditor.UI.NewDirectory1
         }
 
         private void Build(int id) 
-            => _builder.TilePrep(id);
+            => _builder.ActivateGroundTile(id);
     }
 }

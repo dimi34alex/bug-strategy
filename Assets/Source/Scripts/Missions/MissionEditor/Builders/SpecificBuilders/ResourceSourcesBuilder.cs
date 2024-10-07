@@ -13,33 +13,26 @@ namespace BugStrategy.Missions.MissionEditor
     public class ResourceSourcesBuilder : GridBuilder<int, ResourceSourceBase>
     {
         private readonly ResourceSourceFactory _factory;
-        private readonly MissionEditorCommandsFactory _missionEditorCommandsFactory;
+        private readonly MissionEditorCommandsFactory _commandsFactory;
         private readonly IReadOnlyList<int> _keys;
         
         public ResourceSourcesBuilder(GridConfig gridConfig, GridRepository<ResourceSourceBase> gridRepository, 
-            ResourceSourceFactory factory, MissionEditorCommandsFactory missionEditorCommandsFactory) 
+            ResourceSourceFactory factory, MissionEditorCommandsFactory commandsFactory) 
             : base(gridConfig, gridRepository)
         {
             _factory = factory;
-            _missionEditorCommandsFactory = missionEditorCommandsFactory;
+            _commandsFactory = commandsFactory;
             _keys = factory.GetKeys();
         }
         
         protected override ICommand CreateBuildCommand(int id, Vector3 point) 
-            => _missionEditorCommandsFactory.BuildResourceSourceCommand(id, point);
+            => _commandsFactory.BuildResourceSourceCommand(id, point);
 
-        protected override ResourceSourceBase CreateMovableModel(int id, Vector3 point = default) 
+        protected override ICommand CreateDeleteCommand(GridKey3 point)
+            => _commandsFactory.DeleteResourceSource(point);
+        
+        protected override ResourceSourceBase CreateMovableModel(int id) 
             => _factory.Create(id);
-
-        public void ManualRandomSpawn(Vector3 point)
-        {
-            var randomIndex = Random.Range(0, _keys.Count);
-            var id = _keys[randomIndex];
-            var tile = CreateMovableModel(id, point);
-            
-            if (!GridRepository.TryAdd(point, tile)) 
-                Debug.LogError($"Cant spawn tile: {point}");
-        }
         
         public async Task LoadResourceSources(CancellationToken cancellationToken, 
             IReadOnlyList<Mission.ResourceSourcePair> resourceSources)

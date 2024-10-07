@@ -13,22 +13,25 @@ namespace BugStrategy.Missions.MissionEditor
 {
     public class EditorConstructionsBuilder : GridBuilder<(ConstructionID, AffiliationEnum), EditorConstruction>
     {
-        private readonly MissionEditorCommandsFactory _missionEditorCommandsFactory;
+        private readonly MissionEditorCommandsFactory _commandsFactory;
         private readonly EditorConstructionsFactory _factory;
 
         public EditorConstructionsBuilder(GridConfig gridConfig, GridRepository<EditorConstruction> gridRepository, 
-            EditorConstructionsFactory factory, MissionEditorCommandsFactory missionEditorCommandsFactory) 
+            EditorConstructionsFactory factory, MissionEditorCommandsFactory commandsFactory) 
             : base(gridConfig, gridRepository)
         {
-            _missionEditorCommandsFactory = missionEditorCommandsFactory;
+            _commandsFactory = commandsFactory;
             _factory = factory;
         }
 
-        protected override EditorConstruction CreateMovableModel((ConstructionID, AffiliationEnum) id, Vector3 point = default) 
+        protected override EditorConstruction CreateMovableModel((ConstructionID, AffiliationEnum) id) 
             => _factory.Create(id.Item1);
 
         protected override ICommand CreateBuildCommand((ConstructionID, AffiliationEnum) id, Vector3 point)
-            => _missionEditorCommandsFactory.BuildConstructionCommand(id.Item1, id.Item2, point);
+            => _commandsFactory.BuildConstructionCommand(id.Item1, id.Item2, point);
+        
+        protected override ICommand CreateDeleteCommand(GridKey3 point)
+            => _commandsFactory.DeleteConstruction(point);
         
         public async Task LoadGroundTiles(CancellationToken cancellationToken, IReadOnlyList<Mission.ConstructionPair> groundTiles)
         {

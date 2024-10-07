@@ -7,7 +7,6 @@ using BugStrategy.Missions.MissionEditor.Saving;
 using BugStrategy.ResourceSources;
 using BugStrategy.Tiles;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace BugStrategy.Missions
 {
@@ -53,7 +52,6 @@ namespace BugStrategy.Missions
                 if (cancellationToken.IsCancellationRequested)
                     cancellationToken.ThrowIfCancellationRequested();
 
-                Debug.Log("ASDADS");
                 var tile = factory.Create<ConstructionBase>(tiles[i].Id, tiles[i].Affiliation);
                 tile.transform.position = tiles[i].Position;
             }
