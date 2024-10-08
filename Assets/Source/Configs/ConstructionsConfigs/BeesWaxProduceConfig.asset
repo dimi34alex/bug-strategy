@@ -13,25 +13,19 @@ MonoBehaviour:
   m_Name: BeesWaxProduceConfig
   m_EditorClassIdentifier: 
   buyCost:
-    _cells:
-    - Key: 0
-      Value: 300
-    - Key: 10
-      Value: 300
-    - Key: 20
-      Value: 300
+    _cells: []
   levels:
-  - maxHealPoints: 3000
+  - maxHealPoints: 1000
     levelUpCost:
       _cells: []
     resourceCapacity:
       _cells: []
     resourceConversionProccessInfo:
       _targetResourceID: 5
-      _producePerSecond: 2
-      _producedResourceCapacity: 500
+      _producePerSecond: 10
+      _producedResourceCapacity: 50
       _spendableResourceID: 0
       _spendRatio: 0.5
-      _spendableResourceCapacity: 10
+      _spendableResourceCapacity: 100
     <HiderCapacity>k__BackingField: 1
   hiderAccess: 00000000010000001e00000028000000320000003c0000004600000050000000

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52ecc770cb904c61a84ca7307615c3cc, type: 3}
   m_Name: MoveSpeedDownConfig
   m_EditorClassIdentifier: 
-  <PowerInPercentage>k__BackingField: -0.4
-  <ExistTime>k__BackingField: 3
+  <PowerInPercentage>k__BackingField: -0.25
+  <ExistTime>k__BackingField: 0

@@ -13,41 +13,9 @@ MonoBehaviour:
   m_Name: AntFortConfig
   m_EditorClassIdentifier: 
   buyCost:
-    _cells:
-    - Key: 0
-      Value: 200
-    - Key: 10
-      Value: 250
-    - Key: 20
-      Value: 250
-    - Key: 30
-      Value: 450
+    _cells: []
   levels:
-  - maxHealPoints: 2500
-    levelUpCost:
-      _cells:
-      - Key: 10
-        Value: 250
-      - Key: 20
-        Value: 250
-      - Key: 30
-        Value: 300
-    resourceCapacity:
-      _cells: []
-  - maxHealPoints: 3500
-    levelUpCost:
-      _cells:
-      - Key: 0
-        Value: 250
-      - Key: 10
-        Value: 100
-      - Key: 20
-        Value: 300
-      - Key: 30
-        Value: 500
-    resourceCapacity:
-      _cells: []
-  - maxHealPoints: 4500
+  - maxHealPoints: 1000
     levelUpCost:
       _cells: []
     resourceCapacity:

@@ -13,14 +13,10 @@ MonoBehaviour:
   m_Name: AntMineConfig
   m_EditorClassIdentifier: 
   buyCost:
-    _cells:
-    - Key: 10
-      Value: 100
-    - Key: 30
-      Value: 100
-  <HealthPoints>k__BackingField: 4000
-  <UnitsCount>k__BackingField: 3
+    _cells: []
+  <HealthPoints>k__BackingField: 100
+  <UnitsCount>k__BackingField: 2
   <ResourceProduceProcessInfo>k__BackingField:
     _targetResourceID: 30
-    _producePerSecond: 1
+    _producePerSecond: 0
     _producedResourceCapacity: 100

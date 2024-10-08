@@ -17,7 +17,7 @@ MonoBehaviour:
   <AnimatorController>k__BackingField: {fileID: 0}
   <InteractionRange>k__BackingField: 4
   <access>k__BackingField: 640000006e00000078000000
-  <Damage>k__BackingField: 60
-  <AttackRange>k__BackingField: 5
-  <Cooldown>k__BackingField: 1
+  <Damage>k__BackingField: 5
+  <AttackRange>k__BackingField: 8
+  <Cooldown>k__BackingField: 2
   <ProjectileType>k__BackingField: 10

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: MoveSpeedUpConfig
   m_EditorClassIdentifier: 
   <PowerInPercentage>k__BackingField: 0.25
-  <ExistTime>k__BackingField: 4
+  <ExistTime>k__BackingField: 0

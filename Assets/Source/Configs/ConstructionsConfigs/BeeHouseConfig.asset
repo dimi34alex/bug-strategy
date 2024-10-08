@@ -14,38 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buyCost:
     _cells:
-    - Key: 10
-      Value: 500
+    - Key: 0
+      Value: 10
   levels:
-  - maxHealPoints: 1800
+  - maxHealPoints: 1000
     levelUpCost:
-      _cells:
-      - Key: 0
-        Value: 200
-      - Key: 10
-        Value: 250
-      - Key: 20
-        Value: 250
+      _cells: []
     resourceCapacity:
       _cells:
       - Key: 1
         Value: 10
     <HiderCapacity>k__BackingField: 1
-  - maxHealPoints: 2150
-    levelUpCost:
-      _cells:
-      - Key: 10
-        Value: 300
-      - Key: 20
-        Value: 300
-      - Key: 5
-        Value: 50
-    resourceCapacity:
-      _cells:
-      - Key: 1
-        Value: 20
-    <HiderCapacity>k__BackingField: 2
-  - maxHealPoints: 2500
+  - maxHealPoints: 2000
     levelUpCost:
       _cells: []
     resourceCapacity:

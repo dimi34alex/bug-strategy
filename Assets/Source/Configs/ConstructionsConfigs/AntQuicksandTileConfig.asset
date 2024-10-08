@@ -13,7 +13,5 @@ MonoBehaviour:
   m_Name: AntQuicksandTileConfig
   m_EditorClassIdentifier: 
   buyCost:
-    _cells:
-    - Key: 30
-      Value: 500
-  <HealthPoints>k__BackingField: 1
+    _cells: []
+  <HealthPoints>k__BackingField: 100

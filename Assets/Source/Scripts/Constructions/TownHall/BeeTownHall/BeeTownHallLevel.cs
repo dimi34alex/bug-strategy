@@ -10,7 +10,7 @@ namespace BugStrategy.Constructions.BeeTownHall
     public class BeeTownHallLevel : ConstructionLevelBase
     {
         [Space]
-        [SerializeField] [Range(0, 6)] private int recruitingSize = 0;
+        [SerializeField] [Range(0, 2)] private int recruitingSize = 0;
         [SerializeField] private List<UnitRecruitingData> beesRecruitingData;
 
         [field: Space] 

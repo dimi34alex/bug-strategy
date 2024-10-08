@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5524126e446c4d2d9f2046256af496f0, type: 3}
   m_Name: PoisonConfig
   m_EditorClassIdentifier: 
-  <DamagePerSecond>k__BackingField: 50
+  <DamagePerSecond>k__BackingField: 5
   <ExistTime>k__BackingField: 3

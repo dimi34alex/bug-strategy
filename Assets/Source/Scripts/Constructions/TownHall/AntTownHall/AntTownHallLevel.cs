@@ -10,7 +10,7 @@ namespace BugStrategy.Constructions.AntTownHall
     public class AntTownHallLevel : ConstructionLevelBase
     {
         [Space]
-        [SerializeField] [Range(0, 6)] private int recruitingSize = 0;
+        [SerializeField] [Range(0, 2)] private int recruitingSize = 0;
         [SerializeField] private List<UnitRecruitingData> recruitingData;
 
         public int RecruitingSize => recruitingSize;

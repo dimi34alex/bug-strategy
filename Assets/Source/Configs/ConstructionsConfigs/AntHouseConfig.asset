@@ -13,37 +13,9 @@ MonoBehaviour:
   m_Name: AntHouseConfig
   m_EditorClassIdentifier: 
   buyCost:
-    _cells:
-    - Key: 10
-      Value: 500
+    _cells: []
   levels:
-  - maxHealPoints: 1800
-    levelUpCost:
-      _cells:
-      - Key: 0
-        Value: 200
-      - Key: 10
-        Value: 250
-      - Key: 20
-        Value: 250
-    resourceCapacity:
-      _cells:
-      - Key: 1
-        Value: 10
-  - maxHealPoints: 2150
-    levelUpCost:
-      _cells:
-      - Key: 10
-        Value: 300
-      - Key: 20
-        Value: 300
-      - Key: 30
-        Value: 500
-    resourceCapacity:
-      _cells:
-      - Key: 1
-        Value: 10
-  - maxHealPoints: 2500
+  - maxHealPoints: 1000
     levelUpCost:
       _cells: []
     resourceCapacity:

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31ee9fc758d44d7988d462d74a896486, type: 3}
   m_Name: AttackCooldownDecreaseConfig
   m_EditorClassIdentifier: 
-  <PowerInPercentage>k__BackingField: -0.2
+  <PowerInPercentage>k__BackingField: -0.25
   <ExistTime>k__BackingField: 0

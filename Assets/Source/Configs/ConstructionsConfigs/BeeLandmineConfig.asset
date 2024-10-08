@@ -13,11 +13,9 @@ MonoBehaviour:
   m_Name: BeeLandmineConfig
   m_EditorClassIdentifier: 
   buyCost:
-    _cells:
-    - Key: 5
-      Value: 70
-  <HealthPoints>k__BackingField: 500
-  <Damage>k__BackingField: 300
-  <ExplosionDelay>k__BackingField: 1
-  <ExplosionRadius>k__BackingField: 3
+    _cells: []
+  <HealthPoints>k__BackingField: 100
+  <Damage>k__BackingField: 50
+  <ExplosionDelay>k__BackingField: 0.5
+  <ExplosionRadius>k__BackingField: 10
   <StickyTilesRadius>k__BackingField: 2

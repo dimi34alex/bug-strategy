@@ -15,15 +15,9 @@ MonoBehaviour:
   buyCost:
     _cells: []
   levels:
-  - maxHealPoints: 6000
+  - maxHealPoints: 1000
     levelUpCost:
-      _cells:
-      - Key: 0
-        Value: 1000
-      - Key: 10
-        Value: 500
-      - Key: 20
-        Value: 500
+      _cells: []
     resourceCapacity:
       _cells:
       - Key: 0
@@ -34,28 +28,20 @@ MonoBehaviour:
         Value: 1000
       - Key: 5
         Value: 1000
-    recruitingSize: 6
+    recruitingSize: 1
     beesRecruitingData:
     - currentId: 0
-      recruitingTime: 7
+      recruitingTime: 5
       stackSize: 1
       spawnPauseTime: 0
       costs:
-        _cells:
-        - Key: 0
-          Value: 200
+        _cells: []
     <HiderCapacity>k__BackingField: 1
-  - maxHealPoints: 8500
+  - maxHealPoints: 2000
     levelUpCost:
       _cells:
       - Key: 0
-        Value: 1250
-      - Key: 10
-        Value: 600
-      - Key: 20
-        Value: 600
-      - Key: 5
-        Value: 200
+        Value: 10
     resourceCapacity:
       _cells:
       - Key: 0
@@ -66,18 +52,16 @@ MonoBehaviour:
         Value: 1500
       - Key: 5
         Value: 1500
-    recruitingSize: 6
+    recruitingSize: 2
     beesRecruitingData:
     - currentId: 0
-      recruitingTime: 7
+      recruitingTime: 4
       stackSize: 1
       spawnPauseTime: 0
       costs:
-        _cells:
-        - Key: 0
-          Value: 200
+        _cells: []
     <HiderCapacity>k__BackingField: 2
-  - maxHealPoints: 11000
+  - maxHealPoints: 3000
     levelUpCost:
       _cells:
       - Key: 0
@@ -94,15 +78,13 @@ MonoBehaviour:
         Value: 2000
       - Key: 5
         Value: 2000
-    recruitingSize: 6
+    recruitingSize: 2
     beesRecruitingData:
     - currentId: 0
-      recruitingTime: 7
+      recruitingTime: 3
       stackSize: 1
       spawnPauseTime: 0
       costs:
-        _cells:
-        - Key: 0
-          Value: 200
+        _cells: []
     <HiderCapacity>k__BackingField: 3
   hiderAccess: 00000000010000001e00000028000000320000003c00000046000000500000005a0000005f000000

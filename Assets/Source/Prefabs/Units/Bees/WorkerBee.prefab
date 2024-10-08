@@ -169,7 +169,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 1
-  m_Speed: 2
+  m_Speed: 8
   m_Acceleration: 128
   avoidancePriority: 50
   m_AngularSpeed: 0
@@ -225,6 +225,7 @@ MonoBehaviour:
   _unitVisibleZone: {fileID: 1650435371600735881}
   unitInteractionZone: {fileID: 853102100588544970}
   dynamicUnitZone: {fileID: 2802865733621904065}
+  EntityStateID: 0
   config: {fileID: 11400000, guid: 2384d9a861f83294982a8062b5635792, type: 2}
   resourceSkin: {fileID: 7471633721207437469}
 --- !u!1 &5723541658055598804
@@ -486,7 +487,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 30
+  m_Radius: 10
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &2810728364298832912
 PrefabInstance:

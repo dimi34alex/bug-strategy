@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0731dd7344b246f1849013e9bac1b878, type: 3}
   m_Name: MobileHiveConfig
   m_EditorClassIdentifier: 
-  <HealthPoints>k__BackingField: 2000
+  <HealthPoints>k__BackingField: 2
   <InteractionRange>k__BackingField: 4
-  <Cooldown>k__BackingField: 0.9
+  <Cooldown>k__BackingField: 1
   <AttackRange>k__BackingField: 10
-  <Damage>k__BackingField: 50
-  <ExplosionDamage>k__BackingField: 250
-  <ExplosionRadius>k__BackingField: 2
+  <Damage>k__BackingField: 5
+  <ExplosionDamage>k__BackingField: 40
+  <ExplosionRadius>k__BackingField: 10
   <ExplosionLayers>k__BackingField:
     serializedVersion: 2
     m_Bits: 6144
