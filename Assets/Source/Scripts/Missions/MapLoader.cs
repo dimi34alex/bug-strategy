@@ -7,7 +7,6 @@ using BugStrategy.Missions.MissionEditor.Saving;
 using BugStrategy.ResourceSources;
 using BugStrategy.Tiles;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace BugStrategy.Missions
 {
@@ -23,6 +22,7 @@ namespace BugStrategy.Missions
             var missionSave = JsonUtility.FromJson<Mission>(missionConfig.MissionJson.text);
 
             await LoadGroundTiles(cancellationToken, missionSave.GroundTiles, tilesFactory);
+            await LoadConstructionTiles(cancellationToken, missionSave.Constructions, constructionFactory);
             await LoadResourceSources(cancellationToken, missionSave.ResourceSources, resourceSourceFactory,
                 resourceSourcesRepository, constructionsRepository);
         }
@@ -41,6 +41,22 @@ namespace BugStrategy.Missions
             }
         }
 
+        private static async Task LoadConstructionTiles(CancellationToken cancellationToken,
+            IReadOnlyList<Mission.ConstructionPair> tiles, IConstructionFactory factory)
+        {
+            for (int i = 0; i < tiles.Count; i++)
+            {
+                if (i % 10 == 0) 
+                    await Task.Delay(TaskDelay, cancellationToken);
+                
+                if (cancellationToken.IsCancellationRequested)
+                    cancellationToken.ThrowIfCancellationRequested();
+
+                var tile = factory.Create<ConstructionBase>(tiles[i].Id, tiles[i].Affiliation);
+                tile.transform.position = tiles[i].Position;
+            }
+        }
+        
         private static async Task LoadResourceSources(CancellationToken cancellationToken, 
             IReadOnlyList<Mission.ResourceSourcePair> resourceSources, 
             ResourceSourceFactory resourceSourceFactory, ResourceSourcesRepository resourceSourcesRepository, 

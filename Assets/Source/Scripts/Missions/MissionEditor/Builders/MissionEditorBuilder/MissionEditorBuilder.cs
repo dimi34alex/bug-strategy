@@ -2,14 +2,15 @@ using System;
 using System.Threading;
 using BugStrategy.CommandsCore;
 using BugStrategy.Constructions;
+using BugStrategy.Missions.MissionEditor.Affiliation;
 using BugStrategy.Missions.MissionEditor.Commands;
 using BugStrategy.Missions.MissionEditor.EditorConstructions;
 using BugStrategy.Missions.MissionEditor.GridRepositories;
 using BugStrategy.Missions.MissionEditor.Saving;
-using BugStrategy.Missions.MissionEditor.UI;
 using BugStrategy.ResourceSources;
 using BugStrategy.Tiles;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Zenject;
 
 namespace BugStrategy.Missions.MissionEditor
@@ -26,11 +27,10 @@ namespace BugStrategy.Missions.MissionEditor
         [Inject] private GroundPositionsRepository _groundPositionsRepository;
         [Inject] private EditorConstructionsRepository _editorConstructionsRepository;
         [Inject] private ResourceSourceRepository _resourceSourceRepository;
-        
+
+        [Inject] private AffiliationHolder _affiliationHolder;
         [Inject] private CommandsRepository _commandsRepository;
         [Inject] private MissionEditorCommandsFactory _commandsFactory;
-        
-        private UI_MissionEditor _uiMissionEditor;
         
         private GroundBuilder _groundBuilder;
         private EditorConstructionsBuilder _editorConstructionsBuilder;
@@ -40,8 +40,6 @@ namespace BugStrategy.Missions.MissionEditor
 
         private void Awake()
         {
-            _uiMissionEditor = FindObjectOfType<UI_MissionEditor>(true);
-
             _editorConstructionsRepository.SetExternalGrids(new IGridRepository[] { _resourceSourceRepository });
             _resourceSourceRepository.SetExternalGrids(new IGridRepository[] { _editorConstructionsRepository });
             
@@ -49,50 +47,72 @@ namespace BugStrategy.Missions.MissionEditor
             _editorConstructionsBuilder = new EditorConstructionsBuilder(_gridConfig, _editorConstructionsRepository, _editorConstructionsFactory, _commandsFactory);
             _resourceSourceBuilder = new ResourceSourcesBuilder(_gridConfig, _resourceSourceRepository, _resourceSourceFactory, _commandsFactory);
             
-            _uiMissionEditor.OnTilePressed += TilePrep;
-            _uiMissionEditor.OnConstructionPressed += ConstrPrep;
-            _uiMissionEditor.OnResourceSourcePressed += ResourceSourcePrep;
-
             _groundBuilder.Generate(config.DefaultGridSize);
             _commandsRepository.Clear();
         }
-
-        private void Update() 
-            => _activeBuilder?.ManualUpdate();
         
-        private void ResourceSourcePrep(int index)
+        private void OnDestroy()
         {
+            _mapLoadingCancelToken?.Cancel();
+        }
+
+        private void Update()
+        {
+            if (Input.GetButtonDown("Fire2"))
+            {
+                if (_activeBuilder == null || !_activeBuilder.IsActive)
+                {
+                    var point = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    point.y = 0;
+                    
+                    _editorConstructionsBuilder.Clear(point);
+                    _resourceSourceBuilder.Clear(point);
+                }
+                else
+                    _activeBuilder?.DeActivate();
+            }
+            
+            if (MouseCursorOverUI())
+                return;
+
+            var worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            worldPoint.y = 0;   
+            _activeBuilder?.Move(worldPoint);
+            
+            
+            if (Input.GetButtonDown("Fire1"))
+                _activeBuilder?.ApplyBuild();
+        }
+
+        public void ActivateGroundTile(int ind)
+        {
+            _activeBuilder?.DeActivate();
+            _activeBuilder = _groundBuilder;
+            _groundBuilder.Activate(ind);
+        }
+
+        public void ActivateConstructions(ConstructionID id)
+        {
+            _activeBuilder?.DeActivate();
+            _activeBuilder = _editorConstructionsBuilder;
+            _editorConstructionsBuilder.Activate((id, _affiliationHolder.PlayerAffiliation));
+        }
+        
+        public void ActivateResourceSource(int index)
+        {
+            _activeBuilder?.DeActivate();
             _activeBuilder = _resourceSourceBuilder;
-            _groundBuilder.DeActivate();
-            _editorConstructionsBuilder.DeActivate();
             _resourceSourceBuilder.Activate(index);
         }
 
-        private void TilePrep(int ind)
-        {
-            _activeBuilder = _groundBuilder;
-            _groundBuilder.Activate(ind);
-            _editorConstructionsBuilder.DeActivate();
-            _resourceSourceBuilder.DeActivate();
-        }
-
-        private void ConstrPrep(ConstructionID id)
-        {
-            _activeBuilder = _editorConstructionsBuilder;
-            _groundBuilder.DeActivate();
-            _editorConstructionsBuilder.Activate(id);
-            _resourceSourceBuilder.DeActivate();
-        }
-        
         public void Generate(Vector2Int size)
             => _groundBuilder.Generate(size);
 
-        [ContextMenu("SAVE")]
         public void Save() 
-            => MissionSaveAndLoader.Save(_groundPositionsRepository.Tiles, _resourceSourceRepository.Tiles);
+            => MissionSaveAndLoader.Save(_groundPositionsRepository.Tiles, _editorConstructionsRepository.Tiles,  _resourceSourceRepository.Tiles);
 
         public void Save(string fileName) 
-            => MissionSaveAndLoader.Save(fileName, _groundPositionsRepository.Tiles, _resourceSourceRepository.Tiles);
+            => MissionSaveAndLoader.Save(fileName, _groundPositionsRepository.Tiles, _editorConstructionsRepository.Tiles, _resourceSourceRepository.Tiles);
 
         public async void Load(string fileName)
         {
@@ -118,10 +138,8 @@ namespace BugStrategy.Missions.MissionEditor
                 _mapLoadingCancelToken = null;
             }   
         }
-
-        private void OnDestroy()
-        {
-            _mapLoadingCancelToken?.Cancel();
-        }
+        
+        private static bool MouseCursorOverUI() 
+            => EventSystem.current.IsPointerOverGameObject();
     }
 }

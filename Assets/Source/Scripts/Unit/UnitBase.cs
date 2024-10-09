@@ -135,6 +135,7 @@ namespace BugStrategy.Unit
         public virtual void OnElementReturn()
         {
             IsActive = false;
+            CurrentPathData = null;
             OnDeactivation?.Invoke(this);
             gameObject.SetActive(false);
         }

@@ -42,9 +42,9 @@ namespace BugStrategy.Missions.MissionEditor.Commands
             return command;
         }
 
-        public BuildConstructionCommand BuildConstructionCommand(ConstructionID id, Vector3 point)
+        public BuildConstructionCommand BuildConstructionCommand(ConstructionID id, AffiliationEnum affiliation, Vector3 point)
         {
-            var command = new BuildConstructionCommand(id, point, _editorConstructionsFactory, _editorConstructionsRepository);
+            var command = new BuildConstructionCommand(id, affiliation, point, _editorConstructionsFactory, _editorConstructionsRepository);
             OnCommandCreated?.Invoke(command);
             return command;
         }
@@ -60,6 +60,27 @@ namespace BugStrategy.Missions.MissionEditor.Commands
             IReadOnlyDictionary<Vector3, int> newTiles, IReadOnlyDictionary<GridKey3, int> oldTiles)
         {
             var command = new GenerateGroundTilesCommand(groundBuilder, newTiles, oldTiles);
+            OnCommandCreated?.Invoke(command);
+            return command;
+        }
+
+        public DeleteGroundCommand DeleteGround(GridKey3 point)
+        {
+            var command = new DeleteGroundCommand(point, _tilesFactory, _groundPositionsRepository);
+            OnCommandCreated?.Invoke(command);
+            return command;
+        }
+        
+        public DeleteConstructionCommand DeleteConstruction(GridKey3 point)
+        {
+            var command = new DeleteConstructionCommand(point, _editorConstructionsFactory, _editorConstructionsRepository);
+            OnCommandCreated?.Invoke(command);
+            return command;
+        }
+        
+        public DeleteResourceSourceCommand DeleteResourceSource(GridKey3 point)
+        {
+            var command = new DeleteResourceSourceCommand(point, _resourceSourceFactory, _resourceSourceRepository);
             OnCommandCreated?.Invoke(command);
             return command;
         }

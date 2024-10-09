@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using BugStrategy.Missions.MissionEditor.EditorConstructions;
 using BugStrategy.ResourceSources;
 using BugStrategy.Tiles;
 using UnityEngine;
@@ -36,11 +37,13 @@ namespace BugStrategy.Missions.MissionEditor.Saving
             return editorMissions;
         }
         
-        public static void Save(IReadOnlyDictionary<GridKey3, Tile> groundTiles, 
+        public static void Save(IReadOnlyDictionary<GridKey3, Tile> groundTiles,
+            IReadOnlyDictionary<GridKey3, EditorConstruction> constructions,
             IReadOnlyDictionary<GridKey3, ResourceSourceBase> resourceSources)
         {
             var missionSave = new Mission();
             missionSave.SetGroundTiles(groundTiles);
+            missionSave.SetConstructions(constructions);
             missionSave.SetResourceSources(resourceSources);
             var json = JsonUtility.ToJson(missionSave);
 
@@ -63,11 +66,14 @@ namespace BugStrategy.Missions.MissionEditor.Saving
             File.WriteAllText($"{directoryPath}/{fileName}{index}.json", json);
         }
 
-        public static void Save(string fileName,IReadOnlyDictionary<GridKey3, Tile> groundTiles, 
+        public static void Save(string fileName,
+            IReadOnlyDictionary<GridKey3, Tile> groundTiles, 
+            IReadOnlyDictionary<GridKey3, EditorConstruction> constructions,
             IReadOnlyDictionary<GridKey3, ResourceSourceBase> resourceSources)
         {
             var missionSave = new Mission();
             missionSave.SetGroundTiles(groundTiles);
+            missionSave.SetConstructions(constructions);
             missionSave.SetResourceSources(resourceSources);
             var json = JsonUtility.ToJson(missionSave);
 
@@ -115,6 +121,9 @@ namespace BugStrategy.Missions.MissionEditor.Saving
             editorConstructionsBuilder.Clear();
             
             await groundBuilder.LoadGroundTiles(cancelToken, missionSave.GroundTiles);
+            if (cancelToken.IsCancellationRequested) 
+                cancelToken.ThrowIfCancellationRequested();
+            await editorConstructionsBuilder.LoadGroundTiles(cancelToken, missionSave.Constructions);
             if (cancelToken.IsCancellationRequested) 
                 cancelToken.ThrowIfCancellationRequested();
             await resourceSourceBuilder.LoadResourceSources(cancelToken, missionSave.ResourceSources);
