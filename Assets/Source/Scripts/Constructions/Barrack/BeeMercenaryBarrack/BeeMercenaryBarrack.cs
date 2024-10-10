@@ -22,7 +22,7 @@ namespace BugStrategy.Constructions.BeeMercenaryBarrack
             _hider = new UnitsHider(this, 0, _unitFactory, unitsSpawnPosition, config.HiderAccess);
             LevelSystem = new BeeMercenaryBarrackLevelSystem(this, config, TeamsResourcesGlobalStorage, 
                 _healthStorage, _recruiter, _hider);
-            InitLevelSystem();
+            Initialized += InitLevelSystem;
         }
         
         private void InitLevelSystem()
