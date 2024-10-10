@@ -22,7 +22,7 @@ namespace BugStrategy.Missions
             var missionSave = JsonUtility.FromJson<Mission>(missionConfig.MissionJson.text);
 
             await LoadGroundTiles(cancellationToken, missionSave.GroundTiles, tilesFactory);
-            await LoadConstructionTiles(cancellationToken, missionSave.Constructions, constructionFactory);
+            await LoadConstructionTiles(cancellationToken, missionSave.Constructions, constructionFactory, constructionsRepository);
             await LoadResourceSources(cancellationToken, missionSave.ResourceSources, resourceSourceFactory,
                 resourceSourcesRepository, constructionsRepository);
         }
@@ -42,7 +42,7 @@ namespace BugStrategy.Missions
         }
 
         private static async Task LoadConstructionTiles(CancellationToken cancellationToken,
-            IReadOnlyList<Mission.ConstructionPair> tiles, IConstructionFactory factory)
+            IReadOnlyList<Mission.ConstructionPair> tiles, IConstructionFactory factory, ConstructionsRepository constructionsRepository)
         {
             for (int i = 0; i < tiles.Count; i++)
             {
@@ -54,6 +54,7 @@ namespace BugStrategy.Missions
 
                 var tile = factory.Create<ConstructionBase>(tiles[i].Id, tiles[i].Affiliation);
                 tile.transform.position = tiles[i].Position;
+                constructionsRepository.AddConstruction(tiles[i].Position, tile);
             }
         }
         
