@@ -234,7 +234,6 @@ MonoBehaviour:
   _unitVisibleZone: {fileID: 1982127518946882169}
   unitInteractionZone: {fileID: 482091407778176826}
   dynamicUnitZone: {fileID: 3135543053050146353}
-  EntityStateID: 0
   config: {fileID: 11400000, guid: 003dae9da2163d04a903a78ef9aa4ea3, type: 2}
   abilityStandardBearerZone: {fileID: 1325599831977034943}
 --- !u!195 &6272501091639487504
@@ -246,7 +245,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 4333719147907298748}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 1
+  m_Radius: 0.5
   m_Speed: 8
   m_Acceleration: 128
   avoidancePriority: 50
@@ -286,7 +285,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.8
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4758178985540025892
 GameObject:
