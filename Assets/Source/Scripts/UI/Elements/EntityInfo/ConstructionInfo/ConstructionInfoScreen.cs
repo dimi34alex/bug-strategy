@@ -2,6 +2,7 @@
 using System.Linq;
 using BugStrategy.Constructions;
 using BugStrategy.Constructions.ConstructionLevelSystemCore;
+using BugStrategy.Constructions.ResourceProduceConstruction;
 using BugStrategy.Constructions.UnitsRecruitingSystem;
 using BugStrategy.Unit;
 using CycleFramework.Extensions;
@@ -19,8 +20,8 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
         
         private ConstructionActionsType _actionsType;
         private ConstructionActionsUIView _actionsUIView;
-        private ConstructionProductsUIView _productsUIView;
         private ConstructionRecruitingUIView _recruitingUIView;
+        private ConvertInfo _convertInfo;
         
         private ConstructionRecruitingProcessUIView _recruitingProcessUIView;
 
@@ -35,15 +36,14 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
 
             _actionsUIView = GetComponentInChildren<ConstructionActionsUIView>();
             _recruitingUIView = GetComponentInChildren<ConstructionRecruitingUIView>();
-            _productsUIView = GetComponentInChildren<ConstructionProductsUIView>();
+            _convertInfo = GetComponentInChildren<ConvertInfo>(true);
             
             _actionsUIView.ButtonClicked += SetActionsType;
             _recruitingUIView.ButtonClicked += RecruitUnit;
-            _productsUIView.ButtonClicked += ProductResource;
         
             _actionsUIView.BackButtonClicked += SetNonActionsType;
             _recruitingUIView.BackButtonClicked += SetNonActionsType;
-            _productsUIView.BackButtonClicked += SetNonActionsType;
+            _convertInfo.BackButtonClicked += SetNonActionsType;
         
             _recruitingProcessUIView = GetComponentInChildren<ConstructionRecruitingProcessUIView>();
         }
@@ -80,7 +80,7 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
 
             _actionsUIView.TurnOffButtons();
             _recruitingUIView.TurnOffButtons();
-            _productsUIView.TurnOffButtons();
+            _convertInfo.Hide();
 
             var onlyOneActionsType = _uiConstructionConfig.ConstructionActions.Count == 1;
             var showBackButton = !onlyOneActionsType;
@@ -100,19 +100,14 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
                             .Select(x => x.Key).ToList());
                     break;
                 case ConstructionActionsType.ProduceResources:
-                    _productsUIView.SetButtons(showBackButton, _uiConstructionConfig.ConstructionProductsDictionary,
-                        _uiConstructionConfig.ConstructionProducts
-                            .Select(x => x.Key).ToList());
+                    _convertInfo.Show(showBackButton, _construction as ResourceConversionConstructionBase);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         
-            if ((_uiConstructionConfig.ConstructionProducts != null &&  _uiConstructionConfig.ConstructionProducts.Count > 0)||
-                (_uiConstructionConfig.Recruiting != null && _uiConstructionConfig.Recruiting.Count > 0))
-            {
+            if (_uiConstructionConfig.Recruiting != null && _uiConstructionConfig.Recruiting.Count > 0)
                 _dopPanel.SetActive(true);
-            }
 
             _recruitingProcessUIView.ActivateBar();
         }
@@ -132,11 +127,6 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
                 return;
         
             recruitingConstruction.RecruitUnit(unitType);
-        }
-    
-        private void ProductResource(ConstructionProductType productType)
-        {
-
         }
         
         private void OnUpgradeButtonClicked()

@@ -24,17 +24,12 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
         {
             _uiUnitsConfig = ConfigsRepository.ConfigsRepository.FindConfig<UIUnitsConfig>();
             _progressStorage = new FloatStorage(1, 1);
-            InitBar(_progressStorage);
+            _barView.SetStorage(_progressStorage);
 
             ButtonClicked += TryCancelRecruiting;
 
             foreach (var pair in _uiUnitsConfig.UnitsUIConfigs) 
                 _images.Add(pair.Key, pair.Value.InfoSprite);
-        }
-
-        private void InitBar(IReadOnlyFloatStorage storage)
-        {
-            _barView.Init(storage);
         }
 
         public void InitRecruiter(IRecruitingConstruction recruiter)

@@ -9,33 +9,33 @@ namespace BugStrategy.Bars
         [SerializeField] private Image _bar;
         [SerializeField] private Image _dynamicBar;
 
-        private float _updateValueDuration = 0.2f;
-        private float _updateValueDynamicRatio =4;
+        private const float UpdateValueDuration = 0.2f;
+        private const float UpdateValueDynamicRatio = 4;
 
         private IReadOnlyFloatStorage _storage;
 
-        public void Init(IReadOnlyFloatStorage storage)
+        public void SetStorage(IReadOnlyFloatStorage storage)
         {
             if (storage == _storage)
                 return;
 
-            if (_storage != null)
-            {
+            if (_storage != null) 
                 _storage.Changed -= UpdateBar;
-            }
+            
             _storage = storage;
             _storage.Changed += UpdateBar;
+            
             UpdateBar();
         }
-
+        
         public virtual void UpdateBar()
         {
             if (_storage.Capacity == 0)
                 return;
-            float storageRatio = _storage.CurrentValue / _storage.Capacity;
-            _bar.transform.DOScaleX(_storage.CurrentValue / _storage.Capacity, _updateValueDuration);
+            
+            _bar.transform.DOScaleX(_storage.FillPercentage, UpdateValueDuration);
             if (_dynamicBar!=null)
-                _dynamicBar.transform.DOScaleX(_storage.CurrentValue / _storage.Capacity, _updateValueDuration* _updateValueDynamicRatio);
+                _dynamicBar.transform.DOScaleX(_storage.FillPercentage, UpdateValueDuration* UpdateValueDynamicRatio);
         }
     }
 }
