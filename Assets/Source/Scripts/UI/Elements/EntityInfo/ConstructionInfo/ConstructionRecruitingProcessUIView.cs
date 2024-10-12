@@ -4,6 +4,7 @@ using BugStrategy.Bars;
 using BugStrategy.Constructions.UnitsRecruitingSystem;
 using BugStrategy.Libs;
 using BugStrategy.UI.Elements.EntityInfo.UnitInfo;
+using BugStrategy.UI.Elements.FloatStorageViews;
 using BugStrategy.Unit;
 using UnityEngine;
 
@@ -11,7 +12,7 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
 {
     public class ConstructionRecruitingProcessUIView : ButtonPanelUIView<int>
     {
-        [SerializeField] private BarView _barView;
+        [SerializeField] private FloatStorageBarView _barView;
 
         private IRecruitingConstruction _recruiter;
         private UIUnitsConfig _uiUnitsConfig;

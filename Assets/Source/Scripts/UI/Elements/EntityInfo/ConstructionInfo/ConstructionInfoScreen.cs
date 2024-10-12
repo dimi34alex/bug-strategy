@@ -50,9 +50,6 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
 
         public void SetConstruction(ConstructionBase newConstruction)
         {
-            if (_construction == newConstruction)
-                return;
-
             try
             {
                 _construction = newConstruction;
@@ -133,6 +130,12 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
         {
             if (_construction.TryCast(out IEvolveConstruction evolveConstruction))
                 evolveConstruction.LevelSystem.TryLevelUp();
+        }
+
+        public override void Hide()
+        {
+            _convertInfo.Hide();
+            base.Hide();
         }
     }
 }

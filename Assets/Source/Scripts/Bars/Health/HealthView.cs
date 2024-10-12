@@ -1,6 +1,8 @@
-﻿namespace BugStrategy.Bars.Health
+﻿using BugStrategy.UI.Elements.FloatStorageViews;
+
+namespace BugStrategy.Bars.Health
 {
-    public class HealthView : BarView
+    public class HealthView : FloatStorageBarView
     {
         
     }

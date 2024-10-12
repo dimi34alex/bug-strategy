@@ -36,6 +36,7 @@ namespace BugStrategy.Constructions.ResourceProduceConstruction.BeesWaxProduceCo
         private void InitLevelSystem()
             => LevelSystem.Init(0);
 
+        //TODO: remove this temporary code, when new ui will be create
         [ContextMenu(nameof(ExtractHidedUnit))]
         public void ExtractHidedUnit()
             => Hider.ExtractUnit(0);

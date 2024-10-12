@@ -1,6 +1,6 @@
 using System;
-using BugStrategy.Bars;
 using BugStrategy.Constructions.ResourceProduceConstruction;
+using BugStrategy.UI.Elements.FloatStorageViews;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,38 +29,23 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
         public void Show(bool showBackButton, ResourceConversionConstructionBase conversionConstruction)
         {
             backButton.gameObject.SetActive(showBackButton);
-
-            if (_conversionConstruction != null)
-            {
-                _conversionConstruction.ProducedResource.Changed -= UpdateProducedResourceBar;
-                _conversionConstruction.SpendableResource.Changed -= UpdateSpendableResourceBar;
-            }
-
+            
             _conversionConstruction = conversionConstruction;
-            _conversionConstruction.ProducedResource.Changed += UpdateProducedResourceBar;
-            _conversionConstruction.SpendableResource.Changed += UpdateSpendableResourceBar;
-            UpdateProducedResourceBar();
-            UpdateSpendableResourceBar();
+
+            produceView.SetStorage(_conversionConstruction.ProducedResource);
+            spendView.SetStorage(_conversionConstruction.SpendableResource);
             
             gameObject.SetActive(true);
         }
 
         public void Hide()
         {
-            if (_conversionConstruction != null)
-            {
-                _conversionConstruction.ProducedResource.Changed -= UpdateProducedResourceBar;
-                _conversionConstruction.SpendableResource.Changed -= UpdateSpendableResourceBar;
-            }
+            produceView.SetStorage(null);
+            spendView.SetStorage(null);
+            
             gameObject.SetActive(false);
         }
         
-        private void UpdateProducedResourceBar() 
-            => produceView.SetStorage(_conversionConstruction.ProducedResource);
-
-        private void UpdateSpendableResourceBar() 
-            => spendView.SetStorage(_conversionConstruction.SpendableResource);
-
         private void Add() 
             => _conversionConstruction.AddSpendableResource(100);
         
@@ -70,7 +55,7 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
         [Serializable]
         private struct Composite
         {
-            [SerializeField] private BarView barView;
+            [SerializeField] private FloatStorageBarView barView;
             [SerializeField] private FloatStorageTextView textView;
 
             public void SetStorage(IReadOnlyFloatStorage storage)
