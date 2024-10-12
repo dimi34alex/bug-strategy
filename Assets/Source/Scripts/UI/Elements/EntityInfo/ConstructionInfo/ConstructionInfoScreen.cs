@@ -21,8 +21,8 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
         private ConstructionActionsType _actionsType;
         private ConstructionActionsUIView _actionsUIView;
         private ConstructionRecruitingUIView _recruitingUIView;
-        private ConvertInfo _convertInfo;
         
+        private ConstructionConversionUIView _conversionUIView;
         private ConstructionRecruitingProcessUIView _recruitingProcessUIView;
 
         private UIConstructionConfig _uiConstructionConfig;
@@ -36,14 +36,14 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
 
             _actionsUIView = GetComponentInChildren<ConstructionActionsUIView>();
             _recruitingUIView = GetComponentInChildren<ConstructionRecruitingUIView>();
-            _convertInfo = GetComponentInChildren<ConvertInfo>(true);
+            _conversionUIView = GetComponentInChildren<ConstructionConversionUIView>(true);
             
             _actionsUIView.ButtonClicked += SetActionsType;
             _recruitingUIView.ButtonClicked += RecruitUnit;
         
             _actionsUIView.BackButtonClicked += SetNonActionsType;
             _recruitingUIView.BackButtonClicked += SetNonActionsType;
-            _convertInfo.BackButtonClicked += SetNonActionsType;
+            _conversionUIView.BackButtonClicked += SetNonActionsType;
         
             _recruitingProcessUIView = GetComponentInChildren<ConstructionRecruitingProcessUIView>();
         }
@@ -77,7 +77,7 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
 
             _actionsUIView.TurnOffButtons();
             _recruitingUIView.TurnOffButtons();
-            _convertInfo.Hide();
+            _conversionUIView.Hide();
 
             var onlyOneActionsType = _uiConstructionConfig.ConstructionActions.Count == 1;
             var showBackButton = !onlyOneActionsType;
@@ -97,7 +97,7 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
                             .Select(x => x.Key).ToList());
                     break;
                 case ConstructionActionsType.ProduceResources:
-                    _convertInfo.Show(showBackButton, _construction as ResourceConversionConstructionBase);
+                    _conversionUIView.Show(showBackButton, _construction as ResourceConversionConstructionBase);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -134,7 +134,7 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
 
         public override void Hide()
         {
-            _convertInfo.Hide();
+            _conversionUIView.Hide();
             base.Hide();
         }
     }

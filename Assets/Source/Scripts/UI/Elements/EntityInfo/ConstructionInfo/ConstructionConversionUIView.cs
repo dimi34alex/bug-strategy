@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
 {
-    public class ConvertInfo : MonoBehaviour
+    public class ConstructionConversionUIView : MonoBehaviour
     {
         [SerializeField] private Composite produceView;
         [SerializeField] private Composite spendView;
