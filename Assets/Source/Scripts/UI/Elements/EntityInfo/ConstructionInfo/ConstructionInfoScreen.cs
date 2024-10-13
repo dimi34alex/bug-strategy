@@ -61,9 +61,6 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
                     $"Настоятельно рекомендую проверить есть ли конфиг ({nameof(UIConstructionConfig)} " +
                     $"и добавлен ли он в {nameof(UIConstructionConfig)}) | {exp.Message}");
             }
-
-            var recruitingConstruction = _construction.UnSafeCast<IRecruitingConstruction>();
-            _recruitingProcessUIView.InitRecruiter(recruitingConstruction);
             
             SetActionsType(ConstructionActionsType.None);
         }
@@ -106,7 +103,8 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
             if (_uiConstructionConfig.Recruiting != null && _uiConstructionConfig.Recruiting.Count > 0)
                 _dopPanel.SetActive(true);
 
-            _recruitingProcessUIView.ActivateBar();
+            var recruitingConstruction = _construction.UnSafeCast<IRecruitingConstruction>();
+            _recruitingProcessUIView.InitRecruiter(recruitingConstruction);
         }
     
         private void SetNonActionsType()

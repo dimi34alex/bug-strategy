@@ -48,16 +48,24 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
             
             UpdateBarView();
             UpdateButtons();
+            _barView.gameObject.SetActive(true);
         }
 
         private void UpdateBarView()
         {
             var recruitingInformation = _recruiter.Recruiter.GetRecruitingInformation();
             if (recruitingInformation.Count <= 0)
+            {
+                _progressStorage.SetValue(0);
                 return;
+            }
 
             var recruitingStack = recruitingInformation.First();
-            if (recruitingStack != null && !recruitingStack.Empty)
+            if (recruitingStack == null || recruitingStack.Empty)
+            {
+                _progressStorage.SetValue(0);
+            }
+            else
             {
                 var processPercentage = recruitingStack.RecruitingTimer / recruitingStack.RecruitingTime;
                 _progressStorage.SetValue(processPercentage);
@@ -83,9 +91,6 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
             TurnOffButtons();
             _barView.gameObject.SetActive(false);
         }
-
-        public void ActivateBar() 
-            => _barView.gameObject.SetActive(true);
 
         private void TryCancelRecruiting(int stackIndex) 
             => _recruiter.CancelRecruit(stackIndex);
