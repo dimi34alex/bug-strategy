@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿
+using System.Collections.Generic;
 using BugStrategy.Missions;
 using BugStrategy.UI;
 using UnityEngine;
@@ -10,10 +11,10 @@ namespace BugStrategy.Unit.UnitSelection
     public class UnitSelection : MonoBehaviour
     {
         [SerializeField] private LayerMask targetsLayers;
-        
+
         [Inject] private readonly UIController _uiController;
         [Inject] private readonly MissionData _missionData;
-    
+
         private bool _isSelecting;
 
         private Vector3 _mouseStartSelectionPoint;
@@ -69,7 +70,7 @@ namespace BugStrategy.Unit.UnitSelection
             if (Input.GetMouseButtonDown(1) && _selectedUnits.Count > 0 && !_isSelecting)
             {
                 var ray = Camera.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out var hit, 100F, targetsLayers, QueryTriggerInteraction.Ignore) 
+                if (Physics.Raycast(ray, out var hit, 100F, targetsLayers, QueryTriggerInteraction.Ignore)
                     && hit.collider.TryGetComponent(out ITarget target))
                 {
                     for (int i = 0; i < _selectedUnits.Count; i++)
@@ -107,7 +108,7 @@ namespace BugStrategy.Unit.UnitSelection
             foreach (UnitBase unit in UnitsInScreen)
             {
                 Vector2 unitCoordinate = new Vector2(unit.transform.position.x, unit.transform.position.z);
-          
+
                 if (CheckSelectionBounds(unitCoordinate, startPoint, endPoint))
                 {
                     unit.Select();
@@ -165,6 +166,12 @@ namespace BugStrategy.Unit.UnitSelection
                 }
                 _selectedUnits.Clear();
             }
+        }
+
+        // Нужен для получения списка выделенных юнитов(новый метод)
+        public List<UnitBase> GetSelectedUnits()
+        {
+            return new List<UnitBase>(_selectedUnits);
         }
     }
 
