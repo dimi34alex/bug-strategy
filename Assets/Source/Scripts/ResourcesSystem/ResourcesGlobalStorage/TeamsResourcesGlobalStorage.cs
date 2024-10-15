@@ -20,7 +20,7 @@ namespace BugStrategy.ResourcesSystem.ResourcesGlobalStorage
             => _resourceRepositories[affiliation];
 
         public void ChangeCapacity(AffiliationEnum affiliation, ResourceID resourceID, float capacity) 
-            => _resourceRepositories[affiliation].SetCapacity(resourceID, capacity);
+            => _resourceRepositories[affiliation].ChangeCapacity(resourceID, capacity);
 
         public void ChangeValue(AffiliationEnum affiliation, ResourceID resourceID, float value) 
             => _resourceRepositories[affiliation].ChangeValue(resourceID, value);

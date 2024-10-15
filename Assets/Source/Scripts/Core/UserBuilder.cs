@@ -74,7 +74,7 @@ namespace BugStrategy
                 {
                     if (hit.collider.name == "TileBase")
                     {
-                        if (!hit.collider.GetComponent<Tile>().Visible)
+                        if (!hit.collider.GetComponent<Tile>().IsVisible)
                         {
                             Destroy(_currentConstructionMovableModel);
                             _spawnConstruction = false;

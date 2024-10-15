@@ -1,5 +1,5 @@
 using System;
-using System.Collections;
+using BugStrategy.CustomTimer;
 using BugStrategy.Trigger;
 using UnityEngine;
 
@@ -7,33 +7,39 @@ namespace BugStrategy.Tiles
 {
     public class Tile : MonoBehaviour, ITriggerable
     {
-        [SerializeField] private GameObject warFog;
-        [SerializeField] private GameObject startFog;
-
-        private bool _showStartWarFog = true;
-        private Coroutine _invisibleTimer;
         private int _watchersCount;
+        private Timer _visibleTimer;
 
-        public bool Visible { get; private set; }
+        public bool IsVisible { get; private set; }
+
         public event Action<ITriggerable> OnDisableITriggerableEvent;
-    
+        public event Action<bool> OnVisibilityChanged;
+        public event Action<Tile> OnDestroyed;
+
+        private void Awake()
+        {
+            _visibleTimer = new Timer(5, 0, true);
+            _visibleTimer.OnTimerEnd += MakeUnVisible;
+        }
+
+        private void OnDisable() 
+            => OnDisableITriggerableEvent?.Invoke(this);
+        
+        private void OnDestroy() 
+            => OnDestroyed?.Invoke(this);
+
+        public void HandleUpdate(float deltaTime) 
+            => _visibleTimer.Tick(deltaTime);
+        
         public void AddWatcher()
         {
             _watchersCount++;
-        
-            if (_showStartWarFog)
-            {
-                _showStartWarFog = false;
-                Destroy(startFog);
-            }
-        
+            
             if (_watchersCount == 1)
             {
-                warFog.SetActive(false);
-                Visible = true;
-            
-                if(_invisibleTimer != null)
-                    StopCoroutine(_invisibleTimer);
+                IsVisible = true;
+                _visibleTimer.SetPause();
+                OnVisibilityChanged?.Invoke(IsVisible);
             }
         }
 
@@ -42,25 +48,18 @@ namespace BugStrategy.Tiles
             _watchersCount--;
 
 #if UNITY_EDITOR
-            if(_watchersCount < 0) Debug.LogError("_watchersCount is " + _watchersCount);
+            if(_watchersCount < 0) 
+                Debug.LogError("_watchersCount is " + _watchersCount);
 #endif
+            
+            if (_watchersCount == 0) 
+                _visibleTimer.Reset();
+        }
         
-            if (_watchersCount == 0 && gameObject.activeInHierarchy)
-            {
-                _invisibleTimer = StartCoroutine(MakeTileInvisibleCoroutine());
-            }
-        }
-    
-        IEnumerator MakeTileInvisibleCoroutine()
+        private void MakeUnVisible()
         {
-            yield return new WaitForSeconds(5f);
-            warFog.SetActive(true);
-            Visible = false;
-        }
-    
-        private void OnDisable()
-        {
-            OnDisableITriggerableEvent?.Invoke(this);
+            IsVisible = false;
+            OnVisibilityChanged?.Invoke(IsVisible);
         }
     }
 }
