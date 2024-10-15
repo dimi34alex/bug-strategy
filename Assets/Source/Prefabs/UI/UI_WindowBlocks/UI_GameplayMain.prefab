@@ -2712,7 +2712,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &931865211060445764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4695,6 +4695,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4829936601021346001}
+  - component: {fileID: 7136235277733018513}
   m_Layer: 5
   m_Name: Unit
   m_TagString: Untagged
@@ -4723,6 +4724,25 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7136235277733018513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3326574037149748638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e9d6e8aa56d8394faf5916a3c12ee97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconPrefab: {fileID: 2936735134945298908, guid: 6ea681670a0e65e42952c64a50d78dc5, type: 3}
+  iconPanelParent: {fileID: 7763507158384010737}
+  uiUnitsConfig: {fileID: 11400000, guid: c23f20bf5742c6b41ab65a0d96665965, type: 2}
+  maxRows: 3
+  iconSpacingPercentage: 0.02
+  topOffsetPercentage: 0.05
+  leftOffsetPercentage: 0.05
 --- !u!1 &3378108310973554761
 GameObject:
   m_ObjectHideFlags: 0
@@ -5126,6 +5146,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 684473086611871664}
+  - component: {fileID: 7920139475697907995}
   m_Layer: 5
   m_Name: Construction
   m_TagString: Untagged
@@ -5154,6 +5175,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7920139475697907995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3692054803579756760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f33f55e3faee114458f3de0f4aeb1a6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconPrefab: {fileID: 2936735134945298908, guid: 6ea681670a0e65e42952c64a50d78dc5, type: 3}
+  iconPanelParent: {fileID: 7763507158384010737}
+  uiConstructionsConfig: {fileID: 11400000, guid: 1562b9261e2c67f429d83c34991be343, type: 2}
 --- !u!1 &3882849904094271557
 GameObject:
   m_ObjectHideFlags: 0
