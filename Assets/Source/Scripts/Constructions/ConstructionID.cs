@@ -4,6 +4,7 @@
     {
         TestConstruction = 0,
         BuildingProgressConstruction = 1,
+        None = 2,
     
         BeeTownHall = 5,
         BeeBarrack = 10,

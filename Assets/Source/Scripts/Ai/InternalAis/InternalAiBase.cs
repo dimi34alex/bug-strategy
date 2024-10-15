@@ -51,36 +51,38 @@ namespace BugStrategy.Ai.InternalAis
         
         protected void TryGiveOrder()
         {
-            var priority = float.MinValue;
-            UnitInternalEvaluator evaluator = null;
-            foreach (var internalEvaluator in InternalEvaluators)
-            {
-                var newPriority = internalEvaluator.Evaluate();
-
-                if (newPriority > priority && newPriority > 0)
+            if(Unit.IsActive) {
+                var priority = float.MinValue;
+                UnitInternalEvaluator evaluator = null;
+                foreach(var internalEvaluator in InternalEvaluators)
                 {
-                    priority = newPriority;
-                    evaluator = internalEvaluator;
-                }
-            }
+                    var newPriority = internalEvaluator.Evaluate();
 
-            UnitTookDamage = false;
-            if (evaluator == null)
-            {
-                if (!GlobalAiOrderTarget.IsAnyNull()) 
-                    GlobalAiOrderTarget.OnDeactivation -= SetOrderPriority;
-                GlobalAiOrderTarget = null;
-                
-                if(AiState != AiUnitStateType.Auto)
-                    AiState = AiUnitStateType.Idle;
-                
-                Unit.AutoGiveOrder(null);
-                return;
+                    if(newPriority > priority && newPriority > 0)
+                    {
+                        priority = newPriority;
+                        evaluator = internalEvaluator;
+                    }
+                }
+
+                UnitTookDamage = false;
+                if(evaluator == null)
+                {
+                    if(!GlobalAiOrderTarget.IsAnyNull())
+                        GlobalAiOrderTarget.OnDeactivation -= SetOrderPriority;
+                    GlobalAiOrderTarget = null;
+
+                    if(AiState != AiUnitStateType.Auto)
+                        AiState = AiUnitStateType.Idle;
+
+                    Unit.AutoGiveOrder(null);
+                    return;
+                }
+
+                //if(Unit.UnitType == UnitType.Murmur)
+                //    Debug.Log($"{nameof(GetType)} || {evaluator.GetType()} || {evaluator}");
+                evaluator.Apply();
             }
-            
-            if(Unit.UnitType == UnitType.Murmur)
-                Debug.Log($"{nameof(GetType)} || {evaluator.GetType()} || {evaluator}");
-            evaluator.Apply();
         }
         
         public void Reset()

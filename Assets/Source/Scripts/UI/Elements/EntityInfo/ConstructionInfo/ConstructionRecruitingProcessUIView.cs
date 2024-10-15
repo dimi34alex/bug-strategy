@@ -4,6 +4,7 @@ using BugStrategy.Bars;
 using BugStrategy.Constructions.UnitsRecruitingSystem;
 using BugStrategy.Libs;
 using BugStrategy.UI.Elements.EntityInfo.UnitInfo;
+using BugStrategy.UI.Elements.FloatStorageViews;
 using BugStrategy.Unit;
 using UnityEngine;
 
@@ -11,7 +12,7 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
 {
     public class ConstructionRecruitingProcessUIView : ButtonPanelUIView<int>
     {
-        [SerializeField] private BarView _barView;
+        [SerializeField] private FloatStorageBarView _barView;
 
         private IRecruitingConstruction _recruiter;
         private UIUnitsConfig _uiUnitsConfig;
@@ -24,17 +25,12 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
         {
             _uiUnitsConfig = ConfigsRepository.ConfigsRepository.FindConfig<UIUnitsConfig>();
             _progressStorage = new FloatStorage(1, 1);
-            InitBar(_progressStorage);
+            _barView.SetStorage(_progressStorage);
 
             ButtonClicked += TryCancelRecruiting;
 
             foreach (var pair in _uiUnitsConfig.UnitsUIConfigs) 
                 _images.Add(pair.Key, pair.Value.InfoSprite);
-        }
-
-        private void InitBar(IReadOnlyFloatStorage storage)
-        {
-            _barView.Init(storage);
         }
 
         public void InitRecruiter(IRecruitingConstruction recruiter)
@@ -52,16 +48,24 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
             
             UpdateBarView();
             UpdateButtons();
+            _barView.gameObject.SetActive(true);
         }
 
         private void UpdateBarView()
         {
             var recruitingInformation = _recruiter.Recruiter.GetRecruitingInformation();
             if (recruitingInformation.Count <= 0)
+            {
+                _progressStorage.SetValue(0);
                 return;
+            }
 
             var recruitingStack = recruitingInformation.First();
-            if (recruitingStack != null && !recruitingStack.Empty)
+            if (recruitingStack == null || recruitingStack.Empty)
+            {
+                _progressStorage.SetValue(0);
+            }
+            else
             {
                 var processPercentage = recruitingStack.RecruitingTimer / recruitingStack.RecruitingTime;
                 _progressStorage.SetValue(processPercentage);
@@ -87,9 +91,6 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
             TurnOffButtons();
             _barView.gameObject.SetActive(false);
         }
-
-        public void ActivateBar() 
-            => _barView.gameObject.SetActive(true);
 
         private void TryCancelRecruiting(int stackIndex) 
             => _recruiter.CancelRecruit(stackIndex);

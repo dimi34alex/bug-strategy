@@ -11,7 +11,7 @@ namespace CycleFramework.Bootload
     [DefaultExecutionOrder(-500)]
     public class CycleFrameworkBootloader : MonoBehaviour
     {
-        [SerializeField] private CycleState _startState;
+        [SerializeField] private CycleState _startState = CycleState.Initialize;
 
         private CycleInitializersParent _initializersParent;
         private CycleStateMachine _cycleStateMachine;

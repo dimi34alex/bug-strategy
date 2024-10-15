@@ -25,7 +25,7 @@ namespace BugStrategy.UI.Elements.EntityInfo
 
         public void SetHealthPointsInfo(Sprite sprite, IReadOnlyFloatStorage storage)
         {
-            _healthView.Init(storage);
+            _healthView.SetStorage(storage);
 
             _health = storage;
 
