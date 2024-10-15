@@ -43,23 +43,26 @@ namespace BugStrategy.Constructions.UnitsRecruitingSystem
             Empty = false;
             CurrentData = newData;
             SpawnedUnits = 0;
-            
+
             _recruitingTimer.SetMaxValue(RecruitingTime);
             _spawnPauseTimer.SetMaxValue(SpawnPauseTime, false);
         }
         
         private void SpawnUnit()
         {
-            OnSpawnUnit?.Invoke(UnitId);
-                        
+                       
             SpawnedUnits++;
             if (SpawnedUnits >= StackSize)
             {
                 Empty = true;
+                OnSpawnUnit?.Invoke(UnitId);
                 OnBecameEmpty?.Invoke();
             }
             else
+            {
+                OnSpawnUnit?.Invoke(UnitId);
                 _spawnPauseTimer.Reset();
+            }
         }
         
         public void Tick(float time)
@@ -73,9 +76,9 @@ namespace BugStrategy.Constructions.UnitsRecruitingSystem
         /// <returns> If cancel is possible return true, else return false </returns>
         public bool CancelRecruiting()
         {
-            if (SpawnedUnits > 0) 
+            if (SpawnedUnits > 0)
                 return false;
-            
+
             Empty = true;
             _recruitingTimer.SetPause();
             _spawnPauseTimer.SetPause();
