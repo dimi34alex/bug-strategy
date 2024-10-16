@@ -169,7 +169,9 @@ namespace BugStrategy.Constructions.UnitsRecruitingSystem
 
             foreach (var cost in stack.CurrentData.Costs)
                 _teamsResourcesGlobalStorage.ChangeValue(_affiliation.Affiliation, cost.Key, cost.Value);
-            
+
+            RecruitingQueue(stackIndex);
+
             OnCancelRecruit?.Invoke();
             OnChange?.Invoke();
 
@@ -199,15 +201,16 @@ namespace BugStrategy.Constructions.UnitsRecruitingSystem
 
             unit.SetAffiliation(_affiliation.Affiliation);
 
-            if (_stacks[0].Empty) RecruitingQueue();
+            if (_stacks[0].Empty) RecruitingQueue(0);
         }
 
-        private void RecruitingQueue()
+        private void RecruitingQueue(int stackindex)
         {
-            var newStack = _stacks[0];
-            _stacks.RemoveAt(0);
+            var newStack = _stacks[stackindex];
+            _stacks.RemoveAt(stackindex);
             _stacks.Add(newStack);
         }
+
 
         private void OnStackBecameEmpty() 
             => OnChange?.Invoke();
