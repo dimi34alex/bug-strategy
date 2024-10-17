@@ -7,9 +7,12 @@ namespace BugStrategy.Unit
 {
     public interface IUnitRepository
     {
+        public IReadOnlyDictionary<UnitType, List<UnitBase>> Units { get; }
+        public List<UnitBase> AllUnits { get; }
+
         public event Action<UnitBase> OnUnitAdd;
         public event Action<UnitBase> OnUnitRemove;
-        public IReadOnlyDictionary<UnitType, List<UnitBase>> Units { get; }
+     
         public void AddUnit(UnitBase unit);
         public TUnit TryGetUnit<TUnit>(UnitType unitType, Predicate<TUnit> predicate = null, bool remove = false) where TUnit : UnitBase;
     }

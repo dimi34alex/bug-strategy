@@ -6,8 +6,7 @@ namespace BugStrategy.MiniMap.MiniMapIcons.Factories
     {
         public override void InstallBindings()
         {
-            IMiniMapIconFactory miniMapIconFactory = FindObjectOfType<MiniMapIconFactory>(true);
-            Container.BindInstance(miniMapIconFactory).AsSingle();
+            Container.BindInterfacesAndSelfTo<MiniMapIconFactory>().FromNew().AsSingle();
         }
     }
 }

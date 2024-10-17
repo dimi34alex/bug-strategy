@@ -133,9 +133,7 @@ namespace BugStrategy.Constructions.BeeLandmine
             if(MissionData.ConstructionsRepository.ConstructionExist(position))
                 return;
             
-            BeeStickyTile.BeeStickyTile construction = _constructionFactory.Create<BeeStickyTile.BeeStickyTile>(ConstructionID.BeeStickyTileConstruction, Affiliation);
-            MissionData.ConstructionsRepository.AddConstruction(position, construction);
-            construction.transform.position = position;
+            _constructionFactory.Create<BeeStickyTile.BeeStickyTile>(ConstructionID.BeeStickyTileConstruction, position, Affiliation);
         }
     }
 }

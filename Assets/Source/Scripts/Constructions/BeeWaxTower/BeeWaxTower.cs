@@ -48,11 +48,7 @@ namespace BugStrategy.Constructions.BeeWaxTower
         private void UpdateAttackProcessor()
             => _attackProcessor.HandleUpdate(Time.deltaTime);
 
-        private void SpawnStickyTile()
-        {
-            ConstructionBase construction = _constructionFactory.Create<ConstructionBase>(ConstructionID.BeeStickyTileConstruction, Affiliation);
-            MissionData.ConstructionsRepository.AddConstruction(transform.position, construction);
-            construction.transform.position = transform.position;
-        }
+        private void SpawnStickyTile() 
+            => _constructionFactory.Create<ConstructionBase>(ConstructionID.BeeStickyTileConstruction, transform.position, Affiliation);
     }
 }

@@ -1,4 +1,3 @@
-using BugStrategy.Missions;
 using BugStrategy.Pool;
 using UnityEngine;
 using Zenject;
@@ -7,8 +6,8 @@ namespace BugStrategy.PoisonFog.Factory
 {
     public class PoisonFogFactory : MonoBehaviour
     {
-        [Inject] private MissionData _missionData;
         [Inject] private PoisonFogFactoryConfig _poisonFogFactoryConfig;
+        [Inject] private PoisonFogsRepository _poisonFogsRepository;
         
         private Pool<PoisonFogBehaviour> _pool;
 
@@ -24,7 +23,7 @@ namespace BugStrategy.PoisonFog.Factory
         {
             var fog = _pool.ExtractElement();
             fog.transform.position = position;
-            _missionData.PoisonFogsRepository.Add(fog);
+            _poisonFogsRepository.Add(fog);
             
             return fog;
         }

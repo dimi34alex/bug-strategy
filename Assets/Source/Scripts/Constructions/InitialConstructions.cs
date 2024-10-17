@@ -26,14 +26,9 @@ namespace BugStrategy.Constructions
             }
         }
         
-        private void CreateConstruction(ConstructionID constructionID, Vector3 position, AffiliationEnum affiliation)
-        {
-            ConstructionBase construction = _constructionFactory.Create<ConstructionBase>(constructionID, affiliation);
-            
-            _missionData.ConstructionsRepository.AddConstruction(position, construction);
-            construction.transform.position = position;
-        }
-        
+        private void CreateConstruction(ConstructionID constructionID, Vector3 position, AffiliationEnum affiliation) 
+            => _constructionFactory.Create<ConstructionBase>(constructionID, position, affiliation);
+
         [Serializable]
         private struct InitPair
         {

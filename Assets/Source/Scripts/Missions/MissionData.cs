@@ -17,24 +17,38 @@ namespace BugStrategy.Missions
         public readonly AffiliationEnum PlayerAffiliation;
         public readonly IReadOnlyDictionary<AffiliationEnum, FractionType> FractionTypes;
 
-        public readonly UnitRepository UnitRepository = new();
-        public readonly ProjectilesRepository ProjectilesRepository = new();
-        public readonly PoisonFogsRepository PoisonFogsRepository = new();
-        public readonly ResourceSourcesRepository ResourceSourcesRepository = new();
-        public readonly ConstructionsRepository ConstructionsRepository = new();
+        public readonly IUnitRepository UnitRepository;
+        public readonly ProjectilesRepository ProjectilesRepository;
+        public readonly PoisonFogsRepository PoisonFogsRepository;
+        public readonly ResourceSourcesRepository ResourceSourcesRepository;
+        public readonly ConstructionsRepository ConstructionsRepository;
         
         public readonly ITeamsResourcesGlobalStorage TeamsResourcesGlobalStorage;
         public readonly ConstructionSelector ConstructionSelector;
 
         public FractionType PlayerFraction => FractionTypes[PlayerAffiliation];
         
-        public MissionData(int missionIndex, MissionConfig missionConfig, ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage) 
+        public MissionData(
+            int missionIndex, 
+            MissionConfig missionConfig, 
+            IUnitRepository unitRepository, 
+            ProjectilesRepository projectilesRepository,
+            PoisonFogsRepository poisonFogsRepository,
+            ResourceSourcesRepository resourceSourcesRepository,
+            ConstructionsRepository constructionsRepository,
+            ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage) 
         {
             MissionIndex = missionIndex;
             MissionConfig = missionConfig;
+            UnitRepository = unitRepository;
+            ProjectilesRepository = projectilesRepository;
+            PoisonFogsRepository = poisonFogsRepository;
+            ResourceSourcesRepository = resourceSourcesRepository;
+            ConstructionsRepository = constructionsRepository;
+            TeamsResourcesGlobalStorage = teamsResourcesGlobalStorage;
+
             PlayerAffiliation = missionConfig.PlayerAffiliation;
             FractionTypes = missionConfig.FractionByAffiliation;
-            TeamsResourcesGlobalStorage = teamsResourcesGlobalStorage;
             ConstructionSelector = new ConstructionSelector(ConstructionsRepository);
         }
     }

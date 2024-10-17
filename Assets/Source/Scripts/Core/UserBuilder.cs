@@ -148,9 +148,7 @@ namespace BugStrategy
     
         private BuildingProgressConstruction SpawnConstruction(AffiliationEnum affiliation, ConstructionID id, Vector3 position)
         {
-            BuildingProgressConstruction progressConstruction = _constructionFactory.Create<BuildingProgressConstruction>(ConstructionID.BuildingProgressConstruction, affiliation);
-            progressConstruction.transform.position = position;
-            _missionData.ConstructionsRepository.AddConstruction(position, progressConstruction);
+            var progressConstruction = _constructionFactory.Create<BuildingProgressConstruction>(ConstructionID.BuildingProgressConstruction, position, affiliation);
                 
             progressConstruction.OnTimerEnd += c => CreateConstruction(affiliation, c, position);
 
@@ -161,14 +159,10 @@ namespace BugStrategy
 
         private void CreateConstruction(AffiliationEnum affiliation, BuildingProgressConstruction buildingProgressConstruction, Vector3 position)
         {
-            ConstructionBase construction = _constructionFactory.Create<ConstructionBase>(buildingProgressConstruction.BuildingConstructionID, affiliation);
-        
             _missionData.ConstructionsRepository.GetConstruction(position, true);
-
             Destroy(buildingProgressConstruction.gameObject);
 
-            _missionData.ConstructionsRepository.AddConstruction(position, construction);
-            construction.transform.position = position;
+            _constructionFactory.Create<ConstructionBase>(buildingProgressConstruction.BuildingConstructionID, position, affiliation);
         }
 
         public void SpawnConstructionMovableModel(ConstructionID constructionID)

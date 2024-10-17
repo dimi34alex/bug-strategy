@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using BugStrategy.Constructions.Factory.Behaviours;
-using BugStrategy.Unit;
 using UnityEngine;
 using Zenject;
 
@@ -10,13 +9,15 @@ namespace BugStrategy.Constructions.Factory
 {
     public interface IConstructionFactory
     {
-        public TConstruction Create<TConstruction>(ConstructionID constructionID, AffiliationEnum affiliation) where TConstruction : ConstructionBase;
+        public TConstruction Create<TConstruction>(ConstructionID constructionID, Vector3 position, AffiliationEnum affiliation) 
+            where TConstruction : ConstructionBase;
 
         public event Action<ConstructionBase> Created;
     }
 
     public class ConstructionFactory : MonoBehaviour, IConstructionFactory
     {
+        [Inject] private readonly ConstructionsRepository _repository;
         [Inject] private readonly ConstructionTypeMatchConfig _constructionTypeMatchConfig;
 
         private IReadOnlyDictionary<ConstructionType, ConstructionFactoryBehaviourBase> _behaviours;
@@ -32,7 +33,8 @@ namespace BugStrategy.Constructions.Factory
                 Debug.Log($"Factory behaviour {behaviour.GetType()} has been registered");
         }
 
-        public TConstruction Create<TConstruction>(ConstructionID constructionID, AffiliationEnum affiliation) where TConstruction : ConstructionBase
+        public TConstruction Create<TConstruction>(ConstructionID constructionID, Vector3 position, AffiliationEnum affiliation) 
+            where TConstruction : ConstructionBase
         {
             ConstructionType constructionType = _constructionTypeMatchConfig.GetConstructionType(constructionID);
 
@@ -42,6 +44,8 @@ namespace BugStrategy.Constructions.Factory
 
             var construction = _behaviours[constructionType].Create<TConstruction>(constructionID);
             construction.Initialize(affiliation);
+            construction.transform.position = position;
+            _repository.AddConstruction(position, construction);
             Created?.Invoke(construction);
             return construction;
         }
