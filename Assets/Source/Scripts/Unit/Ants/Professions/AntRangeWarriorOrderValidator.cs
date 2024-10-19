@@ -12,8 +12,8 @@ namespace BugStrategy.Unit.Ants
         public override CooldownProcessor CooldownProcessor { get; }
         public override AttackProcessorBase AttackProcessor { get; }
         
-        public AntRangeWarriorOrderValidator(AntBase ant, AntRangeWarriorConfig antHandItem, ProjectileFactory projectileFactory)
-            : base(antHandItem.AntProfessionRang)
+        public AntRangeWarriorOrderValidator(AntBase ant, int professionRang, AntRangeWarriorConfig antHandItem, ProjectileFactory projectileFactory)
+            : base(professionRang)
         {
             CooldownProcessor = new CooldownProcessor(antHandItem.Cooldown);
             AttackProcessor = new RangeAttackProcessor(ant, antHandItem.AttackRange, antHandItem.Damage, 

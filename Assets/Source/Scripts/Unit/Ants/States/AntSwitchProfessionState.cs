@@ -35,7 +35,8 @@ namespace BugStrategy.Unit.Ants
                 return;
             }
             
-            if (!professionConstruction.TryTakeConfig(_ant.TargetProfessionType, _ant.TargetProfessionRang, out var config))
+            if (!professionConstruction.TryTakeConfig(_ant.UnitType, _ant.TargetProfessionType, 
+                    _ant.TargetProfessionRang, out var config))
             {
                 Debug.LogWarning($"Config is null: {_ant.TargetProfessionType}, {_ant.TargetProfessionRang}");
                 //_ant.AutoGiveOrder(_ant.CurrentPathData.Target);
@@ -43,7 +44,7 @@ namespace BugStrategy.Unit.Ants
             }
             else
             {
-                _ant.SwitchProfession(config);
+                _ant.SwitchProfession(config, _ant.TargetProfessionRang);
                 //_ant.AutoGiveOrder(null);
                 StateExecuted?.Invoke();
             }

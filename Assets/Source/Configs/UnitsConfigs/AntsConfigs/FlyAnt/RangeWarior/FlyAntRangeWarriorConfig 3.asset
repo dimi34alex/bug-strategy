@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18c57076a853415a9b0b8ef07f8ef97d, type: 3}
+  m_Name: FlyAntRangeWarriorConfig 3
+  m_EditorClassIdentifier: 
+  <AntProfessionRang>k__BackingField:
+    <Rang>k__BackingField: 3
+  <AnimatorController>k__BackingField: {fileID: 0}
+  <InteractionRange>k__BackingField: 4
+  <access>k__BackingField: 640000006e00000078000000
+  <Damage>k__BackingField: 10
+  <AttackRange>k__BackingField: 12
+  <Cooldown>k__BackingField: 1
+  <ProjectileType>k__BackingField: 10

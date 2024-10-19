@@ -10,7 +10,7 @@ namespace BugStrategy.Unit.Ants
     {
         //TODO: remove this script and create construction for switch professions
         [SerializeField] private AntBase ant;
-        [SerializeField] private AntProfessionRang targetProfessionRang;
+        [SerializeField] private int targetProfessionRang;
         [SerializeField] private AntProfessionsConfigsRepository antProfessionsConfigsRepository;
         [SerializeField] private AffiliationEnum affiliationEnum;
     
@@ -43,11 +43,24 @@ namespace BugStrategy.Unit.Ants
                 _unitFactory.Create(UnitType.AntFlying, transform.position, affiliationEnum);
         }
 
-        private void GiveOrderSwitchProfession(ProfessionType newProfessionType) 
+        private void GiveOrderSwitchProfession(ProfessionType newProfessionType)
             => ant.GiveOrderSwitchProfession(this, newProfessionType, targetProfessionRang);
-
-        public bool TryTakeConfig(ProfessionType professionType, int professionRang, out AntProfessionConfigBase config)
-            => antProfessionsConfigsRepository.TryTakeConfig(professionType, professionRang, out config);
+        
+        public bool TryTakeConfig(UnitType unitType, ProfessionType professionType, int professionRang, out AntProfessionConfigBase config)
+        {
+            switch (unitType)
+            {
+                case UnitType.AntStandard:
+                    return antProfessionsConfigsRepository.TryTakeStandardAntConfig(professionType, professionRang, out config);
+                case UnitType.AntBig:
+                    return antProfessionsConfigsRepository.TryTakeBigAntConfig(professionType, professionRang, out config);
+                case UnitType.AntFlying:
+                    return antProfessionsConfigsRepository.TryTakeFlyAntConfig(professionType, professionRang, out config);
+                default:
+                    config = null;
+                    return false;
+            }
+        }
 
         private void OnDisable()
         {

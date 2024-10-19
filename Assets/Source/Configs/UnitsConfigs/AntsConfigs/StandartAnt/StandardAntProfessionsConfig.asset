@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62d38a442da7435389dc1e9d2b899bc4, type: 3}
+  m_Name: StandardAntProfessionsConfig
+  m_EditorClassIdentifier: 
+  defaultProfession: {fileID: 11400000, guid: b0ca51050141a404fa384c7042b6a757, type: 2}
+  data:
+    _cells:
+    - Key: 0
+      Value:
+      - {fileID: 11400000, guid: 79aef2b05f3af51419ee62c4cec3d167, type: 2}
+      - {fileID: 11400000, guid: 502fc106ef88b6447a04b843c951c138, type: 2}
+      - {fileID: 11400000, guid: f46780a1d5a8bfe4cb6e8637efa6fead, type: 2}
+    - Key: 10
+      Value:
+      - {fileID: 11400000, guid: 189b874fb6777844f89027426e72eae6, type: 2}
+      - {fileID: 11400000, guid: 2600fbe2ddb43ea46a8ec7d755b09ac0, type: 2}
+      - {fileID: 11400000, guid: 7e469d4e75bee744daf54947c35a79cf, type: 2}
+    - Key: 20
+      Value:
+      - {fileID: 11400000, guid: c425eab4bf29766448befd99690e5a0e, type: 2}
+      - {fileID: 11400000, guid: e07d17f99c5a8ac43a3f2b82a6849295, type: 2}
+      - {fileID: 11400000, guid: ade6fd91af76bb54792c22aee9bfe7bf, type: 2}
