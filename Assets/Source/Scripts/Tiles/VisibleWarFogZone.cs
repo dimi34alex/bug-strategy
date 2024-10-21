@@ -1,6 +1,9 @@
 using System;
+using BugStrategy.Constructions;
 using BugStrategy.Trigger;
+using BugStrategy.Unit;
 using CycleFramework.Extensions;
+using UnityEngine;
 
 namespace BugStrategy.Tiles
 {
@@ -8,15 +11,53 @@ namespace BugStrategy.Tiles
     {
         protected override Func<ITriggerable, bool> EnteredComponentIsSuitable => t => t is Tile;
         protected override bool _refreshEnteredComponentsAfterExit => false;
-    
-        protected override void OnEnter(ITriggerable component)
+
+        public UnitBase ScriptWithUnitBase;//скрипт юнита откуда можно вы€снить принадлежность, может быть равен null
+        public ConstructionBase ScriptWithConstractionBase;//скрипт здани€ откуда можно вы€снить принадлежность, может быть равен null
+
+        protected override void OnEnter (ITriggerable component)
         {
-            component.Cast<Tile>().AddWatcher();
+
+            if(ScriptWithUnitBase != null)
+            {
+                if(ScriptWithUnitBase.Affiliation == AffiliationEnum.Team1)
+                {
+                    //Debug.Log(this.transform.parent.name);
+                    component.Cast<Tile>().AddWatcher();
+                }
+            }
+            else
+            {
+                if(ScriptWithConstractionBase != null)
+                {
+                    if(ScriptWithConstractionBase.Affiliation == AffiliationEnum.Team1)
+                    {
+                        //Debug.Log(this.transform.parent.name);
+                        component.Cast<Tile>().AddWatcher();
+                    }
+                }
+            }
         }
 
-        protected override void OnExit(ITriggerable component)
+        protected override void OnExit (ITriggerable component)
         {
-            component.Cast<Tile>().RemoveWatcher();
+            if(ScriptWithUnitBase != null)
+            {
+                if(ScriptWithUnitBase.Affiliation == AffiliationEnum.Team1)
+                {
+                    component.Cast<Tile>().RemoveWatcher();
+                }
+            }
+            else
+            {
+                if(ScriptWithConstractionBase != null)
+                {
+                    if(ScriptWithConstractionBase.Affiliation == AffiliationEnum.Team1)
+                    {
+                        component.Cast<Tile>().RemoveWatcher();
+                    }
+                }
+            }
         }
     }
 }

@@ -31,6 +31,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1327213751691324966}
   - {fileID: 8731110319265914723}
@@ -50,7 +51,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19b3bbd2d91f47aea5dce162b5925b26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  affiliationEnum: 20
   workerBeesSpawnPosition: {fileID: 4586956181230640135}
   config: {fileID: 11400000, guid: 57094724b128ead4b89dabd51c1bb17b, type: 2}
 --- !u!208 &3486862934485506241
@@ -138,6 +138,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7129475136220960166}
   m_RootOrder: 1
@@ -154,6 +155,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6577efbb40a4e834eb6dbde130247f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ScriptWithUnitBase: {fileID: 0}
+  ScriptWithConstractionBase: {fileID: 7124924816069639340}
 --- !u!135 &5955857090261121783
 SphereCollider:
   m_ObjectHideFlags: 0
