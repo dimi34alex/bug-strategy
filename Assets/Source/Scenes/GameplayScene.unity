@@ -1009,8 +1009,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ant: {fileID: 0}
-  targetProfessionRang:
-    <Rang>k__BackingField: 1
+  targetProfessionRang: 0
   antProfessionsConfigsRepository: {fileID: 11400000, guid: 02a99708a1faf5f468541cb5a3215eec, type: 2}
   affiliationEnum: 0
 --- !u!65 &808316585
@@ -1489,7 +1488,7 @@ GameObject:
   - component: {fileID: 1844035350}
   - component: {fileID: 1844035351}
   - component: {fileID: 1844035352}
-  - component: {fileID: 1844035353}
+  - component: {fileID: 1844035354}
   m_Layer: 14
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1654,7 +1653,7 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
---- !u!114 &1844035353
+--- !u!114 &1844035354
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1663,13 +1662,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1844035346}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c49b4cc203aa6414fae5c798d1d0e7d6, type: 3}
+  m_Script: {fileID: 11500000, guid: d0009befed774af6a4b824fb687dffda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EventMask:
+  layers:
     serializedVersion: 2
     m_Bits: 6144
-  m_MaxRayIntersections: 2
 --- !u!1 &1870373502
 GameObject:
   m_ObjectHideFlags: 0
