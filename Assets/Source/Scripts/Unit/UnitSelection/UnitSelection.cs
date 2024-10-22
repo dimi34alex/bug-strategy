@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using BugStrategy.CustomInput;
 using BugStrategy.Missions;
 using BugStrategy.UI;
 using UnityEngine;
@@ -10,7 +11,8 @@ namespace BugStrategy.Unit.UnitSelection
     public class UnitSelection : MonoBehaviour
     {
         [SerializeField] private LayerMask targetsLayers;
-        
+
+        [Inject] private readonly IInputProvider _inputProvider;
         [Inject] private readonly UIController _uiController;
         [Inject] private readonly MissionData _missionData;
     
@@ -44,18 +46,18 @@ namespace BugStrategy.Unit.UnitSelection
 
         private void SelectProcess()
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = Camera.main.ScreenPointToRay(_inputProvider.MousePosition);
 
-            if (Input.GetMouseButtonDown(0))
+            if (_inputProvider.LmbDown)
             {
                 _isSelecting = true;
-                _mouseStartSelectionPoint = Input.mousePosition;
+                _mouseStartSelectionPoint = _inputProvider.MousePosition;
             }
 
-            if (Input.GetMouseButtonUp(0) && !_missionData.ConstructionSelector.TrySelect(ray))
+            if (_inputProvider.LmbUp && !_missionData.ConstructionSelector.TrySelect(ray))
             {
                 _isSelecting = false;
-                _mouseEndSelectionPoint = Input.mousePosition;
+                _mouseEndSelectionPoint = _inputProvider.MousePosition;
 
                 DeselectAll();
 
@@ -66,9 +68,9 @@ namespace BugStrategy.Unit.UnitSelection
 
         private void OrderProcess()
         {
-            if (Input.GetMouseButtonDown(1) && _selectedUnits.Count > 0 && !_isSelecting)
+            if (_inputProvider.RmbDown && _selectedUnits.Count > 0 && !_isSelecting)
             {
-                var ray = Camera.ScreenPointToRay(Input.mousePosition);
+                var ray = Camera.ScreenPointToRay(_inputProvider.MousePosition);
                 if (Physics.Raycast(ray, out var hit, 100F, targetsLayers, QueryTriggerInteraction.Ignore) 
                     && hit.collider.TryGetComponent(out ITarget target))
                 {
@@ -77,7 +79,7 @@ namespace BugStrategy.Unit.UnitSelection
                 }
                 else
                 {
-                    Vector3 targetPosition = Input.mousePosition;
+                    Vector3 targetPosition = _inputProvider.MousePosition;
                     targetPosition = Camera.ScreenToWorldPoint(targetPosition);
 
                     var unitPositions =

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using BugStrategy.CustomInput;
+using UnityEngine;
+using Zenject;
 
 namespace BugStrategy.Unit.UnitSelection
 {
@@ -6,6 +8,8 @@ namespace BugStrategy.Unit.UnitSelection
     {
         [SerializeField] private Texture _texture;
 
+        [Inject] private readonly IInputProvider _inputProvider;
+        
         private bool _isSelecting;
 
         private Vector2 _mouseStartSelectionPoint;
@@ -20,28 +24,27 @@ namespace BugStrategy.Unit.UnitSelection
 
         private void Update()
         {
-            if (Input.GetMouseButtonDown(0))
+            if (_inputProvider.LmbDown && !_inputProvider.MouseCursorOverUi())
             {
                 _isSelecting = true;
-                _mouseStartSelectionPoint = Input.mousePosition;
+                _mouseStartSelectionPoint = _inputProvider.MousePosition;
             }
 
             CalculateSelectionParamenters();
 
-            if (Input.GetMouseButtonUp(0))
+            if (_inputProvider.LmbUp)
             {
                 _isSelecting = false;
-                _mouseEndSelectionPoint = Input.mousePosition;
-
+                _mouseEndSelectionPoint = _inputProvider.MousePosition;
             }
         }
 
         private void CalculateSelectionParamenters()
         {
-            _selectionGUI.StartPoint = new Vector2(Input.mousePosition.x,
-                Screen.height - Input.mousePosition.y);
-            _selectionGUI.Size = new Vector2(_mouseStartSelectionPoint.x - Input.mousePosition.x,
-                Input.mousePosition.y - _mouseStartSelectionPoint.y);
+            _selectionGUI.StartPoint = new Vector2(_inputProvider.MousePosition.x,
+                Screen.height - _inputProvider.MousePosition.y);
+            _selectionGUI.Size = new Vector2(_mouseStartSelectionPoint.x - _inputProvider.MousePosition.x,
+                _inputProvider.MousePosition.y - _mouseStartSelectionPoint.y);
         }
 
 
