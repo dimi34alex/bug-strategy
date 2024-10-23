@@ -34,7 +34,7 @@ namespace BugStrategy.Tiles
         public void AddWatcher()
         {
             _watchersCount++;
-            
+            //Debug.Log(_watchersCount);
             if (_watchersCount == 1)
             {
                 IsVisible = true;
