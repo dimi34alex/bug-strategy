@@ -121,6 +121,7 @@ GameObject:
   - component: {fileID: 6456532565263562659}
   - component: {fileID: 3168134466248453099}
   - component: {fileID: 8220864600540729911}
+  - component: {fileID: 6832615216753044926}
   m_Layer: 2
   m_Name: VisibleWarFogZone
   m_TagString: Untagged
@@ -155,8 +156,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6577efbb40a4e834eb6dbde130247f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScriptWithUnitBase: {fileID: 0}
-  ScriptWithConstractionBase: {fileID: 1317676949949875026}
 --- !u!135 &8220864600540729911
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -170,6 +169,19 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 15
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6832615216753044926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4178646377279282631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aff8d09f1a6a1be4a9eab9a328601981, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ScriptWithConstructionBase: {fileID: 1317676949949875026}
 --- !u!1001 &3336146154140886012
 PrefabInstance:
   m_ObjectHideFlags: 0

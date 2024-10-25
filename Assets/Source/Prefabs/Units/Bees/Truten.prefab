@@ -489,6 +489,7 @@ GameObject:
   - component: {fileID: 1982127518946882169}
   - component: {fileID: 7125755887311049201}
   - component: {fileID: 1122161790834712182}
+  - component: {fileID: 6059534082722727586}
   m_Layer: 7
   m_Name: UnitVisibleZone
   m_TagString: Untagged
@@ -535,7 +536,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6577efbb40a4e834eb6dbde130247f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScriptWithUnitBase: {fileID: 6738957367540051247}
 --- !u!135 &1122161790834712182
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -549,6 +549,19 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 10
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6059534082722727586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8471303322834228838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 713b9cc1828aa3f46a23a0edde97327d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ScriptWithUnitBase: {fileID: 6738957367540051247}
 --- !u!1001 &3055655847892816096
 PrefabInstance:
   m_ObjectHideFlags: 0
