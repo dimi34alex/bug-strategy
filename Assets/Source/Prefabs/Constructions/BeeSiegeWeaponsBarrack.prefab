@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7264137623047671846}
   - component: {fileID: 1630911113717681262}
   - component: {fileID: 5711461851013346738}
+  - component: {fileID: 7350421167637996201}
   m_Layer: 2
   m_Name: VisibleWarFogZone
   m_TagString: Untagged
@@ -28,6 +29,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3244907627678796262}
   m_RootOrder: 1
@@ -57,6 +59,19 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 15
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7350421167637996201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 335755921021762114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aff8d09f1a6a1be4a9eab9a328601981, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ScriptWithConstructionBase: {fileID: 2392595823026576638}
 --- !u!1 &1358306901258275950
 GameObject:
   m_ObjectHideFlags: 0
@@ -88,6 +103,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7284586758907997467}
   - {fileID: 7264137623047671846}
@@ -305,13 +321,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 854fd254f61ffbd44b998d92241ee27d, type: 3}
---- !u!4 &7284586758907997467 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5840654176809854213, guid: 854fd254f61ffbd44b998d92241ee27d, type: 3}
-  m_PrefabInstance: {fileID: 3753223660062541854}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1287167140727967907 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2723216220026034365, guid: 854fd254f61ffbd44b998d92241ee27d, type: 3}
+  m_PrefabInstance: {fileID: 3753223660062541854}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7284586758907997467 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5840654176809854213, guid: 854fd254f61ffbd44b998d92241ee27d, type: 3}
   m_PrefabInstance: {fileID: 3753223660062541854}
   m_PrefabAsset: {fileID: 0}
