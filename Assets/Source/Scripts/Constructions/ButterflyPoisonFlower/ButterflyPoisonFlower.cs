@@ -14,7 +14,7 @@ namespace BugStrategy.Constructions.ButterflyPoisonFlower
         [SerializeField] private TriggerBehaviour triggerBehaviour;
         [SerializeField] private SphereCollider attackZoneCollider;
 
-        [Inject] private readonly ProjectileFactory _projectileFactory;
+        [Inject] private readonly ProjectilesFactory _projectilesFactory;
         [Inject] private readonly PoisonFogFactory _poisonFogFactory;
         [Inject] private readonly ITeamsResourcesGlobalStorage _teamsResourcesGlobalStorage;
 
@@ -28,7 +28,7 @@ namespace BugStrategy.Constructions.ButterflyPoisonFlower
         
         protected override void OnAwake()
         {
-            _attackProcessor = new ButterflyPoisonFlowerAttackProcessor(this, transform, _projectileFactory,
+            _attackProcessor = new ButterflyPoisonFlowerAttackProcessor(this, transform, _projectilesFactory,
                 triggerBehaviour, this);
             _poisonFogProcessor = new ButterflyPoisonFlowerPoisonFogProcessor(transform, _poisonFogFactory);
             

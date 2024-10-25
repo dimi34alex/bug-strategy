@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace BugStrategy.Factory
+namespace BugStrategy.Factories
 {
     public interface IFactoryConfig<TId, TPrefab>
     {

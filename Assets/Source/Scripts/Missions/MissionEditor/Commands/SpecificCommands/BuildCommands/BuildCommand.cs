@@ -1,6 +1,6 @@
 using System;
 using BugStrategy.CommandsCore;
-using BugStrategy.Factory;
+using BugStrategy.Factories;
 using BugStrategy.Missions.MissionEditor.GridRepositories;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -16,12 +16,12 @@ namespace BugStrategy.Missions.MissionEditor.Commands
         private readonly TId _defaultId;
         private readonly TId _tileId;
         private readonly Vector3 _point;
-        private readonly ObjectsFactoryBase<TId, TResult> _factory;
+        private readonly FactoryWithId<TId, TResult> _factory;
         private readonly GridRepository<TResult> _positionsRepository;
 
         public event Action<ICommand> OnExecuted;
         
-        protected BuildCommand(TId defaultId, TId tileId, Vector3 point, ObjectsFactoryBase<TId, TResult> factory, 
+        protected BuildCommand(TId defaultId, TId tileId, Vector3 point, FactoryWithId<TId, TResult> factory, 
             GridRepository<TResult> positionsRepository)
         {
             _tileIdReplaced = _defaultId = defaultId;

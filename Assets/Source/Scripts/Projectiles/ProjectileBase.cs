@@ -47,9 +47,11 @@ namespace BugStrategy.Projectiles
             Target.OnDeactivation += OnTargetDeactivation;
         }
 
-        public virtual void OnElementReturn() => gameObject.SetActive(false);
+        public virtual void OnElementReturn() 
+            => gameObject.SetActive(false);
 
-        public virtual void OnElementExtract() => gameObject.SetActive(true);
+        public virtual void OnElementExtract() 
+            => gameObject.SetActive(true);
 
         private void OnTargetDeactivation(ITarget _)
         {

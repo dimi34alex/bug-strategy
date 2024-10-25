@@ -15,6 +15,6 @@ namespace BugStrategy.Projectiles
             => Container.BindInterfacesAndSelfTo<ProjectilesRepository>().FromNew().AsSingle();
 
         private void BindFactory() 
-            => Container.BindInterfacesAndSelfTo<ProjectileFactory>().FromNew().AsSingle();
+            => Container.BindInterfacesAndSelfTo<ProjectilesFactory>().FromNew().AsSingle();
     }
 }

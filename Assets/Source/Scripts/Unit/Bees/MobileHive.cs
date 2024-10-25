@@ -18,7 +18,7 @@ namespace BugStrategy.Unit.Bees
     {
         [SerializeField] private MobileHiveConfig config;
     
-        [Inject] private readonly ProjectileFactory _projectileFactory;
+        [Inject] private readonly ProjectilesFactory _projectilesFactory;
         [Inject] private readonly UnitFactory _unitFactory;
     
         public override UnitType UnitType => UnitType.MobileHive;
@@ -46,7 +46,7 @@ namespace BugStrategy.Unit.Bees
             _healthStorage = new FloatStorage(config.HealthPoints, config.HealthPoints);
             _cooldownProcessor = new CooldownProcessor(config.Cooldown);
             _attackProcessor = new RangeAttackProcessor(this, config.AttackRange, config.Damage, _cooldownProcessor,
-                ProjectileType.MobileHiveProjectile, _projectileFactory);
+                ProjectileType.MobileHiveProjectile, _projectilesFactory);
             _warriorOrderValidator = new WarriorOrderValidator(this, config.InteractionRange, _cooldownProcessor, _attackProcessor);
             
             AttackCooldownChanger = new AttackCooldownChanger(_cooldownProcessor);

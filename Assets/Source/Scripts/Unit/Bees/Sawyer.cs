@@ -18,7 +18,7 @@ namespace BugStrategy.Unit.Bees
     {
         [SerializeField] private SawyerConfig config;
     
-        [Inject] private ProjectileFactory _projectileFactory;
+        [Inject] private ProjectilesFactory _projectilesFactory;
     
         protected override OrderValidatorBase OrderValidator => _orderValidator;
         public override UnitType UnitType => UnitType.Sawyer;
@@ -47,7 +47,7 @@ namespace BugStrategy.Unit.Bees
             
             _cooldownProcessor = new CooldownProcessor(config.Cooldown);
             _attackProcessor = new SawyerAttackProcessor(this, config.AttackRange, config.Damage, _cooldownProcessor,
-                config.ProjectileType, _projectileFactory);
+                config.ProjectileType, _projectilesFactory);
             _orderValidator = new HidableWarriorOrderValidator(this, config.InteractionRange, _cooldownProcessor, _attackProcessor);
            
             AttackCooldownChanger = new AttackCooldownChanger(_cooldownProcessor);

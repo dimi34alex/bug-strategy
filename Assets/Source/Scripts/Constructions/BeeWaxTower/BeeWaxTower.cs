@@ -13,7 +13,7 @@ namespace BugStrategy.Constructions.BeeWaxTower
         [SerializeField] private TriggerBehaviour attackZone;
         [SerializeField] private BeeWaxTowerConfig config;
 
-        [Inject] private readonly ProjectileFactory _projectileFactory;
+        [Inject] private readonly ProjectilesFactory _projectilesFactory;
         [Inject] private readonly IConstructionFactory _constructionFactory;
         [Inject] private readonly ITeamsResourcesGlobalStorage _teamsResourcesGlobalStorage;
         
@@ -29,7 +29,7 @@ namespace BugStrategy.Constructions.BeeWaxTower
         {
             base.OnAwake();
 
-            _attackProcessor = new BeeWaxTowerAttackProcessor(this, _projectileFactory, attackZone, transform, this);
+            _attackProcessor = new BeeWaxTowerAttackProcessor(this, _projectilesFactory, attackZone, transform, this);
 
             _levelSystem = new BeeWaxTowerLevelSystem(this, config, _teamsResourcesGlobalStorage,
                 _healthStorage, _attackProcessor);

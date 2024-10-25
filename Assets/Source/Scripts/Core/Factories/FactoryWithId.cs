@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Zenject;
-using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
-namespace BugStrategy.Factory
+namespace BugStrategy.Factories
 {
-    public abstract class ObjectsFactoryBase<TId, TResult>
-        where TResult : Object
+    public class FactoryWithId<TId, TResult>
+        where TResult : MonoBehaviour
     {
         private readonly DiContainer _diContainer;
         private readonly IFactoryConfig<TId, TResult> _config;
@@ -18,7 +17,7 @@ namespace BugStrategy.Factory
         
         public event Action<TResult> OnCreate;
 
-        protected ObjectsFactoryBase(DiContainer diContainer, IFactoryConfig<TId, TResult> config, string parentName)
+        protected FactoryWithId(DiContainer diContainer, IFactoryConfig<TId, TResult> config, string parentName)
         {
             _diContainer = diContainer;
             _config = config;
@@ -45,9 +44,16 @@ namespace BugStrategy.Factory
 
         public TResult Create(TId id, Vector3 position, Quaternion rotation)
         { 
-            var tile = _diContainer.InstantiatePrefab(_config.GetData()[id], position, rotation, _parent).GetComponent<TResult>();
-            OnCreate?.Invoke(tile);
-            return tile;
+            var result = GetObjectInstance(id);
+            result.transform.SetPositionAndRotation(position, rotation);
+            OnCreate?.Invoke(result);
+            return result;
         }
+
+        protected virtual TResult GetObjectInstance(TId id) 
+            => InstantiateNewObject(id);
+
+        protected TResult InstantiateNewObject(TId id) 
+            => _diContainer.InstantiatePrefab(_config.GetData()[id], _parent).GetComponent<TResult>();
     }
 }

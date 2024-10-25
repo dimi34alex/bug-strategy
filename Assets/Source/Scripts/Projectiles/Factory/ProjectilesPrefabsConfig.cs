@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using BugStrategy.ConfigsRepository;
-using BugStrategy.Factory;
+using BugStrategy.Factories;
 using BugStrategy.Libs;
 using UnityEngine;
 

@@ -17,7 +17,7 @@ namespace BugStrategy.Unit.Ants
         [SerializeField] private GameObject resource;
         [SerializeField] private Animator animator;
 
-        [Inject] private readonly ProjectileFactory _projectileFactory;
+        [Inject] private readonly ProjectilesFactory _projectilesFactory;
         [Inject] private readonly ITeamsResourcesGlobalStorage _teamsResourcesGlobalStorage;
         
         public ProfessionType CurProfessionType => CurrentProfession.ProfessionType;
@@ -125,7 +125,7 @@ namespace BugStrategy.Unit.Ants
                     break;
                 case (ProfessionType.RangeWarrior):
                     CurrentProfession  = new AntRangeWarriorOrderValidator(this, professionRang, 
-                        newProfession as AntRangeWarriorConfig, _projectileFactory);
+                        newProfession as AntRangeWarriorConfig, _projectilesFactory);
                     break;
                 default: throw new NotImplementedException();
             }

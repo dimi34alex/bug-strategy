@@ -12,7 +12,7 @@ namespace BugStrategy.Unit.Bees
         
         private float _constructionDamageScale = 1;
         
-        public HoneyCatapultAttackProcessor(UnitBase unit, float attackRange, float damage, float damageRadius, CooldownProcessor cooldownProcessor, ProjectileFactory projectilesFactory) 
+        public HoneyCatapultAttackProcessor(UnitBase unit, float attackRange, float damage, float damageRadius, CooldownProcessor cooldownProcessor, ProjectilesFactory projectilesFactory) 
             : base(unit, attackRange, damage, cooldownProcessor, ProjectileType.HoneyCatapultProjectile, projectilesFactory)
         {
             _damageRadius = damageRadius;
