@@ -1,3 +1,4 @@
+using BugStrategy.Constructions;
 using BugStrategy.Missions;
 using BugStrategy.Tiles;
 using BugStrategy.Trigger;
@@ -13,18 +14,24 @@ namespace BugStrategy
     public class UnitVisibleWarFogZone : VisibleWarFogZone
     {
         [Tooltip("скрипт юнита откуда можно вы€снить принадлежность")]
-        public UnitBase ScriptWithUnitBase;
+        [SerializeField] private UnitBase ScriptWithUnitBase;
 
         [Inject] private readonly MissionData _missionData;
 
-        protected override void GetAffiliationAdd (ITriggerable component)
+        private void Start ()
+        {
+            ScriptWithUnitBase = transform.GetComponentInParent<UnitBase>();
+        }
+
+        protected override void OnEnter (ITriggerable component)
         {
             if(ScriptWithUnitBase.Affiliation == _missionData.PlayerAffiliation)
             {
                 component.Cast<Tile>().AddWatcher();
             }
         } 
-        protected override void GetAffiliationRemove (ITriggerable component)
+
+        protected override void OnExit (ITriggerable component)
         {
             if(ScriptWithUnitBase.Affiliation == _missionData.PlayerAffiliation)
             {
