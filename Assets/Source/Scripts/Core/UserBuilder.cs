@@ -1,5 +1,6 @@
 using BugStrategy.Constructions;
 using BugStrategy.Constructions.Factory;
+using BugStrategy.CustomInput;
 using BugStrategy.Libs;
 using BugStrategy.Missions;
 using BugStrategy.Tiles;
@@ -9,13 +10,13 @@ using BugStrategy.Unit.UnitSelection;
 using CycleFramework.Execute;
 using CycleFramework.Extensions;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using Zenject;
 
 namespace BugStrategy
 {
     public class UserBuilder : CycleInitializerBase
     {
+        [Inject] private readonly IInputProvider _inputProvider;
         [Inject] private readonly UIController _uiController;
         [Inject] private readonly MissionData _missionData;
         [Inject] private readonly ConstructionsConfigsRepository _constructionsConfigsRepository;
@@ -38,9 +39,9 @@ namespace BugStrategy
 
         private void ObjectSelection()
         {
-            if (Input.GetButtonDown("Fire1"))
+            if (_inputProvider.LmbDown && !_inputProvider.MouseCursorOverUi())
             {
-                var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                var ray = Camera.main.ScreenPointToRay(_inputProvider.MousePosition);
 
                 var prevSelectedConstruction = _missionData.ConstructionSelector.SelectedConstruction;
                 if (prevSelectedConstruction != null) 
@@ -53,24 +54,21 @@ namespace BugStrategy
                     UnitSelection.Instance.DeselectAllWithoutCheck();
                     _uiController.SetScreen(selectedConstruction);
                 }
-                else if (!MouseCursorOverUI())
+                else if (!_inputProvider.MouseCursorOverUi())
                 {
                     _uiController.SetScreen(UIScreenType.Gameplay);
                 }
             }
         }
 
-        private static bool MouseCursorOverUI() 
-            => EventSystem.current.IsPointerOverGameObject();
-
         private void MoveConstructionMovableModel()
         {
-            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (!MouseCursorOverUI() && Physics.Raycast(ray, out var hit, 100F, CustomLayerID.Construction_Ground.Cast<int>(), QueryTriggerInteraction.Ignore))
+            var ray = Camera.main.ScreenPointToRay(_inputProvider.MousePosition);
+            if (!_inputProvider.MouseCursorOverUi() && Physics.Raycast(ray, out var hit, 100F, CustomLayerID.Construction_Ground.Cast<int>(), QueryTriggerInteraction.Ignore))
             {
                 _currentConstructionMovableModel.transform.position = _missionData.ConstructionsRepository.RoundPositionToGrid(ray.GetPoint(hit.distance));
 
-                if (Input.GetButtonDown("Fire1"))//подтверждение строительства здания
+                if (_inputProvider.LmbDown)//подтверждение строительства здания
                 {
                     if (hit.collider.name == "TileBase")
                     {
@@ -97,7 +95,7 @@ namespace BugStrategy
                         }
                     }
                 }
-                else if (Input.GetButtonDown("Fire2"))//отмена начала строительства
+                else if (_inputProvider.RmbDown)//отмена начала строительства
                 {
                     Destroy(_currentConstructionMovableModel);
                     _spawnConstruction = false;
@@ -129,7 +127,7 @@ namespace BugStrategy
             if (id == ConstructionID.BeeTownHall && _numberTownHall >= 1)
                 return false;
         
-            RaycastHit[] raycastHits = Physics.RaycastAll(Camera.main.ScreenPointToRay(Input.mousePosition));
+            RaycastHit[] raycastHits = Physics.RaycastAll(Camera.main.ScreenPointToRay(_inputProvider.MousePosition));
             int index = raycastHits.IndexOf(hit => !hit.collider.isTrigger);
             if (index <= -1) 
                 return false;
@@ -148,9 +146,7 @@ namespace BugStrategy
     
         private BuildingProgressConstruction SpawnConstruction(AffiliationEnum affiliation, ConstructionID id, Vector3 position)
         {
-            BuildingProgressConstruction progressConstruction = _constructionFactory.Create<BuildingProgressConstruction>(ConstructionID.BuildingProgressConstruction, affiliation);
-            progressConstruction.transform.position = position;
-            _missionData.ConstructionsRepository.AddConstruction(position, progressConstruction);
+            var progressConstruction = _constructionFactory.Create<BuildingProgressConstruction>(ConstructionID.BuildingProgressConstruction, position, affiliation);
                 
             progressConstruction.OnTimerEnd += c => CreateConstruction(affiliation, c, position);
 
@@ -161,14 +157,10 @@ namespace BugStrategy
 
         private void CreateConstruction(AffiliationEnum affiliation, BuildingProgressConstruction buildingProgressConstruction, Vector3 position)
         {
-            ConstructionBase construction = _constructionFactory.Create<ConstructionBase>(buildingProgressConstruction.BuildingConstructionID, affiliation);
-        
             _missionData.ConstructionsRepository.GetConstruction(position, true);
-
             Destroy(buildingProgressConstruction.gameObject);
 
-            _missionData.ConstructionsRepository.AddConstruction(position, construction);
-            construction.transform.position = position;
+            _constructionFactory.Create<ConstructionBase>(buildingProgressConstruction.BuildingConstructionID, position, affiliation);
         }
 
         public void SpawnConstructionMovableModel(ConstructionID constructionID)

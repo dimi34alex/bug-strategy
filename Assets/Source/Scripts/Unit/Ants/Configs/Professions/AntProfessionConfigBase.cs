@@ -7,12 +7,7 @@ namespace BugStrategy.Unit.Ants
     {
         public abstract ProfessionType ProfessionType { get; }
 
-        [field: SerializeField] public AntProfessionRang AntProfessionRang { get; private set; }
         [field: SerializeField] public RuntimeAnimatorController AnimatorController { get; private set; }
         [field: SerializeField] public float InteractionRange { get; private set; }
-        [field: SerializeField] private List<UnitType> access { get; set; }
-
-        public int ProfessionRang => AntProfessionRang.Rang;
-        public IReadOnlyList<UnitType> Access => access;
     }
 }

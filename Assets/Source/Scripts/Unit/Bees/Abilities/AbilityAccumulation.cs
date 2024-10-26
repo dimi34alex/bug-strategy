@@ -65,9 +65,7 @@ namespace BugStrategy.Unit.Bees
             if(_missionData.ConstructionsRepository.ConstructionExist(roundedPosition))
                 return;
             
-            var construction = _constructionFactory.Create<ConstructionBase>(ConstructionID.BeeStickyTileConstruction, Affiliation);
-            construction.transform.position = roundedPosition;
-            _missionData.ConstructionsRepository.AddConstruction(roundedPosition, construction);
+            _constructionFactory.Create<ConstructionBase>(ConstructionID.BeeStickyTileConstruction, roundedPosition, Affiliation);
         }
     }
 }

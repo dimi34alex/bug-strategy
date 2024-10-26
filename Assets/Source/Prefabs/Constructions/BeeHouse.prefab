@@ -26,6 +26,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -1.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2225733219021671339}
   m_RootOrder: 3
@@ -152,6 +153,7 @@ GameObject:
   - component: {fileID: 2119081518401477201}
   - component: {fileID: 7999856130056898073}
   - component: {fileID: 3955334258519490501}
+  - component: {fileID: 704430705816144727}
   m_Layer: 7
   m_Name: VisibleWarFogZone
   m_TagString: Untagged
@@ -199,6 +201,19 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 15
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &704430705816144727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9011636868849643573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aff8d09f1a6a1be4a9eab9a328601981, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ScriptWithConstructionBase: {fileID: -4589124477280040743}
 --- !u!1001 &1834798458363905051
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -15,6 +15,7 @@ namespace BugStrategy.Constructions.Factory.Behaviours
         protected virtual void OnInit() { }
 
         public abstract ConstructionType ConstructionType { get; }
-        public abstract TConstruction Create<TConstruction>(ConstructionID constructionID) where TConstruction : ConstructionBase;
+        public abstract TConstruction Create<TConstruction>(ConstructionID constructionID, Transform parent = null) 
+            where TConstruction : ConstructionBase;
     }
 }

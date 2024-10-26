@@ -14,7 +14,7 @@ namespace BugStrategy.Constructions.ButterflyPoisonFlower
         private readonly ITarget _shooter;
         private readonly IAffiliation _affiliation;
         private readonly List<UnitBase> _enemies = new List<UnitBase>();
-        private readonly ProjectileFactory _projectileFactory;
+        private readonly ProjectilesFactory _projectilesFactory;
         private readonly TriggerBehaviour _triggerBehaviour;
         private readonly Transform _flowerPosition;
         
@@ -26,11 +26,11 @@ namespace BugStrategy.Constructions.ButterflyPoisonFlower
         public AffiliationEnum Affiliation => _affiliation.Affiliation;
         
         public ButterflyPoisonFlowerAttackProcessor(IAffiliation affiliation, Transform flowerPosition, 
-            ProjectileFactory projectileFactory, TriggerBehaviour triggerBehaviour, ITarget shooter)
+            ProjectilesFactory projectilesFactory, TriggerBehaviour triggerBehaviour, ITarget shooter)
         {
             _affiliation = affiliation;
             _flowerPosition = flowerPosition;
-            _projectileFactory = projectileFactory;
+            _projectilesFactory = projectilesFactory;
             _triggerBehaviour = triggerBehaviour;
             _shooter = shooter;
 
@@ -77,7 +77,7 @@ namespace BugStrategy.Constructions.ButterflyPoisonFlower
                 }
             }
             
-            var projectile = _projectileFactory.Create(ProjectileType.ButterflyPoisonFlowerProjectile).Cast<ButterflyPoisonFlowerProjectile>();
+            var projectile = _projectilesFactory.Create(ProjectileType.ButterflyPoisonFlowerProjectile).Cast<ButterflyPoisonFlowerProjectile>();
             projectile.SetTarget(target);
             projectile.Init(Affiliation, _shooter, _attackDamage);
             projectile.SetDamageRadius(_damageRadius);

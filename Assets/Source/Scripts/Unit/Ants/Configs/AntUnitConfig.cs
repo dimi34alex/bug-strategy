@@ -6,6 +6,5 @@ namespace BugStrategy.Unit.Ants
     public class AntUnitConfig : ScriptableObject
     {
         [field: SerializeField] public float HealthPoints { get; private set; }
-        [field: SerializeField] public AntProfessionConfigBase DefaultProfession { get; private set; }
     }
 }

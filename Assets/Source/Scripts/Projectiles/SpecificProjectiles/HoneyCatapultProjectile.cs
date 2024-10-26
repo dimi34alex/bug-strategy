@@ -2,7 +2,6 @@ using BugStrategy.Constructions;
 using BugStrategy.Constructions.Factory;
 using BugStrategy.Effects;
 using BugStrategy.Missions;
-using BugStrategy.Unit;
 using CycleFramework.Extensions;
 using UnityEngine;
 using Zenject;
@@ -75,9 +74,7 @@ namespace BugStrategy.Projectiles
             if(_missionData.ConstructionsRepository.ConstructionExist(roundedPos))
                 return;
             
-            ConstructionBase construction = _constructionFactory.Create<ConstructionBase>(ConstructionID.BeeStickyTileConstruction, Affiliation);
-            _missionData.ConstructionsRepository.AddConstruction(roundedPos, construction);
-            construction.transform.position = roundedPos;
+            _constructionFactory.Create<ConstructionBase>(ConstructionID.BeeStickyTileConstruction, roundedPos, Affiliation);
         }
     }
 }

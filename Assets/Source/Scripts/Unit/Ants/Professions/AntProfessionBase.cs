@@ -5,17 +5,16 @@ namespace BugStrategy.Unit.Ants
 {
     public abstract class AntProfessionBase
     {
-        private readonly AntProfessionRang _antProfessionRang;
-        public int ProfessionRang => _antProfessionRang.Rang;
+        public readonly int ProfessionRang;
         
         public abstract ProfessionType ProfessionType { get; }
         public abstract OrderValidatorBase OrderValidatorBase { get; }
         
         public event Action OnEnterInZone;
 
-        public AntProfessionBase(AntProfessionRang antProfessionRang)
+        public AntProfessionBase(int antProfessionRang)
         {
-            _antProfessionRang = antProfessionRang;
+            ProfessionRang = antProfessionRang;
         }
         
         public virtual void HandleUpdate(float time)

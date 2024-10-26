@@ -9,7 +9,7 @@ namespace BugStrategy.Unit.Ants
         
         public bool CanAttack => !CooldownProcessor.IsCooldown;
         
-        protected AntWarriorProfessionBase(AntProfessionRang antProfessionRang) : base(antProfessionRang)
+        protected AntWarriorProfessionBase(int antProfessionRang) : base(antProfessionRang)
         {
         }
     }

@@ -29,6 +29,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 918877310391676095}
   - {fileID: 4342873863008796787}
@@ -91,6 +92,7 @@ GameObject:
   - component: {fileID: 8564773689801840543}
   - component: {fileID: 338192051213405143}
   - component: {fileID: 6723987142631420427}
+  - component: {fileID: 8638999525366175403}
   m_Layer: 7
   m_Name: VisibleWarFogZone
   m_TagString: Untagged
@@ -108,6 +110,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7856504284294782298}
   m_RootOrder: 2
@@ -137,6 +140,19 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 15
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8638999525366175403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1638059980537134587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aff8d09f1a6a1be4a9eab9a328601981, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ScriptWithConstructionBase: {fileID: 4805121516226685362}
 --- !u!1 &6001370221426240986
 GameObject:
   m_ObjectHideFlags: 0
@@ -165,6 +181,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7856504284294782298}
   m_RootOrder: 1

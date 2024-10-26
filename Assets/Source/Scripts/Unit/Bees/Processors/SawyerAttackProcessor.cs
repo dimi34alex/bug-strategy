@@ -9,7 +9,7 @@ namespace BugStrategy.Unit.Bees
         private float _exitDamageScale = 1;
         
         public SawyerAttackProcessor(UnitBase unit, float attackRange, float damage, CooldownProcessor cooldownProcessor,
-            ProjectileType projectileType, ProjectileFactory projectilesFactory) 
+            ProjectileType projectileType, ProjectilesFactory projectilesFactory) 
             : base(unit, attackRange, damage, cooldownProcessor, projectileType, projectilesFactory)
         {
             

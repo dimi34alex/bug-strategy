@@ -18,7 +18,7 @@ namespace BugStrategy.Unit.Bees
     {
         [SerializeField] private HorntailConfig config;
     
-        [Inject] private ProjectileFactory _projectileFactory;
+        [Inject] private ProjectilesFactory _projectilesFactory;
     
         protected override OrderValidatorBase OrderValidator => _orderValidator;
         public override UnitType UnitType => UnitType.Horntail;
@@ -45,7 +45,7 @@ namespace BugStrategy.Unit.Bees
             _healthStorage = new FloatStorage(config.HealthPoints, config.HealthPoints);
             _cooldownProcessor = new CooldownProcessor(config.Cooldown);
             _attackProcessor = new HorntailAttackProcessor(this, config.AttackRange, config.Damage, config.DamageRadius,
-                _cooldownProcessor, _projectileFactory);
+                _cooldownProcessor, _projectilesFactory);
             _orderValidator = new HidableWarriorOrderValidator(this, config.InteractionRange, _cooldownProcessor, _attackProcessor);
             AttackCooldownChanger = new AttackCooldownChanger(_cooldownProcessor);
 

@@ -1,5 +1,7 @@
-﻿using CycleFramework.Extensions;
+﻿using BugStrategy.CustomInput;
+using CycleFramework.Extensions;
 using UnityEngine;
+using Zenject;
 
 namespace BugStrategy.CameraMovement
 {
@@ -8,6 +10,8 @@ namespace BugStrategy.CameraMovement
         [SerializeField] private float _moveSpeed;
         [SerializeField] private Camera _camera;
         [SerializeField] private GameObject field;
+
+        [Inject] private readonly IInputProvider _inputProvider;
 
         private Vector3[] _bounds;
         private Vector3 _startPosition;
@@ -27,11 +31,11 @@ namespace BugStrategy.CameraMovement
         {
             _targetPosition.y = transform.position.y;
 
-            if (Input.GetMouseButtonDown(2))
-                _startPosition = transform.position + _camera.ScreenToWorldPoint(Input.mousePosition).XZ();
+            if (_inputProvider.ScrollDown)
+                _startPosition = transform.position + _camera.ScreenToWorldPoint(_inputProvider.MousePosition).XZ();
 
-            if (Input.GetMouseButton(2))
-                _targetPosition = _startPosition - _camera.ScreenToWorldPoint(Input.mousePosition).XZ();
+            if (_inputProvider.ScrollHold)
+                _targetPosition = _startPosition - _camera.ScreenToWorldPoint(_inputProvider.MousePosition).XZ();
 
             Vector3 position = Vector3.Lerp(transform.position, _targetPosition, Time.deltaTime * _moveSpeed);
 
