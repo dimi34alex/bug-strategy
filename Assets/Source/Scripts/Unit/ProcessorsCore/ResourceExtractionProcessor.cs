@@ -87,7 +87,6 @@ namespace BugStrategy.Unit.ProcessorsCore
         public void Reset()
         {
             _extractionTimer.Reset(true);
-            _extractionTimer.OnTimerEnd += ExtractResource;
             GotResource = false;
             IsExtract = false;
             HideResource();
