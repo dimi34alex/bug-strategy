@@ -40,6 +40,7 @@ namespace BugStrategy.UI
                 typeof(UI_GameplayWin),
                 typeof(UI_GameplayLose),
                 typeof(UI_MainMenu),
+                typeof(UI_NewGame),
                 typeof(UI_Saves),
                 
                 typeof(UI_MissionEditor),
@@ -124,6 +125,9 @@ namespace BugStrategy.UI
                     break;
                 case UIScreenType.MainMenu:
                     _uiActiveScreen = _screenRepository.GetScreen<UI_MainMenu>().gameObject;
+                    break;
+                case UIScreenType.NewGame:
+                    _uiActiveScreen = _screenRepository.GetScreen<UI_NewGame>().gameObject;
                     break;
                 case UIScreenType.Saves:
                     _uiActiveScreen = _screenRepository.GetScreen<UI_Saves>().gameObject; 
