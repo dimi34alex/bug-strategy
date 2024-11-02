@@ -7,11 +7,27 @@ namespace BugStrategy.Constructions.AntWorkerWorkshop
     [Serializable]
     public class AntWorkerWorkshopLevelSystem : ConstructionLevelSystemBase<AntWorkerWorkshopLevel>
     {
+        private readonly WorkshopCore _workshopCore;
+        
         public AntWorkerWorkshopLevelSystem(ConstructionBase construction, AntWorkerWorkshopConfig config,
-            ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage, FloatStorage healthStorage) 
+            ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage, FloatStorage healthStorage, WorkshopCore workshopCore) 
             : base(construction, config.Levels,  teamsResourcesGlobalStorage, healthStorage)
         {
-            
+            _workshopCore = workshopCore;
         }
+
+        protected override void LevelUpLogic()
+        {
+            base.LevelUpLogic();
+
+            SetCapacityPerTool();
+            SetRangAccess();
+        }
+
+        private void SetCapacityPerTool() 
+            => _workshopCore.SetCapacity(CurrentLevel.CapacityPerTool);
+        
+        private void SetRangAccess() 
+            => _workshopCore.SetRangAccess(CurrentLevel.RangAccess);
     }
 }

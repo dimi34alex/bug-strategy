@@ -6,11 +6,19 @@ namespace BugStrategy.Tiles
 {
     public class TilesInstaller : MonoInstaller
     {
+#if DEVELOPMENT_BUILD || UNITY_EDITOR
+        [SerializeField, Header("worked only in editor and dev build")] private bool fogIsVisible = true;
+#endif
+        
         public override void InstallBindings()
         {
             BindFactory();
             BindRepository();
             BindVisibleModificator();
+            
+#if DEVELOPMENT_BUILD || UNITY_EDITOR
+            _tileFogVisibilityModificator.SetState(fogIsVisible);
+#endif         
         }
 
         private void BindFactory()
