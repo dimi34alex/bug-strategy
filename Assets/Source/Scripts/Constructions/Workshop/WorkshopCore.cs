@@ -7,9 +7,9 @@ namespace BugStrategy.Constructions
 {
     public class WorkshopCore
     {
-        private readonly ProfessionType _professionType;
         private readonly AntProfessionsConfigsRepository _antProfessionsConfigsRepository;
 
+        public ProfessionType ProfessionType { get; }
         public int CapacityPerTool { get; private set; }
         public int RangAccess { get; private set; }
 
@@ -22,7 +22,7 @@ namespace BugStrategy.Constructions
         
         public WorkshopCore(ProfessionType professionType, AntProfessionsConfigsRepository antProfessionsConfigsRepository)
         {
-            _professionType = professionType;
+            ProfessionType = professionType;
             _antProfessionsConfigsRepository = antProfessionsConfigsRepository;
 
             InitDictionary(UnitType.AntStandard);
@@ -61,7 +61,7 @@ namespace BugStrategy.Constructions
         /// </summary>
         public bool GetTool(UnitType unitType, int rang, out AntProfessionConfigBase config)
         {
-            if (!_antProfessionsConfigsRepository.TryGetAntConfig(unitType, _professionType, rang, out config) ||
+            if (!_antProfessionsConfigsRepository.TryGetAntConfig(unitType, ProfessionType, rang, out config) ||
                 RangAccess < rang ||
                 !_professionTools.ContainsKey(unitType) ||
                 _professionTools[unitType].ContainsKey(rang) ||
@@ -79,9 +79,15 @@ namespace BugStrategy.Constructions
         public IReadOnlyDictionary<int, int> GetToolData(UnitType unitType) 
             => _professionTools[unitType];
 
+        public int GetMaxAvailableRang(UnitType unitType)
+        {
+            var maxRang = _professionTools[unitType].Count;
+            return maxRang > RangAccess ? RangAccess : maxRang;
+        }
+
         private void InitDictionary(UnitType unitType)
         {
-            var rangsCount = _antProfessionsConfigsRepository.GetRangsCount(unitType, _professionType);
+            var rangsCount = _antProfessionsConfigsRepository.GetRangsCount(unitType, ProfessionType);
             _professionTools.Add(unitType, new Dictionary<int, int>(rangsCount));
             for (int i = 0; i < rangsCount; i++) 
                 _professionTools[unitType].Add(i, 0);

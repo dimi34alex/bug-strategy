@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using BugStrategy.Constructions;
+using BugStrategy.UI.Elements.EntityInfo.ConstructionInfo.AntWorkshopViews;
 using BugStrategy.Unit;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
 {
@@ -14,6 +16,12 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
         [SerializeField] private Composite bigAntProfessionsView;
         [SerializeField] private Composite flyingAntProfessionsView;
 
+        [SerializeField] private CreateLine standardAntTools;
+        [SerializeField] private CreateLine bigAntTools;
+        [SerializeField] private CreateLine flyingAntTools;
+
+        [Inject] private UIAntsToolsConfig _uiAntsToolsConfig;
+        
         private AntWorkshopBase _workshopConstruction;
         
         public event Action BackButtonClicked;
@@ -21,6 +29,14 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
         private void Awake()
         {
             backButton.onClick.AddListener(() => BackButtonClicked?.Invoke());
+
+            standardAntTools.OnPressed += CreateTool;
+            bigAntTools.OnPressed += CreateTool;
+            flyingAntTools.OnPressed += CreateTool;
+            
+            standardAntTools.Initialize(UnitType.AntStandard);
+            bigAntTools.Initialize(UnitType.AntBig);
+            flyingAntTools.Initialize(UnitType.AntFlying);
         }
 
         public void Show(bool showBackButton, AntWorkshopBase workshopConstruction)
@@ -36,22 +52,30 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
 
         public void Hide()
         {
+            if (_workshopConstruction != null) 
+                _workshopConstruction.WorkshopCore.OnChange -= UpdateView;
+
             gameObject.SetActive(false);
         }
 
+        private void CreateTool(UnitType unitType, int toolRang) 
+            => _workshopConstruction.WorkshopCore.CreateTool(unitType, toolRang);
+
         private void UpdateView()
         {
-            UpdateView(UnitType.AntStandard, standardAntProfessionsView);
-            UpdateView(UnitType.AntBig, bigAntProfessionsView);
-            UpdateView(UnitType.AntFlying, flyingAntProfessionsView);
+            UpdateView(UnitType.AntStandard, standardAntProfessionsView, standardAntTools);
+            UpdateView(UnitType.AntBig, bigAntProfessionsView, bigAntTools);
+            UpdateView(UnitType.AntFlying, flyingAntProfessionsView, flyingAntTools);
         }
 
-        private void UpdateView(UnitType unitType, Composite composite)
+        private void UpdateView(UnitType unitType, Composite composite, CreateLine createLine)
         {
             var data = _workshopConstruction.WorkshopCore.GetToolData(unitType);
             
             composite.TurnOff();
             composite.Show(data, _workshopConstruction.WorkshopCore.RangAccess);
+            createLine.Show(_uiAntsToolsConfig.GetIcons(unitType, _workshopConstruction.WorkshopCore.ProfessionType),
+                _workshopConstruction.WorkshopCore.GetMaxAvailableRang(unitType));
         }
         
         [Serializable]
