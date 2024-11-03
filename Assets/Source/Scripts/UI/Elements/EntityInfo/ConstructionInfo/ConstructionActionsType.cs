@@ -4,6 +4,7 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
     {
         None = 0,
         RecruitUnits = 10,
-        ProduceResources = 20
+        ProduceResources = 20,
+        AntsProfessions = 30
     }
 }

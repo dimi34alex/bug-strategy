@@ -20,4 +20,19 @@ MonoBehaviour:
       _cells: []
     resourceCapacity:
       _cells: []
-    <Capacity>k__BackingField: 10
+    <CapacityPerTool>k__BackingField: 10
+    <RangAccess>k__BackingField: 1
+  - maxHealPoints: 1000
+    levelUpCost:
+      _cells: []
+    resourceCapacity:
+      _cells: []
+    <CapacityPerTool>k__BackingField: 10
+    <RangAccess>k__BackingField: 2
+  - maxHealPoints: 1000
+    levelUpCost:
+      _cells: []
+    resourceCapacity:
+      _cells: []
+    <CapacityPerTool>k__BackingField: 10
+    <RangAccess>k__BackingField: 3

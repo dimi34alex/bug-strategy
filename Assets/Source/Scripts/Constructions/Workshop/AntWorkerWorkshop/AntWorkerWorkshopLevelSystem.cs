@@ -16,6 +16,14 @@ namespace BugStrategy.Constructions.AntWorkerWorkshop
             _workshopCore = workshopCore;
         }
 
+        public override void Init(int initialLevelIndex)
+        {
+            base.Init(initialLevelIndex);
+            
+            SetCapacityPerTool();
+            SetRangAccess();
+        }
+
         protected override void LevelUpLogic()
         {
             base.LevelUpLogic();

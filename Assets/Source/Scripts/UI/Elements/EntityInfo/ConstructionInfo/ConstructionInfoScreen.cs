@@ -27,6 +27,10 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
 
         private UIConstructionConfig _uiConstructionConfig;
         private UIConstructionsConfig _uiConstructionsConfig;
+
+
+        private AntWorkshopView _antWorkshopView;
+        
         
         private void Awake()
         {
@@ -46,6 +50,8 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
             _resourceConversionUIView.BackButtonClicked += SetNonActionsType;
         
             _recruitingProcessUIView = GetComponentInChildren<ConstructionRecruitingProcessUIView>();
+            
+            _antWorkshopView = GetComponentInChildren<AntWorkshopView>();
         }
 
         public void SetConstruction(ConstructionBase newConstruction)
@@ -75,6 +81,7 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
             _actionsUIView.TurnOffButtons();
             _recruitingUIView.TurnOffButtons();
             _resourceConversionUIView.Hide();
+            _antWorkshopView.Hide();
 
             var onlyOneActionsType = _uiConstructionConfig.ConstructionActions.Count == 1;
             var showBackButton = !onlyOneActionsType;
@@ -95,6 +102,9 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
                     break;
                 case ConstructionActionsType.ProduceResources:
                     _resourceConversionUIView.Show(showBackButton, _construction as ResourceConversionConstructionBase);
+                    break;
+                case ConstructionActionsType.AntsProfessions:
+                    _antWorkshopView.Show(showBackButton, _construction as AntWorkshopBase);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

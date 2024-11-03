@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using BugStrategy.Unit;
 using BugStrategy.Unit.Ants;
@@ -11,6 +12,8 @@ namespace BugStrategy.Constructions
 
         public int CapacityPerTool { get; private set; }
         public int RangAccess { get; private set; }
+
+        public Action OnChange;
 
         /// <summary>
         /// value - (tool rang, count of tools)
@@ -30,11 +33,13 @@ namespace BugStrategy.Constructions
         public void SetRangAccess(int newRangAccess)
         {
             RangAccess = newRangAccess;
+            OnChange?.Invoke();
         }
         
         public void SetCapacity(int newCapacity)
         {
             CapacityPerTool = newCapacity;
+            OnChange?.Invoke();
         }
 
         public void CreateTool(UnitType unitType, int rang)
@@ -48,6 +53,7 @@ namespace BugStrategy.Constructions
             }
 
             _professionTools[unitType][rang]++;
+            OnChange?.Invoke();
         }
         
         /// <summary>
@@ -61,11 +67,18 @@ namespace BugStrategy.Constructions
                 _professionTools[unitType].ContainsKey(rang) ||
                 _professionTools[unitType][rang] <= 0)
             {
+                OnChange?.Invoke();
                 return false;
             }
             
             _professionTools[unitType][rang]--;
+            OnChange?.Invoke();
             return true;
+        }
+
+        public IReadOnlyDictionary<int, int> GetToolData(UnitType unitType)
+        {
+            return _professionTools[unitType];
         }
         
         private void InitDictionary(UnitType unitType)
