@@ -51,8 +51,7 @@ namespace BugStrategy.Unit.OrderValidatorCore
             {
                 case UnitPathType.Build_Construction:
                     if (target.TargetType == TargetType.Construction &&
-                        //TODO: create ants constructions and start check affiliations
-                        // unitTarget.Affiliation == Affiliation &&
+                        target.Affiliation == Affiliation &&
                         target.CastPossible<BuildingProgressConstruction>())
                         return UnitPathType.Build_Construction;
                     break;

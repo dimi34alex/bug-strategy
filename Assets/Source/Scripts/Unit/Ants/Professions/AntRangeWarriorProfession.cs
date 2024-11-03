@@ -4,7 +4,7 @@ using BugStrategy.Unit.ProcessorsCore;
 
 namespace BugStrategy.Unit.Ants
 {
-    public sealed class AntRangeWarriorOrderValidator : AntWarriorProfessionBase
+    public sealed class AntRangeWarriorProfession : AntWarriorProfessionBase
     {
         public override ProfessionType ProfessionType => ProfessionType.RangeWarrior;
         
@@ -12,7 +12,7 @@ namespace BugStrategy.Unit.Ants
         public override CooldownProcessor CooldownProcessor { get; }
         public override AttackProcessorBase AttackProcessor { get; }
         
-        public AntRangeWarriorOrderValidator(AntBase ant, int professionRang, AntRangeWarriorConfig antHandItem, ProjectilesFactory projectilesFactory)
+        public AntRangeWarriorProfession(AntBase ant, int professionRang, AntRangeWarriorConfig antHandItem, ProjectilesFactory projectilesFactory)
             : base(professionRang)
         {
             CooldownProcessor = new CooldownProcessor(antHandItem.Cooldown);
@@ -20,9 +20,6 @@ namespace BugStrategy.Unit.Ants
                 CooldownProcessor, antHandItem.ProjectileType, projectilesFactory);
             OrderValidatorBase = new WarriorOrderValidator(ant, antHandItem.InteractionRange, CooldownProcessor,
                 AttackProcessor);
-
-            AttackProcessor.OnEnterEnemyInZone += EnterInZone;
-            OrderValidatorBase.OnEnterInZone += EnterInZone;
         }
 
         public override void HandleUpdate(float time)

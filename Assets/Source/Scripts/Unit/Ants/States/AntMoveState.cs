@@ -27,7 +27,7 @@ namespace BugStrategy.Unit.Ants
             if (_ant.CurrentPathData.Target.IsAnyNull())
                 UpdateEvent += ManualCheckDistance;
             else
-                _ant.CurrentProfession.OnEnterInZone += CheckTargetDistance;
+                _ant.CurrentProfession.OrderValidatorBase.OnEnterInZone += CheckTargetDistance;
         }
 
         public override void OnStateExit()
@@ -36,7 +36,7 @@ namespace BugStrategy.Unit.Ants
             _ant.OnTargetMovePositionChange -= UpdateDestinationPosition;
             
             UpdateEvent -= ManualCheckDistance;
-            _ant.CurrentProfession.OnEnterInZone -= CheckTargetDistance;
+            _ant.CurrentProfession.OrderValidatorBase.OnEnterInZone -= CheckTargetDistance;
         }
 
         public override void OnUpdate() => UpdateEvent?.Invoke();
@@ -46,26 +46,23 @@ namespace BugStrategy.Unit.Ants
             _ant.SetDestination(_ant.TargetMovePosition);
             
             UpdateEvent -= ManualCheckDistance;
-            _ant.CurrentProfession.OnEnterInZone -= CheckTargetDistance;
+            _ant.CurrentProfession.OrderValidatorBase.OnEnterInZone -= CheckTargetDistance;
 
             if (_ant.CurrentPathData.Target.IsAnyNull())
                 UpdateEvent += ManualCheckDistance;
             else
-                _ant.CurrentProfession.OnEnterInZone += CheckTargetDistance;
+                _ant.CurrentProfession.OrderValidatorBase.OnEnterInZone += CheckTargetDistance;
         }
 
         private void ManualCheckDistance()
         {
             if(Vector3.Distance(_ant.Transform.position, _ant.TargetMovePosition) < DistanceBuffer)
                 StateExecuted?.Invoke();
-                // _ant.HandleGiveOrder(_ant.CurrentPathData.Target, _ant.CurrentPathData.PathType);
         }
         
         private void CheckTargetDistance()
         {
             StateExecuted?.Invoke();
-            // if (_ant.CurrentProfession.OrderValidatorBase.CheckDistance(_ant.CurrentPathData))
-                // _ant.HandleGiveOrder(_ant.CurrentPathData.Target, _ant.CurrentPathData.PathType);
         }
     }
 }
