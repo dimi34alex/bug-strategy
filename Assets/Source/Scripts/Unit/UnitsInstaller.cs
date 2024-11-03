@@ -1,4 +1,5 @@
 using BugStrategy.Unit.Factory;
+using BugStrategy.Unit.UnitSelection;
 using Zenject;
 
 namespace BugStrategy.Unit
@@ -7,9 +8,13 @@ namespace BugStrategy.Unit
     {
         public override void InstallBindings()
         {
+            BindSelector();
             BindRepository();
             BindFactory();
         }
+
+        private void BindSelector() 
+            => Container.Bind<UnitSelector>().FromInstance(FindObjectOfType<UnitSelector>()).AsSingle();
 
         private void BindRepository() 
             => Container.BindInterfacesAndSelfTo<UnitRepository>().FromNew().AsSingle();

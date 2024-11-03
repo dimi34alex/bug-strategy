@@ -77,8 +77,8 @@ namespace BugStrategy.Unit.OrderValidatorCore
                     break;
                 case UnitPathType.Switch_Profession:
                     if (Unit.Fraction == FractionType.Ants &&
-                        target.TargetType == TargetType.Construction)
-                        // TODO: create construction for switching ants professions
+                        target.TargetType == TargetType.Construction &&
+                        target.CastPossible<AntWorkshopBase>())
                         return UnitPathType.Switch_Profession;
                     break;
             }

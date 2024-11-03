@@ -4,6 +4,7 @@ using BugStrategy.Constructions;
 using BugStrategy.Constructions.ConstructionLevelSystemCore;
 using BugStrategy.Constructions.ResourceProduceConstruction;
 using BugStrategy.Constructions.UnitsRecruitingSystem;
+using BugStrategy.UI.Elements.EntityInfo.ConstructionInfo.AntWorkshopViews;
 using BugStrategy.Unit;
 using CycleFramework.Extensions;
 using UnityEngine;

@@ -93,7 +93,7 @@ namespace BugStrategy.Unit.UnitSelection
         {
             List<UnitBase> group = _groupsWithID[id];
 
-            UnitSelection.Instance.DeselectAll();
+            UnitSelector.Instance.DeselectAll();
         
             foreach (UnitBase groupUnit in group)
                 groupUnit.GetComponent<UnitBase>().Select();

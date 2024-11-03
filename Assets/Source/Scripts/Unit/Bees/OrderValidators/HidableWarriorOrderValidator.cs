@@ -1,3 +1,4 @@
+using BugStrategy.Constructions;
 using BugStrategy.Libs;
 using BugStrategy.Unit.OrderValidatorCore;
 using BugStrategy.Unit.ProcessorsCore;
@@ -67,7 +68,8 @@ namespace BugStrategy.Unit.Bees
                 case UnitPathType.Switch_Profession:
                     if (!target.IsAnyNull() && 
                         Unit.Fraction == FractionType.Ants && 
-                        target.TargetType == TargetType.Construction)
+                        target.TargetType == TargetType.Construction &&
+                        target.CastPossible<AntWorkshopBase>())
                         return UnitPathType.Switch_Profession;
                     break;
                 case UnitPathType.HideInConstruction:

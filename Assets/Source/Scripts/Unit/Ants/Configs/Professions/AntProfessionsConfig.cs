@@ -17,7 +17,7 @@ namespace BugStrategy.Unit.Ants
 
         public bool TryTakeConfig(ProfessionType professionType, int professionRang, out AntProfessionConfigBase config)
         {
-            if (!data.ContainsKey(professionType) || data[professionType].Count < (professionRang))
+            if (!data.ContainsKey(professionType) || data[professionType].Count < professionRang)
             {
                 config = null;
                 return false;

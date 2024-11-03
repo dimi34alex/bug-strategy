@@ -51,7 +51,6 @@ namespace BugStrategy
                 {
                     var selectedConstruction = _missionData.ConstructionSelector.SelectedConstruction;
                     selectedConstruction.Select();
-                    UnitSelection.Instance.DeselectAllWithoutCheck();
                     _uiController.SetScreen(selectedConstruction);
                 }
                 else if (!_inputProvider.MouseCursorOverUi())

@@ -7,13 +7,12 @@ namespace BugStrategy.Unit.Ants
     public class AntMoveState : EntityStateBase
     {
         public override EntityStateID EntityStateID => EntityStateID.Move;
-
         private const float DistanceBuffer = 0.1f;
         
         private readonly AntBase _ant;
 
-        private event Action UpdateEvent;
         public override event Action StateExecuted;
+        private event Action UpdateEvent;
         
         public AntMoveState(AntBase ant)
         {
@@ -58,15 +57,15 @@ namespace BugStrategy.Unit.Ants
         private void ManualCheckDistance()
         {
             if(Vector3.Distance(_ant.Transform.position, _ant.TargetMovePosition) < DistanceBuffer)
-                // _ant.HandleGiveOrder(_ant.CurrentPathData.Target, _ant.CurrentPathData.PathType);
                 StateExecuted?.Invoke();
+                // _ant.HandleGiveOrder(_ant.CurrentPathData.Target, _ant.CurrentPathData.PathType);
         }
         
         private void CheckTargetDistance()
         {
-            if (_ant.CurrentProfession.OrderValidatorBase.CheckDistance(_ant.CurrentPathData))
+            StateExecuted?.Invoke();
+            // if (_ant.CurrentProfession.OrderValidatorBase.CheckDistance(_ant.CurrentPathData))
                 // _ant.HandleGiveOrder(_ant.CurrentPathData.Target, _ant.CurrentPathData.PathType);
-                StateExecuted?.Invoke();
         }
     }
 }

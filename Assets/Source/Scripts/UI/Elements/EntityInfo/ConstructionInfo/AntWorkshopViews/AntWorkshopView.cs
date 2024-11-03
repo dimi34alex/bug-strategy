@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 using BugStrategy.Constructions;
-using BugStrategy.UI.Elements.EntityInfo.ConstructionInfo.AntWorkshopViews;
 using BugStrategy.Unit;
+using BugStrategy.Unit.Ants.GetToolOrdere;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
+namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo.AntWorkshopViews
 {
     public class AntWorkshopView : MonoBehaviour
     {
@@ -21,6 +21,7 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
         [SerializeField] private CreateLine flyingAntTools;
 
         [Inject] private UIAntsToolsConfig _uiAntsToolsConfig;
+        [Inject] private PlayerAntsGetToolOrderer _playerAntsGetToolOrderer;
         
         private AntWorkshopBase _workshopConstruction;
         
@@ -33,6 +34,14 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
             standardAntTools.OnPressed += CreateTool;
             bigAntTools.OnPressed += CreateTool;
             flyingAntTools.OnPressed += CreateTool;
+            
+            standardAntProfessionsView.Initialize(UnitType.AntStandard);
+            bigAntProfessionsView.Initialize(UnitType.AntBig);
+            flyingAntProfessionsView.Initialize(UnitType.AntFlying);
+            
+            standardAntProfessionsView.OnPressed += GiveOrder;
+            bigAntProfessionsView.OnPressed += GiveOrder;
+            flyingAntProfessionsView.OnPressed += GiveOrder;
             
             standardAntTools.Initialize(UnitType.AntStandard);
             bigAntTools.Initialize(UnitType.AntBig);
@@ -58,6 +67,9 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
             gameObject.SetActive(false);
         }
 
+        private void GiveOrder(UnitType unitType, int rang) 
+            => _playerAntsGetToolOrderer.GiveOrder(_workshopConstruction, unitType, _workshopConstruction.WorkshopCore.ProfessionType, rang);
+
         private void CreateTool(UnitType unitType, int toolRang) 
             => _workshopConstruction.WorkshopCore.CreateTool(unitType, toolRang);
 
@@ -81,10 +93,25 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
         [Serializable]
         private class Composite
         {
-            [SerializeField] private ImageAndTextHolder rang1;
-            [SerializeField] private ImageAndTextHolder rang2;
-            [SerializeField] private ImageAndTextHolder rang3;
+            [SerializeField] private ButtonWithImageAndText rang1;
+            [SerializeField] private ButtonWithImageAndText rang2;
+            [SerializeField] private ButtonWithImageAndText rang3;
 
+            private UnitType _unitType;
+            
+            /// <summary>
+            /// return UnitType and tool rang
+            /// </summary>
+            public event Action<UnitType, int> OnPressed;
+            
+            public void Initialize(UnitType unitType)
+            {
+                _unitType = unitType;
+                rang1.Button.onClick.AddListener(() => OnPressed?.Invoke(_unitType, 1));
+                rang2.Button.onClick.AddListener(() => OnPressed?.Invoke(_unitType, 2));
+                rang3.Button.onClick.AddListener(() => OnPressed?.Invoke(_unitType, 3));
+            }
+            
             public void TurnOff()
             {
                 rang1.Hide();

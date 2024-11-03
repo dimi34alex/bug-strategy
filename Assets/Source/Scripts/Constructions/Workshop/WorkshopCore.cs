@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using BugStrategy.Unit;
 using BugStrategy.Unit.Ants;
+using UnityEngine;
 
 namespace BugStrategy.Constructions
 {
@@ -59,15 +60,15 @@ namespace BugStrategy.Constructions
         /// <summary>
         /// on success decrease tool count
         /// </summary>
-        public bool GetTool(UnitType unitType, int rang, out AntProfessionConfigBase config)
+        public bool TryGetTool(UnitType unitType, int rang, out AntProfessionConfigBase config)
         {
+            rang--;
             if (!_antProfessionsConfigsRepository.TryGetAntConfig(unitType, ProfessionType, rang, out config) ||
-                RangAccess < rang ||
+                RangAccess-1 < rang ||
                 !_professionTools.ContainsKey(unitType) ||
-                _professionTools[unitType].ContainsKey(rang) ||
+                !_professionTools[unitType].ContainsKey(rang) ||
                 _professionTools[unitType][rang] <= 0)
             {
-                OnChange?.Invoke();
                 return false;
             }
             

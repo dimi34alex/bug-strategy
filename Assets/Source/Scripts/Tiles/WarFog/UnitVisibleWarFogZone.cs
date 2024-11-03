@@ -13,7 +13,7 @@ namespace BugStrategy
 {
     public class UnitVisibleWarFogZone : VisibleWarFogZone
     {
-        [Tooltip("скрипт юнита откуда можно выяснить принадлежность")]
+        [Tooltip("СЃРєСЂРёРїС‚ СЋРЅРёС‚Р° РѕС‚РєСѓРґР° РјРѕР¶РЅРѕ РІС‹СЏСЃРЅРёС‚СЊ РїСЂРёРЅР°РґР»РµР¶РЅРѕСЃС‚СЊ")]
         [SerializeField] private UnitBase ScriptWithUnitBase;
 
         [Inject] private readonly MissionData _missionData;

@@ -8,7 +8,7 @@ using Zenject;
 
 namespace BugStrategy.Unit.UnitSelection
 {
-    public class UnitSelection : MonoBehaviour
+    public class UnitSelector : MonoBehaviour
     {
         [SerializeField] private LayerMask targetsLayers;
 
@@ -26,7 +26,7 @@ namespace BugStrategy.Unit.UnitSelection
 
         public static Camera Camera => Camera.main;
 
-        public static UnitSelection Instance { get; private set; }
+        public static UnitSelector Instance { get; private set; }
 
         private void Awake()
         {
@@ -148,6 +148,10 @@ namespace BugStrategy.Unit.UnitSelection
                     _uiController.SetScreen(UIScreenType.Gameplay);
             }
         }
+
+        public IReadOnlyList<UnitBase> GetSelectedUnits(UnitType unitType) 
+            => _selectedUnits.FindAll(unitBase => unitBase.UnitType == unitType);
+
         public void DeselectAllWithoutCheck()
         {
             foreach (UnitBase unit in _selectedUnits)
