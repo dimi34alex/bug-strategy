@@ -76,11 +76,9 @@ namespace BugStrategy.Constructions
             return true;
         }
 
-        public IReadOnlyDictionary<int, int> GetToolData(UnitType unitType)
-        {
-            return _professionTools[unitType];
-        }
-        
+        public IReadOnlyDictionary<int, int> GetToolData(UnitType unitType) 
+            => _professionTools[unitType];
+
         private void InitDictionary(UnitType unitType)
         {
             var rangsCount = _antProfessionsConfigsRepository.GetRangsCount(unitType, _professionType);

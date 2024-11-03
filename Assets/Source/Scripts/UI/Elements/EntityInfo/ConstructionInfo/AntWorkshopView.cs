@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using BugStrategy.Constructions;
 using BugStrategy.Unit;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -58,23 +57,15 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
         [Serializable]
         private class Composite
         {
-            [SerializeField] private Image rang1;
-            [SerializeField] private TMP_Text rang1Count;
-            [SerializeField] private Image rang2;
-            [SerializeField] private TMP_Text rang2Count;
-            [SerializeField] private Image rang3;
-            [SerializeField] private TMP_Text rang3Count;
+            [SerializeField] private ImageAndTextHolder rang1;
+            [SerializeField] private ImageAndTextHolder rang2;
+            [SerializeField] private ImageAndTextHolder rang3;
 
             public void TurnOff()
             {
-                rang1.gameObject.SetActive(false);
-                rang1Count.gameObject.SetActive(false);
-                
-                rang2.gameObject.SetActive(false);
-                rang2Count.gameObject.SetActive(false);
-                
-                rang3.gameObject.SetActive(false);
-                rang3Count.gameObject.SetActive(false);
+                rang1.Hide();
+                rang2.Hide();
+                rang3.Hide();
             }
 
             public void Show(IReadOnlyDictionary<int,int> data, int maxRang)
@@ -87,19 +78,16 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
                     switch (i)
                     {
                         case 0:
-                            rang1.gameObject.SetActive(true);
-                            rang1Count.gameObject.SetActive(true);
-                            rang1Count.text = data[i].ToString();
+                            rang1.Show();
+                            rang1.SetText(data[i].ToString());
                             break;
                         case 1:
-                            rang2.gameObject.SetActive(true);
-                            rang2Count.gameObject.SetActive(true);
-                            rang2Count.text = data[i].ToString();
+                            rang2.Show();
+                            rang2.SetText(data[i].ToString());
                             break;
                         case 2:
-                            rang3.gameObject.SetActive(true);
-                            rang3Count.gameObject.SetActive(true);
-                            rang3Count.text = data[i].ToString();
+                            rang3.Show();
+                            rang3.SetText(data[i].ToString());
                             break;
                     }
                 }

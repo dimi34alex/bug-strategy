@@ -27,10 +27,8 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
 
         private UIConstructionConfig _uiConstructionConfig;
         private UIConstructionsConfig _uiConstructionsConfig;
-
-
-        private AntWorkshopView _antWorkshopView;
         
+        private AntWorkshopView _antWorkshopView;
         
         private void Awake()
         {
@@ -52,6 +50,7 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
             _recruitingProcessUIView = GetComponentInChildren<ConstructionRecruitingProcessUIView>();
             
             _antWorkshopView = GetComponentInChildren<AntWorkshopView>();
+            _antWorkshopView.BackButtonClicked += SetNonActionsType;
         }
 
         public void SetConstruction(ConstructionBase newConstruction)
