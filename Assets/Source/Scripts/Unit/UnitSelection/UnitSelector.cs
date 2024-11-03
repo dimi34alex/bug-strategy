@@ -140,6 +140,8 @@ namespace BugStrategy.Unit.UnitSelection
         {
             if (_selectedUnits != null && _selectedUnits.Count != 0)
             {
+                //Debug.Log(_selectedUnits[0].name);
+                if(!_uiController.IsConstructionInfoScreenActive())
                 _uiController.SetScreen(_selectedUnits[0]);
             }
             else

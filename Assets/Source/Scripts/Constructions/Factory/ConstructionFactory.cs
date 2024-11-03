@@ -35,8 +35,8 @@ namespace BugStrategy.Constructions.Factory
             _behaviours = GetComponentsInChildren<ConstructionFactoryBehaviourBase>(true)
                 .ToDictionary(behaviour => behaviour.ConstructionType, behaviour => behaviour);
 
-            foreach (ConstructionFactoryBehaviourBase behaviour in _behaviours.Values)
-                Debug.Log($"Factory behaviour {behaviour.GetType()} has been registered");
+            //foreach (ConstructionFactoryBehaviourBase behaviour in _behaviours.Values)
+            //    Debug.Log($"Factory behaviour {behaviour.GetType()} has been registered");
         }
 
         public TConstruction Create<TConstruction>(ConstructionID constructionID, Vector3 position, AffiliationEnum affiliation) 
