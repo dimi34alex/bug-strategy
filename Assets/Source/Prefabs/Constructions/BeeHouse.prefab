@@ -83,6 +83,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b636776e13008a64c9543443c4f8e512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <ConstructionView>k__BackingField: {fileID: 1903336850856080601}
   config: {fileID: 11400000, guid: 2eff88727298ea3438c8611da78a2b67, type: 2}
   hiderExtractPosition: {fileID: 3166090710770063268}
 --- !u!65 &1498097168595941684
@@ -397,6 +398,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97d3c4038830dfa408773672f985d000, type: 3}
+--- !u!114 &1903336850856080601 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3285867374069494606, guid: 97d3c4038830dfa408773672f985d000, type: 3}
+  m_PrefabInstance: {fileID: 4031773073305421719}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19a5398d71724120951c8bebdf4ee233, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &4902213020702799119 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8357437340499718808, guid: 97d3c4038830dfa408773672f985d000, type: 3}

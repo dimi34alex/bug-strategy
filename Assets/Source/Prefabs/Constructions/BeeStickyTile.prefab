@@ -180,6 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9564b0cd11ca294ab9f0f563a46a689, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <ConstructionView>k__BackingField: {fileID: 7208352176160461263}
   config: {fileID: 11400000, guid: f586709fc51efe6408af7aafaf32fbc0, type: 2}
   stickZone: {fileID: 1029462084464332525}
 --- !u!65 &926670440681373967
@@ -268,6 +269,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a712d57d828953c4bbcc904fdc4e216b, type: 3}
+--- !u!114 &7208352176160461263 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7465369242958312615, guid: a712d57d828953c4bbcc904fdc4e216b, type: 3}
+  m_PrefabInstance: {fileID: 257663786073023848}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19a5398d71724120951c8bebdf4ee233, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &8099991258812864496 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8357437340499718808, guid: a712d57d828953c4bbcc904fdc4e216b, type: 3}

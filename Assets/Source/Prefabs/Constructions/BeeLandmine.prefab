@@ -50,6 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 493ba0ca1d1041fda86b9b3231faa796, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <ConstructionView>k__BackingField: {fileID: 513644221480750112}
   config: {fileID: 11400000, guid: 9d8ccb25f29c00643b6362c50655e145, type: 2}
   _triggerBehaviour: {fileID: 6579585022906207400}
   layerMask:
@@ -271,6 +272,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a1f4be4606c8db488573e46457073eb, type: 3}
+--- !u!114 &513644221480750112 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3571642226477971321, guid: 7a1f4be4606c8db488573e46457073eb, type: 3}
+  m_PrefabInstance: {fileID: 3941161070542715737}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19a5398d71724120951c8bebdf4ee233, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &2697358046014444981 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1431900344185548524, guid: 7a1f4be4606c8db488573e46457073eb, type: 3}

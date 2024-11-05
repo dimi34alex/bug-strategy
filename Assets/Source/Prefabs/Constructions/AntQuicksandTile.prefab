@@ -50,6 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78f44465d6334536b1b554f43a9063b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <ConstructionView>k__BackingField: {fileID: 3454803695589715017}
   config: {fileID: 11400000, guid: 78af76dcb36291349b0f343b4cf066c5, type: 2}
   triggerBehaviour: {fileID: 8277918919989818786}
 --- !u!65 &8103173041295178304
@@ -273,6 +274,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5634068401159713791, guid: 6064f6e4e081a9847a357ac95dda4bf0, type: 3}
   m_PrefabInstance: {fileID: 4823558987002634048}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3454803695589715017 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7854652681472422665, guid: 6064f6e4e081a9847a357ac95dda4bf0, type: 3}
+  m_PrefabInstance: {fileID: 4823558987002634048}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19a5398d71724120951c8bebdf4ee233, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5689634481173981536
 PrefabInstance:
   m_ObjectHideFlags: 0

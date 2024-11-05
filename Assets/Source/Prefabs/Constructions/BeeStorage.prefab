@@ -123,6 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0c3ab29cb648b441af4dad332793570, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <ConstructionView>k__BackingField: {fileID: 4776720598749902505}
   config: {fileID: 11400000, guid: 0d0c62dafa6ee18448aaee7d7c1daa43, type: 2}
 --- !u!65 &167027056982825552
 BoxCollider:
@@ -325,3 +326,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7048444693328149610, guid: 06217bf87e47fe548b9a29b9ea604be2, type: 3}
   m_PrefabInstance: {fileID: 4614693921149564231}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4776720598749902505 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 162408554953786350, guid: 06217bf87e47fe548b9a29b9ea604be2, type: 3}
+  m_PrefabInstance: {fileID: 4614693921149564231}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19a5398d71724120951c8bebdf4ee233, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

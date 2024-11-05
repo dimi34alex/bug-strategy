@@ -123,6 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b89eaabbe4245f46ade715a4a779df5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <ConstructionView>k__BackingField: {fileID: 6811928423027857289}
   workerBeesSpawnPosition: {fileID: 5545980254773833652}
   config: {fileID: 11400000, guid: 55c9a5a1e42a4f741b260290dfa75e51, type: 2}
 --- !u!208 &4844941556788702066
@@ -260,6 +261,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 643966344881662651, guid: ffb8c292185cd514094b2e78bf50524d, type: 3}
   m_PrefabInstance: {fileID: 4906834878104175887}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6811928423027857289 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1914100887791587974, guid: ffb8c292185cd514094b2e78bf50524d, type: 3}
+  m_PrefabInstance: {fileID: 4906834878104175887}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19a5398d71724120951c8bebdf4ee233, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &7004317949016415637 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2678729469616822426, guid: ffb8c292185cd514094b2e78bf50524d, type: 3}

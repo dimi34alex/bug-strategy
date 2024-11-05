@@ -52,6 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efa3e63424f5cb14e8b78fc27d89959a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <ConstructionView>k__BackingField: {fileID: 2828696736994259393}
   config: {fileID: 11400000, guid: 6d91083181a0966448d820c38a10248e, type: 2}
   hiderExtractPosition: {fileID: 7050724822444638802}
 --- !u!65 &-3724024334100814529
@@ -275,6 +276,17 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: f8942df3ef59c894c9b49b9034f00253, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03d961c1ad94baf41922734dfa8897c0, type: 3}
+--- !u!114 &2828696736994259393 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9155987823791557849, guid: 03d961c1ad94baf41922734dfa8897c0, type: 3}
+  m_PrefabInstance: {fileID: 6363892881345527064}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19a5398d71724120951c8bebdf4ee233, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &7896836255248176593 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3874824556720089289, guid: 03d961c1ad94baf41922734dfa8897c0, type: 3}
