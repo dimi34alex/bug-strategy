@@ -38,7 +38,7 @@ namespace BugStrategy.UI.Elements.EntityInfo
         public virtual void Hide() 
             => gameObject.SetActive(false);
 
-        public bool getActiveSelf ()
+        public bool GetActiveSelf ()
         {
             return gameObject.activeSelf;
         }

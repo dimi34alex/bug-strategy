@@ -79,7 +79,7 @@ namespace BugStrategy.UI
 
         public bool IsConstructionInfoScreenActive ()
         {
-            return _constructionInfoScreen.getActiveSelf();
+            return _constructionInfoScreen.GetActiveSelf();
         }
 
         public void SetScreen(UnitBase unitBase)
