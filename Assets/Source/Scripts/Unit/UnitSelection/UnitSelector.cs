@@ -141,12 +141,14 @@ namespace BugStrategy.Unit.UnitSelection
             if (_selectedUnits != null && _selectedUnits.Count != 0)
             {
                 if(!_uiController.IsConstructionInfoScreenActive())
-                _uiController.SetScreen(_selectedUnits[0]);
+                    _uiController.SetScreen(_selectedUnits[0]);
             }
             else
             {
-                if (!EventSystem.current.IsPointerOverGameObject())
+                if(!EventSystem.current.IsPointerOverGameObject())
+                {
                     _uiController.SetScreen(UIScreenType.Gameplay);
+                }
             }
         }
 
@@ -168,7 +170,7 @@ namespace BugStrategy.Unit.UnitSelection
             {
                 foreach (UnitBase unit in _selectedUnits)
                 {
-                    unit.Deselect();
+                    unit.Deselect(); 
                 }
                 _selectedUnits.Clear();
             }
