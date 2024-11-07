@@ -8,14 +8,14 @@ namespace BugStrategy.Audio
     {
         private const string MasterParam = "MasterVolume";
         private const string EffectsParam = "EffectsVolume";
-        private const string OstParam = "MusicVolume";
+        private const string MusicParam = "MusicVolume";
         
         private readonly AudioMixer _mixer;
         private readonly VolumeSettings _volumeSettings;
 
         public float MasterVolume => _volumeSettings.Master;
-        public float OstVolume => _volumeSettings.MusicVolume;
         public float EffectsVolume => _volumeSettings.EffectsVolume;
+        public float MusicVolume => _volumeSettings.MusicVolume;
         
         public AudioVolumeChanger(AudioMixer mixer, VolumeSettings volumeSettings)
         {
@@ -27,9 +27,20 @@ namespace BugStrategy.Audio
         {         
             SetVolume(MasterParam, MasterVolume);
             SetVolume(EffectsParam, EffectsVolume);
-            SetVolume(OstParam, OstVolume);
+            SetVolume(MusicParam, MusicVolume);
         }
 
+        public float GetVolume(VolumeType volumeType)
+        {
+            return volumeType switch
+            {
+                VolumeType.Master => MasterVolume,
+                VolumeType.Effects => EffectsVolume,
+                VolumeType.Music => MusicVolume,
+                _ => throw new ArgumentOutOfRangeException(nameof(volumeType), volumeType, null)
+            };
+        }
+        
         /// <summary>
         /// Dont forgot apply changes by <see cref="Apply"/>
         /// </summary>
@@ -75,7 +86,7 @@ namespace BugStrategy.Audio
         public void SetMusicVolume(float newVolume)
         {
             _volumeSettings.ChangeMusicVolume(newVolume);
-            SetVolume(OstParam, OstVolume);
+            SetVolume(MusicParam, MusicVolume);
         }
 
         /// <summary>
