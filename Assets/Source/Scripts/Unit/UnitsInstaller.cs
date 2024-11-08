@@ -14,7 +14,7 @@ namespace BugStrategy.Unit
         }
 
         private void BindSelector() 
-            => Container.Bind<UnitSelector>().FromInstance(FindObjectOfType<UnitSelector>()).AsSingle();
+            => Container.Bind<UnitsSelector>().FromNew().AsSingle();
 
         private void BindRepository() 
             => Container.BindInterfacesAndSelfTo<UnitRepository>().FromNew().AsSingle();

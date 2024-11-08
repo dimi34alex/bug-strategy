@@ -5,6 +5,7 @@ using BugStrategy.Projectiles;
 using BugStrategy.ResourceSources;
 using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
 using BugStrategy.Unit;
+using BugStrategy.Unit.UnitSelection;
 using ConstructionsRepository = BugStrategy.Constructions.ConstructionsRepository;
 
 namespace BugStrategy.Missions
@@ -25,6 +26,7 @@ namespace BugStrategy.Missions
         
         public readonly ITeamsResourcesGlobalStorage TeamsResourcesGlobalStorage;
         public readonly ConstructionSelector ConstructionSelector;
+        public readonly UnitsSelector UnitsSelector;
 
         public FractionType PlayerFraction => FractionTypes[PlayerAffiliation];
         
@@ -36,7 +38,8 @@ namespace BugStrategy.Missions
             PoisonFogsRepository poisonFogsRepository,
             ResourceSourcesRepository resourceSourcesRepository,
             ConstructionsRepository constructionsRepository,
-            ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage) 
+            ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage, 
+            UnitsSelector unitsSelector) 
         {
             MissionIndex = missionIndex;
             MissionConfig = missionConfig;
@@ -46,6 +49,7 @@ namespace BugStrategy.Missions
             ResourceSourcesRepository = resourceSourcesRepository;
             ConstructionsRepository = constructionsRepository;
             TeamsResourcesGlobalStorage = teamsResourcesGlobalStorage;
+            UnitsSelector = unitsSelector;
 
             PlayerAffiliation = missionConfig.PlayerAffiliation;
             FractionTypes = missionConfig.FractionByAffiliation;

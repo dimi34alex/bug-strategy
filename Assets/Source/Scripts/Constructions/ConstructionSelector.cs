@@ -40,5 +40,12 @@ namespace BugStrategy.Constructions
 
             return false;
         }
+
+        public void ResetSelection()
+        {
+            LastSelectedConstruction = SelectedConstruction;
+            SelectedConstruction = null;
+            OnSelectionChange?.Invoke();
+        }
     }
 }

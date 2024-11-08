@@ -110,7 +110,6 @@ namespace BugStrategy.UI
             switch (type)
             {
                 case UIScreenType.Gameplay:
-                    UnitSelector.Instance.DeselectAll();
                     _unitInfoScreen.Hide();
                     _constructionInfoScreen.Hide();
                     _uiActiveScreen = _screenRepository.GetScreen<UI_Gameplay>().gameObject; 
