@@ -181,10 +181,9 @@ namespace BugStrategy.Constructions.BeeWaxTower
                 if(target.IsAnyNull() || !target.IsActive)
                     return;
                 
-                var projectile = _projectilesFactory.Create(_projectileType).Cast<BeeWaxTowerProjectile>();
+                var projectile = _projectilesFactory.Create(_projectileType, _spawnTransform.position).Cast<BeeWaxTowerProjectile>();
                 projectile.SetTarget(target);
                 projectile.Init(Affiliation, _shooter, _damage);
-                projectile.transform.position = _spawnTransform.position;
                 
                 if(_targets.Count > 0)
                     _spawnPauseTimer.Reset();

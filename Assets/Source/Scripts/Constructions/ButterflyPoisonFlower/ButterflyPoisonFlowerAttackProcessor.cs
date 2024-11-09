@@ -77,11 +77,10 @@ namespace BugStrategy.Constructions.ButterflyPoisonFlower
                 }
             }
             
-            var projectile = _projectilesFactory.Create(ProjectileType.ButterflyPoisonFlowerProjectile).Cast<ButterflyPoisonFlowerProjectile>();
+            var projectile = _projectilesFactory.Create(ProjectileType.ButterflyPoisonFlowerProjectile, _flowerPosition.position).Cast<ButterflyPoisonFlowerProjectile>();
             projectile.SetTarget(target);
             projectile.Init(Affiliation, _shooter, _attackDamage);
             projectile.SetDamageRadius(_damageRadius);
-            projectile.transform.position = _flowerPosition.position;
             
             if (_enemies.Count > 0)
             {

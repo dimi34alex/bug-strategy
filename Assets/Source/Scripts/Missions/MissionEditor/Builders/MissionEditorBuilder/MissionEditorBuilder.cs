@@ -78,7 +78,7 @@ namespace BugStrategy.Missions.MissionEditor
                 return;
 
             var worldPoint = Camera.main.ScreenToWorldPoint(_inputProvider.MousePosition);
-            worldPoint.y = 0;   
+            worldPoint.y = 0;
             _activeBuilder?.Move(worldPoint);
             
             
@@ -88,23 +88,32 @@ namespace BugStrategy.Missions.MissionEditor
 
         public void ActivateGroundTile(int ind)
         {
+            var worldPoint = Camera.main.ScreenToWorldPoint(_inputProvider.MousePosition);
+            worldPoint.y = 0;
+            
             _activeBuilder?.DeActivate();
             _activeBuilder = _groundBuilder;
-            _groundBuilder.Activate(ind);
+            _groundBuilder.Activate(ind, worldPoint);
         }
 
         public void ActivateConstructions(ConstructionID id)
         {
+            var worldPoint = Camera.main.ScreenToWorldPoint(_inputProvider.MousePosition);
+            worldPoint.y = 0;
+            
             _activeBuilder?.DeActivate();
             _activeBuilder = _editorConstructionsBuilder;
-            _editorConstructionsBuilder.Activate((id, _affiliationHolder.PlayerAffiliation));
+            _editorConstructionsBuilder.Activate((id, _affiliationHolder.PlayerAffiliation), worldPoint);
         }
         
         public void ActivateResourceSource(int index)
         {
+            var worldPoint = Camera.main.ScreenToWorldPoint(_inputProvider.MousePosition);
+            worldPoint.y = 0;
+            
             _activeBuilder?.DeActivate();
             _activeBuilder = _resourceSourceBuilder;
-            _resourceSourceBuilder.Activate(index);
+            _resourceSourceBuilder.Activate(index, worldPoint);
         }
 
         public void Generate(Vector2Int size)
