@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: ConfigsRepository
   m_EditorClassIdentifier: 
   _configs:
+  - {fileID: 11400000, guid: 11aca8086f208c9439d3fa1ce2dccd00, type: 2}
   - {fileID: 11400000, guid: 56c10938edc947c4a9e9b68d5be2a1da, type: 2}
   - {fileID: 11400000, guid: aac2463315d95254890f6375fdb6a630, type: 2}
   - {fileID: 11400000, guid: dae64f511b0ba134dac86f19df046f7d, type: 2}
@@ -22,7 +23,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e71c5e066322ca24db46b1a72c6b7929, type: 2}
   - {fileID: 11400000, guid: 3c7fbf2c4486f7b4298c43cc48570952, type: 2}
   - {fileID: 11400000, guid: eaa565e0e7862024ebe22ce79de5cbfb, type: 2}
-  - {fileID: 11400000, guid: 11aca8086f208c9439d3fa1ce2dccd00, type: 2}
   - {fileID: 11400000, guid: 6da71101f0688aa45b4d2cef39236060, type: 2}
   - {fileID: 11400000, guid: fe2083142d8d03949b0af03744943110, type: 2}
   - {fileID: 11400000, guid: dc423cb576bbba246a92aa24b1cb38c2, type: 2}
