@@ -87,7 +87,7 @@ namespace BugStrategy.Constructions.ConstructionLevelSystemCore
 
             ReCalculateResourceCapacity(prevResourceCapacity);
             ReCalculateHealthPoints();
-            _construction.ConstructionView.SetView(CurrentLevel.View);
+            _construction.View.SetView(CurrentLevel.View);
         }
 
         protected void SpendResources()

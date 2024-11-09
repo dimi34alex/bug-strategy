@@ -4,7 +4,7 @@ using Zenject;
 
 namespace BugStrategy.Projectiles.Factory
 {
-    public class ProjectilesFactory : FactoryWithPool<ProjectileType, ProjectileBase>, IDisposable
+    public class ProjectilesFactory : FactoryWithIdPool<ProjectileType, ProjectileBase>, IDisposable
     {
         private readonly ProjectilesRepository _projectilesRepository;
         

@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 493ba0ca1d1041fda86b9b3231faa796, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ConstructionView>k__BackingField: {fileID: 8573668566951572530}
+  <View>k__BackingField: {fileID: 8573668566951572530}
   config: {fileID: 11400000, guid: 9d8ccb25f29c00643b6362c50655e145, type: 2}
   _triggerBehaviour: {fileID: 6579585022906207400}
   layerMask:

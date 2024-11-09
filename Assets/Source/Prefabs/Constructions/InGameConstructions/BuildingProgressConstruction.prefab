@@ -222,7 +222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e8b99f044a8d9428a8f3148581c379, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ConstructionView>k__BackingField: {fileID: 1078690610191324954}
+  <View>k__BackingField: {fileID: 1078690610191324954}
   _timerText: {fileID: 589072602223343525}
   WorkerArrived: 0
 --- !u!135 &578274785806036525

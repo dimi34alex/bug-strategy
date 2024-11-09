@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78f44465d6334536b1b554f43a9063b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ConstructionView>k__BackingField: {fileID: 7284059116362899902}
+  <View>k__BackingField: {fileID: 7284059116362899902}
   config: {fileID: 11400000, guid: 78af76dcb36291349b0f343b4cf066c5, type: 2}
   triggerBehaviour: {fileID: 8277918919989818786}
 --- !u!65 &8103173041295178304

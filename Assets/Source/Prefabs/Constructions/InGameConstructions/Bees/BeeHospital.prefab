@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96747f47e89b4862b138f787f6b489f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ConstructionView>k__BackingField: {fileID: 7885835169560477688}
+  <View>k__BackingField: {fileID: 7885835169560477688}
   config: {fileID: 11400000, guid: 5ddb7bc6e2a0e3d48876b825df9e93ce, type: 2}
   hiderExtractionPosition: {fileID: 8004141058896147234}
 --- !u!65 &3908760432035820121

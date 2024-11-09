@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aad5235135e24950b410cb1cf69066d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ConstructionView>k__BackingField: {fileID: 6548178813235131615}
+  <View>k__BackingField: {fileID: 6548178813235131615}
   config: {fileID: 11400000, guid: e8514893b56fca54c9c0ae2d39293e5b, type: 2}
 --- !u!65 &6216512417818112149
 BoxCollider:

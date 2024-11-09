@@ -30,7 +30,6 @@ namespace BugStrategy.Bootstraps
             _sceneLoader.OnLoadingScreenHided += SwitchState;
 
             await LoadMap();
-            
             if (_isDestroyed)
                 return;
 

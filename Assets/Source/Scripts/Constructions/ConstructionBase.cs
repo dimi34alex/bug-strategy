@@ -10,7 +10,7 @@ namespace BugStrategy.Constructions
     public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagable, IRepairable, IMiniMapObject,
         ITriggerable, ITarget, SelectableSystem.ISelectable, IAffiliation
     {
-        [field: SerializeField] public ConstructionView ConstructionView { get; private set; }
+        [field: SerializeField] public ObjectView View { get; private set; }
         
         [Inject] protected readonly MissionData MissionData;
     

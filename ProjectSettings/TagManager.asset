@@ -50,3 +50,6 @@ TagManager:
   - name: InGameUI
     uniqueID: 1421356269
     locked: 0
+  - name: WarFog
+    uniqueID: 1272966221
+    locked: 0

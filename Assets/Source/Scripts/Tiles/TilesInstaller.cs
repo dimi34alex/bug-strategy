@@ -1,4 +1,6 @@
 using BugStrategy.Tiles.WarFog;
+using BugStrategy.Tiles.WarFog.NewDirectory1;
+using BugStrategy.Tiles.WarFog.Shadows;
 using UnityEngine;
 using Zenject;
 
@@ -15,27 +17,31 @@ namespace BugStrategy.Tiles
             BindFactory();
             BindRepository();
             BindVisibleModificator();
+            BindTilesShadows();
+            BindTileShadowFactory();
             
 #if DEVELOPMENT_BUILD || UNITY_EDITOR
             _tileFogVisibilityModificator.SetState(fogIsVisible);
 #endif         
         }
 
-        private void BindFactory()
-        {
-            Container.BindInterfacesAndSelfTo<TilesFactory>().FromNew().AsSingle();
-        }
-        
-        private void BindRepository()
-        {
-            Container.BindInterfacesAndSelfTo<TilesRepository>().FromNew().AsSingle();
-        }
+        private void BindFactory() 
+            => Container.BindInterfacesAndSelfTo<TilesFactory>().FromNew().AsSingle();
+
+        private void BindRepository() 
+            => Container.BindInterfacesAndSelfTo<TilesRepository>().FromNew().AsSingle();
 
         private void BindVisibleModificator()
         {
             _tileFogVisibilityModificator = new TileFogVisibilityModificator(true);
             Container.BindInterfacesAndSelfTo<TileFogVisibilityModificator>().FromInstance(_tileFogVisibilityModificator).AsSingle();
         }
+        
+        private void BindTilesShadows() 
+            => Container.BindInterfacesAndSelfTo<TilesShadows>().FromNew().AsSingle();
+        
+        private void BindTileShadowFactory() 
+            => Container.BindInterfacesAndSelfTo<TileShadowFactory>().FromNew().AsSingle();
 
         //TODO: remove this temporary code
         private TileFogVisibilityModificator _tileFogVisibilityModificator;

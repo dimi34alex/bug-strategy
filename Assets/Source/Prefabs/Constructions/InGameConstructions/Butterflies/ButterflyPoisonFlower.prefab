@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7663bb00581345d98d37f4d4b066ca88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ConstructionView>k__BackingField: {fileID: 6316618667467447387}
+  <View>k__BackingField: {fileID: 6316618667467447387}
   config: {fileID: 11400000, guid: f4fb27e1a81823049a175a7dc0f680e7, type: 2}
   triggerBehaviour: {fileID: 399834529039931163}
   attackZoneCollider: {fileID: 2388385531885741380}

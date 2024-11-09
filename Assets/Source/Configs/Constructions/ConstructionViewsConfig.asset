@@ -9,7 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e722b84b2076d848ab5e0208714dfa8, type: 3}
-  m_Name: BuildingGridConfig
+  m_Script: {fileID: 11500000, guid: 198116a306634e609fae709232655a6c, type: 3}
+  m_Name: ConstructionViewsConfig
   m_EditorClassIdentifier: 
-  _hexagonsOffcets: {x: 8.37, y: 1.27}
+  data:
+    _cells:
+    - Key: 5
+      Value: {fileID: 0}

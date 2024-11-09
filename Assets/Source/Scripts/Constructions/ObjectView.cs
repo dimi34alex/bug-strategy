@@ -2,10 +2,13 @@ using UnityEngine;
 
 namespace BugStrategy.Constructions
 {
-    public class ConstructionView : MonoBehaviour
+    public class ObjectView : MonoBehaviour
     {
-        [SerializeField] private SpriteRenderer spriteRenderer;
-
+        [SerializeField] protected SpriteRenderer spriteRenderer;
+        
+        public Sprite Sprite => spriteRenderer.sprite;
+        public Transform SkinTransform => spriteRenderer.transform;
+        
         /// <param name="sprite"> can be null </param>
         public void SetView(Sprite sprite)
         {

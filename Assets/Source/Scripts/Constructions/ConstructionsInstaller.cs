@@ -1,4 +1,5 @@
 using BugStrategy.Constructions.Factory;
+using BugStrategy.Tiles.WarFog.NewDirectory1;
 using Zenject;
 
 namespace BugStrategy.Constructions
@@ -9,6 +10,7 @@ namespace BugStrategy.Constructions
         {
             BindRepository();
             BindFactory();
+            BindViewsFactory();
         }
 
         private void BindRepository() 
@@ -19,5 +21,8 @@ namespace BugStrategy.Constructions
             var constructionFactory = FindObjectOfType<ConstructionFactory>(true);
             Container.BindInterfacesAndSelfTo<ConstructionFactory>().FromInstance(constructionFactory).AsSingle();
         }
+        
+        private void BindViewsFactory() 
+            => Container.BindInterfacesAndSelfTo<ConstructionViewsFactory>().FromNew().AsSingle();
     }
 }

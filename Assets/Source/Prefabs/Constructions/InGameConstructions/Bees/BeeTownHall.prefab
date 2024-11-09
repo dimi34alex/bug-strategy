@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b89eaabbe4245f46ade715a4a779df5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ConstructionView>k__BackingField: {fileID: 6782865254055338408}
+  <View>k__BackingField: {fileID: 6782865254055338408}
   workerBeesSpawnPosition: {fileID: 3410534347705474170}
   config: {fileID: 11400000, guid: 55c9a5a1e42a4f741b260290dfa75e51, type: 2}
 --- !u!208 &4844941556788702066

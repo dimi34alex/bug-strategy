@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8ae00b6da9f4b82b2eefaa6f1ffabdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ConstructionView>k__BackingField: {fileID: 3863810867524099403}
+  <View>k__BackingField: {fileID: 3863810867524099403}
   unitsSpawnPosition: {fileID: 8404185005477737168}
   config: {fileID: 11400000, guid: a1e4dfddfcddc2f449cb43a4e88e8515, type: 2}
 --- !u!65 &5575887652424413312

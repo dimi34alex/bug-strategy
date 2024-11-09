@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78b87968bd69f70488cf1d63c1f55616, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ConstructionView>k__BackingField: {fileID: 4986029696974500488}
+  <View>k__BackingField: {fileID: 4986029696974500488}
 --- !u!54 &-3915973153052986073
 Rigidbody:
   m_ObjectHideFlags: 0
