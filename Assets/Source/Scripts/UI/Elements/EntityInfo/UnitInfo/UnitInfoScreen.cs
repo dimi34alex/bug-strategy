@@ -20,7 +20,7 @@ namespace BugStrategy.UI.Elements.EntityInfo.UnitInfo
 
         private UIUnitConfig _uiUnitConfig;
         private UIUnitsConfig _uiUnitsConfig;
-        private AbilitiesUiConfig _abilitiesUiConfig;
+        private UIAbilitiesConfig _uiAbilitiesConfig;
         
         private UserBuilder _builder;
         
@@ -34,7 +34,7 @@ namespace BugStrategy.UI.Elements.EntityInfo.UnitInfo
             OnAwake();
             
             _uiUnitsConfig = ConfigsRepository.ConfigsRepository.FindConfig<UIUnitsConfig>();
-            _abilitiesUiConfig = ConfigsRepository.ConfigsRepository.FindConfig<AbilitiesUiConfig>();
+            _uiAbilitiesConfig = ConfigsRepository.ConfigsRepository.FindConfig<UIAbilitiesConfig>();
 
             _actionsUIView = GetComponentInChildren<UnitActionsUIView>();
             _tacticsUIView = GetComponentInChildren<TacticsUIView>();
@@ -159,7 +159,7 @@ namespace BugStrategy.UI.Elements.EntityInfo.UnitInfo
                 .Select(ability => ability.AbilityType).ToList();
             
             abilities.AddRange(passiveAbilities);
-            _abilitiesUIView.SetButtons(showBackButton, _abilitiesUiConfig.AbilitiesUiIcons, abilities);
+            _abilitiesUIView.SetButtons(showBackButton, _uiAbilitiesConfig.AbilitiesUiIcons, abilities);
         }
         
         private void ActivateAbility(AbilityType ability)

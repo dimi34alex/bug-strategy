@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace BugStrategy.Tiles.WarFog.Shadows
 {
-    [CreateAssetMenu(fileName = nameof(TilesShadowsConfig), menuName = "Configs/Tiles/" + nameof(TilesShadowsConfig))]
-    public class TilesShadowsConfig : ScriptableObject, ISingleConfig
+    [CreateAssetMenu(fileName = nameof(TilesShadowerConfig), menuName = "Configs/Tiles/" + nameof(TilesShadowerConfig))]
+    public class TilesShadowerConfig : ScriptableObject, ISingleConfig
     {
         [field: SerializeField] public TileShadow TileShadowPrefab { get; private set; }
     }

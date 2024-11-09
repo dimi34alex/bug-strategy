@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
 {
-    [CreateAssetMenu(fileName = nameof(UIConstructionsConfig), menuName = "Configs/" + nameof(UIConstructionsConfig))]
+    [CreateAssetMenu(fileName = nameof(UIConstructionsConfig), menuName = "Configs/UI/" + nameof(UIConstructionsConfig))]
     public class UIConstructionsConfig : ScriptableObject, ISingleConfig
     {
         [SerializeField] private SerializableDictionary<ConstructionID, UIConstructionConfig> _constructionsUIConfigs;

@@ -14,7 +14,7 @@ namespace BugStrategy.SelectableSystem
 
         private List<AbilityBlock> _abilityBlocks = new();
 
-        public void Init(IReadOnlyList<IAbility> abilities, AbilitiesUiConfig abilitiesUiConfig)
+        public void Init(IReadOnlyList<IAbility> abilities, UIAbilitiesConfig uiAbilitiesConfig)
         {
             var firstIconPosition = firstIconTransform.position;
             for (int n = 0; n < abilities.Count; n++)
@@ -24,7 +24,7 @@ namespace BugStrategy.SelectableSystem
                         firstIconPosition.z), firstIconTransform.rotation, firstIconTransform);
 
                 var abilityBlock = abilityBlockObj.GetComponent<AbilityBlock>();
-                abilityBlock.SetData(abilitiesUiConfig.AbilitiesUiIcons[abilities[n].AbilityType], abilities[n]);
+                abilityBlock.SetData(uiAbilitiesConfig.AbilitiesUiIcons[abilities[n].AbilityType], abilities[n]);
                 _abilityBlocks.Add(abilityBlock);
             }
         }

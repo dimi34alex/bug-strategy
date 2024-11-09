@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace BugStrategy.Tiles.WarFog.NewDirectory1
 {
-    [CreateAssetMenu(fileName = nameof(ConstructionViewsConfig), menuName = "Configs/" + nameof(ConstructionViewsConfig))]
+    [CreateAssetMenu(fileName = nameof(ConstructionViewsConfig), menuName = "Configs/Constructions/" + nameof(ConstructionViewsConfig))]
     public class ConstructionViewsConfig : ScriptableObject, IFactoryConfig<ConstructionID, ObjectView>, ISingleConfig
     {
         [SerializeField] private SerializableDictionary<ConstructionID, ObjectView> data;

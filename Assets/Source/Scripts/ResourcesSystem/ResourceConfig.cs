@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace BugStrategy.ResourcesSystem
 {
-    [CreateAssetMenu(fileName = "ResourceConfig", menuName = "Config/ResourceConfig")]
+    [CreateAssetMenu(fileName = "ResourceConfig", menuName = "Configs/Resources/ResourceConfig")]
     public class ResourceConfig : ScriptableObject
     {
         [SerializeField] private ResourceID _id;

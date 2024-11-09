@@ -5,8 +5,8 @@ using UnityEngine;
 
 namespace BugStrategy.Unit.AbilitiesCore
 {
-    [CreateAssetMenu(fileName = nameof(AbilitiesUiConfig), menuName = "Configs/" + nameof(AbilitiesUiConfig))]
-    public class AbilitiesUiConfig : ScriptableObject, ISingleConfig
+    [CreateAssetMenu(fileName = nameof(UIAbilitiesConfig), menuName = "Configs/UI/" + nameof(UIAbilitiesConfig))]
+    public class UIAbilitiesConfig : ScriptableObject, ISingleConfig
     {
         [SerializeField] private SerializableDictionary<AbilityType, Sprite> abilitiesUiIcons;
 

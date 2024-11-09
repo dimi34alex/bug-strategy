@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace BugStrategy.Constructions
 {
-    [CreateAssetMenu(fileName = "ConstructionTypeMatchConfig", menuName = "Config/ConstructionTypeMatchConfig")]
+    [CreateAssetMenu(fileName = "ConstructionTypeMatchConfig", menuName = "Configs/Constructions/ConstructionTypeMatchConfig")]
     public class ConstructionTypeMatchConfig : ScriptableObject, ISingleConfig
     {
         [SerializeField] private ConstructionTypePair[] _constructionTypePairs;

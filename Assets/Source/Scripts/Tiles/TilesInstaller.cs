@@ -38,7 +38,7 @@ namespace BugStrategy.Tiles
         }
         
         private void BindTilesShadows() 
-            => Container.BindInterfacesAndSelfTo<TilesShadows>().FromNew().AsSingle();
+            => Container.BindInterfacesAndSelfTo<TilesShadower>().FromNew().AsSingle();
         
         private void BindTileShadowFactory() 
             => Container.BindInterfacesAndSelfTo<TileShadowFactory>().FromNew().AsSingle();

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace BugStrategy.ConfigsRepository
 {
-    [CreateAssetMenu(fileName = "ConfigsRepository", menuName = "Config/ConfigsRepository")]
+    [CreateAssetMenu(fileName = "ConfigsRepository", menuName = "Configs/ConfigsRepository")]
     public class ConfigsRepository : ScriptableObject
     {
         [SerializeField] private List<ScriptableObject> _configs;

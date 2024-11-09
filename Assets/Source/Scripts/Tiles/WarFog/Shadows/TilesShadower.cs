@@ -8,11 +8,11 @@ using UnityEngine;
 
 namespace BugStrategy.Tiles.WarFog.Shadows
 {
-    public class TilesShadows : IDisposable, IEventReceiver<EventTileVisibilityChanged>
+    public class TilesShadower : IDisposable, IEventReceiver<EventTileVisibilityChanged>
     {
         private readonly IEventBus _eventBus;
         private readonly TileShadowFactory _tileShadowFactory;
-        private readonly TilesShadowsConfig _config;
+        private readonly TilesShadowerConfig _config;
         private readonly ConstructionsRepository _constructionsRepository;
         private readonly ResourceSourcesRepository _resourceSourcesRepository;
 
@@ -20,7 +20,7 @@ namespace BugStrategy.Tiles.WarFog.Shadows
 
         public EventBusReceiverIdentifier EventBusReceiverIdentifier { get; } = new();
 
-        public TilesShadows(IEventBus eventBus, TileShadowFactory tileShadowFactory, TilesShadowsConfig config, ConstructionsRepository constructionsRepository, ResourceSourcesRepository resourceSourcesRepository)
+        public TilesShadower(IEventBus eventBus, TileShadowFactory tileShadowFactory, TilesShadowerConfig config, ConstructionsRepository constructionsRepository, ResourceSourcesRepository resourceSourcesRepository)
         {
             _eventBus = eventBus;
             _tileShadowFactory = tileShadowFactory;
