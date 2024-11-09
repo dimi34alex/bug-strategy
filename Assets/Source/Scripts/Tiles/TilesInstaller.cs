@@ -17,8 +17,6 @@ namespace BugStrategy.Tiles
             BindFactory();
             BindRepository();
             BindVisibleModificator();
-            BindTilesShadows();
-            BindTileShadowFactory();
             
 #if DEVELOPMENT_BUILD || UNITY_EDITOR
             _tileFogVisibilityModificator.SetState(fogIsVisible);
@@ -37,12 +35,6 @@ namespace BugStrategy.Tiles
             Container.BindInterfacesAndSelfTo<TileFogVisibilityModificator>().FromInstance(_tileFogVisibilityModificator).AsSingle();
         }
         
-        private void BindTilesShadows() 
-            => Container.BindInterfacesAndSelfTo<TilesShadower>().FromNew().AsSingle();
-        
-        private void BindTileShadowFactory() 
-            => Container.BindInterfacesAndSelfTo<TileShadowFactory>().FromNew().AsSingle();
-
         //TODO: remove this temporary code
         private TileFogVisibilityModificator _tileFogVisibilityModificator;
         [ContextMenu("Toggle fog visibility")]
