@@ -61,7 +61,8 @@ namespace BugStrategy.UI
             _unitInfoScreen = _screenRepository.GetScreen<UnitInfoScreen>();
             _constructionInfoScreen = _screenRepository.GetScreen<ConstructionInfoScreen>();
 
-            SetScreen(UIScreenType.Gameplay);
+            if(_screenRepository.GetScreen<UI_Gameplay>() != null)
+                SetScreen(UIScreenType.Gameplay);
         }
         
         /// <param name="screenObj"> equal to null, if screen un active</param>
