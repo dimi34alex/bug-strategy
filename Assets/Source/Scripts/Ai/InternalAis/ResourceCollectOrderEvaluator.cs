@@ -28,9 +28,13 @@ namespace BugStrategy.Ai.InternalAis
             switch (UnitInternalAi.AiState)
             {
                 case AiUnitStateType.Auto:
+                    if (Unit.CurrentPathData.PathType != UnitPathType.Storage_Resource && Unit.CurrentPathData.PathType != UnitPathType.Collect_Resource)
+                        return -1;
+
                     if (Unit.CurrentPathData.Target.TryCast(out _hashedResourceSource) && 
                         _hashedResourceSource.CanBeCollected)
                         return 1;
+
                     if (_resourceExtractionProcessor.PrevResourceSource != null &&
                         _resourceExtractionProcessor.PrevResourceSource.CanBeCollected)
                     {
