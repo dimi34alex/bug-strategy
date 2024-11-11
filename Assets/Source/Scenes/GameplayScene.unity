@@ -838,7 +838,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetsLayers:
     serializedVersion: 2
-    m_Bits: 14345
+    m_Bits: 0
 --- !u!1 &535990703
 GameObject:
   m_ObjectHideFlags: 0
@@ -1868,6 +1868,9 @@ MonoBehaviour:
   _moveSpeed: 10
   _camera: {fileID: 1844035348}
   field: {fileID: 291144843}
+  CameraMoveSpeed: 25
+  SizeBorderToMove: 20
+  _timer: 4
 --- !u!114 &1844035352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2119,7 +2122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad435c2881df46509bbb0f4ed6d65884, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distanceToBeHold: 1
+  distanceToBeHold: 0
 --- !u!1 &2017406359
 GameObject:
   m_ObjectHideFlags: 0
