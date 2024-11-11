@@ -34,6 +34,8 @@ namespace BugStrategy.Unit
         public bool IsSticky { get; private set; }
         public bool IsSelected { get; private set; }
         public bool IsActive { get; protected set; }
+        public bool IsAutoOrder { get; protected set; } = false;                                //
+        public bool IsWorkerBee { get; protected set; } = false;                                //
         public Vector3 TargetMovePosition { get; protected set; }
         protected abstract OrderValidatorBase OrderValidator { get; }
         public EffectsProcessor EffectsProcessor { get; protected set; }
@@ -227,6 +229,7 @@ namespace BugStrategy.Unit
                     : target.Transform.position;
             }
 
+            IsAutoOrder = true;
             CalculateNewState(targetMovePosition);
         }
 
@@ -276,10 +279,12 @@ namespace BugStrategy.Unit
                     _ => throw new NotImplementedException()
                 };
 
+                if (newState == EntityStateID.ExtractionResource) IsWorkerBee = true;
                 StateMachine.SetState(newState);
             }
             else
             {
+                if (IsAutoOrder && IsWorkerBee) StateMachine.AbortState(EntityStateID.ExtractionResource);
                 StateMachine.SetState(EntityStateID.Move);
             }
 

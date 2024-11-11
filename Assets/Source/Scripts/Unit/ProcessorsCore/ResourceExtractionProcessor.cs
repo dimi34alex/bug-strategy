@@ -18,6 +18,7 @@ namespace BugStrategy.Unit.ProcessorsCore
         public ResourceID ExtractedResourceID { get; private set; }
         public bool GotResource { get; private set; } = false;
         public bool IsExtract { get; private set; } = false;
+        public bool IsCanAbort { get; private set; } = true;
         public int ExtractionCapacity { get; }
         public ResourceSourceBase PrevResourceSource => _prevResourceSource;
         
@@ -64,10 +65,18 @@ namespace BugStrategy.Unit.ProcessorsCore
         /// </summary>
         public void AbortExtraction()
         {
+            if (IsCanAbort) AbortTarget();
             if(!IsExtract) return;
-            
+
+            _prevResourceSource = null;
+
             IsExtract = false;
             _extractionTimer.Reset(true);
+        }
+
+        public void AbortTarget()
+        {
+            if (_prevResourceSource != null) _prevResourceSource = null;
         }
         
         /// <summary>
@@ -79,6 +88,7 @@ namespace BugStrategy.Unit.ProcessorsCore
             
             _teamsResourcesGlobalStorage.ChangeValue(_affiliation.Affiliation, ExtractedResourceID, ExtractionCapacity);
             GotResource = false;
+            IsCanAbort = true;
             HideResource();
             
             OnStorageResources?.Invoke();
@@ -100,6 +110,7 @@ namespace BugStrategy.Unit.ProcessorsCore
             if (_prevResourceSource.CanBeCollected)
             {
                 GotResource = true;
+                IsCanAbort = false;
                 ShowResource();
                 _prevResourceSource.ExtractResource(ExtractionCapacity);    
             }

@@ -42,6 +42,11 @@ namespace BugStrategy.EntityState
             _states[ActiveState].OnStateEnter();
         }
 
+        public void AbortState(EntityStateID abortState)
+        {
+            _states[abortState].OnStateExit();
+        }
+
         public void OnUpdate()
         {
             _states[ActiveState].OnUpdate();
