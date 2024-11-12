@@ -65,7 +65,7 @@ namespace BugStrategy.Unit.ProcessorsCore
         public void AbortExtraction()
         {
             if(!IsExtract) return;
-            
+
             IsExtract = false;
             _extractionTimer.Reset(true);
         }
