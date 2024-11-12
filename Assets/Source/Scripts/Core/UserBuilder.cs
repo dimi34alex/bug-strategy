@@ -6,7 +6,6 @@ using BugStrategy.Missions;
 using BugStrategy.Tiles;
 using BugStrategy.UI;
 using BugStrategy.Unit;
-using BugStrategy.Unit.UnitSelection;
 using CycleFramework.Execute;
 using CycleFramework.Extensions;
 using UnityEngine;
@@ -17,7 +16,6 @@ namespace BugStrategy
     public class UserBuilder : CycleInitializerBase
     {
         [Inject] private readonly IInputProvider _inputProvider;
-        [Inject] private readonly UIController _uiController;
         [Inject] private readonly MissionData _missionData;
         [Inject] private readonly ConstructionsConfigsRepository _constructionsConfigsRepository;
         [Inject] private readonly IConstructionFactory _constructionFactory;
@@ -33,34 +31,8 @@ namespace BugStrategy
         {
             if (_spawnConstruction)
                 MoveConstructionMovableModel();
-            else
-                ObjectSelection();
         }
-
-        private void ObjectSelection()
-        {
-            if (_inputProvider.LmbDown && !_inputProvider.MouseCursorOverUi())
-            {
-                var ray = Camera.main.ScreenPointToRay(_inputProvider.MousePosition);
-
-                var prevSelectedConstruction = _missionData.ConstructionSelector.SelectedConstruction;
-                if (prevSelectedConstruction != null) 
-                    prevSelectedConstruction.Deselect();
-            
-                if(_missionData.ConstructionSelector.TrySelect(ray))
-                {
-                    var selectedConstruction = _missionData.ConstructionSelector.SelectedConstruction;
-                    selectedConstruction.Select();
-                    UnitSelection.Instance.DeselectAllWithoutCheck();
-                    _uiController.SetScreen(selectedConstruction);
-                }
-                else if (!_inputProvider.MouseCursorOverUi())
-                {
-                    _uiController.SetScreen(UIScreenType.Gameplay);
-                }
-            }
-        }
-
+        
         private void MoveConstructionMovableModel()
         {
             var ray = Camera.main.ScreenPointToRay(_inputProvider.MousePosition);

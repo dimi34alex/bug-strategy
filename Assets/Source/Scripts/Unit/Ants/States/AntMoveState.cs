@@ -7,13 +7,12 @@ namespace BugStrategy.Unit.Ants
     public class AntMoveState : EntityStateBase
     {
         public override EntityStateID EntityStateID => EntityStateID.Move;
-
         private const float DistanceBuffer = 0.1f;
         
         private readonly AntBase _ant;
 
-        private event Action UpdateEvent;
         public override event Action StateExecuted;
+        private event Action UpdateEvent;
         
         public AntMoveState(AntBase ant)
         {
@@ -28,7 +27,7 @@ namespace BugStrategy.Unit.Ants
             if (_ant.CurrentPathData.Target.IsAnyNull())
                 UpdateEvent += ManualCheckDistance;
             else
-                _ant.CurrentProfession.OnEnterInZone += CheckTargetDistance;
+                _ant.CurrentProfession.OrderValidatorBase.OnEnterInZone += CheckTargetDistance;
         }
 
         public override void OnStateExit()
@@ -37,7 +36,7 @@ namespace BugStrategy.Unit.Ants
             _ant.OnTargetMovePositionChange -= UpdateDestinationPosition;
             
             UpdateEvent -= ManualCheckDistance;
-            _ant.CurrentProfession.OnEnterInZone -= CheckTargetDistance;
+            _ant.CurrentProfession.OrderValidatorBase.OnEnterInZone -= CheckTargetDistance;
         }
 
         public override void OnUpdate() => UpdateEvent?.Invoke();
@@ -47,26 +46,23 @@ namespace BugStrategy.Unit.Ants
             _ant.SetDestination(_ant.TargetMovePosition);
             
             UpdateEvent -= ManualCheckDistance;
-            _ant.CurrentProfession.OnEnterInZone -= CheckTargetDistance;
+            _ant.CurrentProfession.OrderValidatorBase.OnEnterInZone -= CheckTargetDistance;
 
             if (_ant.CurrentPathData.Target.IsAnyNull())
                 UpdateEvent += ManualCheckDistance;
             else
-                _ant.CurrentProfession.OnEnterInZone += CheckTargetDistance;
+                _ant.CurrentProfession.OrderValidatorBase.OnEnterInZone += CheckTargetDistance;
         }
 
         private void ManualCheckDistance()
         {
             if(Vector3.Distance(_ant.Transform.position, _ant.TargetMovePosition) < DistanceBuffer)
-                // _ant.HandleGiveOrder(_ant.CurrentPathData.Target, _ant.CurrentPathData.PathType);
                 StateExecuted?.Invoke();
         }
         
         private void CheckTargetDistance()
         {
-            if (_ant.CurrentProfession.OrderValidatorBase.CheckDistance(_ant.CurrentPathData))
-                // _ant.HandleGiveOrder(_ant.CurrentPathData.Target, _ant.CurrentPathData.PathType);
-                StateExecuted?.Invoke();
+            StateExecuted?.Invoke();
         }
     }
 }

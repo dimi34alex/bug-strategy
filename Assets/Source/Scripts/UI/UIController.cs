@@ -60,6 +60,9 @@ namespace BugStrategy.UI
         
             _unitInfoScreen = _screenRepository.GetScreen<UnitInfoScreen>();
             _constructionInfoScreen = _screenRepository.GetScreen<ConstructionInfoScreen>();
+
+            if(_screenRepository.GetScreen<UI_Gameplay>() != null)
+                SetScreen(UIScreenType.Gameplay);
         }
         
         /// <param name="screenObj"> equal to null, if screen un active</param>
@@ -75,6 +78,11 @@ namespace BugStrategy.UI
             }
             
             return false;
+        }
+
+        public bool IsConstructionInfoScreenActive ()
+        {
+            return _constructionInfoScreen.GetActiveSelf();
         }
 
         public void SetScreen(UnitBase unitBase)
@@ -105,7 +113,6 @@ namespace BugStrategy.UI
             switch (type)
             {
                 case UIScreenType.Gameplay:
-                    UnitSelection.Instance.DeselectAll();
                     _unitInfoScreen.Hide();
                     _constructionInfoScreen.Hide();
                     _uiActiveScreen = _screenRepository.GetScreen<UI_Gameplay>().gameObject; 

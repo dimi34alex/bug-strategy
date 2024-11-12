@@ -1,4 +1,5 @@
 ﻿using System;
+using BugStrategy.Constructions;
 using BugStrategy.Libs;
 using BugStrategy.Unit.ProcessorsCore;
 using CycleFramework.Extensions;
@@ -68,8 +69,8 @@ namespace BugStrategy.Unit.OrderValidatorCore
                 case UnitPathType.Switch_Profession:
                     if (!target.IsAnyNull() && 
                         Unit.Fraction == FractionType.Ants &&
-                        target.TargetType == TargetType.Construction)
-                        // TODO: create construction for switching professions
+                        target.TargetType == TargetType.Construction &&
+                        target.CastPossible<AntWorkshopBase>())
                         return UnitPathType.Switch_Profession;
                     break;
             }

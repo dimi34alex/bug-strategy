@@ -33,8 +33,7 @@ namespace BugStrategy.Unit.ProcessorsCore
                 return;
             }
 
-            var projectile = _projectilesFactory.Create(_projectileType);
-            projectile.transform.position = Transform.position;
+            var projectile = _projectilesFactory.Create(_projectileType, Transform.position);
             InitProjectileData(projectile, target);
             ProjectileSpawned?.Invoke(projectile);
             Attacked?.Invoke();

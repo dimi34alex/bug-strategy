@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace BugStrategy.Tiles
 {
-    [CreateAssetMenu(fileName = nameof(TilesConfig), menuName = "Configs/" + nameof(TilesConfig))]
+    [CreateAssetMenu(fileName = nameof(TilesConfig), menuName = "Configs/Tiles/" + nameof(TilesConfig))]
     public class TilesConfig : ScriptableObject, IFactoryConfig<int, Tile>, ISingleConfig
     {
         [SerializeField] private List<Tile> tiles;

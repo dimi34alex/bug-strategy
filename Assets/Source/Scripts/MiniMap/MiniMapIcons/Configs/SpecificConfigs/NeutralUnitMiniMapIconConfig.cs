@@ -2,7 +2,7 @@
 
 namespace BugStrategy.MiniMap.MiniMapIcons.Configs
 {
-    [CreateAssetMenu(fileName = "NeutralUnitMiniMapIconConfig", menuName = "Config/MiniMapIcons/NeutralUnit")]
+    [CreateAssetMenu(fileName = "NeutralUnitMiniMapIconConfig", menuName = "Configs/MiniMapIcons/NeutralUnit")]
     public sealed class NeutralUnitMiniMapIconConfig : MiniMapIconConfigBase<NeutralUnitMiniMapIcon>
     {
         

@@ -1,4 +1,4 @@
-﻿Shader "Outline2D" {
+﻿Shader "Custom/Outline2D" {
 	Properties{
 		_Enable("Enable", Range(0,1)) = 0
 		_Color("Main Tint", Color) = (1,1,1,1)

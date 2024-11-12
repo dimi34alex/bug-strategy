@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Zenject;
 
 namespace BugStrategy.Unit.UnitSelection
 {
@@ -16,6 +17,8 @@ namespace BugStrategy.Unit.UnitSelection
 
     public class UnitPool : MonoBehaviour
     {
+        [Inject] private UnitsSelector _unitsSelector;
+        
         public List<UnitBase> movingUnits;
 
         public static UnitPool Instance { get; private set; }
@@ -93,7 +96,7 @@ namespace BugStrategy.Unit.UnitSelection
         {
             List<UnitBase> group = _groupsWithID[id];
 
-            UnitSelection.Instance.DeselectAll();
+            _unitsSelector.DeselectAll();
         
             foreach (UnitBase groupUnit in group)
                 groupUnit.GetComponent<UnitBase>().Select();

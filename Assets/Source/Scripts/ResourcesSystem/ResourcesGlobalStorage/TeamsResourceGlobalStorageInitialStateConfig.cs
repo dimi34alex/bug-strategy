@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace BugStrategy.ResourcesSystem.ResourcesGlobalStorage
 {
-    [CreateAssetMenu (fileName = nameof(TeamsResourceGlobalStorageInitialStateConfig), menuName = "Configs/" + nameof(TeamsResourceGlobalStorageInitialStateConfig))]
+    [CreateAssetMenu (fileName = nameof(TeamsResourceGlobalStorageInitialStateConfig), menuName = "Configs/Resources/" + nameof(TeamsResourceGlobalStorageInitialStateConfig))]
     public class TeamsResourceGlobalStorageInitialStateConfig : ScriptableObject, ISingleConfig
     {
         [SerializeField]

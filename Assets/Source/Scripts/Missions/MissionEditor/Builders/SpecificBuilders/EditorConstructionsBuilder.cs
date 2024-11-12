@@ -24,8 +24,8 @@ namespace BugStrategy.Missions.MissionEditor
             _factory = factory;
         }
 
-        protected override EditorConstruction CreateMovableModel((ConstructionID, AffiliationEnum) id) 
-            => _factory.Create(id.Item1);
+        protected override EditorConstruction CreateMovableModel((ConstructionID, AffiliationEnum) id, Vector3 position) 
+            => _factory.Create(id.Item1, position);
 
         protected override ICommand CreateBuildCommand((ConstructionID, AffiliationEnum) id, Vector3 point)
             => _commandsFactory.BuildConstructionCommand(id.Item1, id.Item2, point);

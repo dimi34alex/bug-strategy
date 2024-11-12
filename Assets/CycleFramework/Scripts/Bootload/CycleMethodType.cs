@@ -3,7 +3,7 @@ namespace CycleFramework.Bootload
 {
     public enum CycleMethodType
     {
-        OnInit = 5,
+        OnStartInit = 5,
         OnUpdate = 10,
         OnFixedUpdate = 15,
     }

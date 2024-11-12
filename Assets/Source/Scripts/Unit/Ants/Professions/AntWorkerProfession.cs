@@ -20,8 +20,6 @@ namespace BugStrategy.Unit.Ants
                 antHandItem.GatheringTime, teamsResourcesGlobalStorage, resourceSkin);
 
             OrderValidatorBase = new WorkerOrderValidator(ant, antHandItem.InteractionRange, ResourceExtractionProcessor);
-            
-            OrderValidatorBase.OnEnterInZone += EnterInZone;
         }
 
         public override void HandleUpdate(float time)

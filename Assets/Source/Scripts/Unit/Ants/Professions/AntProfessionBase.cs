@@ -1,4 +1,3 @@
-using System;
 using BugStrategy.Unit.OrderValidatorCore;
 
 namespace BugStrategy.Unit.Ants
@@ -10,8 +9,6 @@ namespace BugStrategy.Unit.Ants
         public abstract ProfessionType ProfessionType { get; }
         public abstract OrderValidatorBase OrderValidatorBase { get; }
         
-        public event Action OnEnterInZone;
-
         public AntProfessionBase(int antProfessionRang)
         {
             ProfessionRang = antProfessionRang;
@@ -21,8 +18,5 @@ namespace BugStrategy.Unit.Ants
         {
             
         }
-
-        protected void EnterInZone()
-            => OnEnterInZone?.Invoke();
     }
 }

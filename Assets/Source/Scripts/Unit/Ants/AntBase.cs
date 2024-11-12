@@ -31,6 +31,7 @@ namespace BugStrategy.Unit.Ants
         public ProfessionType TargetProfessionType { get; private set; }
         public int TargetProfessionRang { get; private set; }
 
+        //used to debug
         public ProfessionType ProfessionType;
         public int Rang;
         
@@ -124,7 +125,7 @@ namespace BugStrategy.Unit.Ants
                         newProfession as AntMeleeWarriorConfig);
                     break;
                 case (ProfessionType.RangeWarrior):
-                    CurrentProfession  = new AntRangeWarriorOrderValidator(this, professionRang, 
+                    CurrentProfession  = new AntRangeWarriorProfession(this, professionRang, 
                         newProfession as AntRangeWarriorConfig, _projectilesFactory);
                     break;
                 default: throw new NotImplementedException();

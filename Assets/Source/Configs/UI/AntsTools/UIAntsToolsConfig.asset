@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 407c4e75c66145269808b233cb5f9023, type: 3}
+  m_Name: UIAntsToolsConfig
+  m_EditorClassIdentifier: 
+  standardAnt: {fileID: 11400000, guid: 723b043bc68d6c941ae27c56fbb7534b, type: 2}
+  bigAnt: {fileID: 11400000, guid: bc0f8e64da240224fa43dcc652cc2e01, type: 2}
+  flyingAnt: {fileID: 11400000, guid: b14cbe6fe09aa3a4b8e2270a2b2eb16e, type: 2}

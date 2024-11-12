@@ -8,9 +8,9 @@ namespace BugStrategy.Bootstraps
     {
         [Inject] private ISceneLoader _sceneLoader;
 
-        protected override void OnInit()
+        protected override void OnStartInit()
         {
-            base.OnInit();
+            base.OnStartInit();
             _sceneLoader.Initialize(false);
         }
     }

@@ -61,14 +61,11 @@ namespace BugStrategy.Unit
         {
             if (Vector3.Distance(_unit.Transform.position, _unit.TargetMovePosition) < DistanceBuffer)
                 StateExecuted?.Invoke();
-                // _unit.HandleGiveOrder(_unit.CurrentPathData.Target, _unit.CurrentPathData.PathType);
         }
         
         private void CheckTargetDistance()
         {
             StateExecuted?.Invoke();
-            //if (_orderValidator.CheckDistance(_unit.CurrentPathData))
-                // _unit.HandleGiveOrder(_unit.CurrentPathData.Target, _unit.CurrentPathData.PathType);
         }
     }
 }

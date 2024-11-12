@@ -19,9 +19,6 @@ namespace BugStrategy.Unit.Ants
             CooldownProcessor = new CooldownProcessor(antHandItem.Cooldown);
             AttackProcessor = new MeleeAttackProcessor(ant, antHandItem.AttackRange, antHandItem.Damage, CooldownProcessor);
             OrderValidatorBase = new WarriorOrderValidator(ant, antHandItem.AttackRange, CooldownProcessor, AttackProcessor);
-           
-            AttackProcessor.OnEnterEnemyInZone += EnterInZone;
-            OrderValidatorBase.OnEnterInZone += EnterInZone;
         }
 
         public override void HandleUpdate(float time)

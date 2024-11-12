@@ -1,3 +1,4 @@
+using BugStrategy.Audio;
 using BugStrategy.ScenesLoading;
 using CycleFramework.Execute;
 using UnityEngine;
@@ -10,13 +11,15 @@ namespace BugStrategy.Bootstraps
         [SerializeField] private int sceneIndexForLoadingAfterInitializations = 2;
         
         [Inject] private ISceneLoader _sceneLoader;
+        [Inject] private AudioVolumeChanger _audioVolumeChanger;
         
-        protected override void OnInit()
+        protected override void OnStartInit()
         {
-            base.OnInit();
+            base.OnStartInit();
             
             _sceneLoader.Initialize(false);
             _sceneLoader.LoadScene(sceneIndexForLoadingAfterInitializations);
+            _audioVolumeChanger.StartInit();
         }
     }
 }
