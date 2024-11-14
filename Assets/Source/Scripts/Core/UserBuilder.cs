@@ -58,7 +58,7 @@ namespace BugStrategy
                         {
                             BuyConstruction(unit.Affiliation, _currentConstructionID);
 
-                            if (TrySpawnConstruction(unit.Affiliation, _currentConstructionID, out var buildingProgressConstruction))
+                            if (TrySpawnBuildProgressConstruction(unit.Affiliation, _currentConstructionID, out var buildingProgressConstruction))
                                 unit.HandleGiveOrder(buildingProgressConstruction, UnitPathType.Build_Construction);
 
                             Destroy(_currentConstructionMovableModel);
@@ -92,9 +92,9 @@ namespace BugStrategy
                 _missionData.TeamsResourcesGlobalStorage.ChangeValue(affiliation, element.Key, element.Value);
         }
     
-        private bool TrySpawnConstruction(AffiliationEnum affiliation, ConstructionID id, out BuildingProgressConstruction construction)
+        private bool TrySpawnBuildProgressConstruction(AffiliationEnum affiliation, ConstructionID id, out BuildingProgressConstruction buildProgressConstruction)
         {
-            construction = null;
+            buildProgressConstruction = null;
 
             if (id == ConstructionID.BeeTownHall && _numberTownHall >= 1)
                 return false;
@@ -111,18 +111,20 @@ namespace BugStrategy
             if (id == ConstructionID.BeeTownHall)
                 _numberTownHall++;
         
-            construction = SpawnConstruction(affiliation, id, position);
+            buildProgressConstruction = SpawnBuildProgressConstruction(affiliation, id, position);
         
             return true;
         }
     
-        private BuildingProgressConstruction SpawnConstruction(AffiliationEnum affiliation, ConstructionID id, Vector3 position)
+        private BuildingProgressConstruction SpawnBuildProgressConstruction(AffiliationEnum affiliation, ConstructionID id, Vector3 position)
         {
             var progressConstruction = _constructionFactory.Create<BuildingProgressConstruction>(ConstructionID.BuildingProgressConstruction, position, affiliation);
                 
             progressConstruction.OnTimerEnd += c => CreateConstruction(affiliation, c, position);
 
-            progressConstruction.StartBuilding(4, id);
+            var buildDuration = _constructionsConfigsRepository.GetBuildDuration(id);
+            
+            progressConstruction.StartBuilding(buildDuration, id);
 
             return progressConstruction;
         }
