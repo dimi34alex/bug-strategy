@@ -3801,7 +3801,7 @@ GameObject:
   - component: {fileID: 5692358069669493228}
   - component: {fileID: 5692358069669493227}
   m_Layer: 0
-  m_Name: CycleFrameworkBootloader
+  m_Name: GameLoop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3847,7 +3847,7 @@ GameObject:
   - component: {fileID: 5692358070358042581}
   - component: {fileID: 5692358070358042582}
   m_Layer: 0
-  m_Name: Initializers
+  m_Name: States
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

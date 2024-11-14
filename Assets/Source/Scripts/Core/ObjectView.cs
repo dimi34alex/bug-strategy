@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace BugStrategy.Constructions
+namespace BugStrategy
 {
     public class ObjectView : MonoBehaviour
     {
