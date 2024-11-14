@@ -1,7 +1,9 @@
 using BugStrategy.CustomInput;
 using BugStrategy.Selection;
 using BugStrategy.Unit.UnitSelection;
+using BugStrategy.Unit.UnitSelection.TargetPositionMarker;
 using CycleFramework.Execute;
+using CycleFramework.Extensions;
 using UnityEngine;
 using Zenject;
 
@@ -14,6 +16,7 @@ namespace BugStrategy.Unit
         [Inject] private readonly Selector _selector;
         [Inject] private readonly UnitsSelector _unitsSelector;
         [Inject] private readonly IInputProvider _inputProvider;
+        [Inject] private readonly UnitsTargetPositionMarkerFactory _unitsTargetPositionMarkerFactory;
 
         private static Camera Camera => Camera.main;
         
@@ -35,7 +38,7 @@ namespace BugStrategy.Unit
                 else
                 {
                     var targetPosition = _inputProvider.MousePosition;
-                    targetPosition = Camera.ScreenToWorldPoint(targetPosition);
+                    targetPosition = Camera.ScreenToWorldPoint(targetPosition).XZ();
 
                     var unitPositions =
                         RingStepPositionGenerator.TakeRingsPositions(targetPosition, selectedUnits.Count);
@@ -43,7 +46,7 @@ namespace BugStrategy.Unit
                     for (int i = 0; i < selectedUnits.Count; i++)
                         selectedUnits[i].AutoGiveOrder(null, unitPositions[i]);
 
-                    UnitsTargetPositionMarkerFactory.Instance.Create(targetPosition);
+                    _unitsTargetPositionMarkerFactory.Create(targetPosition);
                 }
             }
         }

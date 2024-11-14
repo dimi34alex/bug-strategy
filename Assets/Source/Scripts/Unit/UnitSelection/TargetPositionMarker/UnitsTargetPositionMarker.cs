@@ -3,12 +3,13 @@ using System.Collections;
 using BugStrategy.Pool;
 using UnityEngine;
 
-namespace BugStrategy.Unit.UnitSelection
+namespace BugStrategy.Unit.UnitSelection.TargetPositionMarker
 {
     public class UnitsTargetPositionMarker : MonoBehaviour, IPoolable<UnitsTargetPositionMarker>, IPoolEventListener
     {
         [SerializeField] private float time;
         [SerializeField] private SpriteRenderer sprite;
+        
         private float _timer = 0;
 
         public event Action<UnitsTargetPositionMarker> ElementReturnEvent;
@@ -23,13 +24,14 @@ namespace BugStrategy.Unit.UnitSelection
         public void OnElementExtract()
         {
             gameObject.SetActive(true);
+            ResetData();
             StartCoroutine(Tick());
         }
     
         public void OnElementReturn()
         {
             gameObject.SetActive(false);
-            ResetData();
+            StopAllCoroutines();
         }
     
         IEnumerator Tick()
