@@ -1,4 +1,5 @@
 using System;
+using BugStrategy.Constructions;
 using BugStrategy.EntityState;
 using BugStrategy.Libs;
 using CycleFramework.Extensions;
@@ -23,27 +24,27 @@ namespace BugStrategy.Unit.Ants
         {
             if (_ant.CurrentPathData.TargetType != TargetType.Construction ||
                 _ant.CurrentPathData.Target.IsAnyNull() ||
-                !_ant.CurrentPathData.Target.TryCast(out SwitchAntProfessionCunstruction professionConstruction))
+                !_ant.CurrentPathData.Target.TryCast(out AntWorkshopBase antWorkshopBase))
             {
                 Debug.LogWarning($"Some problem: " +
                                  $"{_ant.CurrentPathData.TargetType} | " +
                                  $"{_ant.CurrentPathData.Target.IsAnyNull()} | " +
-                                 $"{!_ant.CurrentPathData.Target.TryCast(out professionConstruction)}");
+                                 $"{!_ant.CurrentPathData.Target.TryCast(out antWorkshopBase)}");
                 
                 // _ant.AutoGiveOrder(null);
                 StateExecuted?.Invoke();
                 return;
             }
             
-            if (!professionConstruction.TryTakeConfig(_ant.TargetProfessionType, _ant.TargetProfessionRang, out var config))
+            if (!antWorkshopBase.WorkshopCore.TryGetTool(_ant.UnitType, _ant.TargetProfessionRang, out var config))
             {
-                Debug.LogWarning($"Config is null: {_ant.TargetProfessionType}, {_ant.TargetProfessionRang}");
+                Debug.LogWarning($"Cant get tool: {_ant.TargetProfessionType}, {_ant.TargetProfessionRang}");
                 //_ant.AutoGiveOrder(_ant.CurrentPathData.Target);
                 StateExecuted?.Invoke();
             }
             else
             {
-                _ant.SwitchProfession(config);
+                _ant.SwitchProfession(config, _ant.TargetProfessionRang);
                 //_ant.AutoGiveOrder(null);
                 StateExecuted?.Invoke();
             }

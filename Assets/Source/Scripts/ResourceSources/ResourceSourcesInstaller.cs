@@ -1,3 +1,4 @@
+using BugStrategy.Tiles.WarFog.NewDirectory1;
 using Zenject;
 
 namespace BugStrategy.ResourceSources
@@ -6,7 +7,14 @@ namespace BugStrategy.ResourceSources
     {
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<ResourceSourceFactory>().FromNew().AsSingle();
+            BindRepository();
+            BindFactory();
         }
+
+        private void BindRepository() 
+            => Container.BindInterfacesAndSelfTo<ResourceSourcesRepository>().FromNew().AsSingle();
+
+        private void BindFactory() 
+            => Container.BindInterfacesAndSelfTo<ResourceSourceFactory>().FromNew().AsSingle();
     }
 }

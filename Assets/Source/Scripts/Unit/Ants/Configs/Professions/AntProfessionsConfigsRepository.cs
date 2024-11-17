@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
 using BugStrategy.ConfigsRepository;
-using BugStrategy.Libs;
 using UnityEngine;
 
 namespace BugStrategy.Unit.Ants
@@ -9,44 +6,44 @@ namespace BugStrategy.Unit.Ants
     [CreateAssetMenu(fileName = nameof(AntProfessionsConfigsRepository), menuName = "Configs/Units/Ants/" + nameof(AntProfessionsConfigsRepository))]
     public class AntProfessionsConfigsRepository : ScriptableObject, ISingleConfig
     {
-        [SerializeField]
-        private SerializableDictionary<ProfessionType, List<AntProfessionConfigBase>> data;
-        
-        private Dictionary<ProfessionType, Dictionary<int, AntProfessionConfigBase>> _data;
+        [field: SerializeField] public AntProfessionsConfig StandardAntData { get; private set; }
+        [field: SerializeField] public AntProfessionsConfig BigAntData { get; private set; }
+        [field: SerializeField] public AntProfessionsConfig FlyAntData { get; private set; }
 
-        private void OnValidate()
+        public int GetRangsCount(UnitType unitType, ProfessionType professionType)
         {
-            _data = new Dictionary<ProfessionType, Dictionary<int, AntProfessionConfigBase>>();
-            foreach (var pair in data)
+            return unitType switch
             {
-                _data.Add(pair.Key, new Dictionary<int, AntProfessionConfigBase>());
+                UnitType.AntStandard => StandardAntData.GetRangsCount(professionType),
+                UnitType.AntBig => BigAntData.GetRangsCount(professionType),
+                UnitType.AntFlying => FlyAntData.GetRangsCount(professionType),
+                _ => 0
+            };
+        }
 
-                foreach (var config in pair.Value)
-                {
-                    if (_data[pair.Key].ContainsKey(config.AntProfessionRang.Rang))
-                        throw new ArgumentOutOfRangeException($"some configs with key:{pair.Key} have equal ranges");
-                
-                    _data[pair.Key].Add(config.AntProfessionRang.Rang, config);
-                }
+        public bool TryGetAntConfig(UnitType unitType, ProfessionType professionType, int professionRang, out AntProfessionConfigBase config)
+        {
+            switch (unitType)
+            {
+                case UnitType.AntStandard:
+                    return TryTakeStandardAntConfig(professionType, professionRang, out config);
+                case UnitType.AntBig:
+                    return TryTakeBigAntConfig(professionType, professionRang, out config);
+                case UnitType.AntFlying:
+                    return TryTakeFlyAntConfig(professionType, professionRang, out config);
+                default:
+                    config = null;
+                    return false;
             }
         }
         
-        public bool TryTakeConfig(ProfessionType professionType, int professionRang, out AntProfessionConfigBase config)
-        {
-            var antProfessionRang = new AntProfessionRang(professionRang);
-            return TryTakeConfig(professionType, antProfessionRang, out config);
-        }
-        
-        public bool TryTakeConfig(ProfessionType professionType, AntProfessionRang professionRang, out AntProfessionConfigBase config)
-        {
-            if (!_data.ContainsKey(professionType) || !_data[professionType].ContainsKey(professionRang.Rang))
-            {
-                config = null;
-                return false;
-            }
-            
-            config = _data[professionType][professionRang.Rang];
-            return true;
-        }
+        public bool TryTakeStandardAntConfig(ProfessionType professionType, int professionRang, out AntProfessionConfigBase config) 
+            => StandardAntData.TryTakeConfig(professionType, professionRang, out config);
+
+        public bool TryTakeBigAntConfig(ProfessionType professionType, int professionRang, out AntProfessionConfigBase config) 
+            => BigAntData.TryTakeConfig(professionType, professionRang, out config);
+
+        public bool TryTakeFlyAntConfig(ProfessionType professionType, int professionRang, out AntProfessionConfigBase config) 
+            => FlyAntData.TryTakeConfig(professionType, professionRang, out config);
     }
 }

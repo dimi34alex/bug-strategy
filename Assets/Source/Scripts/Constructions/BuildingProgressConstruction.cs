@@ -21,7 +21,7 @@ namespace BugStrategy.Constructions
         private GameObject currentWorker;
         public bool WorkerArrived;
     
-        public void StartBuilding(int duration, ConstructionID constructionID)
+        public void StartBuilding(float duration, ConstructionID constructionID)
         {
             if (BuildingProgressState != BuildingProgressState.Waiting)
                 return;
@@ -30,16 +30,15 @@ namespace BugStrategy.Constructions
             StartCoroutine(StartBuildingCoroutine(duration));
         }
 
-        private IEnumerator StartBuildingCoroutine(int duration)
+        private IEnumerator StartBuildingCoroutine(float duration)
         {
-            int timer = duration;
+            var timer = duration;
 
             while (timer > 0)
             {
                 _timerText.text = $"{timer.SecsToMins()}";
                 yield return new WaitForSeconds(1f);
-                if (//currentWorker.gameObject.transform.GetComponentInChildren<WorkerDuty>().isBuilding && 
-                    WorkerArrived)
+                if (WorkerArrived)
                 {
                     timer--;
                 }
@@ -49,8 +48,6 @@ namespace BugStrategy.Constructions
 
             yield return new WaitForSeconds(1f);
             BuildingProgressState = BuildingProgressState.Completed;
-            // currentWorker.gameObject.transform.GetComponentInChildren<WorkerDuty>().isBuilding = false;
-
 
             OnTimerEnd?.Invoke(this);
         }

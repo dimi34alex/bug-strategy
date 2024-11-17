@@ -2,7 +2,9 @@
 using System.Linq;
 using BugStrategy.Constructions;
 using BugStrategy.Constructions.ConstructionLevelSystemCore;
+using BugStrategy.Constructions.ResourceProduceConstruction;
 using BugStrategy.Constructions.UnitsRecruitingSystem;
+using BugStrategy.UI.Elements.EntityInfo.ConstructionInfo.AntWorkshopViews;
 using BugStrategy.Unit;
 using CycleFramework.Extensions;
 using UnityEngine;
@@ -19,13 +21,15 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
         
         private ConstructionActionsType _actionsType;
         private ConstructionActionsUIView _actionsUIView;
-        private ConstructionProductsUIView _productsUIView;
         private ConstructionRecruitingUIView _recruitingUIView;
         
+        private ConstructionResourceConversionUIView _resourceConversionUIView;
         private ConstructionRecruitingProcessUIView _recruitingProcessUIView;
 
         private UIConstructionConfig _uiConstructionConfig;
         private UIConstructionsConfig _uiConstructionsConfig;
+        
+        private AntWorkshopView _antWorkshopView;
         
         private void Awake()
         {
@@ -35,24 +39,23 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
 
             _actionsUIView = GetComponentInChildren<ConstructionActionsUIView>();
             _recruitingUIView = GetComponentInChildren<ConstructionRecruitingUIView>();
-            _productsUIView = GetComponentInChildren<ConstructionProductsUIView>();
+            _resourceConversionUIView = GetComponentInChildren<ConstructionResourceConversionUIView>(true);
             
             _actionsUIView.ButtonClicked += SetActionsType;
             _recruitingUIView.ButtonClicked += RecruitUnit;
-            _productsUIView.ButtonClicked += ProductResource;
         
             _actionsUIView.BackButtonClicked += SetNonActionsType;
             _recruitingUIView.BackButtonClicked += SetNonActionsType;
-            _productsUIView.BackButtonClicked += SetNonActionsType;
+            _resourceConversionUIView.BackButtonClicked += SetNonActionsType;
         
             _recruitingProcessUIView = GetComponentInChildren<ConstructionRecruitingProcessUIView>();
+            
+            _antWorkshopView = GetComponentInChildren<AntWorkshopView>();
+            _antWorkshopView.BackButtonClicked += SetNonActionsType;
         }
 
         public void SetConstruction(ConstructionBase newConstruction)
         {
-            if (_construction == newConstruction)
-                return;
-
             try
             {
                 _construction = newConstruction;
@@ -64,9 +67,6 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
                     $"Настоятельно рекомендую проверить есть ли конфиг ({nameof(UIConstructionConfig)} " +
                     $"и добавлен ли он в {nameof(UIConstructionConfig)}) | {exp.Message}");
             }
-
-            var recruitingConstruction = _construction.UnSafeCast<IRecruitingConstruction>();
-            _recruitingProcessUIView.InitRecruiter(recruitingConstruction);
             
             SetActionsType(ConstructionActionsType.None);
         }
@@ -80,7 +80,8 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
 
             _actionsUIView.TurnOffButtons();
             _recruitingUIView.TurnOffButtons();
-            _productsUIView.TurnOffButtons();
+            _resourceConversionUIView.Hide();
+            _antWorkshopView.Hide();
 
             var onlyOneActionsType = _uiConstructionConfig.ConstructionActions.Count == 1;
             var showBackButton = !onlyOneActionsType;
@@ -100,21 +101,20 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
                             .Select(x => x.Key).ToList());
                     break;
                 case ConstructionActionsType.ProduceResources:
-                    _productsUIView.SetButtons(showBackButton, _uiConstructionConfig.ConstructionProductsDictionary,
-                        _uiConstructionConfig.ConstructionProducts
-                            .Select(x => x.Key).ToList());
+                    _resourceConversionUIView.Show(showBackButton, _construction as ResourceConversionConstructionBase);
+                    break;
+                case ConstructionActionsType.AntsProfessions:
+                    _antWorkshopView.Show(showBackButton, _construction as AntWorkshopBase);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         
-            if ((_uiConstructionConfig.ConstructionProducts != null &&  _uiConstructionConfig.ConstructionProducts.Count > 0)||
-                (_uiConstructionConfig.Recruiting != null && _uiConstructionConfig.Recruiting.Count > 0))
-            {
+            if (_uiConstructionConfig.Recruiting != null && _uiConstructionConfig.Recruiting.Count > 0)
                 _dopPanel.SetActive(true);
-            }
 
-            _recruitingProcessUIView.ActivateBar();
+            var recruitingConstruction = _construction.UnSafeCast<IRecruitingConstruction>();
+            _recruitingProcessUIView.InitRecruiter(recruitingConstruction);
         }
     
         private void SetNonActionsType()
@@ -133,16 +133,17 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
         
             recruitingConstruction.RecruitUnit(unitType);
         }
-    
-        private void ProductResource(ConstructionProductType productType)
-        {
-
-        }
         
         private void OnUpgradeButtonClicked()
         {
             if (_construction.TryCast(out IEvolveConstruction evolveConstruction))
                 evolveConstruction.LevelSystem.TryLevelUp();
+        }
+
+        public override void Hide()
+        {
+            _resourceConversionUIView.Hide();
+            base.Hide();
         }
     }
 }

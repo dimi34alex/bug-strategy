@@ -12,7 +12,7 @@ namespace BugStrategy.SelectableSystem
         [SerializeField] private SelectionField selectionField;
         [SerializeField] private AbilitiesBar abilitiesBar;
 
-        [Inject] private AbilitiesUiConfig _abilitiesUiConfig;
+        [Inject] private UIAbilitiesConfig _uiAbilitiesConfig;
         
         protected override void OnStart()
         {
@@ -24,7 +24,7 @@ namespace BugStrategy.SelectableSystem
             selectionField.Init(selectable.IsSelected);
 
             if (selectable.TryCast(out IAbilitiesOwner abilitiesOwner)) 
-                abilitiesBar.Init(abilitiesOwner.Abilities, _abilitiesUiConfig);
+                abilitiesBar.Init(abilitiesOwner.Abilities, _uiAbilitiesConfig);
 
             foreach (var OoSelectionUI in onSelectionUIs)
             {

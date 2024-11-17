@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using BugStrategy.ConfigsRepository;
-using BugStrategy.Factory;
+using BugStrategy.Factories;
 using UnityEngine;
 
 namespace BugStrategy.Tiles
 {
-    [CreateAssetMenu(fileName = nameof(TilesConfig), menuName = "Configs/" + nameof(TilesConfig))]
+    [CreateAssetMenu(fileName = nameof(TilesConfig), menuName = "Configs/Tiles/" + nameof(TilesConfig))]
     public class TilesConfig : ScriptableObject, IFactoryConfig<int, Tile>, ISingleConfig
     {
         [SerializeField] private List<Tile> tiles;

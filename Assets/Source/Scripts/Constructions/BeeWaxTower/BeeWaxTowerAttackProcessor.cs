@@ -24,7 +24,7 @@ namespace BugStrategy.Constructions.BeeWaxTower
 
         public AffiliationEnum Affiliation => _affiliation.Affiliation;
         
-        public BeeWaxTowerAttackProcessor(IAffiliation affiliation, ProjectileFactory projectileFactory, 
+        public BeeWaxTowerAttackProcessor(IAffiliation affiliation, ProjectilesFactory projectilesFactory, 
             TriggerBehaviour attackZone, Transform spawnTransform, ITarget shooter)
         {
             _affiliation = affiliation;
@@ -32,7 +32,7 @@ namespace BugStrategy.Constructions.BeeWaxTower
             _spawnTransform = spawnTransform;
             _targets = new List<ITarget>();
 
-            _spawnProcessor = new SpawnProcessor(_affiliation, projectileFactory, spawnTransform, shooter);
+            _spawnProcessor = new SpawnProcessor(_affiliation, projectilesFactory, spawnTransform, shooter);
             _spawnProcessor.OnEndSpawn += ResetCooldown;
             
             _attackZone.EnterEvent += OnTargetEnter;
@@ -130,7 +130,7 @@ namespace BugStrategy.Constructions.BeeWaxTower
         {
             private readonly ITarget _shooter;
             private readonly IAffiliation _affiliation;
-            private readonly ProjectileFactory _projectileFactory;
+            private readonly ProjectilesFactory _projectilesFactory;
             private readonly TriggerBehaviour _attackZone;
             private readonly Transform _spawnTransform;
             private readonly Timer _spawnPauseTimer;
@@ -143,11 +143,11 @@ namespace BugStrategy.Constructions.BeeWaxTower
             
             public event Action OnEndSpawn;
             
-            public SpawnProcessor(IAffiliation affiliation, ProjectileFactory projectileFactory, Transform spawnTransform, 
+            public SpawnProcessor(IAffiliation affiliation, ProjectilesFactory projectilesFactory, Transform spawnTransform, 
                 ITarget shooter)
             {
                 _affiliation = affiliation;
-                _projectileFactory = projectileFactory;
+                _projectilesFactory = projectilesFactory;
                 _spawnTransform = spawnTransform;
                 _shooter = shooter;
                 _spawnPauseTimer = new Timer(0, 0, true);
@@ -181,10 +181,9 @@ namespace BugStrategy.Constructions.BeeWaxTower
                 if(target.IsAnyNull() || !target.IsActive)
                     return;
                 
-                var projectile = _projectileFactory.Create(_projectileType).Cast<BeeWaxTowerProjectile>();
+                var projectile = _projectilesFactory.Create(_projectileType, _spawnTransform.position).Cast<BeeWaxTowerProjectile>();
                 projectile.SetTarget(target);
                 projectile.Init(Affiliation, _shooter, _damage);
-                projectile.transform.position = _spawnTransform.position;
                 
                 if(_targets.Count > 0)
                     _spawnPauseTimer.Reset();

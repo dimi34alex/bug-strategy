@@ -7,8 +7,8 @@ namespace BugStrategy.ResourceSources
     public sealed class PollenStorage : ResourceSourceBase
     {
         [SerializeField] private int refillTime = 30;
-        [SerializeField] private GameObject model;
-        [SerializeField] private GameObject pollinatedModel;
+        [SerializeField] private Sprite defaultSkin;
+        [SerializeField] private Sprite pollinatedSkin;
     
         public override ResourceID ResourceID => ResourceID.Pollen;
 
@@ -19,8 +19,7 @@ namespace BugStrategy.ResourceSources
             if (ResourceStorage.CurrentValue <= 0)
             {
                 CanBeCollected = false;
-                model.SetActive(false);
-                pollinatedModel.SetActive(true);
+                View.SetView(pollinatedSkin);
                 StartCoroutine(StartRePollinating(refillTime));
             }
         }
@@ -30,9 +29,8 @@ namespace BugStrategy.ResourceSources
             yield return new WaitForSeconds(duration);
 
             CanBeCollected = true;
-            pollinatedModel.SetActive(false);
+            View.SetView(defaultSkin);
             ResourceStorage.SetValue(float.MaxValue);
-            model.SetActive(true);
         }
     }
 }

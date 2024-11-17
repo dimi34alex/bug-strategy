@@ -31,8 +31,8 @@ namespace BugStrategy.Missions.MissionEditor
         protected override ICommand CreateDeleteCommand(GridKey3 point)
             => _commandsFactory.DeleteResourceSource(point);
         
-        protected override ResourceSourceBase CreateMovableModel(int id) 
-            => _factory.Create(id);
+        protected override ResourceSourceBase CreateMovableModel(int id, Vector3 position) 
+            => _factory.Create(id, position);
         
         public async Task LoadResourceSources(CancellationToken cancellationToken, 
             IReadOnlyList<Mission.ResourceSourcePair> resourceSources)

@@ -1,12 +1,17 @@
 using System;
+using Avastrad.EventBusFramework;
 using BugStrategy.CustomTimer;
+using BugStrategy.Events;
 using BugStrategy.Trigger;
 using UnityEngine;
+using Zenject;
 
 namespace BugStrategy.Tiles
 {
     public class Tile : MonoBehaviour, ITriggerable
     {
+        [Inject] private IEventBus _eventBus;
+        
         private int _watchersCount;
         private Timer _visibleTimer;
 
@@ -34,12 +39,13 @@ namespace BugStrategy.Tiles
         public void AddWatcher()
         {
             _watchersCount++;
-            
+
             if (_watchersCount == 1)
             {
                 IsVisible = true;
                 _visibleTimer.SetPause();
                 OnVisibilityChanged?.Invoke(IsVisible);
+                _eventBus.Invoke(new EventTileVisibilityChanged(IsVisible, transform.position));
             }
         }
 
@@ -47,7 +53,7 @@ namespace BugStrategy.Tiles
         {
             _watchersCount--;
 
-#if UNITY_EDITOR
+#if DEVELOPMENT_BUILD || UNITY_EDITOR
             if(_watchersCount < 0) 
                 Debug.LogError("_watchersCount is " + _watchersCount);
 #endif
@@ -60,6 +66,7 @@ namespace BugStrategy.Tiles
         {
             IsVisible = false;
             OnVisibilityChanged?.Invoke(IsVisible);
+            _eventBus.Invoke(new EventTileVisibilityChanged(IsVisible, transform.position));
         }
     }
 }

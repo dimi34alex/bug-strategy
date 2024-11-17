@@ -12,16 +12,14 @@ namespace BugStrategy.Unit.Ants
         public override OrderValidatorBase OrderValidatorBase { get; }
         public readonly ResourceExtractionProcessor ResourceExtractionProcessor;
         
-        public AntWorkerProfession(AntBase ant, AntWorkerConfig antHandItem, ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage,
+        public AntWorkerProfession(AntBase ant, int professionRang, AntWorkerConfig antHandItem, ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage,
             GameObject resourceSkin)
-            : base(antHandItem.AntProfessionRang)
+            : base(professionRang)
         {
             ResourceExtractionProcessor = new ResourceExtractionProcessor(ant, antHandItem.GatheringCapacity,
                 antHandItem.GatheringTime, teamsResourcesGlobalStorage, resourceSkin);
 
             OrderValidatorBase = new WorkerOrderValidator(ant, antHandItem.InteractionRange, ResourceExtractionProcessor);
-            
-            OrderValidatorBase.OnEnterInZone += EnterInZone;
         }
 
         public override void HandleUpdate(float time)

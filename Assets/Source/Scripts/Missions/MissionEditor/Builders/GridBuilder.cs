@@ -23,10 +23,10 @@ namespace BugStrategy.Missions.MissionEditor
             GridRepository = gridRepository;
         }
         
-        public void Activate(TId index)
+        public void Activate(TId index, Vector3 position)
         {
             IsActive = true;
-            PrepareTile(index);
+            PrepareTile(index, position);
         }
 
         public void DeActivate()
@@ -86,15 +86,15 @@ namespace BugStrategy.Missions.MissionEditor
         protected abstract ICommand CreateBuildCommand(TId id, Vector3 point);
         protected abstract ICommand CreateDeleteCommand(GridKey3 point);
 
-        protected abstract TTile CreateMovableModel(TId id);
+        protected abstract TTile CreateMovableModel(TId id, Vector3 position);
 
-        private void PrepareTile(TId id)
+        private void PrepareTile(TId id, Vector3 position)
         {
             if (_movableModel != null) 
                 Object.Destroy(_movableModel.gameObject);
 
             _activeId = id;
-            _movableModel = CreateMovableModel(_activeId);
+            _movableModel = CreateMovableModel(_activeId, position);
         }
     }
 }

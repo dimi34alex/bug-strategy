@@ -13,7 +13,7 @@ namespace BugStrategy.MiniMap
         [SerializeField] private GameObject miniMapIconParent;
         [SerializeField] private float iconsScale;
 
-        [Inject] private readonly IMiniMapIconFactory _miniMapIconFactory; 
+        [Inject] private readonly MiniMapIconFactory _miniMapIconFactory; 
         [Inject] private readonly IMiniMapTriggerZone _miniMapTriggerZone;
     
         private Vector3 _localIconsScale;
@@ -81,8 +81,9 @@ namespace BugStrategy.MiniMap
 
         private MiniMapIconBase InstantiateIcon(MiniMapIconID miniMapIconID)
         {
-            MiniMapIconBase icon = _miniMapIconFactory.Create<MiniMapIconBase>(miniMapIconID);
+            var icon = _miniMapIconFactory.Create(miniMapIconID);
             icon.transform.SetParent(miniMapIconParent.transform, false);
+            icon.transform.localRotation = Quaternion.Euler(90, 0, 0);
             icon.transform.localScale = _localIconsScale;
 
             return icon;

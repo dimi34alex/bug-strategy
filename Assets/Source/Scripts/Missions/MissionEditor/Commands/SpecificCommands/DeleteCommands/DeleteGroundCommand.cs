@@ -1,4 +1,4 @@
-using BugStrategy.Factory;
+using BugStrategy.Factories;
 using BugStrategy.Missions.MissionEditor.GridRepositories;
 using BugStrategy.Tiles;
 using UnityEngine;
@@ -7,7 +7,7 @@ namespace BugStrategy.Missions.MissionEditor.Commands
 {
     public class DeleteGroundCommand : DeleteCommandBase<int, Tile>
     {
-        public DeleteGroundCommand(Vector3 point, ObjectsFactoryBase<int, Tile> factory, 
+        public DeleteGroundCommand(Vector3 point, FactoryWithId<int, Tile> factory, 
             GridRepository<Tile> positionsRepository) 
             : base(point, factory, positionsRepository)
         {

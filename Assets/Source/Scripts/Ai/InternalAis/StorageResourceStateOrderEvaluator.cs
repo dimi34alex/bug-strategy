@@ -26,6 +26,9 @@ namespace BugStrategy.Ai.InternalAis
                 case AiUnitStateType.Auto:
                     if (_resourceExtractionProcessor.GotResource)
                     {
+                        if (Unit.CurrentPathData.PathType != UnitPathType.Storage_Resource && Unit.CurrentPathData.PathType != UnitPathType.Collect_Resource)
+                            return -1;
+
                         if (Unit.CurrentPathData.Target.IsAnyNull() &&
                             Unit.CurrentPathData.Target.TryCast(out TownHallBase townHall))
                             _hashedTownHall = townHall;

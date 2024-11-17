@@ -9,7 +9,7 @@ namespace BugStrategy.Unit.Bees
     {
         private readonly float _damageRadius;
         
-        public HorntailAttackProcessor(UnitBase unit, float attackRange, float damage, float damageRadius, CooldownProcessor cooldownProcessor, ProjectileFactory projectilesFactory) 
+        public HorntailAttackProcessor(UnitBase unit, float attackRange, float damage, float damageRadius, CooldownProcessor cooldownProcessor, ProjectilesFactory projectilesFactory) 
             : base(unit, attackRange, damage, cooldownProcessor, ProjectileType.HorntailProjectile, projectilesFactory)
         {
             _damageRadius = damageRadius;

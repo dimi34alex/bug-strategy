@@ -1,7 +1,7 @@
 using System;
 using BugStrategy.CommandsCore;
 using BugStrategy.Constructions;
-using BugStrategy.Factory;
+using BugStrategy.Factories;
 using BugStrategy.Missions.MissionEditor.EditorConstructions;
 using BugStrategy.Missions.MissionEditor.GridRepositories;
 using UnityEngine;
@@ -19,14 +19,14 @@ namespace BugStrategy.Missions.MissionEditor.Commands
         private readonly ConstructionID _tileId;
         private readonly AffiliationEnum _tileAffiliation;
         private readonly Vector3 _point;
-        private readonly ObjectsFactoryBase<ConstructionID, EditorConstruction> _factory;
+        private readonly FactoryWithId<ConstructionID, EditorConstruction> _factory;
         private readonly GridRepository<EditorConstruction> _positionsRepository;
 
         public event Action<ICommand> OnExecuted;
         
         public BuildConstructionCommand(ConstructionID tileId, 
             AffiliationEnum tileAffiliation, Vector3 point, 
-            ObjectsFactoryBase<ConstructionID, EditorConstruction> factory, 
+            FactoryWithId<ConstructionID, EditorConstruction> factory, 
             GridRepository<EditorConstruction> positionsRepository)
         {
             _tileIdReplaced = _defaultId = ConstructionID.None;

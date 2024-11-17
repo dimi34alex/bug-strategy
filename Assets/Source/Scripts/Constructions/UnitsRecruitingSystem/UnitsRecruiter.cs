@@ -9,6 +9,7 @@ using UnityEngine;
 
 namespace BugStrategy.Constructions.UnitsRecruitingSystem
 {
+
     public class UnitsRecruiter : IReadOnlyUnitsRecruiter
     {
         private readonly IAffiliation _affiliation;
@@ -43,6 +44,7 @@ namespace BugStrategy.Constructions.UnitsRecruitingSystem
                 newStack.OnBecameEmpty += OnStackBecameEmpty;
                 _stacks.Add(newStack);
             }
+
         }
 
         public void SetNewDatas(IReadOnlyList<UnitRecruitingData> newDatas)
@@ -118,7 +120,7 @@ namespace BugStrategy.Constructions.UnitsRecruitingSystem
                 _teamsResourcesGlobalStorage.ChangeValue(_affiliation.Affiliation, cost.Key, -cost.Value);
 
             _stacks[stackIndex].RecruitUnit(recruitingData);
-            
+
             OnRecruitUnit?.Invoke();
             OnChange?.Invoke();
         }
@@ -145,12 +147,12 @@ namespace BugStrategy.Constructions.UnitsRecruitingSystem
         public void Tick(float time)
         {
             var allIsEmpty = true;
-            foreach (var stack in _stacks)
-                if (!stack.Empty)
-                {
-                    stack.Tick(time);
-                    allIsEmpty = false;
-                }
+
+            if (!_stacks[0].Empty)
+            {
+                _stacks[0].Tick(time);
+                allIsEmpty = false;
+            }
 
             if (!allIsEmpty)
                 OnTick?.Invoke();
@@ -167,7 +169,9 @@ namespace BugStrategy.Constructions.UnitsRecruitingSystem
 
             foreach (var cost in stack.CurrentData.Costs)
                 _teamsResourcesGlobalStorage.ChangeValue(_affiliation.Affiliation, cost.Key, cost.Value);
-            
+
+            RecruitingQueue(stackIndex);
+
             OnCancelRecruit?.Invoke();
             OnChange?.Invoke();
 
@@ -194,9 +198,19 @@ namespace BugStrategy.Constructions.UnitsRecruitingSystem
             float randomPosOffset = UnityEngine.Random.Range(-0.01f, 0.01f);
             var spawnPosition = _spawnTransform.position + Vector3.left * randomPosOffset;
             var unit = _unitFactory.Create(unitType, spawnPosition, _affiliation.Affiliation);
- 
+
             unit.SetAffiliation(_affiliation.Affiliation);
+
+            if (_stacks[0].Empty) RecruitingQueue(0);
         }
+
+        private void RecruitingQueue(int stackindex)
+        {
+            var newStack = _stacks[stackindex];
+            _stacks.RemoveAt(stackindex);
+            _stacks.Add(newStack);
+        }
+
 
         private void OnStackBecameEmpty() 
             => OnChange?.Invoke();

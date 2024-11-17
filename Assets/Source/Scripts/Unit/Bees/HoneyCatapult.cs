@@ -16,7 +16,7 @@ namespace BugStrategy.Unit.Bees
     {
         [SerializeField] private HoneyCatapultConfig config;
     
-        [Inject] private ProjectileFactory _projectileFactory;
+        [Inject] private ProjectilesFactory _projectilesFactory;
     
         public override UnitType UnitType => UnitType.HoneyCatapult;
         
@@ -45,7 +45,7 @@ namespace BugStrategy.Unit.Bees
             _healthStorage = new FloatStorage(config.HealthPoints, config.HealthPoints);
             _cooldownProcessor = new CooldownProcessor(config.Cooldown);
             _attackProcessor = new HoneyCatapultAttackProcessor(this, config.AttackRange, config.Damage, 
-                config.DamageRadius, _cooldownProcessor, _projectileFactory);
+                config.DamageRadius, _cooldownProcessor, _projectilesFactory);
             _orderValidator = new WarriorOrderValidator(this, config.InteractionRange, _cooldownProcessor, _attackProcessor);
             
             AttackCooldownChanger = new AttackCooldownChanger(_cooldownProcessor);

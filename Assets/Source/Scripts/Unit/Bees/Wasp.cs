@@ -18,7 +18,7 @@ namespace BugStrategy.Unit.Bees
     {
         [SerializeField] private BeeRangeWarriorConfig config;
     
-        [Inject] private ProjectileFactory _projectileFactory;
+        [Inject] private ProjectilesFactory _projectilesFactory;
     
         protected override OrderValidatorBase OrderValidator => _warriorOrderValidator;
         public override UnitType UnitType => UnitType.Wasp;
@@ -42,7 +42,7 @@ namespace BugStrategy.Unit.Bees
             _healthStorage = new FloatStorage(config.HealthPoints, config.HealthPoints);
             _cooldownProcessor = new CooldownProcessor(config.Cooldown);
             _attackProcessor = new RangeAttackProcessor(this, config.AttackRange, config.Damage, _cooldownProcessor,
-                config.ProjectileType, _projectileFactory);
+                config.ProjectileType, _projectilesFactory);
             _warriorOrderValidator = new HidableWarriorOrderValidator(this, config.InteractionRange, _cooldownProcessor, _attackProcessor);
             
             AttackCooldownChanger = new AttackCooldownChanger(_cooldownProcessor);

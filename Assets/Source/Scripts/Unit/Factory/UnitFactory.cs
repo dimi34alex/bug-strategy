@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using BugStrategy.Libs;
-using BugStrategy.Missions;
 using BugStrategy.Pool;
 using UnityEngine;
 using Zenject;
@@ -10,12 +9,12 @@ namespace BugStrategy.Unit.Factory
 {
     public class UnitFactory : MonoBehaviour
     {
-        [Inject] private MissionData _missionData;
         [Inject] private UnitsPrefabsConfig _prefabsConfig;
+        [Inject] private UnitRepository _unitRepository;
         [Inject] private DiContainer _container;
 
         private Pool<UnitBase, UnitType> _pool;
-        private readonly Dictionary<UnitType, Transform> _parents = new Dictionary<UnitType, Transform>();
+        private readonly Dictionary<UnitType, Transform> _parents = new();
 
         public event Action<UnitBase> UnitCreated; 
         
@@ -40,7 +39,7 @@ namespace BugStrategy.Unit.Factory
             var unit = _pool.ExtractElement(unitType);
             unit.Transform.position = position;
             unit.SetAffiliation(affiliation);
-            _missionData.UnitRepository.AddUnit(unit);
+            _unitRepository.AddUnit(unit);
             UnitCreated?.Invoke(unit);
             
             return unit;

@@ -25,12 +25,11 @@ namespace BugStrategy.Bootstraps
         private bool _isDestroyed;
         private CancellationTokenSource _mapLoadingCancelToken;
         
-        protected override async void OnInit()
+        protected override async void OnStartInit()
         {
             _sceneLoader.OnLoadingScreenHided += SwitchState;
 
             await LoadMap();
-            
             if (_isDestroyed)
                 return;
 

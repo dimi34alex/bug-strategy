@@ -2,7 +2,6 @@ using System;
 using BugStrategy.MiniMap;
 using BugStrategy.Missions;
 using BugStrategy.Trigger;
-using BugStrategy.Unit;
 using UnityEngine;
 using Zenject;
 
@@ -11,13 +10,15 @@ namespace BugStrategy.Constructions
     public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagable, IRepairable, IMiniMapObject,
         ITriggerable, ITarget, SelectableSystem.ISelectable, IAffiliation
     {
+        [field: SerializeField] public ObjectView View { get; private set; }
+        
         [Inject] protected readonly MissionData MissionData;
     
         public AffiliationEnum Affiliation { get; private set; }
         public abstract FractionType Fraction { get; }
 
         protected readonly FloatStorage _healthStorage = new(0,0);
-
+        
         public bool IsSelected { get; private set; }
         public bool IsActive { get; protected set; } = true;
         public bool IsAlive => IsActive && _healthStorage.CurrentValue > 0f;

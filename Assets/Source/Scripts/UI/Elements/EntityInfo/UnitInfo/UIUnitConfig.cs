@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace BugStrategy.UI.Elements.EntityInfo.UnitInfo
 {
-    [CreateAssetMenu(fileName = nameof(UIUnitConfig), menuName = "Configs/" + nameof(UIUnitConfig))]
+    [CreateAssetMenu(fileName = nameof(UIUnitConfig), menuName = "Configs/UI/" + nameof(UIUnitConfig))]
     public class UIUnitConfig : ScriptableObject
     {
         [SerializeField] private Sprite _infoSprite;

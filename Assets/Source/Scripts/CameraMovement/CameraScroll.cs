@@ -1,5 +1,7 @@
 using System.Collections;
+using BugStrategy.CustomInput;
 using UnityEngine;
+using Zenject;
 
 namespace BugStrategy.CameraMovement
 {
@@ -8,7 +10,9 @@ namespace BugStrategy.CameraMovement
         [SerializeField] private bool useScroll;
         [SerializeField] private float scrollPower;
         [SerializeField] private float cameraSizeOffset;
-    
+
+        [Inject] private IInputProvider _inputProvider;
+        
         private Camera _camera;
         private float _startCameraSize;
         private bool _coroutineIsActive;
@@ -35,7 +39,7 @@ namespace BugStrategy.CameraMovement
             if (!useScroll)
                 return;
         
-            float scrollDirection = Input.mouseScrollDelta.y;
+            float scrollDirection = _inputProvider.ScrollDelta;
             if(scrollDirection == 0)
                 return;
         

@@ -8,7 +8,8 @@ namespace BugStrategy
         public float CurrentValue { get; }
         public int CurrentValueInt { get; }
         public float Capacity { get; }
-
+        public float FillPercentage => CurrentValue / Capacity;
+        
         public event Action Changed;
         public event Action ValueChanged;
         public event Action<float> ValueAdded;

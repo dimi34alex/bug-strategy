@@ -23,7 +23,7 @@ namespace CycleFramework.Execute
                 throw new NullReferenceException($"{typeof(CycleEventsProcessor)} cannot be null");
 
             foreach (CycleState cycleState in (IEnumerable<CycleState>)Enum.GetValues(typeof(CycleState)))
-                _cycleEventsProcessor.Execute(cycleState, CycleMethodType.OnInit);
+                _cycleEventsProcessor.Execute(cycleState, CycleMethodType.OnStartInit);
         }
 
         private void Update()

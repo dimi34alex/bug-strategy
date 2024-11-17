@@ -9,14 +9,14 @@ namespace BugStrategy.Unit.ProcessorsCore
     public class RangeAttackProcessor : AttackProcessorBase
     {
         private readonly ProjectileType _projectileType;
-        private readonly ProjectileFactory _projectilesFactory;
+        private readonly ProjectilesFactory _projectilesFactory;
         
         public override event Action Attacked;
         public override event Action<ITarget> TargetAttacked;
         public event Action<ProjectileBase> ProjectileSpawned; 
         
         public RangeAttackProcessor(UnitBase unit, float attackRange, float damage, CooldownProcessor cooldownProcessor, 
-            ProjectileType projectileType, ProjectileFactory projectilesFactory)
+            ProjectileType projectileType, ProjectilesFactory projectilesFactory)
             : base(unit, attackRange, damage, cooldownProcessor)
         {
             _projectileType = projectileType;
@@ -33,8 +33,7 @@ namespace BugStrategy.Unit.ProcessorsCore
                 return;
             }
 
-            var projectile = _projectilesFactory.Create(_projectileType);
-            projectile.transform.position = Transform.position;
+            var projectile = _projectilesFactory.Create(_projectileType, Transform.position);
             InitProjectileData(projectile, target);
             ProjectileSpawned?.Invoke(projectile);
             Attacked?.Invoke();

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace BugStrategy.Constructions.DefaultConstruction
 {
-    [CreateAssetMenu(fileName = "DefaultConstructionConfig", menuName = "Config/DefaultConstructionConfig")]
+    [CreateAssetMenu(fileName = "DefaultConstructionConfig", menuName = "Configs/Constructions/Main/DefaultConstructionConfig")]
     public class DefaultConstructionConfig : ScriptableObject, ISingleConfig
     { 
         [SerializeField] private ConstructionSpawnConfiguration<DefaultConstruction> _configuration;

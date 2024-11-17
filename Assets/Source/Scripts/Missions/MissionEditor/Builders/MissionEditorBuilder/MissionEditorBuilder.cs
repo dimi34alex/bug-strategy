@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using BugStrategy.CommandsCore;
 using BugStrategy.Constructions;
+using BugStrategy.CustomInput;
 using BugStrategy.Missions.MissionEditor.Affiliation;
 using BugStrategy.Missions.MissionEditor.Commands;
 using BugStrategy.Missions.MissionEditor.EditorConstructions;
@@ -10,7 +11,6 @@ using BugStrategy.Missions.MissionEditor.Saving;
 using BugStrategy.ResourceSources;
 using BugStrategy.Tiles;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using Zenject;
 
 namespace BugStrategy.Missions.MissionEditor
@@ -19,6 +19,8 @@ namespace BugStrategy.Missions.MissionEditor
     {
         [SerializeField] private MissionEditorConfig config;
 
+        [Inject] private readonly IInputProvider _inputProvider;
+        
         [Inject] private GridConfig _gridConfig;
         [Inject] private TilesFactory _tilesFactory;
         [Inject] private EditorConstructionsFactory _editorConstructionsFactory;
@@ -58,11 +60,11 @@ namespace BugStrategy.Missions.MissionEditor
 
         private void Update()
         {
-            if (Input.GetButtonDown("Fire2"))
+            if (_inputProvider.RmbDown)
             {
                 if (_activeBuilder == null || !_activeBuilder.IsActive)
                 {
-                    var point = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    var point = Camera.main.ScreenToWorldPoint(_inputProvider.MousePosition);
                     point.y = 0;
                     
                     _editorConstructionsBuilder.Clear(point);
@@ -72,37 +74,46 @@ namespace BugStrategy.Missions.MissionEditor
                     _activeBuilder?.DeActivate();
             }
             
-            if (MouseCursorOverUI())
+            if (_inputProvider.MouseCursorOverUi())
                 return;
 
-            var worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            worldPoint.y = 0;   
+            var worldPoint = Camera.main.ScreenToWorldPoint(_inputProvider.MousePosition);
+            worldPoint.y = 0;
             _activeBuilder?.Move(worldPoint);
             
             
-            if (Input.GetButtonDown("Fire1"))
+            if (_inputProvider.LmbDown)
                 _activeBuilder?.ApplyBuild();
         }
 
         public void ActivateGroundTile(int ind)
         {
+            var worldPoint = Camera.main.ScreenToWorldPoint(_inputProvider.MousePosition);
+            worldPoint.y = 0;
+            
             _activeBuilder?.DeActivate();
             _activeBuilder = _groundBuilder;
-            _groundBuilder.Activate(ind);
+            _groundBuilder.Activate(ind, worldPoint);
         }
 
         public void ActivateConstructions(ConstructionID id)
         {
+            var worldPoint = Camera.main.ScreenToWorldPoint(_inputProvider.MousePosition);
+            worldPoint.y = 0;
+            
             _activeBuilder?.DeActivate();
             _activeBuilder = _editorConstructionsBuilder;
-            _editorConstructionsBuilder.Activate((id, _affiliationHolder.PlayerAffiliation));
+            _editorConstructionsBuilder.Activate((id, _affiliationHolder.PlayerAffiliation), worldPoint);
         }
         
         public void ActivateResourceSource(int index)
         {
+            var worldPoint = Camera.main.ScreenToWorldPoint(_inputProvider.MousePosition);
+            worldPoint.y = 0;
+            
             _activeBuilder?.DeActivate();
             _activeBuilder = _resourceSourceBuilder;
-            _resourceSourceBuilder.Activate(index);
+            _resourceSourceBuilder.Activate(index, worldPoint);
         }
 
         public void Generate(Vector2Int size)
@@ -138,8 +149,5 @@ namespace BugStrategy.Missions.MissionEditor
                 _mapLoadingCancelToken = null;
             }   
         }
-        
-        private static bool MouseCursorOverUI() 
-            => EventSystem.current.IsPointerOverGameObject();
     }
 }

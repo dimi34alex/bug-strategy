@@ -1,16 +1,17 @@
 using System;
+using BugStrategy.Constructions;
 using BugStrategy.MiniMap;
 using BugStrategy.ResourcesSystem;
 using BugStrategy.Trigger;
-using BugStrategy.Unit;
 using UnityEngine;
 
 namespace BugStrategy.ResourceSources
 {
     public abstract class ResourceSourceBase : MonoBehaviour, IMiniMapObject, ITriggerable, ITarget
     {
+        [field: SerializeField] public ObjectView View { get; private set; }
         [SerializeField] private int resourceCapacity;
-    
+        
         protected FloatStorage ResourceStorage;
     
         public abstract ResourceID ResourceID { get; }
