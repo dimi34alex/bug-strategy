@@ -1762,7 +1762,6 @@ GameObject:
   - component: {fileID: 1844035347}
   - component: {fileID: 1844035350}
   - component: {fileID: 1844035351}
-  - component: {fileID: 1844035355}
   - component: {fileID: 1844035352}
   - component: {fileID: 1844035354}
   m_Layer: 14
@@ -1861,7 +1860,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1844035346}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ac1edbe8b64758d4197d9f84412842a9, type: 3}
   m_Name: 
@@ -1869,6 +1868,8 @@ MonoBehaviour:
   _moveSpeed: 10
   _camera: {fileID: 1844035348}
   field: {fileID: 291144843}
+  CameraMoveSpeed: 25
+  PercentageOfScreen: 2
 --- !u!114 &1844035352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1944,21 +1945,6 @@ MonoBehaviour:
   layers:
     serializedVersion: 2
     m_Bits: 6144
---- !u!114 &1844035355
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1844035346}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e8b62d14eeb62e44ac456b94d0fe998, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CameraMoveSpeed: 25
-  PercentageOfScreen: 2
-  field: {fileID: 291144843}
 --- !u!1 &1870373502
 GameObject:
   m_ObjectHideFlags: 0
