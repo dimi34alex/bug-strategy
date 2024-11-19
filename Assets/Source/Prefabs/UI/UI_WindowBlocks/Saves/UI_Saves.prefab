@@ -544,7 +544,7 @@ GameObject:
   - component: {fileID: 4471494393424585968}
   - component: {fileID: 7981581800803884756}
   m_Layer: 5
-  m_Name: Button
+  m_Name: LoadSaveButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1094,6 +1094,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: SavePanel
       objectReference: {fileID: 0}
+    - target: {fileID: 3140754160726274619, guid: ee307de0678bb9047a58929c86361d35, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3140754160726274619, guid: ee307de0678bb9047a58929c86361d35, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4587457096825053694}
+    - target: {fileID: 3140754160726274619, guid: ee307de0678bb9047a58929c86361d35, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectSlot
+      objectReference: {fileID: 0}
+    - target: {fileID: 3140754160726274619, guid: ee307de0678bb9047a58929c86361d35, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SaveSlotUIScript, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3140754160726274619, guid: ee307de0678bb9047a58929c86361d35, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3876779749763412393, guid: ee307de0678bb9047a58929c86361d35, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -1222,6 +1242,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: SavePanel (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 3140754160726274619, guid: ee307de0678bb9047a58929c86361d35, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3140754160726274619, guid: ee307de0678bb9047a58929c86361d35, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4587457096825053694}
+    - target: {fileID: 3140754160726274619, guid: ee307de0678bb9047a58929c86361d35, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectSlot
+      objectReference: {fileID: 0}
+    - target: {fileID: 3140754160726274619, guid: ee307de0678bb9047a58929c86361d35, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SaveSlotUIScript, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3140754160726274619, guid: ee307de0678bb9047a58929c86361d35, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3140754160726274619, guid: ee307de0678bb9047a58929c86361d35, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3876779749763412393, guid: ee307de0678bb9047a58929c86361d35, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1346,6 +1390,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: SavePanel (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 3140754160726274619, guid: ee307de0678bb9047a58929c86361d35, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3140754160726274619, guid: ee307de0678bb9047a58929c86361d35, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4587457096825053694}
+    - target: {fileID: 3140754160726274619, guid: ee307de0678bb9047a58929c86361d35, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectSlot
+      objectReference: {fileID: 0}
+    - target: {fileID: 3140754160726274619, guid: ee307de0678bb9047a58929c86361d35, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SaveSlotUIScript, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3140754160726274619, guid: ee307de0678bb9047a58929c86361d35, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3140754160726274619, guid: ee307de0678bb9047a58929c86361d35, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3876779749763412393, guid: ee307de0678bb9047a58929c86361d35, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1469,6 +1537,30 @@ PrefabInstance:
     - target: {fileID: 2874642496201615402, guid: ee307de0678bb9047a58929c86361d35, type: 3}
       propertyPath: m_Name
       value: SavePanel (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3140754160726274619, guid: ee307de0678bb9047a58929c86361d35, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3140754160726274619, guid: ee307de0678bb9047a58929c86361d35, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4587457096825053694}
+    - target: {fileID: 3140754160726274619, guid: ee307de0678bb9047a58929c86361d35, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectSlot
+      objectReference: {fileID: 0}
+    - target: {fileID: 3140754160726274619, guid: ee307de0678bb9047a58929c86361d35, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SaveSlotUIScript, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3140754160726274619, guid: ee307de0678bb9047a58929c86361d35, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3140754160726274619, guid: ee307de0678bb9047a58929c86361d35, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3876779749763412393, guid: ee307de0678bb9047a58929c86361d35, type: 3}
       propertyPath: m_IsActive
@@ -1598,6 +1690,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: SavePanel (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3140754160726274619, guid: ee307de0678bb9047a58929c86361d35, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3140754160726274619, guid: ee307de0678bb9047a58929c86361d35, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4587457096825053694}
+    - target: {fileID: 3140754160726274619, guid: ee307de0678bb9047a58929c86361d35, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectSlot
+      objectReference: {fileID: 0}
+    - target: {fileID: 3140754160726274619, guid: ee307de0678bb9047a58929c86361d35, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SaveSlotUIScript, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3140754160726274619, guid: ee307de0678bb9047a58929c86361d35, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3140754160726274619, guid: ee307de0678bb9047a58929c86361d35, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3876779749763412393, guid: ee307de0678bb9047a58929c86361d35, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -1721,6 +1837,30 @@ PrefabInstance:
     - target: {fileID: 2874642496201615402, guid: ee307de0678bb9047a58929c86361d35, type: 3}
       propertyPath: m_Name
       value: SavePanel (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3140754160726274619, guid: ee307de0678bb9047a58929c86361d35, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3140754160726274619, guid: ee307de0678bb9047a58929c86361d35, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4587457096825053694}
+    - target: {fileID: 3140754160726274619, guid: ee307de0678bb9047a58929c86361d35, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectSlot
+      objectReference: {fileID: 0}
+    - target: {fileID: 3140754160726274619, guid: ee307de0678bb9047a58929c86361d35, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SaveSlotUIScript, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3140754160726274619, guid: ee307de0678bb9047a58929c86361d35, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3140754160726274619, guid: ee307de0678bb9047a58929c86361d35, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3876779749763412393, guid: ee307de0678bb9047a58929c86361d35, type: 3}
       propertyPath: m_IsActive

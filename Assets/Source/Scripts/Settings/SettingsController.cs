@@ -20,7 +20,13 @@ namespace BugStrategy
         [SerializeField] private TMP_Dropdown fpsDropdown;
 
         private Resolution[] resolutions;
+        private Resolution DefaultResolution;
         private int[] fpsOptions = { 75, 100, 144, 165, 360 };
+
+        private void Awake()
+        {
+            DefaultResolution = Screen.currentResolution;
+        }
 
         void Start()
         {
@@ -30,7 +36,6 @@ namespace BugStrategy
             resolutionDropdown.ClearOptions();
 
             int currentResolutionIndex = 0;
-
             for (int i = 0; i < resolutions.Length; i++)
             {
                 Resolution res = resolutions[i];
@@ -60,6 +65,8 @@ namespace BugStrategy
 
         public void ApplySettings()
         {
+            _audioVolumeChanger.Apply();
+
             Resolution selectedResolution = resolutions[resolutionDropdown.value];
             bool isFullScreen = screenModeDropdown.value == 1; // 0 - оконный, 1 - полный экран
 
@@ -67,8 +74,30 @@ namespace BugStrategy
 
             int selectedFps = fpsOptions[fpsDropdown.value];
             Application.targetFrameRate = selectedFps;
+        }
 
-            _audioVolumeChanger.Apply();
+        public void ResetSettings()
+        {
+            _audioVolumeChanger.Revert();
+
+            Screen.SetResolution(DefaultResolution.width, DefaultResolution.height, true);
+            int ResolutionIndex = 0;
+            for (int i = 0; i < resolutions.Length; i++)
+            {
+                Resolution res = resolutions[i];
+                resolutionDropdown.options.Add(new TMP_Dropdown.OptionData(res.width + " x " + res.height));
+
+                if (res.width == DefaultResolution.width && res.height == DefaultResolution.height)
+                {
+                    ResolutionIndex = i;
+                }
+            }
+            resolutionDropdown.value = ResolutionIndex;
+
+            Application.targetFrameRate = 360;
+            fpsDropdown.value = fpsOptions.Length;
+
+            screenModeDropdown.value = Screen.fullScreen ? 1 : 0;
         }
     }
 }

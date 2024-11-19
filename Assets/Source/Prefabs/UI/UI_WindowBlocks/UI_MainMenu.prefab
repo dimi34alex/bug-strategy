@@ -280,7 +280,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &798470208056374399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -815,7 +815,7 @@ GameObject:
   - component: {fileID: 4782437042797424256}
   - component: {fileID: 3154663195612748940}
   - component: {fileID: 8007348685484464761}
-  - component: {fileID: 8576329395129123692}
+  - component: {fileID: 8771459399151658754}
   m_Layer: 5
   m_Name: Button (1)
   m_TagString: Untagged
@@ -926,9 +926,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8576329395129123692}
-        m_TargetAssemblyTypeName: BugStrategy.SettingsController, Assembly-CSharp
-        m_MethodName: ExitGame
+      - m_Target: {fileID: 8771459399151658754}
+        m_TargetAssemblyTypeName: BugStrategy.ExitGame, Assembly-CSharp
+        m_MethodName: ExitFunction
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -938,7 +938,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &8576329395129123692
+--- !u!114 &8771459399151658754
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -947,12 +947,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2812487640271875986}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 035e6b23f2f354f41b3781d90e1c9f70, type: 3}
+  m_Script: {fileID: 11500000, guid: dbca90859cfa217458d2a574a2b3bc7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  screenModeDropdown: {fileID: 0}
-  resolutionDropdown: {fileID: 0}
-  fpsDropdown: {fileID: 0}
 --- !u!1 &3383854884195774833
 GameObject:
   m_ObjectHideFlags: 0
