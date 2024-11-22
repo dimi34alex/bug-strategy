@@ -9,19 +9,19 @@ namespace BugStrategy.CameraMovement
 {
     public class CameraMover : MonoBehaviour
     {
+        [SerializeField] private GameObject field;
+        [Space]
         [SerializeField] private float _moveSpeed;
         [SerializeField] private Camera _camera;
-        [SerializeField] private GameObject field;
-
+        [Space]
         [SerializeField] private float CameraMoveSpeed;
         [SerializeField] private float PercentageOfScreen;
 
-        private float SizeBorderToMove;
-        private float xDist, yDist;
-
         [Inject] private readonly IInputProvider _inputProvider;
 
-        private Vector2 delta;
+        private float _sizeBorderToMove;
+        private float _xDist, _yDist;
+        private Vector2 _delta;
         private Vector3[] _bounds;
         private Vector3 _startPosition;
         private Vector3 _targetPosition;
@@ -31,20 +31,19 @@ namespace BugStrategy.CameraMovement
             _bounds = new Vector3[2];
             _bounds[0] = new Vector3(field.transform.localScale.x * -5f, -100f, field.transform.localScale.z * -5f);
             _bounds[1] = new Vector3(field.transform.localScale.x * 5f, 100f, field.transform.localScale.z * 5f);
-            SizeBorderToMove = Mathf.Min(Screen.width, Screen.height) * (PercentageOfScreen / 100);
+            _sizeBorderToMove = Mathf.Min(Screen.width, Screen.height) * (PercentageOfScreen / 100);
         }
 
         private void LateUpdate ()
         {
-            MoveByCursor();
-            Move();
+            if(_inputProvider.ScrollDown || _inputProvider.ScrollHold)
+                MoveByMouseWheel();
+            else if(CursorOnScreen())
+                MoveByCursor();
         }
 
-        private void Move ()
+        private void MoveByMouseWheel ()
         {
-            if(CheckIfCursorInBorderZone())
-                return;
-
             _targetPosition.y = transform.position.y;
 
             if(_inputProvider.ScrollDown)
@@ -64,33 +63,37 @@ namespace BugStrategy.CameraMovement
 
         private void MoveByCursor ()
         {
-            if(_inputProvider.ScrollDown || _inputProvider.ScrollHold)
-                return;
-
             if(CheckIfCursorInBorderZone())
             {
-                delta = delta.normalized;
-                delta *= Mathf.Clamp01(1 - Mathf.Min(xDist, yDist) / SizeBorderToMove);
+                _delta = _delta.normalized;
+                _delta *= Mathf.Clamp01(1 - Mathf.Min(_xDist, _yDist) / _sizeBorderToMove);
 
-                transform.Translate(delta * CameraMoveSpeed * Time.deltaTime, Space.Self);
+                transform.Translate(_delta * (CameraMoveSpeed * Time.deltaTime), Space.Self);
                 transform.position = transform.position.Clamp(_bounds[0], _bounds[1]);
             }
         }
 
         private bool CheckIfCursorInBorderZone ()
         {
-            Vector2 mousePos = Input.mousePosition;
+            Vector2 mousePos = _inputProvider.MousePosition;
             mousePos.x /= Screen.width;
             mousePos.y /= Screen.height;
 
-            delta = mousePos - new Vector2(0.5f, 0.5f);
+            _delta = mousePos - new Vector2(0.5f, 0.5f);
 
-            xDist = Screen.width * (0.5f - Mathf.Abs(delta.x));
-            yDist = Screen.height * (0.5f - Mathf.Abs(delta.y));
+            _xDist = Screen.width * (0.5f - Mathf.Abs(_delta.x));
+            _yDist = Screen.height * (0.5f - Mathf.Abs(_delta.y));
 
-            if(xDist < SizeBorderToMove || yDist < SizeBorderToMove)
+            if(_xDist < _sizeBorderToMove || _yDist < _sizeBorderToMove)
                 return true;
             return false;
+        }
+
+        private bool CursorOnScreen()
+        {
+            Vector2 mousePos = _inputProvider.MousePosition;
+
+            return !(mousePos.x < 0 || mousePos.y < 0 || mousePos.x > Screen.width || mousePos.y > Screen.height);
         }
     }
 }
