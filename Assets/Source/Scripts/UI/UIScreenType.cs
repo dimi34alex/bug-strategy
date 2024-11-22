@@ -7,6 +7,7 @@
         GameplayWin,
         GameplayLose,
         MainMenu,
+        NewGame,
         GameplayMenu,
         Saves,
         Back,
