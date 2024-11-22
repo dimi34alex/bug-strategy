@@ -95,8 +95,14 @@ namespace BugStrategy.Audio
         public void Apply() 
             => _volumeSettings.Apply();
 
-        public void Revert() 
-            => _volumeSettings.Revert();
+        public void Revert()
+        {
+            _volumeSettings.Revert();
+            
+            SetVolume(MasterParam, MasterVolume);
+            SetVolume(EffectsParam, EffectsVolume);
+            SetVolume(MusicParam, MusicVolume);
+        }
 
         private void SetVolume(string paramName, float newVolume)
             => _mixer.SetFloat($"{paramName}", Mathf.Lerp(-80, 0, Mathf.Sqrt(Mathf.Sqrt(newVolume))));
