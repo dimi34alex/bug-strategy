@@ -6,18 +6,16 @@ namespace BugStrategy.Pool
     public class Pool<TElement> where TElement : IPoolable<TElement>
     {
         private readonly bool _expandable;
-        private readonly bool _callbacksIfNonExpandable;
         private readonly Queue<TElement> _freeElements;
         private readonly LinkedList<TElement> _extractedElements;
         private readonly Func<TElement> _elementInstantiateDelegate;
 
-        public Pool(Func<TElement> elementInstantiateDelegate, int capacity = 0, bool expandable = true, bool callbacksIfNonExpandable = true)
+        public Pool(Func<TElement> elementInstantiateDelegate, int capacity = 0, bool expandable = true)
         {
             if (capacity is 0 && !expandable)
                 throw new ArgumentException("Non-expandable pool cannot have a capacity of 0");
 
             _expandable = expandable;
-            _callbacksIfNonExpandable = callbacksIfNonExpandable;
             _freeElements = new Queue<TElement>(capacity);
             _elementInstantiateDelegate = elementInstantiateDelegate;
 
@@ -43,12 +41,6 @@ namespace BugStrategy.Pool
                     element = _extractedElements.First.Value;
                     _extractedElements.RemoveFirst();
                     _extractedElements.AddLast(element);
-
-                    if (_callbacksIfNonExpandable)
-                    {
-                        TryCallElementReturnEvent(element);
-                        TryCallElementExtractEvent(element);
-                    }
 
                     return element;
                 }

@@ -80,6 +80,10 @@ PrefabInstance:
       value: 0.5672676
       objectReference: {fileID: 0}
     - target: {fileID: 8275467094156255588, guid: 57880f41c9a2bbe4ab0543c210a033b4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.286
+      objectReference: {fileID: 0}
+    - target: {fileID: 8275467094156255588, guid: 57880f41c9a2bbe4ab0543c210a033b4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 180
       objectReference: {fileID: 0}
