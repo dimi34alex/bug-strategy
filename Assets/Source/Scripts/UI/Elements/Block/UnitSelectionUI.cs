@@ -5,6 +5,7 @@ using BugStrategy.Unit;
 using BugStrategy.UI.Elements.EntityInfo.UnitInfo;
 using BugStrategy.Unit.UnitSelection;
 using Zenject;
+using System;
 
 public class UnitSelectionUI : MonoBehaviour
 {
@@ -39,6 +40,15 @@ public class UnitSelectionUI : MonoBehaviour
 
         // Инициализация пула иконок
         InitializeIconPool();
+
+        // Подписка на событие изменения выделения
+        _unitsSelector.OnSelectionChanged += UpdateUnitIcons;
+    }
+
+    private void OnDestroy()
+    {
+        // Отписываемся от события при уничтожении объекта
+        _unitsSelector.OnSelectionChanged -= UpdateUnitIcons;
     }
 
     private void InitializeIconPool()
@@ -52,17 +62,11 @@ public class UnitSelectionUI : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void UpdateUnitIcons()
     {
-        if (_unitsSelector != null)
-        {
-            IReadOnlyList<UnitBase> selectedUnits = _unitsSelector.GetSelectedUnits();
-            UpdateUnitIcons(selectedUnits);
-        }
-    }
+        // Получаем выделенные юниты
+        IReadOnlyList<UnitBase> selectedUnits = _unitsSelector.GetSelectedUnits();
 
-    private void UpdateUnitIcons(IReadOnlyList<UnitBase> selectedUnits)
-    {
         // Деактивируем все иконки
         foreach (GameObject icon in iconPool)
         {

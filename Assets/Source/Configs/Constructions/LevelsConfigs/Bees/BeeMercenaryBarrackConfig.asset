@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89e698ac78aa48169a5a003470785b3f, type: 3}
   m_Name: BeeMercenaryBarrackConfig
   m_EditorClassIdentifier: 
+  <BuildDuration>k__BackingField: 4
   buyCost:
     _cells: []
   levels:
-  - maxHealPoints: 1000
+  - view: {fileID: 0}
+    maxHealPoints: 1000
     levelUpCost:
       _cells: []
     resourceCapacity:

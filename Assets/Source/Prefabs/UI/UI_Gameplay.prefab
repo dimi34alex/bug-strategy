@@ -307,6 +307,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 916205852697350968, guid: 4a94f70dde03f0040997a9b977d48b83, type: 3}
+      propertyPath: maxIcons
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1339675831705865922, guid: 4a94f70dde03f0040997a9b977d48b83, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -485,11 +489,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3844627901705518785, guid: 4a94f70dde03f0040997a9b977d48b83, type: 3}
       propertyPath: m_CellSize.x
-      value: 50
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3844627901705518785, guid: 4a94f70dde03f0040997a9b977d48b83, type: 3}
       propertyPath: m_CellSize.y
-      value: 50
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3844627901705518785, guid: 4a94f70dde03f0040997a9b977d48b83, type: 3}
+      propertyPath: m_Constraint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3844627901705518785, guid: 4a94f70dde03f0040997a9b977d48b83, type: 3}
+      propertyPath: m_Padding.m_Top
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3844627901705518785, guid: 4a94f70dde03f0040997a9b977d48b83, type: 3}
+      propertyPath: m_Padding.m_Left
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 3844627901705518785, guid: 4a94f70dde03f0040997a9b977d48b83, type: 3}
+      propertyPath: m_ConstraintCount
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3980511560104819390, guid: 4a94f70dde03f0040997a9b977d48b83, type: 3}
       propertyPath: m_AnchorMax.y
