@@ -20,7 +20,19 @@ SpriteAtlas:
       readable: 0
       crunchedCompression: 0
       sRGB: 1
-    platformSettings: []
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 4096
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
     packingSettings:
       serializedVersion: 2
       padding: 8
@@ -47,19 +59,14 @@ SpriteAtlas:
     - {fileID: 2800000, guid: ccba1bd31b0c506478d2f5aa0dd6b888, type: 3}
     - {fileID: 2800000, guid: 904de1310b1dfd446b4bbfbb33c95a7d, type: 3}
     - {fileID: 2800000, guid: 5be112c7e336e8847a29c5266e286243, type: 3}
-    - {fileID: 2800000, guid: 07b88e0d1e83fc647a317d85949a4acc, type: 3}
+    - {fileID: 2800000, guid: d7d6500f025188440aeea1576f736205, type: 3}
     - {fileID: 2800000, guid: 60312a580b925254e803b7a44b874645, type: 3}
     - {fileID: 2800000, guid: 9fa383f7cfe36e24fa60a6bf2486de13, type: 3}
-    - {fileID: 2800000, guid: d7d6500f025188440aeea1576f736205, type: 3}
-    - {fileID: 2800000, guid: c0e44c7a05a91fb479e926fa8bbc372a, type: 3}
-    - {fileID: 2800000, guid: 4bb509e0fb8e3d147ac80617fbc76a9d, type: 3}
-    - {fileID: 2800000, guid: 24b3852925a24e1448af34e9efc62598, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
-  - {fileID: 21300000, guid: 4bb509e0fb8e3d147ac80617fbc76a9d, type: 3}
   - {fileID: 21300000, guid: 904de1310b1dfd446b4bbfbb33c95a7d, type: 3}
   - {fileID: 21300000, guid: 90d635611c29f7b4c88633edc001d567, type: 3}
   - {fileID: 21300000, guid: 3cb3cb037941caf408c72c377ab68e50, type: 3}
@@ -74,15 +81,11 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 76656ac7f58e38c43a1e15be1bb6a708, type: 3}
   - {fileID: 21300000, guid: 9fa383f7cfe36e24fa60a6bf2486de13, type: 3}
   - {fileID: 21300000, guid: 60312a580b925254e803b7a44b874645, type: 3}
-  - {fileID: 21300000, guid: 24b3852925a24e1448af34e9efc62598, type: 3}
   - {fileID: 21300000, guid: f4848e3a447d75c4c95abc89cb4c15d4, type: 3}
-  - {fileID: 21300000, guid: c0e44c7a05a91fb479e926fa8bbc372a, type: 3}
   - {fileID: 21300000, guid: 1c453a8a2f592ad45b6216a95f6eb8c6, type: 3}
-  - {fileID: 21300000, guid: 07b88e0d1e83fc647a317d85949a4acc, type: 3}
   - {fileID: 21300000, guid: 6be4d63ebd8affa439f894a5797a10ed, type: 3}
   - {fileID: 21300000, guid: d7d6500f025188440aeea1576f736205, type: 3}
   m_PackedSpriteNamesToIndex:
-  - BeeHouse
   - kazarma_ptchelinoi_gvardii
   - "\u041E\u0440\u0443\u0436\u0435\u0439\u043D\u0430\u044F_2"
   - "\u0412\u043E\u0441\u043A\u043E\u0432\u0430\u044F-\u0432\u044B\u0448\u043A\u0430_1"
@@ -97,11 +100,8 @@ SpriteAtlas:
   - "\u0412\u043E\u0441\u043A\u043E\u0434\u0435\u043B\u044C\u043D\u044F_1"
   - Sklad
   - pchelinaya_mina
-  - "\u0412\u043E\u0441\u043A\u043E\u0434\u0435\u043B\u044C\u043D\u044F"
   - "\u0412\u043E\u0441\u043A\u043E\u0432\u0430\u044F-\u0432\u044B\u0448\u043A\u0430_3"
-  - WaxTower
   - "\u0412\u043E\u0441\u043A\u043E\u0434\u0435\u043B\u044C\u043D\u044F_3"
-  - oruzheinaya (1)
   - "\u041E\u0440\u0443\u0436\u0435\u0439\u043D\u0430\u044F_1"
   - ulei
   m_RenderDataMap: {}
