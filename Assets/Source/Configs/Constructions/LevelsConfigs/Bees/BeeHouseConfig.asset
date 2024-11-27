@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62dd7f0cf075407195d448ddef116a2c, type: 3}
   m_Name: BeeHouseConfig
   m_EditorClassIdentifier: 
+  <BuildDuration>k__BackingField: 4
   buyCost:
     _cells:
     - Key: 0
       Value: 10
   levels:
-  - maxHealPoints: 1000
+  - view: {fileID: 21300000, guid: e40e00f5e9266054189c5e64d5987635, type: 3}
+    maxHealPoints: 1000
     levelUpCost:
       _cells: []
     resourceCapacity:
@@ -25,7 +27,17 @@ MonoBehaviour:
       - Key: 1
         Value: 10
     <HiderCapacity>k__BackingField: 1
-  - maxHealPoints: 2000
+  - view: {fileID: 21300000, guid: 26e22b2765df4c54e8530023874b9daa, type: 3}
+    maxHealPoints: 2000
+    levelUpCost:
+      _cells: []
+    resourceCapacity:
+      _cells:
+      - Key: 1
+        Value: 20
+    <HiderCapacity>k__BackingField: 2
+  - view: {fileID: 21300000, guid: d9c82ea55faee9c40a59442987b67625, type: 3}
+    maxHealPoints: 2000
     levelUpCost:
       _cells: []
     resourceCapacity:
