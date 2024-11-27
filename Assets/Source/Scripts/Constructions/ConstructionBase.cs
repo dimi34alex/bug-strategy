@@ -83,6 +83,14 @@ namespace BugStrategy.Constructions
             }
         }
 
+        public void Demolition()
+        {
+            IsActive = false;
+            MissionData.ConstructionsRepository.GetConstruction(transform.position, true);
+            SendDeactivateEvent();
+            Destroy(gameObject);
+        }
+
         public virtual void TakeRepair(IRepairApplicator repairApplicator)
         {
             _healthStorage.ChangeValue(repairApplicator.Rapair);

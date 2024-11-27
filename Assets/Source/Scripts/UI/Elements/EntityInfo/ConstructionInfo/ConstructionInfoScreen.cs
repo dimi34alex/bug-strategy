@@ -15,6 +15,7 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
     public class ConstructionInfoScreen : EntityInfoScreen
     {
         [SerializeField] private Button _upgradeButton;
+        [SerializeField] private Button _demolitionButton;
         [SerializeField] private GameObject _dopPanel;
 
         private ConstructionBase _construction;
@@ -35,6 +36,7 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
         {
             OnAwake();
             _upgradeButton.onClick.AddListener(OnUpgradeButtonClicked);
+            _demolitionButton.onClick.AddListener(OnDemolitionButtonClicked);
             _uiConstructionsConfig = ConfigsRepository.ConfigsRepository.FindConfig<UIConstructionsConfig>();
 
             _actionsUIView = GetComponentInChildren<ConstructionActionsUIView>();
@@ -138,6 +140,17 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
         {
             if (_construction.TryCast(out IEvolveConstruction evolveConstruction))
                 evolveConstruction.LevelSystem.TryLevelUp();
+        }
+
+        private void OnDemolitionButtonClicked()
+        {
+            if (_construction.ConstructionID == ConstructionID.BeeTownHall ||
+                _construction.ConstructionID == ConstructionID.AntTownHall ||
+                _construction.ConstructionID == ConstructionID.ButterflyTownHall)
+                return;
+
+            _construction.Demolition();
+            Hide();
         }
 
         public override void Hide()
