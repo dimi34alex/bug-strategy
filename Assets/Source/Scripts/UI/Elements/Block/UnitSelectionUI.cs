@@ -13,7 +13,7 @@ public class UnitSelectionUI : MonoBehaviour
     [SerializeField] private Transform iconPanelParent;
     [SerializeField] private UIUnitsConfig uiUnitsConfig;
 
-    [SerializeField] private int maxIcons = 15; // максимальное количество иконок (например, 3 ряда по 5)
+    [SerializeField] private int maxIcons = 15; 
 
     [Inject] private UnitsSelector _unitsSelector;
     private List<GameObject> iconPool = new List<GameObject>();
@@ -38,22 +38,18 @@ public class UnitSelectionUI : MonoBehaviour
             return;
         }
 
-        // Инициализация пула иконок
         InitializeIconPool();
 
-        // Подписка на событие изменения выделения
         _unitsSelector.OnSelectionChanged += UpdateUnitIcons;
     }
 
     private void OnDestroy()
     {
-        // Отписываемся от события при уничтожении объекта
         _unitsSelector.OnSelectionChanged -= UpdateUnitIcons;
     }
 
     private void InitializeIconPool()
     {
-        // Создаем максимальное количество иконок и деактивируем их
         for (int i = 0; i < maxIcons; i++)
         {
             GameObject icon = Instantiate(iconPrefab, iconPanelParent);
@@ -64,16 +60,13 @@ public class UnitSelectionUI : MonoBehaviour
 
     private void UpdateUnitIcons()
     {
-        // Получаем выделенные юниты
         IReadOnlyList<UnitBase> selectedUnits = _unitsSelector.GetSelectedUnits();
 
-        // Деактивируем все иконки
         foreach (GameObject icon in iconPool)
         {
             icon.SetActive(false);
         }
 
-        // Активируем и обновляем нужное количество иконок
         for (int i = 0; i < Mathf.Min(selectedUnits.Count, maxIcons); i++)
         {
             UnitBase unit = selectedUnits[i];
@@ -83,7 +76,6 @@ public class UnitSelectionUI : MonoBehaviour
                 GameObject icon = iconPool[i];
                 icon.SetActive(true);
 
-                // Устанавливаем спрайт для юнита
                 Image[] images = icon.GetComponentsInChildren<Image>();
                 if (images.Length >= 2)
                 {
