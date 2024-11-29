@@ -12,10 +12,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aadd38f0a70047e3962d5e40b4729044, type: 3}
   m_Name: BeesWaxProduceConfig
   m_EditorClassIdentifier: 
+  <BuildDuration>k__BackingField: 4
   buyCost:
     _cells: []
   levels:
-  - maxHealPoints: 1000
+  - view: {fileID: 21300000, guid: 76656ac7f58e38c43a1e15be1bb6a708, type: 3}
+    maxHealPoints: 1000
+    levelUpCost:
+      _cells: []
+    resourceCapacity:
+      _cells: []
+    resourceConversionProccessInfo:
+      _targetResourceID: 5
+      _producePerSecond: 10
+      _producedResourceCapacity: 50
+      _spendableResourceID: 0
+      _spendRatio: 0.5
+      _spendableResourceCapacity: 100
+    <HiderCapacity>k__BackingField: 1
+  - view: {fileID: 21300000, guid: 09ce2987777138342839aaa0cf728111, type: 3}
+    maxHealPoints: 1000
+    levelUpCost:
+      _cells: []
+    resourceCapacity:
+      _cells: []
+    resourceConversionProccessInfo:
+      _targetResourceID: 5
+      _producePerSecond: 10
+      _producedResourceCapacity: 50
+      _spendableResourceID: 0
+      _spendRatio: 0.5
+      _spendableResourceCapacity: 100
+    <HiderCapacity>k__BackingField: 1
+  - view: {fileID: 21300000, guid: 1c453a8a2f592ad45b6216a95f6eb8c6, type: 3}
+    maxHealPoints: 1000
     levelUpCost:
       _cells: []
     resourceCapacity:
