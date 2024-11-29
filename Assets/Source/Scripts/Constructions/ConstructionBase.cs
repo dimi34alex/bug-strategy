@@ -89,6 +89,8 @@ namespace BugStrategy.Constructions
             MissionData.ConstructionsRepository.GetConstruction(transform.position, true);
             SendDeactivateEvent();
             Destroy(gameObject);
+
+            if(ConstructionID != ConstructionID.BeeWaxTower) OnDestruction?.Invoke();
         }
 
         public virtual void TakeRepair(IRepairApplicator repairApplicator)
