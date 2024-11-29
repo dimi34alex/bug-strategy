@@ -12,24 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9165e78ef97544b5bda6df108763fa9b, type: 3}
   m_Name: AntRangeWorkshopConfig
   m_EditorClassIdentifier: 
+  <BuildDuration>k__BackingField: 4
   buyCost:
     _cells: []
   levels:
-  - maxHealPoints: 1000
+  - view: {fileID: 21300000, guid: a7380a48f6027374d92ff3ef3e4bf928, type: 3}
+    maxHealPoints: 1000
     levelUpCost:
       _cells: []
     resourceCapacity:
       _cells: []
     <CapacityPerTool>k__BackingField: 10
     <RangAccess>k__BackingField: 1
-  - maxHealPoints: 1000
+  - view: {fileID: 21300000, guid: a14e6573d7a79c44ab75c53f2c5d3c29, type: 3}
+    maxHealPoints: 1000
     levelUpCost:
       _cells: []
     resourceCapacity:
       _cells: []
     <CapacityPerTool>k__BackingField: 10
     <RangAccess>k__BackingField: 2
-  - maxHealPoints: 1000
+  - view: {fileID: 21300000, guid: 97fdb4200ff58ee4885467aefb2a126a, type: 3}
+    maxHealPoints: 1000
     levelUpCost:
       _cells: []
     resourceCapacity:
