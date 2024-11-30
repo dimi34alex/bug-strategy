@@ -1,15 +1,19 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
+using System;
 
 namespace BugStrategy.Unit.UnitSelection
 {
     public class UnitsSelector
     {
         [Inject] private readonly IUnitRepository _unitRepository;
-    
+
         private List<UnitBase> UnitsInScreen => _unitRepository.AllUnits;
         private readonly List<UnitBase> _selectedUnits = new();
+
+        
+        public event Action OnSelectionChanged;
 
         public bool SelectUnits(Vector3 selectedStartPoint, Vector3 selectedEndPoint)
         {
@@ -28,7 +32,7 @@ namespace BugStrategy.Unit.UnitSelection
             foreach (var unit in UnitsInScreen)
             {
                 var unitCoordinate = new Vector2(unit.transform.position.x, unit.transform.position.z);
-          
+
                 if (CheckSelectionBounds(unitCoordinate, startPoint, endPoint))
                 {
                     anyUnit = true;
@@ -36,7 +40,10 @@ namespace BugStrategy.Unit.UnitSelection
                     _selectedUnits.Add(unit);
                 }
             }
+
             
+            OnSelectionChanged?.Invoke();
+
             return anyUnit;
         }
 
@@ -51,24 +58,26 @@ namespace BugStrategy.Unit.UnitSelection
             return CheckValueInRange(point.x, minX, maxX) && CheckValueInRange(point.y, minY, maxY);
         }
 
-        private static bool CheckValueInRange(float value, float minValue, float maxValue) 
+        private static bool CheckValueInRange(float value, float minValue, float maxValue)
             => (value > minValue && value < maxValue);
 
-        public IReadOnlyList<UnitBase> GetSelectedUnits() 
+        public IReadOnlyList<UnitBase> GetSelectedUnits()
             => _selectedUnits;
-        
-        public IReadOnlyList<UnitBase> GetSelectedUnits(UnitType unitType) 
+
+        public IReadOnlyList<UnitBase> GetSelectedUnits(UnitType unitType)
             => _selectedUnits.FindAll(unitBase => unitBase.UnitType == unitType);
 
         public void DeselectAll()
         {
-            foreach (var unit in _selectedUnits) 
+            foreach (var unit in _selectedUnits)
                 unit.Deselect();
-            
+
             _selectedUnits.Clear();
+
+            
+            OnSelectionChanged?.Invoke();
         }
     }
-
 
     public static class RingStepPositionGenerator
     {
