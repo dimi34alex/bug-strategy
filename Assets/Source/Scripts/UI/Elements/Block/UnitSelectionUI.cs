@@ -12,8 +12,7 @@ public class UnitSelectionUI : MonoBehaviour
     [SerializeField] private GameObject iconPrefab;
     [SerializeField] private Transform iconPanelParent;
     [SerializeField] private UIUnitsConfig uiUnitsConfig;
-
-    [SerializeField] private int maxIcons = 15; 
+    [SerializeField] private int maxIcons = 15;
 
     [Inject] private UnitsSelector _unitsSelector;
     private List<GameObject> iconPool = new List<GameObject>();
@@ -22,24 +21,23 @@ public class UnitSelectionUI : MonoBehaviour
     {
         if (iconPrefab == null)
         {
-            Debug.LogError("Icon prefab is not assigned.");
+            Debug.LogError("Префаба иконки нет");
             return;
         }
 
         if (iconPanelParent == null)
         {
-            Debug.LogError("Icon panel parent is not assigned.");
+            Debug.LogError("Родительский объект панели иконок не назначен.");
             return;
         }
 
         if (uiUnitsConfig == null)
         {
-            Debug.LogError("UI Units Config is not assigned.");
+            Debug.LogError("Конфига UI юнитов нет.");
             return;
         }
 
         InitializeIconPool();
-
         _unitsSelector.OnSelectionChanged += UpdateUnitIcons;
     }
 
@@ -83,9 +81,22 @@ public class UnitSelectionUI : MonoBehaviour
                 }
                 else
                 {
-                    Debug.LogError("Not enough Image components found in icon prefab. Expected at least 2.");
+                    Debug.LogError("Недостаточно компонентов Image в префабе иконки. Должно быть 2.");
                 }
             }
+        }
+    }
+
+    public void ShowIcons()
+    {
+        UpdateUnitIcons();
+    }
+
+    public void HideIcons()
+    {
+        foreach (GameObject icon in iconPool)
+        {
+            icon.SetActive(false);
         }
     }
 }

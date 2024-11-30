@@ -1,5 +1,4 @@
-
-using System.Collections.Generic;
+п»їusing System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using BugStrategy.Unit;
@@ -13,31 +12,25 @@ using BugStrategy.Unit.UnitSelection;
 public class BuildingUnitsUI : MonoBehaviour
 {
     [SerializeField] private GameObject iconPrefab;
-
     [SerializeField] private Transform iconPanelParent;
-
     [SerializeField] private UIUnitsConfig uiUnitsConfig;
-
     [SerializeField] private int maxIcons = 5;
 
     [Inject] private MissionData _missionData;
-
     [Inject] private UnitsSelector _unitsSelector;
 
     private List<GameObject> iconPool = new List<GameObject>();
-
     private IHiderConstruction currentHiderConstruction;
 
     private void Start()
     {
         if (_missionData.ConstructionSelector == null)
         {
-            Debug.LogError("Селектор построек не найден в данных миссии.");
+            Debug.LogError("РЎРµР»РµРєС‚РѕСЂ РїРѕСЃС‚СЂРѕРµРє РЅРµ РЅР°Р№РґРµРЅ РІ missionData.");
             return;
         }
 
         InitializeIconPool();
-
         _missionData.ConstructionSelector.OnSelectionChange += UpdateBuildingUnitIcons;
     }
 
@@ -46,9 +39,8 @@ public class BuildingUnitsUI : MonoBehaviour
         for (int i = 0; i < maxIcons; i++)
         {
             GameObject iconInstance = Instantiate(iconPrefab, iconPanelParent);
-
             Button iconButton = iconInstance.AddComponent<Button>();
-            int index = i; 
+            int index = i;
             iconButton.onClick.AddListener(() => ExtractUnit(index));
 
             iconInstance.SetActive(false);
@@ -85,12 +77,10 @@ public class BuildingUnitsUI : MonoBehaviour
         if (selectedConstruction == null || !(selectedConstruction is IHiderConstruction))
         {
             currentHiderConstruction = null;
-            _unitsSelector.DeselectAll();
             return;
         }
 
         currentHiderConstruction = (IHiderConstruction)selectedConstruction;
-
         IReadOnlyList<HiderCellBase> hiddenUnits = currentHiderConstruction.Hider.HiderCells;
 
         for (int i = 0; i < Mathf.Min(hiddenUnits.Count, maxIcons); i++)
@@ -106,18 +96,17 @@ public class BuildingUnitsUI : MonoBehaviour
             Image[] images = iconInstance.GetComponentsInChildren<Image>();
             if (images.Length >= 2)
             {
-
                 images[1].sprite = unitConfig.InfoSprite;
                 iconInstance.SetActive(true);
             }
             else
             {
-                Debug.LogError("Недостаточно компонентов Image в префабе иконки.");
+                Debug.LogError("РќРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РєРѕРјРїРѕРЅРµРЅС‚РѕРІ Image РІ РїСЂРµС„Р°Р±Рµ РёРєРѕРЅРєРё.");
             }
         }
         else
         {
-            Debug.LogWarning($"Не найдена конфигурация UI для типа юнита: {unit.UnitType}");
+            Debug.LogWarning($"РќРµ РЅР°Р№РґРµРЅР° РєРѕРЅС„РёРіСѓСЂР°С†РёСЏ UI РґР»СЏ С‚РёРїР° СЋРЅРёС‚Р°: {unit.UnitType}");
         }
     }
 
@@ -126,21 +115,20 @@ public class BuildingUnitsUI : MonoBehaviour
         if (currentHiderConstruction?.Hider == null ||
             currentHiderConstruction.Hider.HiderCells.Count <= index)
         {
-            Debug.LogWarning("Нет доступного юнита для извлечения по указанному индексу.");
+            Debug.LogWarning("РќРµС‚ РґРѕСЃС‚СѓРїРЅРѕРіРѕ СЋРЅРёС‚Р° РґР»СЏ РёР·РІР»РµС‡РµРЅРёСЏ РїРѕ СѓРєР°Р·Р°РЅРЅРѕРјСѓ РёРЅРґРµРєСЃСѓ.");
             return;
         }
 
         Vector3 extractPosition = GetRandomExtractPosition(currentHiderConstruction);
-
         UnitBase extractedUnit = currentHiderConstruction.Hider.ExtractUnit(index, extractPosition);
 
         if (extractedUnit != null)
         {
-            Debug.Log($"Юнит {extractedUnit.UnitType} извлечен из здания.");
+            Debug.Log($"Р®РЅРёС‚ {extractedUnit.UnitType} РёР·РІР»РµС‡РµРЅ РёР· Р·РґР°РЅРёСЏ.");
         }
         else
         {
-            Debug.LogWarning("Не удалось извлечь юнита.");
+            Debug.LogWarning("РќРµ СѓРґР°Р»РѕСЃСЊ РёР·РІР»РµС‡СЊ СЋРЅРёС‚Р°.");
         }
 
         UpdateBuildingUnitIcons();
@@ -149,9 +137,7 @@ public class BuildingUnitsUI : MonoBehaviour
     private Vector3 GetRandomExtractPosition(IHiderConstruction hiderConstruction)
     {
         Vector3 buildingPosition = ((MonoBehaviour)hiderConstruction).transform.position;
-
         float radius = 2f;
-
         float angle = Random.Range(0f, 360f) * Mathf.Deg2Rad;
 
         return buildingPosition + new Vector3(
@@ -159,5 +145,18 @@ public class BuildingUnitsUI : MonoBehaviour
             0,
             Mathf.Sin(angle) * radius
         );
+    }
+
+    public void ShowIcons()
+    {
+        UpdateBuildingUnitIcons();
+    }
+
+    public void HideIcons()
+    {
+        foreach (GameObject icon in iconPool)
+        {
+            icon.SetActive(false);
+        }
     }
 }
