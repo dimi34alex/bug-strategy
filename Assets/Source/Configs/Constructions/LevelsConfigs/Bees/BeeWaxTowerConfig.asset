@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2719f800bc9d4c49911017b40ec4fb3a, type: 3}
   m_Name: BeeWaxTowerConfig
   m_EditorClassIdentifier: 
+  <BuildDuration>k__BackingField: 4
   buyCost:
     _cells: []
   levels:
-  - maxHealPoints: 10
+  - view: {fileID: 21300000, guid: 3cb3cb037941caf408c72c377ab68e50, type: 3}
+    maxHealPoints: 10
     levelUpCost:
       _cells: []
     resourceCapacity:
@@ -25,10 +27,8 @@ MonoBehaviour:
     <SpawnPause>k__BackingField: 0.5
     <Damage>k__BackingField: 5
     <Cooldown>k__BackingField: 2
-    <MoveSpeedChangerConfig>k__BackingField:
-      <Power>k__BackingField: -25
-      <Time>k__BackingField: 5
-  - maxHealPoints: 750
+  - view: {fileID: 21300000, guid: a3df3574b34085f4596c083ab35e79a3, type: 3}
+    maxHealPoints: 750
     levelUpCost:
       _cells: []
     resourceCapacity:
@@ -38,10 +38,8 @@ MonoBehaviour:
     <SpawnPause>k__BackingField: 0.5
     <Damage>k__BackingField: 5
     <Cooldown>k__BackingField: 2
-    <MoveSpeedChangerConfig>k__BackingField:
-      <Power>k__BackingField: -25
-      <Time>k__BackingField: 5
-  - maxHealPoints: 1000
+  - view: {fileID: 21300000, guid: f4848e3a447d75c4c95abc89cb4c15d4, type: 3}
+    maxHealPoints: 1000
     levelUpCost:
       _cells: []
     resourceCapacity:
@@ -51,6 +49,3 @@ MonoBehaviour:
     <SpawnPause>k__BackingField: 0.5
     <Damage>k__BackingField: 5
     <Cooldown>k__BackingField: 2
-    <MoveSpeedChangerConfig>k__BackingField:
-      <Power>k__BackingField: -50
-      <Time>k__BackingField: 5

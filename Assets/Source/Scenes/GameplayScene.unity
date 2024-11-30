@@ -1874,9 +1874,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac1edbe8b64758d4197d9f84412842a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  field: {fileID: 291144843}
   _moveSpeed: 10
   _camera: {fileID: 1844035348}
-  field: {fileID: 291144843}
+  CameraMoveSpeed: 25
+  PercentageOfScreen: 2
 --- !u!114 &1844035352
 MonoBehaviour:
   m_ObjectHideFlags: 0
