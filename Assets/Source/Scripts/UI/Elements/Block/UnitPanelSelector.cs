@@ -1,22 +1,26 @@
+using System.Collections.Generic;
 using UnityEngine;
 using BugStrategy.Unit.UnitSelection;
 using BugStrategy.Missions;
-using BugStrategy.Constructions;
+using BugStrategy.Unit;
 using BugStrategy.UnitsHideCore;
 using Zenject;
 
 public class UnitPanelSelector : MonoBehaviour
 {
+    [SerializeField] private UnitSelectionUI unitSelectionUI;
+    [SerializeField] private BuildingUnitsUI buildingUnitsUI;
+    [SerializeField] private GameObject panel;
+    
     [Inject] private UnitsSelector _unitsSelector;
     [Inject] private MissionData _missionData;
-
-    [SerializeField] private UnitSelectionUI _unitSelectionUI;
-    [SerializeField] private BuildingUnitsUI _buildingUnitsUI;
 
     private void Awake()
     {
         _unitsSelector.OnSelectionChanged += UpdateUnitPanel;
         _missionData.ConstructionSelector.OnSelectionChange += UpdateUnitPanel;
+        
+        UpdateUnitPanel();
     }
 
     private void OnDestroy()
@@ -34,16 +38,16 @@ public class UnitPanelSelector : MonoBehaviour
         {
             if (selectedConstruction is IHiderConstruction hiderConstruction)
             {
-                ShowBuildingUnitsPanel();
+                ShowBuildingUnitsPanel(hiderConstruction);
             }
             else
             {
-                ShowSelectedUnitsPanel();
+                ShowSelectedUnitsPanel(selectedUnits);
             }
         }
-        else if (selectedConstruction is IHiderConstruction)
+        else if (selectedConstruction is IHiderConstruction hiderConstruction)
         {
-            ShowBuildingUnitsPanel();
+            ShowBuildingUnitsPanel(hiderConstruction);
         }
         else
         {
@@ -51,21 +55,24 @@ public class UnitPanelSelector : MonoBehaviour
         }
     }
 
-    private void ShowSelectedUnitsPanel()
+    private void ShowSelectedUnitsPanel(IReadOnlyList<UnitBase> selectedUnits)
     {
-        _unitSelectionUI.ShowIcons();
-        _buildingUnitsUI.HideIcons();
+        panel.SetActive(true);
+        unitSelectionUI.ShowIcons(selectedUnits);
+        buildingUnitsUI.HideIcons();
     }
 
-    private void ShowBuildingUnitsPanel()
+    private void ShowBuildingUnitsPanel(IHiderConstruction hiderConstruction)
     {
-        _unitSelectionUI.HideIcons();
-        _buildingUnitsUI.ShowIcons();
+        panel.SetActive(true);
+        unitSelectionUI.HideIcons();
+        buildingUnitsUI.ShowIcons(hiderConstruction);
     }
 
     private void HideBothPanels()
     {
-        _unitSelectionUI.HideIcons();
-        _buildingUnitsUI.HideIcons();
+        panel.SetActive(false);
+        unitSelectionUI.HideIcons();
+        buildingUnitsUI.HideIcons();
     }
 }

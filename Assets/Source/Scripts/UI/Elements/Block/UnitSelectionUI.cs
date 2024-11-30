@@ -3,9 +3,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using BugStrategy.Unit;
 using BugStrategy.UI.Elements.EntityInfo.UnitInfo;
-using BugStrategy.Unit.UnitSelection;
-using Zenject;
-using System;
 
 public class UnitSelectionUI : MonoBehaviour
 {
@@ -14,8 +11,7 @@ public class UnitSelectionUI : MonoBehaviour
     [SerializeField] private UIUnitsConfig uiUnitsConfig;
     [SerializeField] private int maxIcons = 15;
 
-    [Inject] private UnitsSelector _unitsSelector;
-    private List<GameObject> iconPool = new List<GameObject>();
+    private readonly List<GameObject> _iconPool = new();
 
     private void Awake()
     {
@@ -38,12 +34,6 @@ public class UnitSelectionUI : MonoBehaviour
         }
 
         InitializeIconPool();
-        _unitsSelector.OnSelectionChanged += UpdateUnitIcons;
-    }
-
-    private void OnDestroy()
-    {
-        _unitsSelector.OnSelectionChanged -= UpdateUnitIcons;
     }
 
     private void InitializeIconPool()
@@ -52,15 +42,26 @@ public class UnitSelectionUI : MonoBehaviour
         {
             GameObject icon = Instantiate(iconPrefab, iconPanelParent);
             icon.SetActive(false);
-            iconPool.Add(icon);
+            _iconPool.Add(icon);
+        }
+    }
+    
+    public void ShowIcons(IReadOnlyList<UnitBase> selectedUnits)
+    {
+        UpdateUnitIcons(selectedUnits);
+    }
+
+    public void HideIcons()
+    {
+        foreach (GameObject icon in _iconPool)
+        {
+            icon.SetActive(false);
         }
     }
 
-    private void UpdateUnitIcons()
+    private void UpdateUnitIcons(IReadOnlyList<UnitBase> selectedUnits)
     {
-        IReadOnlyList<UnitBase> selectedUnits = _unitsSelector.GetSelectedUnits();
-
-        foreach (GameObject icon in iconPool)
+        foreach (GameObject icon in _iconPool)
         {
             icon.SetActive(false);
         }
@@ -71,7 +72,7 @@ public class UnitSelectionUI : MonoBehaviour
 
             if (uiUnitsConfig.UnitsUIConfigs.TryGetValue(unit.UnitType, out UIUnitConfig unitConfig))
             {
-                GameObject icon = iconPool[i];
+                GameObject icon = _iconPool[i];
                 icon.SetActive(true);
 
                 Image[] images = icon.GetComponentsInChildren<Image>();
@@ -84,19 +85,6 @@ public class UnitSelectionUI : MonoBehaviour
                     Debug.LogError("Недостаточно компонентов Image в префабе иконки. Должно быть 2.");
                 }
             }
-        }
-    }
-
-    public void ShowIcons()
-    {
-        UpdateUnitIcons();
-    }
-
-    public void HideIcons()
-    {
-        foreach (GameObject icon in iconPool)
-        {
-            icon.SetActive(false);
         }
     }
 }

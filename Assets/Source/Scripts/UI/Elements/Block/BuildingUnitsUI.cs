@@ -4,10 +4,6 @@ using UnityEngine.UI;
 using BugStrategy.Unit;
 using BugStrategy.UI.Elements.EntityInfo.UnitInfo;
 using BugStrategy.UnitsHideCore;
-using BugStrategy.Constructions;
-using Zenject;
-using BugStrategy.Missions;
-using BugStrategy.Unit.UnitSelection;
 
 public class BuildingUnitsUI : MonoBehaviour
 {
@@ -16,22 +12,12 @@ public class BuildingUnitsUI : MonoBehaviour
     [SerializeField] private UIUnitsConfig uiUnitsConfig;
     [SerializeField] private int maxIcons = 5;
 
-    [Inject] private MissionData _missionData;
-    [Inject] private UnitsSelector _unitsSelector;
-
-    private List<GameObject> iconPool = new List<GameObject>();
-    private IHiderConstruction currentHiderConstruction;
+    private readonly List<GameObject> _iconPool = new();
+    private IHiderConstruction _currentHiderConstruction;
 
     private void Start()
     {
-        if (_missionData.ConstructionSelector == null)
-        {
-            Debug.LogError("Селектор построек не найден в missionData.");
-            return;
-        }
-
         InitializeIconPool();
-        _missionData.ConstructionSelector.OnSelectionChange += UpdateBuildingUnitIcons;
     }
 
     private void InitializeIconPool()
@@ -44,18 +30,13 @@ public class BuildingUnitsUI : MonoBehaviour
             iconButton.onClick.AddListener(() => ExtractUnit(index));
 
             iconInstance.SetActive(false);
-            iconPool.Add(iconInstance);
+            _iconPool.Add(iconInstance);
         }
     }
 
     private void OnDestroy()
     {
-        if (_missionData.ConstructionSelector != null)
-        {
-            _missionData.ConstructionSelector.OnSelectionChange -= UpdateBuildingUnitIcons;
-        }
-
-        foreach (GameObject iconInstance in iconPool)
+        foreach (GameObject iconInstance in _iconPool)
         {
             Button button = iconInstance.GetComponent<Button>();
             if (button != null)
@@ -64,28 +45,39 @@ public class BuildingUnitsUI : MonoBehaviour
             }
         }
     }
-
-    private void UpdateBuildingUnitIcons()
+    
+    public void ShowIcons(IHiderConstruction selectedConstruction)
     {
-        foreach (GameObject icon in iconPool)
+        UpdateBuildingUnitIcons(selectedConstruction);
+    }
+
+    public void HideIcons()
+    {
+        foreach (GameObject icon in _iconPool)
+        {
+            icon.SetActive(false);
+        }
+    }
+
+    private void UpdateBuildingUnitIcons(IHiderConstruction selectedConstruction)
+    {
+        foreach (GameObject icon in _iconPool)
         {
             icon.SetActive(false);
         }
 
-        ConstructionBase selectedConstruction = _missionData.ConstructionSelector.SelectedConstruction;
-
-        if (selectedConstruction == null || !(selectedConstruction is IHiderConstruction))
+        if (selectedConstruction == null)
         {
-            currentHiderConstruction = null;
+            _currentHiderConstruction = null;
             return;
         }
 
-        currentHiderConstruction = (IHiderConstruction)selectedConstruction;
-        IReadOnlyList<HiderCellBase> hiddenUnits = currentHiderConstruction.Hider.HiderCells;
+        _currentHiderConstruction = selectedConstruction;
+        IReadOnlyList<HiderCellBase> hiddenUnits = _currentHiderConstruction.Hider.HiderCells;
 
         for (int i = 0; i < Mathf.Min(hiddenUnits.Count, maxIcons); i++)
         {
-            UpdateUnitIcon(hiddenUnits[i], iconPool[i]);
+            UpdateUnitIcon(hiddenUnits[i], _iconPool[i]);
         }
     }
 
@@ -112,15 +104,15 @@ public class BuildingUnitsUI : MonoBehaviour
 
     private void ExtractUnit(int index)
     {
-        if (currentHiderConstruction?.Hider == null ||
-            currentHiderConstruction.Hider.HiderCells.Count <= index)
+        if (_currentHiderConstruction?.Hider == null ||
+            _currentHiderConstruction.Hider.HiderCells.Count <= index)
         {
             Debug.LogWarning("Нет доступного юнита для извлечения по указанному индексу.");
             return;
         }
 
-        Vector3 extractPosition = GetRandomExtractPosition(currentHiderConstruction);
-        UnitBase extractedUnit = currentHiderConstruction.Hider.ExtractUnit(index, extractPosition);
+        Vector3 extractPosition = GetRandomExtractPosition(_currentHiderConstruction);
+        UnitBase extractedUnit = _currentHiderConstruction.Hider.ExtractUnit(index, extractPosition);
 
         if (extractedUnit != null)
         {
@@ -131,10 +123,10 @@ public class BuildingUnitsUI : MonoBehaviour
             Debug.LogWarning("Не удалось извлечь юнита.");
         }
 
-        UpdateBuildingUnitIcons();
+        UpdateBuildingUnitIcons(_currentHiderConstruction);
     }
 
-    private Vector3 GetRandomExtractPosition(IHiderConstruction hiderConstruction)
+    private static Vector3 GetRandomExtractPosition(IHiderConstruction hiderConstruction)
     {
         Vector3 buildingPosition = ((MonoBehaviour)hiderConstruction).transform.position;
         float radius = 2f;
@@ -145,18 +137,5 @@ public class BuildingUnitsUI : MonoBehaviour
             0,
             Mathf.Sin(angle) * radius
         );
-    }
-
-    public void ShowIcons()
-    {
-        UpdateBuildingUnitIcons();
-    }
-
-    public void HideIcons()
-    {
-        foreach (GameObject icon in iconPool)
-        {
-            icon.SetActive(false);
-        }
     }
 }

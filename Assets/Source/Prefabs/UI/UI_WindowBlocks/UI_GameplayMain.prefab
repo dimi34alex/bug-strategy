@@ -3455,8 +3455,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07ea5e38494ed984296d943bf43fa2f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unitSelectionUI: {fileID: 5894503987519996929}
-  _buildingUnitsUI: {fileID: 916205852697350968}
+  unitSelectionUI: {fileID: 5894503987519996929}
+  buildingUnitsUI: {fileID: 916205852697350968}
+  panel: {fileID: 4483450126756066183}
 --- !u!1 &1575344183405686846
 GameObject:
   m_ObjectHideFlags: 0
