@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 253664915878742317}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: -0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3522503465423311985}
@@ -350,7 +350,6 @@ MonoBehaviour:
   dynamicUnitZone: {fileID: 7125466420243971278}
   config: {fileID: 11400000, guid: b2a49cc7b620a9542827c46cad3a86b1, type: 2}
   resource: {fileID: 556127432556933653}
-  animator: {fileID: 0}
   ProfessionType: 0
   Rang: 0
 --- !u!1 &5598300324912119502
