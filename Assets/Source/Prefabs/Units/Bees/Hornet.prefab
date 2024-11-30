@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 346785864264877046}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 1}
+  m_LocalScale: {x: 0.24, y: 0.24, z: 0.24}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4570646420656040441}
@@ -434,28 +434,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3540540912837647237, guid: 870c24b73013ba147a7abb7a044126dc, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3540540912837647237, guid: 870c24b73013ba147a7abb7a044126dc, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3540540912837647237, guid: 870c24b73013ba147a7abb7a044126dc, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3540540912837647237, guid: 870c24b73013ba147a7abb7a044126dc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.98
+      value: -10.01
       objectReference: {fileID: 0}
     - target: {fileID: 3540540912837647237, guid: 870c24b73013ba147a7abb7a044126dc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.4
+      value: 6.13
       objectReference: {fileID: 0}
     - target: {fileID: 3540540912837647237, guid: 870c24b73013ba147a7abb7a044126dc, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3540540912837647237, guid: 870c24b73013ba147a7abb7a044126dc, type: 3}
       propertyPath: m_LocalRotation.w
@@ -484,10 +472,6 @@ PrefabInstance:
     - target: {fileID: 3540540912837647237, guid: 870c24b73013ba147a7abb7a044126dc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3540540912837647237, guid: 870c24b73013ba147a7abb7a044126dc, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3869597860028427342, guid: 870c24b73013ba147a7abb7a044126dc, type: 3}
       propertyPath: m_Mesh
