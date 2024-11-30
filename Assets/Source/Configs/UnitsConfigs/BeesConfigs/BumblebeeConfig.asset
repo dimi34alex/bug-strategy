@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c0e8a1296f84c79883904898bc15099, type: 3}
   m_Name: BumblebeeConfig
   m_EditorClassIdentifier: 
-  <HealthPoints>k__BackingField: 150
-  <InteractionRange>k__BackingField: 4
-  <Cooldown>k__BackingField: 1
-  <AttackRange>k__BackingField: 4
-  <Damage>k__BackingField: 5
+  <HealthPoints>k__BackingField: 1000
+  <InteractionRange>k__BackingField: 1
+  <Cooldown>k__BackingField: 2
+  <AttackRange>k__BackingField: 2
+  <Damage>k__BackingField: 130
   <ExplosionRadius>k__BackingField: 5
-  <ExplosionDamage>k__BackingField: 25
+  <ExplosionDamage>k__BackingField: 250
   <ExplosionLayers>k__BackingField:
     serializedVersion: 2
     m_Bits: 6144

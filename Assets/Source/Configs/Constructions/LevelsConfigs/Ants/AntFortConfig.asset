@@ -12,10 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d392393ca57408985a0d665f8592183, type: 3}
   m_Name: AntFortConfig
   m_EditorClassIdentifier: 
+  <BuildDuration>k__BackingField: 4
   buyCost:
     _cells: []
   levels:
-  - maxHealPoints: 1000
+  - view: {fileID: 21300000, guid: 7e2d0e89d664a9343a8071961d138562, type: 3}
+    maxHealPoints: 1000
+    levelUpCost:
+      _cells: []
+    resourceCapacity:
+      _cells: []
+  - view: {fileID: 21300000, guid: 2477421995afb524d87e100e7e003f84, type: 3}
+    maxHealPoints: 1000
+    levelUpCost:
+      _cells: []
+    resourceCapacity:
+      _cells: []
+  - view: {fileID: 21300000, guid: ac69a6822b381274f97a1a6d2f55abec, type: 3}
+    maxHealPoints: 1000
     levelUpCost:
       _cells: []
     resourceCapacity:
