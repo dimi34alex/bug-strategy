@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c40d8b96a3ae4d3aab2c52cb39fa5497, type: 3}
   m_Name: HorntailConfig
   m_EditorClassIdentifier: 
-  <HealthPoints>k__BackingField: 100
-  <InteractionRange>k__BackingField: 4
-  <Cooldown>k__BackingField: 1
-  <AttackRange>k__BackingField: 10
-  <Damage>k__BackingField: 5
+  <HealthPoints>k__BackingField: 800
+  <InteractionRange>k__BackingField: 1
+  <Cooldown>k__BackingField: 1.1
+  <AttackRange>k__BackingField: 15
+  <Damage>k__BackingField: 175
   <DamageRadius>k__BackingField: 5
   <SwordStrikeDamage>k__BackingField: 50
   <SwordStrikeDistanceFromCenter>k__BackingField: 2
