@@ -954,7 +954,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 7920375230591245634, guid: 8834182da94993743a527dd14bdeab53, type: 2}
-  m_audioClip: {fileID: 8300000, guid: fe94d85b8bcde9d41a5fca6638509ccf, type: 3}
+  m_audioClip: {fileID: 8300000, guid: f5c59b5233ab3804d99263d6e17d018e, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -1510,17 +1510,6 @@ Transform:
   m_Father: {fileID: 2106415608}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1410356823 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 693691078801739887, guid: bbcf26504a50f8046a7a9df06c7b9918, type: 3}
-  m_PrefabInstance: {fileID: 4266065270895151095}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1428436341
 GameObject:
   m_ObjectHideFlags: 0
@@ -2775,10 +2764,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1186852613040001144, guid: bbcf26504a50f8046a7a9df06c7b9918, type: 3}
-      propertyPath: _demolitionButton
-      value: 
-      objectReference: {fileID: 1410356823}
     - target: {fileID: 1272131665279825240, guid: bbcf26504a50f8046a7a9df06c7b9918, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

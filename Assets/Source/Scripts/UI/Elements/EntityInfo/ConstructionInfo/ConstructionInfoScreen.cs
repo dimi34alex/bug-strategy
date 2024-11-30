@@ -69,7 +69,8 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
                     $"Настоятельно рекомендую проверить есть ли конфиг ({nameof(UIConstructionConfig)} " +
                     $"и добавлен ли он в {nameof(UIConstructionConfig)}) | {exp.Message}");
             }
-            
+
+            ToggleDemolitionButtonVisibility(_construction);
             SetActionsType(ConstructionActionsType.None);
         }
     
@@ -144,14 +145,15 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
 
         private void OnDemolitionButtonClicked()
         {
-            if (_construction.ConstructionID == ConstructionID.BeeTownHall ||
-                _construction.ConstructionID == ConstructionID.AntTownHall ||
-                _construction.ConstructionID == ConstructionID.ButterflyTownHall)
+            if (_construction.CastPossible<TownHallBase>())
                 return;
 
             _construction.Demolition();
             Hide();
         }
+
+        private void ToggleDemolitionButtonVisibility(ConstructionBase construction) 
+            => _demolitionButton.gameObject.SetActive(!_construction.CastPossible<TownHallBase>());
 
         public override void Hide()
         {
