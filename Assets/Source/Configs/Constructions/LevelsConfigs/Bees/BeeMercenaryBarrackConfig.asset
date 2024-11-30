@@ -16,7 +16,7 @@ MonoBehaviour:
   buyCost:
     _cells: []
   levels:
-  - view: {fileID: 0}
+  - view: {fileID: 21300000, guid: ccba1bd31b0c506478d2f5aa0dd6b888, type: 3}
     maxHealPoints: 1000
     levelUpCost:
       _cells: []
