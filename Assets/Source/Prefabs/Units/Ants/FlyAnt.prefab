@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5055061223756790238}
+  - component: {fileID: 7800753014266507267}
   - component: {fileID: 2738424171144551385}
-  - component: {fileID: 5628393535439413605}
   m_Layer: 0
   m_Name: Skin
   m_TagString: Untagged
@@ -33,6 +33,19 @@ Transform:
   m_Father: {fileID: 4867274592923137853}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &7800753014266507267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 253664915878742317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47a659b65f6d4ecb97946eae27e7bcc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitBase: {fileID: 0}
 --- !u!212 &2738424171144551385
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -85,27 +98,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &5628393535439413605
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 253664915878742317}
-  m_Enabled: 0
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 34eca8327e8466742a9d6e64eba837f4, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &556127432556933653
 GameObject:
   m_ObjectHideFlags: 0
@@ -358,7 +350,9 @@ MonoBehaviour:
   dynamicUnitZone: {fileID: 7125466420243971278}
   config: {fileID: 11400000, guid: b2a49cc7b620a9542827c46cad3a86b1, type: 2}
   resource: {fileID: 556127432556933653}
-  animator: {fileID: 5628393535439413605}
+  animator: {fileID: 0}
+  ProfessionType: 0
+  Rang: 0
 --- !u!1 &5598300324912119502
 GameObject:
   m_ObjectHideFlags: 0
@@ -417,7 +411,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6577efbb40a4e834eb6dbde130247f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScriptWithUnitBase: {fileID: 2885223405167819285}
 --- !u!135 &3126739122755692071
 SphereCollider:
   m_ObjectHideFlags: 0
