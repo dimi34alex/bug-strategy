@@ -8,7 +8,7 @@ namespace BugStrategy.ScenesLoading
 
         public event Action OnHided;
         
-        public void Show();
-        public void Hide(bool endInstantly);
+        public void Show(bool instantly, Action onShowedCallback);
+        public void Hide(bool instantly);
     }
 }
