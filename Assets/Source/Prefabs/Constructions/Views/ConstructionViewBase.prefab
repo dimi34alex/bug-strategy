@@ -94,6 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8239665437401881177}
   - component: {fileID: 881750239803683650}
+  - component: {fileID: 8121343423837321733}
   m_Layer: 0
   m_Name: ConstructionViewBase
   m_TagString: Untagged
@@ -130,3 +131,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 3762564038733091886}
+--- !u!114 &8121343423837321733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8973157158759330738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5edb34deda2b4a43869cc277158cc77b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectView: {fileID: 881750239803683650}
+  skin: {fileID: 3762564038733091886}
+  outlineMaterial: {fileID: 2100000, guid: f8942df3ef59c894c9b49b9034f00253, type: 2}
