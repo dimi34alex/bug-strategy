@@ -15,8 +15,6 @@
     
         AntStandard = 100,
         AntBig = 110,
-        AntFlying = 120,
-
-        Caterpillar = 200
+        AntFlying = 120
     }
 }
