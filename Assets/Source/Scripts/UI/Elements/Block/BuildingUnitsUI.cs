@@ -7,6 +7,8 @@ using BugStrategy.UnitsHideCore;
 
 public class BuildingUnitsUI : MonoBehaviour
 {
+    [SerializeField] private UpdateUnit updateUnit;
+
     [SerializeField] private GameObject iconPrefab;
     [SerializeField] private Transform iconPanelParent;
     [SerializeField] private UIUnitsConfig uiUnitsConfig;
@@ -17,6 +19,7 @@ public class BuildingUnitsUI : MonoBehaviour
 
     private void Start()
     {
+        updateUnit = GetComponent<UpdateUnit>();
         InitializeIconPool();
     }
 
@@ -112,8 +115,14 @@ public class BuildingUnitsUI : MonoBehaviour
         }
 
         Vector3 extractPosition = GetRandomExtractPosition(_currentHiderConstruction);
-        UnitBase extractedUnit = _currentHiderConstruction.Hider.ExtractUnit(index, extractPosition);
 
+        UnitBase extractedUnit;
+
+        if(!updateUnit.GetActiveFunc()) 
+            extractedUnit = _currentHiderConstruction.Hider.ExtractUnit(index, extractPosition);
+        else
+            extractedUnit = _currentHiderConstruction.Hider.ExtractUpgradeUnit(index, extractPosition);
+        
         if (extractedUnit != null)
         {
             Debug.Log($"Юнит {extractedUnit.UnitType} извлечен из здания.");
