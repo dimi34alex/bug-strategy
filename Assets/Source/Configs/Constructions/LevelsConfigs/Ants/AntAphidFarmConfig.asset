@@ -12,10 +12,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb1b734bd27541c381ff885477e94c26, type: 3}
   m_Name: AntAphidFarmConfig
   m_EditorClassIdentifier: 
+  <BuildDuration>k__BackingField: 4
   buyCost:
     _cells: []
   levels:
-  - maxHealPoints: 1000
+  - view: {fileID: 21300000, guid: 3ca5444785bebe548b81f368d5212202, type: 3}
+    maxHealPoints: 1000
+    levelUpCost:
+      _cells: []
+    resourceCapacity:
+      _cells: []
+    <UnitsCount>k__BackingField: 10
+    <ResourceProduceProcessInfo>k__BackingField:
+      _targetResourceID: 30
+      _producePerSecond: 0
+      _producedResourceCapacity: 100
+  - view: {fileID: 21300000, guid: 165ffd5ed15def94680e57b88f448fd8, type: 3}
+    maxHealPoints: 1000
+    levelUpCost:
+      _cells: []
+    resourceCapacity:
+      _cells: []
+    <UnitsCount>k__BackingField: 10
+    <ResourceProduceProcessInfo>k__BackingField:
+      _targetResourceID: 30
+      _producePerSecond: 0
+      _producedResourceCapacity: 100
+  - view: {fileID: 21300000, guid: 320d45012ea0db6419c66509108457b0, type: 3}
+    maxHealPoints: 1000
     levelUpCost:
       _cells: []
     resourceCapacity:

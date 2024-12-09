@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8308f7a5649e4e1a9a564310d53280b1, type: 3}
   m_Name: HornetConfig
   m_EditorClassIdentifier: 
-  <HealthPoints>k__BackingField: 150
-  <InteractionRange>k__BackingField: 4
-  <Cooldown>k__BackingField: 2
-  <AttackRange>k__BackingField: 4
-  <Damage>k__BackingField: 15
+  <HealthPoints>k__BackingField: 800
+  <InteractionRange>k__BackingField: 1
+  <Cooldown>k__BackingField: 0.9
+  <AttackRange>k__BackingField: 2
+  <Damage>k__BackingField: 200
   <AbilityCooldown>k__BackingField: 4
-  <CriticalDamageScale>k__BackingField: 5
+  <CriticalDamageScale>k__BackingField: 300

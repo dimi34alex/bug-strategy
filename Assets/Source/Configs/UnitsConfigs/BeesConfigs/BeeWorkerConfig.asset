@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 210477c6b3e841d1b8412bd94d6300bc, type: 3}
   m_Name: BeeWorkerConfig
   m_EditorClassIdentifier: 
-  <HealthPoints>k__BackingField: 100
-  <InteractionRange>k__BackingField: 4
-  <GatheringCapacity>k__BackingField: 10
-  <GatheringTime>k__BackingField: 4
+  <HealthPoints>k__BackingField: 250
+  <InteractionRange>k__BackingField: 1
+  <GatheringCapacity>k__BackingField: 45
+  <GatheringTime>k__BackingField: 7
