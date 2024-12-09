@@ -15,7 +15,7 @@ namespace BugStrategy.Unit.Ants
     {
         [SerializeField] private AntUnitConfig config;
         [SerializeField] private GameObject resource;
-        [SerializeField] private Animator animator;
+        // [SerializeField] private Animator animator;
 
         [Inject] private readonly ProjectilesFactory _projectilesFactory;
         [Inject] private readonly ITeamsResourcesGlobalStorage _teamsResourcesGlobalStorage;
@@ -137,7 +137,7 @@ namespace BugStrategy.Unit.Ants
             /*need because worker can have resource in the hands,
              so it is need for hide resource skin with profession changing*/
             resource.SetActive(false);
-            animator.runtimeAnimatorController = newProfession.AnimatorController;
+            // animator.runtimeAnimatorController = newProfession.AnimatorController;
         }
     }
 }

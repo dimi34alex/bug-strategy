@@ -142,6 +142,7 @@ GameObject:
   - component: {fileID: 3273936442759803449}
   - component: {fileID: 511489469213153529}
   - component: {fileID: 1663867668813073421}
+  - component: {fileID: -7455160639101795869}
   m_Layer: 12
   m_Name: ButterflyPoisonFlower
   m_TagString: Building
@@ -213,6 +214,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-7455160639101795869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8702859435023793180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4be58a052bbe72d4abe49722c409dce3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &128344918904383848
 PrefabInstance:
   m_ObjectHideFlags: 0

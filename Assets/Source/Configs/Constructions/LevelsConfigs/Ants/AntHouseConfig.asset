@@ -12,10 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57b352fbe7b64ed29608aa96d52d03c5, type: 3}
   m_Name: AntHouseConfig
   m_EditorClassIdentifier: 
+  <BuildDuration>k__BackingField: 4
   buyCost:
     _cells: []
   levels:
-  - maxHealPoints: 1000
+  - view: {fileID: 21300000, guid: 1793387632e91b64cb333192ecc9a579, type: 3}
+    maxHealPoints: 1000
+    levelUpCost:
+      _cells: []
+    resourceCapacity:
+      _cells:
+      - Key: 1
+        Value: 10
+  - view: {fileID: 21300000, guid: dfc27a976f9159843bd1aa66895e56b8, type: 3}
+    maxHealPoints: 1000
+    levelUpCost:
+      _cells: []
+    resourceCapacity:
+      _cells:
+      - Key: 1
+        Value: 10
+  - view: {fileID: 21300000, guid: d6db4f14a04838f41b8bc3da5af1b887, type: 3}
+    maxHealPoints: 1000
     levelUpCost:
       _cells: []
     resourceCapacity:

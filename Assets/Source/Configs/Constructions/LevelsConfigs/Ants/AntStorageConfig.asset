@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07850406cdf3430a92f6d8ee66cd78e4, type: 3}
   m_Name: AntStorageConfig
   m_EditorClassIdentifier: 
+  <BuildDuration>k__BackingField: 4
   buyCost:
     _cells: []
   levels:
-  - maxHealPoints: 500
+  - view: {fileID: 21300000, guid: c5175f2b99bf123489002d17f5ab14ef, type: 3}
+    maxHealPoints: 500
     levelUpCost:
       _cells: []
     resourceCapacity:

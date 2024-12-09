@@ -8,6 +8,6 @@ namespace BugStrategy.ScenesLoading
         public event Action OnLoadingScreenHided;
         
         public void Initialize(bool endLoadingInstantly);
-        public void LoadScene(int index);
+        public void LoadScene(int index, bool showInstantly);
     }
 }

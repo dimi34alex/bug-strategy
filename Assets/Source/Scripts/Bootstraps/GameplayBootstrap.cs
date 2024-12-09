@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using BugStrategy.Constructions.Factory;
+using BugStrategy.GameCycle;
 using BugStrategy.Missions;
 using BugStrategy.ResourceSources;
 using BugStrategy.ScenesLoading;
@@ -24,9 +25,11 @@ namespace BugStrategy.Bootstraps
 
         private bool _isDestroyed;
         private CancellationTokenSource _mapLoadingCancelToken;
+        private GameCyclePauseByLoading _gameCyclePauseByLoading;
         
         protected override async void OnStartInit()
         {
+            _gameCyclePauseByLoading = new GameCyclePauseByLoading(_sceneLoader);
             _sceneLoader.OnLoadingScreenHided += SwitchState;
 
             await LoadMap();
@@ -40,6 +43,7 @@ namespace BugStrategy.Bootstraps
         {
             _isDestroyed = true;
             _mapLoadingCancelToken?.Cancel();
+            _gameCyclePauseByLoading.Dispose();
         }
         
         private void SwitchState()

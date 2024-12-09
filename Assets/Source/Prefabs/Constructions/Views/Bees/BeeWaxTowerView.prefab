@@ -7,10 +7,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1594826869253407575, guid: 57880f41c9a2bbe4ab0543c210a033b4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3762564038733091886, guid: 57880f41c9a2bbe4ab0543c210a033b4, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: c0e44c7a05a91fb479e926fa8bbc372a, type: 3}
+      objectReference: {fileID: 21300000, guid: 3cb3cb037941caf408c72c377ab68e50, type: 3}
+    - target: {fileID: 3762564038733091886, guid: 57880f41c9a2bbe4ab0543c210a033b4, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3762564038733091886, guid: 57880f41c9a2bbe4ab0543c210a033b4, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3762564038733091886, guid: 57880f41c9a2bbe4ab0543c210a033b4, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8239665437401881177, guid: 57880f41c9a2bbe4ab0543c210a033b4, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -57,15 +73,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8275467094156255588, guid: 57880f41c9a2bbe4ab0543c210a033b4, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8275467094156255588, guid: 57880f41c9a2bbe4ab0543c210a033b4, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8275467094156255588, guid: 57880f41c9a2bbe4ab0543c210a033b4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.46
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8973157158759330738, guid: 57880f41c9a2bbe4ab0543c210a033b4, type: 3}
       propertyPath: m_Name

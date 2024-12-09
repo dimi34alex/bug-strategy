@@ -85,7 +85,7 @@ GameObject:
   - component: {fileID: 2286005477990927422}
   - component: {fileID: 103715335420019280}
   - component: {fileID: 5381972292759818986}
-  - component: {fileID: 6506520576324603089}
+  - component: {fileID: 6285668028123344791}
   m_Layer: 12
   m_Name: AntMine
   m_TagString: Building
@@ -170,7 +170,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &6506520576324603089
+--- !u!114 &6285668028123344791
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

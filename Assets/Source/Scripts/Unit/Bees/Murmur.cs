@@ -80,6 +80,7 @@ namespace BugStrategy.Unit.Bees
             _resourceExtractionProcessor.Reset();
             _cooldownProcessor.Reset();
             AttackCooldownChanger.Clear();
+            InternalAi.Reset();
 
             _stateMachine.SetState(EntityStateID.Idle);
         }

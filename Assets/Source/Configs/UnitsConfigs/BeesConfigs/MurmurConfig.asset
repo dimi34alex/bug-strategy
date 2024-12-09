@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a688e237d05342c3af90ea8eb1f7c6e9, type: 3}
   m_Name: MurmurConfig
   m_EditorClassIdentifier: 
-  <HealthPoints>k__BackingField: 80
-  <InteractionRange>k__BackingField: 4
-  <GatheringCapacity>k__BackingField: 5
-  <GatheringTime>k__BackingField: 8
-  <AttackDamage>k__BackingField: 5
-  <AttackRange>k__BackingField: 3
+  <HealthPoints>k__BackingField: 400
+  <InteractionRange>k__BackingField: 1
+  <GatheringCapacity>k__BackingField: 50
+  <GatheringTime>k__BackingField: 12
+  <AttackDamage>k__BackingField: 75
+  <AttackRange>k__BackingField: 15
   <AttackCooldown>k__BackingField: 1

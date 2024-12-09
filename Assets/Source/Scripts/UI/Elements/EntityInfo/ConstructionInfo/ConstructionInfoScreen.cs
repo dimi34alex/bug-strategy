@@ -15,6 +15,7 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
     public class ConstructionInfoScreen : EntityInfoScreen
     {
         [SerializeField] private Button _upgradeButton;
+        [SerializeField] private Button _demolitionButton;
         [SerializeField] private GameObject _dopPanel;
 
         private ConstructionBase _construction;
@@ -35,6 +36,7 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
         {
             OnAwake();
             _upgradeButton.onClick.AddListener(OnUpgradeButtonClicked);
+            _demolitionButton.onClick.AddListener(OnDemolitionButtonClicked);
             _uiConstructionsConfig = ConfigsRepository.ConfigsRepository.FindConfig<UIConstructionsConfig>();
 
             _actionsUIView = GetComponentInChildren<ConstructionActionsUIView>();
@@ -67,7 +69,8 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
                     $"Настоятельно рекомендую проверить есть ли конфиг ({nameof(UIConstructionConfig)} " +
                     $"и добавлен ли он в {nameof(UIConstructionConfig)}) | {exp.Message}");
             }
-            
+
+            ToggleDemolitionButtonVisibility(_construction);
             SetActionsType(ConstructionActionsType.None);
         }
     
@@ -139,6 +142,18 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
             if (_construction.TryCast(out IEvolveConstruction evolveConstruction))
                 evolveConstruction.LevelSystem.TryLevelUp();
         }
+
+        private void OnDemolitionButtonClicked()
+        {
+            if (_construction.CastPossible<TownHallBase>())
+                return;
+
+            _construction.Demolition();
+            Hide();
+        }
+
+        private void ToggleDemolitionButtonVisibility(ConstructionBase construction) 
+            => _demolitionButton.gameObject.SetActive(!_construction.CastPossible<TownHallBase>());
 
         public override void Hide()
         {
