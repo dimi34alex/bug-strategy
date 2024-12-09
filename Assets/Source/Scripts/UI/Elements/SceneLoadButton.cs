@@ -7,7 +7,6 @@ namespace BugStrategy.UI.Elements
     public class SceneLoadButton : ButtonProvider
     {
         [SerializeField] private int sceneIndex;
-        [SerializeField] private bool showLoadScreenInstantly;
         
         [Inject] private ISceneLoader _sceneLoader;
         
@@ -17,6 +16,6 @@ namespace BugStrategy.UI.Elements
         }
 
         private void LoadScene() 
-            => _sceneLoader.LoadScene(sceneIndex, showLoadScreenInstantly);
+            => _sceneLoader.LoadScene(sceneIndex);
     }
 }

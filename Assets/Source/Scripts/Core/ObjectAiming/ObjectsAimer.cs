@@ -14,9 +14,6 @@ namespace BugStrategy.ObjectAiming
         
         private void LateUpdate()
         {
-            if (_inputProvider.MouseCursorOverUi())
-                return;
-
             var ray = Camera.main.ScreenPointToRay(_inputProvider.MousePosition);
             if (Physics.Raycast(ray, out var hit, 20, layers))
             {

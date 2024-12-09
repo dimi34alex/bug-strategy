@@ -1,5 +1,7 @@
 ﻿using BugStrategy.CustomInput;
 using CycleFramework.Extensions;
+using System.Collections;
+using System.Threading;
 using UnityEngine;
 using Zenject;
 
@@ -36,7 +38,7 @@ namespace BugStrategy.CameraMovement
         {
             if(_inputProvider.ScrollDown || _inputProvider.ScrollHold)
                 MoveByMouseWheel();
-            else if(CursorOnScreen() && !_inputProvider.MouseCursorOverUi())
+            else if(CursorOnScreen())
                 MoveByCursor();
         }
 

@@ -30,7 +30,7 @@ namespace BugStrategy.ResourceSources
 
             CanBeCollected = true;
             View.SetView(defaultSkin);
-            ResourceStorage.SetValue(ResourceStorage.Capacity);
+            ResourceStorage.SetValue(float.MaxValue);
         }
     }
 }

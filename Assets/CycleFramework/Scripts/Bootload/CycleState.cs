@@ -5,6 +5,5 @@ namespace CycleFramework.Bootload
     {
         Initialize = 0,
         Gameplay = 10,
-        Pause = 20,
     }
 }

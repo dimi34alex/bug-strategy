@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace BugStrategy
@@ -9,8 +8,6 @@ namespace BugStrategy
         
         public Sprite Sprite => spriteRenderer.sprite;
         public Transform SkinTransform => spriteRenderer.transform;
-
-        public event Action<Sprite> OnChangeSprite; 
         
         /// <param name="sprite"> can be null </param>
         public void SetView(Sprite sprite)
@@ -19,7 +16,6 @@ namespace BugStrategy
                 return;
 
             spriteRenderer.sprite = sprite;
-            OnChangeSprite?.Invoke(sprite);
         }
     }
 }
