@@ -588,7 +588,7 @@ PrefabInstance:
     - target: {fileID: 7877576704086922750, guid: 2d70e5685dae19548a058ab1382c8671, type: 3}
       propertyPath: selectable
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 5040494085099917645}
     - target: {fileID: 7877576704086922750, guid: 2d70e5685dae19548a058ab1382c8671, type: 3}
       propertyPath: selectableObject
       value: 
