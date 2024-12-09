@@ -17,6 +17,7 @@
         AntBig = 110,
         AntFlying = 120,
 
-        Caterpillar = 200
+        Caterpillar = 200,
+        CaterpillarLevel2 = 210
     }
 }

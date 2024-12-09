@@ -1293,6 +1293,8 @@ MonoBehaviour:
       Value: {fileID: 2798230700560315843, guid: 1c6de34b38f0f494bacbbc303238653d, type: 3}
     - Key: 330
       Value: {fileID: 2798230700560315843, guid: d70bcb4618bb73642af8465dd783fe1e, type: 3}
+    - Key: 300
+      Value: {fileID: 2798230700560315843, guid: adabc9817f745644cb18deeda2d4f8d4, type: 3}
 --- !u!4 &1040379932 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1928332416672255305, guid: 1ab4f28aaa0282642afb57b9c430f18f, type: 3}
