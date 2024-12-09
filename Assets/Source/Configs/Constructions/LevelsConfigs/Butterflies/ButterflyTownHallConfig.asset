@@ -22,7 +22,7 @@ MonoBehaviour:
       _cells: []
     resourceCapacity:
       _cells: []
-    recruitingSize: 0
+    recruitingSize: 2
     butterfliesRecruitingData:
     - currentId: 200
       recruitingTime: 0
@@ -32,5 +32,5 @@ MonoBehaviour:
         _cells:
         - Key: 0
           Value: 0
-    <HiderCapacity>k__BackingField: 0
+    <HiderCapacity>k__BackingField: 2
   hiderAccess: c8000000
