@@ -88,5 +88,38 @@ namespace BugStrategy.UnitsHideCore
 
             return unit;
         }
+
+        public UnitBase ExtractUpgradeUnit (int index, Vector3 extractPosition)
+        {
+            if(index >= _hiderCells.Count)
+            {
+                Debug.LogWarning($"Invalid index");
+                return null;
+            }
+
+            var cell = _hiderCells[index];
+            _hiderCells.RemoveAt(index);
+
+            UnitType newUnitType;
+
+            switch(cell.UnitType)
+            {
+                case UnitType.Caterpillar:
+                    newUnitType = UnitType.CaterpillarLevel2;
+                    break;
+                default:
+                    newUnitType = cell.UnitType;
+                    break;
+            }
+
+            var unit = _unitFactory.Create(newUnitType, extractPosition, _affiliation.Affiliation);
+
+            if(unit.TryCast(out IHidableUnit hidableUnit))
+                hidableUnit.LoadHideCell(cell);
+            else
+                Debug.LogError($"Unit cant be casted to IHidableUnit: {unit} {cell.UnitType}");
+
+            return unit;
+        }
     }
 }

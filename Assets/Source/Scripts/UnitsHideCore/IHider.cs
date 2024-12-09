@@ -18,5 +18,7 @@ namespace BugStrategy.UnitsHideCore
         public UnitBase ExtractUnit(int index);
 
         public UnitBase ExtractUnit(int index, Vector3 extractPosition);
+
+        public UnitBase ExtractUpgradeUnit (int index, Vector3 extractPosition);
     }
 }
