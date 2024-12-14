@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3178956870990512173, guid: 721f2186e9b3c1b44b8e35500a18c993, type: 3}
       propertyPath: m_Name
-      value: BlueFlowerView
+      value: Tseti1View
       objectReference: {fileID: 0}
     - target: {fileID: 3711026256531088935, guid: 721f2186e9b3c1b44b8e35500a18c993, type: 3}
       propertyPath: m_LocalScale.x
@@ -24,8 +24,12 @@ PrefabInstance:
       value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 3711026256531088935, guid: 721f2186e9b3c1b44b8e35500a18c993, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3711026256531088935, guid: 721f2186e9b3c1b44b8e35500a18c993, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3711026256531088935, guid: 721f2186e9b3c1b44b8e35500a18c993, type: 3}
       propertyPath: m_ConstrainProportionsScale
@@ -34,7 +38,7 @@ PrefabInstance:
     - target: {fileID: 4415725716679733991, guid: 721f2186e9b3c1b44b8e35500a18c993, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: b2b72000321eda6429de4bfda078dace, type: 3}
+      objectReference: {fileID: 21300000, guid: 59563fc97bcd9ea42baa6e950fa20981, type: 3}
     - target: {fileID: 6231123291066459908, guid: 721f2186e9b3c1b44b8e35500a18c993, type: 3}
       propertyPath: m_RootOrder
       value: 0
