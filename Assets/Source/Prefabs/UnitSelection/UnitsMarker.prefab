@@ -129,5 +129,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77f81d7e65f38644487859e775a0388f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time: 5
+  time: 2
   sprite: {fileID: 3275118042314885628}
