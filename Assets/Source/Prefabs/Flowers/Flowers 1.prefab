@@ -50,8 +50,8 @@ MonoBehaviour:
   <View>k__BackingField: {fileID: 2734008992481671926}
   resourceCapacity: 2147483647
   refillTime: 90
-  defaultSkin: {fileID: 21300000, guid: 1d27183bdd04a314ea4797c97a23e23b, type: 3}
-  pollinatedSkin: {fileID: 21300000, guid: 3d0e4b6bdcefabf419497a45864d7b68, type: 3}
+  defaultSkin: {fileID: 21300000, guid: b2b72000321eda6429de4bfda078dace, type: 3}
+  pollinatedSkin: {fileID: 21300000, guid: b2b72000321eda6429de4bfda078dace, type: 3}
 --- !u!65 &5775281600303665132
 BoxCollider:
   m_ObjectHideFlags: 0
