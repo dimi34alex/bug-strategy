@@ -882,6 +882,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38b503a09cd04c62a5e8916601a7eaef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &537145170 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7045149907996591399, guid: bbcf26504a50f8046a7a9df06c7b9918, type: 3}
+  m_PrefabInstance: {fileID: 4266065270895151095}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &585436069
 GameObject:
   m_ObjectHideFlags: 0
@@ -1338,6 +1343,129 @@ MonoBehaviour:
       Value: {fileID: 2798230700560315843, guid: 1c6de34b38f0f494bacbbc303238653d, type: 3}
     - Key: 330
       Value: {fileID: 2798230700560315843, guid: d70bcb4618bb73642af8465dd783fe1e, type: 3}
+    - Key: 300
+      Value: {fileID: 2798230700560315843, guid: adabc9817f745644cb18deeda2d4f8d4, type: 3}
+--- !u!1 &1038282019
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1038282023}
+  - component: {fileID: 1038282022}
+  - component: {fileID: 1038282021}
+  - component: {fileID: 1038282020}
+  m_Layer: 5
+  m_Name: UpgradeUnitBtn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1038282020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1038282019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1038282021}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1038282021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1038282019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: be687e4b8e818184db2be44b25d68d9e, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1038282022
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1038282019}
+  m_CullTransparentMesh: 1
+--- !u!224 &1038282023
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1038282019}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 537145170}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -210.6, y: -89.24997}
+  m_SizeDelta: {x: 35, y: 35}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!4 &1040379932 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1928332416672255305, guid: 1ab4f28aaa0282642afb57b9c430f18f, type: 3}
@@ -1704,6 +1832,24 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f00800f010a7fab46a2d7b84f87052ac, type: 2}
   - {fileID: 11400000, guid: 9b87ca5ee00592f4da832e65273f5eb6, type: 2}
   - {fileID: 11400000, guid: d702bd867d01d714c8f14f2dd92249a6, type: 2}
+--- !u!1 &1728828832 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 363790878538650999, guid: bbcf26504a50f8046a7a9df06c7b9918, type: 3}
+  m_PrefabInstance: {fileID: 4266065270895151095}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1728828839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1728828832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36f2947fd97677249923632a24bfe8fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UpgradeUnitBtn: {fileID: 1038282020}
 --- !u!1 &1798374830
 GameObject:
   m_ObjectHideFlags: 0
@@ -2727,6 +2873,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 548814838417673199, guid: bbcf26504a50f8046a7a9df06c7b9918, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 683990499902691050, guid: bbcf26504a50f8046a7a9df06c7b9918, type: 3}
+      propertyPath: m_PresetInfoIsWorld
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 707853262877140920, guid: bbcf26504a50f8046a7a9df06c7b9918, type: 3}
