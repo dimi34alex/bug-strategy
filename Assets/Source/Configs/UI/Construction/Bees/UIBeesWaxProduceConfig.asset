@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b5056fe0c5354544bdc4532bb498405, type: 3}
   m_Name: UIBeesWaxProduceConfig
   m_EditorClassIdentifier: 
-  _infoSprite: {fileID: 21300000, guid: 24b3852925a24e1448af34e9efc62598, type: 3}
+  _infoSprite: {fileID: 21300000, guid: c0fb004e06e58434c96a9e75a1e225f7, type: 3}
   _constructionActions:
   - Key: 20
     Value: {fileID: 21300000, guid: d436a792000a747478716a38703e72cd, type: 3}
   recruiting: []
-  _constructionProducts: []

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b5056fe0c5354544bdc4532bb498405, type: 3}
   m_Name: UIAntsTownHallConfig
   m_EditorClassIdentifier: 
-  _infoSprite: {fileID: 21300000, guid: 3309651f788af4a45b5ed4e3a60f2add, type: 3}
+  _infoSprite: {fileID: 21300000, guid: 98082128e16458143a55a58ec8597919, type: 3}
   _constructionActions:
   - Key: 10
     Value: {fileID: 0}

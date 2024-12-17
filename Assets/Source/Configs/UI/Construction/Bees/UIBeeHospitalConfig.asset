@@ -12,10 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b5056fe0c5354544bdc4532bb498405, type: 3}
   m_Name: UIBeeHospitalConfig
   m_EditorClassIdentifier: 
-  _infoSprite: {fileID: 21300000, guid: 98082128e16458143a55a58ec8597919, type: 3}
-  _constructionOperations:
-  - Key: 1
-    Value: {fileID: 21300000, guid: 76e75cdf7d39fcf4b81ef1a4498e4084, type: 3}
-  - Key: 2
-    Value: {fileID: 21300000, guid: 026bf150aa537e842936e2094371fae8, type: 3}
-  _constructionProducts: []
+  _infoSprite: {fileID: 21300000, guid: db13cb156b854694a8fdbd68dcfc9286, type: 3}
+  _constructionActions: []
+  recruiting: []

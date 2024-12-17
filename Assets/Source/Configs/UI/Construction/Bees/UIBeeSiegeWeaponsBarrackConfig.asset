@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b5056fe0c5354544bdc4532bb498405, type: 3}
   m_Name: UIBeeSiegeWeaponsBarrackConfig
   m_EditorClassIdentifier: 
-  _infoSprite: {fileID: 21300000, guid: 98082128e16458143a55a58ec8597919, type: 3}
+  _infoSprite: {fileID: 21300000, guid: 424ca4c41064dea428a1b860112633f6, type: 3}
   _constructionActions:
   - Key: 10
     Value: {fileID: 0}
@@ -20,5 +20,4 @@ MonoBehaviour:
   - Key: 90
     Value: {fileID: 21300000, guid: 2c235744a25091847b422b754b7e6b1f, type: 3}
   - Key: 95
-    Value: {fileID: 21300000, guid: 16286d32d42c86e489f18a0b8011dd7b, type: 3}
-  _constructionProducts: []
+    Value: {fileID: 21300000, guid: fe7b57f77c75ee145b9ff196d5ed50b7, type: 3}

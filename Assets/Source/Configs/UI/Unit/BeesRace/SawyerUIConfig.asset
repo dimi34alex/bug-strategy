@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc80038d359e4374ca26476440ebd023, type: 3}
   m_Name: SawyerUIConfig
   m_EditorClassIdentifier: 
-  _infoSprite: {fileID: 21300000, guid: d1d83ee4ec7727748a04c8454f5b4dda, type: 3}
+  _infoSprite: {fileID: 21300000, guid: 6e0c1a6ab98bcc842b24aa6f2bafcea7, type: 3}
   _actions:
   - Key: 30
     Value: {fileID: 0}

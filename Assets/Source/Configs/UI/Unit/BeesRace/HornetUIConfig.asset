@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc80038d359e4374ca26476440ebd023, type: 3}
   m_Name: HornetUIConfig
   m_EditorClassIdentifier: 
-  _infoSprite: {fileID: 21300000, guid: 3442b187724cf8449a0bc0acd6949211, type: 3}
+  _infoSprite: {fileID: 21300000, guid: 5d2bbf31eb84885459a11763aac648b6, type: 3}
   _actions:
   - Key: 30
     Value: {fileID: 0}

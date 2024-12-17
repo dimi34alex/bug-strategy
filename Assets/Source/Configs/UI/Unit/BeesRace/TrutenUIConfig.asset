@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc80038d359e4374ca26476440ebd023, type: 3}
   m_Name: TrutenUIConfig
   m_EditorClassIdentifier: 
-  _infoSprite: {fileID: 21300000, guid: 3bb26a1f3be6a30448157967547f0b1b, type: 3}
+  _infoSprite: {fileID: 21300000, guid: c4c97e4563a6f344e900e90ecdf14ccd, type: 3}
   _actions:
   - Key: 30
     Value: {fileID: 0}
