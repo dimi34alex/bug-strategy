@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6231123291066459908}
   - component: {fileID: 2624186460227034511}
+  - component: {fileID: 2749987786579813671}
   m_Layer: 13
   m_Name: ResourceSourceViewBase
   m_TagString: Untagged
@@ -46,6 +47,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 4415725716679733991}
+--- !u!114 &2749987786579813671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3178956870990512173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5edb34deda2b4a43869cc277158cc77b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectView: {fileID: 2624186460227034511}
+  skin: {fileID: 4415725716679733991}
+  outlineMaterial: {fileID: 2100000, guid: f8942df3ef59c894c9b49b9034f00253, type: 2}
 --- !u!1 &4025334723221735675
 GameObject:
   m_ObjectHideFlags: 0

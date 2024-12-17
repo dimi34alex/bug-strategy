@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6231123291066459908}
   - component: {fileID: 7655770349775407075}
   - component: {fileID: 5775281600303665132}
+  - component: {fileID: 6339150017690947971}
   m_Layer: 13
   m_Name: Flowers 1
   m_TagString: Untagged
@@ -47,10 +48,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <View>k__BackingField: {fileID: 2734008992481671926}
-  resourceCapacity: 100
+  resourceCapacity: 2147483647
   refillTime: 90
-  defaultSkin: {fileID: 21300000, guid: 1d27183bdd04a314ea4797c97a23e23b, type: 3}
-  pollinatedSkin: {fileID: 21300000, guid: 3d0e4b6bdcefabf419497a45864d7b68, type: 3}
+  defaultSkin: {fileID: 21300000, guid: b2b72000321eda6429de4bfda078dace, type: 3}
+  pollinatedSkin: {fileID: 21300000, guid: b2b72000321eda6429de4bfda078dace, type: 3}
 --- !u!65 &5775281600303665132
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -64,6 +65,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2, y: 1, z: 2}
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &6339150017690947971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3178956870990512173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4be58a052bbe72d4abe49722c409dce3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2709286708100649895
 PrefabInstance:
   m_ObjectHideFlags: 0

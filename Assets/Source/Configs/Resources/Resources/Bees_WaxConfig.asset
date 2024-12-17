@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Bees_WaxConfig
   m_EditorClassIdentifier: 
   _id: 5
-  _icon: {fileID: 21300000, guid: efbebe7deb4412f4799b746420d44bdf, type: 3}
+  _icon: {fileID: 15157538, guid: 56d115d919d30664c9e850d62353b0f3, type: 3}

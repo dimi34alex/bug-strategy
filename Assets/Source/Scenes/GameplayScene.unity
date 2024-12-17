@@ -953,8 +953,8 @@ AudioSource:
   m_GameObject: {fileID: 606162486}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 7920375230591245634, guid: 8834182da94993743a527dd14bdeab53, type: 2}
-  m_audioClip: {fileID: 8300000, guid: fe94d85b8bcde9d41a5fca6638509ccf, type: 3}
+  OutputAudioMixerGroup: {fileID: 2410586925212690764, guid: 8834182da94993743a527dd14bdeab53, type: 2}
+  m_audioClip: {fileID: 8300000, guid: f5c59b5233ab3804d99263d6e17d018e, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -1112,6 +1112,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61e482985dba467c955db6a28fc5c144, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &721051793
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 721051794}
+  - component: {fileID: 721051795}
+  m_Layer: 0
+  m_Name: '[CycleState] WaitShowLoadingScreen'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &721051794
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 721051793}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5692358070358042581}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &721051795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 721051793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1d55f9baad8f8345907905871b1109f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cycleState: 20
 --- !u!1 &771019748
 GameObject:
   m_ObjectHideFlags: 0
@@ -1863,9 +1908,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac1edbe8b64758d4197d9f84412842a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  field: {fileID: 291144843}
   _moveSpeed: 10
   _camera: {fileID: 1844035348}
-  field: {fileID: 291144843}
+  CameraMoveSpeed: 25
+  PercentageOfScreen: 2
 --- !u!114 &1844035352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1940,7 +1987,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layers:
     serializedVersion: 2
-    m_Bits: 6144
+    m_Bits: 14336
 --- !u!1 &1870373502
 GameObject:
   m_ObjectHideFlags: 0
@@ -3867,6 +3914,7 @@ Transform:
   m_Children:
   - {fileID: 2132552233}
   - {fileID: 5692358069605449423}
+  - {fileID: 721051794}
   m_Father: {fileID: 5692358069669493228}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

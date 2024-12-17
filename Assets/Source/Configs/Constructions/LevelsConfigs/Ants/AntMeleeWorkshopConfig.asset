@@ -12,24 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45dbef592774454e9783e0c848253e37, type: 3}
   m_Name: AntMeleeWorkshopConfig
   m_EditorClassIdentifier: 
+  <BuildDuration>k__BackingField: 4
   buyCost:
     _cells: []
   levels:
-  - maxHealPoints: 1000
+  - view: {fileID: 21300000, guid: 4c7969a8fcc151547bd7c3935d43f260, type: 3}
+    maxHealPoints: 1000
     levelUpCost:
       _cells: []
     resourceCapacity:
       _cells: []
     <CapacityPerTool>k__BackingField: 10
     <RangAccess>k__BackingField: 1
-  - maxHealPoints: 1000
+  - view: {fileID: 21300000, guid: fa8a019d4b2abcc41907c14a0ae5fc38, type: 3}
+    maxHealPoints: 1000
     levelUpCost:
       _cells: []
     resourceCapacity:
       _cells: []
     <CapacityPerTool>k__BackingField: 10
     <RangAccess>k__BackingField: 2
-  - maxHealPoints: 1000
+  - view: {fileID: 21300000, guid: 678a3230ef3dd1846ad08cf17c927b8c, type: 3}
+    maxHealPoints: 1000
     levelUpCost:
       _cells: []
     resourceCapacity:

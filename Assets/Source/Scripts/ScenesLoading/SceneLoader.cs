@@ -36,14 +36,13 @@ namespace BugStrategy.ScenesLoading
                 StartLoadTargetScene();
         }
         
-        public void LoadScene(int index)
+        public void LoadScene(int index, bool showInstantly = false)
         {
             _targetSceneIndex = index;
             
             OnLoadingStarted?.Invoke();
             
-            _loadingScreen.Show();
-            SceneManager.LoadSceneAsync(LoadingSceneIndex);
+            _loadingScreen.Show(showInstantly, () => SceneManager.LoadSceneAsync(LoadingSceneIndex));
         }
 
         private void EndLoading(bool endInstantly) 

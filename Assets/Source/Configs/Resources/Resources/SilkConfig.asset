@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: SilkConfig
   m_EditorClassIdentifier: 
   _id: 40
-  _icon: {fileID: 0}
+  _icon: {fileID: 1585629361, guid: 06d1f997c8f893d498c9bb68673992a2, type: 3}
