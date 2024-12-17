@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: LeavesConfig
   m_EditorClassIdentifier: 
   _id: 20
-  _icon: {fileID: 0}
+  _icon: {fileID: 897318878, guid: c2d79980b49541a4ba69c97754c90f84, type: 3}

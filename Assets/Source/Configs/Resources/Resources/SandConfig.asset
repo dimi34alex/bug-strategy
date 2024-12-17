@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: SandConfig
   m_EditorClassIdentifier: 
   _id: 30
-  _icon: {fileID: 0}
+  _icon: {fileID: -355490159, guid: 9f3c0c7c932f80545bd17032bc11c123, type: 3}

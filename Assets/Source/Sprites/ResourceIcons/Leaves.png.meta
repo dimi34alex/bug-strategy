@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 56d115d919d30664c9e850d62353b0f3
+guid: c2d79980b49541a4ba69c97754c90f84
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,13 +105,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Wax_0
+      name: Leaves_1
       rect:
         serializedVersion: 2
-        x: 81
-        y: 116
-        width: 330
-        height: 299
+        x: 122
+        y: 163
+        width: 222
+        height: 247
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -119,8 +119,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a9df437743704e3449e268060d21e8db
-      internalID: 15157538
+      spriteID: ecd09fe1ffb46a247b81f67940c2a998
+      internalID: 897318878
       vertices: []
       indices: 
       edges: []
@@ -136,7 +136,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Wax_0: 15157538
+      Leaves_0: 305300830
+      Leaves_1: 897318878
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
