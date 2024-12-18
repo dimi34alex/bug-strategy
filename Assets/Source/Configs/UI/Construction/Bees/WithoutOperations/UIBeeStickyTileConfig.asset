@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b5056fe0c5354544bdc4532bb498405, type: 3}
   m_Name: UIBeeStickyTileConfig
   m_EditorClassIdentifier: 
-  _infoSprite: {fileID: 21300000, guid: 5be112c7e336e8847a29c5266e286243, type: 3}
+  _infoSprite: {fileID: 21300000, guid: ad6ecaf77d6901c4e91bbb78e01cd59e, type: 3}
   _constructionActions: []
   recruiting: []
-  _constructionProducts: []

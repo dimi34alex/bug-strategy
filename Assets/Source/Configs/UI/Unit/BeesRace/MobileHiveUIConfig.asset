@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc80038d359e4374ca26476440ebd023, type: 3}
   m_Name: MobileHiveUIConfig
   m_EditorClassIdentifier: 
-  _infoSprite: {fileID: 21300000, guid: 16286d32d42c86e489f18a0b8011dd7b, type: 3}
+  _infoSprite: {fileID: 21300000, guid: 2ebe22b61c4f4cc40be8131efb8e9038, type: 3}
   _actions:
   - Key: 30
     Value: {fileID: 0}

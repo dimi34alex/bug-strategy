@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc80038d359e4374ca26476440ebd023, type: 3}
   m_Name: BigAntUIConfig
   m_EditorClassIdentifier: 
-  _infoSprite: {fileID: 21300000, guid: 4bfb9ce1f15bfe54f94f2b7959de8738, type: 3}
+  _infoSprite: {fileID: 21300000, guid: 6e735fd728d3f1549bee4d3674955d69, type: 3}
   _actions: []
   _unitTactics: []
   _unitConstruction: []

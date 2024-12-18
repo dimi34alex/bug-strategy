@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b5056fe0c5354544bdc4532bb498405, type: 3}
   m_Name: UIBeeTownHallConfig
   m_EditorClassIdentifier: 
-  _infoSprite: {fileID: 21300000, guid: 3309651f788af4a45b5ed4e3a60f2add, type: 3}
+  _infoSprite: {fileID: 21300000, guid: 55a42048a5b3e6d4e8d300ba9beec4c0, type: 3}
   _constructionActions:
   - Key: 10
     Value: {fileID: 0}
   recruiting:
   - Key: 0
-    Value: {fileID: 21300000, guid: 76e75cdf7d39fcf4b81ef1a4498e4084, type: 3}
-  _constructionProducts: []
+    Value: {fileID: 21300000, guid: 1246c72410cafc04ca2291b806a0b77f, type: 3}

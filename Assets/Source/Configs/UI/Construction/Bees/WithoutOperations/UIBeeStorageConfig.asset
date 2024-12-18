@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b5056fe0c5354544bdc4532bb498405, type: 3}
   m_Name: UIBeeStorageConfig
   m_EditorClassIdentifier: 
-  _infoSprite: {fileID: 21300000, guid: 55d7e3e558310e44db11e5098307eb5a, type: 3}
-  _constructionOperations: []
-  _constructionProducts: []
+  _infoSprite: {fileID: 21300000, guid: a22713c566829d047ba72379d3b83322, type: 3}
+  _constructionActions: []
+  recruiting: []

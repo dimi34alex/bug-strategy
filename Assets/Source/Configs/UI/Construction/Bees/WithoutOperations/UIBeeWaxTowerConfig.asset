@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b5056fe0c5354544bdc4532bb498405, type: 3}
   m_Name: UIBeeWaxTowerConfig
   m_EditorClassIdentifier: 
-  _infoSprite: {fileID: 21300000, guid: 1df2f083241502849b7e130de6bef917, type: 3}
-  _constructionOperations: []
-  _constructionProducts: []
+  _infoSprite: {fileID: 21300000, guid: 5d36ee4e1182af346accfc72d56580ef, type: 3}
+  _constructionActions: []
+  recruiting: []
