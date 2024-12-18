@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _constructionsUIConfigs:
     _cells:
+    - Key: 1
+      Value: {fileID: 11400000, guid: 45931591d580f6f41858e8fa7715eeba, type: 2}
     - Key: 5
       Value: {fileID: 11400000, guid: a8b9515003fd4d14a8dce2b50aec7e2d, type: 2}
     - Key: 10
@@ -38,6 +40,8 @@ MonoBehaviour:
       Value: {fileID: 11400000, guid: 8de3e6aa1933d1d4183c6cd72d11118e, type: 2}
     - Key: 200
       Value: {fileID: 11400000, guid: 480aafb816c3b2546b00ac4b3bc61bb0, type: 2}
+    - Key: 220
+      Value: {fileID: 11400000, guid: b18affb6aef7a4241bfb2350e5fdb8ec, type: 2}
     - Key: 230
       Value: {fileID: 11400000, guid: 2f4359ef2e1f2cb42874594e968ef166, type: 2}
     - Key: 240
