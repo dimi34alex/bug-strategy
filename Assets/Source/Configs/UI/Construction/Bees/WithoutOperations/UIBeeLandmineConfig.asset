@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b5056fe0c5354544bdc4532bb498405, type: 3}
   m_Name: UIBeeLandmineConfig
   m_EditorClassIdentifier: 
-  _infoSprite: {fileID: 21300000, guid: f1c2d8238bc93a24b9132f3c2fd0d6f5, type: 3}
+  _infoSprite: {fileID: 21300000, guid: 0fd134a813a2f4944bf847dd84f0503f, type: 3}
   _constructionActions: []
   recruiting: []

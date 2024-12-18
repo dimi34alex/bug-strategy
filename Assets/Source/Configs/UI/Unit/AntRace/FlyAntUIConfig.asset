@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc80038d359e4374ca26476440ebd023, type: 3}
   m_Name: FlyAntUIConfig
   m_EditorClassIdentifier: 
-  _infoSprite: {fileID: 21300000, guid: 4cd6c59392ebd944494d984ac83246f4, type: 3}
+  _infoSprite: {fileID: 21300000, guid: 114a69bc7026c31478889dd9502234bc, type: 3}
   _actions: []
   _unitTactics: []
   _unitConstruction: []

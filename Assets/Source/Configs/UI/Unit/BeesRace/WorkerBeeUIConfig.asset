@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc80038d359e4374ca26476440ebd023, type: 3}
   m_Name: WorkerBeeUIConfig
   m_EditorClassIdentifier: 
-  _infoSprite: {fileID: 21300000, guid: 76e75cdf7d39fcf4b81ef1a4498e4084, type: 3}
+  _infoSprite: {fileID: 21300000, guid: 1246c72410cafc04ca2291b806a0b77f, type: 3}
   _actions:
   - Key: 20
     Value: {fileID: 21300000, guid: 3b535f94f83d39d49aa0e9cc88658939, type: 3}

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b5056fe0c5354544bdc4532bb498405, type: 3}
   m_Name: UIAntsRangeWorkshopConfig
   m_EditorClassIdentifier: 
-  _infoSprite: {fileID: 21300000, guid: 7f02ae5989f3868459e821b9bfb78541, type: 3}
+  _infoSprite: {fileID: 21300000, guid: 918c403067500d840bb0e9a9d92b428b, type: 3}
   _constructionActions:
   - Key: 30
     Value: {fileID: 0}

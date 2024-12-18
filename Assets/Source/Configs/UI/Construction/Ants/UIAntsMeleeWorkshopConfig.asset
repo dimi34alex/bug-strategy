@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b5056fe0c5354544bdc4532bb498405, type: 3}
   m_Name: UIAntsMeleeWorkshopConfig
   m_EditorClassIdentifier: 
-  _infoSprite: {fileID: 21300000, guid: 2e7f3aaf53e763c4cada85da888c745a, type: 3}
+  _infoSprite: {fileID: 21300000, guid: 3e1a95ab36aab34478b26948caa1b776, type: 3}
   _constructionActions:
   - Key: 30
     Value: {fileID: 0}
