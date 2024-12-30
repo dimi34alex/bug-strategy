@@ -29,7 +29,7 @@ namespace BugStrategy.UI.Elements
             
             _tween = _rectTransform
                 .DORotate(new Vector3(0, 0, angle), 1f / rotationPerSecond, RotateMode.FastBeyond360)
-                .SetLoops(-1, LoopType.Restart)
+                .SetLoops(-1, LoopType.Incremental)
                 .SetEase(Ease.Linear)
                 .SetLink(gameObject);
         }
