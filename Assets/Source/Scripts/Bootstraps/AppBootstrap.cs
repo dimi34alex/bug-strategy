@@ -17,7 +17,6 @@ namespace BugStrategy.Bootstraps
         {
             base.OnStartInit();
             
-            _sceneLoader.Initialize(false);
             _sceneLoader.LoadScene(sceneIndexForLoadingAfterInitializations, true);
             _audioVolumeChanger.StartInit();
         }

@@ -36,7 +36,7 @@ namespace BugStrategy.Bootstraps
             if (_isDestroyed)
                 return;
 
-            _sceneLoader.Initialize(false);
+            _sceneLoader.HideLoadScreen(false);
         }
 
         private void OnDestroy()

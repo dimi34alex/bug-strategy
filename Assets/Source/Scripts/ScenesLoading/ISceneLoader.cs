@@ -6,8 +6,9 @@ namespace BugStrategy.ScenesLoading
     {
         public event Action OnLoadingStarted;
         public event Action OnLoadingScreenHided;
-        
-        public void Initialize(bool endLoadingInstantly);
-        public void LoadScene(int index, bool showInstantly);
+
+        public void HideLoadScreen(bool hideLoadScreenInstantly);
+        public void LoadScene(int index, bool showLoadScreenInstantly);
+        public void LoadTargetScene();
     }
 }

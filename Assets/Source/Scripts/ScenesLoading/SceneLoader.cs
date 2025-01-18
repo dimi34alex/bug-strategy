@@ -1,13 +1,11 @@
 using System;
 using UnityEngine.SceneManagement;
-using Zenject;
 
 namespace BugStrategy.ScenesLoading
 {
     public class SceneLoader : ISceneLoader
     {
-        private static int BootstrapSceneIndex => ScenesConfig.BootstrapSceneIndex;
-        private static int LoadingSceneIndex => ScenesConfig.LoadingSceneIndex;
+        private readonly int _loadingSceneIndex;
         
         private readonly ILoadingScreen _loadingScreen;
         private int _targetSceneIndex = -1;
@@ -15,40 +13,32 @@ namespace BugStrategy.ScenesLoading
         public event Action OnLoadingStarted;
         public event Action OnLoadingScreenHided;
 
-        [Inject]
-        public SceneLoader(ILoadingScreen loadingScreen)
+        public SceneLoader(ILoadingScreen loadingScreen, int loadingSceneIndex)
         {
             _loadingScreen = loadingScreen;
+            _loadingSceneIndex = loadingSceneIndex;
+            
             _loadingScreen.OnHided += () => OnLoadingScreenHided?.Invoke();
         }
         
-        public void Initialize(bool endInstantly)
+        public void HideLoadScreen(bool hideLoadScreenInstantly)
         {
-            var activeSceneIndex = SceneManager.GetActiveScene().buildIndex;
-            
-            if(activeSceneIndex == BootstrapSceneIndex)
-                return;
-            
-            if (_targetSceneIndex <= -1 || activeSceneIndex == _targetSceneIndex)
-                EndLoading(endInstantly);
-
-            if (activeSceneIndex == LoadingSceneIndex)
-                StartLoadTargetScene();
+            EndLoading(hideLoadScreenInstantly);
         }
         
-        public void LoadScene(int index, bool showInstantly = false)
+        public void LoadScene(int index, bool showLoadScreenInstantly = false)
         {
             _targetSceneIndex = index;
             
             OnLoadingStarted?.Invoke();
             
-            _loadingScreen.Show(showInstantly, () => SceneManager.LoadSceneAsync(LoadingSceneIndex));
+            _loadingScreen.Show(showLoadScreenInstantly, () => SceneManager.LoadSceneAsync(_loadingSceneIndex));
         }
 
         private void EndLoading(bool endInstantly) 
             => _loadingScreen.Hide(endInstantly);
 
-        private void StartLoadTargetScene() 
+        public void LoadTargetScene() 
             => SceneManager.LoadSceneAsync(_targetSceneIndex);
     }
 }
