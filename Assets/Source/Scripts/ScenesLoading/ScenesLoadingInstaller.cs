@@ -7,6 +7,7 @@ namespace BugStrategy.ScenesLoading
     public class ScenesLoadingInstaller : MonoInstaller
     {
         [SerializeField] private LoadingScreen loadingScreenPrefab;
+        [SerializeField] private int loadingSceneIndex = 1;
             
         public override void InstallBindings()
         {
@@ -27,7 +28,7 @@ namespace BugStrategy.ScenesLoading
         
         private void BindSceneLoader()
         {
-            Container.BindInterfacesTo<SceneLoader>().FromNew().AsSingle();
+            Container.BindInterfacesTo<SceneLoader>().FromNew().AsSingle().WithArguments(loadingSceneIndex);
         }
     }
 }

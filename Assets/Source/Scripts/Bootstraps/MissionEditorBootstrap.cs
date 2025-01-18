@@ -3,7 +3,7 @@ using BugStrategy.Tiles.WarFog;
 using UnityEngine;
 using Zenject;
 
-namespace BugStrategy.Missions.MissionEditor
+namespace BugStrategy.Bootstraps
 {
     public class MissionEditorBootstrap : MonoBehaviour
     {
@@ -13,7 +13,8 @@ namespace BugStrategy.Missions.MissionEditor
         private void Start()
         {
             _tileFogVisibilityModificator.SetState(false);
-            _sceneLoader.Initialize(false);
+            
+            _sceneLoader.HideLoadScreen(false);
         }
     }
 }

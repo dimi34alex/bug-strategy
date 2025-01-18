@@ -14,7 +14,7 @@ namespace BugStrategy.Bootstraps
         protected override void OnStartInit()
         {
             base.OnStartInit();
-            _sceneLoader.Initialize(hideLoadingScreenInstantly);
+            _sceneLoader.HideLoadScreen(hideLoadingScreenInstantly);
         }
     }
 }
