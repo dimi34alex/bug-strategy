@@ -12,7 +12,6 @@ namespace BugStrategy.Unit.UnitSelection
         private List<UnitBase> UnitsInScreen => _unitRepository.AllUnits;
         private readonly List<UnitBase> _selectedUnits = new();
 
-        
         public event Action OnSelectionChanged;
 
         public bool SelectUnits(Vector3 selectedStartPoint, Vector3 selectedEndPoint)
@@ -37,11 +36,11 @@ namespace BugStrategy.Unit.UnitSelection
                 {
                     anyUnit = true;
                     unit.Select();
+                    unit.OnUnitDeactivation += Deselect;
                     _selectedUnits.Add(unit);
                 }
             }
 
-            
             OnSelectionChanged?.Invoke();
 
             return anyUnit;
@@ -70,12 +69,28 @@ namespace BugStrategy.Unit.UnitSelection
         public void DeselectAll()
         {
             foreach (var unit in _selectedUnits)
-                unit.Deselect();
+                DeselectUnit(unit);
 
             _selectedUnits.Clear();
 
+            OnSelectionChanged?.Invoke();
+        }
+        
+        public void Deselect(UnitBase unit)
+        {
+            if (!_selectedUnits.Contains(unit))
+                return;
+
+            DeselectUnit(unit);
+            _selectedUnits.Remove(unit);
             
             OnSelectionChanged?.Invoke();
+        }
+        
+        private void DeselectUnit(UnitBase unit)
+        {
+            unit.OnUnitDeactivation -= Deselect;
+            unit.Deselect();
         }
     }
 

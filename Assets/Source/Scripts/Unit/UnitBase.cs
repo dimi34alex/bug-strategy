@@ -83,6 +83,9 @@ namespace BugStrategy.Unit
         public event Action<UnitBase> ElementReturnEvent;
         public event Action<UnitBase> ElementDestroyEvent;
         public event Action OnTargetMovePositionChange;
+        /// <remarks> It will also automatically call <see cref="OnDeactivation"/> </remarks>
+        public event Action<UnitBase> OnUnitDeactivation;
+        /// <remarks> Dont call it, call <see cref="OnUnitDeactivation"/>, it will also automatically call <see cref="OnDeactivation"/> </remarks>
         public event Action<ITarget> OnDeactivation;
         public event Action TookDamage;
         /// <summary> return value can be null </summary>
@@ -98,6 +101,8 @@ namespace BugStrategy.Unit
             MoveSpeedChangerProcessor = new MoveSpeedChangerProcessor(_navMeshAgent);
             EffectsProcessor = new EffectsProcessor(this, _effectsFactory);
 
+            OnUnitDeactivation += unit => OnDeactivation?.Invoke(unit);
+            
             OnAwake();
         }
 
@@ -128,7 +133,7 @@ namespace BugStrategy.Unit
         {
             CurrentPathData = null;//Rodion: need cus on game destroying target will be deactivated,
             //so it triggered this unit, that destroyed too
-            OnDeactivation?.Invoke(this);                        
+            OnUnitDeactivation?.Invoke(this);                        
             ElementDestroyEvent?.Invoke(this);
         }
 
@@ -136,7 +141,7 @@ namespace BugStrategy.Unit
         {
             IsActive = false;
             CurrentPathData = null;
-            OnDeactivation?.Invoke(this);
+            OnUnitDeactivation?.Invoke(this);
             gameObject.SetActive(false);
         }
 
