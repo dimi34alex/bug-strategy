@@ -24,6 +24,7 @@ namespace BugStrategy.Unit.Bees
         public override InternalAiBase InternalAi { get; protected set; }
         
         protected override OrderValidatorBase OrderValidator => _orderValidator;
+        protected override BeeConfigBase ConfigBase => config;
         public IReadOnlyAttackProcessor AttackProcessor => _attackProcessor;
 
         private OrderValidatorBase _orderValidator;
@@ -42,7 +43,6 @@ namespace BugStrategy.Unit.Bees
         {
             base.OnAwake();
 
-            _healthStorage = new FloatStorage(config.HealthPoints, config.HealthPoints);
             _cooldownProcessor = new CooldownProcessor(config.Cooldown);
             _attackProcessor = new HoneyCatapultAttackProcessor(this, config.AttackRange, config.Damage, 
                 config.DamageRadius, _cooldownProcessor, _projectilesFactory);

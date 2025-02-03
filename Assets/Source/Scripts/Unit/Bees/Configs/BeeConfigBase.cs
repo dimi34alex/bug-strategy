@@ -1,11 +1,11 @@
 using UnityEngine;
 
-namespace BugStrategy.Unit.Ants
+namespace BugStrategy.Unit.Bees
 {
-    [CreateAssetMenu(fileName = nameof(AntUnitConfig), menuName = "Configs/Units/Ants/" + nameof(AntUnitConfig))]
-    public class AntUnitConfig : ScriptableObject
+    public abstract class BeeConfigBase : ScriptableObject
     {
         [field: SerializeField] public float HealthPoints { get; private set; }
+        [field: SerializeField] public float InteractionRange { get; private set; }
         [field: SerializeField] public float WarFogViewRadius { get; private set; }
     }
 }

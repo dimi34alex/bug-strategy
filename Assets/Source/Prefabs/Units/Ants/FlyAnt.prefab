@@ -345,9 +345,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3c8e869c7454d21ab68f5b85c159534, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unitVisibleZone: {fileID: 4950172718863868761}
   unitInteractionZone: {fileID: 5839118436022368875}
   dynamicUnitZone: {fileID: 7125466420243971278}
+  visibleWarFogZone: {fileID: 7053576534505533148}
   config: {fileID: 11400000, guid: b2a49cc7b620a9542827c46cad3a86b1, type: 2}
   resource: {fileID: 556127432556933653}
   ProfessionType: 0
@@ -361,7 +361,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1904170494616373144}
-  - component: {fileID: 4950172718863868761}
   - component: {fileID: 7053576534505533148}
   - component: {fileID: 3126739122755692071}
   m_Layer: 7
@@ -386,18 +385,6 @@ Transform:
   m_Father: {fileID: 4867274592923137853}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4950172718863868761
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5598300324912119502}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e288de222dac5114f8c120b750d39c99, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7053576534505533148
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -5,6 +5,8 @@ using BugStrategy.EntityState;
 using BugStrategy.Libs;
 using BugStrategy.MiniMap;
 using BugStrategy.Pool;
+using BugStrategy.SelectableSystem;
+using BugStrategy.Tiles;
 using BugStrategy.Trigger;
 using BugStrategy.Unit.OrderValidatorCore;
 using BugStrategy.Unit.UnitSelection;
@@ -15,22 +17,19 @@ using Zenject;
 namespace BugStrategy.Unit
 {
     public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable, ITarget, IMiniMapObject,
-        SelectableSystem.ISelectable, BugStrategy.Pool.IPoolable<UnitBase, UnitType>, IPoolEventListener, IHealable, IAffiliation,
+        ISelectable, Pool.IPoolable<UnitBase, UnitType>, IPoolEventListener, IHealable, IAffiliation,
         IEffectable, IPoisonEffectable, IStickyHoneyEffectable, IMoveSpeedChangeEffectable
     {
-        [SerializeField] private UnitVisibleZone _unitVisibleZone;
         [SerializeField] private UnitInteractionZone unitInteractionZone;
         [SerializeField] private UnitInteractionZone dynamicUnitZone;
 
         [Inject] private readonly EffectsFactory _effectsFactory;
     
         private NavMeshAgent _navMeshAgent;
-        private float _startMaxSpeed;
     
-        protected FloatStorage _healthStorage { get; set; } = new FloatStorage(100, 100);
+        protected FloatStorage _healthStorage  = new FloatStorage(100, 100);
         protected EntityStateMachine _stateMachine;
 
-        public Vector3 Velocity => _navMeshAgent.velocity;
         public bool IsSticky { get; private set; }
         public bool IsSelected { get; private set; }
         public bool IsActive { get; protected set; }
@@ -40,10 +39,10 @@ namespace BugStrategy.Unit
         public MoveSpeedChangerProcessor MoveSpeedChangerProcessor { get; protected set; }
         public AffiliationEnum Affiliation { get; private set; }
         public abstract InternalAiBase InternalAi { get; protected set; }
+        protected VisibleWarFogZone VisibleWarFogZone { get; private set; }
 
         public bool IsAlive => IsActive && _healthStorage.CurrentValue > 0f;
         public Transform Transform => transform;
-        public UnitVisibleZone VisibleZone => _unitVisibleZone;
         public UnitInteractionZone UnitInteractionZone => unitInteractionZone;
         public UnitInteractionZone DynamicUnitZone => dynamicUnitZone;
         public TargetType TargetType => TargetType.Unit;
@@ -96,12 +95,12 @@ namespace BugStrategy.Unit
         {
             _navMeshAgent = gameObject.GetComponent<NavMeshAgent>();
 
-            _startMaxSpeed = _navMeshAgent.speed;
-
             MoveSpeedChangerProcessor = new MoveSpeedChangerProcessor(_navMeshAgent);
             EffectsProcessor = new EffectsProcessor(this, _effectsFactory);
 
             OnUnitDeactivation += unit => OnDeactivation?.Invoke(unit);
+
+            VisibleWarFogZone = GetComponentInChildren<VisibleWarFogZone>();
             
             OnAwake();
         }

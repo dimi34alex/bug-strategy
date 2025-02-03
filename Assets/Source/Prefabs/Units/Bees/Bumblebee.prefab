@@ -267,9 +267,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f51893ea08c24fd4e8f919d91a868431, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unitVisibleZone: {fileID: 5949649818072816824}
+  _unitVisibleZone: {fileID: 0}
   unitInteractionZone: {fileID: 1493000100019554460}
   dynamicUnitZone: {fileID: 4406851168027833582}
+  visibleWarFogZone: {fileID: 240232710297324540}
   config: {fileID: 11400000, guid: 624611f8997607247a3d2da8405fffdb, type: 2}
 --- !u!1 &6598553407153258799
 GameObject:
@@ -280,7 +281,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 886951673902463097}
-  - component: {fileID: 5949649818072816824}
   - component: {fileID: 4415644789587581382}
   - component: {fileID: 240232710297324540}
   m_Layer: 7
@@ -305,18 +305,6 @@ Transform:
   m_Father: {fileID: 6174405766107154652}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5949649818072816824
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6598553407153258799}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e288de222dac5114f8c120b750d39c99, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!135 &4415644789587581382
 SphereCollider:
   m_ObjectHideFlags: 0

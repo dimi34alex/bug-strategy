@@ -3,10 +3,8 @@ using UnityEngine;
 namespace BugStrategy.Unit.Bees
 {
     [CreateAssetMenu(fileName = nameof(HorntailConfig), menuName = "Configs/Units/Bees/" + nameof(HorntailConfig))]
-    public sealed class HorntailConfig : ScriptableObject
+    public sealed class HorntailConfig : BeeConfigBase
     {
-        [field: SerializeField] public float HealthPoints { get; private set; }
-        [field: SerializeField] public float InteractionRange { get; private set; }
         [field: SerializeField] public float Cooldown { get; private set; }
         [field: SerializeField] public float AttackRange { get; private set; }
         [field: SerializeField] public float Damage { get; private set; }

@@ -16,17 +16,18 @@ namespace BugStrategy.Unit.Bees
 {
     public class Wasp : BeeUnit, IAttackCooldownChangerEffectable, IHidableUnit
     {
-        [SerializeField] private BeeRangeWarriorConfig config;
+        [SerializeField] private WaspConfig config;
     
         [Inject] private ProjectilesFactory _projectilesFactory;
     
         protected override OrderValidatorBase OrderValidator => _warriorOrderValidator;
+        protected override BeeConfigBase ConfigBase => config;
         public override UnitType UnitType => UnitType.Wasp;
 
         private OrderValidatorBase _warriorOrderValidator;
         private CooldownProcessor _cooldownProcessor;
         private AttackProcessorBase _attackProcessor;
-        
+
         public override InternalAiBase InternalAi { get; protected set; }
         public AttackCooldownChanger AttackCooldownChanger { get; private set; }
         public IReadOnlyAttackProcessor AttackProcessor => _attackProcessor;
@@ -39,7 +40,6 @@ namespace BugStrategy.Unit.Bees
         {
             base.OnAwake();
 
-            _healthStorage = new FloatStorage(config.HealthPoints, config.HealthPoints);
             _cooldownProcessor = new CooldownProcessor(config.Cooldown);
             _attackProcessor = new RangeAttackProcessor(this, config.AttackRange, config.Damage, _cooldownProcessor,
                 config.ProjectileType, _projectilesFactory);

@@ -21,6 +21,7 @@ namespace BugStrategy.Unit.Bees
         [Inject] private ProjectilesFactory _projectilesFactory;
     
         protected override OrderValidatorBase OrderValidator => _orderValidator;
+        protected override BeeConfigBase ConfigBase => config;
         public override UnitType UnitType => UnitType.Horntail;
         public IReadOnlyAttackProcessor AttackProcessor => _attackProcessor;
 
@@ -42,7 +43,6 @@ namespace BugStrategy.Unit.Bees
         {
             base.OnAwake();
 
-            _healthStorage = new FloatStorage(config.HealthPoints, config.HealthPoints);
             _cooldownProcessor = new CooldownProcessor(config.Cooldown);
             _attackProcessor = new HorntailAttackProcessor(this, config.AttackRange, config.Damage, config.DamageRadius,
                 _cooldownProcessor, _projectilesFactory);

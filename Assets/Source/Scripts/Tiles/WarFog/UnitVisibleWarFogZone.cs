@@ -1,18 +1,15 @@
 using BugStrategy.Unit;
-using UnityEngine;
 
 namespace BugStrategy.Tiles.WarFog
 {
     public class UnitVisibleWarFogZone : VisibleWarFogZone
     {
-        [SerializeField] private UnitBase ScriptWithUnitBase;
+        private UnitBase _unitBase;
 
-        private void Start ()
-        {
-            ScriptWithUnitBase = transform.GetComponentInParent<UnitBase>();
-        }
-        
+        private void Start () 
+            => _unitBase = transform.GetComponentInParent<UnitBase>();
+
         protected override AffiliationEnum GetAffiliation() 
-            => ScriptWithUnitBase.Affiliation;
+            => _unitBase.Affiliation;
     }
 }

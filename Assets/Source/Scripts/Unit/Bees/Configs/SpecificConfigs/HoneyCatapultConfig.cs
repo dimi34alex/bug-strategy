@@ -3,10 +3,8 @@ using UnityEngine;
 namespace BugStrategy.Unit.Bees
 {
     [CreateAssetMenu(fileName = nameof(HoneyCatapultConfig), menuName = "Configs/Units/Bees/" + nameof(HoneyCatapultConfig))]
-    public sealed class HoneyCatapultConfig : ScriptableObject
+    public sealed class HoneyCatapultConfig : BeeConfigBase
     {
-        [field: SerializeField] public float HealthPoints { get; private set; }
-        [field: SerializeField] public float InteractionRange { get; private set; }
         [field: SerializeField] public float Cooldown { get; private set; }
         [field: SerializeField] public float AttackRange { get; private set; }
         [field: SerializeField] public float Damage { get; private set; }

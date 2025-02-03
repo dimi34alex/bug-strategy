@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: AntFlyConfig
   m_EditorClassIdentifier: 
   <HealthPoints>k__BackingField: 100
-  <DefaultProfession>k__BackingField: {fileID: 11400000, guid: 22bc3376c639fc54c85ffa6857fc1989, type: 2}
+  <WarFogViewRadius>k__BackingField: 0
