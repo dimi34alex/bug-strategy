@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace BugStrategy.Constructions
 {
-    public class ConstructionBuyCostConfig : ScriptableObject
+    public class ConstructionBuyCostConfig : ConstructionConfigBase
     {
         [field: SerializeField] public float BuildDuration { get; private set; } = 4;
         [SerializeField] private SerializableDictionary<ResourceID, int> buyCost;

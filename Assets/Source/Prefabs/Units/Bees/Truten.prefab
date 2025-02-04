@@ -230,9 +230,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f844b16e79684bc6bc1a3aa71aa032bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unitVisibleZone: {fileID: 1982127518946882169}
+  _unitVisibleZone: {fileID: 0}
   unitInteractionZone: {fileID: 482091407778176826}
   dynamicUnitZone: {fileID: 3135543053050146353}
+  visibleWarFogZone: {fileID: 0}
   config: {fileID: 11400000, guid: 003dae9da2163d04a903a78ef9aa4ea3, type: 2}
   abilityStandardBearerZone: {fileID: 1325599831977034943}
 --- !u!195 &6272501091639487504
@@ -426,8 +427,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8685478599285394380}
-  - component: {fileID: 1982127518946882169}
-  - component: {fileID: 7125755887311049201}
   - component: {fileID: 1122161790834712182}
   - component: {fileID: 6059534082722727586}
   m_Layer: 7
@@ -452,30 +451,6 @@ Transform:
   m_Father: {fileID: 6857401076262356608}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1982127518946882169
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8471303322834228838}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e288de222dac5114f8c120b750d39c99, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &7125755887311049201
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8471303322834228838}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6577efbb40a4e834eb6dbde130247f95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!135 &1122161790834712182
 SphereCollider:
   m_ObjectHideFlags: 0

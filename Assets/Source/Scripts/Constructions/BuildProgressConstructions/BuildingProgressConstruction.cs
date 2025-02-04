@@ -4,21 +4,23 @@ using CycleFramework.Extensions;
 using TMPro;
 using UnityEngine;
 
-namespace BugStrategy.Constructions
+namespace BugStrategy.Constructions.BuildProgressConstructions
 {
     public class BuildingProgressConstruction : ConstructionBase
     {
+        [SerializeField] private BuildingProgressConstructionConfig config;
         [SerializeField] private TMP_Text _timerText;
 
         public override FractionType Fraction => FractionType.None;
         public override ConstructionID ConstructionID => ConstructionID.BuildingProgressConstruction;
+        protected override ConstructionConfigBase ConfigBase => config;
         public ConstructionID BuildingConstructionID { get; private set; }
 
         public BuildingProgressState BuildingProgressState { get; private set; } = BuildingProgressState.Waiting;
 
         public event Action<BuildingProgressConstruction> OnTimerEnd;
 
-        private GameObject currentWorker;
+        private GameObject _currentWorker;
         public bool WorkerArrived;
     
         public void StartBuilding(float duration, ConstructionID constructionID)

@@ -1,4 +1,5 @@
 using BugStrategy.Constructions;
+using BugStrategy.Constructions.BuildProgressConstructions;
 using BugStrategy.Constructions.Factory;
 using BugStrategy.CustomInput;
 using BugStrategy.Libs;

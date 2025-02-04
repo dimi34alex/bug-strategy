@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07850406cdf3430a92f6d8ee66cd78e4, type: 3}
   m_Name: AntStorageConfig
   m_EditorClassIdentifier: 
+  <WarFogViewRadius>k__BackingField: 15
   <BuildDuration>k__BackingField: 4
   buyCost:
     _cells: []

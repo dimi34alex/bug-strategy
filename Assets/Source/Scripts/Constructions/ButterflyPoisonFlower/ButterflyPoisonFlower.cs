@@ -23,7 +23,8 @@ namespace BugStrategy.Constructions.ButterflyPoisonFlower
 
         public override FractionType Fraction => FractionType.Butterflies;
         public override ConstructionID ConstructionID => ConstructionID.ButterflyPoisonFlower;
-        
+        protected override ConstructionConfigBase ConfigBase => config;
+
         public IConstructionLevelSystem LevelSystem { get; private set; }
         
         protected override void OnAwake()

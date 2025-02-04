@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3119dda5c604fd1b63669a388bc9041, type: 3}
   m_Name: BeeStorageConfig
   m_EditorClassIdentifier: 
+  <WarFogViewRadius>k__BackingField: 15
   <BuildDuration>k__BackingField: 4
   buyCost:
     _cells: []

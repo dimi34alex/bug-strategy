@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 462532d01d24423c9a90e090444b77e4, type: 3}
   m_Name: BeeTownHallConfig
   m_EditorClassIdentifier: 
+  <WarFogViewRadius>k__BackingField: 15
   <BuildDuration>k__BackingField: 4
   buyCost:
     _cells: []

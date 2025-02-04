@@ -12,6 +12,7 @@ namespace BugStrategy.Constructions.BeeMercenaryBarrack
 
         public override FractionType Fraction => FractionType.Bees;
         public override ConstructionID ConstructionID => ConstructionID.BeeMercenaryBarrack;
+        protected override ConstructionConfigBase ConfigBase => config;
         public IHider Hider => _hider;
 
         protected override void OnAwake()

@@ -24,6 +24,7 @@ namespace BugStrategy.Unit.Bees
         
         public override UnitType UnitType => UnitType.WorkerBee;
         protected override OrderValidatorBase OrderValidator => _orderValidator;
+        protected override BeeConfigBase ConfigBase => config;
 
         private OrderValidatorBase _orderValidator;
         private ResourceExtractionProcessor _resourceExtractionProcessor;
@@ -38,8 +39,6 @@ namespace BugStrategy.Unit.Bees
         {
             base.OnAwake();
 
-            _healthStorage = new FloatStorage(config.HealthPoints, config.HealthPoints);
-           
             _resourceExtractionProcessor = new ResourceExtractionProcessor(this, config.GatheringCapacity, config.GatheringTime,
                 _teamsResourcesGlobalStorage, resourceSkin);
             _orderValidator = new WorkerBeeValidator(this, config.InteractionRange, _resourceExtractionProcessor);

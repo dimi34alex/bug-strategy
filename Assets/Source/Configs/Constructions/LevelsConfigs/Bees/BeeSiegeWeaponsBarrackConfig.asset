@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3596a394688f42cfabc9635993e683d9, type: 3}
   m_Name: BeeSiegeWeaponsBarrackConfig
   m_EditorClassIdentifier: 
+  <WarFogViewRadius>k__BackingField: 15
   <BuildDuration>k__BackingField: 4
   buyCost:
     _cells: []

@@ -223,6 +223,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <View>k__BackingField: {fileID: 1078690610191324954}
+  config: {fileID: 11400000, guid: a9f982cc701cdc14f918e98d7cc821a6, type: 2}
   _timerText: {fileID: 589072602223343525}
   WorkerArrived: 0
 --- !u!135 &578274785806036525
@@ -279,7 +280,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5009998715484621198}
-  - component: {fileID: 4029130551396947398}
   - component: {fileID: 7929503780285525018}
   - component: {fileID: 202449753873624254}
   m_Layer: 7
@@ -304,18 +304,6 @@ Transform:
   m_Father: {fileID: 589072602228609362}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4029130551396947398
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2729368140024456170}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6577efbb40a4e834eb6dbde130247f95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!135 &7929503780285525018
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -341,7 +329,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aff8d09f1a6a1be4a9eab9a328601981, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScriptWithConstructionBase: {fileID: 589072602228609363}
 --- !u!1001 &6383462510392697385
 PrefabInstance:
   m_ObjectHideFlags: 0

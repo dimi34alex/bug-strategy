@@ -6,5 +6,6 @@ namespace BugStrategy.Unit.Ants
     public class AntUnitConfig : ScriptableObject
     {
         [field: SerializeField] public float HealthPoints { get; private set; }
+        [field: SerializeField] public float WarFogViewRadius { get; private set; }
     }
 }

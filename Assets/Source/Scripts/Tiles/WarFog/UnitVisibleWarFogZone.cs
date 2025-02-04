@@ -1,42 +1,15 @@
-using BugStrategy.Constructions;
-using BugStrategy.Missions;
-using BugStrategy.Tiles;
-using BugStrategy.Trigger;
 using BugStrategy.Unit;
-using CycleFramework.Extensions;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Zenject;
 
-namespace BugStrategy
+namespace BugStrategy.Tiles.WarFog
 {
     public class UnitVisibleWarFogZone : VisibleWarFogZone
     {
-        [Tooltip("скрипт юнита откуда можно выяснить принадлежность")]
-        [SerializeField] private UnitBase ScriptWithUnitBase;
+        private UnitBase _unitBase;
 
-        [Inject] private readonly MissionData _missionData;
+        private void Start () 
+            => _unitBase = transform.GetComponentInParent<UnitBase>();
 
-        private void Start ()
-        {
-            ScriptWithUnitBase = transform.GetComponentInParent<UnitBase>();
-        }
-
-        protected override void OnEnter (ITriggerable component)
-        {
-            if(ScriptWithUnitBase.Affiliation == _missionData.PlayerAffiliation)
-            {
-                component.Cast<Tile>().AddWatcher();
-            }
-        } 
-
-        protected override void OnExit (ITriggerable component)
-        {
-            if(ScriptWithUnitBase.Affiliation == _missionData.PlayerAffiliation)
-            {
-                component.Cast<Tile>().RemoveWatcher();
-            }
-        }
+        protected override AffiliationEnum GetAffiliation() 
+            => _unitBase.Affiliation;
     }
 }

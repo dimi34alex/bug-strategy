@@ -17,6 +17,7 @@ namespace BugStrategy.Constructions.BeeTownHall
 
         public override FractionType Fraction => FractionType.Bees;
         public override ConstructionID ConstructionID => ConstructionID.BeeTownHall;
+        protected override ConstructionConfigBase ConfigBase => config;
         public IHider Hider => _hider;
         
         public override IConstructionLevelSystem LevelSystem { get; protected set; }

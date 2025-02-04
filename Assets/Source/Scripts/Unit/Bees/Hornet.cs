@@ -17,6 +17,7 @@ namespace BugStrategy.Unit.Bees
         [SerializeField] private HornetConfig config;
         
         protected override OrderValidatorBase OrderValidator => _orderValidator;
+        protected override BeeConfigBase ConfigBase => config;
         public override UnitType UnitType => UnitType.Hornet;
 
         public AttackCooldownChanger AttackCooldownChanger { get; private set; }
@@ -38,7 +39,6 @@ namespace BugStrategy.Unit.Bees
         {
             base.OnAwake();
 
-            _healthStorage = new FloatStorage(config.HealthPoints, config.HealthPoints);
             _cooldownProcessor = new CooldownProcessor(config.Cooldown);
             _attackProcessor = new HornetAttackProcessor(this, config.AttackRange, config.Damage, _cooldownProcessor);
             _orderValidator = new HidableWarriorOrderValidator(this, config.InteractionRange, _cooldownProcessor, _attackProcessor);

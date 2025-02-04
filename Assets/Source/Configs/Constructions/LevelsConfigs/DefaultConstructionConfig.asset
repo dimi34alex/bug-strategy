@@ -9,11 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a41f5465bb246d391aba8f897507bce, type: 3}
-  m_Name: BeeMeleeWarriorConfig
+  m_Script: {fileID: 11500000, guid: bec8e84463c946a7886d7b9876c8e459, type: 3}
+  m_Name: DefaultConstructionConfig
   m_EditorClassIdentifier: 
-  <HealthPoints>k__BackingField: 100
-  <InteractionRange>k__BackingField: 4
-  <Cooldown>k__BackingField: 1
-  <AttackRange>k__BackingField: 4
-  <Damage>k__BackingField: 10
+  <WarFogViewRadius>k__BackingField: 4

@@ -23,6 +23,7 @@ namespace BugStrategy.Unit.Bees
         
         public override UnitType UnitType => UnitType.Murmur;
         protected override OrderValidatorBase OrderValidator => _orderValidator;
+        protected override BeeConfigBase ConfigBase => config;
         public IReadOnlyAttackProcessor AttackProcessor => _attackProcessor;
 
         private ResourceExtractionProcessor _resourceExtractionProcessor;
@@ -41,8 +42,6 @@ namespace BugStrategy.Unit.Bees
         {
             base.OnAwake();
 
-            _healthStorage = new FloatStorage(config.HealthPoints, config.HealthPoints);
-            
             _resourceExtractionProcessor = new ResourceExtractionProcessor(this, config.GatheringCapacity, config.GatheringTime,
                 _teamsResourcesGlobalStorage, resourceSkin);
             _cooldownProcessor = new CooldownProcessor(config.AttackCooldown);

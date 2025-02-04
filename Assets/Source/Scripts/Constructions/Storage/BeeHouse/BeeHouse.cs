@@ -19,6 +19,7 @@ namespace BugStrategy.Constructions.BeeHouse
 
         public override FractionType Fraction => FractionType.Bees;
         public override ConstructionID ConstructionID => ConstructionID.BeeHouse;
+        protected override ConstructionConfigBase ConfigBase => config;
         public IHider Hider => _hider;
 
         public override IConstructionLevelSystem LevelSystem { get; protected set; }

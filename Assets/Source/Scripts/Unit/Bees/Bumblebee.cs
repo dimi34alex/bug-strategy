@@ -27,6 +27,7 @@ namespace BugStrategy.Unit.Bees
         public override UnitType UnitType => UnitType.Bumblebee;
         
         protected override OrderValidatorBase OrderValidator => _orderValidator;
+        protected override BeeConfigBase ConfigBase => config;
         public IReadOnlyAttackProcessor AttackProcessor => _attackProcessor;
 
         private OrderValidatorBase _orderValidator;
@@ -44,7 +45,6 @@ namespace BugStrategy.Unit.Bees
         {
             base.OnAwake();
 
-            _healthStorage = new FloatStorage(config.HealthPoints, config.HealthPoints);
             _cooldownProcessor = new CooldownProcessor(config.Cooldown);
             _attackProcessor = new MeleeAttackProcessor(this, config.AttackRange, config.Damage, _cooldownProcessor);
             _orderValidator = new HidableWarriorOrderValidator(this, config.InteractionRange, _cooldownProcessor, _attackProcessor);

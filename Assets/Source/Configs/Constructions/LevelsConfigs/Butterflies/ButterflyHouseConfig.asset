@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2030a621dc4643c98476fe78eddad7d5, type: 3}
   m_Name: ButterflyHouseConfig
   m_EditorClassIdentifier: 
+  <WarFogViewRadius>k__BackingField: 15
+  <BuildDuration>k__BackingField: 4
   buyCost:
     _cells: []
   levels:
-  - maxHealPoints: 1000
+  - view: {fileID: 0}
+    maxHealPoints: 1000
     levelUpCost:
       _cells: []
     resourceCapacity:

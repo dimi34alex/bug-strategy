@@ -21,6 +21,7 @@ namespace BugStrategy.Unit.Bees
         [Inject] private ProjectilesFactory _projectilesFactory;
     
         protected override OrderValidatorBase OrderValidator => _orderValidator;
+        protected override BeeConfigBase ConfigBase => config;
         public override UnitType UnitType => UnitType.Sawyer;
         public IReadOnlyAttackProcessor AttackProcessor => _attackProcessor;
 
@@ -43,8 +44,6 @@ namespace BugStrategy.Unit.Bees
         {
             base.OnAwake();
 
-            _healthStorage = new FloatStorage(config.HealthPoints, config.HealthPoints);
-            
             _cooldownProcessor = new CooldownProcessor(config.Cooldown);
             _attackProcessor = new SawyerAttackProcessor(this, config.AttackRange, config.Damage, _cooldownProcessor,
                 config.ProjectileType, _projectilesFactory);

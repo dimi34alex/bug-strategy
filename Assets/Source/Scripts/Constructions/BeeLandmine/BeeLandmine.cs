@@ -23,6 +23,7 @@ namespace BugStrategy.Constructions.BeeLandmine
 
         public override FractionType Fraction => FractionType.Bees;
         public override ConstructionID ConstructionID => ConstructionID.BeeLandmine;
+        protected override ConstructionConfigBase ConfigBase => config;
 
         public float Damage { get; private set; }
         

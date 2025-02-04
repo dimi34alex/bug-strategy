@@ -4,10 +4,8 @@ using UnityEngine;
 namespace BugStrategy.Unit.Bees
 {
     [CreateAssetMenu(fileName = nameof(SawyerConfig), menuName = "Configs/Units/Bees/" + nameof(SawyerConfig))]
-    public sealed class SawyerConfig : ScriptableObject
+    public sealed class SawyerConfig : BeeConfigBase
     {
-        [field: SerializeField] public float HealthPoints { get; private set; }
-        [field: SerializeField] public float InteractionRange { get; private set; }
         [field: SerializeField] public float Cooldown { get; private set; }
         [field: SerializeField] public float AttackRange { get; private set; }
         [field: SerializeField] public float Damage { get; private set; }

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <HealthPoints>k__BackingField: 400
   <InteractionRange>k__BackingField: 1
+  <WarFogViewRadius>k__BackingField: 25
   <GatheringCapacity>k__BackingField: 50
   <GatheringTime>k__BackingField: 12
   <AttackDamage>k__BackingField: 75

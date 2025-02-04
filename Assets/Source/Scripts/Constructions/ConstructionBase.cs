@@ -1,6 +1,8 @@
 using System;
 using BugStrategy.MiniMap;
 using BugStrategy.Missions;
+using BugStrategy.SelectableSystem;
+using BugStrategy.Tiles;
 using BugStrategy.Trigger;
 using UnityEngine;
 using Zenject;
@@ -8,17 +10,20 @@ using Zenject;
 namespace BugStrategy.Constructions
 {
     public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagable, IRepairable, IMiniMapObject,
-        ITriggerable, ITarget, SelectableSystem.ISelectable, IAffiliation
+        ITriggerable, ITarget, ISelectable, IAffiliation
     {
         [field: SerializeField] public ObjectView View { get; private set; }
         
         [Inject] protected readonly MissionData MissionData;
-    
+
+        private VisibleWarFogZone _visibleWarFogZone;
+        
         public AffiliationEnum Affiliation { get; private set; }
         public abstract FractionType Fraction { get; }
+        protected abstract ConstructionConfigBase ConfigBase { get; }
 
         protected readonly FloatStorage _healthStorage = new(0,0);
-        
+
         public bool IsSelected { get; private set; }
         public bool IsActive { get; protected set; } = true;
         public bool IsAlive => IsActive && _healthStorage.CurrentValue > 0f;
@@ -42,7 +47,12 @@ namespace BugStrategy.Constructions
         protected void Start() => OnStart();
         protected void Update() => _updateEvent?.Invoke();
 
-        protected virtual void OnAwake() { }
+        protected virtual void OnAwake()
+        {
+            _visibleWarFogZone = GetComponentInChildren<VisibleWarFogZone>();
+            _visibleWarFogZone.SetRadius(ConfigBase.WarFogViewRadius);
+        }
+        
         protected virtual void OnStart() { }
 
         public void Initialize(AffiliationEnum newAffiliation)

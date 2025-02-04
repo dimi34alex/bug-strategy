@@ -12,6 +12,7 @@ namespace BugStrategy.Constructions.AntQuicksandTile
 
         public override FractionType Fraction => FractionType.Ants;
         public override ConstructionID ConstructionID => ConstructionID.AntQuicksandTile;
+        protected override ConstructionConfigBase ConfigBase => config;
 
         protected override void OnAwake()
         {
