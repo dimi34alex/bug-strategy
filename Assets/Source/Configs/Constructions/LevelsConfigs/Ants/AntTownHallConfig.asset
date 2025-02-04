@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a862be0b88f4df8972dcace115e78af, type: 3}
   m_Name: AntTownHallConfig
   m_EditorClassIdentifier: 
+  <WarFogViewRadius>k__BackingField: 15
   <BuildDuration>k__BackingField: 4
   buyCost:
     _cells: []

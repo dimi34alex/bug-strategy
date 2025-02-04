@@ -14,7 +14,8 @@ namespace BugStrategy.Constructions.AntWorkerWorkshop
 
         public override FractionType Fraction => FractionType.Ants;
         public override ConstructionID ConstructionID => ConstructionID.AntWorkerWorkshop;
-        
+        protected override ConstructionConfigBase ConfigBase => config;
+
         public override ProfessionType ProfessionType => ProfessionType.Worker;
         public override IConstructionLevelSystem LevelSystem { get; protected set; }
         

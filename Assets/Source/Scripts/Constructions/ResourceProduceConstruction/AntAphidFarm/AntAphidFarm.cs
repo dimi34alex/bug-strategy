@@ -16,6 +16,7 @@ namespace BugStrategy.Constructions.ResourceProduceConstruction.AntAphidFarm
         public override ConstructionID ConstructionID => ConstructionID.AntAphidFarm;
         public override ResourceProduceCoreBase ResourceProduceCoreBase => _resourceProduceCore;
         public override ResourceProduceConstructionState ProduceConstructionState => _resourceProduceConstructionState;
+        protected override ConstructionConfigBase ConfigBase => config;
 
         public IConstructionLevelSystem LevelSystem { get; private set; }
         

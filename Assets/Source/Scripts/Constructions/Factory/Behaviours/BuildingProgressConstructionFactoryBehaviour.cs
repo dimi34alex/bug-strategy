@@ -1,4 +1,5 @@
-﻿using BugStrategy.Constructions.DefaultConstruction;
+﻿using BugStrategy.Constructions.BuildProgressConstructions;
+using BugStrategy.Constructions.DefaultConstruction;
 using UnityEngine;
 using Zenject;
 
@@ -6,7 +7,7 @@ namespace BugStrategy.Constructions.Factory.Behaviours
 {
     public class BuildingProgressConstructionFactoryBehaviour : ConstructionFactoryBehaviourBase
     {
-        [Inject] private readonly BuildingProgressConstructionConfig _constructionConfig;
+        [Inject] private readonly BuildingProgressConstructionSpawnConfig _constructionConfig;
 
         public override ConstructionType ConstructionType => ConstructionType.BuildingProgressConstruction;
 

@@ -13,6 +13,7 @@ namespace BugStrategy.Constructions.AntFort
 
         public override FractionType Fraction => FractionType.Ants;
         public override ConstructionID ConstructionID => ConstructionID.AntFort;
+        protected override ConstructionConfigBase ConfigBase => config;
         
         public IConstructionLevelSystem LevelSystem { get; private set; }
         

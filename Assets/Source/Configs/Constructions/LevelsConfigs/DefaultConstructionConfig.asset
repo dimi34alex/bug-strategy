@@ -9,11 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1787509dfbc04c768cdbf41a7178536b, type: 3}
-  m_Name: AntQuicksandTileConfig
+  m_Script: {fileID: 11500000, guid: bec8e84463c946a7886d7b9876c8e459, type: 3}
+  m_Name: DefaultConstructionConfig
   m_EditorClassIdentifier: 
-  <WarFogViewRadius>k__BackingField: 15
-  <BuildDuration>k__BackingField: 4
-  buyCost:
-    _cells: []
-  <HealthPoints>k__BackingField: 100
+  <WarFogViewRadius>k__BackingField: 4

@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b24e48f7aa44a6297a2ef9904f349a1, type: 3}
   m_Name: BeeHospitalConfig
   m_EditorClassIdentifier: 
+  <WarFogViewRadius>k__BackingField: 15
+  <BuildDuration>k__BackingField: 4
   buyCost:
     _cells: []
   levels:
-  - maxHealPoints: 1000
+  - view: {fileID: 0}
+    maxHealPoints: 1000
     levelUpCost:
       _cells: []
     resourceCapacity:

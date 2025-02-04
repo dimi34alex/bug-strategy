@@ -17,6 +17,7 @@ namespace BugStrategy.Constructions.BeeStickyTile
         
         public override FractionType Fraction => FractionType.Bees;
         public override ConstructionID ConstructionID => ConstructionID.BeeStickyTileConstruction;
+        protected override ConstructionConfigBase ConfigBase => config;
 
         protected override void OnAwake()
         {

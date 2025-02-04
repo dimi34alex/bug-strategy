@@ -13,7 +13,8 @@ namespace BugStrategy.Constructions.ButterflyHouse
 
         public override FractionType Fraction => FractionType.Butterflies;
         public override ConstructionID ConstructionID => ConstructionID.ButterflyHouse;
-        
+        protected override ConstructionConfigBase ConfigBase => config;
+
         public override IConstructionLevelSystem LevelSystem { get; protected set; }
 
         protected override void OnAwake()

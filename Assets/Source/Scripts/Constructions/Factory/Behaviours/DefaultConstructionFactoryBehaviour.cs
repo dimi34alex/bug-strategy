@@ -6,7 +6,7 @@ namespace BugStrategy.Constructions.Factory.Behaviours
 {
     public class DefaultConstructionFactoryBehaviour : ConstructionFactoryBehaviourBase
     {
-        [Inject] private readonly DefaultConstructionConfig _defaultConstructionConfig;
+        [Inject] private readonly DefaultConstructionSpawnConfig _defaultConstructionConfig;
 
         public override ConstructionType ConstructionType => ConstructionType.TestConstruction;
 

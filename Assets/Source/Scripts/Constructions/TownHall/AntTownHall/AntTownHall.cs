@@ -15,6 +15,7 @@ namespace BugStrategy.Constructions.AntTownHall
 
         public override FractionType Fraction => FractionType.Ants;
         public override ConstructionID ConstructionID => ConstructionID.AntTownHall;
+        protected override ConstructionConfigBase ConfigBase => config;
 
         public override IConstructionLevelSystem LevelSystem { get; protected set; }
 

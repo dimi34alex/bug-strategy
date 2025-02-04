@@ -13,7 +13,8 @@ namespace BugStrategy.Constructions.BeeStorage
 
         public override FractionType Fraction => FractionType.Bees;
         public override ConstructionID ConstructionID => ConstructionID.BeeStorage;
-        
+        protected override ConstructionConfigBase ConfigBase => config;
+
         public override IConstructionLevelSystem LevelSystem { get; protected set; }
 
         protected override void OnAwake()

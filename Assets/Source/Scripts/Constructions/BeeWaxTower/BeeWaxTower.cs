@@ -19,6 +19,7 @@ namespace BugStrategy.Constructions.BeeWaxTower
         
         public override FractionType Fraction => FractionType.Bees;
         public override ConstructionID ConstructionID => ConstructionID.BeeWaxTower;
+        protected override ConstructionConfigBase ConfigBase => config;
 
         public IConstructionLevelSystem LevelSystem => _levelSystem;
         private BeeWaxTowerLevelSystem _levelSystem;

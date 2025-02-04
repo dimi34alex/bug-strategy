@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
     _cells:
+    - Key: 0
+      Value: {fileID: 11400000, guid: a1dcef3f5633fb5419ae02728a7b78e7, type: 2}
     - Key: 5
       Value: {fileID: 11400000, guid: 55c9a5a1e42a4f741b260290dfa75e51, type: 2}
     - Key: 10

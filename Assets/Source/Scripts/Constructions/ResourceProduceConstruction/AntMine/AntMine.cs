@@ -15,6 +15,7 @@ namespace BugStrategy.Constructions.ResourceProduceConstruction.AntMine
         public override ConstructionID ConstructionID => ConstructionID.AntMine;
         public override ResourceProduceCoreBase ResourceProduceCoreBase => _resourceProduceCore;
         public override ResourceProduceConstructionState ProduceConstructionState => _resourceProduceConstructionState;
+        protected override ConstructionConfigBase ConfigBase => config;
 
         private ResourceProduceCore _resourceProduceCore;
         private ResourceProduceConstructionState _resourceProduceConstructionState;

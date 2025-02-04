@@ -26,7 +26,7 @@ namespace BugStrategy.Unit
         [Inject] private readonly EffectsFactory _effectsFactory;
     
         private NavMeshAgent _navMeshAgent;
-    
+
         protected FloatStorage _healthStorage  = new FloatStorage(100, 100);
         protected EntityStateMachine _stateMachine;
 
@@ -34,13 +34,14 @@ namespace BugStrategy.Unit
         public bool IsSelected { get; private set; }
         public bool IsActive { get; protected set; }
         public Vector3 TargetMovePosition { get; protected set; }
-        protected abstract OrderValidatorBase OrderValidator { get; }
         public EffectsProcessor EffectsProcessor { get; protected set; }
         public MoveSpeedChangerProcessor MoveSpeedChangerProcessor { get; protected set; }
         public AffiliationEnum Affiliation { get; private set; }
         public abstract InternalAiBase InternalAi { get; protected set; }
+        
+        protected abstract OrderValidatorBase OrderValidator { get; }
         protected VisibleWarFogZone VisibleWarFogZone { get; private set; }
-
+        
         public bool IsAlive => IsActive && _healthStorage.CurrentValue > 0f;
         public Transform Transform => transform;
         public UnitInteractionZone UnitInteractionZone => unitInteractionZone;
@@ -87,7 +88,7 @@ namespace BugStrategy.Unit
         /// <remarks> Dont call it, call <see cref="OnUnitDeactivation"/>, it will also automatically call <see cref="OnDeactivation"/> </remarks>
         public event Action<ITarget> OnDeactivation;
         public event Action TookDamage;
-        /// <summary> return value can be null </summary>
+        /// <returns> value can be null </returns>
         public event Action<ITarget> TookDamageWithAttacker;
         public event Action PathTargetDeactivated;
 

@@ -1,5 +1,6 @@
 using System;
 using BugStrategy.Constructions;
+using BugStrategy.Constructions.BuildProgressConstructions;
 using BugStrategy.Libs;
 using BugStrategy.Unit;
 using CycleFramework.Extensions;

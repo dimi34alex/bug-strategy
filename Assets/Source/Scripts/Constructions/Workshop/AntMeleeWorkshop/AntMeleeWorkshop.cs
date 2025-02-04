@@ -14,6 +14,7 @@ namespace BugStrategy.Constructions.AntMeleeWorkshop
         
         public override FractionType Fraction => FractionType.Ants;
         public override ConstructionID ConstructionID => ConstructionID.AntMeleeWorkshop;
+        protected override ConstructionConfigBase ConfigBase => config;
 
         public override ProfessionType ProfessionType => ProfessionType.MeleeWarrior;
         public override IConstructionLevelSystem LevelSystem { get; protected set; }

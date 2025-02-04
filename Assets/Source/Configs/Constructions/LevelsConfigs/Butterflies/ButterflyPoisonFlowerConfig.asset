@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca03c298ea474c3783e235765c40aa16, type: 3}
   m_Name: ButterflyPoisonFlowerConfig
   m_EditorClassIdentifier: 
+  <WarFogViewRadius>k__BackingField: 15
+  <BuildDuration>k__BackingField: 4
   buyCost:
     _cells: []
   levels:
-  - maxHealPoints: 500
+  - view: {fileID: 0}
+    maxHealPoints: 500
     levelUpCost:
       _cells: []
     resourceCapacity:
@@ -27,7 +30,8 @@ MonoBehaviour:
     <FogRadius>k__BackingField: 10
     <FogExistTime>k__BackingField: 3
     <StaticFogRadius>k__BackingField: 0
-  - maxHealPoints: 750
+  - view: {fileID: 0}
+    maxHealPoints: 750
     levelUpCost:
       _cells: []
     resourceCapacity:
@@ -39,7 +43,8 @@ MonoBehaviour:
     <FogRadius>k__BackingField: 10
     <FogExistTime>k__BackingField: 3
     <StaticFogRadius>k__BackingField: 0
-  - maxHealPoints: 1000
+  - view: {fileID: 0}
+    maxHealPoints: 1000
     levelUpCost:
       _cells: []
     resourceCapacity:

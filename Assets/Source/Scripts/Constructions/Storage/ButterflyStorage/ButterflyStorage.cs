@@ -13,7 +13,8 @@ namespace BugStrategy.Constructions.ButterflyStorage
 
         public override FractionType Fraction => FractionType.Butterflies;
         public override ConstructionID ConstructionID => ConstructionID.ButterflyStorage;
-        
+        protected override ConstructionConfigBase ConfigBase => config;
+
         public IConstructionLevelSystem LevelSystem { get; private set; }
 
         protected override void OnAwake()

@@ -19,6 +19,7 @@ namespace BugStrategy.Constructions.ResourceProduceConstruction.BeesWaxProduceCo
         public override FractionType Fraction => FractionType.Bees;
         public override ConstructionID ConstructionID => ConstructionID.BeeWaxProduceConstruction;
         public override ResourceConversionCore ResourceConversionCore => _resourceConversionCore;
+        protected override ConstructionConfigBase ConfigBase => config;
         public IHider Hider => _hider;
 
         public IConstructionLevelSystem LevelSystem { get; private set; }

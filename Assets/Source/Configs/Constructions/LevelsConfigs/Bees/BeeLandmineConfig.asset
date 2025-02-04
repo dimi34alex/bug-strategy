@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 122773ac8a5b41e79793a412ddcdc013, type: 3}
   m_Name: BeeLandmineConfig
   m_EditorClassIdentifier: 
+  <WarFogViewRadius>k__BackingField: 1
+  <BuildDuration>k__BackingField: 4
   buyCost:
     _cells: []
   <HealthPoints>k__BackingField: 100

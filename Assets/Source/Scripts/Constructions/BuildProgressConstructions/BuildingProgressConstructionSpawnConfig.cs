@@ -1,10 +1,10 @@
 ﻿using BugStrategy.ConfigsRepository;
 using UnityEngine;
 
-namespace BugStrategy.Constructions.DefaultConstruction
+namespace BugStrategy.Constructions.BuildProgressConstructions
 {
     [CreateAssetMenu(fileName = "BuildingProgressConstructionConfig", menuName = "Configs/Constructions/Main/BuildingProgressConstructionConfig")]
-    public class BuildingProgressConstructionConfig : ScriptableObject, ISingleConfig
+    public class BuildingProgressConstructionSpawnConfig : ScriptableObject, ISingleConfig
     {
         [SerializeField] private ConstructionSpawnConfiguration<BuildingProgressConstruction> _configuration;
 

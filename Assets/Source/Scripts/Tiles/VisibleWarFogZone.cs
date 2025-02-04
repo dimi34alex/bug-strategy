@@ -19,7 +19,10 @@ namespace BugStrategy.Tiles
         
         public void SetRadius(float viewRadius)
         {
-            GetComponent<SphereCollider>().radius = viewRadius;
+            var sphereCollider = GetComponent<SphereCollider>();
+
+            sphereCollider.radius = viewRadius;
+            sphereCollider.enabled = viewRadius != 0;
         } 
         
         protected override void OnEnter (ITriggerable component)

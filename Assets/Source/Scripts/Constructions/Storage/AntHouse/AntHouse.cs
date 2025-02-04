@@ -13,7 +13,8 @@ namespace BugStrategy.Constructions.AntHouse
         
         public override FractionType Fraction => FractionType.Ants;
         public override ConstructionID ConstructionID => ConstructionID.AntHouse;
-        
+        protected override ConstructionConfigBase ConfigBase => config;
+
         public override IConstructionLevelSystem LevelSystem { get; protected set; }
 
         protected override void OnAwake()

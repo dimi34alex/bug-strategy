@@ -12,6 +12,7 @@ namespace BugStrategy.Constructions.BeeBarrack
 
         public override FractionType Fraction => FractionType.Bees;
         public override ConstructionID ConstructionID => ConstructionID.BeeBarrack;
+        protected override ConstructionConfigBase ConfigBase => config;
         public IHider Hider => _hider;
 
 
