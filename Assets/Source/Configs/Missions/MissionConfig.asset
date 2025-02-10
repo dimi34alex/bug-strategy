@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7241783d4b95481995407667dd8b9222, type: 3}
   m_Name: MissionConfig
   m_EditorClassIdentifier: 
-  <MissionJson>k__BackingField: {fileID: 4900000, guid: 4a48ec33ce8d13047b732646548cd609, type: 3}
+  <MissionJson>k__BackingField: {fileID: 4900000, guid: 8b2b89c01384a26489617a22be190d5e, type: 3}
   <PlayerAffiliation>k__BackingField: 10
   fractionByAffiliation:
     _cells:
