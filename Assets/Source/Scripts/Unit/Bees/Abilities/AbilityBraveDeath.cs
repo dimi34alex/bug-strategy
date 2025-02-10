@@ -26,7 +26,7 @@ namespace BugStrategy.Unit.Bees
 
         private void HealNearAllies(ITarget _)
         {
-            RaycastHit[] result = new RaycastHit[100];
+            RaycastHit[] result = new RaycastHit[32];
             var size = Physics.SphereCastNonAlloc(_truten.transform.position, _healRadius, Vector3.down,
                 result, 0, _healLayers);
 

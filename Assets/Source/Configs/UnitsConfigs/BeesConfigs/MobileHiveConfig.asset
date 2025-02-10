@@ -19,7 +19,7 @@ MonoBehaviour:
   <AttackRange>k__BackingField: 10
   <Damage>k__BackingField: 50
   <ExplosionDamage>k__BackingField: 250
-  <ExplosionRadius>k__BackingField: 10
+  <ExplosionRadius>k__BackingField: 5
   <ExplosionLayers>k__BackingField:
     serializedVersion: 2
     m_Bits: 6144

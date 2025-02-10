@@ -18,6 +18,6 @@ MonoBehaviour:
   <Cooldown>k__BackingField: 4
   <AttackRange>k__BackingField: 20
   <Damage>k__BackingField: 200
-  <DamageRadius>k__BackingField: 200
+  <DamageRadius>k__BackingField: 5
   <ConstructionDamageScale>k__BackingField: 2
   <StickyProjectileNum>k__BackingField: 3
