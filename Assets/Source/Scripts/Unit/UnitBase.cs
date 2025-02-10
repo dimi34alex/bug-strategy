@@ -7,6 +7,7 @@ using BugStrategy.MiniMap;
 using BugStrategy.Pool;
 using BugStrategy.SelectableSystem;
 using BugStrategy.Tiles;
+using BugStrategy.Tiles.WarFog;
 using BugStrategy.Trigger;
 using BugStrategy.Unit.OrderValidatorCore;
 using BugStrategy.Unit.UnitSelection;
@@ -20,13 +21,10 @@ namespace BugStrategy.Unit
         ISelectable, Pool.IPoolable<UnitBase, UnitType>, IPoolEventListener, IHealable, IAffiliation,
         IEffectable, IPoisonEffectable, IStickyHoneyEffectable, IMoveSpeedChangeEffectable
     {
-        [SerializeField] private UnitInteractionZone unitInteractionZone;
-        [SerializeField] private UnitInteractionZone dynamicUnitZone;
-
         [Inject] private readonly EffectsFactory _effectsFactory;
-    
-        private NavMeshAgent _navMeshAgent;
 
+        private NavMeshAgent _navMeshAgent;
+        
         protected FloatStorage _healthStorage  = new FloatStorage(100, 100);
         protected EntityStateMachine _stateMachine;
 
@@ -44,8 +42,9 @@ namespace BugStrategy.Unit
         
         public bool IsAlive => IsActive && _healthStorage.CurrentValue > 0f;
         public Transform Transform => transform;
-        public UnitInteractionZone UnitInteractionZone => unitInteractionZone;
-        public UnitInteractionZone DynamicUnitZone => dynamicUnitZone;
+        public UnitInteractionZone UnitInteractionZone { get; private set; }
+        public UnitInteractionZone DynamicUnitZone { get; private set; }
+
         public TargetType TargetType => TargetType.Unit;
         public MiniMapObjectType MiniMapObjectType => MiniMapObjectType.Unit;
         public IReadOnlyFloatStorage HealthStorage => _healthStorage;
@@ -102,6 +101,14 @@ namespace BugStrategy.Unit
             OnUnitDeactivation += unit => OnDeactivation?.Invoke(unit);
 
             VisibleWarFogZone = GetComponentInChildren<VisibleWarFogZone>();
+            if (VisibleWarFogZone == null) 
+                VisibleWarFogZone = CreateSphereTriggerZone<UnitVisibleWarFogZone>();
+
+            if (UnitInteractionZone == null) 
+                UnitInteractionZone = CreateSphereTriggerZone<UnitInteractionZone>();
+
+            if (DynamicUnitZone == null) 
+                DynamicUnitZone = CreateSphereTriggerZone<UnitInteractionZone>();
             
             OnAwake();
         }
@@ -294,6 +301,22 @@ namespace BugStrategy.Unit
         public void SwitchSticky(bool isSticky)
         {
             IsSticky = isSticky;
+        }
+        
+        protected T CreateSphereTriggerZone<T>(bool isTrigger = true) where T : MonoBehaviour
+        {
+            var holderName = typeof(T).Name;
+            var unitInteractionZoneHolder =
+                new GameObject
+                {
+                    name = $"{holderName}Holder",
+                    transform = { parent = transform }
+                };
+
+            var sphereZone = unitInteractionZoneHolder.AddComponent<SphereCollider>();
+            sphereZone.isTrigger = isTrigger;
+            
+            return unitInteractionZoneHolder.AddComponent<T>();
         }
     }
 }

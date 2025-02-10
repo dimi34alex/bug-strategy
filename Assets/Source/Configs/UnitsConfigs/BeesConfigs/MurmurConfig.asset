@@ -18,5 +18,5 @@ MonoBehaviour:
   <GatheringCapacity>k__BackingField: 50
   <GatheringTime>k__BackingField: 12
   <AttackDamage>k__BackingField: 75
-  <AttackRange>k__BackingField: 15
+  <AttackRange>k__BackingField: 2
   <AttackCooldown>k__BackingField: 1

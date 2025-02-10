@@ -4,9 +4,12 @@ namespace BugStrategy.Trigger
 {
     public class SphereTrigger : TriggerZone
     {
-        [SerializeField] private SphereCollider sphereCollider;
+        private SphereCollider _sphereCollider;
+
+        private void Awake() 
+            => _sphereCollider = GetComponent<SphereCollider>();
 
         public void SetRadius(float newRadius)
-            => sphereCollider.radius = newRadius;
+            => _sphereCollider.radius = newRadius;
     }
 }
