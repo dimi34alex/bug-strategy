@@ -183,65 +183,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &944421399808165689
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1041962381655698378}
-  - component: {fileID: 7125466420243971278}
-  - component: {fileID: 6272433905241079415}
-  m_Layer: 7
-  m_Name: DynamicProfessionZone
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1041962381655698378
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 944421399808165689}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4867274592923137853}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7125466420243971278
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 944421399808165689}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e858b5aabb54899ba3e92e165874ccd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sphereCollider: {fileID: 6272433905241079415}
---- !u!135 &6272433905241079415
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 944421399808165689}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 10
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3076308753430282793
 GameObject:
   m_ObjectHideFlags: 0
@@ -251,10 +192,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4867274592923137853}
+  - component: {fileID: 2885223405167819285}
   - component: {fileID: 4893021366675086554}
   - component: {fileID: 5000668780768274778}
   - component: {fileID: 3147600091928220558}
-  - component: {fileID: 2885223405167819285}
   m_Layer: 11
   m_Name: FlyAnt
   m_TagString: Unit
@@ -276,12 +217,26 @@ Transform:
   m_Children:
   - {fileID: 5055061223756790238}
   - {fileID: 1904170494616373144}
-  - {fileID: 452030770955430866}
-  - {fileID: 1041962381655698378}
   - {fileID: 8070133181189719784}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2885223405167819285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3076308753430282793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3c8e869c7454d21ab68f5b85c159534, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  config: {fileID: 11400000, guid: b2a49cc7b620a9542827c46cad3a86b1, type: 2}
+  resource: {fileID: 556127432556933653}
+  ProfessionType: 0
+  Rang: 0
 --- !u!195 &4893021366675086554
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -333,25 +288,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &2885223405167819285
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3076308753430282793}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3c8e869c7454d21ab68f5b85c159534, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unitInteractionZone: {fileID: 5839118436022368875}
-  dynamicUnitZone: {fileID: 7125466420243971278}
-  visibleWarFogZone: {fileID: 7053576534505533148}
-  config: {fileID: 11400000, guid: b2a49cc7b620a9542827c46cad3a86b1, type: 2}
-  resource: {fileID: 556127432556933653}
-  ProfessionType: 0
-  Rang: 0
 --- !u!1 &5598300324912119502
 GameObject:
   m_ObjectHideFlags: 0
@@ -397,7 +333,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 713b9cc1828aa3f46a23a0edde97327d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScriptWithUnitBase: {fileID: 2885223405167819285}
 --- !u!135 &3126739122755692071
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -405,65 +340,6 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5598300324912119502}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 10
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &5889402170833755787
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 452030770955430866}
-  - component: {fileID: 5839118436022368875}
-  - component: {fileID: 9015166568971238640}
-  m_Layer: 7
-  m_Name: ProfessionInteractionZone
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &452030770955430866
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5889402170833755787}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4867274592923137853}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5839118436022368875
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5889402170833755787}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e858b5aabb54899ba3e92e165874ccd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sphereCollider: {fileID: 9015166568971238640}
---- !u!135 &9015166568971238640
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5889402170833755787}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
@@ -479,7 +355,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4539361436095835699, guid: 2d70e5685dae19548a058ab1382c8671, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4539361436095835699, guid: 2d70e5685dae19548a058ab1382c8671, type: 3}
       propertyPath: m_LocalPosition.x

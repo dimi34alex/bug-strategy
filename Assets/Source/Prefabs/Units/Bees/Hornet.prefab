@@ -80,8 +80,6 @@ Transform:
   m_Children:
   - {fileID: 4715860777441161989}
   - {fileID: 2105940781866913091}
-  - {fileID: 572216121057627250}
-  - {fileID: 8842442786139988025}
   - {fileID: 7542379684716350515}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -98,10 +96,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c940b873022b4860ab789b665f70866f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unitVisibleZone: {fileID: 0}
-  unitInteractionZone: {fileID: 418530805703425446}
-  dynamicUnitZone: {fileID: 3197168618531652052}
-  visibleWarFogZone: {fileID: 0}
+  unitInteractionZone: {fileID: 0}
+  dynamicUnitZone: {fileID: 0}
   config: {fileID: 11400000, guid: 27a19de04fdb39e43b1d3cf8cf999df3, type: 2}
 --- !u!195 &4950216854294271489
 NavMeshAgent:
@@ -154,124 +150,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!1 &4187689804472183376
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 572216121057627250}
-  - component: {fileID: 418530805703425446}
-  - component: {fileID: 8431609770305562062}
-  m_Layer: 7
-  m_Name: ProfessionInteractionZone
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &572216121057627250
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4187689804472183376}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4961064041829875174}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &418530805703425446
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4187689804472183376}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e858b5aabb54899ba3e92e165874ccd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sphereCollider: {fileID: 8431609770305562062}
---- !u!135 &8431609770305562062
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4187689804472183376}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 10
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &4398716227564268601
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8842442786139988025}
-  - component: {fileID: 3197168618531652052}
-  - component: {fileID: 691706835232733496}
-  m_Layer: 7
-  m_Name: DynamicProfessionZone
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8842442786139988025
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4398716227564268601}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4961064041829875174}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3197168618531652052
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4398716227564268601}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e858b5aabb54899ba3e92e165874ccd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sphereCollider: {fileID: 691706835232733496}
---- !u!135 &691706835232733496
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4398716227564268601}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 10
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5396470682011513877
 GameObject:
   m_ObjectHideFlags: 0
@@ -330,7 +208,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 713b9cc1828aa3f46a23a0edde97327d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScriptWithUnitBase: {fileID: 5279436655887285028}
 --- !u!1001 &1030398008727040636
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -411,7 +288,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4539361436095835699, guid: 2d70e5685dae19548a058ab1382c8671, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4539361436095835699, guid: 2d70e5685dae19548a058ab1382c8671, type: 3}
       propertyPath: m_LocalPosition.x

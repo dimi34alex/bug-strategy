@@ -9,7 +9,7 @@ namespace BugStrategy.Unit.OrderValidatorCore
     [RequireComponent(typeof(SphereCollider))]
     public class UnitInteractionZone : TriggerZone
     {
-        [SerializeField] private SphereCollider sphereCollider;
+        private SphereCollider _sphereCollider;
         
         protected override bool _refreshEnteredComponentsAfterExit => false;
         protected override Func<ITriggerable, bool> EnteredComponentIsSuitable => t => t.CastPossible<ITarget>(); 
@@ -21,7 +21,10 @@ namespace BugStrategy.Unit.OrderValidatorCore
         
         public new event Action<ITarget> EnterEvent;
         public new event Action<ITarget> ExitEvent;
-        
+
+        private void Awake() 
+            => _sphereCollider = GetComponent<SphereCollider>();
+
         protected override void OnEnter(ITriggerable component)
         {
             var target = component.Cast<ITarget>();
@@ -36,6 +39,6 @@ namespace BugStrategy.Unit.OrderValidatorCore
             ExitEvent?.Invoke(target);
         }
         
-        public void SetRadius(float newRadius) => sphereCollider.radius = newRadius;
+        public void SetRadius(float newRadius) => _sphereCollider.radius = newRadius;
     }
 }

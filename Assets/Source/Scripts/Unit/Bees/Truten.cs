@@ -16,7 +16,6 @@ namespace BugStrategy.Unit.Bees
     public class Truten : BeeUnit, IAttackCooldownChangerEffectable, IHidableUnit
     {
         [SerializeField] private TrutenConfig config;
-        [SerializeField] private SphereTrigger abilityStandardBearerZone;
         
         public override UnitType UnitType => UnitType.Truten;
         public AttackCooldownChanger AttackCooldownChanger { get; private set; }
@@ -46,6 +45,7 @@ namespace BugStrategy.Unit.Bees
             _attackProcessor = new MeleeAttackProcessor(this, config.AttackRange, config.Damage, _cooldownProcessor);
             _orderValidator = new HidableWarriorOrderValidator(this, config.InteractionRange, _cooldownProcessor, _attackProcessor);
 
+            var abilityStandardBearerZone = CreateSphereTriggerZone<SphereTrigger>();
             _abilityStandardBearer = new AbilityStandardBearer(this, abilityStandardBearerZone, config.StandardBearerRadius);
             AttackCooldownChanger = new AttackCooldownChanger(_cooldownProcessor);
             _abilityBraveDeath = new AbilityBraveDeath(this, config.HealValue, config.HealRadius, config.HealLayers);
