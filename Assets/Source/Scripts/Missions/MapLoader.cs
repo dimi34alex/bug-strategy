@@ -6,6 +6,7 @@ using BugStrategy.Constructions.Factory;
 using BugStrategy.Missions.MissionEditor.Saving;
 using BugStrategy.ResourceSources;
 using BugStrategy.Tiles;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace BugStrategy.Missions
@@ -14,21 +15,26 @@ namespace BugStrategy.Missions
     {
         private const int TaskDelay = 5;
 
-        public static async Task LoadMap(CancellationToken cancellationToken, GridConfig gridConfig, 
-            MissionConfig missionConfig, TilesFactory tilesFactory, 
+        /// <returns> return abs of the most distant tiles, it can be referred as field size </returns>
+        public static async Task<Vector2> LoadMap(CancellationToken cancellationToken, MissionConfig missionConfig, 
+            TilesFactory tilesFactory, 
             ResourceSourceFactory resourceSourceFactory, ResourceSourcesRepository resourceSourcesRepository,
             IConstructionFactory constructionFactory, ConstructionsRepository constructionsRepository)
         {
             var missionSave = JsonUtility.FromJson<Mission>(missionConfig.MissionJson.text);
 
-            await LoadGroundTiles(cancellationToken, missionSave.GroundTiles, tilesFactory);
+            var fieldSize = await LoadGroundTiles(cancellationToken, missionSave.GroundTiles, tilesFactory);
             await LoadConstructionTiles(cancellationToken, missionSave.Constructions, constructionFactory);
             await LoadResourceSources(cancellationToken, missionSave.ResourceSources, resourceSourceFactory,
                 resourceSourcesRepository, constructionsRepository);
+
+            return fieldSize;
         }
 
-        private static async Task LoadGroundTiles(CancellationToken cancellationToken, IReadOnlyList<Mission.TilePair> groundTiles, TilesFactory tilesFactory)
+        private static async Task<Vector2> LoadGroundTiles(CancellationToken cancellationToken, 
+            IReadOnlyList<Mission.TilePair> groundTiles, TilesFactory tilesFactory)
         {
+            var fieldSize = Vector2.zero;
             for (int i = 0; i < groundTiles.Count; i++)
             {
                 if (i % 10 == 0) 
@@ -38,7 +44,17 @@ namespace BugStrategy.Missions
                     cancellationToken.ThrowIfCancellationRequested();
 
                 tilesFactory.Create(groundTiles[i].Id, groundTiles[i].Position);
+
+                var pos = groundTiles[i].Position.Position;
+                
+                if (math.abs(pos.x) > fieldSize.x) 
+                    fieldSize.x = math.abs(pos.x);
+                
+                if (math.abs(pos.z) > fieldSize.y) 
+                    fieldSize.y = math.abs(pos.z);
             }
+
+            return fieldSize;
         }
 
         private static async Task LoadConstructionTiles(CancellationToken cancellationToken,

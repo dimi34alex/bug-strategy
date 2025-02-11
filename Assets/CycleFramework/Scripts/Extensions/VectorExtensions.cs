@@ -41,6 +41,9 @@ namespace CycleFramework.Extensions
             return vector + offcet;
         }
 
+        public static Vector3 XYo(this Vector2 vector, float o = 0) => new Vector3(vector.x, vector.y, o);
+        public static Vector3 XoY(this Vector2 vector, float o = 0) => new Vector3(vector.x, o, vector.y);
+        
         public static Vector3 XY(this Vector3 vector) => new Vector3(vector.x, vector.y, 0f);
         public static Vector3 XZ(this Vector3 vector) => new Vector3(vector.x, 0f, vector.z);
         public static Vector3 YZ(this Vector3 vector) => new Vector3(0f, vector.y, vector.z);
