@@ -48,7 +48,7 @@ namespace BugStrategy.Unit.Animations
                 InversScaleX(angle);
 
                 if(angle >= 90 || angle <= -90)
-                    transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y + 180, angle);
+                    transform.eulerAngles = new Vector3(transform.eulerAngles.x, (transform.eulerAngles.y + 180) % 360, angle);
                 else
                     transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, angle);
 
