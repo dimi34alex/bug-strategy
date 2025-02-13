@@ -11,8 +11,6 @@ namespace BugStrategy.CameraMovement
 
         public void SetBounds(Vector3 leftDownBound, Vector3 rightUpBound)
         {
-            Debug.Log(_bounds.Count);
-            
             _bounds[0] = leftDownBound;
             _bounds[1] = rightUpBound;
         }
