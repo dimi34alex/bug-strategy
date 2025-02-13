@@ -105,6 +105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitBase: {fileID: 0}
+  config: {fileID: 11400000, guid: 57534bb5b22dcc3498964868634ed960, type: 2}
 --- !u!212 &5838999268408110851
 SpriteRenderer:
   m_ObjectHideFlags: 0

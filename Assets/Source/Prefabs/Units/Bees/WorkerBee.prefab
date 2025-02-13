@@ -150,6 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitBase: {fileID: 0}
+  config: {fileID: 11400000, guid: 57534bb5b22dcc3498964868634ed960, type: 2}
 --- !u!1 &7471633721207437469
 GameObject:
   m_ObjectHideFlags: 0
@@ -407,7 +408,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 597598585825239561, guid: 408570cd289f5c2419ae97f7e4fae293, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -11.666666
+      value: -11.66667
       objectReference: {fileID: 0}
     - target: {fileID: 597598585825239561, guid: 408570cd289f5c2419ae97f7e4fae293, type: 3}
       propertyPath: m_LocalPosition.y
@@ -457,10 +458,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: d58d9a5e482e8429f8d7d18a9538d94a, type: 2}
-    - target: {fileID: 8662235563306125136, guid: 408570cd289f5c2419ae97f7e4fae293, type: 3}
-      propertyPath: _currentFrame
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 408570cd289f5c2419ae97f7e4fae293, type: 3}
 --- !u!4 &3523573421227679996 stripped

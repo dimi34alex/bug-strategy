@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitBase: {fileID: 0}
+  config: {fileID: 11400000, guid: 57534bb5b22dcc3498964868634ed960, type: 2}
 --- !u!1 &4364783689652272584
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,10 +270,6 @@ PrefabInstance:
     - target: {fileID: 5474405827110720106, guid: 66b75eb46cfba9742a7697e7b4012e4b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7242864903028313626, guid: 66b75eb46cfba9742a7697e7b4012e4b, type: 3}
-      propertyPath: _currentFrame
-      value: 119
       objectReference: {fileID: 0}
     - target: {fileID: 8926402300850941581, guid: 66b75eb46cfba9742a7697e7b4012e4b, type: 3}
       propertyPath: m_Materials.Array.data[0]

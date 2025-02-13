@@ -23,16 +23,17 @@ namespace BugStrategy.Projectiles
         public event Action<ProjectileBase> ElementReturnEvent;
         public event Action<ProjectileBase> ElementDestroyEvent;
 
-        public void HandleUpdate (float time)
+        public void HandleUpdate(float time)
         {
             CheckTargetOnNull();
             Move(time);
+            RotateTowardTarget();
         }
 
-        public void Init (AffiliationEnum affiliation, ITarget attacker, IDamageApplicator damageApplicator)
+        public void Init(AffiliationEnum affiliation, ITarget attacker, IDamageApplicator damageApplicator)
             => Init(affiliation, attacker, damageApplicator.Damage);
 
-        public void Init (AffiliationEnum affiliation, ITarget attacker, float damage)
+        public void Init(AffiliationEnum affiliation, ITarget attacker, float damage)
         {
             Affiliation = affiliation;
             Attacker = attacker;
@@ -41,62 +42,60 @@ namespace BugStrategy.Projectiles
             Attacker.OnDeactivation += (_) => Attacker = null;
         }
 
-        public void SetTarget (ITarget target)
+        public void SetTarget(ITarget target)
         {
             Target = target;
             Target.OnDeactivation += OnTargetDeactivation;
         }
 
-        public virtual void OnElementReturn ()
+        public virtual void OnElementReturn()
             => gameObject.SetActive(false);
 
-        public virtual void OnElementExtract ()
+        public virtual void OnElementExtract()
             => gameObject.SetActive(true);
 
-        private void OnTargetDeactivation (ITarget _)
+        private void OnTargetDeactivation(ITarget _)
         {
             Target.OnDeactivation -= OnTargetDeactivation;
             ReturnInPool();
         }
 
-        protected void CheckTargetOnNull ()
+        protected void CheckTargetOnNull()
         {
-            if(Target.IsAnyNull())
+            if (Target.IsAnyNull())
                 ReturnInPool();
         }
 
-        protected virtual void CollideWithTarget (ITarget target)
+        protected virtual void CollideWithTarget(ITarget target)
         {
-            if(target.TryCast(out IDamagable damagable))
+            if (target.TryCast(out IDamagable damagable))
                 damagable.TakeDamage(Attacker, this);
 
             ReturnInPool();
         }
 
-        protected void ReturnInPool () => ElementReturnEvent?.Invoke(this);
+        protected void ReturnInPool() => ElementReturnEvent?.Invoke(this);
 
-        protected virtual void Move (float time)
+        protected virtual void Move(float time)
         {
             var step = MoveSpeed * time;
             transform.position = Vector3.MoveTowards(transform.position, Target.Transform.position, step);
-            UpdateOrientationByPos();
         }
 
-        private void UpdateOrientationByPos ()
+        private void RotateTowardTarget()
         {
             var direction = (Target.Transform.position - transform.position).normalized;
             var targetRotation = Quaternion.LookRotation(direction);
             transform.rotation = targetRotation;
-            //transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, anglePerSecond * Time.deltatime); // плавный поворот
         }
 
-        private void OnTriggerEnter (Collider someCollider)
+        private void OnTriggerEnter(Collider someCollider)
         {
-            if(someCollider.TryGetComponent(out ITarget target) && target == Target)
+            if (someCollider.TryGetComponent(out ITarget target) && target == Target)
                 CollideWithTarget(target);
         }
 
-        private void OnDestroy ()
+        private void OnDestroy()
         {
             ElementDestroyEvent?.Invoke(this);
         }
