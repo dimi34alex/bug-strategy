@@ -16,7 +16,7 @@ namespace BugStrategy.Projectiles
         public abstract ProjectileType ProjectileType { get; }
         public ProjectileType Identifier => ProjectileType;
         public AffiliationEnum Affiliation { get; private set; }
-        
+
         protected ITarget Target;
         protected ITarget Attacker;
 
@@ -27,11 +27,12 @@ namespace BugStrategy.Projectiles
         {
             CheckTargetOnNull();
             Move(time);
+            RotateTowardTarget();
         }
 
         public void Init(AffiliationEnum affiliation, ITarget attacker, IDamageApplicator damageApplicator)
             => Init(affiliation, attacker, damageApplicator.Damage);
-        
+
         public void Init(AffiliationEnum affiliation, ITarget attacker, float damage)
         {
             Affiliation = affiliation;
@@ -47,10 +48,10 @@ namespace BugStrategy.Projectiles
             Target.OnDeactivation += OnTargetDeactivation;
         }
 
-        public virtual void OnElementReturn() 
+        public virtual void OnElementReturn()
             => gameObject.SetActive(false);
 
-        public virtual void OnElementExtract() 
+        public virtual void OnElementExtract()
             => gameObject.SetActive(true);
 
         private void OnTargetDeactivation(ITarget _)
@@ -58,13 +59,13 @@ namespace BugStrategy.Projectiles
             Target.OnDeactivation -= OnTargetDeactivation;
             ReturnInPool();
         }
-        
+
         protected void CheckTargetOnNull()
         {
-            if(Target.IsAnyNull())
+            if (Target.IsAnyNull())
                 ReturnInPool();
         }
-        
+
         protected virtual void CollideWithTarget(ITarget target)
         {
             if (target.TryCast(out IDamagable damagable))
@@ -74,11 +75,18 @@ namespace BugStrategy.Projectiles
         }
 
         protected void ReturnInPool() => ElementReturnEvent?.Invoke(this);
-        
+
         protected virtual void Move(float time)
         {
             var step = MoveSpeed * time;
             transform.position = Vector3.MoveTowards(transform.position, Target.Transform.position, step);
+        }
+
+        private void RotateTowardTarget()
+        {
+            var direction = (Target.Transform.position - transform.position).normalized;
+            var targetRotation = Quaternion.LookRotation(direction);
+            transform.rotation = targetRotation;
         }
 
         private void OnTriggerEnter(Collider someCollider)
@@ -86,7 +94,7 @@ namespace BugStrategy.Projectiles
             if (someCollider.TryGetComponent(out ITarget target) && target == Target)
                 CollideWithTarget(target);
         }
-        
+
         private void OnDestroy()
         {
             ElementDestroyEvent?.Invoke(this);

@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitBase: {fileID: 0}
+  config: {fileID: 11400000, guid: 57534bb5b22dcc3498964868634ed960, type: 2}
 --- !u!1 &3306780677188290802
 GameObject:
   m_ObjectHideFlags: 0
@@ -96,8 +97,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c940b873022b4860ab789b665f70866f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitInteractionZone: {fileID: 0}
-  dynamicUnitZone: {fileID: 0}
   config: {fileID: 11400000, guid: 27a19de04fdb39e43b1d3cf8cf999df3, type: 2}
 --- !u!195 &4950216854294271489
 NavMeshAgent:

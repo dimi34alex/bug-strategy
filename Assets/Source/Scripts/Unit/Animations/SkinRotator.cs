@@ -1,3 +1,4 @@
+using BugStrategy.EntityState;
 using UnityEngine;
 
 namespace BugStrategy.Unit.Animations
@@ -5,9 +6,9 @@ namespace BugStrategy.Unit.Animations
     public class SkinRotator : MonoBehaviour
     {
         [SerializeField] private UnitBase unitBase;
+        [SerializeField] private SkinRotatorConfig config;
 
-        private float _prevDirectionSign;
-        private float _initialSign;
+        private bool _isMovingToNewPos = false;
 
         private void Awake()
         {
@@ -17,39 +18,76 @@ namespace BugStrategy.Unit.Animations
 
         private void Start()
         {
-            unitBase.OnTargetMovePositionChange += UpdateOrientationByPos;
+            unitBase.OnTargetMovePositionChange += UpdateIsMovingToNewPos;
+        }
 
-            InitializeOrientation();
+        private void FixedUpdate()
+        {
+            if (unitBase.StateMachine.ActiveState.Equals(EntityStateID.Move))
+                UpdateOrientationByPos();
+            else
+            {
+                if (_isMovingToNewPos)
+                {
+                    _isMovingToNewPos = false;
+                    transform.eulerAngles = new Vector3(transform.eulerAngles.x, 0, transform.eulerAngles.z);
+                }
+            }
         }
 
         private void OnDestroy()
         {
-            unitBase.OnTargetMovePositionChange -= UpdateOrientationByPos;
-        }
-
-        private void InitializeOrientation()
-        {
-            var sign = Mathf.Sign(transform.localScale.x);
-
-            _prevDirectionSign = _initialSign = sign;
+            unitBase.OnTargetMovePositionChange -= UpdateIsMovingToNewPos;
         }
 
         private void UpdateOrientationByPos()
+        {
+            if (!_isMovingToNewPos)
+            {
+                var dir = (unitBase.TargetMovePosition - unitBase.Transform.position);
+                var angle = Mathf.Atan2(dir.z, dir.x) * Mathf.Rad2Deg;
+
+                if (angle > 90 || angle < -90)
+                {
+                    var sign = Mathf.Sign(angle);
+                    angle = Mathf.Clamp(angle, sign * 180 - config.AngleClamp, sign * 180 + config.AngleClamp);
+                    transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, angle + 180);
+                }
+                else
+                {
+                    angle = Mathf.Clamp(angle, -config.AngleClamp, config.AngleClamp);
+                    transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, angle);
+                }
+
+                InverseScaleX();
+                _isMovingToNewPos = true;
+            }
+        }
+
+        private void InverseScaleX()
         {
             var targetPosition = unitBase.TargetMovePosition.x;
             var currentPosition = unitBase.Transform.position.x;
 
             var direction = targetPosition - currentPosition;
-            var directionSign = -_initialSign * Mathf.Sign(direction);
-            
-            if (direction != 0 && (directionSign + _prevDirectionSign) == 0)
+            if (direction != 0)
             {
-                _prevDirectionSign = directionSign;
-                
+                var directionSign = Mathf.Sign(direction);
+
                 var scale = transform.localScale;
-                scale.x *= -1;
+                var scaleSign = Mathf.Sign(scale.x);
+
+                scale.x *= -1 * directionSign * scaleSign;
                 transform.localScale = scale;
             }
+        }
+
+        private void UpdateIsMovingToNewPos()
+        {
+            _isMovingToNewPos = false;
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, 0, transform.eulerAngles.z);
+
+            UpdateOrientationByPos();
         }
     }
 }

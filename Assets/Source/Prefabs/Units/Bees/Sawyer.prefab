@@ -148,6 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitBase: {fileID: 0}
+  config: {fileID: 11400000, guid: 57534bb5b22dcc3498964868634ed960, type: 2}
 --- !u!1 &7441499344309772447
 GameObject:
   m_ObjectHideFlags: 0

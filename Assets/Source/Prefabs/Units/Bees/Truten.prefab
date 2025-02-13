@@ -50,8 +50,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f844b16e79684bc6bc1a3aa71aa032bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitInteractionZone: {fileID: 0}
-  dynamicUnitZone: {fileID: 0}
   config: {fileID: 11400000, guid: 003dae9da2163d04a903a78ef9aa4ea3, type: 2}
 --- !u!195 &6272501091639487504
 NavMeshAgent:
@@ -151,6 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitBase: {fileID: 0}
+  config: {fileID: 11400000, guid: 57534bb5b22dcc3498964868634ed960, type: 2}
 --- !u!1 &7698616640371205229
 GameObject:
   m_ObjectHideFlags: 0
