@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using BugStrategy.Constructions.Factory;
 using BugStrategy.CustomTimer;
+using BugStrategy.TechnologiesSystem;
+using BugStrategy.TechnologiesSystem.Technologies;
 using BugStrategy.Trigger;
 using BugStrategy.Unit;
 using CycleFramework.Extensions;
@@ -15,6 +17,7 @@ namespace BugStrategy.Constructions.BeeLandmine
         [SerializeField] private TriggerBehaviour _triggerBehaviour;
         [SerializeField] private LayerMask layerMask;
 
+        [Inject] private readonly TechnologiesRepository _technologiesRepository;
         [Inject] private readonly IConstructionFactory _constructionFactory;
         [Inject] private readonly GridConfig _gridConfig;
         
@@ -70,7 +73,8 @@ namespace BugStrategy.Constructions.BeeLandmine
                     && damageable.IsAlive
                     && Affiliation.CheckEnemies(damageable.Affiliation))
                 {
-                    damageable.TakeDamage(this, this);
+                    var tech = _technologiesRepository.GetTechnology<TechBeeLandmineDamage>(Affiliation, TechnologyId.BeeLandmineDamage);
+                    damageable.TakeDamage(this, this, tech.GetDamageScale());
                 }
             }
 
