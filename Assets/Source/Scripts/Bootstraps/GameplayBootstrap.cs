@@ -69,7 +69,7 @@ namespace BugStrategy.Bootstraps
                         _constructionFactory, _missionData.ConstructionsRepository);
 
                     fieldConstructor.SetFieldSize(fieldSize);
-                    _cameraBounds.SetBounds(-fieldSize.XoY(-100), fieldSize.XoY(100));
+                    _cameraBounds.SetBounds(-fieldSize.XoY(100), fieldSize.XoY(100));
                 }
                 catch (OperationCanceledException e)
                 {

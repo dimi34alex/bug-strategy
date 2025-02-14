@@ -68,7 +68,7 @@ namespace BugStrategy.Constructions.BeeLandmine
             {
                 if (_explosionBuffer[i].collider.gameObject.TryGetComponent(out IDamagable damageable) 
                     && damageable.IsAlive
-                    && Affiliation.CheckEnemies(damageable.Affiliation));
+                    && Affiliation.CheckEnemies(damageable.Affiliation))
                 {
                     damageable.TakeDamage(this, this);
                 }
