@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using BugStrategy.CustomInput;
 using CycleFramework.Extensions;
 using UnityEngine;
@@ -16,13 +17,13 @@ namespace BugStrategy.CameraMovement
 
         [Inject] private readonly IInputProvider _inputProvider;
         [Inject] private readonly IReadOnlyCameraBounds _cameraBounds;
-        
+
         private float _sizeBorderToMove;
         private float _xDist, _yDist;
         private Vector2 _delta;
         private Vector3 _startPosition;
         private Vector3 _targetPosition;
-        
+
         private IReadOnlyList<Vector3> Bounds => _cameraBounds.Bounds;
 
         private void Awake ()
@@ -32,10 +33,13 @@ namespace BugStrategy.CameraMovement
 
         private void LateUpdate ()
         {
-            if(_inputProvider.ScrollDown || _inputProvider.ScrollHold)
-                MoveByMouseWheel();
-            else if(CursorOnScreen() && !_inputProvider.MouseCursorOverUi())
-                MoveByCursor();
+            if(!_inputProvider.LmbDown && !_inputProvider.LmbHold) // если не происходит выделение, не зажата левая кнопка мыши
+            {
+                if(_inputProvider.ScrollDown || _inputProvider.ScrollHold)
+                    MoveByMouseWheel();
+                else if(CursorOnScreen() && !_inputProvider.MouseCursorOverUi())
+                    MoveByCursor();
+            }
         }
 
         private void MoveByMouseWheel ()
