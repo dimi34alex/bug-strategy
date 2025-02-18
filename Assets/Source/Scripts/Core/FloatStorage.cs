@@ -42,8 +42,20 @@ namespace BugStrategy
         public void ChangeValue(float value)
         {
             float oldValue = _currentValue;
-            _currentValue = Mathf.Clamp(_currentValue + value, 0f, _capacity);
 
+            _currentValue += value;
+            if (_currentValue > _capacity)
+            {
+                Debug.LogWarning($"Current value more then capacity: [{_currentValue}] [{_capacity}]");
+                _currentValue = _capacity;
+            }
+            
+            if (_currentValue < 0)
+            {
+                Debug.LogWarning($"Current value less then 0: [{_currentValue}] [{_capacity}]");
+                _currentValue = 0;
+            }
+            
             if (oldValue == _currentValue)
                 return;
 

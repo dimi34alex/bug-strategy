@@ -10,7 +10,7 @@ namespace BugStrategy.TechnologiesSystem
         {
             Container.Bind<TechnologiesConfigsProvider>().FromNew().AsSingle();
             Container.Bind<TechnologiesFactory>().FromNew().AsSingle();
-            Container.Bind<TechnologiesRepository>().FromNew().AsSingle();
+            Container.Bind<TechnologyModule>().FromNew().AsSingle();
         }
     }
 }

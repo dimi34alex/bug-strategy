@@ -14,10 +14,10 @@ namespace BugStrategy.TechnologiesSystem.Technologies.Configs
                 _configs.Add(config.Id, config);
         }
         
-        public T GetConfig<T>(TechnologyId id) 
-            where T : TechnologyConfig
-        {
-            return _configs[id].Cast<T>();
-        }
+        public TechnologyConfig GetConfig(TechnologyId id) 
+            => _configs[id];
+
+        public T GetConfig<T>(TechnologyId id) where T : TechnologyConfig =>
+            GetConfig(id).Cast<T>();
     }
 }

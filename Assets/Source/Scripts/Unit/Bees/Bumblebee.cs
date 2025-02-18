@@ -23,7 +23,7 @@ namespace BugStrategy.Unit.Bees
 
         [Inject] private readonly MissionData _missionData;
         [Inject] private readonly IConstructionFactory _constructionFactory;
-        [Inject] private readonly TechnologiesRepository _technologiesRepository;
+        [Inject] private readonly TechnologyModule _technologyModule;
 
         public AttackCooldownChanger AttackCooldownChanger { get; private set; }
         public override InternalAiBase InternalAi { get; protected set; }
@@ -84,7 +84,7 @@ namespace BugStrategy.Unit.Bees
             _cooldownProcessor.Reset();
             AttackCooldownChanger.Clear();
             
-            _abilityAccumulation.SetTech(_technologiesRepository.GetTechnology<TechBumblebeeAccumulation>(Affiliation, TechnologyId.BumblebeeAccumulation));
+            _abilityAccumulation.SetTech(_technologyModule.GetTechnology<TechBumblebeeAccumulation>(Affiliation, TechnologyId.BumblebeeAccumulation));
             
             _stateMachine.SetState(EntityStateID.Idle);
         }

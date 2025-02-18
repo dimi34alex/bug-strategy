@@ -12,16 +12,16 @@ namespace BugStrategy.TechnologiesSystem.Technologies
             _techConfigsProvider = techConfigsProvider;
         }
         
-        public Technology Create(TechnologyId id) 
+        public ITechnology Create(TechnologyId id) 
         {
             switch (id)
             {
                 case TechnologyId.BeeLandmineDamage:
                     return new TechBeeLandmineDamage(_techConfigsProvider.GetConfig<TechBeeLandmineDamageConfig>(id));
                 case TechnologyId.HoneyCatapult:
-                    return new TechHoneyCatapult();
+                    return new TechHoneyCatapult(_techConfigsProvider.GetConfig(id));
                 case TechnologyId.BumblebeeAccumulation:
-                    return new TechBumblebeeAccumulation();
+                    return new TechBumblebeeAccumulation(_techConfigsProvider.GetConfig(id));
                 default:
                     throw new ArgumentOutOfRangeException(nameof(id), id, null);
             }

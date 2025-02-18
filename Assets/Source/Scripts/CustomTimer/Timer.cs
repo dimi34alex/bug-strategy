@@ -7,9 +7,10 @@ namespace BugStrategy.CustomTimer
     {
         public float CurrentTime { get; private set; }
         public float MaxTime { get; private set; }
-        
+
         public bool TimerIsEnd { get; private set; }
         public bool Paused { get; private set; }
+        public bool IsActive => !TimerIsEnd && !Paused;
 
         public event Action OnTick;
         public event Action OnTimerEnd;

@@ -19,7 +19,7 @@ namespace BugStrategy.Unit.Bees
         [SerializeField] private HoneyCatapultConfig config;
     
         [Inject] private ProjectilesFactory _projectilesFactory;
-        [Inject] private TechnologiesRepository _technologiesRepository;
+        [Inject] private TechnologyModule _technologyModule;
     
         public override UnitType UnitType => UnitType.HoneyCatapult;
         
@@ -84,7 +84,7 @@ namespace BugStrategy.Unit.Bees
             _cooldownProcessor.Reset();
             AttackCooldownChanger.Clear();
             
-            _attackProcessor.SetTech(_technologiesRepository.GetTechnology<TechHoneyCatapult>(Affiliation, TechnologyId.HoneyCatapult));
+            _attackProcessor.SetTech(_technologyModule.GetTechnology<TechHoneyCatapult>(Affiliation, TechnologyId.HoneyCatapult));
             
             _stateMachine.SetState(EntityStateID.Idle);
         }

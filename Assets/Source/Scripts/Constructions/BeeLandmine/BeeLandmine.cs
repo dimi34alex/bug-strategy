@@ -17,7 +17,7 @@ namespace BugStrategy.Constructions.BeeLandmine
         [SerializeField] private TriggerBehaviour _triggerBehaviour;
         [SerializeField] private LayerMask layerMask;
 
-        [Inject] private readonly TechnologiesRepository _technologiesRepository;
+        [Inject] private readonly TechnologyModule _technologyModule;
         [Inject] private readonly IConstructionFactory _constructionFactory;
         [Inject] private readonly GridConfig _gridConfig;
         
@@ -64,17 +64,20 @@ namespace BugStrategy.Constructions.BeeLandmine
 
         private void Explosion()
         {
-            var size = Physics.SphereCastNonAlloc(transform.position, config.ExplosionRadius, Vector3.down,
-                _explosionBuffer, 0, layerMask);
+            var tech = _technologyModule.GetTechnology<TechBeeLandmineDamage>(Affiliation, TechnologyId.BeeLandmineDamage);
+            var techDamageScale = tech.GetDamageScale();
+            var techDamageRadiusScale = tech.GetDamageRadiusScale();
 
-            for (int i = 0; i < size; i++)
+            var damagedSize = Physics.SphereCastNonAlloc(transform.position, config.ExplosionRadius * techDamageRadiusScale, Vector3.down,
+                _explosionBuffer, 0, layerMask);
+            
+            for (int i = 0; i < damagedSize; i++)
             {
                 if (_explosionBuffer[i].collider.gameObject.TryGetComponent(out IDamagable damageable) 
                     && damageable.IsAlive
                     && Affiliation.CheckEnemies(damageable.Affiliation))
                 {
-                    var tech = _technologiesRepository.GetTechnology<TechBeeLandmineDamage>(Affiliation, TechnologyId.BeeLandmineDamage);
-                    damageable.TakeDamage(this, this, tech.GetDamageScale());
+                    damageable.TakeDamage(this, this, techDamageScale);
                 }
             }
 
