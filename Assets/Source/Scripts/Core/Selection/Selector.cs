@@ -3,6 +3,7 @@ using BugStrategy.Missions;
 using BugStrategy.UI;
 using BugStrategy.Unit.UnitSelection;
 using CycleFramework.Execute;
+using CycleFramework.Extensions;
 using UnityEngine;
 using Zenject;
 
@@ -21,12 +22,15 @@ namespace BugStrategy.Selection
         public Vector3 StartSelectPoint { get; private set; }
         public Vector3 CurrentSelectPoint { get; private set; }
 
+        public Vector3 worldStartPos, worldEndPos;
+
         protected override void OnUpdate ()
         {
             if(_inputProvider.LmbDown && !_inputProvider.MouseCursorOverUi())
             {
                 IsSelectProcess = true;
                 StartSelectPoint = _inputProvider.MousePosition;
+                worldStartPos = Camera.main.ScreenToWorldPoint(StartSelectPoint);
             }
 
             CurrentSelectPoint = _inputProvider.MousePosition;
@@ -37,8 +41,7 @@ namespace BugStrategy.Selection
                 if(_inputProvider.MouseCursorOverUi())
                     return;
 
-                var worldStartPos = Camera.main.ScreenToWorldPoint(StartSelectPoint);
-                var worldEndPos = Camera.main.ScreenToWorldPoint(CurrentSelectPoint);
+                worldEndPos = Camera.main.ScreenToWorldPoint(CurrentSelectPoint);
 
                 var dist = Vector3.Distance(worldStartPos, worldEndPos);
 
@@ -79,7 +82,8 @@ namespace BugStrategy.Selection
 
         public void UpdateWorldStartPos (Vector3 delta)
         {
-            StartSelectPoint = new Vector3(StartSelectPoint.x + delta.x, StartSelectPoint.y + delta.z, StartSelectPoint.z);
+            worldStartPos = new Vector3(worldStartPos.x + delta.x, worldStartPos.y, worldStartPos.z + delta.z);
+            StartSelectPoint = Camera.main.WorldToScreenPoint(worldStartPos);
         }
     }
 }

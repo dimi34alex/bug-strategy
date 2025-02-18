@@ -42,49 +42,21 @@ namespace BugStrategy.CameraMovement
 
         private void Move ()
         {
-            OldCamPos = transform.position;
+            if(_inputProvider.LmbDown && !_inputProvider.MouseCursorOverUi())
+            {
+                OldCamPos = transform.position;
+            }
 
             if(_inputProvider.ScrollDown || _inputProvider.ScrollHold)
                 MoveByMouseWheel();
             else if(CursorOnScreen() && !_inputProvider.MouseCursorOverUi())
                 MoveByCursor();
 
-            if(OldCamPos != transform.position)//7 - 77 . 12 - 45 . 17 - 32
+            if(OldCamPos != transform.position && _inputProvider.LmbHold)
             {
-                _selector.UpdateWorldStartPos((OldCamPos - transform.position) * CheckCurCamSize());
-                Debug.Log(CheckCurCamSize());
+                _selector.UpdateWorldStartPos(transform.position - OldCamPos);
+                OldCamPos = transform.position;
             }
-        }
-
-        private float CheckCurCamSize ()
-        {
-            switch(_camera.orthographicSize)
-            {
-                case 17:
-                    return 32f;
-                case 16:
-                    return 34f;
-                case 15:
-                    return 36f;
-                case 14:
-                    return 39f;  
-                case 13:
-                    return 41.5f;
-                case 12:
-                    return 45f; 
-                case 11:
-                    return 49.5f;
-                case 10:
-                    return 54f;
-                case 9:
-                    return 60f;
-                case 8:
-                    return 68f;
-                case 7:
-                    return 77f;
-                default:
-                    return 45f;
-            };
         }
 
         private void MoveByMouseWheel ()
