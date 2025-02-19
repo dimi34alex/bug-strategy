@@ -26,10 +26,10 @@ namespace BugStrategy.Selection
             if (_inputProvider.LmbDown && !_inputProvider.MouseCursorOverUi())
             {
                 IsSelectProcess = true;
-                StartSelectPoint = _inputProvider.MousePosition;
+                StartSelectPoint = Camera.main.ScreenToWorldPoint(_inputProvider.MousePosition);
             }
 
-            CurrentSelectPoint = _inputProvider.MousePosition;
+            CurrentSelectPoint = Camera.main.ScreenToWorldPoint(_inputProvider.MousePosition);
             
             if (IsSelectProcess && _inputProvider.LmbUp)
             {
@@ -37,10 +37,7 @@ namespace BugStrategy.Selection
                 if (_inputProvider.MouseCursorOverUi())
                     return;
 
-                var worldStartPos = Camera.main.ScreenToWorldPoint(StartSelectPoint);
-                var worldEndPos = Camera.main.ScreenToWorldPoint(CurrentSelectPoint);
-
-                var dist = Vector3.Distance(worldStartPos, worldEndPos);
+                var dist = Vector3.Distance(StartSelectPoint, CurrentSelectPoint);
 
                 var prevSelectedConstruction = _missionData.ConstructionSelector.SelectedConstruction;
                 if (prevSelectedConstruction != null) 
@@ -50,7 +47,7 @@ namespace BugStrategy.Selection
                 if (dist >= distanceToBeHold)
                 {
                     _unitsSelector.DeselectAll();
-                    if (_unitsSelector.SelectUnits(worldStartPos, worldEndPos))
+                    if (_unitsSelector.SelectUnits(StartSelectPoint, CurrentSelectPoint))
                         _uiController.SetScreen(_unitsSelector.GetSelectedUnits()[0]);
                     else
                         _uiController.SetScreen(UIScreenType.Gameplay);
@@ -68,7 +65,7 @@ namespace BugStrategy.Selection
                     else
                     {
                         _unitsSelector.DeselectAll();
-                        if (_unitsSelector.SelectUnits(worldStartPos, worldEndPos))
+                        if (_unitsSelector.SelectUnits(StartSelectPoint, CurrentSelectPoint))
                             _uiController.SetScreen(_unitsSelector.GetSelectedUnits()[0]);
                         else
                             _uiController.SetScreen(UIScreenType.Gameplay);
