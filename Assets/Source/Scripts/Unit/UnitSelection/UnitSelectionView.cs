@@ -10,8 +10,8 @@ namespace BugStrategy.Unit.UnitSelection
 
         [Inject] private readonly Selector _selector;
         
-        private Vector2 StartSelectionPoint => _selector.StartSelectPoint;
-        private Vector2 CurrentSelectionPoint => _selector.CurrentSelectPoint;
+        private Vector2 StartSelectionPoint => Camera.main.WorldToScreenPoint(_selector.StartSelectPoint);
+        private Vector2 CurrentSelectionPoint => Camera.main.WorldToScreenPoint(_selector.CurrentSelectPoint);
 
         private readonly SelectionGUI _selectionGUI = new();
 
