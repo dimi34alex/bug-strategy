@@ -36,7 +36,7 @@ namespace BugStrategy.CameraMovement
     
         private void CameraScrolling()
         {
-            if (!useScroll || _inputProvider.LmbDown || _inputProvider.LmbHold)
+            if (!useScroll)
                 return;
         
             float scrollDirection = _inputProvider.ScrollDelta;

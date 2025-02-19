@@ -21,20 +21,20 @@ namespace BugStrategy.Selection
         public Vector3 StartSelectPoint { get; private set; }
         public Vector3 CurrentSelectPoint { get; private set; }
 
-        protected override void OnUpdate ()
+        protected override void OnUpdate()
         {
-            if(_inputProvider.LmbDown && !_inputProvider.MouseCursorOverUi())
+            if (_inputProvider.LmbDown && !_inputProvider.MouseCursorOverUi())
             {
                 IsSelectProcess = true;
                 StartSelectPoint = _inputProvider.MousePosition;
             }
 
             CurrentSelectPoint = _inputProvider.MousePosition;
-
-            if(IsSelectProcess && _inputProvider.LmbUp)
+            
+            if (IsSelectProcess && _inputProvider.LmbUp)
             {
                 IsSelectProcess = false;
-                if(_inputProvider.MouseCursorOverUi())
+                if (_inputProvider.MouseCursorOverUi())
                     return;
 
                 var worldStartPos = Camera.main.ScreenToWorldPoint(StartSelectPoint);
@@ -43,14 +43,14 @@ namespace BugStrategy.Selection
                 var dist = Vector3.Distance(worldStartPos, worldEndPos);
 
                 var prevSelectedConstruction = _missionData.ConstructionSelector.SelectedConstruction;
-                if(prevSelectedConstruction != null)
+                if (prevSelectedConstruction != null) 
                     prevSelectedConstruction.Deselect();
                 _missionData.ConstructionSelector.ResetSelection();
-
-                if(dist >= distanceToBeHold)
+                
+                if (dist >= distanceToBeHold)
                 {
                     _unitsSelector.DeselectAll();
-                    if(_unitsSelector.SelectUnits(worldStartPos, worldEndPos))
+                    if (_unitsSelector.SelectUnits(worldStartPos, worldEndPos))
                         _uiController.SetScreen(_unitsSelector.GetSelectedUnits()[0]);
                     else
                         _uiController.SetScreen(UIScreenType.Gameplay);
@@ -58,8 +58,8 @@ namespace BugStrategy.Selection
                 else
                 {
                     var ray = Camera.main.ScreenPointToRay(_inputProvider.MousePosition);
-
-                    if(_missionData.ConstructionSelector.TrySelect(ray))
+                    
+                    if (_missionData.ConstructionSelector.TrySelect(ray))
                     {
                         var selectedConstruction = _missionData.ConstructionSelector.SelectedConstruction;
                         selectedConstruction.Select();
@@ -68,18 +68,13 @@ namespace BugStrategy.Selection
                     else
                     {
                         _unitsSelector.DeselectAll();
-                        if(_unitsSelector.SelectUnits(worldStartPos, worldEndPos))
+                        if (_unitsSelector.SelectUnits(worldStartPos, worldEndPos))
                             _uiController.SetScreen(_unitsSelector.GetSelectedUnits()[0]);
                         else
                             _uiController.SetScreen(UIScreenType.Gameplay);
                     }
                 }
             }
-        }
-
-        public void UpdateWorldStartPos (Vector3 delta)
-        {
-            StartSelectPoint = new Vector3(StartSelectPoint.x + delta.x, StartSelectPoint.y + delta.z, StartSelectPoint.z);
         }
     }
 }

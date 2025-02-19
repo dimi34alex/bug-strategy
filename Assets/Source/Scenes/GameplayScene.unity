@@ -2445,7 +2445,6 @@ MonoBehaviour:
   _camera: {fileID: 1844035348}
   CameraMoveSpeed: 25
   PercentageOfScreen: 2
-  _selector: {fileID: 1981548817}
 --- !u!114 &1844035352
 MonoBehaviour:
   m_ObjectHideFlags: 0
