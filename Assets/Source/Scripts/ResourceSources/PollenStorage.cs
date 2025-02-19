@@ -27,7 +27,7 @@ namespace BugStrategy.ResourceSources
         private IEnumerator StartRePollinating(int duration)
         {
             yield return new WaitForSeconds(duration);
-
+                
             CanBeCollected = true;
             View.SetView(defaultSkin);
             ResourceStorage.SetValue(ResourceStorage.Capacity);

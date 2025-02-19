@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <View>k__BackingField: {fileID: 4309650642810774464}
-  resourceCapacity: 2147483647
+  resourceCapacity: 23000
   refillTime: 90
   defaultSkin: {fileID: 21300000, guid: 8b5731ffd54a9c347aee1dc878e2ba6b, type: 3}
   pollinatedSkin: {fileID: 21300000, guid: 8b5731ffd54a9c347aee1dc878e2ba6b, type: 3}
