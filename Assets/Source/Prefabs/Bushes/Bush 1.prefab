@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8556378372611704304}
   - component: {fileID: 8170268137490045855}
   m_Layer: 13
-  m_Name: Leaves
+  m_Name: Bush 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <View>k__BackingField: {fileID: 246174601468440810}
-  resourceCapacity: 50
+  resourceCapacity: 20000
   refillTime: 30
   defaultSkin: {fileID: 21300000, guid: d331eecf28ac1f74e9d50418dc6e190b, type: 3}
   pollinatedSkin: {fileID: 21300000, guid: d331eecf28ac1f74e9d50418dc6e190b, type: 3}
@@ -86,12 +86,28 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 585292689495602419, guid: f45f1216c4271514e89e98985590ece9, type: 3}
       propertyPath: m_Name
-      value: LeaveVIew
+      value: BushVIew
+      objectReference: {fileID: 0}
+    - target: {fileID: 1694121194288517881, guid: f45f1216c4271514e89e98985590ece9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1820936198477661753, guid: f45f1216c4271514e89e98985590ece9, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: d331eecf28ac1f74e9d50418dc6e190b, type: 3}
+    - target: {fileID: 1820936198477661753, guid: f45f1216c4271514e89e98985590ece9, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1820936198477661753, guid: f45f1216c4271514e89e98985590ece9, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1820936198477661753, guid: f45f1216c4271514e89e98985590ece9, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8249443781771006938, guid: f45f1216c4271514e89e98985590ece9, type: 3}
       propertyPath: m_RootOrder
       value: 0
