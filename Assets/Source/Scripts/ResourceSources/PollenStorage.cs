@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace BugStrategy.ResourceSources
 {
-    public sealed class PollenStorage : ResourceSourceBase
+    public class PollenStorage : ResourceSourceBase
     {
         [SerializeField] private int refillTime = 30;
         [SerializeField] private Sprite defaultSkin;
