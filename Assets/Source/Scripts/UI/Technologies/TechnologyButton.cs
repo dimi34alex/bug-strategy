@@ -1,25 +1,34 @@
 using System;
 using BugStrategy.TechnologiesSystem;
 using BugStrategy.TechnologiesSystem.Technologies;
-using BugStrategy.UI.Elements;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace BugStrategy.UI.Technologies
 {
-    public class TechnologyButton : ButtonProvider
+    public class TechnologyButton : MonoBehaviour
     {
-        [SerializeField] private TMP_Text tmpText;
+        [SerializeField] private Button button;
+        [SerializeField] private TMP_Text nameField;
+        [SerializeField] private TMP_Text description;
+        [SerializeField] private TMP_Text cost;
+        [SerializeField] private TMP_Text state;
         
         public TechnologyId TechnologyId { get; private set; }
-        private string _techName;
         private ITechnology _technology;
-        
+
+        public event Action OnClick;
+
+        private void Awake()
+        {
+            button.onClick.AddListener(() => OnClick?.Invoke());
+        }
+
         public void Initialize(ITechnology technology)
         {
             _technology = technology;
             TechnologyId = _technology.Id;
-            _techName = _technology.TechName;
             
             _technology.OnDataChanged += UpdateView;
             
@@ -36,8 +45,10 @@ namespace BugStrategy.UI.Technologies
                 _ => throw new ArgumentOutOfRangeException()
             };
 
-            tmpText.text = $"{_techName}" +
-                           $"\n[{stateText}]";
+            nameField.text = $"{_technology.TechName}";
+            description.text = $"{_technology.Description}";
+            cost.text = $"{_technology.GetCost()}";
+            state.text = stateText;
         }
     }
 }

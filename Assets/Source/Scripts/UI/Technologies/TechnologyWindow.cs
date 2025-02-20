@@ -26,7 +26,7 @@ namespace BugStrategy.UI.Technologies
             {
                 var button = Instantiate(buttonPrefab, buttonsHolder);
                 button.Initialize(GetTechnology(technologyId));
-                button.Button.onClick.AddListener(() => TryResearchTechnology(button.TechnologyId));
+                button.OnClick += () => TryResearchTechnology(button.TechnologyId);
             }
             
             open.onClick.AddListener(() => ToggleWindow(true));
