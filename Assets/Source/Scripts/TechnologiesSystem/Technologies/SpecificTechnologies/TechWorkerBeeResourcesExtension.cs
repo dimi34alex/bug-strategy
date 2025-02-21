@@ -1,5 +1,4 @@
 using BugStrategy.TechnologiesSystem.Technologies.Configs;
-using UnityEngine;
 
 namespace BugStrategy.TechnologiesSystem.Technologies
 {
