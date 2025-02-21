@@ -22,7 +22,8 @@ namespace BugStrategy.Ai.InternalAis
             switch (UnitInternalAi.AiState)
             {
                 case AiUnitStateType.Auto:
-                    if (!Unit.CurrentPathData.Target.IsAnyNull() &&
+                    if (Unit.CurrentPathData != null &&
+                        !Unit.CurrentPathData.Target.IsAnyNull() &&
                         Unit.CurrentPathData.Target.Affiliation != Unit.Affiliation &&
                         Unit.CurrentPathData.Target.CastPossible<IDamagable>())
                     {
@@ -102,6 +103,11 @@ namespace BugStrategy.Ai.InternalAis
         public override void Apply()
         {
             Unit.HandleGiveOrder(_hashedTarget, UnitPathType.Attack);
+        }
+
+        public override void Reset()
+        {
+            _hashedTarget = null;
         }
     }
 }

@@ -73,7 +73,6 @@ namespace BugStrategy.Unit.Bees
             
             _healthStorage.SetValue(_healthStorage.Capacity);
             _resourceExtractionProcessor.Reset();
-            InternalAi.Reset();
 
             _stateMachine.SetState(EntityStateID.Idle);
         }

@@ -46,13 +46,13 @@ namespace BugStrategy
             _currentValue += value;
             if (_currentValue > _capacity)
             {
-                Debug.LogWarning($"Current value more then capacity: [{_currentValue}] [{_capacity}]");
+                // Debug.LogWarning($"Current value more then capacity: [{_currentValue}] [{_capacity}]");
                 _currentValue = _capacity;
             }
             
             if (_currentValue < 0)
             {
-                Debug.LogWarning($"Current value less then 0: [{_currentValue}] [{_capacity}]");
+                // Debug.LogWarning($"Current value less then 0: [{_currentValue}] [{_capacity}]");
                 _currentValue = 0;
             }
             

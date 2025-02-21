@@ -164,8 +164,17 @@ namespace BugStrategy.Unit
             MoveSpeedChangerProcessor.Reset();
 
             SwitchSticky(false);
+            
+            InternalAi.Reset();
         }
     
+        public virtual void Initialize(AffiliationEnum affiliation)
+        {
+            Affiliation = affiliation;
+            TargetMovePosition = transform.position;
+            _navMeshAgent.SetDestination(TargetMovePosition);
+        }
+        
         protected void ReturnInPool()
             => ElementReturnEvent?.Invoke(this);
     
@@ -181,9 +190,6 @@ namespace BugStrategy.Unit
 
         private void OnPathTargetDeactivated(ITarget _) 
             => PathTargetDeactivated?.Invoke();
-    
-        public virtual void Initialize(AffiliationEnum affiliation) 
-            => Affiliation = affiliation;
 
         public void TakeDamage(IDamageApplicator damageApplicator, float damageScale)
             => TakeDamage(null, damageApplicator, damageScale);

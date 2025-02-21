@@ -15,6 +15,9 @@ namespace BugStrategy.Ai.InternalAis
 
         public override float Evaluate()
         {
+            if (Unit.CurrentPathData == null)
+                return float.MinValue;
+
             float priorityScale = Unit.HealthStorage.Capacity/Unit.HealthStorage.CurrentValue;
             if (UnitInternalAi.UnitTookDamage)
                 priorityScale *= 1.5f;
