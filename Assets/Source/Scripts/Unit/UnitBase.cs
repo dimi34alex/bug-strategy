@@ -178,7 +178,7 @@ namespace BugStrategy.Unit
         private void OnPathTargetDeactivated(ITarget _) 
             => PathTargetDeactivated?.Invoke();
     
-        public void SetAffiliation(AffiliationEnum affiliation) 
+        public virtual void Initialize(AffiliationEnum affiliation) 
             => Affiliation = affiliation;
 
         public void TakeDamage(IDamageApplicator damageApplicator, float damageScale)

@@ -22,6 +22,8 @@ namespace BugStrategy.TechnologiesSystem.Technologies
                     return new TechHoneyCatapult(_techConfigsProvider.GetConfig(id));
                 case TechnologyId.BumblebeeAccumulation:
                     return new TechBumblebeeAccumulation(_techConfigsProvider.GetConfig(id));
+                case TechnologyId.WorkerBeeResourcesExtension:
+                    return new TechWorkerBeeResourcesExtension(_techConfigsProvider.GetConfig<TechWorkerBeeResourcesExtensionConfig>(id));
                 default:
                     throw new ArgumentOutOfRangeException(nameof(id), id, null);
             }

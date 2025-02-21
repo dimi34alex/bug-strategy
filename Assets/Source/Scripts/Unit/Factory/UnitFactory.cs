@@ -38,7 +38,7 @@ namespace BugStrategy.Unit.Factory
         {
             var unit = _pool.ExtractElement(unitType);
             unit.Transform.position = position;
-            unit.SetAffiliation(affiliation);
+            unit.Initialize(affiliation);
             _unitRepository.AddUnit(unit);
             UnitCreated?.Invoke(unit);
             

@@ -4,6 +4,8 @@ using BugStrategy.Ai.UnitAis;
 using BugStrategy.EntityState;
 using BugStrategy.Missions;
 using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.TechnologiesSystem;
+using BugStrategy.TechnologiesSystem.Technologies;
 using BugStrategy.Unit.AbilitiesCore;
 using BugStrategy.Unit.OrderValidatorCore;
 using BugStrategy.Unit.ProcessorsCore;
@@ -21,6 +23,7 @@ namespace BugStrategy.Unit.Bees
 
         [Inject] private readonly MissionData _missionData;
         [Inject] private readonly ITeamsResourcesGlobalStorage _teamsResourcesGlobalStorage;
+        [Inject] private readonly TechnologyModule _technologyModule;
         
         public override UnitType UnitType => UnitType.WorkerBee;
         protected override OrderValidatorBase OrderValidator => _orderValidator;
@@ -56,7 +59,7 @@ namespace BugStrategy.Unit.Bees
 
             InternalAi = new WorkerBeeInternalAi(this, stateBases, _missionData);
         }
-
+        
         public override void HandleUpdate(float time)
         {
             base.HandleUpdate(time);
@@ -73,6 +76,14 @@ namespace BugStrategy.Unit.Bees
             InternalAi.Reset();
 
             _stateMachine.SetState(EntityStateID.Idle);
+        }
+
+        public override void Initialize(AffiliationEnum affiliation)
+        {
+            base.Initialize(affiliation);
+            
+            var tech = _technologyModule.GetTechnology<TechWorkerBeeResourcesExtension>(Affiliation, TechnologyId.WorkerBeeResourcesExtension);
+            _resourceExtractionProcessor.SetTechnology(tech);
         }
 
         public HiderCellBase TakeHideCell()
