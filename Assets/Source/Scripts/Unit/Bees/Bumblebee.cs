@@ -84,9 +84,13 @@ namespace BugStrategy.Unit.Bees
             _cooldownProcessor.Reset();
             AttackCooldownChanger.Clear();
             
-            _abilityAccumulation.SetTech(_technologyModule.GetTechnology<TechBumblebeeAccumulation>(Affiliation, TechnologyId.BumblebeeAccumulation));
-            
             _stateMachine.SetState(EntityStateID.Idle);
+        }
+
+        public override void Initialize(AffiliationEnum affiliation)
+        {
+            base.Initialize(affiliation);
+            _abilityAccumulation.SetTech(_technologyModule.GetTechnology<TechBumblebeeAccumulation>(Affiliation, TechnologyId.BumblebeeAccumulation));
         }
 
         public HiderCellBase TakeHideCell()

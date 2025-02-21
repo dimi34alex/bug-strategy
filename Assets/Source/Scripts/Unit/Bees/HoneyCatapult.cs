@@ -84,9 +84,13 @@ namespace BugStrategy.Unit.Bees
             _cooldownProcessor.Reset();
             AttackCooldownChanger.Clear();
             
-            _attackProcessor.SetTech(_technologyModule.GetTechnology<TechHoneyCatapult>(Affiliation, TechnologyId.HoneyCatapult));
-            
             _stateMachine.SetState(EntityStateID.Idle);
+        }
+
+        public override void Initialize(AffiliationEnum affiliation)
+        {
+            base.Initialize(affiliation);
+            _attackProcessor.SetTech(_technologyModule.GetTechnology<TechHoneyCatapult>(Affiliation, TechnologyId.HoneyCatapult));
         }
     }
 }

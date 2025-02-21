@@ -14,15 +14,14 @@ namespace BugStrategy.Unit.ProcessorsCore
         private readonly Timer _extractionTimer;
         private readonly GameObject _resourceSkin;
         private readonly ITeamsResourcesGlobalStorage _teamsResourcesGlobalStorage;
-        private ResourceSourceBase _prevResourceSource;
         private TechWorkerBeeResourcesExtension _technology;
         
         public ResourceID ExtractedResourceID { get; private set; }
         public bool GotResource { get; private set; } = false;
         public bool IsExtract { get; private set; } = false;
+        public ResourceSourceBase LastResourceSource { get; private set; }
         public int ExtractionCapacity => (int)(MainExtractionCapacity * GetResourcesCapacityScale());
-        public ResourceSourceBase PrevResourceSource => _prevResourceSource;
-        
+
         private int MainExtractionCapacity { get; }
         
         public event Action OnResourceExtracted;
@@ -57,9 +56,9 @@ namespace BugStrategy.Unit.ProcessorsCore
         {
             if(IsExtract) return;
 
-            _prevResourceSource = resourceSource;
+            LastResourceSource = resourceSource;
             IsExtract = true;
-            ExtractedResourceID = _prevResourceSource.ResourceID;
+            ExtractedResourceID = LastResourceSource.ResourceID;
             _extractionTimer.Reset();
         }
 
@@ -99,6 +98,7 @@ namespace BugStrategy.Unit.ProcessorsCore
             GotResource = false;
             IsExtract = false;
             _technology = null;
+            LastResourceSource = null;
             HideResource();
         }
         
@@ -110,11 +110,11 @@ namespace BugStrategy.Unit.ProcessorsCore
 
         private void ExtractResource()
         {
-            if (_prevResourceSource.CanBeCollected)
+            if (LastResourceSource.CanBeCollected)
             {
                 GotResource = true;
                 ShowResource();
-                _prevResourceSource.ExtractResource(ExtractionCapacity);    
+                LastResourceSource.ExtractResource(ExtractionCapacity);    
             }
             
             IsExtract = false;
