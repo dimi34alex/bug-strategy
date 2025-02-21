@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace BugStrategy.ResourceSources
 {
-    public sealed class PollenStorage : ResourceSourceBase
+    public class PollenStorage : ResourceSourceBase
     {
         [SerializeField] private int refillTime = 30;
         [SerializeField] private Sprite defaultSkin;
@@ -27,7 +27,7 @@ namespace BugStrategy.ResourceSources
         private IEnumerator StartRePollinating(int duration)
         {
             yield return new WaitForSeconds(duration);
-
+                
             CanBeCollected = true;
             View.SetView(defaultSkin);
             ResourceStorage.SetValue(ResourceStorage.Capacity);
