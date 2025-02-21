@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using BugStrategy.EntityState;
 using BugStrategy.Libs;
 using BugStrategy.Unit;
-using UnityEngine;
 
 namespace BugStrategy.Ai.InternalAis
 {
@@ -79,8 +78,6 @@ namespace BugStrategy.Ai.InternalAis
                     return;
                 }
 
-                //if(Unit.UnitType == UnitType.Murmur)
-                //    Debug.Log($"{nameof(GetType)} || {evaluator.GetType()} || {evaluator}");
                 evaluator.Apply();
             }
         }
@@ -89,6 +86,10 @@ namespace BugStrategy.Ai.InternalAis
         {
             if (!GlobalAiOrderTarget.IsAnyNull())
                 GlobalAiOrderTarget.OnDeactivation -= SetOrderPriority;
+
+            foreach (var evaluator in InternalEvaluators) 
+                evaluator.Reset();
+
             GlobalAiOrderTarget = null;
             AiState = AiUnitStateType.Auto;
             UnitTookDamage = false;

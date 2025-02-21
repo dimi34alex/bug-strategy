@@ -5,6 +5,8 @@ using BugStrategy.Constructions.Factory;
 using BugStrategy.Effects;
 using BugStrategy.EntityState;
 using BugStrategy.Missions;
+using BugStrategy.TechnologiesSystem;
+using BugStrategy.TechnologiesSystem.Technologies;
 using BugStrategy.Unit.AbilitiesCore;
 using BugStrategy.Unit.OrderValidatorCore;
 using BugStrategy.Unit.ProcessorsCore;
@@ -21,6 +23,7 @@ namespace BugStrategy.Unit.Bees
 
         [Inject] private readonly MissionData _missionData;
         [Inject] private readonly IConstructionFactory _constructionFactory;
+        [Inject] private readonly TechnologyModule _technologyModule;
 
         public AttackCooldownChanger AttackCooldownChanger { get; private set; }
         public override InternalAiBase InternalAi { get; protected set; }
@@ -82,6 +85,12 @@ namespace BugStrategy.Unit.Bees
             AttackCooldownChanger.Clear();
             
             _stateMachine.SetState(EntityStateID.Idle);
+        }
+
+        public override void Initialize(AffiliationEnum affiliation)
+        {
+            base.Initialize(affiliation);
+            _abilityAccumulation.SetTech(_technologyModule.GetTechnology<TechBumblebeeAccumulation>(Affiliation, TechnologyId.BumblebeeAccumulation));
         }
 
         public HiderCellBase TakeHideCell()

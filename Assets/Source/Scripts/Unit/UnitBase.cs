@@ -52,6 +52,9 @@ namespace BugStrategy.Unit
         public UnitType Identifier => UnitType;
         public abstract FractionType Fraction { get; }
         public abstract UnitType UnitType { get; }
+        
+        /// <summary> Rodion: dont use it in code. This variable use to look state via inspector </summary>
+        public EntityStateID EntityStateID { get; private set; }
 
         private UnitPathData _currentPathData = new UnitPathData(null, UnitPathType.Idle);
         public UnitPathData CurrentPathData
@@ -140,7 +143,8 @@ namespace BugStrategy.Unit
         {
             CurrentPathData = null;//Rodion: need cus on game destroying target will be deactivated,
             //so it triggered this unit, that destroyed too
-            OnUnitDeactivation?.Invoke(this);                        
+            
+            OnUnitDeactivation?.Invoke(this);
             ElementDestroyEvent?.Invoke(this);
         }
 
@@ -160,8 +164,17 @@ namespace BugStrategy.Unit
             MoveSpeedChangerProcessor.Reset();
 
             SwitchSticky(false);
+            
+            InternalAi.Reset();
         }
     
+        public virtual void Initialize(AffiliationEnum affiliation)
+        {
+            Affiliation = affiliation;
+            TargetMovePosition = transform.position;
+            _navMeshAgent.SetDestination(TargetMovePosition);
+        }
+        
         protected void ReturnInPool()
             => ElementReturnEvent?.Invoke(this);
     
@@ -177,9 +190,6 @@ namespace BugStrategy.Unit
 
         private void OnPathTargetDeactivated(ITarget _) 
             => PathTargetDeactivated?.Invoke();
-    
-        public void SetAffiliation(AffiliationEnum affiliation) 
-            => Affiliation = affiliation;
 
         public void TakeDamage(IDamageApplicator damageApplicator, float damageScale)
             => TakeDamage(null, damageApplicator, damageScale);
@@ -260,8 +270,7 @@ namespace BugStrategy.Unit
 
             CalculateNewState(targetMovePosition);
         }
-
-        public EntityStateID EntityStateID { get; private set; } //Rodion: dont use it in code. This variable use to look state via inspector
+        
         private void CalculateNewState(Vector3 newTargetMovePosition)
         {
             newTargetMovePosition.y = 0;

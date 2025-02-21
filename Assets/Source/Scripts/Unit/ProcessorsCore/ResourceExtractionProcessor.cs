@@ -3,6 +3,7 @@ using BugStrategy.CustomTimer;
 using BugStrategy.ResourceSources;
 using BugStrategy.ResourcesSystem;
 using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.TechnologiesSystem.Technologies;
 using UnityEngine;
 
 namespace BugStrategy.Unit.ProcessorsCore
@@ -13,13 +14,15 @@ namespace BugStrategy.Unit.ProcessorsCore
         private readonly Timer _extractionTimer;
         private readonly GameObject _resourceSkin;
         private readonly ITeamsResourcesGlobalStorage _teamsResourcesGlobalStorage;
-        private ResourceSourceBase _prevResourceSource;
+        private TechWorkerBeeResourcesExtension _technology;
         
         public ResourceID ExtractedResourceID { get; private set; }
         public bool GotResource { get; private set; } = false;
         public bool IsExtract { get; private set; } = false;
-        public int ExtractionCapacity { get; }
-        public ResourceSourceBase PrevResourceSource => _prevResourceSource;
+        public ResourceSourceBase LastResourceSource { get; private set; }
+        public int ExtractionCapacity => (int)(MainExtractionCapacity * GetResourcesCapacityScale());
+
+        private int MainExtractionCapacity { get; }
         
         public event Action OnResourceExtracted;
         public event Action OnStorageResources;
@@ -27,7 +30,7 @@ namespace BugStrategy.Unit.ProcessorsCore
         public ResourceExtractionProcessor(IAffiliation affiliation, int gatheringCapacity, float extractionTime, ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage, GameObject resourceSkin)
         {
             _affiliation = affiliation;
-            ExtractionCapacity = gatheringCapacity;
+            MainExtractionCapacity = gatheringCapacity;
             _extractionTimer = new Timer(extractionTime, 0, true);
             _extractionTimer.OnTimerEnd += ExtractResource;
             _teamsResourcesGlobalStorage = teamsResourcesGlobalStorage;
@@ -53,9 +56,9 @@ namespace BugStrategy.Unit.ProcessorsCore
         {
             if(IsExtract) return;
 
-            _prevResourceSource = resourceSource;
+            LastResourceSource = resourceSource;
             IsExtract = true;
-            ExtractedResourceID = _prevResourceSource.ResourceID;
+            ExtractedResourceID = LastResourceSource.ResourceID;
             _extractionTimer.Reset();
         }
 
@@ -84,24 +87,34 @@ namespace BugStrategy.Unit.ProcessorsCore
             OnStorageResources?.Invoke();
         }
 
+        public void SetTechnology(TechWorkerBeeResourcesExtension tech)
+        {
+            _technology = tech;
+        }
+        
         public void Reset()
         {
             _extractionTimer.Reset(true);
             GotResource = false;
             IsExtract = false;
+            _technology = null;
+            LastResourceSource = null;
             HideResource();
         }
         
         private void ShowResource() => _resourceSkin.SetActive(true);
         private void HideResource() => _resourceSkin.SetActive(false);
-        
+
+        private float GetResourcesCapacityScale() 
+            => _technology?.GetCapacityScale() ?? 1;
+
         private void ExtractResource()
         {
-            if (_prevResourceSource.CanBeCollected)
+            if (LastResourceSource.CanBeCollected)
             {
                 GotResource = true;
                 ShowResource();
-                _prevResourceSource.ExtractResource(ExtractionCapacity);    
+                LastResourceSource.ExtractResource(ExtractionCapacity);    
             }
             
             IsExtract = false;

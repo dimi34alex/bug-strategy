@@ -27,5 +27,14 @@ namespace BugStrategy.ResourcesSystem.ResourcesGlobalStorage
 
         public IReadOnlyResource GetResource(AffiliationEnum affiliation, ResourceID resourceID) 
             => _resourceRepositories[affiliation].GetResource(resourceID);
+
+        public bool CanBuy(AffiliationEnum affiliation, Cost cost) 
+            => _resourceRepositories[affiliation].CanBuy(cost);
+
+        /// <summary>
+        /// Before call it, check that repository have enough resources for this (<see cref="CanBuy"/>)
+        /// </summary>
+        public void SpendResources(AffiliationEnum affiliation, Cost cost)
+            => _resourceRepositories[affiliation].SpendResources(cost);
     }
 }

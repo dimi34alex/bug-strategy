@@ -10,7 +10,7 @@ namespace BugStrategy.Unit.ProcessorsCore
         public ResourceID ExtractedResourceID { get; }
         public bool GotResource { get; }
         public bool IsExtract { get; }
-        public ResourceSourceBase PrevResourceSource { get; }
+        public ResourceSourceBase LastResourceSource { get; }
 
         public event Action OnResourceExtracted;
         public event Action OnStorageResources;

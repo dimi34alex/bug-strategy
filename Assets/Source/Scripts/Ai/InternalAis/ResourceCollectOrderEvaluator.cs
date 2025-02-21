@@ -35,10 +35,10 @@ namespace BugStrategy.Ai.InternalAis
                         _hashedResourceSource.CanBeCollected)
                         return 1;
 
-                    if (_resourceExtractionProcessor.PrevResourceSource != null &&
-                        _resourceExtractionProcessor.PrevResourceSource.CanBeCollected)
+                    if (_resourceExtractionProcessor.LastResourceSource != null &&
+                        _resourceExtractionProcessor.LastResourceSource.CanBeCollected)
                     {
-                        _hashedResourceSource = _resourceExtractionProcessor.PrevResourceSource;
+                        _hashedResourceSource = _resourceExtractionProcessor.LastResourceSource;
                         return 1;
                     }
                     break;

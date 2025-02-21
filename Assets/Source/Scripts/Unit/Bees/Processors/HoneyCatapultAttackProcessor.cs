@@ -1,5 +1,6 @@
 using BugStrategy.Projectiles;
 using BugStrategy.Projectiles.Factory;
+using BugStrategy.TechnologiesSystem.Technologies;
 using BugStrategy.Unit.ProcessorsCore;
 using CycleFramework.Extensions;
 
@@ -10,6 +11,7 @@ namespace BugStrategy.Unit.Bees
         private readonly float _damageRadius;
         private readonly FloatStorage _projectileCounter;
         
+        private TechHoneyCatapult _techHoneyCatapult;
         private float _constructionDamageScale = 1;
         
         public HoneyCatapultAttackProcessor(UnitBase unit, float attackRange, float damage, float damageRadius, CooldownProcessor cooldownProcessor, ProjectilesFactory projectilesFactory) 
@@ -18,6 +20,9 @@ namespace BugStrategy.Unit.Bees
             _damageRadius = damageRadius;
             _projectileCounter = new FloatStorage(0, 0);
         }
+
+        public void SetTech(TechHoneyCatapult techHoneyCatapult) 
+            => _techHoneyCatapult = techHoneyCatapult;
 
         public void SetConstructionDamageScale(float newScale)
             => _constructionDamageScale = newScale;
@@ -38,7 +43,8 @@ namespace BugStrategy.Unit.Bees
         
         private void TryMadeProjectileSticky(HoneyCatapultProjectile projectile)
         {
-            _projectileCounter.ChangeValue(1);
+            if (_techHoneyCatapult.Researched) 
+                _projectileCounter.ChangeValue(1);
 
             if (_projectileCounter.CurrentValue >= _projectileCounter.Capacity)
             {
