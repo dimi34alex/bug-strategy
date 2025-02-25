@@ -43,5 +43,13 @@ namespace BugStrategy.TechnologiesSystem
                 
             return _technologies[id].Cast<T>();
         }
+
+        public void Unlock(TechnologyId id)
+        {
+            if (!_technologies.ContainsKey(id)) 
+                _technologies.Add(id, _factory.Create(id));
+
+            _technologies[id].Unlock();
+        }
     }
 }

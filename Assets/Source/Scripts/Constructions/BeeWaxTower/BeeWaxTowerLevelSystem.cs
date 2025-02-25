@@ -1,5 +1,6 @@
 using BugStrategy.Constructions.ConstructionLevelSystemCore;
 using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.TechnologiesSystem;
 
 namespace BugStrategy.Constructions.BeeWaxTower
 {
@@ -7,10 +8,10 @@ namespace BugStrategy.Constructions.BeeWaxTower
     {
         private readonly BeeWaxTowerAttackProcessor _attackProcessor; 
         
-        public BeeWaxTowerLevelSystem(ConstructionBase construction, BeeWaxTowerConfig config, 
+        public BeeWaxTowerLevelSystem(ConstructionBase construction, TechnologyModule technologyModule, BeeWaxTowerConfig config, 
             ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage, FloatStorage healthStorage, 
             BeeWaxTowerAttackProcessor attackProcessor) 
-            : base(construction, config.Levels,  teamsResourcesGlobalStorage, healthStorage)
+            : base(construction, technologyModule, config.Levels,  teamsResourcesGlobalStorage, healthStorage)
         {
             _attackProcessor = attackProcessor;
         }

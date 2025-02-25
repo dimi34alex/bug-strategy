@@ -7,6 +7,8 @@ namespace BugStrategy.TechnologiesSystem.Technologies
     {
         public string TechName { get; }
         public string Description { get; }
+        public string UnlockRequirements { get; }
+        public bool Unlocked { get; }
         public TechnologyId Id { get; }
         public TechnologyState State { get; }
         public IReadOnlyTimer ResearchTimer { get; }
@@ -18,6 +20,8 @@ namespace BugStrategy.TechnologiesSystem.Technologies
 
         public void HandleUpdate(float deltaTime);
 
+        public void Unlock();
+        
         public void Research();
         
         Cost GetCost();

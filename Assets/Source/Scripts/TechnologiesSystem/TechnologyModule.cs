@@ -24,6 +24,9 @@ namespace BugStrategy.TechnologiesSystem
         public T GetTechnology<T>(AffiliationEnum affiliation, TechnologyId id) where T: ITechnology 
             => _technologiesTeamRepository.GetTechnology<T>(affiliation, id);
 
+        public void Unlock(AffiliationEnum affiliation, TechnologyId id) 
+            => _technologiesTeamRepository.Unlock(affiliation, id);
+
         public bool CanBuy(AffiliationEnum affiliation, TechnologyId id)
         {
             var technology = _technologiesTeamRepository.GetTechnology(affiliation, id);
@@ -43,6 +46,12 @@ namespace BugStrategy.TechnologiesSystem
             if (technology.State != TechnologyState.UnResearched)
             {
                 Debug.LogWarning($"You try research technology that you cant research: {affiliation} {id} {technology.State}");
+                return;
+            }
+
+            if (!technology.Unlocked)
+            {
+                Debug.LogWarning($"You try research technology, that are locked: [{id}] [{GetType()}]");
                 return;
             }
             

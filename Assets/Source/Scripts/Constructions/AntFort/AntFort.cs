@@ -1,5 +1,6 @@
 using BugStrategy.Constructions.ConstructionLevelSystemCore;
 using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.TechnologiesSystem;
 using UnityEngine;
 using Zenject;
 
@@ -10,7 +11,8 @@ namespace BugStrategy.Constructions.AntFort
         [SerializeField] private AntFortConfig config;
 
         [Inject] private readonly ITeamsResourcesGlobalStorage _teamsResourcesGlobalStorage;
-
+        [Inject] private readonly TechnologyModule _technologyModule;
+        
         public override FractionType Fraction => FractionType.Ants;
         public override ConstructionID ConstructionID => ConstructionID.AntFort;
         protected override ConstructionConfigBase ConfigBase => config;
@@ -21,7 +23,7 @@ namespace BugStrategy.Constructions.AntFort
         {
             base.OnAwake();
 
-            LevelSystem = new AntFortLevelSystem(this, config, _teamsResourcesGlobalStorage,  _healthStorage);
+            LevelSystem = new AntFortLevelSystem(this, _technologyModule, config, _teamsResourcesGlobalStorage,  _healthStorage);
             Initialized += InitLevelSystem;
         }
 

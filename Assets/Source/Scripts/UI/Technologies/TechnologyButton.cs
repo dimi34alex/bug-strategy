@@ -28,6 +28,7 @@ namespace BugStrategy.UI.Technologies
         public void Initialize(ITechnology technology)
         {
             _technology = technology;
+            
             TechnologyId = _technology.Id;
             
             _technology.OnDataChanged += UpdateView;
@@ -37,16 +38,24 @@ namespace BugStrategy.UI.Technologies
 
         private void UpdateView()
         {
-            var stateText = _technology.State switch
+            description.text = $"{_technology.Description}";
+            var stateText = "Заблокировано";
+            if (_technology.Unlocked)
             {
-                TechnologyState.UnResearched => "Не исследовано",
-                TechnologyState.ResearchProcess => $"{_technology.ResearchTimer.CurrentTime:0.0}/{_technology.ResearchTimer.MaxTime}",
-                TechnologyState.Researched => "Исследовано",
-                _ => throw new ArgumentOutOfRangeException()
-            };
+                stateText = _technology.State switch
+                {
+                    TechnologyState.UnResearched => "Не исследовано",
+                    TechnologyState.ResearchProcess => $"{_technology.ResearchTimer.CurrentTime:0.0}/{_technology.ResearchTimer.MaxTime}",
+                    TechnologyState.Researched => "Исследовано",
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+            }
+            else
+            {
+                description.text = $"{_technology.UnlockRequirements}";
+            }
 
             nameField.text = $"{_technology.TechName}";
-            description.text = $"{_technology.Description}";
             cost.text = $"{_technology.GetCost()}";
             state.text = stateText;
         }

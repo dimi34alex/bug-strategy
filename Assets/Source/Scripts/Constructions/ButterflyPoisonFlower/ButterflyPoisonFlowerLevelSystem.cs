@@ -1,6 +1,7 @@
 using System;
 using BugStrategy.Constructions.ConstructionLevelSystemCore;
 using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.TechnologiesSystem;
 using UnityEngine;
 
 namespace BugStrategy.Constructions.ButterflyPoisonFlower
@@ -12,11 +13,11 @@ namespace BugStrategy.Constructions.ButterflyPoisonFlower
         private readonly ButterflyPoisonFlowerAttackProcessor _attackProcessor;
         private readonly SphereCollider _attackZoneCollider;
         
-        public ButterflyPoisonFlowerLevelSystem(ConstructionBase construction, ButterflyPoisonFlowerConfig config, 
+        public ButterflyPoisonFlowerLevelSystem(ConstructionBase construction, TechnologyModule technologyModule, ButterflyPoisonFlowerConfig config, 
             ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage, FloatStorage healthStorage, 
             ref SphereCollider attackZoneCollider, ref ButterflyPoisonFlowerAttackProcessor attackProcessor,
             ref ButterflyPoisonFlowerPoisonFogProcessor poisonFogProcessor) 
-            : base(construction, config.Levels,  teamsResourcesGlobalStorage, healthStorage)
+            : base(construction, technologyModule, config.Levels,  teamsResourcesGlobalStorage, healthStorage)
         {
             _attackZoneCollider = attackZoneCollider;
             _attackProcessor = attackProcessor;

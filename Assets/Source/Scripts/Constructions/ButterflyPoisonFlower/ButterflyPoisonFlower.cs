@@ -2,6 +2,7 @@
 using BugStrategy.PoisonFog.Factory;
 using BugStrategy.Projectiles.Factory;
 using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.TechnologiesSystem;
 using BugStrategy.Trigger;
 using UnityEngine;
 using Zenject;
@@ -17,6 +18,7 @@ namespace BugStrategy.Constructions.ButterflyPoisonFlower
         [Inject] private readonly ProjectilesFactory _projectilesFactory;
         [Inject] private readonly PoisonFogFactory _poisonFogFactory;
         [Inject] private readonly ITeamsResourcesGlobalStorage _teamsResourcesGlobalStorage;
+        [Inject] private readonly TechnologyModule _technologyModule;
 
         private ButterflyPoisonFlowerAttackProcessor _attackProcessor;
         private ButterflyPoisonFlowerPoisonFogProcessor _poisonFogProcessor;
@@ -33,7 +35,7 @@ namespace BugStrategy.Constructions.ButterflyPoisonFlower
                 triggerBehaviour, this);
             _poisonFogProcessor = new ButterflyPoisonFlowerPoisonFogProcessor(transform, _poisonFogFactory);
             
-            LevelSystem = new ButterflyPoisonFlowerLevelSystem(this, config, _teamsResourcesGlobalStorage, _healthStorage, 
+            LevelSystem = new ButterflyPoisonFlowerLevelSystem(this, _technologyModule, config, _teamsResourcesGlobalStorage, _healthStorage, 
                 ref attackZoneCollider, ref _attackProcessor, ref _poisonFogProcessor);
             
             OnDestruction += _attackProcessor.KillCooldownTimer;
