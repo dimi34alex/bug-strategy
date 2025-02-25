@@ -1,6 +1,7 @@
 using System;
 using BugStrategy.Constructions.ConstructionLevelSystemCore;
 using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.TechnologiesSystem;
 
 namespace BugStrategy.Constructions.AntMeleeWorkshop
 {
@@ -9,9 +10,9 @@ namespace BugStrategy.Constructions.AntMeleeWorkshop
     {
         private readonly WorkshopCore _workshopCore;
 
-        public AntMeleeWorkshopLevelSystem(ConstructionBase construction, AntMeleeWorkshopConfig config,
+        public AntMeleeWorkshopLevelSystem(ConstructionBase construction, TechnologyModule technologyModule, AntMeleeWorkshopConfig config,
             ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage, FloatStorage healthStorage, WorkshopCore workshopCore) 
-            : base(construction, config.Levels,  teamsResourcesGlobalStorage, healthStorage)
+            : base(construction, technologyModule, config.Levels,  teamsResourcesGlobalStorage, healthStorage)
         {
             _workshopCore = workshopCore;
         }

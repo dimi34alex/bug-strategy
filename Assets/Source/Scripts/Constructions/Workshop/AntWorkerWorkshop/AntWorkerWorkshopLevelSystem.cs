@@ -1,6 +1,7 @@
 using System;
 using BugStrategy.Constructions.ConstructionLevelSystemCore;
 using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.TechnologiesSystem;
 
 namespace BugStrategy.Constructions.AntWorkerWorkshop
 {
@@ -9,9 +10,9 @@ namespace BugStrategy.Constructions.AntWorkerWorkshop
     {
         private readonly WorkshopCore _workshopCore;
         
-        public AntWorkerWorkshopLevelSystem(ConstructionBase construction, AntWorkerWorkshopConfig config,
+        public AntWorkerWorkshopLevelSystem(ConstructionBase construction, TechnologyModule technologyModule, AntWorkerWorkshopConfig config,
             ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage, FloatStorage healthStorage, WorkshopCore workshopCore) 
-            : base(construction, config.Levels,  teamsResourcesGlobalStorage, healthStorage)
+            : base(construction, technologyModule, config.Levels,  teamsResourcesGlobalStorage, healthStorage)
         {
             _workshopCore = workshopCore;
         }

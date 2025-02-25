@@ -1,6 +1,7 @@
 using BugStrategy.Constructions.ConstructionLevelSystemCore;
 using BugStrategy.Constructions.UnitsRecruitingSystem;
 using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.TechnologiesSystem;
 using BugStrategy.Unit;
 using BugStrategy.Unit.Factory;
 using UnityEngine;
@@ -14,6 +15,7 @@ namespace BugStrategy.Constructions
 
         [Inject] protected readonly UnitFactory _unitFactory;
         [Inject] protected readonly ITeamsResourcesGlobalStorage TeamsResourcesGlobalStorage;
+        [Inject] protected readonly TechnologyModule _technologyModule;
 
         public IReadOnlyUnitsRecruiter Recruiter => _recruiter;
 

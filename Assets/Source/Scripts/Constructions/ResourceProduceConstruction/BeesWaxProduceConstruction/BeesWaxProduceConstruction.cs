@@ -1,4 +1,5 @@
 using BugStrategy.Constructions.ConstructionLevelSystemCore;
+using BugStrategy.TechnologiesSystem;
 using BugStrategy.Unit.Factory;
 using BugStrategy.UnitsHideCore;
 using UnityEngine;
@@ -12,7 +13,8 @@ namespace BugStrategy.Constructions.ResourceProduceConstruction.BeesWaxProduceCo
         [SerializeField] private Transform hiderExtractPosition;
 
         [Inject] private readonly UnitFactory _unitFactory;
-        
+        [Inject] private readonly TechnologyModule _technologyModule;
+
         private UnitsHider _hider;
         private ResourceConversionCore _resourceConversionCore;
 
@@ -28,7 +30,7 @@ namespace BugStrategy.Constructions.ResourceProduceConstruction.BeesWaxProduceCo
         {
             base.OnAwake();
 
-            LevelSystem = new BeesWaxProduceLevelSystem(this, config, _unitFactory, hiderExtractPosition, TeamsResourcesGlobalStorage,
+            LevelSystem = new BeesWaxProduceLevelSystem(this, _technologyModule, config, _unitFactory, hiderExtractPosition, TeamsResourcesGlobalStorage,
                 _healthStorage, ref _resourceConversionCore, ref _hider);
 
             Initialized += InitLevelSystem;

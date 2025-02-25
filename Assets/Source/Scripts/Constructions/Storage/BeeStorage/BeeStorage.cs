@@ -1,5 +1,6 @@
 using BugStrategy.Constructions.ConstructionLevelSystemCore;
 using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.TechnologiesSystem;
 using UnityEngine;
 using Zenject;
 
@@ -10,6 +11,7 @@ namespace BugStrategy.Constructions.BeeStorage
         [SerializeField] private BeeStorageConfig config;
        
         [Inject] private readonly ITeamsResourcesGlobalStorage _teamsResourcesGlobalStorage;
+        [Inject] private readonly TechnologyModule _technologyModule;
 
         public override FractionType Fraction => FractionType.Bees;
         public override ConstructionID ConstructionID => ConstructionID.BeeStorage;
@@ -21,7 +23,7 @@ namespace BugStrategy.Constructions.BeeStorage
         {
             base.OnAwake();
 
-            LevelSystem = new BeeStorageLevelSystem(this, config, _teamsResourcesGlobalStorage, _healthStorage);
+            LevelSystem = new BeeStorageLevelSystem(this, _technologyModule, config, _teamsResourcesGlobalStorage, _healthStorage);
             Initialized += InitLevelSystem;
         }
 

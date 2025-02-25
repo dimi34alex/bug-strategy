@@ -2,6 +2,7 @@ using System;
 using BugStrategy.Constructions.ConstructionLevelSystemCore;
 using BugStrategy.Constructions.UnitsRecruitingSystem;
 using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.TechnologiesSystem;
 using BugStrategy.UnitsHideCore;
 
 namespace BugStrategy.Constructions.BeeMercenaryBarrack
@@ -12,10 +13,10 @@ namespace BugStrategy.Constructions.BeeMercenaryBarrack
         private readonly UnitsRecruiter _recruiter;
         private readonly UnitsHider _hider;
 
-        public BeeMercenaryBarrackLevelSystem(ConstructionBase construction, BeeMercenaryBarrackConfig config, 
+        public BeeMercenaryBarrackLevelSystem(ConstructionBase construction, TechnologyModule technologyModule, BeeMercenaryBarrackConfig config, 
             ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage, FloatStorage healthStorage, UnitsRecruiter recruiter,
             UnitsHider hider) 
-            : base(construction, config.Levels,  teamsResourcesGlobalStorage, healthStorage)
+            : base(construction, technologyModule, config.Levels,  teamsResourcesGlobalStorage, healthStorage)
         {
             _recruiter = recruiter;
             _hider = hider;
