@@ -159,10 +159,5 @@ namespace BugStrategy.UI
 
         public static void ErrorCall(string error) 
             => _uiError.ErrorCall(error);
-
-        public void BackToMenu ()
-        {
-            SceneManager.LoadScene("MainMenuScene");
-        }
     }
 }
