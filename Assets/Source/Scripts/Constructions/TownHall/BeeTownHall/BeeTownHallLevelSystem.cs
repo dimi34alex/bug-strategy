@@ -1,9 +1,8 @@
 using BugStrategy.Constructions.ConstructionLevelSystemCore;
 using BugStrategy.Constructions.UnitsRecruitingSystem;
 using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
-using BugStrategy.Unit.Factory;
+using BugStrategy.TechnologiesSystem;
 using BugStrategy.UnitsHideCore;
-using UnityEngine;
 
 namespace BugStrategy.Constructions.BeeTownHall
 {
@@ -12,10 +11,10 @@ namespace BugStrategy.Constructions.BeeTownHall
         private readonly UnitsRecruiter _recruiter;
         private readonly UnitsHider _hider;
         
-        public BeeTownHallLevelSystem(ConstructionBase construction, BeeTownHallConfig config, Transform spawnPosition, 
-            UnitFactory unitFactory, ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage, FloatStorage healthStorage, 
+        public BeeTownHallLevelSystem(ConstructionBase construction, TechnologyModule technologyModule, BeeTownHallConfig config, 
+            ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage, FloatStorage healthStorage, 
             ref UnitsRecruiter recruiter, ref UnitsHider hider) 
-            : base(construction, config.Levels,  teamsResourcesGlobalStorage, healthStorage)
+            : base(construction, technologyModule, config.Levels,  teamsResourcesGlobalStorage, healthStorage)
         {
             _recruiter = recruiter;
 

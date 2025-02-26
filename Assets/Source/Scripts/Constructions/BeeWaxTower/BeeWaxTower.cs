@@ -2,6 +2,7 @@ using BugStrategy.Constructions.ConstructionLevelSystemCore;
 using BugStrategy.Constructions.Factory;
 using BugStrategy.Projectiles.Factory;
 using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.TechnologiesSystem;
 using BugStrategy.Trigger;
 using UnityEngine;
 using Zenject;
@@ -16,7 +17,8 @@ namespace BugStrategy.Constructions.BeeWaxTower
         [Inject] private readonly ProjectilesFactory _projectilesFactory;
         [Inject] private readonly IConstructionFactory _constructionFactory;
         [Inject] private readonly ITeamsResourcesGlobalStorage _teamsResourcesGlobalStorage;
-        
+        [Inject] private readonly TechnologyModule _technologyModule;
+
         public override FractionType Fraction => FractionType.Bees;
         public override ConstructionID ConstructionID => ConstructionID.BeeWaxTower;
         protected override ConstructionConfigBase ConfigBase => config;
@@ -32,7 +34,7 @@ namespace BugStrategy.Constructions.BeeWaxTower
 
             _attackProcessor = new BeeWaxTowerAttackProcessor(this, _projectilesFactory, attackZone, transform, this);
 
-            _levelSystem = new BeeWaxTowerLevelSystem(this, config, _teamsResourcesGlobalStorage,
+            _levelSystem = new BeeWaxTowerLevelSystem(this, _technologyModule, config, _teamsResourcesGlobalStorage,
                 _healthStorage, _attackProcessor);
             
             _updateEvent += UpdateAttackProcessor;

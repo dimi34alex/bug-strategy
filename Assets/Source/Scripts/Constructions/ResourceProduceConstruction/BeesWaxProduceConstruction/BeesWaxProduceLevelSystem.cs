@@ -1,6 +1,7 @@
 using System;
 using BugStrategy.Constructions.ConstructionLevelSystemCore;
 using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.TechnologiesSystem;
 using BugStrategy.Unit.Factory;
 using BugStrategy.UnitsHideCore;
 using UnityEngine;
@@ -13,10 +14,10 @@ namespace BugStrategy.Constructions.ResourceProduceConstruction.BeesWaxProduceCo
         private readonly ResourceConversionCore _resourceConversionCore;
         private readonly UnitsHider _hider;
 
-        public BeesWaxProduceLevelSystem(ConstructionBase construction, BeesWaxProduceConfig config, 
+        public BeesWaxProduceLevelSystem(ConstructionBase construction, TechnologyModule technologyModule, BeesWaxProduceConfig config, 
             UnitFactory unitFactory, Transform hiderSpawnPosition, ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage, 
             FloatStorage healthStorage, ref ResourceConversionCore resourceConversionCore, ref UnitsHider hider)
-            : base(construction, config.Levels,  teamsResourcesGlobalStorage, healthStorage)
+            : base(construction, technologyModule, config.Levels,  teamsResourcesGlobalStorage, healthStorage)
         {
             _resourceConversionCore = resourceConversionCore =
                 new ResourceConversionCore(CurrentLevel.ResourceConversionProccessInfo);

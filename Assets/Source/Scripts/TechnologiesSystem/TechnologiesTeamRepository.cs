@@ -37,6 +37,14 @@ namespace BugStrategy.TechnologiesSystem
             return _technologiesRepositories[affiliation].GetTechnology<T>(id);
         }
 
+        public void Unlock(AffiliationEnum affiliation, TechnologyId id)
+        {
+            if (!_technologiesRepositories.ContainsKey(affiliation))
+                AddTechnologiesBlock(affiliation);
+
+            _technologiesRepositories[affiliation].Unlock(id);
+        }
+
         private void AddTechnologiesBlock(AffiliationEnum affiliation)
         {
             if (_technologiesRepositories.ContainsKey(affiliation))

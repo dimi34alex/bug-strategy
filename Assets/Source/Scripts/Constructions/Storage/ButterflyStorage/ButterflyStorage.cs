@@ -1,5 +1,6 @@
 using BugStrategy.Constructions.ConstructionLevelSystemCore;
 using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.TechnologiesSystem;
 using UnityEngine;
 using Zenject;
 
@@ -10,6 +11,7 @@ namespace BugStrategy.Constructions.ButterflyStorage
         [SerializeField] private ButterflyStorageConfig config;
        
         [Inject] private readonly ITeamsResourcesGlobalStorage _teamsResourcesGlobalStorage;
+        [Inject] private readonly TechnologyModule _technologyModule;
 
         public override FractionType Fraction => FractionType.Butterflies;
         public override ConstructionID ConstructionID => ConstructionID.ButterflyStorage;
@@ -21,7 +23,7 @@ namespace BugStrategy.Constructions.ButterflyStorage
         {
             base.OnAwake();
 
-            LevelSystem = new ButterflyStorageLevelSystem(this, config, _teamsResourcesGlobalStorage, _healthStorage);
+            LevelSystem = new ButterflyStorageLevelSystem(this, _technologyModule, config, _teamsResourcesGlobalStorage, _healthStorage);
             Initialized += InitLevelSystem;
         }
 
