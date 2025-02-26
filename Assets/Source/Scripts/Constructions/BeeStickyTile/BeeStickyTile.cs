@@ -14,7 +14,7 @@ namespace BugStrategy.Constructions.BeeStickyTile
         
         private readonly List<BufferBeforeApplyStick> _buffers = new();
         private Timer _existsTimer;
-        
+
         public override FractionType Fraction => FractionType.Bees;
         public override ConstructionID ConstructionID => ConstructionID.BeeStickyTileConstruction;
         protected override ConstructionConfigBase ConfigBase => config;
@@ -23,7 +23,7 @@ namespace BugStrategy.Constructions.BeeStickyTile
         {
             _healthStorage.SetCapacity(config.HealthPoints);
             _healthStorage.SetValue(config.HealthPoints);
-            
+
             _existsTimer = new Timer(config.ExistTime);
             _existsTimer.OnTimerEnd += DestructStickyTile;
             
