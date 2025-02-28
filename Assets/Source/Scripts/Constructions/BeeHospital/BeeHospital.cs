@@ -1,5 +1,6 @@
 using BugStrategy.Constructions.ConstructionLevelSystemCore;
 using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.TechnologiesSystem;
 using BugStrategy.Unit.Factory;
 using BugStrategy.UnitsHideCore;
 using UnityEngine;
@@ -14,6 +15,7 @@ namespace BugStrategy.Constructions.BeeHospital
 
         [Inject] private UnitFactory _unitFactory;
         [Inject] private readonly ITeamsResourcesGlobalStorage _teamsResourcesGlobalStorage;
+        [Inject] private readonly TechnologyModule _technologyModule;
 
         public override FractionType Fraction => FractionType.Bees;
         public override ConstructionID ConstructionID => ConstructionID.BeeHospital;
@@ -32,7 +34,7 @@ namespace BugStrategy.Constructions.BeeHospital
             _hider = new UnitsHider(this, 0, _unitFactory, hiderExtractionPosition, config.HiderAccess);
             _healProcessor = new HealProcessor(_hider, 0);
             
-            _levelSystem = new BeeHospitalLevelSystem(this, config, _teamsResourcesGlobalStorage, _healthStorage, 
+            _levelSystem = new BeeHospitalLevelSystem(this, _technologyModule, config, _teamsResourcesGlobalStorage, _healthStorage, 
                 _hider, _healProcessor);
 
             Initialized += InitializeLevelSystem;

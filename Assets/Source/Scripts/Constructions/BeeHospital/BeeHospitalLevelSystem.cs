@@ -1,5 +1,6 @@
 using BugStrategy.Constructions.ConstructionLevelSystemCore;
 using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.TechnologiesSystem;
 using BugStrategy.UnitsHideCore;
 
 namespace BugStrategy.Constructions.BeeHospital
@@ -9,10 +10,10 @@ namespace BugStrategy.Constructions.BeeHospital
         private readonly UnitsHider _hider;
         private readonly HealProcessor _healProcessor;
 
-        public BeeHospitalLevelSystem(ConstructionBase construction, BeeHospitalConfig config, 
+        public BeeHospitalLevelSystem(ConstructionBase construction, TechnologyModule technologyModule, BeeHospitalConfig config, 
             ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage, FloatStorage healthStorage, UnitsHider hider, 
             HealProcessor healProcessor) 
-            : base(construction, config.Levels,  teamsResourcesGlobalStorage, healthStorage)
+            : base(construction, technologyModule, config.Levels,  teamsResourcesGlobalStorage, healthStorage)
         {
             _hider = hider;
             _healProcessor = healProcessor;

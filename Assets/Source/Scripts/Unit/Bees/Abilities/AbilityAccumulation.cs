@@ -2,6 +2,7 @@ using BugStrategy.Constructions;
 using BugStrategy.Constructions.Factory;
 using BugStrategy.CustomTimer;
 using BugStrategy.Missions;
+using BugStrategy.TechnologiesSystem.Technologies;
 using BugStrategy.Unit.AbilitiesCore;
 using UnityEngine;
 
@@ -16,6 +17,8 @@ namespace BugStrategy.Unit.Bees
         private readonly IConstructionFactory _constructionFactory;
         private readonly MissionData _missionData;
 
+        private TechBumblebeeAccumulation _techBumblebeeAccumulation;
+        
         public IReadOnlyTimer Cooldown { get; } = new Timer(1, 1);
         public float Damage => _explosionDamage;
         public AbilityType AbilityType => AbilityType.Accumulation;
@@ -34,8 +37,14 @@ namespace BugStrategy.Unit.Bees
             _bumblebee.OnUnitDiedEvent += Explosion;
         }
 
+        public void SetTech(TechBumblebeeAccumulation techBumblebeeAccumulation) 
+            => _techBumblebeeAccumulation = techBumblebeeAccumulation;
+
         private void Explosion()
         {
+            if (!_techBumblebeeAccumulation.Researched)
+                return;
+
             DamageNearEnemies();
             TrySpawnStickyTile();
         }

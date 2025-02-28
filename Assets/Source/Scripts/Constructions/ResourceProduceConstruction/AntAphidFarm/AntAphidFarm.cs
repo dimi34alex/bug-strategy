@@ -1,6 +1,7 @@
 using BugStrategy.Constructions.ConstructionLevelSystemCore;
 using BugStrategy.Constructions.ResourceProduceConstruction.BeesWaxProduceConstruction;
 using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.TechnologiesSystem;
 using UnityEngine;
 using Zenject;
 
@@ -11,7 +12,8 @@ namespace BugStrategy.Constructions.ResourceProduceConstruction.AntAphidFarm
         [SerializeField] private AntAphidFarmConfig config;
 
         [Inject] private readonly ITeamsResourcesGlobalStorage _teamsResourcesGlobalStorage;
-        
+        [Inject] private readonly TechnologyModule _technologyModule;
+
         public override FractionType Fraction => FractionType.Ants;
         public override ConstructionID ConstructionID => ConstructionID.AntAphidFarm;
         public override ResourceProduceCoreBase ResourceProduceCoreBase => _resourceProduceCore;
@@ -27,7 +29,7 @@ namespace BugStrategy.Constructions.ResourceProduceConstruction.AntAphidFarm
         {
             base.OnAwake();
 
-            LevelSystem = new AntAphidFarmLevelSystem(this, config, _teamsResourcesGlobalStorage, ref _resourceProduceCore, _healthStorage);
+            LevelSystem = new AntAphidFarmLevelSystem(this, _technologyModule, config, _teamsResourcesGlobalStorage, ref _resourceProduceCore, _healthStorage);
             
             _resourceProduceConstructionState = ResourceProduceConstructionState.Paused;
 

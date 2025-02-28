@@ -1,6 +1,7 @@
 using System;
 using BugStrategy.Constructions.ConstructionLevelSystemCore;
 using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.TechnologiesSystem;
 using BugStrategy.Unit.Factory;
 using BugStrategy.UnitsHideCore;
 using UnityEngine;
@@ -12,10 +13,10 @@ namespace BugStrategy.Constructions.BeeHouse
     {
         private readonly UnitsHider _hider;
 
-        public BeeHouseLevelSystem(ConstructionBase construction, BeeHouseConfig config, Transform hiderSpawnPosition,
+        public BeeHouseLevelSystem(ConstructionBase construction, TechnologyModule technologyModule, BeeHouseConfig config, Transform hiderSpawnPosition,
             UnitFactory unitFactory, ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage, FloatStorage healthStorage, 
             ref UnitsHider hider)
-            : base(construction, config.Levels,  teamsResourcesGlobalStorage, healthStorage)
+            : base(construction, technologyModule, config.Levels,  teamsResourcesGlobalStorage, healthStorage)
         {
             _hider = hider = new UnitsHider(construction, CurrentLevel.HiderCapacity ,unitFactory , hiderSpawnPosition, config.HiderAccess);
         }

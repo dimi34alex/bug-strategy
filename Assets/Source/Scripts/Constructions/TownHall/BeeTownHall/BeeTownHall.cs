@@ -1,6 +1,7 @@
 using BugStrategy.Constructions.ConstructionLevelSystemCore;
 using BugStrategy.Constructions.UnitsRecruitingSystem;
 using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.TechnologiesSystem;
 using BugStrategy.UnitsHideCore;
 using UnityEngine;
 using Zenject;
@@ -12,7 +13,8 @@ namespace BugStrategy.Constructions.BeeTownHall
         [SerializeField] private BeeTownHallConfig config;
 
         [Inject] private readonly ITeamsResourcesGlobalStorage _teamsResourcesGlobalStorage;
-        
+        [Inject] private readonly TechnologyModule _technologyModule;
+
         private UnitsHider _hider;
 
         public override FractionType Fraction => FractionType.Bees;
@@ -30,8 +32,8 @@ namespace BugStrategy.Constructions.BeeTownHall
 
             _recruiter = new UnitsRecruiter(this, 0, workerBeesSpawnPosition, _unitFactory, _teamsResourcesGlobalStorage);
             _hider = new UnitsHider(this, 0, _unitFactory, workerBeesSpawnPosition, config.HiderAccess);
-            LevelSystem = new BeeTownHallLevelSystem(this, config, workerBeesSpawnPosition, _unitFactory, 
-                _teamsResourcesGlobalStorage, _healthStorage, ref _recruiter, ref _hider);
+            LevelSystem = new BeeTownHallLevelSystem(this, _technologyModule, config, _teamsResourcesGlobalStorage, 
+                _healthStorage, ref _recruiter, ref _hider);
             Initialized += InitLevelSystem;
         }
 

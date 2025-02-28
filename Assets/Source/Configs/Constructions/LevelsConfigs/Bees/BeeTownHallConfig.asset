@@ -19,6 +19,7 @@ MonoBehaviour:
   levels:
   - view: {fileID: 21300000, guid: d7d6500f025188440aeea1576f736205, type: 3}
     maxHealPoints: 1000
+    unlockedTechnologies: 
     levelUpCost:
       _cells: []
     resourceCapacity:
@@ -42,6 +43,7 @@ MonoBehaviour:
     <HiderCapacity>k__BackingField: 1
   - view: {fileID: 21300000, guid: d7d6500f025188440aeea1576f736205, type: 3}
     maxHealPoints: 2000
+    unlockedTechnologies: 00000000010000000200000003000000
     levelUpCost:
       _cells:
       - Key: 0
@@ -67,6 +69,7 @@ MonoBehaviour:
     <HiderCapacity>k__BackingField: 2
   - view: {fileID: 21300000, guid: d7d6500f025188440aeea1576f736205, type: 3}
     maxHealPoints: 3000
+    unlockedTechnologies: 
     levelUpCost:
       _cells:
       - Key: 0

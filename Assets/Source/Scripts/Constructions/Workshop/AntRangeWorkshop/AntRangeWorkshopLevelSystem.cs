@@ -1,6 +1,7 @@
 using System;
 using BugStrategy.Constructions.ConstructionLevelSystemCore;
 using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.TechnologiesSystem;
 
 namespace BugStrategy.Constructions.AntRangeWorkshop
 {
@@ -9,9 +10,9 @@ namespace BugStrategy.Constructions.AntRangeWorkshop
     {
         private readonly WorkshopCore _workshopCore;
         
-        public AntRangeWorkshopLevelSystem(ConstructionBase construction, AntRangeWorkshopConfig config,
+        public AntRangeWorkshopLevelSystem(ConstructionBase construction, TechnologyModule technologyModule, AntRangeWorkshopConfig config,
             ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage, FloatStorage healthStorage, WorkshopCore workshopCore) 
-            : base(construction, config.Levels,  teamsResourcesGlobalStorage, healthStorage)
+            : base(construction, technologyModule, config.Levels,  teamsResourcesGlobalStorage, healthStorage)
         {
             _workshopCore = workshopCore;
         }

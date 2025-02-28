@@ -1,5 +1,6 @@
 using BugStrategy.Constructions.ConstructionLevelSystemCore;
 using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.TechnologiesSystem;
 using BugStrategy.Unit.Factory;
 using BugStrategy.UnitsHideCore;
 using UnityEngine;
@@ -14,6 +15,7 @@ namespace BugStrategy.Constructions.BeeHouse
 
         [Inject] private readonly UnitFactory _unitFactory;
         [Inject] private readonly ITeamsResourcesGlobalStorage _teamsResourcesGlobalStorage;
+        [Inject] private readonly TechnologyModule _technologyModule;
 
         private UnitsHider _hider;
 
@@ -28,7 +30,7 @@ namespace BugStrategy.Constructions.BeeHouse
         {
             base.OnAwake();
 
-            LevelSystem = new BeeHouseLevelSystem(this, config, hiderExtractPosition, _unitFactory, _teamsResourcesGlobalStorage,
+            LevelSystem = new BeeHouseLevelSystem(this, _technologyModule, config, hiderExtractPosition, _unitFactory, _teamsResourcesGlobalStorage,
                 _healthStorage, ref _hider);
             Initialized += InitLevelSystem;
         }

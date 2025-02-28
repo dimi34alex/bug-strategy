@@ -197,9 +197,7 @@ namespace BugStrategy.Constructions.UnitsRecruitingSystem
         {
             float randomPosOffset = UnityEngine.Random.Range(-0.01f, 0.01f);
             var spawnPosition = _spawnTransform.position + Vector3.left * randomPosOffset;
-            var unit = _unitFactory.Create(unitType, spawnPosition, _affiliation.Affiliation);
-
-            unit.SetAffiliation(_affiliation.Affiliation);
+            _unitFactory.Create(unitType, spawnPosition, _affiliation.Affiliation);
 
             if (_stacks[0].Empty) RecruitingQueue(0);
         }

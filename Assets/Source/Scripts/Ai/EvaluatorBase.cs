@@ -5,5 +5,7 @@ namespace BugStrategy.Ai
         public abstract float Evaluate();
         
         public abstract void Apply();
+
+        public virtual void Reset() { }
     }
 }

@@ -90,5 +90,23 @@ namespace BugStrategy.ResourcesSystem
             else
                 throw new Exception($"No resource: {resourceType}");
         }
+
+        public bool CanBuy(Cost cost)
+        {
+            foreach (var element in cost.ResourceCost)
+                if (element.Value > GetResource(element.Key).CurrentValue)
+                    return false;
+
+            return true;
+        }
+        
+        /// <summary>
+        /// Before call it, check that repository have enough resources for this (<see cref="CanBuy"/>)
+        /// </summary>
+        public void SpendResources(Cost cost)
+        {
+            foreach (var element in cost.ResourceCost) 
+                ChangeValue(element.Key, -element.Value);
+        }
     }
 }

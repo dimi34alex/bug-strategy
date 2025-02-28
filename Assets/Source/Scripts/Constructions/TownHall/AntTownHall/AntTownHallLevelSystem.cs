@@ -1,6 +1,7 @@
 using BugStrategy.Constructions.ConstructionLevelSystemCore;
 using BugStrategy.Constructions.UnitsRecruitingSystem;
 using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.TechnologiesSystem;
 
 namespace BugStrategy.Constructions.AntTownHall
 {
@@ -8,9 +9,9 @@ namespace BugStrategy.Constructions.AntTownHall
     {
         private readonly UnitsRecruiter _recruiter;
 
-        public AntTownHallLevelSystem(ConstructionBase construction, AntTownHallConfig config, 
+        public AntTownHallLevelSystem(ConstructionBase construction, TechnologyModule technologyModule, AntTownHallConfig config, 
             ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage, FloatStorage healthStorage, UnitsRecruiter recruiter) 
-            : base(construction, config.Levels,  teamsResourcesGlobalStorage, healthStorage)
+            : base(construction, technologyModule, config.Levels,  teamsResourcesGlobalStorage, healthStorage)
         {
             _recruiter = recruiter;
         }

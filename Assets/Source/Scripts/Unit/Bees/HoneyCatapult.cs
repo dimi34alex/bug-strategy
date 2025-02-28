@@ -4,6 +4,8 @@ using BugStrategy.Ai.UnitAis;
 using BugStrategy.Effects;
 using BugStrategy.EntityState;
 using BugStrategy.Projectiles.Factory;
+using BugStrategy.TechnologiesSystem;
+using BugStrategy.TechnologiesSystem.Technologies;
 using BugStrategy.Unit.AbilitiesCore;
 using BugStrategy.Unit.OrderValidatorCore;
 using BugStrategy.Unit.ProcessorsCore;
@@ -17,6 +19,7 @@ namespace BugStrategy.Unit.Bees
         [SerializeField] private HoneyCatapultConfig config;
     
         [Inject] private ProjectilesFactory _projectilesFactory;
+        [Inject] private TechnologyModule _technologyModule;
     
         public override UnitType UnitType => UnitType.HoneyCatapult;
         
@@ -82,6 +85,12 @@ namespace BugStrategy.Unit.Bees
             AttackCooldownChanger.Clear();
             
             _stateMachine.SetState(EntityStateID.Idle);
+        }
+
+        public override void Initialize(AffiliationEnum affiliation)
+        {
+            base.Initialize(affiliation);
+            _attackProcessor.SetTech(_technologyModule.GetTechnology<TechHoneyCatapult>(Affiliation, TechnologyId.HoneyCatapult));
         }
     }
 }

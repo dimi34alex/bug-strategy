@@ -2,6 +2,7 @@ using System;
 using BugStrategy.Constructions.ConstructionLevelSystemCore;
 using BugStrategy.Constructions.UnitsRecruitingSystem;
 using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
+using BugStrategy.TechnologiesSystem;
 using BugStrategy.UnitsHideCore;
 
 namespace BugStrategy.Constructions.BeeBarrack
@@ -12,10 +13,10 @@ namespace BugStrategy.Constructions.BeeBarrack
         private readonly UnitsRecruiter _recruiter;
         private readonly UnitsHider _hider;
 
-        public BeeBarrackLevelSystem(ConstructionBase construction, BeeBarrackConfig config, 
+        public BeeBarrackLevelSystem(ConstructionBase construction, TechnologyModule technologyModule, BeeBarrackConfig config, 
             ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage, FloatStorage healthStorage,
             UnitsRecruiter recruiter, UnitsHider hider) 
-            : base(construction, config.Levels,  teamsResourcesGlobalStorage, healthStorage)
+            : base(construction, technologyModule, config.Levels,  teamsResourcesGlobalStorage, healthStorage)
         {
             _recruiter = recruiter;
             _hider = hider;

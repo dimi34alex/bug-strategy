@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using BugStrategy.ResourcesSystem;
 using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
-using BugStrategy.Unit;
+using BugStrategy.TechnologiesSystem;
 
 namespace BugStrategy.Constructions.ConstructionLevelSystemCore
 {
@@ -13,7 +13,8 @@ namespace BugStrategy.Constructions.ConstructionLevelSystemCore
         protected readonly FloatStorage HealthStorage;
         private readonly ITeamsResourcesGlobalStorage _teamsResourcesGlobalStorage;
         private readonly ConstructionBase _construction;
-        
+        private readonly TechnologyModule _technologyModule;
+
         public int CurrentLevelIndex { get; private set; }
         public TConstructionLevel CurrentLevel => Levels[CurrentLevelIndex];
         public IReadOnlyDictionary<ResourceID, int> LevelUpCost => CurrentLevel.LevelUpCost;
@@ -21,8 +22,9 @@ namespace BugStrategy.Constructions.ConstructionLevelSystemCore
         
         public event Action OnLevelUp;
         
-        protected ConstructionLevelSystemBase(ConstructionBase construction, IReadOnlyList<TConstructionLevel> levels,
-            ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage, FloatStorage healthStorage)
+        protected ConstructionLevelSystemBase(ConstructionBase construction, TechnologyModule technologyModule,
+            IReadOnlyList<TConstructionLevel> levels, ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage,
+            FloatStorage healthStorage)
         {
             _construction = construction;
             Levels = levels;
@@ -30,6 +32,7 @@ namespace BugStrategy.Constructions.ConstructionLevelSystemCore
 
             _teamsResourcesGlobalStorage = teamsResourcesGlobalStorage;
             HealthStorage = healthStorage;
+            _technologyModule = technologyModule;
 
             _construction.OnDestruction += OnConstructionDestruction;
         }
@@ -88,6 +91,9 @@ namespace BugStrategy.Constructions.ConstructionLevelSystemCore
             ReCalculateResourceCapacity(prevResourceCapacity);
             ReCalculateHealthPoints();
             _construction.View.SetView(CurrentLevel.View);
+
+            foreach (var unlockedTechnology in CurrentLevel.UnlockedTechnologies)
+                _technologyModule.Unlock(Affiliation, unlockedTechnology);
         }
 
         protected void SpendResources()
