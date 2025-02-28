@@ -14,5 +14,5 @@ namespace BugStrategy.ObjectAiming
 
         public void OnPointerExit() 
             => _skinOutlineHolder.ToggleOutlineVisibility(false);
-    }
+	}
 }
