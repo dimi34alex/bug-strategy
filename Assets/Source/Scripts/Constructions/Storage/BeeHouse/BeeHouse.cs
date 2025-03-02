@@ -33,14 +33,14 @@ namespace BugStrategy.Constructions.BeeHouse
             LevelSystem = new BeeHouseLevelSystem(this, _technologyModule, config, hiderExtractPosition, _unitFactory, _teamsResourcesGlobalStorage,
                 _healthStorage, ref _hider);
             Initialized += InitLevelSystem;
+            
+            OnDeactivation += ReleaseUnitsHider;
         }
 
         private void InitLevelSystem()
             => LevelSystem.Init(0);
 
-        //TODO: remove this temporary code, when new ui will be create
-        [ContextMenu(nameof(ExtractHidedUnit))]
-        public void ExtractHidedUnit()
-            => Hider.ExtractUnit(0);
+        private void ReleaseUnitsHider(ITarget _) 
+            => _hider.ExtractAll();
     }
 }

@@ -39,6 +39,8 @@ namespace BugStrategy.Constructions.BeeHospital
 
             Initialized += InitializeLevelSystem;
             _updateEvent += UpdateHealProcessor;
+
+            OnDeactivation += ReleaseUnitsHider;
         }
 
         private void InitializeLevelSystem()
@@ -46,10 +48,8 @@ namespace BugStrategy.Constructions.BeeHospital
 
         private void UpdateHealProcessor()
             => _healProcessor.HandleUpdate(Time.deltaTime);
-        
-        //TODO: remove this temporary code, when new ui will be create
-        [ContextMenu(nameof(ExtractHidedUnit))]
-        public void ExtractHidedUnit()
-            => Hider.ExtractUnit(0);
+
+        private void ReleaseUnitsHider(ITarget _) 
+            => _hider.ExtractAll();
     }
 }
