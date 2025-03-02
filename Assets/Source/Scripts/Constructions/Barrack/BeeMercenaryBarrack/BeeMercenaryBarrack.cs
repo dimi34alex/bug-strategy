@@ -24,14 +24,14 @@ namespace BugStrategy.Constructions.BeeMercenaryBarrack
             LevelSystem = new BeeMercenaryBarrackLevelSystem(this, _technologyModule, config, TeamsResourcesGlobalStorage, 
                 _healthStorage, _recruiter, _hider);
             Initialized += InitLevelSystem;
+            
+            OnDeactivation += ReleaseUnitsHider;
         }
         
         private void InitLevelSystem()
             => LevelSystem.Init(0);
         
-        //TODO: remove this temporary code, when new ui will be create
-        [ContextMenu(nameof(ExtractHidedUnit))]
-        public void ExtractHidedUnit()
-            => Hider.ExtractUnit(0);
+        private void ReleaseUnitsHider(ITarget _) 
+            => _hider.ExtractAll();
     }
 }
