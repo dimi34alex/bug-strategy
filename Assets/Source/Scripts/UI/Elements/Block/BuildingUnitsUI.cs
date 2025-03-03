@@ -111,17 +111,11 @@ public class BuildingUnitsUI : MonoBehaviour
             return;
         }
 
-        Vector3 extractPosition = GetRandomExtractPosition(_currentHiderConstruction);
-        UnitBase extractedUnit = _currentHiderConstruction.Hider.ExtractUnit(index, extractPosition);
+        var extractPosition = GetRandomExtractPosition(_currentHiderConstruction);
+        var extractedUnit = _currentHiderConstruction.Hider.ExtractUnit(index, extractPosition);
 
-        if (extractedUnit != null)
-        {
-            Debug.Log($"Юнит {extractedUnit.UnitType} извлечен из здания.");
-        }
-        else
-        {
+        if (extractedUnit == null) 
             Debug.LogWarning("Не удалось извлечь юнита.");
-        }
 
         UpdateBuildingUnitIcons(_currentHiderConstruction);
     }

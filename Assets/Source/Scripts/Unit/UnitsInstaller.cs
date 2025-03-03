@@ -11,6 +11,7 @@ namespace BugStrategy.Unit
             BindSelector();
             BindRepository();
             BindFactory();
+            BindHousingReturner();
         }
 
         private void BindSelector() 
@@ -24,5 +25,8 @@ namespace BugStrategy.Unit
             var unitFactory = FindObjectOfType<UnitFactory>(true);
             Container.Bind<UnitFactory>().FromInstance(unitFactory).AsSingle();
         }
+        
+        private void BindHousingReturner() 
+            => Container.Bind<HousingBacker>().FromNew().AsSingle().NonLazy();
     }
 }

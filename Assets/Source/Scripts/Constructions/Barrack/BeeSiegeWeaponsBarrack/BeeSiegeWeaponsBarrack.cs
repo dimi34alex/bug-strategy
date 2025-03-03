@@ -1,4 +1,4 @@
-using BugStrategy.Constructions.UnitsRecruitingSystem;
+using BugStrategy.Unit.RecruitingSystem;
 using BugStrategy.UnitsHideCore;
 using UnityEngine;
 
@@ -19,7 +19,7 @@ namespace BugStrategy.Constructions.BeeSiegeWeaponsBarrack
         {
             base.OnAwake();
             
-            _recruiter = new UnitsRecruiter(this, 0, unitsSpawnPosition, _unitFactory, TeamsResourcesGlobalStorage);
+            _recruiter = new UnitsRecruiter(this, 0, unitsSpawnPosition, _unitFactory, TeamsResourcesGlobalStorage, _unitsCostsProvider);
             _hider = new UnitsHider(this, 0, _unitFactory, unitsSpawnPosition, config.HiderAccess);
             LevelSystem = new BeeSiegeWeaponsBarrackLevelSystem(this, _technologyModule, config, TeamsResourcesGlobalStorage, 
                 _healthStorage, _recruiter, _hider);

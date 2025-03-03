@@ -1,6 +1,4 @@
-using BugStrategy.Unit;
-
-namespace BugStrategy.Constructions.UnitsRecruitingSystem
+namespace BugStrategy.Unit.RecruitingSystem
 {
     public interface IRecruitingConstruction
     {

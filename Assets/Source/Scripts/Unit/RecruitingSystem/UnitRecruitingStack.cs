@@ -2,17 +2,17 @@ using System;
 using System.Collections.Generic;
 using BugStrategy.CustomTimer;
 using BugStrategy.ResourcesSystem;
-using BugStrategy.Unit;
 
-namespace BugStrategy.Constructions.UnitsRecruitingSystem
+namespace BugStrategy.Unit.RecruitingSystem
 {
     public class UnitRecruitingStack : IReadOnlyUnitRecruitingStack
     {
         public bool Empty { get; private set; } = true;
         public int SpawnedUnits { get; private set; }
+        public UnitType UnitId { get; private set; }
         public UnitRecruitingData CurrentData { get; private set; }
+        public IReadOnlyDictionary<ResourceID, int> Costs { get; private set; }
         
-        public UnitType UnitId => CurrentData.CurrentID;
         public float RecruitingTime => CurrentData.RecruitingTime;
         public float SpawnPauseTime => CurrentData.SpawnPauseTime;
         public int StackSize => CurrentData.StackSize;
@@ -20,8 +20,7 @@ namespace BugStrategy.Constructions.UnitsRecruitingSystem
 
         private readonly Timer _recruitingTimer;
         private readonly Timer _spawnPauseTimer;
-        private IReadOnlyDictionary<ResourceID, int> _costs;
-        
+
         public event Action<UnitType> OnSpawnUnit;
         public event Action OnBecameEmpty; 
 
@@ -35,13 +34,16 @@ namespace BugStrategy.Constructions.UnitsRecruitingSystem
         }
         
         /// <exception cref="Exception"> Error: stack is not empty </exception>
-        public void RecruitUnit(UnitRecruitingData newData)
+        public void RecruitUnit(UnitType unitType, UnitRecruitingData newData, 
+            IReadOnlyDictionary<ResourceID, int> cost)
         {
             if (!Empty) 
                 throw new Exception("Error: stack is not empty");
 
             Empty = false;
+            UnitId = unitType;
             CurrentData = newData;
+            Costs = cost;
             SpawnedUnits = 0;
 
             _recruitingTimer.SetMaxValue(RecruitingTime);
@@ -50,7 +52,6 @@ namespace BugStrategy.Constructions.UnitsRecruitingSystem
         
         private void SpawnUnit()
         {
-                       
             SpawnedUnits++;
             if (SpawnedUnits >= StackSize)
             {
@@ -85,15 +86,5 @@ namespace BugStrategy.Constructions.UnitsRecruitingSystem
 
             return true;
         }
-    }
-    
-    public interface IReadOnlyUnitRecruitingStack
-    {
-        public bool Empty { get; }
-        public UnitType UnitId { get; }
-        public float RecruitingTime { get; }
-        public float RecruitingTimer { get; }
-        public int StackSize { get; }
-        public int SpawnedUnits { get; }
     }
 }

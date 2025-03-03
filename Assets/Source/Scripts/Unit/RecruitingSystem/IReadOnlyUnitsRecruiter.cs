@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using BugStrategy.ResourcesSystem;
 
-namespace BugStrategy.Constructions.UnitsRecruitingSystem
+namespace BugStrategy.Unit.RecruitingSystem
 {
     public interface IReadOnlyUnitsRecruiter
     {
-        public IReadOnlyList<UnitRecruitingData> UnitRecruitingData { get; }
+        public IReadOnlyDictionary<UnitType, UnitRecruitingData> UnitRecruitingData { get; }
+        public IReadOnlyList<IReadOnlyUnitRecruitingStack> Stacks { get; }
         
         public event Action OnChange;
         public event Action OnRecruitUnit;
@@ -13,9 +15,10 @@ namespace BugStrategy.Constructions.UnitsRecruitingSystem
         public event Action OnTick;
         public event Action OnCancelRecruit;
 
+        public IReadOnlyDictionary<ResourceID, int> GetUnitRecruitingCost(UnitType unitType);
+        
         public bool HaveFreeStack();
         
-        public List<IReadOnlyUnitRecruitingStack> GetRecruitingInformation();
         public int FindFreeStack();
     }
 }

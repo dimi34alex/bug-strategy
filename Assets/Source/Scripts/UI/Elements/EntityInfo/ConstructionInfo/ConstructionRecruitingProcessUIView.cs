@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using BugStrategy.Bars;
-using BugStrategy.Constructions.UnitsRecruitingSystem;
 using BugStrategy.Libs;
 using BugStrategy.UI.Elements.EntityInfo.UnitInfo;
 using BugStrategy.UI.Elements.FloatStorageViews;
 using BugStrategy.Unit;
+using BugStrategy.Unit.RecruitingSystem;
 using UnityEngine;
 
 namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
@@ -53,7 +53,7 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
 
         private void UpdateBarView()
         {
-            var recruitingInformation = _recruiter.Recruiter.GetRecruitingInformation();
+            var recruitingInformation = _recruiter.Recruiter.Stacks;
             if (recruitingInformation.Count <= 0)
             {
                 _progressStorage.SetValue(0);
@@ -78,7 +78,7 @@ namespace BugStrategy.UI.Elements.EntityInfo.ConstructionInfo
             foreach (var index in _orderedTypes) 
                 dict.Add(index, null);
 
-            var recruitingInformation = _recruiter.Recruiter.GetRecruitingInformation();
+            var recruitingInformation = _recruiter.Recruiter.Stacks;
             for (int i = 0; i < recruitingInformation.Count && i < _orderedTypes.Count; i++)
                 if (!recruitingInformation[i].Empty)
                     dict[i] = _images[recruitingInformation[i].UnitId];

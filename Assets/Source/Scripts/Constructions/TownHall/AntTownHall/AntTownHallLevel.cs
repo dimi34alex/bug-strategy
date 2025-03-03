@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using BugStrategy.Constructions.ConstructionLevelSystemCore;
-using BugStrategy.Constructions.UnitsRecruitingSystem;
+using BugStrategy.Libs;
+using BugStrategy.Unit;
+using BugStrategy.Unit.RecruitingSystem;
 using UnityEngine;
 
 namespace BugStrategy.Constructions.AntTownHall
@@ -11,9 +13,9 @@ namespace BugStrategy.Constructions.AntTownHall
     {
         [Space]
         [SerializeField] [Range(0, 2)] private int recruitingSize = 0;
-        [SerializeField] private List<UnitRecruitingData> recruitingData;
+        [SerializeField] private SerializableDictionary<UnitType, UnitRecruitingData> recruitingData;
 
         public int RecruitingSize => recruitingSize;
-        public IReadOnlyList<UnitRecruitingData> RecruitingData => recruitingData;
+        public IReadOnlyDictionary<UnitType, UnitRecruitingData> RecruitingData => recruitingData;
     }
 }

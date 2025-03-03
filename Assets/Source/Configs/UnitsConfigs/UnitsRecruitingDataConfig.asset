@@ -1,0 +1,81 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21959e14a2dd4a439d6bc2f7aaf1de38, type: 3}
+  m_Name: UnitsRecruitingDataConfig
+  m_EditorClassIdentifier: 
+  unitsRecruitingData:
+    _cells:
+    - Key: 0
+      Value:
+        _cells:
+        - Key: 1
+          Value: 0
+    - Key: 1
+      Value:
+        _cells:
+        - Key: 1
+          Value: 3
+    - Key: 30
+      Value:
+        _cells:
+        - Key: 1
+          Value: 2
+    - Key: 40
+      Value:
+        _cells:
+        - Key: 1
+          Value: 3
+    - Key: 50
+      Value:
+        _cells:
+        - Key: 1
+          Value: 3
+    - Key: 60
+      Value:
+        _cells:
+        - Key: 1
+          Value: 2
+    - Key: 70
+      Value:
+        _cells:
+        - Key: 1
+          Value: 2
+    - Key: 80
+      Value:
+        _cells:
+        - Key: 1
+          Value: 2
+    - Key: 90
+      Value:
+        _cells:
+        - Key: 1
+          Value: 4
+    - Key: 95
+      Value:
+        _cells:
+        - Key: 1
+          Value: 10
+    - Key: 100
+      Value:
+        _cells:
+        - Key: 1
+          Value: 2
+    - Key: 110
+      Value:
+        _cells:
+        - Key: 1
+          Value: 2
+    - Key: 120
+      Value:
+        _cells:
+        - Key: 1
+          Value: 2

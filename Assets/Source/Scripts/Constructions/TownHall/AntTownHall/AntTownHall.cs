@@ -1,8 +1,9 @@
 using BugStrategy.Constructions.ConstructionLevelSystemCore;
-using BugStrategy.Constructions.UnitsRecruitingSystem;
 using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
 using BugStrategy.TechnologiesSystem;
 using BugStrategy.Unit;
+using BugStrategy.Unit.Pricing;
+using BugStrategy.Unit.RecruitingSystem;
 using UnityEngine;
 using Zenject;
 
@@ -13,7 +14,6 @@ namespace BugStrategy.Constructions.AntTownHall
         [SerializeField] private AntTownHallConfig config;
 
         [Inject] private readonly ITeamsResourcesGlobalStorage _teamsResourcesGlobalStorage;
-        [Inject] private readonly TechnologyModule _technologyModule;
 
         public override FractionType Fraction => FractionType.Ants;
         public override ConstructionID ConstructionID => ConstructionID.AntTownHall;
@@ -25,7 +25,7 @@ namespace BugStrategy.Constructions.AntTownHall
         {
             base.OnAwake();
             
-            _recruiter = new UnitsRecruiter(this, 0, workerBeesSpawnPosition, _unitFactory, _teamsResourcesGlobalStorage);
+            _recruiter = new UnitsRecruiter(this, 0, workerBeesSpawnPosition, _unitFactory, _teamsResourcesGlobalStorage, _unitsCostsProvider);
             LevelSystem = new AntTownHallLevelSystem(this, _technologyModule, config, _teamsResourcesGlobalStorage, _healthStorage, _recruiter);
             
             Initialized += InitLevelSystem;
