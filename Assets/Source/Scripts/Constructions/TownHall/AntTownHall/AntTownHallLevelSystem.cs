@@ -1,7 +1,7 @@
 using BugStrategy.Constructions.ConstructionLevelSystemCore;
-using BugStrategy.Constructions.UnitsRecruitingSystem;
 using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
 using BugStrategy.TechnologiesSystem;
+using BugStrategy.Unit.RecruitingSystem;
 
 namespace BugStrategy.Constructions.AntTownHall
 {
@@ -21,7 +21,7 @@ namespace BugStrategy.Constructions.AntTownHall
             base.Init(initialLevelIndex);
             
             _recruiter.SetStackCount(CurrentLevel.RecruitingSize);
-            _recruiter.SetNewDatas(CurrentLevel.RecruitingData);
+            _recruiter.SetNewData(CurrentLevel.RecruitingData);
         }
 
         protected override void LevelUpLogic()
@@ -29,7 +29,7 @@ namespace BugStrategy.Constructions.AntTownHall
             base.LevelUpLogic();
 
             _recruiter.SetStackCount(CurrentLevel.RecruitingSize);
-            _recruiter.SetNewDatas(CurrentLevel.RecruitingData);
+            _recruiter.SetNewData(CurrentLevel.RecruitingData);
         }
     }
 }

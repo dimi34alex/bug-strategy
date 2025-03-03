@@ -91,10 +91,13 @@ namespace BugStrategy.ResourcesSystem
                 throw new Exception($"No resource: {resourceType}");
         }
 
-        public bool CanBuy(Cost cost)
+        public bool CanBuy(Cost cost, int scale = 1) 
+            => CanBuy(cost.ResourceCost, scale);
+
+        public bool CanBuy(IReadOnlyDictionary<ResourceID, int> cost, int scale = 1)
         {
-            foreach (var element in cost.ResourceCost)
-                if (element.Value > GetResource(element.Key).CurrentValue)
+            foreach (var costCell in cost)
+                if (costCell.Value * scale > GetResource(costCell.Key).CurrentValue)
                     return false;
 
             return true;
@@ -103,10 +106,16 @@ namespace BugStrategy.ResourcesSystem
         /// <summary>
         /// Before call it, check that repository have enough resources for this (<see cref="CanBuy"/>)
         /// </summary>
-        public void SpendResources(Cost cost)
+        public void ChangeValues(Cost cost, int scale = 1) 
+            => ChangeValues(cost.ResourceCost, scale);
+
+        /// <summary>
+        /// Before call it, check that repository have enough resources for this (<see cref="CanBuy"/>)
+        /// </summary>
+        public void ChangeValues(IReadOnlyDictionary<ResourceID, int> cost, int scale = 1)
         {
-            foreach (var element in cost.ResourceCost) 
-                ChangeValue(element.Key, -element.Value);
+            foreach (var element in cost) 
+                ChangeValue(element.Key, element.Value * scale);
         }
     }
 }

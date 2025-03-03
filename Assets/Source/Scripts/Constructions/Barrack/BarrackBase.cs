@@ -1,9 +1,10 @@
 using BugStrategy.Constructions.ConstructionLevelSystemCore;
-using BugStrategy.Constructions.UnitsRecruitingSystem;
 using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
 using BugStrategy.TechnologiesSystem;
 using BugStrategy.Unit;
 using BugStrategy.Unit.Factory;
+using BugStrategy.Unit.Pricing;
+using BugStrategy.Unit.RecruitingSystem;
 using UnityEngine;
 using Zenject;
 
@@ -16,6 +17,7 @@ namespace BugStrategy.Constructions
         [Inject] protected readonly UnitFactory _unitFactory;
         [Inject] protected readonly ITeamsResourcesGlobalStorage TeamsResourcesGlobalStorage;
         [Inject] protected readonly TechnologyModule _technologyModule;
+        [Inject] protected readonly IUnitsCostsProvider _unitsCostsProvider;
 
         public IReadOnlyUnitsRecruiter Recruiter => _recruiter;
 

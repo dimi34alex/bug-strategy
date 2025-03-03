@@ -1,6 +1,6 @@
-using BugStrategy.Constructions.UnitsRecruitingSystem;
 using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
 using BugStrategy.Unit;
+using BugStrategy.Unit.RecruitingSystem;
 
 namespace BugStrategy.Ai.ConstructionsAis
 {

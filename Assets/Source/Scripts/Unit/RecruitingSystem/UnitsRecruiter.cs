@@ -2,25 +2,28 @@ using System;
 using System.Collections.Generic;
 using BugStrategy.ResourcesSystem;
 using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
-using BugStrategy.Unit;
 using BugStrategy.Unit.Factory;
+using BugStrategy.Unit.Pricing;
 using CycleFramework.Extensions;
 using UnityEngine;
 
-namespace BugStrategy.Constructions.UnitsRecruitingSystem
+namespace BugStrategy.Unit.RecruitingSystem
 {
 
     public class UnitsRecruiter : IReadOnlyUnitsRecruiter
     {
+        public IReadOnlyDictionary<UnitType, UnitRecruitingData> UnitRecruitingData { get; private set; }
+        public IReadOnlyList<IReadOnlyUnitRecruitingStack> Stacks => _stacks;
+        
+        private AffiliationEnum Affiliation => _affiliation.Affiliation;
+        
         private readonly IAffiliation _affiliation;
         private readonly Transform _spawnTransform;
         private readonly UnitFactory _unitFactory;
         private readonly List<UnitRecruitingStack> _stacks;
-        private readonly ITeamsResourcesGlobalStorage _teamsResourcesGlobalStorage;
-        private List<UnitRecruitingData> _recruitingDatas;
+        private readonly ITeamsResourcesGlobalStorage _resourcesGlobalStorage;
+        private readonly IUnitsCostsProvider _unitsCostsProvider;
 
-        public IReadOnlyList<UnitRecruitingData> UnitRecruitingData => _recruitingDatas;
-        
         public event Action OnChange;
         public event Action OnRecruitUnit;
         public event Action OnAddStack;
@@ -28,14 +31,15 @@ namespace BugStrategy.Constructions.UnitsRecruitingSystem
         public event Action OnCancelRecruit;
 
         public UnitsRecruiter(IAffiliation affiliation, int size, Transform spawnTransform, UnitFactory unitFactory, 
-            ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage)
+            ITeamsResourcesGlobalStorage resourcesGlobalStorage, IUnitsCostsProvider unitsCostsProvider)
         {
             _affiliation = affiliation;
             _spawnTransform = spawnTransform;
             _unitFactory = unitFactory;
-            _teamsResourcesGlobalStorage = teamsResourcesGlobalStorage;
+            _resourcesGlobalStorage = resourcesGlobalStorage;
+            _unitsCostsProvider = unitsCostsProvider;
+            
             _stacks = new List<UnitRecruitingStack>();
-            _recruitingDatas = new List<UnitRecruitingData>();
 
             for (int n = 0; n < size; n++)
             {
@@ -44,14 +48,25 @@ namespace BugStrategy.Constructions.UnitsRecruitingSystem
                 newStack.OnBecameEmpty += OnStackBecameEmpty;
                 _stacks.Add(newStack);
             }
-
-        }
-
-        public void SetNewDatas(IReadOnlyList<UnitRecruitingData> newDatas)
-        {
-            _recruitingDatas = new List<UnitRecruitingData>(newDatas);
         }
         
+        public void Tick(float time)
+        {
+            var allIsEmpty = true;
+
+            if (!_stacks[0].Empty)
+            {
+                _stacks[0].Tick(time);
+                allIsEmpty = false;
+            }
+
+            if (!allIsEmpty)
+                OnTick?.Invoke();
+        }
+
+        public IReadOnlyDictionary<ResourceID, int> GetUnitRecruitingCost(UnitType unitType) 
+            => _unitsCostsProvider.GetUnitRecruitingCost(unitType);
+
         /// <returns> Returns first empty stack index. If it cant find free stack return -1 </returns>
         public int FindFreeStack()
         {
@@ -68,24 +83,10 @@ namespace BugStrategy.Constructions.UnitsRecruitingSystem
         /// <returns> If player have enough resources then return true, else false </returns>
         public bool CheckCosts(UnitType id)
         {
-            var recruitingData = _recruitingDatas.Find(data => data.CurrentID.Equals(id));
-            return CheckCosts(recruitingData.Costs);
+            var cost = _unitsCostsProvider.GetUnitRecruitingCost(id);
+            return _resourcesGlobalStorage.CanBuy(Affiliation, cost);
         }
 
-        /// <summary>
-        /// Check costs and resource count from ResourceGlobalStorage.
-        /// </summary>
-        /// <param name="costs"> costs </param>
-        /// <returns> If player have enough resources then return true, else false </returns>
-        public bool CheckCosts(IReadOnlyDictionary<ResourceID, int>  costs)
-        {
-            foreach (var cost in costs)
-                if (cost.Value > _teamsResourcesGlobalStorage.GetResource(_affiliation.Affiliation, cost.Key).CurrentValue)
-                    return false;
-            
-            return true;
-        }
-        
         /// <summary>
         /// Recruit unit if it possible, else throw exception 
         /// </summary>
@@ -95,7 +96,8 @@ namespace BugStrategy.Constructions.UnitsRecruitingSystem
         public void RecruitUnit(UnitType id)
         {
             int freeStackIndex = _stacks.IndexOf(freeStack => freeStack.Empty);
-            if (freeStackIndex == -1) throw new Exception("All stacks are busy");
+            if (freeStackIndex == -1) 
+                throw new Exception("All stacks are busy");
             
             RecruitUnit(id, freeStackIndex);
         }
@@ -106,24 +108,31 @@ namespace BugStrategy.Constructions.UnitsRecruitingSystem
         /// <param name="id"> unity id </param>
         /// <param name="stackIndex"> index of empty stack </param>
         /// <exception cref="Exception"> Stack are busy </exception>
+        /// <exception cref="Exception"> You try rec. unit without rec. data </exception>
         /// <exception cref="Exception"> Need more resources </exception>
         public void RecruitUnit(UnitType id, int stackIndex)
         {
             if (!_stacks[stackIndex].Empty)
-                throw new Exception("Stack are busy");
+                throw new Exception($"Stack are busy: [{id}] [{stackIndex}]");
 
-            var recruitingData = _recruitingDatas.Find(data => data.CurrentID.Equals(id));
-            if (!CheckCosts(recruitingData.Costs))
-                throw new Exception("Need more resources");
+            if (!UnitRecruitingData.ContainsKey(id))
+                throw new Exception($"You try rec. unit without rec. data: [{id}] [{stackIndex}]");
+
+            var recData = UnitRecruitingData[id];
+            var cost = _unitsCostsProvider.GetUnitRecruitingCost(id);
+            if (!_resourcesGlobalStorage.CanBuy(Affiliation, cost, recData.StackSize))
+                throw new Exception($"Need more resources: [{id}] [{stackIndex}]");
             
-            foreach (var cost in recruitingData.Costs)
-                _teamsResourcesGlobalStorage.ChangeValue(_affiliation.Affiliation, cost.Key, -cost.Value);
-
-            _stacks[stackIndex].RecruitUnit(recruitingData);
+            _resourcesGlobalStorage.ChangeValues(Affiliation, cost, -recData.StackSize);
+            
+            _stacks[stackIndex].RecruitUnit(id, UnitRecruitingData[id], cost);
 
             OnRecruitUnit?.Invoke();
             OnChange?.Invoke();
         }
+
+        public void SetNewData(IReadOnlyDictionary<UnitType, UnitRecruitingData> newData) 
+            => UnitRecruitingData = newData;
 
         /// <summary>
         /// Add new stacks if newCount upper then current size, else does nothing
@@ -144,31 +153,18 @@ namespace BugStrategy.Constructions.UnitsRecruitingSystem
             OnChange?.Invoke();
         }
 
-        public void Tick(float time)
-        {
-            var allIsEmpty = true;
-
-            if (!_stacks[0].Empty)
-            {
-                _stacks[0].Tick(time);
-                allIsEmpty = false;
-            }
-
-            if (!allIsEmpty)
-                OnTick?.Invoke();
-        }
-
         /// <returns>
-        /// If Cancel is possible return true, else return false
+        /// If cancel is success return true, else false
         /// </returns>
         public bool CancelRecruit(int stackIndex)
         {
             var stack = _stacks[stackIndex];
+            var stackSize = stack.StackSize;
+            var cost = stack.Costs;
             if (!stack.CancelRecruiting())
                 return false;
 
-            foreach (var cost in stack.CurrentData.Costs)
-                _teamsResourcesGlobalStorage.ChangeValue(_affiliation.Affiliation, cost.Key, cost.Value);
+            _resourcesGlobalStorage.ChangeValues(Affiliation, cost, stackSize);
 
             RecruitingQueue(stackIndex);
 
@@ -180,35 +176,23 @@ namespace BugStrategy.Constructions.UnitsRecruitingSystem
 
         public bool HaveFreeStack()
             => FindFreeStack() >= 0;
-
-        /// <returns>
-        /// Return list of information about all stacks
-        /// </returns>
-        public List<IReadOnlyUnitRecruitingStack> GetRecruitingInformation()
-        {
-            var fullInformation = new List<IReadOnlyUnitRecruitingStack>();
-            foreach (var stack in _stacks)
-                fullInformation.Add(stack);
-
-            return fullInformation;
-        }
-
+        
         private void SpawnUnit(UnitType unitType)
         {
             float randomPosOffset = UnityEngine.Random.Range(-0.01f, 0.01f);
             var spawnPosition = _spawnTransform.position + Vector3.left * randomPosOffset;
-            _unitFactory.Create(unitType, spawnPosition, _affiliation.Affiliation);
+            _unitFactory.Create(unitType, spawnPosition, Affiliation);
 
-            if (_stacks[0].Empty) RecruitingQueue(0);
+            if (_stacks[0].Empty) 
+                RecruitingQueue(0);
         }
 
-        private void RecruitingQueue(int stackindex)
+        private void RecruitingQueue(int stackIndex)
         {
-            var newStack = _stacks[stackindex];
-            _stacks.RemoveAt(stackindex);
+            var newStack = _stacks[stackIndex];
+            _stacks.RemoveAt(stackIndex);
             _stacks.Add(newStack);
         }
-
 
         private void OnStackBecameEmpty() 
             => OnChange?.Invoke();

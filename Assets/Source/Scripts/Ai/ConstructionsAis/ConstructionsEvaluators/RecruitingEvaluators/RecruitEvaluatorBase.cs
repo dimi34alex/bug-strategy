@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
-using BugStrategy.Constructions.UnitsRecruitingSystem;
 using BugStrategy.ResourcesSystem;
 using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
 using BugStrategy.Unit;
+using BugStrategy.Unit.RecruitingSystem;
 
 namespace BugStrategy.Ai.ConstructionsAis
 {
@@ -32,9 +32,7 @@ namespace BugStrategy.Ai.ConstructionsAis
             if (!_recruitingConstruction.Recruiter.HaveFreeStack())
                 return float.MinValue;
 
-            var res = _recruitingConstruction.Recruiter.UnitRecruitingData
-                .FirstOrDefault(p => p.CurrentID == RecruitUnitType);
-            if (res == null)
+            if(!_recruitingConstruction.Recruiter.UnitRecruitingData.ContainsKey(RecruitUnitType))
                 return float.MinValue;
 
             var unitsCount = _unitsAiRepository.UnitCount(RecruitUnitType);
@@ -42,6 +40,7 @@ namespace BugStrategy.Ai.ConstructionsAis
             if (unitsPriorityScale < 0)
                 return float.MinValue;
             
+            var res = _recruitingConstruction.Recruiter.GetUnitRecruitingCost(RecruitUnitType);
             var priority = PriceCheck(res);
             priority *= unitsPriorityScale;
             if (priority <= _recruitingEvaluationConfig.PriorityThreshHold)
@@ -55,9 +54,8 @@ namespace BugStrategy.Ai.ConstructionsAis
             _recruitingConstruction.RecruitUnit(RecruitUnitType);
         }
         
-        private float PriceCheck(UnitRecruitingData unitRecruitingData)
+        private float PriceCheck(IReadOnlyDictionary<ResourceID, int> unitCost)
         {
-            var unitCost = unitRecruitingData.Costs;
             var result = new Dictionary<ResourceID, int>();
             foreach (var cost in unitCost)
             {
