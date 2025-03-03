@@ -63,7 +63,7 @@ MonoBehaviour:
       Value:
         _cells:
         - Key: 1
-          Value: 4
+          Value: 10
     - Key: 100
       Value:
         _cells:
