@@ -5,9 +5,9 @@ using BugStrategy.Trigger;
 using CycleFramework.Extensions;
 using UnityEngine;
 
-namespace BugStrategy.Constructions.BeeStickyTile
+namespace BugStrategy.NotConstructions.BeeStickyTile
 {
-    public class BeeStickyTile : ConstructionBase
+    public class BeeStickyTile : NotConstructionBase
     {
         [SerializeField] private BeeStickyTileConfig config;
         [SerializeField] private TriggerBehaviour stickZone;
@@ -16,8 +16,8 @@ namespace BugStrategy.Constructions.BeeStickyTile
         private Timer _existsTimer;
 
         public override FractionType Fraction => FractionType.Bees;
-        public override ConstructionID ConstructionID => ConstructionID.BeeStickyTileConstruction;
-        protected override ConstructionConfigBase ConfigBase => config;
+        public override NotConstructionID NotConstructionID => NotConstructionID.BeeStickyTileConstruction;
+        protected override NotConstructionConfigBase ConfigBase => config;
 
         protected override void OnAwake()
         {

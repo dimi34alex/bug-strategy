@@ -5,5 +5,6 @@ namespace BugStrategy.MiniMap
         ResourceSource = 0,
         Construction = 10,
         Unit = 20,
+        None = 30
     }
 }

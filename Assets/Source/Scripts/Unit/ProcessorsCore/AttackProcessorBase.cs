@@ -1,7 +1,6 @@
 ﻿using System;
-using BugStrategy.Constructions;
-using BugStrategy.Constructions.BeeStickyTile;
 using BugStrategy.Libs;
+using BugStrategy.NotConstructions;
 using CycleFramework.Extensions;
 using UnityEngine;
 
@@ -62,10 +61,9 @@ namespace BugStrategy.Unit.ProcessorsCore
         {
             if (_cooldownProcessor.IsCooldown) return;
             
-            if (!target.IsAnyNull() && CheckAttackDistance(target) && target.CastPossible<IDamagable>() 
+            if (!target.IsAnyNull() && CheckAttackDistance(target) && target.CastPossible<IDamagable>() && target.CastPossible<INotConstruction>()!=true
                 || TryGetNearestDamageableTarget(out target))
             {
-                if(!target.Transform.gameObject.TryGetComponent(out BeeStickyTile bst))
                     Attack(target);
                 _cooldownProcessor.StartCooldown();
             }

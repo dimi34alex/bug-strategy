@@ -9,7 +9,6 @@
         BeeBarrack = 3,
         BeeHouse = 4,
         BeeWaxProduceConstruction = 5,
-        BeeStickyTileConstruction = 10,
         BeeStorage = 16,
         BeeLandmine = 40,
         BeeMercenaryBarrack = 50,

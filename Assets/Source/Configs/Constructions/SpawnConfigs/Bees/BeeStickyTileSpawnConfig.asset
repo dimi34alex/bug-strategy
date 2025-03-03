@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: BeeStickyTileSpawnConfig
   m_EditorClassIdentifier: 
   _configuration:
-    <ConstructionPrefab>k__BackingField: {fileID: 4569575831334435739, guid: a4d956d31c1311644ae87b446521489f, type: 3}
+    <NotConstructionPrefab>k__BackingField: {fileID: 4569575831334435739, guid: a4d956d31c1311644ae87b446521489f, type: 3}
     <SkinPrefab>k__BackingField: {fileID: 0}
     <Rotation>k__BackingField: {x: 0, y: 0, z: 0, w: 0}
