@@ -22,7 +22,7 @@ namespace BugStrategy.Constructions
         public abstract FractionType Fraction { get; }
         protected abstract ConstructionConfigBase ConfigBase { get; }
 
-        protected readonly FloatStorage _healthStorage = new(0,0);
+        protected readonly FloatStorage _healthStorage = new(2000,2000);
 
         public bool IsSelected { get; private set; }
         public bool IsActive { get; protected set; } = true;
