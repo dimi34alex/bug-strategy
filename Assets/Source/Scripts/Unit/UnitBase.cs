@@ -292,7 +292,7 @@ namespace BugStrategy.Unit
                     UnitPathType.Build_Construction => EntityStateID.Build,
                     UnitPathType.Move => EntityStateID.Idle,
                     UnitPathType.Switch_Profession => EntityStateID.SwitchProfession,
-                    UnitPathType.Repair_Construction => throw new NotImplementedException(),
+                    UnitPathType.Repair_Construction => EntityStateID.Repair,
                     UnitPathType.HideInConstruction => EntityStateID.HideInConstruction,
                     _ => throw new NotImplementedException()
                 };

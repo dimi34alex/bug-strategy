@@ -105,7 +105,7 @@ namespace BugStrategy.Constructions
 
         public virtual void TakeRepair(IRepairApplicator repairApplicator)
         {
-            _healthStorage.ChangeValue(repairApplicator.Rapair);
+            _healthStorage.ChangeValue(repairApplicator.Repair);
         }
 
         public void Select()

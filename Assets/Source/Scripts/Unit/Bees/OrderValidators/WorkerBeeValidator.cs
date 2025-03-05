@@ -6,6 +6,8 @@ using BugStrategy.Unit.OrderValidatorCore;
 using BugStrategy.Unit.ProcessorsCore;
 using BugStrategy.UnitsHideCore;
 using CycleFramework.Extensions;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace BugStrategy.Unit.Bees
 {
@@ -32,9 +34,19 @@ namespace BugStrategy.Unit.Bees
                         return new UnitPathData(target, UnitPathType.Collect_Resource);
                     break;
                 case TargetType.Construction:
-                    if (target.CastPossible<BuildingProgressConstruction>())
+                    if (target.Affiliation == Unit.Affiliation && target.CastPossible<BuildingProgressConstruction>())
                         return new UnitPathData(target, UnitPathType.Build_Construction);
-                
+
+                    if (target.Affiliation == Unit.Affiliation && 
+                        Unit.CurrentPathData.Target == target &&
+                        target.TargetType == TargetType.Construction &&
+                        Unit.CurrentPathData.PathType == UnitPathType.Repair_Construction &&
+                        target.TargetType.Cast<ConstructionBase>().HealthStorage.FillPercentage < 1)
+                    {
+                        Debug.Log("ValidateAutoOrder repair");
+                        return new UnitPathData(target, UnitPathType.Repair_Construction);
+                    }
+                    
                     if (target.Affiliation == Affiliation &&
                         target.CastPossible<TownHallBase>() &&
                         _resourceExtractionProcessor.GotResource)
@@ -67,7 +79,8 @@ namespace BugStrategy.Unit.Bees
                 case UnitPathType.Repair_Construction:
                     if (target.TargetType == TargetType.Construction &&
                         target.Affiliation == Affiliation &&
-                        target.CastPossible<ConstructionBase>())
+                        target.TryCast<ConstructionBase>(out var construction) &&
+                        construction.HealthStorage.FillPercentage < 1)
                         return UnitPathType.Repair_Construction;
                     break;
                 case UnitPathType.Collect_Resource:
