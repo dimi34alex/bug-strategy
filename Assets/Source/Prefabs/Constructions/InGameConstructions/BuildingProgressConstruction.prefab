@@ -225,6 +225,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <View>k__BackingField: {fileID: 1078690610191324954}
   config: {fileID: 11400000, guid: a9f982cc701cdc14f918e98d7cc821a6, type: 2}
+  spawnHealthConfig: {fileID: 11400000, guid: 4c36aa8fb7dc96d4ca4d86f1188ebe8a, type: 2}
   _timerText: {fileID: 589072602223343525}
   WorkerArrived: 0
 --- !u!135 &578274785806036525

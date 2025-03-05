@@ -9,6 +9,7 @@ namespace BugStrategy.Constructions.BuildProgressConstructions
     public class BuildingProgressConstruction : ConstructionBase
     {
         [SerializeField] private BuildingProgressConstructionConfig config;
+        [SerializeField] private BuildingProgressConstructionSpawnHealthConfig spawnHealthConfig;
         [SerializeField] private TMP_Text _timerText;
 
         public override FractionType Fraction => FractionType.None;
@@ -22,8 +23,16 @@ namespace BugStrategy.Constructions.BuildProgressConstructions
 
         private GameObject _currentWorker;
         public bool WorkerArrived;
-    
-        public void StartBuilding(float duration, ConstructionID constructionID)
+
+		protected override void OnAwake()
+		{
+			base.OnAwake();
+
+            _healthStorage.SetCapacity(spawnHealthConfig.MaxHealthPoints);
+            _healthStorage.SetValue(spawnHealthConfig.MaxHealthPoints);
+		}
+
+		public void StartBuilding(float duration, ConstructionID constructionID)
         {
             if (BuildingProgressState != BuildingProgressState.Waiting)
                 return;

@@ -1,4 +1,5 @@
 using System;
+using BugStrategy.Constructions.BuildProgressConstructions;
 using BugStrategy.MiniMap;
 using BugStrategy.Missions;
 using BugStrategy.SelectableSystem;
@@ -12,9 +13,9 @@ namespace BugStrategy.Constructions
     public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagable, IRepairable, IMiniMapObject,
         ITriggerable, ITarget, ISelectable, IAffiliation
     {
-        [field: SerializeField] public ObjectView View { get; private set; }
-        
-        [Inject] protected readonly MissionData MissionData;
+		[field: SerializeField] public ObjectView View { get; private set; }
+
+		[Inject] protected readonly MissionData MissionData;
 
         private VisibleWarFogZone _visibleWarFogZone;
         
@@ -22,9 +23,9 @@ namespace BugStrategy.Constructions
         public abstract FractionType Fraction { get; }
         protected abstract ConstructionConfigBase ConfigBase { get; }
 
-        protected readonly FloatStorage _healthStorage = new(2000,2000);
+        protected readonly FloatStorage _healthStorage = new(0,0);
 
-        public bool IsSelected { get; private set; }
+		public bool IsSelected { get; private set; }
         public bool IsActive { get; protected set; } = true;
         public bool IsAlive => IsActive && _healthStorage.CurrentValue > 0f;
     
