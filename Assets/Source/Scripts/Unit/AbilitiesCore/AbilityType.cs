@@ -10,6 +10,7 @@ namespace BugStrategy.Unit.AbilitiesCore
         StandardBearer = 35,
         StickyProjectiles = 40,
         SwordStrike = 45,
-        VerifiedBites = 50
+        VerifiedBites = 50,
+        Repairing = 55
     }
 }

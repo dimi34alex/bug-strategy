@@ -5,14 +5,15 @@ namespace BugStrategy.EntityState
 {
     public enum EntityStateID
     {
-        Idle,
-        Move,
-        Build,
-        Attack,
-        ExtractionResource,
-        StorageResource,
-        SwitchProfession,
-        HideInConstruction
+        Idle = 0,
+        Move = 2,
+        Build = 4,
+        Attack = 6,
+        ExtractionResource = 8,
+        StorageResource = 10,
+        SwitchProfession = 12,
+        HideInConstruction = 14,
+        Repair = 16
     };
 
     public class EntityStateMachine
