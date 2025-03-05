@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: BuildingProgressConstructionConfig
   m_EditorClassIdentifier: 
   <WarFogViewRadius>k__BackingField: 0
+  MaxHealthPoints: 2000
