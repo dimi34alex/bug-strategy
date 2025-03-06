@@ -174,9 +174,12 @@ namespace BugStrategy.Unit
             TargetMovePosition = transform.position;
             _navMeshAgent.SetDestination(TargetMovePosition);
         }
-        
+
         protected void ReturnInPool()
-            => ElementReturnEvent?.Invoke(this);
+        {
+            StateMachine.SetState(EntityStateID.Idle);
+            ElementReturnEvent?.Invoke(this);
+        }
     
         public void SetDestination(Vector3 position)
         {

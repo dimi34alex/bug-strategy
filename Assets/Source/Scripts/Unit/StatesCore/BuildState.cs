@@ -20,7 +20,6 @@ namespace BugStrategy.Unit
         public BuildState(UnitBase unit)
         {
             _unit = unit;
-            _unit.OnUnitDiedEvent += OnStateExit;
         }
         
         public override void OnStateEnter()
