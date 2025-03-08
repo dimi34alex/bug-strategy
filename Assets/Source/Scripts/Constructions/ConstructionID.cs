@@ -10,7 +10,7 @@
         BeeBarrack = 10,
         BeeHouse = 15,
         BeeWaxProduceConstruction = 20,
-        BeeStickyTileConstruction = 25,
+        //BeeStickyTileConstruction = 25,
         BeeStorage = 30,
         BeeLandmine = 40,
         BeeMercenaryBarrack = 50,

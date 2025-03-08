@@ -143,7 +143,7 @@ namespace BugStrategy.Constructions.BeeLandmine
             if(MissionData.ConstructionsRepository.ConstructionExist(position))
                 return;
 
-            _notConstructionFactory.Create<BeeStickyTile>(NotConstructionID.BeeStickyTileConstruction, position, Affiliation);
+            _notConstructionFactory.Create<NotConstructionBase>(NotConstructionID.BeeStickyTileConstruction, position, Affiliation);
         }
     }
 }

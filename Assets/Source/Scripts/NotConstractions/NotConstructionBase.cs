@@ -22,22 +22,19 @@ namespace BugStrategy.NotConstructions
         public abstract FractionType Fraction { get; }
         protected abstract NotConstructionConfigBase ConfigBase { get; }
 
-        protected readonly FloatStorage _healthStorage = new(0,0);
-
         public bool IsSelected { get; private set; }
         public bool IsActive { get; protected set; } = true;
-        public bool IsAlive => IsActive && _healthStorage.CurrentValue > 0f;
+        public bool IsAlive => IsActive;
     
         public abstract NotConstructionID NotConstructionID { get; }
         public TargetType TargetType => TargetType.None;
         public MiniMapObjectType MiniMapObjectType => MiniMapObjectType.None;
         public Transform Transform => transform;
-        public IReadOnlyFloatStorage HealthStorage => _healthStorage;
     
         protected event Action _updateEvent;
         protected event Action _onDestroy;
         public event Action Initialized;
-        public event Action OnDestruction;
+        //public event Action OnDestruction;
         public event Action<ITarget> OnDeactivation;
         public event Action<ITriggerable> OnDisableITriggerableEvent;
         public event Action OnSelect;
@@ -72,11 +69,6 @@ namespace BugStrategy.NotConstructions
             IsActive = false;
             _onDestroy?.Invoke();
             OnDeactivation?.Invoke(this);
-        }
-
-        public virtual void TakeRepair(IRepairApplicator repairApplicator)
-        {
-            _healthStorage.ChangeValue(repairApplicator.Rapair);
         }
 
         public void Select()

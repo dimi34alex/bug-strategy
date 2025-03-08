@@ -2,6 +2,8 @@ using BugStrategy.Constructions;
 using BugStrategy.Constructions.Factory;
 using BugStrategy.Effects;
 using BugStrategy.Missions;
+using BugStrategy.NotConstructions;
+using BugStrategy.NotConstructions.Factory;
 using CycleFramework.Extensions;
 using UnityEngine;
 using Zenject;
@@ -14,7 +16,7 @@ namespace BugStrategy.Projectiles
 
         [Inject] private readonly MissionData _missionData;
         [Inject] private readonly StickConfig _stickConfig;
-        [Inject] private readonly IConstructionFactory _constructionFactory;
+        [Inject] private readonly INotConstructionFactory _notConstructionFactory;
         
         public override ProjectileType ProjectileType => ProjectileType.HoneyCatapultProjectile;
 
@@ -74,7 +76,7 @@ namespace BugStrategy.Projectiles
             if(_missionData.ConstructionsRepository.ConstructionExist(roundedPos))
                 return;
             
-            _constructionFactory.Create<ConstructionBase>(ConstructionID.BeeStickyTileConstruction, roundedPos, Affiliation);
+            _notConstructionFactory.Create<NotConstructionBase>(NotConstructionID.BeeStickyTileConstruction, roundedPos, Affiliation);
         }
     }
 }

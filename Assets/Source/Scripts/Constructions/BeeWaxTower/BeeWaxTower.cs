@@ -1,5 +1,7 @@
 using BugStrategy.Constructions.ConstructionLevelSystemCore;
 using BugStrategy.Constructions.Factory;
+using BugStrategy.NotConstructions;
+using BugStrategy.NotConstructions.Factory;
 using BugStrategy.Projectiles.Factory;
 using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
 using BugStrategy.TechnologiesSystem;
@@ -15,7 +17,7 @@ namespace BugStrategy.Constructions.BeeWaxTower
         [SerializeField] private BeeWaxTowerConfig config;
 
         [Inject] private readonly ProjectilesFactory _projectilesFactory;
-        [Inject] private readonly IConstructionFactory _constructionFactory;
+        [Inject] private readonly INotConstructionFactory _notConstructionFactory;
         [Inject] private readonly ITeamsResourcesGlobalStorage _teamsResourcesGlobalStorage;
         [Inject] private readonly TechnologyModule _technologyModule;
 
@@ -52,6 +54,7 @@ namespace BugStrategy.Constructions.BeeWaxTower
             => _attackProcessor.HandleUpdate(Time.deltaTime);
 
         private void SpawnStickyTile() 
-            => _constructionFactory.Create<ConstructionBase>(ConstructionID.BeeStickyTileConstruction, transform.position, Affiliation);
+            => 
+        _notConstructionFactory.Create<NotConstructionBase>(NotConstructionID.BeeStickyTileConstruction, transform.position, Affiliation);
     }
 }

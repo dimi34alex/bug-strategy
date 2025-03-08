@@ -21,9 +21,6 @@ namespace BugStrategy.NotConstructions.BeeStickyTile
 
         protected override void OnAwake()
         {
-            _healthStorage.SetCapacity(config.HealthPoints);
-            _healthStorage.SetValue(config.HealthPoints);
-
             _existsTimer = new Timer(config.ExistTime);
             _existsTimer.OnTimerEnd += DestructStickyTile;
             
