@@ -15,7 +15,7 @@ MonoBehaviour:
   <HealthPoints>k__BackingField: 900
   <InteractionRange>k__BackingField: 1
   <WarFogViewRadius>k__BackingField: 15
-  <Cooldown>k__BackingField: 1.3
+  <Cooldown>k__BackingField: 1.95
   <AttackRange>k__BackingField: 2
   <Damage>k__BackingField: 110
   <ProjectileType>k__BackingField: 40
