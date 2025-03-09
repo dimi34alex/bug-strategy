@@ -152,7 +152,8 @@ namespace BugStrategy.Unit
         {
             IsActive = false;
             CurrentPathData = null;
-            OnUnitDeactivation?.Invoke(this);
+			StateMachine.SetState(EntityStateID.Idle);
+			OnUnitDeactivation?.Invoke(this);
             gameObject.SetActive(false);
         }
 
@@ -176,10 +177,7 @@ namespace BugStrategy.Unit
         }
 
         protected void ReturnInPool()
-        {
-            StateMachine.SetState(EntityStateID.Idle);
-            ElementReturnEvent?.Invoke(this);
-        }
+            =>ElementReturnEvent?.Invoke(this);
     
         public void SetDestination(Vector3 position)
         {
