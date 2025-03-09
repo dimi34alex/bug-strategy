@@ -8,10 +8,17 @@ namespace CycleFramework.Execute
         /// If you want to rename it, need also rename it in enum CycleMethodType
         /// </summary>
         protected virtual void OnStartInit() { }
+        
         /// <summary>
         /// If you want to rename it, need also rename it in enum CycleMethodType
         /// </summary>
         protected virtual void OnUpdate() { }
+        
+        /// <summary>
+        /// If you want to rename it, need also rename it in enum CycleMethodType
+        /// </summary>
+        protected virtual void OnLateUpdate() { }
+        
         /// <summary>
         /// If you want to rename it, need also rename it in enum CycleMethodType
         /// </summary>

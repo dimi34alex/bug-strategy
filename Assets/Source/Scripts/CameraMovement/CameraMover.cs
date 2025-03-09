@@ -1,24 +1,26 @@
 ﻿using System.Collections.Generic;
 using BugStrategy.CustomInput;
-using BugStrategy.ScenesLoading;
+using CycleFramework.Execute;
 using CycleFramework.Extensions;
 using UnityEngine;
 using Zenject;
 
 namespace BugStrategy.CameraMovement
 {
-    public class CameraMover : MonoBehaviour
+    public class CameraMover : CycleInitializerBase
     {
-        [SerializeField] private float _moveSpeed;
-        [SerializeField] private Camera _camera;
-        [Space]
-        [SerializeField] private float CameraMoveSpeed;
-        [SerializeField] private float PercentageOfScreen;
+        [SerializeField] private CameraMoveConfig cameraMoveConfig;
 
         [Inject] private readonly IInputProvider _inputProvider;
-        [Inject] private readonly ILoadingScreen _loadingScreen;
         [Inject] private readonly IReadOnlyCameraBounds _cameraBounds;
         
+        private float MoveSpeedByWheel => cameraMoveConfig.MoveSpeedByWheel;
+        private float MoveSpeedByCursor => cameraMoveConfig.MoveSpeedByCursor;
+        private float PercentageOfScreen => cameraMoveConfig.PercentageOfScreen;
+        private Transform CameraTransform => _camera.transform;
+
+        private bool _isMoveProcessByWheel;
+        private Camera _camera;
         private float _sizeBorderToMove;
         private float _xDist, _yDist;
         private Vector2 _delta;
@@ -29,36 +31,44 @@ namespace BugStrategy.CameraMovement
 
         private void Awake ()
         {
+            _camera = Camera.main;
             _sizeBorderToMove = Mathf.Min(Screen.width, Screen.height) * (PercentageOfScreen / 100);            
         }
 
-        private void LateUpdate ()
+        protected override void OnLateUpdate()
         {
-            if(!_loadingScreen.IsShow)
+            var isStartMoveByWheel = _inputProvider.ScrollDown && !_inputProvider.MouseCursorOverUi();
+            var isMoveProcessByWheel = _inputProvider.ScrollHold && _isMoveProcessByWheel;
+            
+            if(isStartMoveByWheel || isMoveProcessByWheel)
+                MoveByMouseWheel();
+            else
             {
-                if(_inputProvider.ScrollDown || _inputProvider.ScrollHold)
-                    MoveByMouseWheel();
-                else if(CursorOnScreen() && !_inputProvider.MouseCursorOverUi())
+                _isMoveProcessByWheel = false;
+                if (CursorOnScreen())
                     MoveByCursor();
             }
         }
 
-        private void MoveByMouseWheel ()
+        private void MoveByMouseWheel()
         {
-            _targetPosition.y = transform.position.y;
+            _targetPosition.y = CameraTransform.position.y;
 
-            if(_inputProvider.ScrollDown)
-                _startPosition = transform.position + _camera.ScreenToWorldPoint(_inputProvider.MousePosition).XZ();
+            if (_inputProvider.ScrollDown)
+            {
+                _isMoveProcessByWheel = true;
+                _startPosition = CameraTransform.position + _camera.ScreenToWorldPoint(_inputProvider.MousePosition).XZ();
+            }
 
             if(_inputProvider.ScrollHold)
             {
                 _targetPosition = _startPosition - _camera.ScreenToWorldPoint(_inputProvider.MousePosition).XZ();
 
-                Vector3 position = Vector3.Lerp(transform.position, _targetPosition, Time.deltaTime * _moveSpeed);
+                Vector3 position = Vector3.Lerp(CameraTransform.position, _targetPosition, Time.deltaTime * MoveSpeedByWheel);
 
                 position = position.Clamp(Bounds[0], Bounds[1]);
 
-                transform.position = position;
+                CameraTransform.position = position;
             }
         }
 
@@ -69,8 +79,8 @@ namespace BugStrategy.CameraMovement
                 _delta = _delta.normalized;
                 _delta *= Mathf.Clamp01(1 - Mathf.Min(_xDist, _yDist) / _sizeBorderToMove);
 
-                transform.Translate(_delta * (CameraMoveSpeed * Time.deltaTime), Space.Self);
-                transform.position = transform.position.Clamp(Bounds[0], Bounds[1]);
+                CameraTransform.Translate(_delta * (MoveSpeedByCursor * Time.deltaTime), Space.Self);
+                CameraTransform.position = CameraTransform.position.Clamp(Bounds[0], Bounds[1]);
             }
         }
 

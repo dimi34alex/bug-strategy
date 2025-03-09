@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1058084dc8d4fe8bf4c516f1f981c61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MoveSpeed>k__BackingField: 5
+  <MoveSpeed>k__BackingField: 7.5
   layerMask:
     serializedVersion: 2
     m_Bits: 6144
