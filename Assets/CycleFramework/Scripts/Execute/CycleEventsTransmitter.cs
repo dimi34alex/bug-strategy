@@ -30,6 +30,11 @@ namespace CycleFramework.Execute
         {
             _cycleEventsProcessor.Execute(_cycleStateMachine.CurrentCycleState, CycleMethodType.OnUpdate);
         }
+        
+        private void LateUpdate()
+        {
+            _cycleEventsProcessor.Execute(_cycleStateMachine.CurrentCycleState, CycleMethodType.OnLateUpdate);
+        }
 
         private void FixedUpdate()
         {
