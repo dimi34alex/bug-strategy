@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using BugStrategy.CustomInput;
+using BugStrategy.ScenesLoading;
 using CycleFramework.Extensions;
 using UnityEngine;
 using Zenject;
@@ -15,6 +16,7 @@ namespace BugStrategy.CameraMovement
         [SerializeField] private float PercentageOfScreen;
 
         [Inject] private readonly IInputProvider _inputProvider;
+        [Inject] private readonly ILoadingScreen _loadingScreen;
         [Inject] private readonly IReadOnlyCameraBounds _cameraBounds;
         
         private float _sizeBorderToMove;
@@ -32,10 +34,13 @@ namespace BugStrategy.CameraMovement
 
         private void LateUpdate ()
         {
-            if(_inputProvider.ScrollDown || _inputProvider.ScrollHold)
-                MoveByMouseWheel();
-            else if(CursorOnScreen() && !_inputProvider.MouseCursorOverUi())
-                MoveByCursor();
+            if(!_loadingScreen.IsShow)
+            {
+                if(_inputProvider.ScrollDown || _inputProvider.ScrollHold)
+                    MoveByMouseWheel();
+                else if(CursorOnScreen() && !_inputProvider.MouseCursorOverUi())
+                    MoveByCursor();
+            }
         }
 
         private void MoveByMouseWheel ()
