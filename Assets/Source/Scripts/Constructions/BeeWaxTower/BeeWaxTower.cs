@@ -1,5 +1,4 @@
 using BugStrategy.Constructions.ConstructionLevelSystemCore;
-using BugStrategy.Constructions.Factory;
 using BugStrategy.NotConstructions;
 using BugStrategy.NotConstructions.Factory;
 using BugStrategy.Projectiles.Factory;

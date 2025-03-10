@@ -1,5 +1,4 @@
 using BugStrategy.Constructions;
-using BugStrategy.Constructions.Factory;
 using BugStrategy.Effects;
 using BugStrategy.Missions;
 using BugStrategy.NotConstructions;

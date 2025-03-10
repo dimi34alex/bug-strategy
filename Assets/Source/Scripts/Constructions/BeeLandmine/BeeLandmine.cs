@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using BugStrategy.NotConstructions.Factory;
 using BugStrategy.CustomTimer;
 using BugStrategy.TechnologiesSystem;
 using BugStrategy.TechnologiesSystem.Technologies;
@@ -9,7 +8,7 @@ using CycleFramework.Extensions;
 using UnityEngine;
 using Zenject;
 using BugStrategy.NotConstructions;
-using BugStrategy.NotConstructions.BeeStickyTile;
+using BugStrategy.NotConstructions.Factory;
 
 namespace BugStrategy.Constructions.BeeLandmine
 {
