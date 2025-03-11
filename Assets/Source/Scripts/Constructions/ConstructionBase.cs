@@ -1,5 +1,4 @@
 using System;
-using BugStrategy.Constructions.BuildProgressConstructions;
 using BugStrategy.MiniMap;
 using BugStrategy.Missions;
 using BugStrategy.SelectableSystem;
@@ -10,12 +9,13 @@ using Zenject;
 
 namespace BugStrategy.Constructions
 {
-    public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagable, IRepairable, IMiniMapObject,
+    public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagable, IRepairable,
         ITriggerable, ITarget, ISelectable, IAffiliation
-    {
-		[field: SerializeField] public ObjectView View { get; private set; }
-
-		[Inject] protected readonly MissionData MissionData;
+    { 
+        [field: SerializeField] public ObjectView View { get; private set; }
+        
+        [Inject] protected readonly MissionData MissionData;
+        [Inject] private readonly MiniMapObjViewFactory _miniMapObjViewFactory;
 
         private VisibleWarFogZone _visibleWarFogZone;
         
@@ -31,7 +31,6 @@ namespace BugStrategy.Constructions
     
         public abstract ConstructionID ConstructionID { get; }
         public TargetType TargetType => TargetType.Construction;
-        public MiniMapObjectType MiniMapObjectType => MiniMapObjectType.Construction;
         public Transform Transform => transform;
         public IReadOnlyFloatStorage HealthStorage => _healthStorage;
     
@@ -59,6 +58,8 @@ namespace BugStrategy.Constructions
         public void Initialize(AffiliationEnum newAffiliation)
         {
             Affiliation = newAffiliation;
+            _miniMapObjViewFactory.CreateConstructionIcon(transform, Affiliation);
+            
             Initialized?.Invoke();
         }
     
