@@ -141,6 +141,8 @@ namespace BugStrategy.Constructions.BeeLandmine
         {
             if(MissionData.ConstructionsRepository.ConstructionExist(position))
                 return;
+            if(MissionData.NotConstructionsRepository.NotConstructionExist(position))
+                return;
 
             _notConstructionFactory.Create<NotConstructionBase>(NotConstructionID.BeeStickyTileConstruction, position, Affiliation);
         }

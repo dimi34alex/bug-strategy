@@ -27,8 +27,8 @@ namespace BugStrategy.NotConstructions
         public bool IsAlive => IsActive;
     
         public abstract NotConstructionID NotConstructionID { get; }
-        public TargetType TargetType => TargetType.None;
-        public MiniMapObjectType MiniMapObjectType => MiniMapObjectType.None;
+        public TargetType TargetType => TargetType.NotConstruction;
+        public MiniMapObjectType MiniMapObjectType => MiniMapObjectType.NotConstruction;
         public Transform Transform => transform;
     
         protected event Action _updateEvent;

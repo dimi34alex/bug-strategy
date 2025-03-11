@@ -9,7 +9,7 @@ using BugStrategy.Tiles;
 using BugStrategy.Unit;
 using BugStrategy.Unit.UnitSelection;
 using ConstructionsRepository = BugStrategy.Constructions.ConstructionsRepository;
-//using NotConstructionsRepository = BugStrategy.NotConstructions.NotConstructionsRepository;
+using NotConstructionsRepository = BugStrategy.NotConstructions.NotConstructionsRepository;
 
 namespace BugStrategy.Missions
 {
@@ -26,7 +26,7 @@ namespace BugStrategy.Missions
         public readonly PoisonFogsRepository PoisonFogsRepository;
         public readonly ResourceSourcesRepository ResourceSourcesRepository;
         public readonly ConstructionsRepository ConstructionsRepository;
-        //public readonly NotConstructionsRepository NotConstructionsRepository;
+        public readonly NotConstructionsRepository NotConstructionsRepository;
         public readonly TilesRepository TilesRepository;
         
         public readonly ITeamsResourcesGlobalStorage TeamsResourcesGlobalStorage;
@@ -43,7 +43,7 @@ namespace BugStrategy.Missions
             PoisonFogsRepository poisonFogsRepository,
             ResourceSourcesRepository resourceSourcesRepository,
             ConstructionsRepository constructionsRepository,
-            //NotConstructionsRepository notConstructionsRepository,
+            NotConstructionsRepository notConstructionsRepository,
             ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage, 
             UnitsSelector unitsSelector, TilesRepository tilesRepository) 
         {
@@ -54,7 +54,7 @@ namespace BugStrategy.Missions
             PoisonFogsRepository = poisonFogsRepository;
             ResourceSourcesRepository = resourceSourcesRepository;
             ConstructionsRepository = constructionsRepository;
-            //NotConstructionsRepository = notConstructionsRepository;
+            NotConstructionsRepository = notConstructionsRepository;
             TeamsResourcesGlobalStorage = teamsResourcesGlobalStorage;
             UnitsSelector = unitsSelector;
             TilesRepository = tilesRepository;

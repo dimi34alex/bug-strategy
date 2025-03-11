@@ -57,17 +57,25 @@ namespace BugStrategy.MiniMap
             {
                 case (AffiliationEnum.Team1, MiniMapObjectType.Construction):
                     return MiniMapIconID.BeeConstruction;
+                case (AffiliationEnum.Team1, MiniMapObjectType.NotConstruction):
+                    return MiniMapIconID.NeutralConstruction;
                 case (AffiliationEnum.Team1, MiniMapObjectType.Unit):
                     return MiniMapIconID.BeeUnit;
                 case (AffiliationEnum.Team2, MiniMapObjectType.Construction):
                     return MiniMapIconID.AntConstruction;
+                case (AffiliationEnum.Team2, MiniMapObjectType.NotConstruction):
+                    return MiniMapIconID.NeutralConstruction;
                 case (AffiliationEnum.Team2, MiniMapObjectType.Unit):
                     return MiniMapIconID.AntUnit;
                 case (AffiliationEnum.Team3, MiniMapObjectType.Construction):
                     return MiniMapIconID.ButterflyConstruction;
+                case (AffiliationEnum.Team3, MiniMapObjectType.NotConstruction):
+                    return MiniMapIconID.NeutralConstruction;
                 case (AffiliationEnum.Team3, MiniMapObjectType.Unit):
                     return MiniMapIconID.ButterflyUnit;
                 case (AffiliationEnum.Neutral, MiniMapObjectType.Construction):
+                    return MiniMapIconID.NeutralConstruction;
+                case (AffiliationEnum.Neutral, MiniMapObjectType.NotConstruction):
                     return MiniMapIconID.NeutralConstruction;
                 case (AffiliationEnum.Neutral, MiniMapObjectType.Unit):
                     return MiniMapIconID.NeutralUnit;
