@@ -60,9 +60,8 @@ namespace BugStrategy.Unit.ProcessorsCore
         public void TryAttack(ITarget target)
         {
             if (_cooldownProcessor.IsCooldown) return;
-            
-            if (!target.IsAnyNull() && CheckAttackDistance(target) && target.CastPossible<IDamagable>() && target.CastPossible<INotConstruction>()!=true
-                || TryGetNearestDamageableTarget(out target))
+
+            if(!target.IsAnyNull() && target.IsActive && CheckAttackDistance(target) && target.CastPossible<IDamagable>() || TryGetNearestDamageableTarget(out target))
             {
                     Attack(target);
                 _cooldownProcessor.StartCooldown();

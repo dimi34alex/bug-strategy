@@ -6,6 +6,5 @@
         Construction = 10,
         NotConstruction = 15,
         ResourceSource = 20,
-        None = 30
     }
 }

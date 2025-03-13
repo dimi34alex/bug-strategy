@@ -34,7 +34,6 @@ namespace BugStrategy.NotConstructions
         protected event Action _updateEvent;
         protected event Action _onDestroy;
         public event Action Initialized;
-        //public event Action OnDestruction;
         public event Action<ITarget> OnDeactivation;
         public event Action<ITriggerable> OnDisableITriggerableEvent;
         public event Action OnSelect;
