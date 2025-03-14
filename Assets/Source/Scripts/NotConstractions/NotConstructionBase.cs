@@ -9,7 +9,7 @@ using Zenject;
 
 namespace BugStrategy.NotConstructions
 {
-    public abstract class NotConstructionBase : MonoBehaviour, IMiniMapObject, INotConstruction,
+    public abstract class NotConstructionBase : MonoBehaviour, INotConstruction,
         ITriggerable, ITarget, ISelectable, IAffiliation
     {
         [field: SerializeField] public ObjectView View { get; private set; }
@@ -28,7 +28,6 @@ namespace BugStrategy.NotConstructions
     
         public abstract NotConstructionID NotConstructionID { get; }
         public TargetType TargetType => TargetType.NotConstruction;
-        public MiniMapObjectType MiniMapObjectType => MiniMapObjectType.NotConstruction;
         public Transform Transform => transform;
     
         protected event Action _updateEvent;
