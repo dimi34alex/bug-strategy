@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using BugStrategy.Ai.InternalAis;
 using BugStrategy.Ai.UnitAis;
-using BugStrategy.Constructions.Factory;
+using BugStrategy.NotConstructions.Factory;
 using BugStrategy.Effects;
 using BugStrategy.EntityState;
 using BugStrategy.Missions;
@@ -22,7 +22,7 @@ namespace BugStrategy.Unit.Bees
         [SerializeField] private BumblebeeConfig config;
 
         [Inject] private readonly MissionData _missionData;
-        [Inject] private readonly IConstructionFactory _constructionFactory;
+        [Inject] private readonly INotConstructionFactory _notConstructionFactory;
         [Inject] private readonly TechnologyModule _technologyModule;
 
         public AttackCooldownChanger AttackCooldownChanger { get; private set; }
@@ -54,7 +54,7 @@ namespace BugStrategy.Unit.Bees
             AttackCooldownChanger = new AttackCooldownChanger(_cooldownProcessor);
 
             _abilityAccumulation = new AbilityAccumulation(this, config.ExplosionRadius, config.ExplosionDamage, 
-                config.ExplosionLayers, _constructionFactory, _missionData);
+                config.ExplosionLayers, _notConstructionFactory, _missionData);
             _passiveAbilities.Add(_abilityAccumulation);
             
             var states = new List<EntityStateBase>()

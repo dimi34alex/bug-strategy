@@ -16,6 +16,6 @@ MonoBehaviour:
   <BuildDuration>k__BackingField: 4
   buyCost:
     _cells: []
-  <HealthPoints>k__BackingField: 100
+  <HealthPoints>k__BackingField: 1000
   <DelayBeforeApply>k__BackingField: 0.5
   <ExistTime>k__BackingField: 10

@@ -1,5 +1,6 @@
 ﻿using System;
 using BugStrategy.Libs;
+using BugStrategy.NotConstructions;
 using CycleFramework.Extensions;
 using UnityEngine;
 
@@ -59,11 +60,10 @@ namespace BugStrategy.Unit.ProcessorsCore
         public void TryAttack(ITarget target)
         {
             if (_cooldownProcessor.IsCooldown) return;
-            
-            if (!target.IsAnyNull() && target.IsActive && CheckAttackDistance(target) && target.CastPossible<IDamagable>() 
-                || TryGetNearestDamageableTarget(out target))
+
+            if(!target.IsAnyNull() && target.IsActive && CheckAttackDistance(target) && target.CastPossible<IDamagable>() || TryGetNearestDamageableTarget(out target))
             {
-                Attack(target);
+                    Attack(target);
                 _cooldownProcessor.StartCooldown();
             }
         }

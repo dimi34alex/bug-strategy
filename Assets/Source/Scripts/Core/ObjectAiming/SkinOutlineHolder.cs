@@ -10,8 +10,8 @@ namespace BugStrategy.ObjectAiming
 
         private ObjectView _objectView;
         private SpriteRenderer _skinOutline;
-        
-        private void Awake()
+
+        private void Awake ()
         {
             _skinOutline = Instantiate(skin, skin.transform.position, skin.transform.rotation, transform);
             _skinOutline.transform.localScale = skin.transform.localScale;
@@ -24,16 +24,19 @@ namespace BugStrategy.ObjectAiming
             ToggleOutlineVisibility(false);
         }
 
-        private void OnDestroy()
+        private void OnDestroy ()
         {
-            if (_objectView != null) 
+            if(_objectView != null)
                 _objectView.OnChangeSprite -= UpdateSprite;
         }
 
-        public void ToggleOutlineVisibility(bool isVisible) 
-            => _skinOutline.gameObject.SetActive(isVisible);
+        public void ToggleOutlineVisibility (bool isVisible)
+        {
+            if(_skinOutline != null)
+                _skinOutline.gameObject.SetActive(isVisible);
+        }
 
-        private void UpdateSprite(Sprite newSprite) => _skinOutline.sprite = newSprite;
-        
+        private void UpdateSprite (Sprite newSprite) => _skinOutline.sprite = newSprite;
+
     }
 }

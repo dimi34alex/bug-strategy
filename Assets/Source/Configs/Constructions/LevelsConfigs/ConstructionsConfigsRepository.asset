@@ -24,8 +24,6 @@ MonoBehaviour:
       Value: {fileID: 11400000, guid: 2eff88727298ea3438c8611da78a2b67, type: 2}
     - Key: 20
       Value: {fileID: 11400000, guid: 6d91083181a0966448d820c38a10248e, type: 2}
-    - Key: 25
-      Value: {fileID: 11400000, guid: f586709fc51efe6408af7aafaf32fbc0, type: 2}
     - Key: 30
       Value: {fileID: 11400000, guid: 0d0c62dafa6ee18448aaee7d7c1daa43, type: 2}
     - Key: 40
