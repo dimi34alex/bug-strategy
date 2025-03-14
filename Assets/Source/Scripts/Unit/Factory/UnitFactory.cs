@@ -9,14 +9,14 @@ namespace BugStrategy.Unit.Factory
 {
     public class UnitFactory : MonoBehaviour
     {
-        [Inject] private UnitsPrefabsConfig _prefabsConfig;
-        [Inject] private UnitRepository _unitRepository;
-        [Inject] private DiContainer _container;
+        [Inject] private readonly UnitsPrefabsConfig _prefabsConfig;
+        [Inject] private readonly UnitRepository _unitRepository;
+        [Inject] private readonly DiContainer _container;
 
         private Pool<UnitBase, UnitType> _pool;
         private readonly Dictionary<UnitType, Transform> _parents = new();
 
-        public event Action<UnitBase> UnitCreated; 
+        public event Action<UnitBase> OnUnitCreated; 
         
         private void Awake()
         {
@@ -40,7 +40,7 @@ namespace BugStrategy.Unit.Factory
             unit.Transform.position = position;
             unit.Initialize(affiliation);
             _unitRepository.AddUnit(unit);
-            UnitCreated?.Invoke(unit);
+            OnUnitCreated?.Invoke(unit);
             
             return unit;
         }

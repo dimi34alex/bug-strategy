@@ -4,13 +4,16 @@ using BugStrategy.MiniMap;
 using BugStrategy.ResourcesSystem;
 using BugStrategy.Trigger;
 using UnityEngine;
+using Zenject;
 
 namespace BugStrategy.ResourceSources
 {
-    public abstract class ResourceSourceBase : MonoBehaviour, IMiniMapObject, ITriggerable, ITarget
+    public abstract class ResourceSourceBase : MonoBehaviour, ITriggerable, ITarget
     {
         [field: SerializeField] public ObjectView View { get; private set; }
         [SerializeField] private int resourceCapacity;
+
+        [Inject] private readonly MiniMapObjViewFactory _miniMapObjViewFactory;
         
         protected FloatStorage ResourceStorage;
     
@@ -19,7 +22,6 @@ namespace BugStrategy.ResourceSources
         public bool CanBeCollected { get; protected set; } = true;
     
         public AffiliationEnum Affiliation => AffiliationEnum.None;
-        public MiniMapObjectType MiniMapObjectType => MiniMapObjectType.ResourceSource;
         public TargetType TargetType => TargetType.ResourceSource;
         public Transform Transform => transform;
     
@@ -29,6 +31,7 @@ namespace BugStrategy.ResourceSources
         private void Awake()
         {
             ResourceStorage = new FloatStorage(resourceCapacity, resourceCapacity);
+            _miniMapObjViewFactory.CreateResourceSourceIcon(transform, Affiliation);
         }
 
         protected virtual void OnAwake(){}

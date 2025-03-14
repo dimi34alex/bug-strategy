@@ -11,7 +11,7 @@ Shader "Custom/SolidColorShader"
 
         Pass
         {
-            Blend SrcAlpha OneMinusSrcAlpha
+            Blend One OneMinusSrcAlpha
             Cull Off
             Lighting Off
             ZWrite Off
@@ -19,12 +19,14 @@ Shader "Custom/SolidColorShader"
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
+            #pragma multi_compile_instancing
             #include "UnityCG.cginc"
 
             struct appdata_t
             {
                 float4 vertex : POSITION;
                 float2 uv : TEXCOORD0;
+                UNITY_VERTEX_INPUT_INSTANCE_ID
             };
 
             struct v2f
@@ -32,18 +34,21 @@ Shader "Custom/SolidColorShader"
                 float4 pos : POSITION;
             };
 
-            fixed4 _Color;
+            UNITY_INSTANCING_BUFFER_START(Props)
+                UNITY_DEFINE_INSTANCED_PROP(fixed4, _Color)
+            UNITY_INSTANCING_BUFFER_END(Props)
 
             v2f vert (appdata_t v)
             {
                 v2f o;
+                UNITY_SETUP_INSTANCE_ID(v);
                 o.pos = UnityObjectToClipPos(v.vertex);
                 return o;
             }
 
             fixed4 frag (v2f i) : SV_Target
             {
-                return _Color;
+                return UNITY_ACCESS_INSTANCED_PROP(Props, _Color);
             }
             ENDCG
         }

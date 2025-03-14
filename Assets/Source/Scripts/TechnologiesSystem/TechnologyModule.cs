@@ -7,9 +7,9 @@ namespace BugStrategy.TechnologiesSystem
     public class TechnologyModule
     {
         private readonly TechnologiesTeamRepository _technologiesTeamRepository;
-        private readonly TeamsResourcesGlobalStorage _resourcesGlobalStorage;
+        private readonly ITeamsResourcesGlobalStorage _resourcesGlobalStorage;
         
-        public TechnologyModule(TechnologiesFactory factory, TeamsResourcesGlobalStorage resourcesGlobalStorage)
+        public TechnologyModule(TechnologiesFactory factory, ITeamsResourcesGlobalStorage resourcesGlobalStorage)
         {
             _technologiesTeamRepository = new TechnologiesTeamRepository(factory);
             _resourcesGlobalStorage = resourcesGlobalStorage;
@@ -59,7 +59,7 @@ namespace BugStrategy.TechnologiesSystem
             if (_resourcesGlobalStorage.CanBuy(affiliation, cost))
             {
                 technology.Research();
-                _resourcesGlobalStorage.SpendResources(affiliation, cost);
+                _resourcesGlobalStorage.ChangeValues(affiliation, cost, -1);
             }
             else
             {

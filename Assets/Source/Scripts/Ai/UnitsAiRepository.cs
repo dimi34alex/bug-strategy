@@ -22,7 +22,7 @@ namespace BugStrategy.Ai
             _affiliation = affiliation;
             _unitFactory = unitFactory;
 
-            _unitFactory.UnitCreated += TryAdd;
+            _unitFactory.OnUnitCreated += TryAdd;
         }
 
         public int UnitCount(UnitType unitType)

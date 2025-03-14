@@ -1,8 +1,10 @@
 using BugStrategy.Constructions.ConstructionLevelSystemCore;
-using BugStrategy.Constructions.UnitsRecruitingSystem;
+using BugStrategy.TechnologiesSystem;
 using BugStrategy.UI;
 using BugStrategy.Unit;
 using BugStrategy.Unit.Factory;
+using BugStrategy.Unit.Pricing;
+using BugStrategy.Unit.RecruitingSystem;
 using UnityEngine;
 using Zenject;
 
@@ -13,6 +15,8 @@ namespace BugStrategy.Constructions
         [SerializeField] protected Transform workerBeesSpawnPosition;
        
         [Inject] protected readonly UnitFactory _unitFactory;
+        [Inject] protected readonly TechnologyModule _technologyModule;
+        [Inject] protected readonly IUnitsCostsProvider _unitsCostsProvider;
 
         public abstract IConstructionLevelSystem LevelSystem { get; protected set; }
         public IReadOnlyUnitsRecruiter Recruiter => _recruiter;

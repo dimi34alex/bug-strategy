@@ -9,23 +9,24 @@ namespace BugStrategy.UnitsHideCore
     public class UnitsHider : IHider
     {
         private readonly IAffiliation _affiliation;
-        private readonly IReadOnlyList<UnitType> _access;
         private readonly UnitFactory _unitFactory;
         private readonly Transform _extractTransform;
         private readonly List<HiderCellBase> _hiderCells;
         private int _capacity;
 
-        public IReadOnlyList<UnitType> Access => _access;
+        public IReadOnlyList<UnitType> Access { get; }
+
         public IReadOnlyList<HiderCellBase> HiderCells => _hiderCells;
 
-        public UnitsHider(IAffiliation affiliation, int startCapacity, UnitFactory unitFactory, Transform extractTransform, IReadOnlyList<UnitType> access)
+        public UnitsHider(IAffiliation affiliation, int startCapacity, UnitFactory unitFactory, 
+            Transform extractTransform, IReadOnlyList<UnitType> access)
         {
             _affiliation = affiliation;
             _capacity = startCapacity;
             _unitFactory = unitFactory;
             _extractTransform = extractTransform;
             _hiderCells = new List<HiderCellBase>(_capacity);
-            _access = access;
+            Access = access;
         }
 
         public void SetCapacity(int newCapacity)
@@ -41,7 +42,7 @@ namespace BugStrategy.UnitsHideCore
         }
 
         public bool CheckAccess(UnitType unitType)
-            => _access.Contains(c => c == unitType);
+            => Access.Contains(c => c == unitType);
         
         public bool HaveFreePlace()
             => _hiderCells.Count < _capacity;
@@ -58,12 +59,18 @@ namespace BugStrategy.UnitsHideCore
 
             if (!CheckAccess(cell.UnitType))
             {
-                Debug.LogWarning("You try hide unaccessible unit");
+                Debug.LogWarning("You try hide un accessible unit");
                 return false;
             }
             
             _hiderCells.Add(cell);
             return true;
+        }
+
+        public void ExtractAll()
+        {
+            for (int i = 0; i < _hiderCells.Count;)
+                ExtractUnit(_hiderCells.Count - 1, _extractTransform.position);
         }
 
         public UnitBase ExtractUnit(int index)
@@ -84,7 +91,7 @@ namespace BugStrategy.UnitsHideCore
             if (unit.TryCast(out IHidableUnit hidableUnit))
                 hidableUnit.LoadHideCell(cell);
             else
-                Debug.LogError($"Unit cant be casted to IHidableUnit: {unit} {cell.UnitType}");
+                Debug.LogError($"Unit cant be casted to IHidableUnit: [{unit}] [{cell.UnitType}]");
 
             return unit;
         }

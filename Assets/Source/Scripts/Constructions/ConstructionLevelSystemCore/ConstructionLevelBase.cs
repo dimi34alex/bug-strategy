@@ -13,8 +13,11 @@ namespace BugStrategy.Constructions.ConstructionLevelSystemCore
         [Header("Main")] 
         [SerializeField, Tooltip("Can be null")] protected Sprite view;
         [SerializeField][Min(0)] protected int maxHealPoints;
+        [field: Space] 
         [SerializeField] protected List<TechnologyId> unlockedTechnologies;
+        [field: Space] 
         [SerializeField] private SerializableDictionary<ResourceID, int> levelUpCost;
+        [field: Space] 
         [SerializeField] private SerializableDictionary<ResourceID, int> resourceCapacity;
     
         public int MaxHealPoints => maxHealPoints;

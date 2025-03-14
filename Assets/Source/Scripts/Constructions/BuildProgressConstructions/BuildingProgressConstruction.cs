@@ -22,8 +22,16 @@ namespace BugStrategy.Constructions.BuildProgressConstructions
 
         private GameObject _currentWorker;
         public bool WorkerArrived;
-    
-        public void StartBuilding(float duration, ConstructionID constructionID)
+
+		protected override void OnAwake()
+		{
+			base.OnAwake();
+
+            _healthStorage.SetCapacity(config.MaxHealthPoints);
+            _healthStorage.SetValue(config.MaxHealthPoints);
+		}
+
+		public void StartBuilding(float duration, ConstructionID constructionID)
         {
             if (BuildingProgressState != BuildingProgressState.Waiting)
                 return;

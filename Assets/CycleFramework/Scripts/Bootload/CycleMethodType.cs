@@ -5,6 +5,7 @@ namespace CycleFramework.Bootload
     {
         OnStartInit = 5,
         OnUpdate = 10,
+        OnLateUpdate = 13,
         OnFixedUpdate = 15,
     }
 }

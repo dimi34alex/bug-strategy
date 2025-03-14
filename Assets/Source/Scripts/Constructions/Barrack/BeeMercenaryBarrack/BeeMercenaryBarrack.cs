@@ -1,4 +1,4 @@
-using BugStrategy.Constructions.UnitsRecruitingSystem;
+using BugStrategy.Unit.RecruitingSystem;
 using BugStrategy.UnitsHideCore;
 using UnityEngine;
 
@@ -19,19 +19,19 @@ namespace BugStrategy.Constructions.BeeMercenaryBarrack
         {
             base.OnAwake();
 
-            _recruiter = new UnitsRecruiter(this, 0, unitsSpawnPosition, _unitFactory, TeamsResourcesGlobalStorage);
+            _recruiter = new UnitsRecruiter(this, 0, unitsSpawnPosition, _unitFactory, TeamsResourcesGlobalStorage, _unitsCostsProvider);
             _hider = new UnitsHider(this, 0, _unitFactory, unitsSpawnPosition, config.HiderAccess);
             LevelSystem = new BeeMercenaryBarrackLevelSystem(this, _technologyModule, config, TeamsResourcesGlobalStorage, 
                 _healthStorage, _recruiter, _hider);
             Initialized += InitLevelSystem;
+            
+            OnDeactivation += ReleaseUnitsHider;
         }
         
         private void InitLevelSystem()
             => LevelSystem.Init(0);
         
-        //TODO: remove this temporary code, when new ui will be create
-        [ContextMenu(nameof(ExtractHidedUnit))]
-        public void ExtractHidedUnit()
-            => Hider.ExtractUnit(0);
+        private void ReleaseUnitsHider(ITarget _) 
+            => _hider.ExtractAll();
     }
 }

@@ -9,12 +9,13 @@ using Zenject;
 
 namespace BugStrategy.Constructions
 {
-    public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagable, IRepairable, IMiniMapObject,
+    public abstract class ConstructionBase : MonoBehaviour, IConstruction, IDamagable, IRepairable,
         ITriggerable, ITarget, ISelectable, IAffiliation
-    {
+    { 
         [field: SerializeField] public ObjectView View { get; private set; }
         
         [Inject] protected readonly MissionData MissionData;
+        [Inject] private readonly MiniMapObjViewFactory _miniMapObjViewFactory;
 
         private VisibleWarFogZone _visibleWarFogZone;
         
@@ -24,13 +25,12 @@ namespace BugStrategy.Constructions
 
         protected readonly FloatStorage _healthStorage = new(0,0);
 
-        public bool IsSelected { get; private set; }
+		public bool IsSelected { get; private set; }
         public bool IsActive { get; protected set; } = true;
         public bool IsAlive => IsActive && _healthStorage.CurrentValue > 0f;
     
         public abstract ConstructionID ConstructionID { get; }
         public TargetType TargetType => TargetType.Construction;
-        public MiniMapObjectType MiniMapObjectType => MiniMapObjectType.Construction;
         public Transform Transform => transform;
         public IReadOnlyFloatStorage HealthStorage => _healthStorage;
     
@@ -58,6 +58,8 @@ namespace BugStrategy.Constructions
         public void Initialize(AffiliationEnum newAffiliation)
         {
             Affiliation = newAffiliation;
+            _miniMapObjViewFactory.CreateConstructionIcon(transform, Affiliation);
+            
             Initialized?.Invoke();
         }
     
@@ -105,7 +107,7 @@ namespace BugStrategy.Constructions
 
         public virtual void TakeRepair(IRepairApplicator repairApplicator)
         {
-            _healthStorage.ChangeValue(repairApplicator.Rapair);
+            _healthStorage.ChangeValue(repairApplicator.Repair);
         }
 
         public void Select()

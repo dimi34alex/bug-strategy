@@ -1,8 +1,8 @@
 using System;
 using BugStrategy.Constructions.ConstructionLevelSystemCore;
-using BugStrategy.Constructions.UnitsRecruitingSystem;
 using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
 using BugStrategy.TechnologiesSystem;
+using BugStrategy.Unit.RecruitingSystem;
 using BugStrategy.UnitsHideCore;
 
 namespace BugStrategy.Constructions.BeeMercenaryBarrack
@@ -27,7 +27,7 @@ namespace BugStrategy.Constructions.BeeMercenaryBarrack
             base.Init(initialLevelIndex);
             
             _recruiter.SetStackCount(CurrentLevel.RecruitingSize);
-            _recruiter.SetNewDatas(CurrentLevel.RecruitingData);
+            _recruiter.SetNewData(CurrentLevel.RecruitingData);
             _hider.SetCapacity(CurrentLevel.HiderCapacity);
         }
         
@@ -36,7 +36,7 @@ namespace BugStrategy.Constructions.BeeMercenaryBarrack
             base.LevelUpLogic();
 
             _recruiter.SetStackCount(CurrentLevel.RecruitingSize);
-            _recruiter.SetNewDatas(CurrentLevel.RecruitingData);
+            _recruiter.SetNewData(CurrentLevel.RecruitingData);
             _hider.SetCapacity(CurrentLevel.HiderCapacity);
         }
     }

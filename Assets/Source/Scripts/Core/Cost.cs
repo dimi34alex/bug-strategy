@@ -5,7 +5,7 @@ using BugStrategy.ResourcesSystem;
 
 namespace BugStrategy
 {
-    public class Cost
+    public struct Cost
     {
         private readonly Dictionary<ResourceID, int> _resourceCost;
 

@@ -52,7 +52,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 95dcfe0d52b85744a8281048172c7108, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -143,6 +143,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5edb34deda2b4a43869cc277158cc77b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectView: {fileID: 881750239803683650}
   skin: {fileID: 3762564038733091886}
   outlineMaterial: {fileID: 2100000, guid: f8942df3ef59c894c9b49b9034f00253, type: 2}

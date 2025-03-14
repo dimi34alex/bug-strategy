@@ -1,7 +1,7 @@
 using BugStrategy.Constructions.ConstructionLevelSystemCore;
-using BugStrategy.Constructions.UnitsRecruitingSystem;
 using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
 using BugStrategy.TechnologiesSystem;
+using BugStrategy.Unit.RecruitingSystem;
 using BugStrategy.UnitsHideCore;
 using UnityEngine;
 using Zenject;
@@ -13,7 +13,6 @@ namespace BugStrategy.Constructions.BeeTownHall
         [SerializeField] private BeeTownHallConfig config;
 
         [Inject] private readonly ITeamsResourcesGlobalStorage _teamsResourcesGlobalStorage;
-        [Inject] private readonly TechnologyModule _technologyModule;
 
         private UnitsHider _hider;
 
@@ -30,19 +29,19 @@ namespace BugStrategy.Constructions.BeeTownHall
             
             gameObject.name = "TownHall";
 
-            _recruiter = new UnitsRecruiter(this, 0, workerBeesSpawnPosition, _unitFactory, _teamsResourcesGlobalStorage);
+            _recruiter = new UnitsRecruiter(this, 0, workerBeesSpawnPosition, _unitFactory, _teamsResourcesGlobalStorage, _unitsCostsProvider);
             _hider = new UnitsHider(this, 0, _unitFactory, workerBeesSpawnPosition, config.HiderAccess);
             LevelSystem = new BeeTownHallLevelSystem(this, _technologyModule, config, _teamsResourcesGlobalStorage, 
                 _healthStorage, ref _recruiter, ref _hider);
             Initialized += InitLevelSystem;
+            
+            OnDeactivation += ReleaseUnitsHider;
         }
 
         private void InitLevelSystem()
             => LevelSystem.Init(0);
 
-        //TODO: remove this temporary code, when new ui will be create
-        [ContextMenu(nameof(ExtractHidedUnit))]
-        public void ExtractHidedUnit()
-            => Hider.ExtractUnit(0);
+        private void ReleaseUnitsHider(ITarget _) 
+            => _hider.ExtractAll();
     }  
 }

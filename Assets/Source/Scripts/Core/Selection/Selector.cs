@@ -1,3 +1,5 @@
+using System;
+using BugStrategy.Constructions;
 using BugStrategy.CustomInput;
 using BugStrategy.Missions;
 using BugStrategy.UI;
@@ -16,10 +18,13 @@ namespace BugStrategy.Selection
         [Inject] private readonly MissionData _missionData;
         [Inject] private readonly UIController _uiController;
         [Inject] private readonly UnitsSelector _unitsSelector;
-
+        
+        public ConstructionSelector ConstructionSelector => _missionData.ConstructionSelector;
         public bool IsSelectProcess { get; private set; }
         public Vector3 StartSelectPoint { get; private set; }
         public Vector3 CurrentSelectPoint { get; private set; }
+
+        public Action OnTrySelect;
 
         protected override void OnUpdate()
         {
@@ -42,10 +47,10 @@ namespace BugStrategy.Selection
                 var prevSelectedConstruction = _missionData.ConstructionSelector.SelectedConstruction;
                 if (prevSelectedConstruction != null) 
                     prevSelectedConstruction.Deselect();
-                _missionData.ConstructionSelector.ResetSelection();
                 
                 if (dist >= distanceToBeHold)
                 {
+                    _missionData.ConstructionSelector.ResetSelection();
                     _unitsSelector.DeselectAll();
                     if (_unitsSelector.SelectUnits(StartSelectPoint, CurrentSelectPoint))
                         _uiController.SetScreen(_unitsSelector.GetSelectedUnits()[0]);
@@ -71,6 +76,8 @@ namespace BugStrategy.Selection
                             _uiController.SetScreen(UIScreenType.Gameplay);
                     }
                 }
+                
+                OnTrySelect?.Invoke();
             }
         }
     }

@@ -1,7 +1,7 @@
 using BugStrategy.Constructions.ConstructionLevelSystemCore;
-using BugStrategy.Constructions.UnitsRecruitingSystem;
 using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
 using BugStrategy.TechnologiesSystem;
+using BugStrategy.Unit.RecruitingSystem;
 using BugStrategy.UnitsHideCore;
 
 namespace BugStrategy.Constructions.BeeTownHall
@@ -26,7 +26,7 @@ namespace BugStrategy.Constructions.BeeTownHall
             base.Init(initialLevelIndex);
             
             _recruiter.SetStackCount(CurrentLevel.RecruitingSize);
-            _recruiter.SetNewDatas(CurrentLevel.BeesRecruitingData);
+            _recruiter.SetNewData(CurrentLevel.RecruitingData);
             _hider.SetCapacity(CurrentLevel.HiderCapacity);
         }
         
@@ -35,7 +35,7 @@ namespace BugStrategy.Constructions.BeeTownHall
             base.LevelUpLogic();
 
             _recruiter.SetStackCount(CurrentLevel.RecruitingSize);
-            _recruiter.SetNewDatas(CurrentLevel.BeesRecruitingData);
+            _recruiter.SetNewData(CurrentLevel.RecruitingData);
             _hider.SetCapacity(CurrentLevel.HiderCapacity);
         }
     }

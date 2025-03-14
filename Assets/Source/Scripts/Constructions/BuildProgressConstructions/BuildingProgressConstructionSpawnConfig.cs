@@ -8,7 +8,7 @@ namespace BugStrategy.Constructions.BuildProgressConstructions
     {
         [SerializeField] private ConstructionSpawnConfiguration<BuildingProgressConstruction> _configuration;
 
-        public ConstructionSpawnConfiguration<BuildingProgressConstruction> GetConfiguration()
+		public ConstructionSpawnConfiguration<BuildingProgressConstruction> GetConfiguration()
         {
             return _configuration;
         }
