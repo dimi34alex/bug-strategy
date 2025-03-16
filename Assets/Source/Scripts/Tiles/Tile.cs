@@ -81,8 +81,6 @@ namespace BugStrategy.Tiles
 
             if (ModelChildren.Count() == 0) return;
 
-            Debug.Log(ModelChildren.Count());
-
 			foreach (var child in ModelChildren.Concat(WarFogChildren))
 			{
 				child.gameObject.SetActive(false);
