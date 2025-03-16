@@ -43,17 +43,20 @@ namespace BugStrategy
 
                 if (_inputProvider.LmbDown)//подтверждение строительства здания
                 {
-                    if (hit.collider.name == "TileBase")
+					if (hit.collider.name == "TileBase")
                     {
-                        if (!hit.collider.GetComponent<Tile>().IsVisible)
+						if (!hit.collider.GetComponent<Tile>().IsVisible)
                         {
                             Destroy(_currentConstructionMovableModel);
                             _spawnConstruction = false;
                             return;
                         }
                     }
-                
-                    foreach (var unit in _missionData.UnitRepository.AllUnits)
+
+                    if (!_inputProvider.MouseCursorOverUi() && Physics.Raycast(ray, out var tile, 100F, CustomLayerID.Tiles.Cast<int>(), QueryTriggerInteraction.Ignore))
+                        tile.collider.gameObject.GetComponent<Tile>().HideTileContent();
+
+					foreach (var unit in _missionData.UnitRepository.AllUnits)
                     {
                         if (unit.IsSelected && unit.gameObject.CompareTag("Worker") && CanBuyConstruction(unit.Affiliation, _currentConstructionID))
                         {

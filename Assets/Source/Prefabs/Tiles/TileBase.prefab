@@ -328,6 +328,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4656152a90bf4f4cbe04be72b1e6666, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Model: {fileID: 8791995741079462310}
+  WarFog: {fileID: 1953842570400583478}
 --- !u!64 &6576267505424171195
 MeshCollider:
   m_ObjectHideFlags: 0
