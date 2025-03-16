@@ -27,8 +27,6 @@ MonoBehaviour:
     ConstructionsID: 1e000000
   - ConstructionType: 5
     ConstructionsID: 14000000
-  - ConstructionType: 10
-    ConstructionsID: 19000000
   - ConstructionType: 40
     ConstructionsID: 28000000
   - ConstructionType: 50

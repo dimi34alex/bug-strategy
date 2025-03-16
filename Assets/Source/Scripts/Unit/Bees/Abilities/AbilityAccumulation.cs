@@ -2,9 +2,12 @@ using BugStrategy.Constructions;
 using BugStrategy.Constructions.Factory;
 using BugStrategy.CustomTimer;
 using BugStrategy.Missions;
+using BugStrategy.NotConstructions;
+using BugStrategy.NotConstructions.Factory;
 using BugStrategy.TechnologiesSystem.Technologies;
 using BugStrategy.Unit.AbilitiesCore;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace BugStrategy.Unit.Bees
 {
@@ -14,7 +17,7 @@ namespace BugStrategy.Unit.Bees
         private readonly float _explosionRadius;
         private readonly float _explosionDamage;
         private readonly LayerMask _explosionLayers;
-        private readonly IConstructionFactory _constructionFactory;
+        private readonly INotConstructionFactory _notConstructionFactory;
         private readonly MissionData _missionData;
 
         private TechBumblebeeAccumulation _techBumblebeeAccumulation;
@@ -25,13 +28,13 @@ namespace BugStrategy.Unit.Bees
         public AffiliationEnum Affiliation => _bumblebee.Affiliation;
         
         public AbilityAccumulation(Bumblebee bumblebee, float explosionRadius, float explosionDamage, 
-            LayerMask explosionLayers, IConstructionFactory constructionFactory, MissionData missionData)
+            LayerMask explosionLayers, INotConstructionFactory notConstructionFactory, MissionData missionData)
         {
             _bumblebee = bumblebee;
             _explosionRadius = explosionRadius;
             _explosionDamage = explosionDamage;
             _explosionLayers = explosionLayers;
-            _constructionFactory = constructionFactory;
+            _notConstructionFactory = notConstructionFactory;
             _missionData = missionData;
 
             _bumblebee.OnUnitDiedEvent += Explosion;
@@ -73,8 +76,10 @@ namespace BugStrategy.Unit.Bees
             
             if(_missionData.ConstructionsRepository.ConstructionExist(roundedPosition))
                 return;
-            
-            _constructionFactory.Create<ConstructionBase>(ConstructionID.BeeStickyTileConstruction, roundedPosition, Affiliation);
+            if(_missionData.NotConstructionsRepository.NotConstructionExist(roundedPosition))
+                return;
+
+            _notConstructionFactory.Create<NotConstructionBase>(NotConstructionID.BeeStickyTileConstruction, roundedPosition, Affiliation);
         }
     }
 }

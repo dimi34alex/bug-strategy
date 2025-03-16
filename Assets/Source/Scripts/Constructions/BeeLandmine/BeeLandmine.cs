@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using BugStrategy.Constructions.Factory;
 using BugStrategy.CustomTimer;
 using BugStrategy.TechnologiesSystem;
 using BugStrategy.TechnologiesSystem.Technologies;
@@ -8,6 +7,8 @@ using BugStrategy.Unit;
 using CycleFramework.Extensions;
 using UnityEngine;
 using Zenject;
+using BugStrategy.NotConstructions;
+using BugStrategy.NotConstructions.Factory;
 
 namespace BugStrategy.Constructions.BeeLandmine
 {
@@ -18,7 +19,7 @@ namespace BugStrategy.Constructions.BeeLandmine
         [SerializeField] private LayerMask layerMask;
 
         [Inject] private readonly TechnologyModule _technologyModule;
-        [Inject] private readonly IConstructionFactory _constructionFactory;
+        [Inject] private readonly INotConstructionFactory _notConstructionFactory;
         [Inject] private readonly GridConfig _gridConfig;
         
         private Timer _explosionTimer;
@@ -140,8 +141,10 @@ namespace BugStrategy.Constructions.BeeLandmine
         {
             if(MissionData.ConstructionsRepository.ConstructionExist(position))
                 return;
-            
-            _constructionFactory.Create<BeeStickyTile.BeeStickyTile>(ConstructionID.BeeStickyTileConstruction, position, Affiliation);
+            if(MissionData.NotConstructionsRepository.NotConstructionExist(position))
+                return;
+
+            _notConstructionFactory.Create<NotConstructionBase>(NotConstructionID.BeeStickyTileConstruction, position, Affiliation);
         }
     }
 }

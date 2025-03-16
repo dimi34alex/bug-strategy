@@ -24,13 +24,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4114796297694048933}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -2.7, y: 1.4000002, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 4162381331129194382}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!212 &6342646091919489787
 SpriteRenderer:
@@ -52,7 +52,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 95dcfe0d52b85744a8281048172c7108, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -32767
+  m_SortingOrder: -32761
   m_Sprite: {fileID: 21300000, guid: 498f9108339ce7946aef5b85d4940c72, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -108,13 +108,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5186939871789982949}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 2.89, y: -1.6400005, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 4162381331129194382}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!212 &4900006337173072036
 SpriteRenderer:
@@ -136,7 +136,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 95dcfe0d52b85744a8281048172c7108, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -156,7 +156,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -32767
+  m_SortingOrder: -32763
   m_Sprite: {fileID: 21300000, guid: ff8862b7205a8634695967749f7745ba, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -192,13 +192,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5463673006084034629}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -2.7, y: 1.400001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8013533487112247953}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!212 &8125090060166217145
 SpriteRenderer:
@@ -220,7 +220,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 188bdcdf89cf75a4c899c18813082d77, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -240,9 +240,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1272966221
   m_SortingLayer: 2
-  m_SortingOrder: 100
+  m_SortingOrder: 101
   m_Sprite: {fileID: 21300000, guid: 498f9108339ce7946aef5b85d4940c72, type: 3}
-  m_Color: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -276,13 +276,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6561359485115155976}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 2.89, y: -1.6400005, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8013533487112247953}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!212 &8383472302314112673
 SpriteRenderer:
@@ -304,7 +304,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 188bdcdf89cf75a4c899c18813082d77, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -324,9 +324,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1272966221
   m_SortingLayer: 2
-  m_SortingOrder: 100
+  m_SortingOrder: 103
   m_Sprite: {fileID: 21300000, guid: ff8862b7205a8634695967749f7745ba, type: 3}
-  m_Color: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -341,8 +341,17 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 215373181536281030, guid: 6fc0acfb88a27d54bb4fb281e912e253, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8669633506391663329, guid: 6fc0acfb88a27d54bb4fb281e912e253, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8901687385545631537, guid: 6fc0acfb88a27d54bb4fb281e912e253, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -392,6 +401,21 @@ PrefabInstance:
       value: TileBase Variant 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 4777901455048847436, guid: 6fc0acfb88a27d54bb4fb281e912e253, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8855484031283959125}
+    - targetCorrespondingSourceObject: {fileID: 4777901455048847436, guid: 6fc0acfb88a27d54bb4fb281e912e253, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4174215311408028964}
+    - targetCorrespondingSourceObject: {fileID: 1493209310282104147, guid: 6fc0acfb88a27d54bb4fb281e912e253, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6720678557585324667}
+    - targetCorrespondingSourceObject: {fileID: 1493209310282104147, guid: 6fc0acfb88a27d54bb4fb281e912e253, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 934059051520674227}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6fc0acfb88a27d54bb4fb281e912e253, type: 3}
 --- !u!4 &4162381331129194382 stripped
 Transform:

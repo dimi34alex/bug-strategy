@@ -17,11 +17,12 @@ using Zenject;
 
 namespace BugStrategy.Unit
 {
-    public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable, ITarget, IMiniMapObject,
+    public abstract class UnitBase : MonoBehaviour, IUnit, ITriggerable, IDamagable, ITarget,
         ISelectable, Pool.IPoolable<UnitBase, UnitType>, IPoolEventListener, IHealable, IAffiliation,
         IEffectable, IPoisonEffectable, IStickyHoneyEffectable, IMoveSpeedChangeEffectable
     {
         [Inject] private readonly EffectsFactory _effectsFactory;
+        [Inject] private readonly MiniMapObjViewFactory _miniMapObjViewFactory;
 
         private NavMeshAgent _navMeshAgent;
         
@@ -46,7 +47,6 @@ namespace BugStrategy.Unit
         public UnitInteractionZone DynamicUnitZone { get; private set; }
 
         public TargetType TargetType => TargetType.Unit;
-        public MiniMapObjectType MiniMapObjectType => MiniMapObjectType.Unit;
         public IReadOnlyFloatStorage HealthStorage => _healthStorage;
         public EntityStateMachine StateMachine => _stateMachine;
         public UnitType Identifier => UnitType;
@@ -172,6 +172,8 @@ namespace BugStrategy.Unit
         public virtual void Initialize(AffiliationEnum affiliation)
         {
             Affiliation = affiliation;
+            _miniMapObjViewFactory.CreateUnitIcon(transform, Affiliation);
+
             TargetMovePosition = transform.position;
             _navMeshAgent.SetDestination(TargetMovePosition);
         }
