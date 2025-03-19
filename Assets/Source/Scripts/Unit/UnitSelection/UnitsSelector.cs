@@ -14,7 +14,7 @@ namespace BugStrategy.Unit.UnitSelection
 
         public event Action OnSelectionChanged;
 
-        public bool SelectUnits(Vector3 selectedStartPoint, Vector3 selectedEndPoint)
+        public bool SelectUnits(Vector3 selectedStartPoint, Vector3 selectedEndPoint, AffiliationEnum playerAffiliation)
         {
             var startPoint = new Vector2(selectedStartPoint.x, selectedStartPoint.z);
             var endPoint = new Vector2(selectedEndPoint.x, selectedEndPoint.z);
@@ -30,6 +30,12 @@ namespace BugStrategy.Unit.UnitSelection
             var anyUnit = false;
             foreach (var unit in UnitsInScreen)
             {
+#if !UNITY_EDITOR
+                if (unit.Affiliation != playerAffiliation)
+                {
+                    continue;
+                }
+#endif
                 var unitCoordinate = new Vector2(unit.transform.position.x, unit.transform.position.z);
 
                 if (CheckSelectionBounds(unitCoordinate, startPoint, endPoint))

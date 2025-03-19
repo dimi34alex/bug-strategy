@@ -52,7 +52,7 @@ namespace BugStrategy.Selection
                 {
                     _missionData.ConstructionSelector.ResetSelection();
                     _unitsSelector.DeselectAll();
-                    if (_unitsSelector.SelectUnits(StartSelectPoint, CurrentSelectPoint))
+                    if (_unitsSelector.SelectUnits(StartSelectPoint, CurrentSelectPoint, _missionData.PlayerAffiliation))
                         _uiController.SetScreen(_unitsSelector.GetSelectedUnits()[0]);
                     else
                         _uiController.SetScreen(UIScreenType.Gameplay);
@@ -61,7 +61,7 @@ namespace BugStrategy.Selection
                 {
                     var ray = Camera.main.ScreenPointToRay(_inputProvider.MousePosition);
                     
-                    if (_missionData.ConstructionSelector.TrySelect(ray))
+                    if (_missionData.ConstructionSelector.TrySelect(ray, _missionData.PlayerAffiliation))
                     {
                         var selectedConstruction = _missionData.ConstructionSelector.SelectedConstruction;
                         selectedConstruction.Select();
@@ -70,7 +70,7 @@ namespace BugStrategy.Selection
                     else
                     {
                         _unitsSelector.DeselectAll();
-                        if (_unitsSelector.SelectUnits(StartSelectPoint, CurrentSelectPoint))
+                        if (_unitsSelector.SelectUnits(StartSelectPoint, CurrentSelectPoint, _missionData.PlayerAffiliation))
                             _uiController.SetScreen(_unitsSelector.GetSelectedUnits()[0]);
                         else
                             _uiController.SetScreen(UIScreenType.Gameplay);

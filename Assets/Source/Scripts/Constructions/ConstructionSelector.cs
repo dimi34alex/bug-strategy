@@ -18,7 +18,7 @@ namespace BugStrategy.Constructions
             _constructionGrid = constructionGrid;
         }
 
-        public bool TrySelect(Ray ray)
+        public bool TrySelect(Ray ray, AffiliationEnum playerAffiliation)
         {
             if (Physics.Raycast(ray, out RaycastHit hitInfo, 50f, CustomLayerID.Construction_Ground.Cast<int>()))
             {
@@ -26,6 +26,15 @@ namespace BugStrategy.Constructions
 
                 if (_constructionGrid.ConstructionExist(position))
                 {
+                    var construction = _constructionGrid.GetConstruction(position);
+#if !UNITY_EDITOR
+                    if (construction.Affiliation != playerAffiliation)
+                    {
+                        ResetSelection();
+                        return false;
+                    }
+#endif
+
                     LastSelectedConstruction = SelectedConstruction;
                     SelectedConstruction = _constructionGrid.GetConstruction(position);
                     OnSelectionChange?.Invoke();
