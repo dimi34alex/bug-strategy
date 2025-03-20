@@ -19,7 +19,8 @@ namespace BugStrategy.Ai.UnitAis
                 new BuildOrderEvaluator(workerBee, this),
                 new RepairOrderEvaluator(workerBee, this),
                 new HideInConstructionOrderEvaluator(workerBee, this),
-                new StorageResourceStateOrderEvaluator(workerBee, this, workerBee.ResourceExtractionProcessor)
+                new StorageResourceStateOrderEvaluator(workerBee, this, workerBee.ResourceExtractionProcessor),
+                new WorkerBeeAttackOrderEvaluator(workerBee, this, workerBee.AttackProcessor)
             };
         }
     }

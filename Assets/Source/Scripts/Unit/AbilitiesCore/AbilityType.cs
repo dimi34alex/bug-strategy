@@ -11,6 +11,7 @@ namespace BugStrategy.Unit.AbilitiesCore
         StickyProjectiles = 40,
         SwordStrike = 45,
         VerifiedBites = 50,
-        Repairing = 55
+        Repairing = 55,
+        HiveProtection = 60
     }
 }

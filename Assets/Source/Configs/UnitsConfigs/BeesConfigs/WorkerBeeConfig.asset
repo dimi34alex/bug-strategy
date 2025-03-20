@@ -19,3 +19,5 @@ MonoBehaviour:
   <GatheringTime>k__BackingField: 7
   <RepairValue>k__BackingField: 100
   <RepairCooldown>k__BackingField: 2
+  <AttackDamage>k__BackingField: 100
+  <AttackRange>k__BackingField: 2
