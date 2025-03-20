@@ -2,16 +2,15 @@ using System;
 using BugStrategy.CustomTimer;
 using BugStrategy.Pool;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace BugStrategy.Audio.Sources
 {
     [RequireComponent(typeof(AudioSource))]
-    public class AudioSourceHolderPoolable : MonoBehaviour, IPoolable<AudioSourceHolderPoolable, AudioSourceType>, IPoolEventListener
+    public class AudioSourceHolderPoolable : MonoBehaviour, IPoolable<AudioSourceHolderPoolable>, IPoolEventListener
     {
-        [field: SerializeField] public AudioSourceType PoolId { get; private set; }
-        [SerializeField] private bool useLocalPause = true;
-        
-        public AudioSourceType Identifier => PoolId;
+        [SerializeField] private float minPitch = 1f;
+        [SerializeField] private float maxPitch = 1f;
 
         private AudioSource _audioSource;
         private Timer _existTimer;
@@ -27,8 +26,11 @@ namespace BugStrategy.Audio.Sources
             _existTimer.OnTimerEnd += () => ElementReturnEvent?.Invoke(this);
         }
 
+        public void AutoPitch() 
+            => _audioSource.pitch = Random.Range(minPitch, maxPitch);
+
         private void Update() 
-            => _existTimer.Tick(useLocalPause ? Time.deltaTime : Time.unscaledDeltaTime);
+            => _existTimer.Tick(Time.deltaTime);
 
         public void SetPitch(float newPitch) 
             => _audioSource.pitch = newPitch;
@@ -39,12 +41,6 @@ namespace BugStrategy.Audio.Sources
             gameObject.SetActive(true);
 #endif
 
-            if (useLocalPause)
-            {
-                // LocalGamePause.OnPaused += Pause;
-                // LocalGamePause.OnContinued += Continue;
-            }
-
             _existTimer.Reset();
             _audioSource.Play();
         }
@@ -54,19 +50,10 @@ namespace BugStrategy.Audio.Sources
             _existTimer.SetPause();
             _audioSource.Stop();
             
-            // LocalGamePause.OnPaused -= Pause;
-            // LocalGamePause.OnContinued -= Continue;
-            
 #if UNITY_EDITOR
             gameObject.SetActive(false);
 #endif
         }
-
-        private void Pause() 
-            => _audioSource.Pause();
-
-        private void Continue() 
-            => _audioSource.Play();
 
         private void OnDestroy() 
             => ElementDestroyEvent?.Invoke(this);
