@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2b68e7025d74add827c0eb189a9b30c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <PoolId>k__BackingField: 0
-  useLocalPause: 1
+  minPitch: 0.8
+  maxPitch: 1.2
 --- !u!82 &2806379245768473597
 AudioSource:
   m_ObjectHideFlags: 0

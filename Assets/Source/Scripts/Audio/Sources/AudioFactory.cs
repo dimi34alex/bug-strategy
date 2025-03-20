@@ -1,49 +1,61 @@
-using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
-using Random = UnityEngine.Random;
 
 namespace BugStrategy.Audio.Sources
 {
     public class AudioFactory
     {
-        private readonly Transform _parent;
+        private readonly Transform _mainParent;
         private readonly DiContainer _diContainer;
-        private readonly AudioSourcesConfig _config;
-        private readonly Pool.Pool<AudioSourceHolderPoolable, AudioSourceType> _pool;
-        
-        public event Action<AudioSourceHolderPoolable> OnCreate;
+        private readonly Dictionary<string, Transform> _parents = new();
+        private readonly Dictionary<string, Pool.Pool<AudioSourceHolderPoolable>> _pools = new();
 
-        public AudioFactory(DiContainer diContainer, AudioSourcesConfig config)
+        private AudioSourceHolderPoolable _hashedPrefab;
+        
+        public AudioFactory(DiContainer diContainer)
         {
             _diContainer = diContainer;
-            _config = config;
 
-            _pool = new Pool.Pool<AudioSourceHolderPoolable, AudioSourceType>(InstantiateEntity);
-            _parent = new GameObject { transform = { name = "Audio" } }.transform;
+            _mainParent = new GameObject { transform = { name = "Audio" } }.transform;
+        }
+
+        public AudioSourceHolderPoolable Create(AudioSourceHolderPoolable prefab, Vector3 position)
+        {
+            var key = prefab.gameObject.name;
+            var audioSource = Create(key, prefab, position);
+            audioSource.AutoPitch();
+            return audioSource;
         }
         
-        public void Create(AudioSourceType audioSourceType, Vector3 position = new())
+        public AudioSourceHolderPoolable Create(AudioSourceHolderPoolable prefab, Vector3 position, float pitch)
         {
-            var audioSource = _pool.ExtractElement(audioSourceType);
-            
-            audioSource.transform.position = position;
-
-            var pitch = _config.Data[audioSourceType].Pitch;
-            var pitchRange = _config.Data[audioSourceType].PitchRange;
-            pitch += Random.Range(-pitchRange, pitchRange);
-            
+            var key = prefab.gameObject.name;
+            var audioSource = Create(key, prefab, position);
             audioSource.SetPitch(pitch);
+            return audioSource;
+        }
+        
+        public AudioSourceHolderPoolable Create(string key, AudioSourceHolderPoolable prefab, Vector3 position)
+        {
+            _hashedPrefab = prefab;
+            if (!_pools.ContainsKey(key))
+            {
+                _pools.Add(key, new Pool.Pool<AudioSourceHolderPoolable>(InstantiateEntity));
+
+                var parent = new GameObject { transform = { name = key , parent = _mainParent} }.transform;
+                _parents.Add(key, parent);
+            }
             
-            OnCreate?.Invoke(audioSource);
+            var element = _pools[key].ExtractElement();
+            element.transform.position = position;
+
+            return element;
         }
 
-        private AudioSourceHolderPoolable InstantiateEntity(AudioSourceType audioSourceType)
+        private AudioSourceHolderPoolable InstantiateEntity()
         {
-            if (!_config.Data.ContainsKey(audioSourceType))
-                throw new ArgumentOutOfRangeException($"{nameof(_config)} doesnt contains {audioSourceType}");
-
-            var someAudioSource = _diContainer.InstantiatePrefab(_config.Data[audioSourceType].AudioSourceHolderPoolablePrefab, _parent).GetComponent<AudioSourceHolderPoolable>();
+            var someAudioSource = _diContainer.InstantiatePrefab(_hashedPrefab, _parents[_hashedPrefab.name]).GetComponent<AudioSourceHolderPoolable>();
             return someAudioSource;
         }
     }
