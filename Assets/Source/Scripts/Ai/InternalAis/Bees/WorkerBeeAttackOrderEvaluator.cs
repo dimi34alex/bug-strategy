@@ -1,4 +1,3 @@
-using System;
 using BugStrategy.Libs;
 using BugStrategy.Unit;
 using BugStrategy.Unit.ProcessorsCore;
@@ -6,12 +5,12 @@ using CycleFramework.Extensions;
 
 namespace BugStrategy.Ai.InternalAis
 {
-    public class AttackOrderEvaluator : UnitInternalEvaluator
+    public class WorkerBeeAttackOrderEvaluator : UnitInternalEvaluator
     {
         private readonly IReadOnlyAttackProcessor _attackProcessor;
         private ITarget _hashedTarget;
 
-        public AttackOrderEvaluator(UnitBase unit, InternalAiBase internalAi, IReadOnlyAttackProcessor attackProcessor)
+        public WorkerBeeAttackOrderEvaluator(UnitBase unit, InternalAiBase internalAi, IReadOnlyAttackProcessor attackProcessor)
             : base(unit, internalAi)
         {
             _attackProcessor = attackProcessor;
@@ -30,19 +29,6 @@ namespace BugStrategy.Ai.InternalAis
                         _hashedTarget = Unit.CurrentPathData.Target;
                         return 5;
                     }
-
-                    if (_attackProcessor.CheckEnemiesInAttackZone())
-                    {
-                        _hashedTarget = null;
-                        return 1;
-                    }
-
-                    if (!UnitInternalAi.Attacker.IsAnyNull())
-                    {
-                        _hashedTarget = UnitInternalAi.Attacker;
-                        return 1;
-                    }
-                    
                     break;
                 case AiUnitStateType.Attack:
                     if (_attackProcessor.TargetInZone(UnitInternalAi.GlobalAiOrderTarget))
@@ -78,19 +64,6 @@ namespace BugStrategy.Ai.InternalAis
                         return 1;
                     }
                     
-                    break;
-                case AiUnitStateType.Idle:
-                    if (_attackProcessor.CheckEnemiesInAttackZone())
-                    {
-                        _hashedTarget = null;
-                        return 2;
-                    }
-                    
-                    if (!UnitInternalAi.Attacker.IsAnyNull())
-                    {
-                        _hashedTarget = UnitInternalAi.Attacker;
-                        return 1;
-                    }
                     break;
                 default:
                     _hashedTarget = null;

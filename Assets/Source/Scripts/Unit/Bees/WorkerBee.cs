@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using BugStrategy.Ai.InternalAis;
 using BugStrategy.Ai.UnitAis;
-using BugStrategy.CustomInput;
 using BugStrategy.EntityState;
 using BugStrategy.Missions;
 using BugStrategy.ResourcesSystem.ResourcesGlobalStorage;
@@ -10,6 +8,7 @@ using BugStrategy.Selection;
 using BugStrategy.TechnologiesSystem;
 using BugStrategy.TechnologiesSystem.Technologies;
 using BugStrategy.Unit.AbilitiesCore;
+using BugStrategy.Unit.Bees.WorkerBeeAttack;
 using BugStrategy.Unit.OrderValidatorCore;
 using BugStrategy.Unit.ProcessorsCore;
 using BugStrategy.Unit.Repairing;
@@ -35,12 +34,17 @@ namespace BugStrategy.Unit.Bees
         protected override BeeConfigBase ConfigBase => config;
 
         private RepairAbility _repairAbility;
+        private HiveProtectionAbility _hiveProtectionAbility;
         private readonly List<IActiveAbility> _activeAbilities = new (1);
         
-        private RepairApplier _repairApplier;
+        private CooldownProcessor _cooldownProcessor;
+        private AttackProcessorBase _attackProcessor;
+
         private OrderValidatorBase _orderValidator;
         private RepairProcessor _repairProcessor;
         private ResourceExtractionProcessor _resourceExtractionProcessor;
+        
+        public IReadOnlyAttackProcessor AttackProcessor => _attackProcessor;
         public IReadOnlyResourceExtractionProcessor ResourceExtractionProcessor => _resourceExtractionProcessor;
         public override InternalAiBase InternalAi { get; protected set; }
 
@@ -52,9 +56,13 @@ namespace BugStrategy.Unit.Bees
         {
             base.OnAwake();
 
-            _repairApplier = new RepairApplier(_selector);
-            _repairAbility = new RepairAbility(this, _repairApplier);
+            _cooldownProcessor = new CooldownProcessor(1);
+            _attackProcessor = new MeleeAttackProcessor(this, config.AttackRange, config.AttackDamage, _cooldownProcessor);
+            
+            _repairAbility = new RepairAbility(this, new RepairApplier(_selector));
+            _hiveProtectionAbility = new HiveProtectionAbility(this, new HiveProtectionApplier(_selector));
             _activeAbilities.Add(_repairAbility);
+            _activeAbilities.Add(_hiveProtectionAbility);
 
             _repairProcessor = new RepairProcessor(config.RepairValue, config.RepairCooldown);
             _resourceExtractionProcessor = new ResourceExtractionProcessor(this, config.GatheringCapacity, config.GatheringTime,
@@ -69,7 +77,8 @@ namespace BugStrategy.Unit.Bees
                 new RepairState(this, _repairProcessor),
                 new ResourceExtractionState(this, _resourceExtractionProcessor),
                 new StorageResourceState(this, _resourceExtractionProcessor),
-                new HideInConstructionState(this, this, ReturnInPool)
+                new HideInConstructionState(this, this, ReturnInPool),
+                new WorkerBeeAttackState(this, _attackProcessor, _cooldownProcessor)
             };
             _stateMachine = new EntityStateMachine(stateBases, EntityStateID.Idle);
 
@@ -81,6 +90,7 @@ namespace BugStrategy.Unit.Bees
             base.HandleUpdate(time);
             
             _resourceExtractionProcessor.HandleUpdate(time);
+            _cooldownProcessor.HandleUpdate(time);
         }
 
         public override void OnElementExtract()
@@ -91,6 +101,7 @@ namespace BugStrategy.Unit.Bees
             _resourceExtractionProcessor.Reset();
             _repairProcessor.Reset();
             _repairAbility.Reset();
+            _hiveProtectionAbility.Reset();
 
             _stateMachine.SetState(EntityStateID.Idle);
         }

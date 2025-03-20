@@ -11,5 +11,9 @@ namespace BugStrategy.Unit.Bees
         [field: Header("Repairing")]
         [field: SerializeField, Min(0)] public float RepairValue { get; private set; }
         [field: SerializeField, Min(0)] public float RepairCooldown { get; private set; }
+        [field: Header("Hive Protection")]
+        [field: SerializeField, Min(0)] public float AttackDamage { get; private set; }
+        [field: SerializeField, Min(0)] public float AttackRange { get; private set; }
+
     }
 }

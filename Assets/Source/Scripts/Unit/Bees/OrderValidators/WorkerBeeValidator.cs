@@ -69,6 +69,11 @@ namespace BugStrategy.Unit.Bees
             
             switch (pathType)
             {
+                case UnitPathType.Attack:
+                    if (target.Affiliation != Affiliation)
+                        return UnitPathType.Attack;
+                    
+                    break;
                 case UnitPathType.Build_Construction:
                     if (target.TargetType == TargetType.Construction &&
                         //TODO: create ants constructions and start check affiliations

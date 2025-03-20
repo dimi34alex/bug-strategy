@@ -8,15 +8,13 @@ namespace BugStrategy.Unit
     {
         public override void InstallBindings()
         {
-            BindSelector();
             BindRepository();
             BindFactory();
+            BindPlayerSelector();
+            BindEnemySelector();
             BindHousingReturner();
         }
-
-        private void BindSelector() 
-            => Container.Bind<UnitsSelector>().FromNew().AsSingle();
-
+        
         private void BindRepository() 
             => Container.BindInterfacesAndSelfTo<UnitRepository>().FromNew().AsSingle();
         
@@ -25,6 +23,12 @@ namespace BugStrategy.Unit
             var unitFactory = FindObjectOfType<UnitFactory>(true);
             Container.Bind<UnitFactory>().FromInstance(unitFactory).AsSingle();
         }
+        
+        private void BindPlayerSelector() 
+            => Container.Bind<PlayerUnitsSelector>().FromNew().AsSingle();
+
+        private void BindEnemySelector() 
+            => Container.Bind<EnemyUnitsSelector>().FromNew().AsSingle();
         
         private void BindHousingReturner() 
             => Container.Bind<HousingBacker>().FromNew().AsSingle().NonLazy();

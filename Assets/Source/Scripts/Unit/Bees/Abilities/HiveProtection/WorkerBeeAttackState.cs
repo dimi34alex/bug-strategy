@@ -5,9 +5,10 @@ using BugStrategy.Unit.ProcessorsCore;
 
 namespace BugStrategy.Unit
 {
-    public class AttackState : EntityStateBase
+    public class WorkerBeeAttackState : EntityStateBase, IDamageApplicator
     {
         public override EntityStateID EntityStateID => EntityStateID.Attack;
+        public float Damage => 999;
 
         private readonly UnitBase _unit;
 
@@ -18,14 +19,14 @@ namespace BugStrategy.Unit
         
         public override event Action StateExecuted;
         
-        public AttackState(UnitBase unit, WarriorOrderValidator warriorOrderValidator)
+        public WorkerBeeAttackState(UnitBase unit, WarriorOrderValidator warriorOrderValidator)
         {
             _unit = unit;
             _attackProcessor = warriorOrderValidator.AttackProcessor;
             _cooldownProcessor = warriorOrderValidator.Cooldown;
         }
         
-        public AttackState(UnitBase unit, AttackProcessorBase attackProcessor, IReadOnlyCooldownProcessor cooldownProcessor)
+        public WorkerBeeAttackState(UnitBase unit, AttackProcessorBase attackProcessor, IReadOnlyCooldownProcessor cooldownProcessor)
         {
             _unit = unit;
             _attackProcessor = attackProcessor;
@@ -36,7 +37,6 @@ namespace BugStrategy.Unit
         {
             if(!_attackProcessor.CheckEnemiesInAttackZone())
             {
-                // _unit.AutoGiveOrder(null);
                 StateExecuted?.Invoke();
                 return;
             }
@@ -44,7 +44,8 @@ namespace BugStrategy.Unit
             _cooldownProcessor.OnCooldownEnd += TryAttack;
             _attackProcessor.OnExitEnemyFromZone += OnExitEnemyFromZone;
 
-            if(CanAttack) TryAttack();
+            if(CanAttack) 
+                TryAttack();
         }
 
         public override void OnStateExit()
@@ -58,14 +59,14 @@ namespace BugStrategy.Unit
             
         }
         
-        private void TryAttack() 
-            => _attackProcessor.TryAttack(_unit.CurrentPathData.Target);
-        
+        private void TryAttack()
+        {
+            _attackProcessor.TryAttack(_unit.CurrentPathData.Target);
+            _unit.TakeDamage(this, 1);
+        }
+
         private void OnExitEnemyFromZone()
         {
-            //if(_attackProcessor.EnemiesCount <= 0)
-                // _unit.AutoGiveOrder(null);
-
             StateExecuted?.Invoke();
         }
     }

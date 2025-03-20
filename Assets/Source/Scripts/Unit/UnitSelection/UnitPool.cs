@@ -17,7 +17,7 @@ namespace BugStrategy.Unit.UnitSelection
 
     public class UnitPool : MonoBehaviour
     {
-        [Inject] private UnitsSelector _unitsSelector;
+        [Inject] private PlayerUnitsSelector _playerUnitsSelector;
         
         public List<UnitBase> movingUnits;
 
@@ -96,7 +96,7 @@ namespace BugStrategy.Unit.UnitSelection
         {
             List<UnitBase> group = _groupsWithID[id];
 
-            _unitsSelector.DeselectAll();
+            _playerUnitsSelector.DeselectAll();
         
             foreach (UnitBase groupUnit in group)
                 groupUnit.GetComponent<UnitBase>().Select();
