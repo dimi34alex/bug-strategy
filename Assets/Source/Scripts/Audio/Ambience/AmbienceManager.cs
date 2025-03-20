@@ -26,6 +26,7 @@ namespace BugStrategy.Audio.Ambience
                 StopCoroutine(_transitionCoroutine);
             
             var newAmbience = Instantiate(newAmbiencePrefab, transform);
+            newAmbience.name = newAmbiencePrefab.name;
             _transitionCoroutine = StartCoroutine(TransitionAmbience(newAmbience, transitionTime));
         }
     
