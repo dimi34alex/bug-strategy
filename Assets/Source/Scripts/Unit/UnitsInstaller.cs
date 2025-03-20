@@ -10,8 +10,7 @@ namespace BugStrategy.Unit
         {
             BindRepository();
             BindFactory();
-            BindPlayerSelector();
-            BindEnemySelector();
+            BindSelector();
             BindHousingReturner();
         }
         
@@ -24,12 +23,9 @@ namespace BugStrategy.Unit
             Container.Bind<UnitFactory>().FromInstance(unitFactory).AsSingle();
         }
         
-        private void BindPlayerSelector() 
-            => Container.Bind<PlayerUnitsSelector>().FromNew().AsSingle();
+        private void BindSelector() 
+            => Container.Bind<UnitsSelector>().FromNew().AsSingle();
 
-        private void BindEnemySelector() 
-            => Container.Bind<EnemyUnitsSelector>().FromNew().AsSingle();
-        
         private void BindHousingReturner() 
             => Container.Bind<HousingBacker>().FromNew().AsSingle().NonLazy();
     }

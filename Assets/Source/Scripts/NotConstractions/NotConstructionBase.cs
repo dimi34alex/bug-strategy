@@ -35,7 +35,7 @@ namespace BugStrategy.NotConstructions
         public event Action Initialized;
         public event Action<ITarget> OnDeactivation;
         public event Action<ITriggerable> OnDisableITriggerableEvent;
-        public event Action OnSelect;
+        public event Action<bool> OnSelect;
         public event Action OnDeselect;
     
         protected void Awake() => OnAwake();
@@ -69,12 +69,12 @@ namespace BugStrategy.NotConstructions
             OnDeactivation?.Invoke(this);
         }
 
-        public void Select()
+        public void Select(bool isFullView)
         {
             if(IsSelected) return;
 
             IsSelected = true;
-            OnSelect?.Invoke();
+            OnSelect?.Invoke(isFullView);
         }
 
         public void Deselect()

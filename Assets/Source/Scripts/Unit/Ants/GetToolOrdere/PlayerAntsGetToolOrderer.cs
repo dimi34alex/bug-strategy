@@ -5,16 +5,16 @@ namespace BugStrategy.Unit.Ants.GetToolOrdere
 {
     public class PlayerAntsGetToolOrderer
     {
-        private readonly PlayerUnitsSelector _playerUnitsSelector;
+        private readonly UnitsSelector _unitsSelector;
 
-        public PlayerAntsGetToolOrderer(PlayerUnitsSelector playerUnitsSelector)
+        public PlayerAntsGetToolOrderer(UnitsSelector unitsSelector)
         {
-            _playerUnitsSelector = playerUnitsSelector;
+            _unitsSelector = unitsSelector;
         }
 
         public void GiveOrder(AntWorkshopBase workshop, UnitType unitType, ProfessionType targetProfession, int targetRang)
         {
-            var allSelectedSpecificUnits = _playerUnitsSelector.GetSelectedUnits(unitType);
+            var allSelectedSpecificUnits = _unitsSelector.GetPlayerSelectedUnits(unitType);
 
             foreach (var unitBase  in allSelectedSpecificUnits)
             {

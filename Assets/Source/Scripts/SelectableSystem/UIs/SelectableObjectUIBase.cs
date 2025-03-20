@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace BugStrategy.SelectableSystem
@@ -9,21 +8,22 @@ namespace BugStrategy.SelectableSystem
         [SerializeField] protected TSelectable selectable;
         [SerializeField] private GameObject canvas;
     
-        public event Action SelectedEvent;
-        public event Action DeselectedEvent;
-    
-        private void Start() => OnStart();
+        private void Start() => Initialize();
 
-        protected virtual void OnStart()
+        protected virtual void Initialize()
         {
             canvas.SetActive(selectable.IsSelected);
-            selectable.OnSelect += () => canvas.SetActive(true);
-            selectable.OnDeselect += () => canvas.SetActive(false);
         
-            selectable.OnSelect += () => SelectedEvent?.Invoke();
-            selectable.OnDeselect += () => DeselectedEvent?.Invoke();
+            selectable.OnSelect += OnSelect;
+            selectable.OnDeselect += OnDeselect;
         }
 
-        private void OnDestroy() => DeselectedEvent?.Invoke();
+        protected virtual void OnSelect(bool isFullView)
+            => canvas.SetActive(true);
+
+        protected virtual void OnDeselect() 
+            => canvas.SetActive(false);
+
+        private void OnDestroy() => OnDeselect();
     }
 }

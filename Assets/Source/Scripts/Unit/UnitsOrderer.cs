@@ -14,7 +14,7 @@ namespace BugStrategy.Unit
         [SerializeField] private LayerMask targetsLayers;
         
         [Inject] private readonly Selector _selector;
-        [Inject] private readonly PlayerUnitsSelector _playerUnitsSelector;
+        [Inject] private readonly UnitsSelector _unitsSelector;
         [Inject] private readonly IInputProvider _inputProvider;
         [Inject] private readonly UnitsTargetPositionMarkerFactory _unitsTargetPositionMarkerFactory;
 
@@ -25,7 +25,7 @@ namespace BugStrategy.Unit
 
         private void OrderProcess()
         {
-            var selectedUnits = _playerUnitsSelector.GetSelectedUnits();
+            var selectedUnits = _unitsSelector.GetPlayerSelectedUnits();
             if (_inputProvider.RmbDown && selectedUnits.Count > 0 && !_selector.IsSelectProcess)
             {
                 var ray = Camera.ScreenPointToRay(_inputProvider.MousePosition);

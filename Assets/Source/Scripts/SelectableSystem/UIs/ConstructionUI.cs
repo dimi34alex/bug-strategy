@@ -7,13 +7,25 @@ namespace BugStrategy.SelectableSystem
     {
         [SerializeField] private HealthBar healthBar;
     
-        protected override void OnStart()
+        protected override void Initialize()
         {
-            base.OnStart();
+            base.Initialize();
         
             healthBar.Init(selectable.HealthStorage);
-            SelectedEvent += healthBar.OnSelect;
-            DeselectedEvent += healthBar.OnDeselect;
+        }
+
+        protected override void OnSelect(bool isFullView)
+        {
+            base.OnSelect(isFullView);
+
+            healthBar.OnSelect();
+        }
+
+        protected override void OnDeselect()
+        {
+            base.OnDeselect();
+
+            healthBar.OnDeselect();
         }
     }
 }

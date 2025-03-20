@@ -31,10 +31,10 @@ namespace BugStrategy.Unit.Bees.WorkerBeeAttack
             if (_activeHiveProtectionAbility == null)
                 return;
             
-            if (_selector.EnemyUnitsSelector.GetSelectedUnits().Count <= 0)
+            if (_selector.UnitsSelector.GetEnemySelectedUnits().Count <= 0)
                 return;
             
-            _activeHiveProtectionAbility.Apply(_selector.EnemyUnitsSelector.GetSelectedUnits()[0]);
+            _activeHiveProtectionAbility.Apply(_selector.UnitsSelector.GetEnemySelectedUnits()[0]);
             _activeHiveProtectionAbility = null;
         }
     }

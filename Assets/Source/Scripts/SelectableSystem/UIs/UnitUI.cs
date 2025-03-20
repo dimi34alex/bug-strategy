@@ -14,23 +14,37 @@ namespace BugStrategy.SelectableSystem
 
         [Inject] private UIAbilitiesConfig _uiAbilitiesConfig;
         
-        protected override void OnStart()
+        protected override void Initialize()
         {
-            base.OnStart();
-
-            OnSelectionUI[] onSelectionUIs = { healthBar, selectionField, abilitiesBar };
+            base.Initialize();
 
             healthBar.Init(selectable.HealthStorage);
             selectionField.Init(selectable.IsSelected);
 
             if (selectable.TryCast(out IAbilitiesOwner abilitiesOwner)) 
                 abilitiesBar.Init(abilitiesOwner.Abilities, _uiAbilitiesConfig);
+        }
 
-            foreach (var OoSelectionUI in onSelectionUIs)
+        protected override void OnSelect(bool isFullView)
+        {
+            base.OnSelect(isFullView);
+
+            healthBar.OnSelect();
+
+            if (isFullView)
             {
-                SelectedEvent += OoSelectionUI.OnSelect;
-                DeselectedEvent += OoSelectionUI.OnDeselect;
-            } 
+                abilitiesBar.OnSelect();
+                selectionField.OnSelect();
+            }
+        }
+
+        protected override  void OnDeselect()
+        {
+            base.OnDeselect();
+            
+            healthBar.OnDeselect();
+            selectionField.OnDeselect();
+            abilitiesBar.OnDeselect();
         }
     }
 }

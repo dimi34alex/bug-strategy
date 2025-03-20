@@ -80,7 +80,7 @@ namespace BugStrategy.Unit
         public event Action<UnitBase> OnUnitDied;
         public event Action OnUnitDiedEvent;
         public event Action<ITriggerable> OnDisableITriggerableEvent;
-        public event Action OnSelect;
+        public event Action<bool> OnSelect;
         public event Action OnDeselect;
         public event Action<UnitBase> ElementReturnEvent;
         public event Action<UnitBase> ElementDestroyEvent;
@@ -220,12 +220,12 @@ namespace BugStrategy.Unit
         public void TakeHeal(float value)
             => _healthStorage.ChangeValue(value);
 
-        public void Select()
+        public void Select(bool isFullView)
         {
             if (IsSelected) return;
 
             IsSelected = true;
-            OnSelect?.Invoke();
+            OnSelect?.Invoke(isFullView);
         }
 
         public void Deselect()

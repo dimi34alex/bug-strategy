@@ -31,8 +31,7 @@ namespace BugStrategy.Missions
         
         public readonly ITeamsResourcesGlobalStorage TeamsResourcesGlobalStorage;
         public readonly ConstructionSelector ConstructionSelector;
-        public readonly PlayerUnitsSelector PlayerUnitsSelector;
-        public readonly EnemyUnitsSelector EnemyUnitsSelector;
+        public readonly UnitsSelector UnitsSelector;
 
         public FractionType PlayerFraction => FractionTypes[PlayerAffiliation];
         
@@ -46,8 +45,7 @@ namespace BugStrategy.Missions
             ConstructionsRepository constructionsRepository,
             NotConstructionsRepository notConstructionsRepository,
             ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage, 
-            PlayerUnitsSelector playerUnitsSelector,
-            EnemyUnitsSelector enemyUnitsSelector,
+            UnitsSelector unitsSelector,
             TilesRepository tilesRepository) 
         {
             MissionIndex = missionIndex;
@@ -59,8 +57,7 @@ namespace BugStrategy.Missions
             ConstructionsRepository = constructionsRepository;
             NotConstructionsRepository = notConstructionsRepository;
             TeamsResourcesGlobalStorage = teamsResourcesGlobalStorage;
-            PlayerUnitsSelector = playerUnitsSelector;
-            EnemyUnitsSelector = enemyUnitsSelector;
+            UnitsSelector = unitsSelector;
             TilesRepository = tilesRepository;
 
             PlayerAffiliation = missionConfig.PlayerAffiliation;

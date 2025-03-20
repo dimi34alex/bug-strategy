@@ -40,7 +40,7 @@ namespace BugStrategy.Constructions
         public event Action OnDestruction;
         public event Action<ITarget> OnDeactivation;
         public event Action<ITriggerable> OnDisableITriggerableEvent;
-        public event Action OnSelect;
+        public event Action<bool> OnSelect;
         public event Action OnDeselect;
     
         protected void Awake() => OnAwake();
@@ -110,12 +110,12 @@ namespace BugStrategy.Constructions
             _healthStorage.ChangeValue(repairApplicator.Repair);
         }
 
-        public void Select()
+        public void Select(bool isFullView = true)
         {
             if(IsSelected) return;
 
             IsSelected = true;
-            OnSelect?.Invoke();
+            OnSelect?.Invoke(isFullView);
         }
 
         public void Deselect()

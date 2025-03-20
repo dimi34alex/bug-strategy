@@ -17,12 +17,10 @@ namespace BugStrategy.Selection
         [Inject] private readonly IInputProvider _inputProvider;
         [Inject] private readonly MissionData _missionData;
         [Inject] private readonly UIController _uiController;
-        [Inject] private readonly PlayerUnitsSelector _playerUnitsSelector;
-        [Inject] private readonly EnemyUnitsSelector _enemyUnitsSelector;
+        [Inject] private readonly UnitsSelector _unitsSelector;
         
         public ConstructionSelector ConstructionSelector => _missionData.ConstructionSelector;
-        public PlayerUnitsSelector PlayerUnitsSelector => _playerUnitsSelector;
-        public EnemyUnitsSelector EnemyUnitsSelector => _enemyUnitsSelector;
+        public UnitsSelector UnitsSelector => _unitsSelector;
         public bool IsSelectProcess { get; private set; }
         public Vector3 StartSelectPoint { get; private set; }
         public Vector3 CurrentSelectPoint { get; private set; }
@@ -54,12 +52,10 @@ namespace BugStrategy.Selection
                 if (dist >= distanceToBeHold)
                 {
                     _missionData.ConstructionSelector.ResetSelection();
-                    _playerUnitsSelector.DeselectAll();
-                    _enemyUnitsSelector.DeselectAll();
+                    UnitsSelector.DeselectAll();
                     
-                    _enemyUnitsSelector.SelectUnits(StartSelectPoint, CurrentSelectPoint, _missionData.PlayerAffiliation);
-                    if (_playerUnitsSelector.SelectUnits(StartSelectPoint, CurrentSelectPoint, _missionData.PlayerAffiliation))
-                        _uiController.SetScreen(_playerUnitsSelector.GetSelectedUnits()[0]);
+                    if (UnitsSelector.SelectUnits(StartSelectPoint, CurrentSelectPoint, _missionData.PlayerAffiliation))
+                        _uiController.SetScreen(UnitsSelector.GetPlayerSelectedUnits()[0]);
                     else
                         _uiController.SetScreen(UIScreenType.Gameplay);
                 }
@@ -75,12 +71,10 @@ namespace BugStrategy.Selection
                     }
                     else
                     {
-                        _playerUnitsSelector.DeselectAll();
-                        _enemyUnitsSelector.DeselectAll();
+                        UnitsSelector.DeselectAll();
 
-                        _enemyUnitsSelector.SelectUnits(StartSelectPoint, CurrentSelectPoint, _missionData.PlayerAffiliation);
-                        if (_playerUnitsSelector.SelectUnits(StartSelectPoint, CurrentSelectPoint, _missionData.PlayerAffiliation))
-                            _uiController.SetScreen(_playerUnitsSelector.GetSelectedUnits()[0]);
+                        if (UnitsSelector.SelectUnits(StartSelectPoint, CurrentSelectPoint, _missionData.PlayerAffiliation))
+                            _uiController.SetScreen(UnitsSelector.GetPlayerSelectedUnits()[0]);
                         else
                             _uiController.SetScreen(UIScreenType.Gameplay);
                     }

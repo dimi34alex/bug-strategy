@@ -12,12 +12,12 @@ public class UnitPanelSelector : MonoBehaviour
     [SerializeField] private BuildingUnitsUI buildingUnitsUI;
     [SerializeField] private GameObject panel;
     
-    [Inject] private PlayerUnitsSelector _playerUnitsSelector;
+    [Inject] private UnitsSelector _unitsSelector;
     [Inject] private MissionData _missionData;
 
     private void Awake()
     {
-        _playerUnitsSelector.OnSelectionChanged += UpdateUnitPanel;
+        _unitsSelector.OnSelectionChanged += UpdateUnitPanel;
         _missionData.ConstructionSelector.OnSelectionChange += UpdateUnitPanel;
         
         UpdateUnitPanel();
@@ -25,13 +25,13 @@ public class UnitPanelSelector : MonoBehaviour
 
     private void OnDestroy()
     {
-        _playerUnitsSelector.OnSelectionChanged -= UpdateUnitPanel;
+        _unitsSelector.OnSelectionChanged -= UpdateUnitPanel;
         _missionData.ConstructionSelector.OnSelectionChange -= UpdateUnitPanel;
     }
 
     private void UpdateUnitPanel()
     {
-        var selectedUnits = _playerUnitsSelector.GetSelectedUnits();
+        var selectedUnits = _unitsSelector.GetPlayerSelectedUnits();
         var selectedConstruction = _missionData.ConstructionSelector.SelectedConstruction;
 
         if (selectedUnits.Count > 0)
