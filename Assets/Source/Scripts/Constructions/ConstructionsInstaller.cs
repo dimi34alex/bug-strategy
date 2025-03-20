@@ -11,6 +11,7 @@ namespace BugStrategy.Constructions
             BindRepository();
             BindFactory();
             BindViewsFactory();
+            BindSelector();
         }
 
         private void BindRepository() 
@@ -24,5 +25,8 @@ namespace BugStrategy.Constructions
         
         private void BindViewsFactory() 
             => Container.BindInterfacesAndSelfTo<ConstructionViewsFactory>().FromNew().AsSingle();
+        
+        private void BindSelector()
+            => Container.BindInterfacesAndSelfTo<ConstructionSelector>().FromNew().AsSingle();
     }
 }

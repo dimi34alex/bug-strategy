@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using BugStrategy.Constructions;
 using UnityEngine;
 using BugStrategy.Unit.UnitSelection;
 using BugStrategy.Missions;
@@ -13,12 +14,12 @@ public class UnitPanelSelector : MonoBehaviour
     [SerializeField] private GameObject panel;
     
     [Inject] private UnitsSelector _unitsSelector;
-    [Inject] private MissionData _missionData;
+    [Inject] private ConstructionSelector _constructionSelector;
 
     private void Awake()
     {
         _unitsSelector.OnSelectionChanged += UpdateUnitPanel;
-        _missionData.ConstructionSelector.OnSelectionChange += UpdateUnitPanel;
+        _constructionSelector.OnSelectionChange += UpdateUnitPanel;
         
         UpdateUnitPanel();
     }
@@ -26,24 +27,20 @@ public class UnitPanelSelector : MonoBehaviour
     private void OnDestroy()
     {
         _unitsSelector.OnSelectionChanged -= UpdateUnitPanel;
-        _missionData.ConstructionSelector.OnSelectionChange -= UpdateUnitPanel;
+        _constructionSelector.OnSelectionChange -= UpdateUnitPanel;
     }
 
     private void UpdateUnitPanel()
     {
         var selectedUnits = _unitsSelector.GetPlayerSelectedUnits();
-        var selectedConstruction = _missionData.ConstructionSelector.SelectedConstruction;
+        var selectedConstruction = _constructionSelector.SelectedConstruction;
 
         if (selectedUnits.Count > 0)
         {
             if (selectedConstruction is IHiderConstruction hiderConstruction)
-            {
                 ShowBuildingUnitsPanel(hiderConstruction);
-            }
             else
-            {
                 ShowSelectedUnitsPanel(selectedUnits);
-            }
         }
         else if (selectedConstruction is IHiderConstruction hiderConstruction)
         {

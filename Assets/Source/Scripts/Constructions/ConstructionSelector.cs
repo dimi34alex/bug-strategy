@@ -20,38 +20,50 @@ namespace BugStrategy.Constructions
 
         public bool TrySelect(Ray ray, AffiliationEnum playerAffiliation)
         {
-            if (Physics.Raycast(ray, out RaycastHit hitInfo, 50f, CustomLayerID.Construction_Ground.Cast<int>()))
+            if (Physics.Raycast(ray, out var hitInfo, 50f, CustomLayerID.Construction_Ground.Cast<int>()))
             {
-                Vector3 position = _constructionGrid.RoundPositionToGrid(hitInfo.point);
+                var position = _constructionGrid.RoundPositionToGrid(hitInfo.point);
 
                 if (_constructionGrid.ConstructionExist(position))
                 {
+                    var playerConstructionSelected = false;
                     var construction = _constructionGrid.GetConstruction(position);
-#if !UNITY_EDITOR
-                    if (construction.Affiliation != playerAffiliation)
+                    if (construction.Affiliation == playerAffiliation)
                     {
-                        ResetSelection();
-                        return false;
+                        construction.Select(true);
+                        if (SelectedConstruction != null)
+                            SelectedConstruction.Deselect();
+                        LastSelectedConstruction = SelectedConstruction;
+                        SelectedConstruction = construction;
+                        playerConstructionSelected = true;
                     }
+                    else
+                    {
+                        construction.Select(false);
+                        if (SelectedConstruction != null)
+                            SelectedConstruction.Deselect();
+                        LastSelectedConstruction = SelectedConstruction;
+                        SelectedConstruction = construction;
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+                        playerConstructionSelected = true;
 #endif
+                    }
 
-                    LastSelectedConstruction = SelectedConstruction;
-                    SelectedConstruction = _constructionGrid.GetConstruction(position);
                     OnSelectionChange?.Invoke();
-
-                    return true;
+                    return playerConstructionSelected;
                 }
             }
 
-            LastSelectedConstruction = SelectedConstruction;
-            SelectedConstruction = null;
-            OnSelectionChange?.Invoke();
-
+            Deselect();
+            
             return false;
         }
 
-        public void ResetSelection()
+        public void Deselect()
         {
+            if (SelectedConstruction != null)
+                SelectedConstruction.Deselect();
+    
             LastSelectedConstruction = SelectedConstruction;
             SelectedConstruction = null;
             OnSelectionChange?.Invoke();

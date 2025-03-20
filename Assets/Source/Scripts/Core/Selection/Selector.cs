@@ -18,8 +18,9 @@ namespace BugStrategy.Selection
         [Inject] private readonly MissionData _missionData;
         [Inject] private readonly UIController _uiController;
         [Inject] private readonly UnitsSelector _unitsSelector;
-        
-        public ConstructionSelector ConstructionSelector => _missionData.ConstructionSelector;
+        [Inject] private readonly ConstructionSelector _constructionSelector;
+
+        public ConstructionSelector ConstructionSelector => _constructionSelector;
         public UnitsSelector UnitsSelector => _unitsSelector;
         public bool IsSelectProcess { get; private set; }
         public Vector3 StartSelectPoint { get; private set; }
@@ -45,13 +46,9 @@ namespace BugStrategy.Selection
 
                 var dist = Vector3.Distance(StartSelectPoint, CurrentSelectPoint);
 
-                var prevSelectedConstruction = _missionData.ConstructionSelector.SelectedConstruction;
-                if (prevSelectedConstruction != null) 
-                    prevSelectedConstruction.Deselect();
-                
+                _constructionSelector.Deselect();
                 if (dist >= distanceToBeHold)
                 {
-                    _missionData.ConstructionSelector.ResetSelection();
                     UnitsSelector.DeselectAll();
                     
                     if (UnitsSelector.SelectUnits(StartSelectPoint, CurrentSelectPoint, _missionData.PlayerAffiliation))
@@ -63,11 +60,9 @@ namespace BugStrategy.Selection
                 {
                     var ray = Camera.main.ScreenPointToRay(_inputProvider.MousePosition);
                     
-                    if (_missionData.ConstructionSelector.TrySelect(ray, _missionData.PlayerAffiliation))
+                    if (_constructionSelector.TrySelect(ray, _missionData.PlayerAffiliation))
                     {
-                        var selectedConstruction = _missionData.ConstructionSelector.SelectedConstruction;
-                        selectedConstruction.Select();
-                        _uiController.SetScreen(selectedConstruction);
+                        _uiController.SetScreen(_constructionSelector.SelectedConstruction);
                     }
                     else
                     {

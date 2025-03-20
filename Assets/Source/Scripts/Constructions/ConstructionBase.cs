@@ -110,7 +110,7 @@ namespace BugStrategy.Constructions
             _healthStorage.ChangeValue(repairApplicator.Repair);
         }
 
-        public void Select(bool isFullView = true)
+        public void Select(bool isFullView)
         {
             if(IsSelected) return;
 

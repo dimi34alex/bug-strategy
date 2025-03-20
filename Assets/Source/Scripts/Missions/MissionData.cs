@@ -46,7 +46,8 @@ namespace BugStrategy.Missions
             NotConstructionsRepository notConstructionsRepository,
             ITeamsResourcesGlobalStorage teamsResourcesGlobalStorage, 
             UnitsSelector unitsSelector,
-            TilesRepository tilesRepository) 
+            TilesRepository tilesRepository,
+            ConstructionSelector constructionSelector) 
         {
             MissionIndex = missionIndex;
             MissionConfig = missionConfig;
@@ -59,10 +60,10 @@ namespace BugStrategy.Missions
             TeamsResourcesGlobalStorage = teamsResourcesGlobalStorage;
             UnitsSelector = unitsSelector;
             TilesRepository = tilesRepository;
+            ConstructionSelector = constructionSelector;
 
             PlayerAffiliation = missionConfig.PlayerAffiliation;
             FractionTypes = missionConfig.FractionByAffiliation;
-            ConstructionSelector = new ConstructionSelector(ConstructionsRepository);
         }
     }
 }
