@@ -16,6 +16,8 @@ namespace BugStrategy.Audio
         public float MasterVolume => _volumeSettings.Master;
         public float EffectsVolume => _volumeSettings.EffectsVolume;
         public float MusicVolume => _volumeSettings.MusicVolume;
+
+        public Action OnResetToDefault;
         
         public AudioVolumeChanger(AudioMixer mixer, VolumeSettings volumeSettings)
         {
@@ -102,6 +104,17 @@ namespace BugStrategy.Audio
             SetVolume(MasterParam, MasterVolume);
             SetVolume(EffectsParam, EffectsVolume);
             SetVolume(MusicParam, MusicVolume);
+        }
+        
+        public void ResetToDefault()
+        {
+            _volumeSettings.ResetToDefault();
+            
+            SetVolume(MasterParam, MasterVolume);
+            SetVolume(EffectsParam, EffectsVolume);
+            SetVolume(MusicParam, MusicVolume);
+            
+            OnResetToDefault?.Invoke();
         }
 
         private void SetVolume(string paramName, float newVolume)

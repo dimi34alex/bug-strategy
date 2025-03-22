@@ -1,103 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
-using static BugStrategy.SettingsController;
-using System;
-using UnityEngine.SceneManagement;
 using BugStrategy.Audio;
+using UnityEngine;
 using Zenject;
 
-namespace BugStrategy
+namespace BugStrategy.Settings
 {
     public class SettingsController : MonoBehaviour
     {
+        [SerializeField] private ResolutionSettingsController resolutionSettingsController;
+        [SerializeField] private FPSSettingsController fpsSettingsController;
+        [SerializeField] private ScreenModeSettingsController screenModeSettingsController;
+
         [Inject] private readonly AudioVolumeChanger _audioVolumeChanger;
-
-        [SerializeField] private TMP_Dropdown screenModeDropdown;
-        [SerializeField] private TMP_Dropdown resolutionDropdown;
-        [SerializeField] private TMP_Dropdown fpsDropdown;
-
-        private Resolution[] resolutions;
-        private Resolution DefaultResolution;
-        private int[] fpsOptions = { 75, 100, 144, 165, 360 };
-
-        private void Awake()
-        {
-            DefaultResolution = Screen.currentResolution;
-        }
-
-        void Start()
-        {
-            QualitySettings.vSyncCount = 0;
-
-            resolutions = Screen.resolutions;
-            resolutionDropdown.ClearOptions();
-
-            int currentResolutionIndex = 0;
-            for (int i = 0; i < resolutions.Length; i++)
-            {
-                Resolution res = resolutions[i];
-                resolutionDropdown.options.Add(new TMP_Dropdown.OptionData(res.width + " x " + res.height));
-
-                if (res.width == Screen.currentResolution.width && res.height == Screen.currentResolution.height)
-                {
-                    currentResolutionIndex = i;
-                }
-            }
-
-            resolutionDropdown.value = currentResolutionIndex;
-            resolutionDropdown.RefreshShownValue();
-
-            fpsDropdown.ClearOptions();
-            foreach (var fps in fpsOptions)
-            {
-                fpsDropdown.options.Add(new TMP_Dropdown.OptionData(fps + " FPS"));
-            }
-
-            int maxFpsIndex = fpsOptions.Length - 1;
-            fpsDropdown.value = maxFpsIndex;
-            fpsDropdown.RefreshShownValue();
-
-            screenModeDropdown.value = Screen.fullScreen ? 1 : 0;
-        }
-
+        
         public void ApplySettings()
         {
             _audioVolumeChanger.Apply();
-
-            Resolution selectedResolution = resolutions[resolutionDropdown.value];
-            bool isFullScreen = screenModeDropdown.value == 1; // 0 - оконный, 1 - полный экран
-
-            Screen.SetResolution(selectedResolution.width, selectedResolution.height, isFullScreen);
-
-            int selectedFps = fpsOptions[fpsDropdown.value];
-            Application.targetFrameRate = selectedFps;
+            resolutionSettingsController.Apply();
+            fpsSettingsController.Apply();
+            screenModeSettingsController.Apply();
         }
 
         public void ResetSettings()
         {
-            _audioVolumeChanger.Revert();
-
-            Screen.SetResolution(DefaultResolution.width, DefaultResolution.height, true);
-            int ResolutionIndex = 0;
-            for (int i = 0; i < resolutions.Length; i++)
-            {
-                Resolution res = resolutions[i];
-                resolutionDropdown.options.Add(new TMP_Dropdown.OptionData(res.width + " x " + res.height));
-
-                if (res.width == DefaultResolution.width && res.height == DefaultResolution.height)
-                {
-                    ResolutionIndex = i;
-                }
-            }
-            resolutionDropdown.value = ResolutionIndex;
-
-            Application.targetFrameRate = 360;
-            fpsDropdown.value = fpsOptions.Length;
-
-            screenModeDropdown.value = Screen.fullScreen ? 1 : 0;
+            _audioVolumeChanger.ResetToDefault();
+            resolutionSettingsController.ResetToDefault();
+            fpsSettingsController.ResetToDefault();
+            screenModeSettingsController.ResetToDefault();
         }
     }
 }

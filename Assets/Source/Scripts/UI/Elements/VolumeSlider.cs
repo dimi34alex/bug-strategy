@@ -19,6 +19,7 @@ namespace BugStrategy.UI.Elements
         {
             _slider = GetComponent<ExtendedSlider>();
 
+            _audioVolumeChanger.OnResetToDefault += UpdateView;
             if (autoApply) 
                 _slider.OnPointerUpEvent += _audioVolumeChanger.Apply;
         }
@@ -28,6 +29,9 @@ namespace BugStrategy.UI.Elements
             _slider.value = _audioVolumeChanger.GetVolume(volumeType);
             _slider.onValueChanged.AddListener(SetVolume);
         }
+
+        private void UpdateView() 
+            => _slider.SetValueWithoutNotify(_audioVolumeChanger.GetVolume(volumeType));
 
         private void SetVolume(float newVolume) 
             => _audioVolumeChanger.SetVolume(volumeType, newVolume);
