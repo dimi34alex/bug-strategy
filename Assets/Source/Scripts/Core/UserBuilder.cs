@@ -105,7 +105,7 @@ namespace BugStrategy
                 return false;
         
             Vector3 position = _missionData.ConstructionsRepository.RoundPositionToGrid(raycastHits[index].point);
-            if (_missionData.ConstructionsRepository.ConstructionExist(position, false))
+            if (_missionData.ConstructionsRepository.Exist(position, false))
                 return false;
 
             if (id == ConstructionID.BeeTownHall)
@@ -131,7 +131,7 @@ namespace BugStrategy
 
         private void CreateConstruction(AffiliationEnum affiliation, BuildingProgressConstruction buildingProgressConstruction, Vector3 position)
         {
-            _missionData.ConstructionsRepository.GetConstruction(position, true);
+            _missionData.ConstructionsRepository.Get(position, true);
             Destroy(buildingProgressConstruction.gameObject);
 
             _constructionFactory.Create<ConstructionBase>(buildingProgressConstruction.BuildingConstructionID, position, affiliation);

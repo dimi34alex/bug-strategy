@@ -18,6 +18,8 @@ namespace BugStrategy.Missions.MissionEditor.GridRepositories
         public void UnblockCell(Vector3 position);
 
         public bool CellIsBlocked(Vector3 position);
+
+        public Vector3 RoundPositionToGrid(Vector3 position);
     }
 
     public interface IGridRepository<TValue> : IGridRepository

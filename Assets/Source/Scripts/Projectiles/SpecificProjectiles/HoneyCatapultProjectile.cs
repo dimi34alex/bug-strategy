@@ -72,7 +72,7 @@ namespace BugStrategy.Projectiles
         private void TrySpawnStickyTile()
         {
             var roundedPos = _missionData.ConstructionsRepository.RoundPositionToGrid(transform.position);
-            if(_missionData.ConstructionsRepository.ConstructionExist(roundedPos))
+            if(_missionData.ConstructionsRepository.Exist(roundedPos))
                 return;
             
             _notConstructionFactory.Create<NotConstructionBase>(NotConstructionID.BeeStickyTileConstruction, roundedPos, Affiliation);

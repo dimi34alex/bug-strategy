@@ -1,5 +1,3 @@
-using BugStrategy.Constructions;
-using BugStrategy.Constructions.Factory;
 using BugStrategy.CustomTimer;
 using BugStrategy.Missions;
 using BugStrategy.NotConstructions;
@@ -7,7 +5,6 @@ using BugStrategy.NotConstructions.Factory;
 using BugStrategy.TechnologiesSystem.Technologies;
 using BugStrategy.Unit.AbilitiesCore;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace BugStrategy.Unit.Bees
 {
@@ -74,9 +71,9 @@ namespace BugStrategy.Unit.Bees
                 _missionData.ConstructionsRepository
                     .RoundPositionToGrid(_bumblebee.transform.position);
             
-            if(_missionData.ConstructionsRepository.ConstructionExist(roundedPosition))
+            if(_missionData.ConstructionsRepository.Exist(roundedPosition))
                 return;
-            if(_missionData.NotConstructionsRepository.NotConstructionExist(roundedPosition))
+            if(_missionData.NotConstructionsRepository.Exist(roundedPosition))
                 return;
 
             _notConstructionFactory.Create<NotConstructionBase>(NotConstructionID.BeeStickyTileConstruction, roundedPosition, Affiliation);

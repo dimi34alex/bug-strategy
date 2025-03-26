@@ -93,7 +93,7 @@ namespace BugStrategy.NotConstructions.BeeStickyTile
         private void DestructStickyTile()
         {
             var roundedPosition = MissionData.NotConstructionsRepository.RoundPositionToGrid(transform.position);
-            MissionData.NotConstructionsRepository.GetNotConstruction(roundedPosition, true);
+            MissionData.NotConstructionsRepository.Get(roundedPosition, true);
             SendDeactivateEvent();
             Destroy(gameObject);
         }

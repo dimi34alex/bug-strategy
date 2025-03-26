@@ -10,8 +10,7 @@ namespace BugStrategy.Ai
     {
         private readonly AffiliationEnum _affiliation;
         private readonly UnitFactory _unitFactory;
-        private readonly Dictionary<UnitType, List<InternalAiBase>> _ais = 
-            new Dictionary<UnitType, List<InternalAiBase>>();
+        private readonly Dictionary<UnitType, List<InternalAiBase>> _ais = new();
 
         public IReadOnlyDictionary<UnitType, List<InternalAiBase>> Ais => _ais;
 

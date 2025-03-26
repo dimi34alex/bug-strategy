@@ -48,7 +48,7 @@ namespace BugStrategy.NotConstructions.Factory
             var notConstruction = _behaviours[notConstructionType].Create<TConstruction>(notConstructionID, _parent);
             notConstruction.Initialize(affiliation);
             notConstruction.transform.position = position;
-            _repository.AddNotConstruction(position, notConstruction);
+            _repository.Add(position, notConstruction);
             Created?.Invoke(notConstruction);
             return notConstruction;
         }
