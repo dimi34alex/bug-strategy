@@ -7,7 +7,7 @@ namespace BugStrategy.Missions.MissionEditor.Commands
     public class BuildResourceSourceCommand : BuildCommand<int, ResourceSourceBase>
     {
         public BuildResourceSourceCommand(int tileId, Vector3 point, 
-           ResourceSourceFactory factory, ResourceSourceRepository positionsRepository) 
+           ResourceSourceFactory factory, EditorResourceSourcesRepository positionsRepository) 
             : base(-1, tileId, point, factory, positionsRepository) { }
 
         protected override ResourceSourceBase Create(int id, Vector3 point)

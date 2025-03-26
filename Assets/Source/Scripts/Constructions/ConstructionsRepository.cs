@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using CycleFramework.Extensions;
 using UnityEngine;
 
 namespace BugStrategy.Constructions
@@ -13,6 +12,9 @@ namespace BugStrategy.Constructions
 
         public IReadOnlyCollection<GridKey3> Positions => _constructions.Keys;
 
+        public event Action<Vector3> OnAdd;
+        public event Action<Vector3> OnRemove;
+        
         public ConstructionsRepository()
         {
             _constructionConfig = ConfigsRepository.ConfigsRepository.FindConfig<GridConfig>() ??
@@ -38,6 +40,7 @@ namespace BugStrategy.Constructions
                 throw new Exception($"Position {position} already exist in grid");
 
             _constructions.Add(position, new ConstructionCellData(construction));
+            OnAdd?.Invoke(position);
         }
 
         public ConstructionBase GetConstruction(Vector3 position, bool withExtract = false)
@@ -48,7 +51,10 @@ namespace BugStrategy.Constructions
             ConstructionBase construction = _constructions[position].Construction;
 
             if (withExtract)
+            {
                 _constructions.Remove(position);
+                OnRemove?.Invoke(position);
+            }
 
             return construction;
         }

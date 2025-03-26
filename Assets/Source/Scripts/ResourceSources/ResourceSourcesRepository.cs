@@ -9,7 +9,10 @@ namespace BugStrategy.ResourceSources
         private readonly GridConfig _constructionConfig;
         private readonly Dictionary<GridKey3, ResourceSourceBase> _resourceSources;
         private readonly HashSet<GridKey3> _blockedCells;
-        
+
+        public event Action<Vector3> OnAdd;
+        public event Action<Vector3> OnRemove;
+
         public ResourceSourcesRepository()
         {
             _constructionConfig = ConfigsRepository.ConfigsRepository.FindConfig<GridConfig>() ??
@@ -30,6 +33,7 @@ namespace BugStrategy.ResourceSources
                 throw new Exception($"Position {position} already exist in grid");
 
             _resourceSources.Add(position, resourceSource);
+            OnAdd?.Invoke(position);
         }
         
         public ResourceSourceBase Get(Vector3 position, bool withExtract = false)
@@ -40,7 +44,10 @@ namespace BugStrategy.ResourceSources
             var resourceSource = _resourceSources[position];
 
             if (withExtract)
+            {
                 _resourceSources.Remove(position);
+                OnRemove?.Invoke(position);
+            }
 
             return resourceSource;
         }

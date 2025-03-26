@@ -19,13 +19,13 @@ namespace BugStrategy.Missions.MissionEditor.Commands
         private readonly EditorConstructionsRepository _editorConstructionsRepository;
         
         private readonly ResourceSourceFactory _resourceSourceFactory;
-        private readonly ResourceSourceRepository _resourceSourceRepository;
+        private readonly EditorResourceSourcesRepository _resourceSourceRepository;
 
         public event Action<ICommand> OnCommandCreated;
         
         public MissionEditorCommandsFactory(TilesFactory tilesFactory, GroundPositionsRepository groundPositionsRepository, 
             EditorConstructionsFactory editorConstructionsFactory, EditorConstructionsRepository editorConstructionsRepository, 
-            ResourceSourceFactory resourceSourceFactory, ResourceSourceRepository resourceSourceRepository)
+            ResourceSourceFactory resourceSourceFactory, EditorResourceSourcesRepository resourceSourceRepository)
         {
             _tilesFactory = tilesFactory;
             _groundPositionsRepository = groundPositionsRepository;

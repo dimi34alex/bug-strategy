@@ -8,6 +8,8 @@ namespace BugStrategy.Tiles
 {
     public class TilesInstaller : MonoInstaller
     {
+        [SerializeField] private bool showContentOnBecameTileFree;
+        
 #if DEVELOPMENT_BUILD || UNITY_EDITOR
         [SerializeField, Header("worked only in editor and dev build")] private bool fogIsVisible = true;
 #endif
@@ -16,6 +18,7 @@ namespace BugStrategy.Tiles
         {
             BindFactory();
             BindRepository();
+            BindContentHider();
             BindVisibleModificator();
             
 #if DEVELOPMENT_BUILD || UNITY_EDITOR
@@ -29,6 +32,9 @@ namespace BugStrategy.Tiles
         private void BindRepository() 
             => Container.BindInterfacesAndSelfTo<TilesRepository>().FromNew().AsSingle();
 
+        private void BindContentHider() 
+            => Container.BindInterfacesAndSelfTo<TilesContentHider>().FromNew().AsSingle().WithArguments(showContentOnBecameTileFree);
+        
         private void BindVisibleModificator()
         {
             _tileFogVisibilityModificator = new TileFogVisibilityModificator(true);

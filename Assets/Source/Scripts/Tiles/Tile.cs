@@ -4,7 +4,6 @@ using Avastrad.EventBusFramework;
 using BugStrategy.CustomTimer;
 using BugStrategy.Events;
 using BugStrategy.Trigger;
-using UnityEditor;
 using UnityEngine;
 using Zenject;
 
@@ -12,8 +11,8 @@ namespace BugStrategy.Tiles
 {
     public class Tile : MonoBehaviour, ITriggerable
     {
-        [SerializeField] private GameObject Model;
-		[SerializeField] private GameObject WarFog;
+        [SerializeField] private GameObject model;
+		[SerializeField] private GameObject warFog;
 
 		[Inject] private IEventBus _eventBus;
         
@@ -74,17 +73,13 @@ namespace BugStrategy.Tiles
             _eventBus.Invoke(new EventTileVisibilityChanged(IsVisible, transform.position));
         }
 
-        public void HideTileContent()
+        public void ToggleContentVisibility(bool isVisible)
         {
-			var ModelChildren = Model.GetComponentsInChildren<Transform>().Skip(1);
-			var WarFogChildren = WarFog.GetComponentsInChildren<Transform>().Skip(1);
+			var modelChildren = model.GetComponentsInChildren<Transform>(true).Skip(2);
+			var warFogChildren = warFog.GetComponentsInChildren<Transform>(true).Skip(2);
 
-            if (ModelChildren.Count() == 0) return;
-
-			foreach (var child in ModelChildren.Concat(WarFogChildren))
-			{
-				child.gameObject.SetActive(false);
-			}
-		}
+            foreach (var child in modelChildren) child.gameObject.SetActive(isVisible);
+            foreach (var child in warFogChildren) child.gameObject.SetActive(isVisible);
+        }
     }
 }

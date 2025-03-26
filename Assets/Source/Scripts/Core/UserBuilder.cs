@@ -5,7 +5,6 @@ using BugStrategy.CustomInput;
 using BugStrategy.Libs;
 using BugStrategy.Missions;
 using BugStrategy.Tiles;
-using BugStrategy.UI;
 using BugStrategy.Unit;
 using CycleFramework.Execute;
 using CycleFramework.Extensions;
@@ -52,9 +51,6 @@ namespace BugStrategy
                             return;
                         }
                     }
-
-                    if (!_inputProvider.MouseCursorOverUi() && Physics.Raycast(ray, out var tile, 100F, CustomLayerID.Tiles.Cast<int>(), QueryTriggerInteraction.Ignore))
-                        tile.collider.gameObject.GetComponent<Tile>().HideTileContent();
 
 					foreach (var unit in _missionData.UnitRepository.AllUnits)
                     {
