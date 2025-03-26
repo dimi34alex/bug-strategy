@@ -1,6 +1,6 @@
 using System;
 using BugStrategy.CommandsCore;
-using BugStrategy.Missions.MissionEditor.GridRepositories;
+using BugStrategy.Grids;
 using UnityEngine;
 using Object = UnityEngine.Object;
 

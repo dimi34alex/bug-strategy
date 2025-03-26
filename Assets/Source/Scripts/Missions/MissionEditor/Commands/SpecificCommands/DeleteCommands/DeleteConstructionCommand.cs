@@ -1,7 +1,7 @@
 using BugStrategy.Constructions;
 using BugStrategy.Factories;
+using BugStrategy.Grids;
 using BugStrategy.Missions.MissionEditor.EditorConstructions;
-using BugStrategy.Missions.MissionEditor.GridRepositories;
 using UnityEngine;
 
 namespace BugStrategy.Missions.MissionEditor.Commands

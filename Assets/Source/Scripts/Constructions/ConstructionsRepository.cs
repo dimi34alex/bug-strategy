@@ -1,4 +1,4 @@
-﻿using BugStrategy.Missions.MissionEditor.GridRepositories;
+﻿using BugStrategy.Grids;
 using UnityEngine;
 
 namespace BugStrategy.Constructions
@@ -7,11 +7,5 @@ namespace BugStrategy.Constructions
     {
         public ConstructionsRepository(GridConfig gridConfig) 
             : base(gridConfig) { }
-        
-        public bool Exist(Vector3 position, bool blockIgnore = true) 
-            => base.Exist(position, blockIgnore);
-    
-        public bool Exist<TType>(Vector3 position, bool blockIgnore = true) where TType : IConstruction 
-            => Exist(position, blockIgnore) && Get(position) is TType;
     }
 }

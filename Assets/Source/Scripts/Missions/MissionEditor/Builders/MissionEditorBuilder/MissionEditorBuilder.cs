@@ -3,10 +3,11 @@ using System.Threading;
 using BugStrategy.CommandsCore;
 using BugStrategy.Constructions;
 using BugStrategy.CustomInput;
+using BugStrategy.Grids;
 using BugStrategy.Missions.MissionEditor.Affiliation;
 using BugStrategy.Missions.MissionEditor.Commands;
 using BugStrategy.Missions.MissionEditor.EditorConstructions;
-using BugStrategy.Missions.MissionEditor.GridRepositories;
+using BugStrategy.Missions.MissionEditor.Grids;
 using BugStrategy.Missions.MissionEditor.Saving;
 using BugStrategy.ResourceSources;
 using BugStrategy.Tiles;
@@ -27,7 +28,7 @@ namespace BugStrategy.Missions.MissionEditor
         [Inject] private ResourceSourceFactory _resourceSourceFactory;
 
         [Inject] private TilesRepository _groundPositionsRepository;
-        [Inject] private EditorConstructionsRepository _editorConstructionsRepository;
+        [Inject] private EditorConstructionsGrid _editorConstructionsGrid;
         [Inject] private EditorResourceSourcesRepository _resourceSourceRepository;
 
         [Inject] private AffiliationHolder _affiliationHolder;
@@ -42,11 +43,11 @@ namespace BugStrategy.Missions.MissionEditor
 
         private void Awake()
         {
-            _editorConstructionsRepository.SetExternalGrids(new IGridRepository[] { _resourceSourceRepository });
-            _resourceSourceRepository.SetExternalGrids(new IGridRepository[] { _editorConstructionsRepository });
+            _editorConstructionsGrid.SetExternalGrids(new IGridRepository[] { _resourceSourceRepository });
+            _resourceSourceRepository.SetExternalGrids(new IGridRepository[] { _editorConstructionsGrid });
             
             _groundBuilder = new GroundBuilder(_gridConfig, _groundPositionsRepository, _tilesFactory, _commandsFactory);
-            _editorConstructionsBuilder = new EditorConstructionsBuilder(_gridConfig, _editorConstructionsRepository, _editorConstructionsFactory, _commandsFactory);
+            _editorConstructionsBuilder = new EditorConstructionsBuilder(_gridConfig, _editorConstructionsGrid, _editorConstructionsFactory, _commandsFactory);
             _resourceSourceBuilder = new ResourceSourcesBuilder(_gridConfig, _resourceSourceRepository, _resourceSourceFactory, _commandsFactory);
             
             _groundBuilder.Generate(config.DefaultGridSize);
@@ -120,10 +121,10 @@ namespace BugStrategy.Missions.MissionEditor
             => _groundBuilder.Generate(size);
 
         public void Save() 
-            => MissionSaveAndLoader.Save(_groundPositionsRepository.Tiles, _editorConstructionsRepository.Tiles,  _resourceSourceRepository.Tiles);
+            => MissionSaveAndLoader.Save(_groundPositionsRepository.Tiles, _editorConstructionsGrid.Tiles,  _resourceSourceRepository.Tiles);
 
         public void Save(string fileName) 
-            => MissionSaveAndLoader.Save(fileName, _groundPositionsRepository.Tiles, _editorConstructionsRepository.Tiles, _resourceSourceRepository.Tiles);
+            => MissionSaveAndLoader.Save(fileName, _groundPositionsRepository.Tiles, _editorConstructionsGrid.Tiles, _resourceSourceRepository.Tiles);
 
         public async void Load(string fileName)
         {

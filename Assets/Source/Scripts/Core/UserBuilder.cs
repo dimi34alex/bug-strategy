@@ -99,13 +99,13 @@ namespace BugStrategy
             if (id == ConstructionID.BeeTownHall && _numberTownHall >= 1)
                 return false;
         
-            RaycastHit[] raycastHits = Physics.RaycastAll(Camera.main.ScreenPointToRay(_inputProvider.MousePosition));
-            int index = raycastHits.IndexOf(hit => !hit.collider.isTrigger);
+            var raycastHits = Physics.RaycastAll(Camera.main.ScreenPointToRay(_inputProvider.MousePosition));
+            var index = raycastHits.IndexOf(hit => !hit.collider.isTrigger);
             if (index <= -1) 
                 return false;
         
-            Vector3 position = _missionData.ConstructionsRepository.RoundPositionToGrid(raycastHits[index].point);
-            if (_missionData.ConstructionsRepository.Exist(position, false))
+            var position = _missionData.ConstructionsRepository.RoundPositionToGrid(raycastHits[index].point);
+            if (!_missionData.ConstructionsRepository.IsFree(position))
                 return false;
 
             if (id == ConstructionID.BeeTownHall)

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace BugStrategy.Missions.MissionEditor.GridRepositories
+namespace BugStrategy.Grids.GridsProviding
 {
     public interface IGridProvider
     {

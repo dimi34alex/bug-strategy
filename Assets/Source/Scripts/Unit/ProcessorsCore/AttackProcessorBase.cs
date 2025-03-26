@@ -1,6 +1,5 @@
 ﻿using System;
 using BugStrategy.Libs;
-using BugStrategy.NotConstructions;
 using CycleFramework.Extensions;
 using UnityEngine;
 

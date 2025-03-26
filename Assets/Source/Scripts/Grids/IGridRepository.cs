@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BugStrategy.Missions.MissionEditor.GridRepositories
+namespace BugStrategy.Grids
 {
     public interface IGridRepository
     {
@@ -11,7 +11,7 @@ namespace BugStrategy.Missions.MissionEditor.GridRepositories
 
         public bool FreeInExternalGrids(Vector3 position);
         
-        public bool Exist(Vector3 position, bool includeBlockedCells = true, bool includeExternalGrids = true);
+        public bool Exist(Vector3 position);
         
         public void BlockCell(Vector3 position);
 

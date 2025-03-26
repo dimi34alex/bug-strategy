@@ -1,5 +1,4 @@
 using System;
-using BugStrategy.MiniMap;
 using BugStrategy.Missions;
 using BugStrategy.SelectableSystem;
 using BugStrategy.Tiles;

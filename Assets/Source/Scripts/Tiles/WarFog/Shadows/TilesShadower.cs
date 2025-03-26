@@ -62,8 +62,8 @@ namespace BugStrategy.Tiles.WarFog.Shadows
         {
             if (_constructionsRepository.Exist(position))
             {
-                var constr = _constructionsRepository.Get(position);
-                shadowSprite = constr.View;
+                var construction = _constructionsRepository.Get(position);
+                shadowSprite = construction.View;
                 return true;
             } 
             

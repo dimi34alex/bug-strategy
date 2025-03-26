@@ -1,8 +1,9 @@
 using System;
+using BugStrategy.Missions.MissionEditor.Grids;
 using UnityEngine;
 using Zenject;
 
-namespace BugStrategy.Missions.MissionEditor.GridRepositories.GridsProviding
+namespace BugStrategy.Grids.GridsProviding
 {
     public class GridsProviderInstaller : MonoInstaller
     {

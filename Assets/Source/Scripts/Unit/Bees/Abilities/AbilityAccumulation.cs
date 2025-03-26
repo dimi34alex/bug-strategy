@@ -1,3 +1,4 @@
+using BugStrategy.Constructions;
 using BugStrategy.CustomTimer;
 using BugStrategy.Missions;
 using BugStrategy.NotConstructions;
@@ -17,6 +18,9 @@ namespace BugStrategy.Unit.Bees
         private readonly INotConstructionFactory _notConstructionFactory;
         private readonly MissionData _missionData;
 
+        private IConstructionGrid ConstructionGrid => _missionData.ConstructionsRepository;
+        private NotConstructionsGrid NotConstructionsGrid => _missionData.NotConstructionsGrid;
+        
         private TechBumblebeeAccumulation _techBumblebeeAccumulation;
         
         public IReadOnlyTimer Cooldown { get; } = new Timer(1, 1);
@@ -67,13 +71,10 @@ namespace BugStrategy.Unit.Bees
 
         private void TrySpawnStickyTile()
         {
-            var roundedPosition = 
-                _missionData.ConstructionsRepository
-                    .RoundPositionToGrid(_bumblebee.transform.position);
-            
-            if(_missionData.ConstructionsRepository.Exist(roundedPosition))
+            var roundedPosition = ConstructionGrid.RoundPositionToGrid(_bumblebee.transform.position);
+            if(!ConstructionGrid.IsFree(roundedPosition))
                 return;
-            if(_missionData.NotConstructionsRepository.Exist(roundedPosition))
+            if(!NotConstructionsGrid.IsFree(roundedPosition))
                 return;
 
             _notConstructionFactory.Create<NotConstructionBase>(NotConstructionID.BeeStickyTileConstruction, roundedPosition, Affiliation);

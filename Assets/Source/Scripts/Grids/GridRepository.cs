@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BugStrategy.Missions.MissionEditor.GridRepositories
+namespace BugStrategy.Grids
 {
     public abstract class GridRepository<TValue> : IGridRepository<TValue>
     {
@@ -31,20 +31,25 @@ namespace BugStrategy.Missions.MissionEditor.GridRepositories
             if (_externalGrids == null || _externalGrids.Length <= 0)
                 return true;
 
-            foreach (var gridRepository in _externalGrids)
-                if (gridRepository.Exist(position, false, false))
+            foreach (var externalGrid in _externalGrids)
+                if (externalGrid.Exist(position) || externalGrid.CellIsBlocked(position))
                     return false;
 
             return true;
         }
 
-        public bool Exist(Vector3 position, bool includeBlockedCells = true, bool includeExternalGrids = true)
+        public bool IsFree(Vector3 position)
         {
             position = RoundPositionToGrid(position);
-            return _tiles.ContainsKey(position) || includeBlockedCells && _blockedCells.Contains(position) ||
-                   includeExternalGrids && !FreeInExternalGrids(position);
+            return !Exist(position) && !CellIsBlocked(position) && FreeInExternalGrids(position);
         }
 
+        public bool Exist(Vector3 position)
+        {
+            position = RoundPositionToGrid(position);
+            return _tiles.ContainsKey(position);
+        }
+        
         public virtual bool TryAdd(Vector3 position, TValue tile)
         {
             if (Exist(position))

@@ -17,7 +17,7 @@ namespace BugStrategy.NotConstructions.Factory
 
     public class NotConstructionFactory : MonoBehaviour, INotConstructionFactory
     {
-        [Inject] private readonly NotConstructionsRepository _repository;
+        [Inject] private readonly NotConstructionsGrid _repository;
         [Inject] private readonly NotConstructionTypeMatchConfig _notConstructionTypeMatchConfig;
 
         private IReadOnlyDictionary<NotConstructionType, NotConstructionFactoryBehaviourBase> _behaviours;

@@ -13,9 +13,12 @@ namespace BugStrategy.Projectiles
     {
         [SerializeField] private LayerMask layerMask;
 
-        [Inject] private readonly MissionData _missionData;
         [Inject] private readonly StickConfig _stickConfig;
         [Inject] private readonly INotConstructionFactory _notConstructionFactory;
+        [Inject] private readonly MissionData _missionData;
+
+        private IConstructionGrid ConstructionGrid => _missionData.ConstructionsRepository;
+        private NotConstructionsGrid NotConstructionsGrid => _missionData.NotConstructionsGrid;
         
         public override ProjectileType ProjectileType => ProjectileType.HoneyCatapultProjectile;
 
@@ -71,11 +74,13 @@ namespace BugStrategy.Projectiles
         
         private void TrySpawnStickyTile()
         {
-            var roundedPos = _missionData.ConstructionsRepository.RoundPositionToGrid(transform.position);
-            if(_missionData.ConstructionsRepository.Exist(roundedPos))
+            var roundedPosition = ConstructionGrid.RoundPositionToGrid(transform.position);
+            if(!ConstructionGrid.IsFree(roundedPosition))
+                return;
+            if(!NotConstructionsGrid.IsFree(roundedPosition))
                 return;
             
-            _notConstructionFactory.Create<NotConstructionBase>(NotConstructionID.BeeStickyTileConstruction, roundedPos, Affiliation);
+            _notConstructionFactory.Create<NotConstructionBase>(NotConstructionID.BeeStickyTileConstruction, roundedPosition, Affiliation);
         }
     }
 }

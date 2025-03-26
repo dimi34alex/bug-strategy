@@ -1,6 +1,7 @@
+using BugStrategy.Grids;
 using BugStrategy.ResourceSources;
 
-namespace BugStrategy.Missions.MissionEditor.GridRepositories
+namespace BugStrategy.Missions.MissionEditor.Grids
 {
     public class EditorResourceSourcesRepository : GridRepository<ResourceSourceBase>
     {
