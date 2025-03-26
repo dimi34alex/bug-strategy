@@ -28,7 +28,7 @@ namespace BugStrategy.Missions.MissionEditor
 
         [Inject] private GroundPositionsRepository _groundPositionsRepository;
         [Inject] private EditorConstructionsRepository _editorConstructionsRepository;
-        [Inject] private ResourceSourceRepository _resourceSourceRepository;
+        [Inject] private EditorResourceSourcesRepository _resourceSourceRepository;
 
         [Inject] private AffiliationHolder _affiliationHolder;
         [Inject] private CommandsRepository _commandsRepository;

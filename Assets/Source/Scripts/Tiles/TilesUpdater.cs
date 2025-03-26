@@ -10,7 +10,7 @@ namespace BugStrategy.Tiles
         
         protected override void OnUpdate()
         {
-            foreach (var tile in _tilesRepository.Tiles) 
+            foreach (var tile in _tilesRepository.Tiles.Values) 
                 tile.HandleUpdate(Time.deltaTime);
         }
     }

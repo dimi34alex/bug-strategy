@@ -5,7 +5,6 @@ using BugStrategy.CustomInput;
 using BugStrategy.Libs;
 using BugStrategy.Missions;
 using BugStrategy.Tiles;
-using BugStrategy.UI;
 using BugStrategy.Unit;
 using CycleFramework.Execute;
 using CycleFramework.Extensions;
@@ -43,17 +42,17 @@ namespace BugStrategy
 
                 if (_inputProvider.LmbDown)//подтверждение строительства здания
                 {
-                    if (hit.collider.name == "TileBase")
+					if (hit.collider.name == "TileBase")
                     {
-                        if (!hit.collider.GetComponent<Tile>().IsVisible)
+						if (!hit.collider.GetComponent<Tile>().IsVisible)
                         {
                             Destroy(_currentConstructionMovableModel);
                             _spawnConstruction = false;
                             return;
                         }
                     }
-                
-                    foreach (var unit in _missionData.UnitRepository.AllUnits)
+
+					foreach (var unit in _missionData.UnitRepository.AllUnits)
                     {
                         if (unit.IsSelected && unit.gameObject.CompareTag("Worker") && CanBuyConstruction(unit.Affiliation, _currentConstructionID))
                         {

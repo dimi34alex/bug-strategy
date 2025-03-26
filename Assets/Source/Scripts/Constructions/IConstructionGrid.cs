@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace BugStrategy.Constructions
@@ -11,5 +12,8 @@ namespace BugStrategy.Constructions
         public ConstructionBase GetConstruction(Vector3 position, bool withExtract = false);
 
         public Vector3 RoundPositionToGrid(Vector3 position);
+        
+        public event Action<Vector3> OnAdd;
+        public event Action<Vector3> OnRemove;
     }
 }

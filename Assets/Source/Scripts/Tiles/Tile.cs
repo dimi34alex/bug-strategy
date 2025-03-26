@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Avastrad.EventBusFramework;
 using BugStrategy.CustomTimer;
 using BugStrategy.Events;
@@ -10,7 +11,10 @@ namespace BugStrategy.Tiles
 {
     public class Tile : MonoBehaviour, ITriggerable
     {
-        [Inject] private IEventBus _eventBus;
+        [SerializeField] private GameObject model;
+		[SerializeField] private GameObject warFog;
+
+		[Inject] private IEventBus _eventBus;
         
         private int _watchersCount;
         private Timer _visibleTimer;
@@ -67,6 +71,15 @@ namespace BugStrategy.Tiles
             IsVisible = false;
             OnVisibilityChanged?.Invoke(IsVisible);
             _eventBus.Invoke(new EventTileVisibilityChanged(IsVisible, transform.position));
+        }
+
+        public void ToggleContentVisibility(bool isVisible)
+        {
+			var modelChildren = model.GetComponentsInChildren<Transform>(true).Skip(2);
+			var warFogChildren = warFog.GetComponentsInChildren<Transform>(true).Skip(2);
+
+            foreach (var child in modelChildren) child.gameObject.SetActive(isVisible);
+            foreach (var child in warFogChildren) child.gameObject.SetActive(isVisible);
         }
     }
 }

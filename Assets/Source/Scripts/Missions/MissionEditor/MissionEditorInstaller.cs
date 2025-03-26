@@ -9,7 +9,7 @@ namespace BugStrategy.Missions.MissionEditor
         {
             BindPosRepository<GroundPositionsRepository>();
             BindPosRepository<EditorConstructionsRepository>();
-            BindPosRepository<ResourceSourceRepository>();
+            BindPosRepository<EditorResourceSourcesRepository>();
         }
 
         private void BindPosRepository<TRep>()

@@ -14,6 +14,9 @@ namespace BugStrategy.Missions.MissionEditor.GridRepositories
         public IReadOnlyDictionary<GridKey3, TValue> Tiles => _tiles;
         public IReadOnlyCollection<GridKey3> Positions => _tiles.Keys;
 
+        public event Action<Vector3> OnAdd;
+        public event Action<Vector3> OnRemove;
+        
         public void SetExternalGrids(IGridRepository[] externalGrids) 
             => _externalGrids = externalGrids; 
 
@@ -38,12 +41,15 @@ namespace BugStrategy.Missions.MissionEditor.GridRepositories
             if (Exist(position))
                 return false;
 
-            _tiles.Add(position, tile);
+            Add(position, tile);
             return true;
         }
         
-        public void Add(Vector3 position, TValue tile) 
-            => _tiles.Add(position, tile);
+        public void Add(Vector3 position, TValue tile)
+        {
+            _tiles.Add(position, tile);
+            OnAdd?.Invoke(position);
+        }
 
         public TValue Get(Vector3 position, bool withRemove = false)
         {
@@ -53,7 +59,10 @@ namespace BugStrategy.Missions.MissionEditor.GridRepositories
             var construction = _tiles[position];
 
             if (withRemove)
+            {
                 _tiles.Remove(position);
+                OnRemove?.Invoke(position);
+            }
 
             return construction;
         }

@@ -34,8 +34,6 @@ namespace BugStrategy.ResourceSources
             _miniMapObjViewFactory.CreateResourceSourceIcon(transform, Affiliation);
         }
 
-        protected virtual void OnAwake(){}
-    
         public abstract void ExtractResource(int extracted);
     
         private void OnDisable()
