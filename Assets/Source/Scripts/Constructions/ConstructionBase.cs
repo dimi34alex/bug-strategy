@@ -89,7 +89,7 @@ namespace BugStrategy.Constructions
             {
                 IsActive = false;
                 OnDeactivation?.Invoke(this);
-                MissionData.ConstructionsRepository.GetConstruction(transform.position, true);
+                MissionData.ConstructionsRepository.Get(transform.position, true);
                 OnDestruction?.Invoke();
                 Destroy(gameObject);
             }
@@ -98,7 +98,7 @@ namespace BugStrategy.Constructions
         public void Demolition()
         {
             IsActive = false;
-            MissionData.ConstructionsRepository.GetConstruction(transform.position, true);
+            MissionData.ConstructionsRepository.Get(transform.position, true);
             SendDeactivateEvent();
             Destroy(gameObject);
 

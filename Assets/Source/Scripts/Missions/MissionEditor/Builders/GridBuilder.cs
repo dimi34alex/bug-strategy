@@ -1,6 +1,6 @@
 using System.Linq;
 using BugStrategy.CommandsCore;
-using BugStrategy.Missions.MissionEditor.GridRepositories;
+using BugStrategy.Grids;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -63,7 +63,7 @@ namespace BugStrategy.Missions.MissionEditor
         public bool Clear(Vector3 point)
         {
             point = GridConfig.RoundPositionToGrid(point);
-            if (GridRepository.Exist(point, false, false))
+            if (GridRepository.Exist(point))
             {
                 var command = CreateDeleteCommand(point);
                 command.Execute();

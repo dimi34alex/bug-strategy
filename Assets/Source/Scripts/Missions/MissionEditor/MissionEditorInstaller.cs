@@ -1,4 +1,5 @@
-using BugStrategy.Missions.MissionEditor.GridRepositories;
+using BugStrategy.Missions.MissionEditor.EditorConstructions;
+using BugStrategy.Missions.MissionEditor.Grids;
 using Zenject;
 
 namespace BugStrategy.Missions.MissionEditor
@@ -7,7 +8,7 @@ namespace BugStrategy.Missions.MissionEditor
     {
         public override void InstallBindings()
         {
-            BindPosRepository<EditorConstructionsRepository>();
+            BindPosRepository<EditorConstructionsGrid>();
             BindPosRepository<EditorResourceSourcesRepository>();
         }
 

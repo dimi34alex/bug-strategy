@@ -1,5 +1,4 @@
 using BugStrategy.NotConstructions.Factory;
-using BugStrategy.Tiles.WarFog.NewDirectory1;
 using Zenject;
 
 namespace BugStrategy.NotConstructions
@@ -13,7 +12,7 @@ namespace BugStrategy.NotConstructions
         }
 
         private void BindRepository ()
-            => Container.BindInterfacesAndSelfTo<NotConstructionsRepository>().FromNew().AsSingle();
+            => Container.BindInterfacesAndSelfTo<NotConstructionsGrid>().FromNew().AsSingle();
 
         private void BindFactory ()
         {

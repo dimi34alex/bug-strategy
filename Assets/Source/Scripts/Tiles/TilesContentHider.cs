@@ -1,5 +1,5 @@
 using System;
-using BugStrategy.Missions.MissionEditor.GridRepositories;
+using BugStrategy.Grids.GridsProviding;
 using UnityEngine;
 
 namespace BugStrategy.Tiles

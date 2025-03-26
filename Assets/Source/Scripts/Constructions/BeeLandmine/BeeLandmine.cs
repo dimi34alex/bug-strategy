@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using BugStrategy.CustomTimer;
+using BugStrategy.NotConstructions;
+using BugStrategy.NotConstructions.Factory;
 using BugStrategy.TechnologiesSystem;
 using BugStrategy.TechnologiesSystem.Technologies;
 using BugStrategy.Trigger;
@@ -7,8 +9,6 @@ using BugStrategy.Unit;
 using CycleFramework.Extensions;
 using UnityEngine;
 using Zenject;
-using BugStrategy.NotConstructions;
-using BugStrategy.NotConstructions.Factory;
 
 namespace BugStrategy.Constructions.BeeLandmine
 {
@@ -82,7 +82,7 @@ namespace BugStrategy.Constructions.BeeLandmine
                 }
             }
 
-            MissionData.ConstructionsRepository.GetConstruction(transform.position, true);
+            MissionData.ConstructionsRepository.Get(transform.position, true);
             SendDeactivateEvent();
             SpawnStickyTile();
             Destroy(gameObject);
@@ -139,9 +139,10 @@ namespace BugStrategy.Constructions.BeeLandmine
 
         private void SpawnStickyTile(Vector3 position)
         {
-            if(MissionData.ConstructionsRepository.ConstructionExist(position))
+            position = MissionData.ConstructionsRepository.RoundPositionToGrid(position);
+            if(!MissionData.ConstructionsRepository.IsFree(position))
                 return;
-            if(MissionData.NotConstructionsRepository.NotConstructionExist(position))
+            if(!MissionData.NotConstructionsGrid.IsFree(position))
                 return;
 
             _notConstructionFactory.Create<NotConstructionBase>(NotConstructionID.BeeStickyTileConstruction, position, Affiliation);

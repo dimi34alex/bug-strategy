@@ -24,10 +24,10 @@ namespace BugStrategy.Constructions
             {
                 var position = _constructionGrid.RoundPositionToGrid(hitInfo.point);
 
-                if (_constructionGrid.ConstructionExist(position))
+                if (_constructionGrid.Exist(position))
                 {
                     var playerConstructionSelected = false;
-                    var construction = _constructionGrid.GetConstruction(position);
+                    var construction = _constructionGrid.Get(position);
                     if (construction.Affiliation == playerAffiliation)
                     {
                         construction.Select(true);

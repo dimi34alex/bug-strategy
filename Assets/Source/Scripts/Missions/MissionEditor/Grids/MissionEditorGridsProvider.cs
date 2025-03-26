@@ -1,25 +1,25 @@
 using System;
-using BugStrategy.Constructions;
-using BugStrategy.ResourceSources;
+using BugStrategy.Grids.GridsProviding;
+using BugStrategy.Missions.MissionEditor.EditorConstructions;
 using UnityEngine;
 
-namespace BugStrategy.Missions.MissionEditor.GridRepositories.GridsProviding
+namespace BugStrategy.Missions.MissionEditor.Grids
 {
     public class MissionEditorGridsProvider : GridProvider
     {
-        private readonly EditorConstructionsRepository _editorConstructionsRepository;
+        private readonly EditorConstructionsGrid _editorConstructionsGrid;
         private readonly EditorResourceSourcesRepository _resourceSourcesRepository;
     
         public override event Action<Vector3> OnAdd;
         public override event Action<Vector3> OnRemove;
 
-        public MissionEditorGridsProvider(EditorConstructionsRepository editorConstructionsRepository, EditorResourceSourcesRepository resourceSourcesRepository)
+        public MissionEditorGridsProvider(EditorConstructionsGrid editorConstructionsGrid, EditorResourceSourcesRepository resourceSourcesRepository)
         {
-            _editorConstructionsRepository = editorConstructionsRepository;
+            _editorConstructionsGrid = editorConstructionsGrid;
             _resourceSourcesRepository = resourceSourcesRepository;
 
-            _editorConstructionsRepository.OnAdd += Add;
-            _editorConstructionsRepository.OnRemove += Remove;
+            _editorConstructionsGrid.OnAdd += Add;
+            _editorConstructionsGrid.OnRemove += Remove;
             
             _resourceSourcesRepository.OnAdd += Add;
             _resourceSourcesRepository.OnRemove += Remove;
@@ -27,8 +27,8 @@ namespace BugStrategy.Missions.MissionEditor.GridRepositories.GridsProviding
 
         public override void Dispose()
         {
-            _editorConstructionsRepository.OnAdd -= Add;
-            _editorConstructionsRepository.OnRemove -= Remove;
+            _editorConstructionsGrid.OnAdd -= Add;
+            _editorConstructionsGrid.OnRemove -= Remove;
             
             _resourceSourcesRepository.OnAdd -= Add;
             _resourceSourcesRepository.OnRemove -= Remove;

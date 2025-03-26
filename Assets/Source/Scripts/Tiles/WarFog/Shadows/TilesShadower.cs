@@ -12,7 +12,6 @@ namespace BugStrategy.Tiles.WarFog.Shadows
     {
         private readonly IEventBus _eventBus;
         private readonly TileShadowFactory _tileShadowFactory;
-        private readonly TilesShadowerConfig _config;
         private readonly ConstructionsRepository _constructionsRepository;
         private readonly ResourceSourcesRepository _resourceSourcesRepository;
 
@@ -20,11 +19,10 @@ namespace BugStrategy.Tiles.WarFog.Shadows
 
         public EventBusReceiverIdentifier EventBusReceiverIdentifier { get; } = new();
 
-        public TilesShadower(IEventBus eventBus, TileShadowFactory tileShadowFactory, TilesShadowerConfig config, ConstructionsRepository constructionsRepository, ResourceSourcesRepository resourceSourcesRepository)
+        public TilesShadower(IEventBus eventBus, TileShadowFactory tileShadowFactory, ConstructionsRepository constructionsRepository, ResourceSourcesRepository resourceSourcesRepository)
         {
             _eventBus = eventBus;
             _tileShadowFactory = tileShadowFactory;
-            _config = config;
             _constructionsRepository = constructionsRepository;
             _resourceSourcesRepository = resourceSourcesRepository;
             _eventBus.Subscribe(this);
@@ -62,10 +60,10 @@ namespace BugStrategy.Tiles.WarFog.Shadows
 
         private bool TryGetView(Vector3 position, out ObjectView shadowSprite)
         {
-            if (_constructionsRepository.ConstructionExist(position))
+            if (_constructionsRepository.Exist(position))
             {
-                var constr = _constructionsRepository.GetConstruction(position);
-                shadowSprite = constr.View;
+                var construction = _constructionsRepository.Get(position);
+                shadowSprite = construction.View;
                 return true;
             } 
             

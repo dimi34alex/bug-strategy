@@ -1,5 +1,5 @@
 using BugStrategy.Factories;
-using BugStrategy.Missions.MissionEditor.GridRepositories;
+using BugStrategy.Grids;
 using BugStrategy.ResourceSources;
 using UnityEngine;
 

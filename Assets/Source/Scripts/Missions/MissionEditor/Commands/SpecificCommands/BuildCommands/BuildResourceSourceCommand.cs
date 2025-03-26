@@ -1,4 +1,4 @@
-using BugStrategy.Missions.MissionEditor.GridRepositories;
+using BugStrategy.Missions.MissionEditor.Grids;
 using BugStrategy.ResourceSources;
 using UnityEngine;
 

@@ -1,4 +1,4 @@
-using BugStrategy.Missions.MissionEditor.GridRepositories;
+using BugStrategy.Grids;
 using BugStrategy.Tiles;
 using UnityEngine;
 

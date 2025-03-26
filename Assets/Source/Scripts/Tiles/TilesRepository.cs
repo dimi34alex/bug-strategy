@@ -1,12 +1,13 @@
 using System;
-using System.Collections.Generic;
-using BugStrategy.Missions.MissionEditor.GridRepositories;
-using UnityEngine;
+using BugStrategy.Grids;
 
 namespace BugStrategy.Tiles
 {
     public class TilesRepository : GridRepository<Tile>, IDisposable
     {
+        public TilesRepository(GridConfig gridConfig) 
+            : base(gridConfig) { }
+        
         public void Add(Tile tile)
         {
             tile.OnDestroyed += Remove;

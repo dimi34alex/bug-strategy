@@ -2,8 +2,8 @@ using System;
 using BugStrategy.CommandsCore;
 using BugStrategy.Constructions;
 using BugStrategy.Factories;
+using BugStrategy.Grids;
 using BugStrategy.Missions.MissionEditor.EditorConstructions;
-using BugStrategy.Missions.MissionEditor.GridRepositories;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -42,7 +42,7 @@ namespace BugStrategy.Missions.MissionEditor.Commands
             if (IsExecuted)
                 return;
 
-            if (_positionsRepository.Exist(_point, true, false))
+            if (_positionsRepository.Exist(_point))
             {
                 var oldTile = _positionsRepository.Get(_point, true);
                 _tileIdReplaced = GetId(oldTile);
@@ -63,7 +63,7 @@ namespace BugStrategy.Missions.MissionEditor.Commands
             if (!IsExecuted)
                 return;
 
-            if (_positionsRepository.Exist(_point, true, false))
+            if (_positionsRepository.Exist(_point))
             {
                 var newTile = _positionsRepository.Get(_point, true);
                 Object.Destroy(newTile.gameObject);

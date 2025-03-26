@@ -3,7 +3,7 @@ using BugStrategy.Constructions;
 using BugStrategy.ResourceSources;
 using UnityEngine;
 
-namespace BugStrategy.Missions.MissionEditor.GridRepositories.GridsProviding
+namespace BugStrategy.Grids.GridsProviding
 {
     public class GameplayGridsProvider : GridProvider
     {
