@@ -4,7 +4,7 @@ using Zenject;
 
 namespace BugStrategy.MiniMap
 {
-    public class MiniMapObjViewFactory
+    public class MiniMapObjViewFactory : IMiniMapObjViewFactory
     {
         private readonly DiContainer _diContainer;
         private readonly MiniMapObjViewConfig _config;
@@ -19,28 +19,22 @@ namespace BugStrategy.MiniMap
             _missionData = missionData;
         }
 
-        public MiniMapObjView CreateUnitIcon(Transform parent, AffiliationEnum ownerAffiliation)
+        public void CreateUnitIcon(Transform parent, AffiliationEnum ownerAffiliation)
         { 
             var miniMapView = _diContainer.InstantiatePrefab(Prefab, parent).GetComponent<MiniMapObjView>();
             miniMapView.Initialize(_config.UnitIcon, GetColor(ownerAffiliation));
-
-            return miniMapView;
         }
         
-        public MiniMapObjView CreateConstructionIcon(Transform parent, AffiliationEnum ownerAffiliation)
+        public void CreateConstructionIcon(Transform parent, AffiliationEnum ownerAffiliation)
         { 
             var miniMapView = _diContainer.InstantiatePrefab(Prefab, parent).GetComponent<MiniMapObjView>();
             miniMapView.Initialize(_config.ConstructionIcon, GetColor(ownerAffiliation));
-
-            return miniMapView;
         }
         
-        public MiniMapObjView CreateResourceSourceIcon(Transform parent, AffiliationEnum ownerAffiliation)
+        public void CreateResourceSourceIcon(Transform parent, AffiliationEnum ownerAffiliation)
         { 
             var miniMapView = _diContainer.InstantiatePrefab(Prefab, parent).GetComponent<MiniMapObjView>();
             miniMapView.Initialize(_config.ResourceSourceIcon, GetColor(ownerAffiliation));
-
-            return miniMapView;
         }
 
         private Color GetColor(AffiliationEnum ownerAffiliation)

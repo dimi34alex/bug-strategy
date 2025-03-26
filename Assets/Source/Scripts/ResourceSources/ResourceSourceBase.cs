@@ -13,7 +13,7 @@ namespace BugStrategy.ResourceSources
         [field: SerializeField] public ObjectView View { get; private set; }
         [SerializeField] private int resourceCapacity;
 
-        [Inject] private readonly MiniMapObjViewFactory _miniMapObjViewFactory;
+        [Inject] private readonly IMiniMapObjViewFactory _miniMapObjViewFactory;
         
         protected FloatStorage ResourceStorage;
     

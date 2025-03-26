@@ -13,7 +13,7 @@ namespace BugStrategy.Missions.MissionEditor.Commands
     public class MissionEditorCommandsFactory : ICommandsFactory
     {
         private readonly TilesFactory _tilesFactory;
-        private readonly GroundPositionsRepository _groundPositionsRepository;
+        private readonly TilesRepository _groundPositionsRepository;
 
         private readonly EditorConstructionsFactory _editorConstructionsFactory;
         private readonly EditorConstructionsRepository _editorConstructionsRepository;
@@ -23,7 +23,7 @@ namespace BugStrategy.Missions.MissionEditor.Commands
 
         public event Action<ICommand> OnCommandCreated;
         
-        public MissionEditorCommandsFactory(TilesFactory tilesFactory, GroundPositionsRepository groundPositionsRepository, 
+        public MissionEditorCommandsFactory(TilesFactory tilesFactory, TilesRepository groundPositionsRepository, 
             EditorConstructionsFactory editorConstructionsFactory, EditorConstructionsRepository editorConstructionsRepository, 
             ResourceSourceFactory resourceSourceFactory, EditorResourceSourcesRepository resourceSourceRepository)
         {

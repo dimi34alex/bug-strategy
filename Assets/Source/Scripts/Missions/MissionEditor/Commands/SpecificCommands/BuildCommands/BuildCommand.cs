@@ -16,18 +16,15 @@ namespace BugStrategy.Missions.MissionEditor.Commands
         private readonly TId _defaultId;
         private readonly TId _tileId;
         private readonly Vector3 _point;
-        private readonly FactoryWithId<TId, TResult> _factory;
         private readonly GridRepository<TResult> _positionsRepository;
 
         public event Action<ICommand> OnExecuted;
         
-        protected BuildCommand(TId defaultId, TId tileId, Vector3 point, FactoryWithId<TId, TResult> factory, 
-            GridRepository<TResult> positionsRepository)
+        protected BuildCommand(TId defaultId, TId tileId, Vector3 point, GridRepository<TResult> positionsRepository)
         {
             _tileIdReplaced = _defaultId = defaultId;
             _tileId = tileId;
             _point = point;
-            _factory = factory;
             _positionsRepository = positionsRepository;
         }
 
@@ -74,8 +71,7 @@ namespace BugStrategy.Missions.MissionEditor.Commands
             IsExecuted = false;
         }
 
-        protected virtual TResult Create(TId id, Vector3 point) 
-            => _factory.Create(id, point);
+        protected abstract TResult Create(TId id, Vector3 point);
 
         protected abstract TId GetId(TResult tile);
 

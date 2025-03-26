@@ -35,14 +35,14 @@ namespace BugStrategy.Missions.MissionEditor
             => _commandsFactory.DeleteGround(point);
         
         protected override Tile CreateMovableModel(int id, Vector3 position) 
-            => _factory.Create(id, position);
+            => _factory.Create(id, position, false);
 
         public void Generate(IReadOnlyDictionary<GridKey3, int> tiles)
         {
             Clear();
             foreach (var tileData in tiles)
             {
-                var tile = _factory.Create(tileData.Value, tileData.Key);
+                var tile = _factory.Create(tileData.Value, tileData.Key, false);
                 tile.gameObject.AddComponent<MissionEditorTileId>().Initialize(tileData.Value);
                 GridRepository.Add(tileData.Key, tile);
             }
@@ -53,7 +53,7 @@ namespace BugStrategy.Missions.MissionEditor
             Clear();
             foreach (var tileData in tiles)
             {
-                var tile = _factory.Create(tileData.Value, tileData.Key);
+                var tile = _factory.Create(tileData.Value, tileData.Key, false);
                 tile.gameObject.AddComponent<MissionEditorTileId>().Initialize(tileData.Value);
                 GridRepository.Add(tileData.Key, tile);
             }
@@ -122,7 +122,7 @@ namespace BugStrategy.Missions.MissionEditor
                 if (cancellationToken.IsCancellationRequested)
                     cancellationToken.ThrowIfCancellationRequested();
 
-                var groundTile = _factory.Create(groundTiles[i].Id, groundTiles[i].Position);
+                var groundTile = _factory.Create(groundTiles[i].Id, groundTiles[i].Position, false);
                 groundTile.gameObject.AddComponent<MissionEditorTileId>().Initialize(groundTiles[i].Id);
                 
                 GridRepository.Add(groundTiles[i].Position, groundTile);

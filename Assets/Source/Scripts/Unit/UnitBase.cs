@@ -22,7 +22,7 @@ namespace BugStrategy.Unit
         IEffectable, IPoisonEffectable, IStickyHoneyEffectable, IMoveSpeedChangeEffectable
     {
         [Inject] private readonly EffectsFactory _effectsFactory;
-        [Inject] private readonly MiniMapObjViewFactory _miniMapObjViewFactory;
+        [Inject] private readonly IMiniMapObjViewFactory _miniMapObjViewFactory;
 
         private NavMeshAgent _navMeshAgent;
         
