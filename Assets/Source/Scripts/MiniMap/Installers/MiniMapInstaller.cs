@@ -6,7 +6,7 @@ namespace BugStrategy.MiniMap
     {
         public override void InstallBindings()
         {
-            Container.Bind<MiniMapObjViewFactory>().FromNew().AsSingle();
+            Container.BindInterfacesAndSelfTo<MiniMapObjViewFactory>().FromNew().AsSingle();
         }
     }
 }

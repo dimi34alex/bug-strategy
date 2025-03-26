@@ -15,7 +15,7 @@ namespace BugStrategy.Constructions
         [field: SerializeField] public ObjectView View { get; private set; }
         
         [Inject] protected readonly MissionData MissionData;
-        [Inject] private readonly MiniMapObjViewFactory _miniMapObjViewFactory;
+        [Inject] private readonly IMiniMapObjViewFactory _miniMapObjViewFactory;
 
         private VisibleWarFogZone _visibleWarFogZone;
         

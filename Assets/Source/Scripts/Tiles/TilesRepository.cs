@@ -5,24 +5,15 @@ using UnityEngine;
 
 namespace BugStrategy.Tiles
 {
-    //TODO: replace it by TilesRepository from mission editor
-    public class TilesRepository : GroundPositionsRepository, IDisposable
+    public class TilesRepository : GridRepository<Tile>, IDisposable
     {
-        private readonly TilesFactory _tilesFactory;
-        
-        public TilesRepository(TilesFactory tilesFactory)
-        {
-            _tilesFactory = tilesFactory;
-            _tilesFactory.OnCreate += Add;
-        }
-
-        private void Add(Tile tile)
+        public void Add(Tile tile)
         {
             tile.OnDestroyed += Remove;
             Add(tile.transform.position, tile);
         }
 
-        private void Remove(Tile tile)
+        public void Remove(Tile tile)
         {
             tile.OnDestroyed -= Remove;
             Get(tile.transform.position, true);
@@ -30,7 +21,6 @@ namespace BugStrategy.Tiles
 
         public void Dispose()
         {
-            _tilesFactory.OnCreate -= Add;
             foreach (var tile in Tiles.Values)
             {
                 if (tile != null) 

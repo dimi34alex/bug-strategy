@@ -1,4 +1,3 @@
-using BugStrategy.Missions.MissionEditor.GridRepositories;
 using BugStrategy.Tiles;
 using UnityEngine;
 
@@ -6,15 +5,18 @@ namespace BugStrategy.Missions.MissionEditor.Commands
 {
     public class BuildGroundCommand : BuildCommand<int, Tile>
     {
+        private readonly TilesFactory _factory;
+
         public BuildGroundCommand(int tileId, Vector3 point, TilesFactory factory, 
-            GroundPositionsRepository positionsRepository) 
-            : base(-1, tileId, point, factory, positionsRepository)
+            TilesRepository positionsRepository) 
+            : base(-1, tileId, point, positionsRepository)
         {
+            _factory = factory;
         }
 
         protected override Tile Create(int id, Vector3 point)
         {
-            var tile = base.Create(id, point);
+            var tile = _factory.Create(id, point, false);
             tile.gameObject.AddComponent<MissionEditorTileId>().Initialize(id);
             return tile;
         }
