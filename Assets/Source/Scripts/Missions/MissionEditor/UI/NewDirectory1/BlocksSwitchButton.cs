@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace BugStrategy.Missions.MissionEditor.UI.NewDirectory1
@@ -9,5 +8,8 @@ namespace BugStrategy.Missions.MissionEditor.UI.NewDirectory1
 
         private void Awake() 
             => Initialize(tileType);
+
+        protected override string GetName(TilesBlock.TileType id) 
+            => tmpText.text;
     }
 }

@@ -1,6 +1,4 @@
 using BugStrategy.Tiles.WarFog;
-using BugStrategy.Tiles.WarFog.NewDirectory1;
-using BugStrategy.Tiles.WarFog.Shadows;
 using UnityEngine;
 using Zenject;
 

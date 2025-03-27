@@ -188,6 +188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da01b0d3c9954c3cb0e24bfe71bd90cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tmpText: {fileID: 2816940547281879038}
 --- !u!222 &2816940548223660758
 CanvasRenderer:
   m_ObjectHideFlags: 0
