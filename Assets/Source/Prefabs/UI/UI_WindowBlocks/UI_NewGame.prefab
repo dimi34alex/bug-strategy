@@ -815,7 +815,6 @@ GameObject:
   - component: {fileID: 22947348127857199}
   - component: {fileID: 7676062032403104593}
   - component: {fileID: 4012170888707161906}
-  - component: {fileID: 3142064884946767860}
   m_Layer: 5
   m_Name: ImageMask
   m_TagString: Untagged
@@ -841,8 +840,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -6, y: -6}
+  m_AnchoredPosition: {x: -0.25, y: 0.25}
+  m_SizeDelta: {x: -4.5, y: -4.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &22947348127857199
 CanvasRenderer:
@@ -895,21 +894,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 1
---- !u!114 &3142064884946767860
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2296252093601978962}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
-  m_EffectDistance: {x: 1, y: 1}
-  m_UseGraphicAlpha: 1
 --- !u!1 &4064282395694100319
 GameObject:
   m_ObjectHideFlags: 0
@@ -1471,7 +1455,7 @@ GameObject:
   - component: {fileID: 73732855680565684}
   - component: {fileID: 3942496163723338479}
   m_Layer: 0
-  m_Name: Holder
+  m_Name: PanelsLayout
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1576,7 +1560,6 @@ GameObject:
   - component: {fileID: 5085652355654096632}
   - component: {fileID: 3497906380954688906}
   - component: {fileID: 5271363832716234187}
-  - component: {fileID: 1992572764097060837}
   m_Layer: 5
   m_Name: ImageMask
   m_TagString: Untagged
@@ -1602,8 +1585,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -6, y: -6}
+  m_AnchoredPosition: {x: -0.25, y: 0.25}
+  m_SizeDelta: {x: -4.5, y: -4.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5085652355654096632
 CanvasRenderer:
@@ -1656,21 +1639,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 1
---- !u!114 &1992572764097060837
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6163449619487551434}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
-  m_EffectDistance: {x: 1, y: 1}
-  m_UseGraphicAlpha: 1
 --- !u!1 &6292437536614480750
 GameObject:
   m_ObjectHideFlags: 0
